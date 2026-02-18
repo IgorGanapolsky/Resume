@@ -1,0 +1,94 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Lint & Format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - name: Install Ruff
+        run: pip install ruff
+      - name: Ruff lint
+        run: ruff check . --output-format=github
+      - name: Ruff format check
+        run: ruff format --check .
+
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - name: Install dependencies
+        run: |
+          pip install numpy lancedb pytest pytest-cov
+      - name: Run RAG test suite
+        run: |
+          cd rag && python -m pytest tests/ -v --tb=short \
+            --cov=. --cov-report=term-missing --cov-report=xml \
+            --cov-fail-under=80
+      - name: Upload coverage
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coverage-report
+          path: rag/coverage.xml
+
+  scrub-check:
+    name: Job Capture Cleanliness
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Verify no raw JS blobs in job files
+        run: |
+          python3 scripts/scrub_job_captures.py --dry-run
+          # Fail if any files need scrubbing
+          DIRTY=$(python3 scripts/scrub_job_captures.py --dry-run 2>&1 | grep "would be removed" || true)
+          if [ -n "$DIRTY" ]; then
+            echo "❌ Unscrubbed job files detected. Run: python3 scripts/scrub_job_captures.py"
+            echo "$DIRTY"
+            exit 1
+          fi
+          echo "✅ All job capture files are clean"
+
+  rag-build:
+    name: RAG Index Integrity
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - name: Install dependencies
+        run: pip install numpy lancedb
+      - name: Build RAG index
+        run: python3 rag/cli.py build
+      - name: Verify status output
+        run: python3 rag/cli.py status
