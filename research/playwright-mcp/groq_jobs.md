@@ -1,0 +1,10 @@
+- generic [ref=e4]:
+  - generic [ref=e5]:
+    - img "Company logo" [ref=e7]
+    - generic [ref=e8]: Open positions (0)
+  - contentinfo [ref=e9]:
+    - generic [ref=e11]:
+      - generic [ref=e12]: Powered by
+      - link "Gem Logo" [ref=e13] [cursor=pointer]:
+        - /url: https://www.gem.com
+        - img "Gem Logo" [ref=e14]

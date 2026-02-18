@@ -1,0 +1,28 @@
+Igor Ganapolsky
+Coral Springs, FL
+iganapolsky@gmail.com | (201) 639-1534
+github.com/IgorGanapolsky | https://www.linkedin.com/in/igor-ganapolsky-859317343/
+
+January 30, 2026
+
+Anyscale Hiring Team
+San Francisco, CA
+
+Re: AI/ML Solutions Engineer
+
+I'm applying for the AI/ML Solutions Engineer role at Anyscale. I've spent the last 6+ years building production LLM systems and deploying ML at scale—from serving 5M+ monthly users at Subway to architecting multi-agent AI platforms that manage real capital with a 75% success rate.
+
+At Subway, I led the migration to React Native's New Architecture (40% performance improvement) while simultaneously deploying a RAG pipeline using GPT-4 and Pinecone that reduced token costs by 40% and maintained <200ms latency. I also built a Dialogflow CX conversational AI system on Vertex AI that cut customer service load by 35%. This wasn't just about shipping features—it was about building production MLOps infrastructure with CI/CD, A/B testing, and model monitoring that lets teams move fast without breaking things.
+
+What makes my background unique is the combination of mobile + ML expertise. I've deployed TensorFlow Lite models for on-device inference at Abbott (2M+ users), integrated LLMs into React Native mobile apps, and worked on ML security at Google's Play Store scale. Most ML engineers focus on backend infrastructure or pure research—I bridge that gap by shipping production ML to end users on any platform.
+
+I also built an open-source multi-agent AI trading system (github.com/IgorGanapolsky/trading) that coordinates GPT-4, Claude, and Gemini using LangChain orchestration and Thompson Sampling. The interesting part isn't the 75% win rate—it's the evaluation framework I built that discovered my backtests were overestimating returns by 20-50%. That taught me that production ML is as much about rigorous evaluation and honest metrics as it is about model performance. I documented all 130+ lessons learned publicly because I believe that's how we actually advance the field.
+
+I'm drawn to Anyscale because Ray is becoming the foundational layer for distributed ML at scale—used by OpenAI, Uber, Spotify, and Instacart to accelerate AI into production. Your mission to democratize distributed computing aligns perfectly with my experience making complex ML systems accessible and production-ready. I'd love to bring my experience with MLOps, LLM orchestration, and production deployment to help enterprise customers adopt and scale Ray for their most critical AI workloads.
+
+I'd be excited to discuss how my background in production ML, distributed systems, and end-to-end MLOps can contribute to your team. Thanks for considering my application.
+
+Best regards,
+Igor Ganapolsky
+
+P.S. I publish my work openly at dev.to/igorganapolsky—130+ technical articles covering everything from LLM cost optimization to mobile ML deployment. I believe in transparent, reproducible engineering, which means sharing what works AND what doesn't.

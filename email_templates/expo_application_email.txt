@@ -1,0 +1,26 @@
+To: jobs@expo.dev
+Subject: Field engineer application
+
+Hi Expo team,
+
+I'm applying for the Field Engineer role. Currently, I'm Team Lead Mobile Engineer at Subway Corporate where I led the migration of our 5M+ user React Native app to the New Architecture (Expo SDK 54, Fabric renderer, TurboModules). This hands-on experience with Expo at production scale is exactly why I'm excited about this role.
+
+Why Expo: I've been using Expo since the early days and have seen it evolve into the de facto standard for React Native development. The New Architecture migration at Subway gave me deep insight into the challenges enterprise teams face - questions about build services, OTA updates, and how to modernize without breaking production. I want to help other teams navigate these same transitions.
+
+What I bring:
+- 15+ years of software engineering, including React Native at scale
+- Published apps to both stores (Subway ordering app, 5M+ users)
+- Experience mentoring teams on React Native best practices
+- Background in AI/ML integration (LLMs, RAG pipelines, Dialogflow CX)
+- Strong technical communication - I can translate complex architecture decisions into clear guidance
+
+Links:
+- GitHub: https://github.com/IgorGanapolsky
+- Resume: [Attach Igor_Ganapolsky_Sr_AI_Software_Engineer_v3.pdf]
+
+I'm based in Florida and available to start within 2 weeks.
+
+Best,
+Igor Ganapolsky
+iganapolsky@gmail.com
+(201) 639-1534

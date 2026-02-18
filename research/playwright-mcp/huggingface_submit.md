@@ -1,0 +1,184 @@
+- generic [ref=e4]:
+  - generic [ref=e6]:
+    - banner [ref=e7]:
+      - generic [ref=e8]:
+        - link "Hugging Face" [ref=e10] [cursor=pointer]:
+          - /url: /huggingface/
+          - img "Hugging Face" [ref=e11]
+        - heading "Cloud Machine Learning Engineer - US remote" [level=1] [ref=e12]
+        - generic [ref=e13]:
+          - paragraph [ref=e14]:
+            - strong [ref=e16]: Remote
+            - text: ·Revenue-Share·Full time
+          - generic [ref=e19]: United States
+    - generic [ref=e20]:
+      - navigation [ref=e22]:
+        - link "Overview" [ref=e24] [cursor=pointer]:
+          - /url: /huggingface/j/A3879724CD/
+        - link "Application" [ref=e25]:
+          - /url: /huggingface/j/A3879724CD/apply/
+      - progressbar [ref=e320]
+      - main [ref=e113]:
+        - generic [ref=e114]:
+          - generic [ref=e117]:
+            - generic [ref=e118]:
+              - generic [ref=e119]:
+                - img [ref=e120]
+                - strong [ref=e122]: Autofill application
+              - paragraph [ref=e123]: "Save time by importing your resume in one of the following formats: .pdf, .doc, .docx, .odt, or .rtf."
+            - button "Import resume from" [ref=e127] [cursor=pointer]:
+              - generic [ref=e128]:
+                - generic [ref=e129]: Import resume from
+                - img
+          - generic [ref=e130]: "* Required fields"
+          - generic [ref=e131]:
+            - generic [ref=e132]:
+              - heading "Personal information" [level=2] [ref=e133]
+              - button "Clear Personal information" [ref=e134] [cursor=pointer]:
+                - img [ref=e135]
+                - text: Clear
+            - generic [ref=e137]:
+              - generic [ref=e139]:
+                - generic [ref=e140]:
+                  - strong [ref=e142]: "*"
+                  - strong [ref=e145]: First name
+                - textbox "First name" [ref=e148]: Igor
+              - generic [ref=e150]:
+                - generic [ref=e151]:
+                  - strong [ref=e153]: "*"
+                  - strong [ref=e156]: Last name
+                - textbox "Last name" [ref=e159]: Ganapolsky
+              - generic [ref=e161]:
+                - generic [ref=e162]:
+                  - strong [ref=e164]: "*"
+                  - strong [ref=e167]: Email
+                - textbox "Email" [ref=e170]: iganapolsky@gmail.com
+              - generic [ref=e171]:
+                - generic [ref=e172]:
+                  - generic [ref=e173]:
+                    - strong [ref=e175]: "*"
+                    - strong [ref=e178]: Phone
+                  - generic [ref=e182] [cursor=pointer]:
+                    - combobox "Telephone country code" [ref=e184]:
+                      - generic [ref=e186]: "+1"
+                    - textbox "* Phone" [ref=e188]: (201) 639-1534
+                - generic [ref=e191]: The hiring team may use this number to contact you about this job.
+          - generic [ref=e192]:
+            - generic [ref=e193]:
+              - heading "Profile" [level=2] [ref=e194]
+              - button "Clear Profile" [ref=e195] [cursor=pointer]:
+                - img [ref=e196]
+                - text: Clear
+            - generic [ref=e198]:
+              - generic [ref=e200]:
+                - generic [ref=e202]:
+                  - strong [ref=e204]: Summary
+                  - text: (Optional)
+                - textbox "Summary" [ref=e207]
+              - generic [ref=e210]:
+                - generic [ref=e211]:
+                  - strong [ref=e213]: "*"
+                  - generic [ref=e214]:
+                    - strong [ref=e216]: Resume
+                    - img [ref=e218]
+                - generic [ref=e221]:
+                  - generic [ref=e223]:
+                    - img [ref=e225]
+                    - generic [ref=e229]:
+                      - generic [ref=e230]: Igor_Ganapolsky_Sr_AI_Software_Engine
+                      - generic [ref=e231]: er_v3.docx
+                    - menu [ref=e232]:
+                      - group [ref=e233]:
+                        - link "view Igor_Ganapolsky_Sr_AI_Software_Engineer_v3.docx" [ref=e234] [cursor=pointer]:
+                          - /url: https://workable-application-form.s3.us-east-1.amazonaws.com/tmp/ttl-1d/production/0d138e0c-0007-98ed-b575-4282882a978a?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA27KPZUMHP7SV6K43%2F20260130%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260130T205725Z&X-Amz-Expires=21600&X-Amz-Signature=9e2e6bc773a53f8d1557bd282a9d672210851f66b0b01750645ad059649cca1c&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject
+                          - generic [ref=e235]:
+                            - img
+                        - button "delete Igor_Ganapolsky_Sr_AI_Software_Engineer_v3.docx" [ref=e236] [cursor=pointer]:
+                          - generic [ref=e237]:
+                            - img
+                  - generic [ref=e238]:
+                    - button "Replace file" [ref=e239] [cursor=pointer]
+                    - text: or drag and drop here
+                  - button "Resume Replace file" [ref=e240]
+          - generic [ref=e241]:
+            - generic [ref=e242]:
+              - heading "Details" [level=2] [ref=e243]
+              - button "Clear Details" [ref=e244] [cursor=pointer]:
+                - img [ref=e245]
+                - text: Clear
+            - generic [ref=e247]:
+              - generic [ref=e249]:
+                - generic [ref=e251]:
+                  - strong [ref=e253]: Expected salary
+                  - text: (Optional)
+                - textbox "Expected salary" [ref=e256]
+              - generic [ref=e258]:
+                - generic [ref=e260]:
+                  - strong [ref=e262]: Notice period / availability
+                  - text: (Optional)
+                - generic [ref=e263]:
+                  - generic [ref=e266]:
+                    - combobox "Notice period / availability" [ref=e267]
+                    - img
+                  - textbox [ref=e268]
+              - generic [ref=e270]:
+                - generic [ref=e272]:
+                  - strong [ref=e274]: Are you eligible to work in the country you are applying?
+                  - text: (Optional)
+                - radiogroup "Are you eligible to work in the country you are applying?" [ref=e275]:
+                  - radio "Are you eligible to work in the country you are applying? YES" [checked] [ref=e276] [cursor=pointer]:
+                    - generic [ref=e277]:
+                      - radio [checked] [ref=e278]
+                      - generic [ref=e280]:
+                        - img
+                        - generic [ref=e281]: "YES"
+                  - radio "Are you eligible to work in the country you are applying? NO" [ref=e282] [cursor=pointer]:
+                    - generic [ref=e283]:
+                      - radio [ref=e284]
+                      - generic [ref=e286]:
+                        - img
+                        - generic [ref=e287]: "NO"
+              - generic [ref=e289]:
+                - generic [ref=e291]:
+                  - strong [ref=e293]: How did you hear about us?
+                  - text: (Optional)
+                - textbox "How did you hear about us?" [ref=e296]
+              - generic [ref=e298]:
+                - generic [ref=e299]:
+                  - strong [ref=e301]: "*"
+                  - strong [ref=e304]: Please detail the reasons why you are applying to work at Hugging Face and how you think you can make an impact on this position (self-authored only 🤗)
+                - textbox "Please detail the reasons why you are applying to work at Hugging Face and how you think you can make an impact on this position (self-authored only 🤗)" [ref=e307]: "I'm applying to Hugging Face because I believe in democratizing AI and making state-of-the-art machine learning accessible to everyone. Over the past 6+ years, I've built production LLM systems serving 5M+ monthly users at Subway, including a RAG pipeline using GPT-4 and Pinecone that reduced token costs by 40% while maintaining <200ms latency. What excites me about this Cloud ML Engineer role is the intersection of cloud infrastructure and ML optimization - exactly where I've focused my career. At Subway, I deployed ML workloads across GCP and AWS, built MLOps pipelines with CI/CD, and optimized model serving for enterprise scale. I've also built an open-source multi-agent AI trading system (github.com/IgorGanapolsky/trading) that coordinates multiple LLMs using orchestration frameworks similar to how Hugging Face integrates with cloud providers. I can make an immediate impact by: 1. Bringing production experience deploying transformers-based models at enterprise scale 2. Optimizing inference performance and reducing cloud costs (40% cost reduction at Subway) 3. Building developer-friendly integrations that make HF tools seamless across AWS, Azure, and GCP 4. Contributing technical documentation and examples based on real-world deployment patterns I'm passionate about open-source ML and regularly publish technical articles at dev.to/igorganapolsky covering ML optimization and deployment best practices."
+              - generic [ref=e309]:
+                - generic [ref=e310]:
+                  - strong [ref=e312]: "*"
+                  - strong [ref=e315]: Please detail what you have built on top of transformers (or another of our solutions) over the last 3 years (share links if possible)
+                - textbox "Please detail what you have built on top of transformers (or another of our solutions) over the last 3 years (share links if possible)" [ref=e318]: "Over the past 3 years, I've built several production systems using Hugging Face technologies: 1. RAG Pipeline at Subway (2023-2025): Built a retrieval-augmented generation system using sentence-transformers for embeddings, integrated with Pinecone vector database. The system serves 5M+ monthly users for customer support queries, using HF tokenizers for efficient text processing and achieving 40% cost reduction through optimized chunking strategies. 2. Multi-Agent AI Trading System (github.com/IgorGanapolsky/trading): Open-source project using transformers for sentiment analysis of market data. Integrated HuggingFace Hub for model versioning and used the Accelerate library for distributed inference across multiple GPUs. The system coordinates GPT-4, Claude, and Gemini with transformers-based preprocessing. 3. Dialogflow CX + Transformers Integration: Built a conversational AI system on Vertex AI that uses HF transformers for intent classification and entity extraction as preprocessing steps, reducing customer service load by 35%. 4. Custom Fine-tuning Pipeline: Used PEFT/LoRA adapters for efficient fine-tuning of domain-specific models for franchise operations, leveraging the Datasets library for data preprocessing and the Trainer API for distributed training. 5. Technical Writing: Published 130+ articles at dev.to/igorganapolsky documenting transformers usage patterns, optimization techniques, and cloud deployment strategies. Links: - GitHub: github.com/IgorGanapolsky - Trading System: github.com/IgorGanapolsky/trading - Technical Blog: dev.to/igorganapolsky"
+          - button "Submitting…" [disabled] [ref=e322]
+  - contentinfo [ref=e91]:
+    - generic [ref=e93]:
+      - text: Hugging Face collects and processes personal data in accordance with applicable data protection laws.
+      - generic [ref=e94]:
+        - text: If you are a European Job Applicant see the
+        - link "privacy notice" [ref=e95] [cursor=pointer]:
+          - /url: https://apply.workable.com/huggingface/gdpr_policy?lng=en
+        - text: for further details.
+    - generic [ref=e96]:
+      - link "View website" [ref=e98] [cursor=pointer]:
+        - /url: https://huggingface.co/
+      - generic [ref=e99]:
+        - link "View all jobs" [ref=e100] [cursor=pointer]:
+          - /url: /huggingface/
+        - link "Help" [ref=e101] [cursor=pointer]:
+          - /url: https://jobseekers.workable.com/hc/en
+          - text: Help
+          - img [ref=e102]
+    - generic [ref=e104]:
+      - link "Accessibility" [ref=e106] [cursor=pointer]:
+        - /url: https://workable.com/web-accessibility-statement
+        - text: Accessibility
+        - img [ref=e107]
+      - button "Cookie settings" [ref=e110] [cursor=pointer]
+      - generic [ref=e111]:
+        - text: Powered by
+        - link "Workable" [ref=e112] [cursor=pointer]:
+          - /url: https://jobs.workable.com/?utm_campaign=careers_page&utm_content=careers_page&utm_medium=feature&utm_source=careers_page

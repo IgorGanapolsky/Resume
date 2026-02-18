@@ -1,0 +1,168 @@
+- generic [ref=e1]:
+  - generic [ref=e634]:
+    - generic [ref=e635]:
+      - generic [ref=e636]:
+        - 'heading "Application: Software Specialist, Support II (Intermediate)" [level=6] [ref=e637]'
+        - button "Exit to job board" [ref=e639] [cursor=pointer]:
+          - generic [ref=e640]:
+            - generic [ref=e641]: 
+            - generic [ref=e642]: Exit to job board
+      - progressbar "Progress bar" [ref=e643]
+    - generic [ref=e647]:
+      - generic [ref=e648]:
+        - 'heading "Application: Software Specialist, Support II (Intermediate)" [level=4] [ref=e650]'
+        - generic [ref=e651]:
+          - generic [ref=e652]: Résumé*
+          - generic [ref=e653]:
+            - generic [ref=e918]: Total 1 file selected
+            - generic "Total 1 file selected Résumé" [ref=e919] [cursor=pointer]:
+              - generic [ref=e921]:
+                - generic [ref=e922]:
+                  - button "Igor_Ganapolsky...docx" [ref=e923]:
+                    - generic [ref=e925]: 
+                    - generic [ref=e927]: Igor_Ganapolsky...docx
+                  - generic [ref=e928]: remove
+                  - button "remove Igor_Ganapolsky...docx" [ref=e929]:
+                    - generic [ref=e930]: 
+                - status [ref=e931]: File Igor_Ganapolsky_Sr_AI_Software_Engineer_v3.docx uploaded successfully
+            - generic [ref=e662]: The résumé will be parsed to fill in the application details
+        - generic [ref=e663]:
+          - generic [ref=e664]: First name*
+          - textbox "First name" [ref=e667]: Igor
+        - generic [ref=e669]:
+          - generic [ref=e670]: Last name*
+          - textbox "Last name" [ref=e673]: Ganapolsky
+        - generic [ref=e675]:
+          - generic [ref=e676]: Email*
+          - textbox "Email" [ref=e679]: iganapolsky@gmail.com
+        - generic [ref=e681]:
+          - generic [ref=e682]: Current company
+          - textbox "Current company" [ref=e685]: Subway Corporate
+        - generic [ref=e687]:
+          - generic [ref=e688]: Phone number*
+          - generic [ref=e690]:
+            - generic [ref=e696] [cursor=pointer]:
+              - combobox "Search" [ref=e700]: +1 US
+              - generic [ref=e702]: 
+            - textbox "Phone number" [ref=e705]: 201-639-1534
+        - generic [ref=e707]:
+          - generic [ref=e708]: Location*
+          - generic [ref=e712]:
+            - generic [ref=e714]: 
+            - textbox "Location" [ref=e715]: Coral Springs, FL
+        - generic [ref=e717]:
+          - generic [ref=e718]: LinkedIn Link
+          - textbox "LinkedIn Link" [ref=e721]: https://www.linkedin.com/in/igor-ganapolsky-859317343/
+        - generic [ref=e723]:
+          - generic [ref=e724]: Website link
+          - textbox "Website link" [ref=e727]: https://github.com/IgorGanapolsky
+        - generic [ref=e729]:
+          - generic [ref=e730]: Cover letter*
+          - generic [ref=e731]:
+            - generic [ref=e932]: Total 0 file selected
+            - generic "Total 0 file selected Cover letter" [ref=e933] [cursor=pointer]:
+              - button "Drop or select (.doc / .docx / .pdf)" [active] [ref=e934]:
+                - generic [ref=e938]: Drop or select (.doc / .docx / .pdf)
+        - generic [ref=e742]:
+          - paragraph [ref=e745]:
+            - text: Are you a U.S. citizen?
+            - generic [ref=e746]: "*"
+          - generic [ref=e751] [cursor=pointer]:
+            - combobox "Select" [ref=e753]: "Yes"
+            - generic [ref=e756]: 
+        - generic [ref=e760]:
+          - generic [ref=e762]:
+            - generic [ref=e763]:
+              - paragraph [ref=e765]: U.S. Equal Opportunity Employment Information (Completion is voluntary)
+              - paragraph [ref=e767]:
+                - text: Individuals seeking employment at our company are considered without regards to race, color, religion, national origin, age, sex, marital status, ancestry, physical or mental disability, veteran status, gender identity, or sexual orientation. You are being given the opportunity to provide the following information in order to help us comply with federal and state Equal Employment Opportunity/Affirmative Action record keeping, reporting, and other legal requirements.
+                - text: Completion of the form is entirely voluntary. Whatever your decision, it will not be considered in the hiring process or thereafter. Any information that you do provide will be recorded and maintained in a confidential file.
+            - generic [ref=e769]:
+              - generic [ref=e770]: Gender
+              - generic [ref=e774] [cursor=pointer]:
+                - combobox "Gender" [ref=e776]:
+                  - paragraph [ref=e777]: Select...
+                - generic [ref=e779]: 
+            - generic [ref=e781]:
+              - generic [ref=e782]: Please identify your race
+              - generic [ref=e786] [cursor=pointer]:
+                - combobox "Please identify your race" [ref=e790]
+                - generic [ref=e792]: 
+            - generic [ref=e794]:
+              - generic [ref=e795]: Are you Hispanic/Latino?
+              - generic [ref=e799] [cursor=pointer]:
+                - combobox "Are you Hispanic/Latino?" [ref=e801]:
+                  - paragraph [ref=e802]: Select...
+                - generic [ref=e804]: 
+          - generic [ref=e807]:
+            - paragraph [ref=e810]:
+              - text: "If you believe you belong to any of the categories of protected veterans listed below, please indicate by making the appropriate selection. As a government contractor subject to Vietnam Era Veterans Readjustment Assistance Act (VEVRAA), we request this information in order to measure the effectiveness of the outreach and positive recruitment efforts we undertake pursuant to VEVRAA. Classification of protected categories is as follows:"
+              - text: "A \"disabled veteran\" is one of the following: a veteran of the U.S. military, ground, naval or air service who is entitled to compensation (or who but for the receipt of military retired pay would be entitled to compensation) under laws administered by the Secretary of Veterans Affairs; or a person who was discharged or released from active duty because of a service-connected disability."
+              - text: A "recently separated veteran" means any veteran during the three-year period beginning on the date of such veteran's discharge or release from active duty in the U.S. military, ground, naval, or air service.
+              - text: An "active duty wartime or campaign badge veteran" means a veteran who served on active duty in the U.S. military, ground, naval or air service during a war, or in a campaign or expedition for which a campaign badge has been authorized under the laws administered by the Department of Defense.
+              - text: An "Armed forces service medal veteran" means a veteran who, while serving on active duty in the U.S. military, ground, naval or air service, participated in a United States military operation for which an Armed Forces service medal was awarded pursuant to Executive Order 12985.
+            - generic [ref=e815]:
+              - generic [ref=e816]: Veteran Status
+              - generic [ref=e820] [cursor=pointer]:
+                - combobox "Veteran Status" [ref=e822]:
+                  - paragraph [ref=e823]: Select...
+                - generic [ref=e825]: 
+          - generic [ref=e828]:
+            - generic [ref=e829]:
+              - paragraph [ref=e831]:
+                - text: Form CC-305
+                - text: OMB Control Number 1250-0005
+              - paragraph [ref=e833]: Voluntary Self-Identification of Disability
+              - paragraph [ref=e835]: Why are you being asked to complete this form?
+              - paragraph [ref=e836]: Because we do business with the government, we must reach out to, hire, and provide equal opportunity to qualified people with disabilities. To help us measure how well we are doing, we are asking you to tell us if you have a disability or if you ever had a disability.
+              - paragraph [ref=e838]: Completing this form is voluntary, but we hope that you will choose to fill it out. If you are applying for a job, any answer you give will be kept private and will not be used against you in any way. If you already work for us, your answer will not be used against you in any way.
+              - paragraph [ref=e840]: Because a person may become disabled at any time, we are required to ask all of our employees to update their information every five years. You may voluntarily self-identify as having a disability on this form without fear of any punishment because you did not identify as having a disability earlier.
+              - paragraph [ref=e843]: How do you know if you have a disability?
+              - paragraph [ref=e844]: You are considered to have a disability if you have a physical or mental impairment or medical condition that substantially limits a major life activity, or if you have a history or record of such an impairment or medical condition.
+              - paragraph [ref=e846]: "Disabilities include, but are not limited to:"
+              - list [ref=e848]:
+                - listitem [ref=e849]: Blindness
+                - listitem [ref=e850]: Deafness
+                - listitem [ref=e851]: Autism
+                - listitem [ref=e852]: Cancer
+                - listitem [ref=e853]: Diabetes
+                - listitem [ref=e854]: Epilepsy
+                - listitem [ref=e855]: HIV/AIDS
+                - listitem [ref=e856]: Schizophrenia
+                - listitem [ref=e857]: Muscular dystrophy
+                - listitem [ref=e858]: Cerebral palsy
+                - listitem [ref=e859]: Multiple sclerosis (MS)
+                - listitem [ref=e860]: Major depression
+                - listitem [ref=e861]: Bipolar disorder
+                - listitem [ref=e862]: Post-traumatic stress disorder (PTSD)
+                - listitem [ref=e863]: Obsessive compulsive disorder
+                - listitem [ref=e864]: Intellectual disability (previously called mental retardation)
+                - listitem [ref=e865]: Missing limbs or partially missing limbs
+                - listitem [ref=e866]: Impairments requiring the use of a wheelchair
+            - generic [ref=e867]:
+              - generic [ref=e868]: Disability Status
+              - generic [ref=e872] [cursor=pointer]:
+                - combobox "Disability Status" [ref=e874]:
+                  - paragraph [ref=e875]: Select...
+                - generic [ref=e877]: 
+            - paragraph [ref=e880]:
+              - text: Section 503 of the Rehabilitation Act of 1973, as amended. For more information about this form or the equal employment obligations of Federal contractors, visit the U.S. Department of Labor's Office of Federal Contract Compliance Programs (OFCCP) website at
+              - link "www.dol.gov/ofccp" [ref=e881] [cursor=pointer]:
+                - /url: https://www.dol.gov/ofccp
+              - text: .
+              - text: "PUBLIC BURDEN STATEMENT: According to the Paperwork Reduction Act of 1995 no persons are required to respond to a collection of information unless such collection displays a valid OMB control number. This survey should take about 5 minutes to complete."
+        - generic [ref=e885]:
+          - checkbox "I would like to receive SMS messages from D-Wave Quantum Inc. about my application" [checked] [ref=e887] [cursor=pointer]:
+            - img [ref=e890]
+            - paragraph [ref=e895]: I would like to receive SMS messages from D-Wave Quantum Inc. about my application
+          - generic [ref=e897]: By leaving this box checked, you agree to receive SMS messages from D-Wave Quantum Inc. regarding your job application status, including updates on your application progress and interview scheduling. Message and data rates may apply. Message frequency varies. Reply STOP to unsubscribe.
+      - generic [ref=e899]:
+        - paragraph [ref=e900]:
+          - generic [ref=e901]:
+            - generic [ref=e902]: "THE FINE PRINT:"
+            - generic [ref=e903]: No 3rd party candidates will be accepted.
+            - generic [ref=e905]: It is D-Wave Systems Inc. policy to provide equal employment opportunity (EEO) to all persons regardless of race, color, religion, sex, national origin, age, sexual orientation, gender identity, genetic information, physical or mental disability, protected veteran status, or any other characteristic protected by federal, state/provincial, local law.
+        - paragraph
+      - button "Apply" [disabled] [ref=e915] [cursor=pointer]:
+        - generic [ref=e917]: Apply
+  - alert [ref=e499]: Apply - Software Specialist, Support II (Intermediate)

@@ -1,0 +1,2458 @@
+- generic [ref=e1]:
+  - generic:
+    - generic:
+      - generic:
+        - generic:
+          - generic:
+            - generic:
+              - img
+              - generic: Cresta Signal
+            - generic:
+              - button "Minimize chat":
+                - img
+              - button "End chat":
+                - img
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - text: Powered by
+                  - link "CRESTA":
+                    - /url: https://cresta.com
+                    - img
+                    - text: CRESTA
+                - generic:
+                  - generic:
+                    - text: This chat is protected by reCAPTCHA and the
+                    - link "Google Privacy Policy":
+                      - /url: https://policies.google.com/privacy
+                    - text: and
+                    - link "Terms of Service":
+                      - /url: https://policies.google.com/terms
+                    - text: apply
+            - generic:
+              - generic: 0 / 500
+        - button "Chatbot icon Ask anything Signal, your AI Agent" [ref=e3874] [cursor=pointer]:
+          - generic [ref=e3]:
+            - img "Chatbot icon" [ref=e5]
+            - generic [ref=e3876]:
+              - generic [ref=e3877]: Ask anything
+              - generic [ref=e3878]: Signal, your AI Agent
+  - dialog "Cookie Consent Banner" [ref=e6]:
+    - button "Close this dialog" [active] [ref=e7] [cursor=pointer]:
+      - img "Close this dialog" [ref=e8]
+    - generic [ref=e9]:
+      - generic [ref=e10]: "Cresta uses cookies to deliver the best possible website experience. To learn more, view the following link:"
+      - link "Privacy Policy" [ref=e11] [cursor=pointer]:
+        - /url: "#privacy"
+  - generic [ref=e12]:
+    - generic [ref=e14]:
+      - link "close banner" [ref=e15] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=e17]
+      - generic [ref=e22]:
+        - paragraph [ref=e24]:
+          - text: Introducing Cresta's Agent Operations Center, real-time oversight and guidance for AI & human agents.
+          - emphasis
+        - link "See what's new" [ref=e25] [cursor=pointer]:
+          - /url: https://cresta.com/blog/introducing-crestas-agent-operations-center-a-unified-command-center-for-human-and-ai-agents
+          - generic [ref=e26]: See what's new
+    - banner [ref=e28]:
+      - generic [ref=e29]:
+        - link "Go to Home page" [ref=e30] [cursor=pointer]:
+          - /url: /
+        - navigation [ref=e32]:
+          - list [ref=e33]:
+            - listitem [ref=e34]:
+              - button "Products" [ref=e36] [cursor=pointer]:
+                - generic [ref=e37]: Products
+                - img [ref=e39]
+            - listitem [ref=e42]:
+              - button "Solutions" [ref=e44] [cursor=pointer]:
+                - generic [ref=e45]: Solutions
+                - img [ref=e47]
+            - listitem [ref=e50]:
+              - button "Customers" [ref=e52] [cursor=pointer]:
+                - generic [ref=e53]: Customers
+                - img [ref=e55]
+            - listitem [ref=e58]:
+              - button "Resources" [ref=e60] [cursor=pointer]:
+                - generic [ref=e61]: Resources
+                - img [ref=e63]
+            - listitem [ref=e66]:
+              - button "Company" [ref=e68] [cursor=pointer]:
+                - generic [ref=e69]: Company
+                - img [ref=e71]
+          - link "Get a demo" [ref=e75] [cursor=pointer]:
+            - /url: /request-a-demo
+            - generic [ref=e76]: Get a demo
+            - img [ref=e78]
+    - main [ref=e81]:
+      - generic [ref=e83]:
+        - generic [ref=e86]:
+          - heading "Join us in building the future of human-centric AI" [level=1] [ref=e87]
+          - link "View careers" [ref=e88] [cursor=pointer]:
+            - /url: "#careers"
+            - generic [ref=e89]: View careers
+            - img [ref=e92]
+        - generic [ref=e95]:
+          - generic [ref=e96]:
+            - img "Cresta team photo" [ref=e97]
+            - img "Cresta team photo" [ref=e98]
+            - img "Awards" [ref=e99]
+            - img "Cresta team photo" [ref=e100]
+            - img "Cresta team photo" [ref=e101]
+            - img "Cresta team photo" [ref=e102]
+            - img "Cresta team photo" [ref=e103]
+            - img "Cresta team photo" [ref=e104]
+            - img "Cresta mural" [ref=e105]
+            - img "Cresta team photo" [ref=e106]
+            - img "Cresta team photo" [ref=e107]
+            - img "Cresta team photo" [ref=e108]
+          - generic [ref=e109]:
+            - img "Cresta team photo" [ref=e110]
+            - img "Cresta team photo" [ref=e111]
+            - img "Awards" [ref=e112]
+            - img "Cresta team photo" [ref=e113]
+            - img "Cresta team photo" [ref=e114]
+            - img "Cresta team photo" [ref=e115]
+            - img "Cresta team photo" [ref=e116]
+            - img "Cresta team photo" [ref=e117]
+            - img "Cresta mural" [ref=e118]
+            - img "Cresta team photo" [ref=e119]
+            - img "Cresta team photo" [ref=e120]
+            - img "Cresta team photo" [ref=e121]
+          - generic [ref=e122]:
+            - img "Cresta team photo" [ref=e123]
+            - img "Cresta team photo" [ref=e124]
+            - img "Awards" [ref=e125]
+            - img "Cresta team photo" [ref=e126]
+            - img "Cresta team photo" [ref=e127]
+            - img "Cresta team photo" [ref=e128]
+            - img "Cresta team photo" [ref=e129]
+            - img "Cresta team photo" [ref=e130]
+            - img "Cresta mural" [ref=e131]
+            - img "Cresta team photo" [ref=e132]
+            - img "Cresta team photo" [ref=e133]
+            - img "Cresta team photo" [ref=e134]
+      - generic [ref=e138]:
+        - heading "Cresta is on a mission to turn every conversation into a competitive advantage" [level=2] [ref=e139]
+        - paragraph [ref=e141]: We help businesses unlock their full potential by combining the best of human intelligence and AI. We’re backed by the best (Sequoia, Greylock, WiL) and supporting the best across the Fortune 500 — come build with us.
+        - link "View careers" [ref=e143] [cursor=pointer]:
+          - /url: "#careers"
+          - generic [ref=e144]: View careers
+          - img [ref=e147]
+      - generic [ref=e151]:
+        - heading "Why we work here" [level=2] [ref=e152]
+        - generic [ref=e153]:
+          - generic [ref=e154]:
+            - img [ref=e157]
+            - heading "Mission-driven" [level=3] [ref=e162]
+            - paragraph [ref=e163]: We’re here to transform how the world works — empowering teams through human-centric AI to solve meaningful problems, elevate customer experiences, and drive real results by combining the best of people and technology.
+          - generic [ref=e164]:
+            - img [ref=e167]
+            - heading "Trailblazing team" [level=3] [ref=e171]
+            - paragraph [ref=e172]: Cresta is home to many brilliant minds — but what sets us apart is how we multiply that brilliance together. We challenge and support one another, learn fast, execute with intent, and push boundaries as a team — moving forward with shared purpose and humility.
+          - generic [ref=e173]:
+            - img [ref=e176]
+            - heading "Built to deliver" [level=3] [ref=e178]
+            - paragraph [ref=e179]: At Cresta, this isn’t just a job — it’s the work we’re proud to own. Every role is hands-on and high-impact, giving you the autonomy to move fast, solve big problems, and make a real difference every single day.
+          - generic [ref=e180]:
+            - img [ref=e183]
+            - heading "Growth mindset" [level=3] [ref=e187]
+            - paragraph [ref=e188]: At Cresta, curiosity fuels how we work and grow — from guest speakers and customer spotlights to hackathons and lunch-and-learns, we bring in outside perspectives, share ideas, and create space to sharpen our craft — together.
+      - generic [ref=e193]:
+        - generic [ref=e195]:
+          - heading "Our operating principles" [level=2] [ref=e196]
+          - paragraph [ref=e198]: It’s not just about the work completed, but how we get that work done. Our operating principles serve as our guidepost for the latter.
+          - link "Join the team" [ref=e200] [cursor=pointer]:
+            - /url: "#careers"
+            - generic [ref=e201]: Join the team
+        - generic [ref=e202]:
+          - generic [ref=e203]:
+            - img [ref=e207]
+            - generic [ref=e214]:
+              - heading "Mission is the boss" [level=3] [ref=e215]
+              - paragraph [ref=e217]: At Cresta, our mission is the guiding force that unites and drives us, not titles or hierarchy. We prioritize the company’s goals over personal agendas, ensuring that decisions and actions always align with what’s best for the overall mission.
+          - generic [ref=e218]:
+            - img [ref=e222]
+            - generic [ref=e231]:
+              - heading "Patient in strategy, impatient in execution" [level=3] [ref=e232]
+              - paragraph [ref=e234]: We take a long-term view on strategy, understanding that great success compounds over time. But when it comes to execution, we act with urgency, making decisions quickly, empowering those closest to the problem, and relentlessly pushing for progress.
+          - generic [ref=e235]:
+            - img [ref=e239]
+            - generic [ref=e243]:
+              - heading "Help our customers win" [level=3] [ref=e244]
+              - paragraph [ref=e246]: We go beyond transactions to truly understand and partner with our customers. We focus on their long-term success by anticipating their needs, offering strategic insights, and delivering results that align with their ultimate goals, not just delivering software.
+          - generic [ref=e247]:
+            - img [ref=e251]
+            - generic [ref=e269]:
+              - heading "Do too much" [level=3] [ref=e270]
+              - paragraph [ref=e272]: We believe that extraordinary achievements require extraordinary effort, talent, and dedication in addition to a great team and strong vision. We embrace hard work and go above and beyond, knowing that doing "too much" may be exactly what it takes to succeed.
+          - generic [ref=e273]:
+            - img [ref=e277]
+            - generic [ref=e291]:
+              - heading "Endlessly pursue your craft" [level=3] [ref=e292]
+              - paragraph [ref=e294]: We believe in the power of continuous improvement and take pride in perfecting our craft every day, whether it's coding, designing, or delivering AI transformation. While we will never get to perfect, the pursuit of mastery never ends.
+          - generic [ref=e295]:
+            - img [ref=e299]
+            - generic [ref=e308]:
+              - heading "Have the courage to be disliked" [level=3] [ref=e309]
+              - paragraph [ref=e311]: We embrace the discomfort of truth over the comfort of approval. We challenge the status quo, voice uncomfortable truths, and make tough decisions, knowing that avoiding conflict for the sake of popularity leads to stagnation and mediocrity. This doesn’t give us the right to be jerks to one another, but encourages us to use our voice for the betterment of the business.
+          - generic [ref=e312]:
+            - img [ref=e316]
+            - generic [ref=e320]:
+              - heading "Stay lean" [level=3] [ref=e321]
+              - paragraph [ref=e323]: We dream big and invest, but with minimal waste. We use this mindset as a driver of creativity and innovation, focusing on maximizing impact without unnecessary expansion, and ensuring that every decision, meeting, and resource contributes to our long-term success.
+          - generic [ref=e324]:
+            - img [ref=e328]
+            - generic [ref=e341]:
+              - heading "Jump in" [level=3] [ref=e342]
+              - paragraph [ref=e344]: We embrace every challenge as a team. No problem is too small or too big for anyone to tackle. We all step up when needed, knowing that our path to success is built on collaboration and a shared commitment to the mission.
+      - generic [ref=e345]:
+        - generic [ref=e349]:
+          - heading "Global company footprint" [level=2] [ref=e350]
+          - paragraph [ref=e352]: We are a global team with offices and remote opportunities in locations all around the world.
+        - generic [ref=e354]:
+          - list [ref=e356]:
+            - listitem [ref=e357]:
+              - generic [ref=e358]: USA
+              - heading "San Francisco" [level=3] [ref=e359]
+            - listitem [ref=e360]:
+              - generic [ref=e361]: USA
+              - heading "Sunnyvale" [level=3] [ref=e362]
+            - listitem [ref=e363]:
+              - generic [ref=e364]: Canada
+              - heading "Toronto" [level=3] [ref=e365]
+            - listitem [ref=e366]:
+              - generic [ref=e367]: USA
+              - heading "New York" [level=3] [ref=e368]
+            - listitem [ref=e369]:
+              - generic [ref=e370]: Germany
+              - heading "Berlin" [level=3] [ref=e371]
+            - listitem [ref=e372]:
+              - generic [ref=e373]: Romania
+              - heading "Cluj-Napoca" [level=3] [ref=e374]
+            - listitem [ref=e375]:
+              - generic [ref=e376]: Australia
+              - heading "Melbourne" [level=3] [ref=e377]
+            - listitem [ref=e378]:
+              - generic [ref=e379]: United Kingdom
+              - heading "London" [level=3] [ref=e380]
+          - list [ref=e382]:
+            - listitem [ref=e383]:
+              - generic [ref=e384]: USA
+              - heading "San Francisco" [level=3] [ref=e385]
+            - listitem [ref=e386]:
+              - generic [ref=e387]: USA
+              - heading "Sunnyvale" [level=3] [ref=e388]
+            - listitem [ref=e389]:
+              - generic [ref=e390]: Canada
+              - heading "Toronto" [level=3] [ref=e391]
+            - listitem [ref=e392]:
+              - generic [ref=e393]: USA
+              - heading "New York" [level=3] [ref=e394]
+            - listitem [ref=e395]:
+              - generic [ref=e396]: Germany
+              - heading "Berlin" [level=3] [ref=e397]
+            - listitem [ref=e398]:
+              - generic [ref=e399]: Romania
+              - heading "Cluj-Napoca" [level=3] [ref=e400]
+            - listitem [ref=e401]:
+              - generic [ref=e402]: Australia
+              - heading "Melbourne" [level=3] [ref=e403]
+            - listitem [ref=e404]:
+              - generic [ref=e405]: United Kingdom
+              - heading "London" [level=3] [ref=e406]
+        - generic [ref=e409]:
+          - heading "Perks and benefits" [level=4] [ref=e410]:
+            - text: Perks
+            - text: and benefits
+          - generic [ref=e411]:
+            - generic [ref=e412]:
+              - img [ref=e415]
+              - heading "Smart benefits" [level=5] [ref=e419]
+            - paragraph [ref=e420]: Choose from multiple medical, dental, and vision plans tailored to your needs.
+          - generic [ref=e421]:
+            - generic [ref=e422]:
+              - img [ref=e425]
+              - heading "Tools to thrive" [level=5] [ref=e431]
+            - paragraph [ref=e432]: We provide resources to help you stay focused and balanced — from workspace support to access to cutting-edge AI technology. Whether you're working remotely or in person, we help you do your best work with the right tools at your fingertips.
+          - generic [ref=e433]:
+            - generic [ref=e434]:
+              - img [ref=e437]
+              - heading "Time off, your way" [level=5] [ref=e446]
+            - paragraph [ref=e447]: Whether it’s a quick reset or a longer break, we encourage you to take the time to rest, recharge, and enjoy life — with time off that works for your location and your lifestyle.
+          - generic [ref=e448]:
+            - generic [ref=e449]:
+              - img [ref=e452]
+              - heading "Support for every parent" [level=5] [ref=e459]
+            - paragraph [ref=e460]: Paid time off to support you and your growing family — with inclusive parental leave that lets you step away with confidence and return when you're ready.
+          - generic [ref=e461]:
+            - generic [ref=e462]:
+              - img [ref=e465]
+              - heading "Flexibility that works" [level=5] [ref=e468]
+            - paragraph [ref=e469]: Our hybrid model is built for flexibility. While some roles have in-office expectations, many are fully remote. No matter where you work, we focus on helping you stay connected, supported, and set up for success.
+      - generic [ref=e471]:
+        - heading "Quotes from the team" [level=2] [ref=e474]:
+          - strong [ref=e475]: Quotes from the team
+        - generic [ref=e476]:
+          - generic [ref=e477]:
+            - list [ref=e479]:
+              - listitem [ref=e480]:
+                - generic [ref=e481]:
+                  - paragraph [ref=e483]:
+                    - text: ‍
+                    - emphasis [ref=e484]: "\"There’s a"
+                    - strong [ref=e485]:
+                      - emphasis [ref=e486]: strong culture of ownership here -- but also of collaboration
+                    - emphasis [ref=e487]: . I’ve had the opportunity to take on challenging projects that stretched my skills and pushed me to think more strategically, all while being supported by teammates. Whether it's brainstorming new ideas, iterating quickly, or celebrating wins,
+                    - strong [ref=e488]:
+                      - emphasis [ref=e489]: the energy is fast-paced but deeply human
+                    - emphasis [ref=e490]: ."
+                  - generic [ref=e492]:
+                    - generic [ref=e493]: Nicky Budd-Thanos
+                    - generic [ref=e494]: Senior Content Marketing Manager
+              - listitem [ref=e495]:
+                - generic [ref=e496]:
+                  - paragraph [ref=e498]:
+                    - emphasis [ref=e499]: “Even in my first year at Cresta, it’s clear that the
+                    - strong [ref=e500]:
+                      - emphasis [ref=e501]: bar is incredibly high
+                    - emphasis [ref=e502]: — not just in engineering talent, but in empathy, curiosity, and drive. There’s a
+                    - strong [ref=e503]:
+                      - emphasis [ref=e504]: deep sense of ownership
+                    - emphasis [ref=e505]: in how we build and collaborate, and a
+                    - strong [ref=e506]:
+                      - emphasis [ref=e507]: shared commitment to solving real problems for our customers
+                    - emphasis [ref=e508]: .”
+                  - generic [ref=e510]:
+                    - generic [ref=e511]: Florin Szilagyi
+                    - generic [ref=e512]: Software and Business Development Consultant
+              - listitem [ref=e513]:
+                - generic [ref=e514]:
+                  - paragraph [ref=e516]:
+                    - emphasis [ref=e517]: “At Cresta, it feels like
+                    - strong [ref=e518]:
+                      - emphasis [ref=e519]: you’re in the engine room of a rocket ship
+                    - emphasis [ref=e520]: — moving fast, solving hard problems, and knowing exactly why it matters. There’s a
+                    - strong [ref=e521]:
+                      - emphasis [ref=e522]: shared energy grounded in curiosity, ownership, and care
+                    - emphasis [ref=e523]: . What drives us isn’t just speed, but alignment — a deep connection to our customers and to each other. It’s a culture where ambition and empathy work side by side, and
+                    - strong [ref=e524]:
+                      - emphasis [ref=e525]: you feel the impact of your work every day
+                    - emphasis [ref=e526]: .”
+                  - generic [ref=e528]:
+                    - generic [ref=e529]: Yuval Vardi
+                    - generic [ref=e530]: Revenue Operations Manager, GTM
+              - listitem [ref=e531]:
+                - generic [ref=e532]:
+                  - paragraph [ref=e534]:
+                    - emphasis [ref=e535]: “I feel lucky to work somewhere that’s
+                    - strong [ref=e536]:
+                      - emphasis [ref=e537]: so focused on its mission
+                    - emphasis [ref=e538]: . I’m very proud that Cresta
+                    - strong [ref=e539]:
+                      - emphasis [ref=e540]: fosters a culture of collaboration, ownership, and curiosity
+                    - emphasis [ref=e541]: . It’s a place where smart, driven people come together to solve challenging problems and work towards a shared goal.”
+                  - generic [ref=e543]:
+                    - generic [ref=e544]: Emily Kessel
+                    - generic [ref=e545]: Commercial Counsel
+              - listitem [ref=e546]:
+                - generic [ref=e547]:
+                  - paragraph [ref=e549]:
+                    - emphasis [ref=e550]: "\"I feel truly privileged to work alongside people who are not just"
+                    - strong [ref=e551]:
+                      - emphasis [ref=e552]: exceptionally talented but kind, humble, and selfless
+                    - emphasis [ref=e553]: . We help our customers win by
+                    - strong [ref=e554]:
+                      - emphasis [ref=e555]: valuing them as much as we value each other
+                    - emphasis [ref=e556]: ."
+                  - generic [ref=e558]:
+                    - generic [ref=e559]: Julian Zhang
+                    - generic [ref=e560]: Customer Engineer
+              - listitem [ref=e561]:
+                - generic [ref=e562]:
+                  - paragraph [ref=e564]:
+                    - emphasis [ref=e565]: "“I joined Cresta because every conversation during the interview process made one thing clear:"
+                    - strong [ref=e566]:
+                      - emphasis [ref=e567]: the people here are hungry to accomplish big things and win
+                    - emphasis [ref=e568]: by delivering real value through AI. Four years later that energy hasn’t changed; we celebrate wins together, learn fast, and stay
+                    - strong [ref=e569]:
+                      - emphasis [ref=e570]: laser-focused on delivering impact for our customers
+                    - emphasis [ref=e571]: .”
+                  - generic [ref=e573]:
+                    - generic [ref=e574]: Colin Jenkins
+                    - generic [ref=e575]: Implementation Manager
+              - listitem [ref=e576]:
+                - generic [ref=e577]:
+                  - paragraph [ref=e579]:
+                    - emphasis [ref=e580]: “I feel
+                    - strong [ref=e581]:
+                      - emphasis [ref=e582]: constantly motivated seeing how our products impact people’s day-to-day work
+                    - emphasis [ref=e583]: . It’s inspiring to hear how excited customers are about new features and how we’re evolving to meet their needs.
+                    - strong [ref=e584]:
+                      - emphasis [ref=e585]: Their excitement pushes me to do better and reminds me why building the right product truly matters
+                    - emphasis [ref=e586]: .”
+                  - generic [ref=e588]:
+                    - generic [ref=e589]: Eleanore An
+                    - generic [ref=e590]: Senior Product Manager
+              - listitem [ref=e591]:
+                - generic [ref=e592]:
+                  - paragraph [ref=e594]:
+                    - emphasis [ref=e595]: "\"From day one, it was clear this wasn’t just a job — it was a"
+                    - strong [ref=e596]:
+                      - emphasis [ref=e597]: chance to be part of something transformative
+                    - emphasis [ref=e598]: . The vision, the momentum, the belief in what we’re building — it’s electric."
+                  - generic [ref=e600]:
+                    - generic [ref=e601]: Maddie Baumann
+                    - generic [ref=e602]: Enterprise Account Executive
+              - listitem [ref=e603]:
+                - generic [ref=e604]:
+                  - paragraph [ref=e606]:
+                    - text: ‍
+                    - emphasis [ref=e607]: “The best part of Cresta is the
+                    - strong [ref=e608]:
+                      - emphasis [ref=e609]: talent density
+                    - emphasis [ref=e610]: . It’s not just ‘10x’ engineers—it’s 100x. Being surrounded by people like that is humbling and energizing.
+                    - strong [ref=e611]:
+                      - emphasis [ref=e612]: We push each other, learn from each other, and ship things that truly move the needle.
+                    - emphasis [ref=e613]: ”
+                  - generic [ref=e615]:
+                    - generic [ref=e616]: Dong Zhao
+                    - generic [ref=e617]: Software Engineer
+              - listitem [ref=e618]:
+                - generic [ref=e619]:
+                  - paragraph [ref=e621]:
+                    - emphasis [ref=e622]: “What I love about Cresta is getting to
+                    - strong [ref=e623]:
+                      - emphasis [ref=e624]: shape how businesses connect with their customers
+                    - emphasis [ref=e625]: —while working with some of the most talented people I've ever met. It's so
+                    - strong [ref=e626]:
+                      - emphasis [ref=e627]: rare to find a place where cutting-edge AI, real impact, and a genuinely supportive team all come together,
+                    - emphasis [ref=e628]: but that's exactly what we have here.”
+                  - generic [ref=e630]:
+                    - generic [ref=e631]: Melissa Abraham
+                    - generic [ref=e632]: Strategic Sales Director
+              - listitem [ref=e633]:
+                - generic [ref=e634]:
+                  - paragraph [ref=e636]:
+                    - emphasis [ref=e637]: "\"When I joined Cresta, I knew I was"
+                    - strong [ref=e638]:
+                      - emphasis [ref=e639]: stepping into something special
+                    - emphasis [ref=e640]: . In just 12 months, I’ve helped build an incredible GTM team—hiring talent across Sales, Marketing, CS, PS, and Solutions Engineering. Watching those hires thrive and fuel our momentum has been one of the most fulfilling parts of my career. From Day 1 to today,
+                    - strong [ref=e641]:
+                      - emphasis [ref=e642]: my belief in what we’re building has only grown stronger
+                    - emphasis [ref=e643]: . I feel lucky to work alongside brilliant minds and inspiring stakeholders—it still feels like we’re just getting started."
+                  - generic [ref=e645]:
+                    - generic [ref=e646]: Melissa Bair
+                    - generic [ref=e647]: GTM Recruiter
+              - listitem [ref=e648]:
+                - generic [ref=e649]:
+                  - generic [ref=e650]:
+                    - paragraph [ref=e651]:
+                      - emphasis [ref=e652]: “Working at Cresta offers not only a
+                      - strong [ref=e653]:
+                        - emphasis [ref=e654]: front-row seat to the ongoing AI revolution
+                      - emphasis [ref=e655]: ", but a chance to s"
+                      - strong [ref=e656]:
+                        - emphasis [ref=e657]: hape the future alongside some of the most talented engineers
+                      - emphasis [ref=e658]: in the industry.”
+                    - paragraph [ref=e659]:
+                      - emphasis: ‍
+                  - generic [ref=e661]:
+                    - generic [ref=e662]: Iwona Bialynicka-Birula
+                    - generic [ref=e663]: Software Engineer
+              - listitem [ref=e664]:
+                - generic [ref=e665]:
+                  - paragraph [ref=e667]:
+                    - emphasis [ref=e668]: “
+                    - strong [ref=e669]:
+                      - emphasis [ref=e670]: Extremely smart and ambitious people, cutting edge technology and a big market
+                    - emphasis [ref=e671]: to go after - joining Cresta was simply a no-brainer.”
+                  - generic [ref=e673]:
+                    - generic [ref=e674]: Robert Kugler
+                    - generic [ref=e675]: Head of Security, IT and Compliance
+              - listitem [ref=e676]:
+                - generic [ref=e677]:
+                  - paragraph [ref=e679]:
+                    - emphasis [ref=e680]: “At Cresta, I’ve
+                    - strong [ref=e681]:
+                      - emphasis [ref=e682]: witnessed a level of transformation I’ve never seen anywhere else
+                    - emphasis [ref=e683]: . The impact we’re driving—for our customers, for their frontline teams, and for their businesses—is truly remarkable. From measurable business outcomes to frontline feedback and executive-level advocacy, the results speak for themselves. What makes it so rewarding is knowing that we’re not just building technology—
+                    - strong [ref=e684]:
+                      - emphasis [ref=e685]: we’re helping our customers win, at every level.
+                    - emphasis [ref=e686]: ”
+                  - generic [ref=e688]:
+                    - generic [ref=e689]: Chad Korpeck
+                    - generic [ref=e690]: Strategic Sales Director
+              - listitem [ref=e691]:
+                - generic [ref=e692]:
+                  - paragraph [ref=e694]:
+                    - text: ‍
+                    - emphasis [ref=e695]: “Most SDR roles are a stepping stone —
+                    - strong [ref=e696]:
+                      - emphasis [ref=e697]: at Cresta, it’s a launchpad
+                    - emphasis [ref=e698]: . From day one, I’ve been learning how to think strategically, speak consultatively, and contribute to real deals. What makes it even more rewarding is how close we are to the customer. I hear firsthand how Cresta transforms live conversations, and I get to sell a product that actually delivers.
+                    - strong [ref=e699]:
+                      - emphasis [ref=e700]: When prospects ask, ‘Can it really do that?’ — we show them it already is
+                    - emphasis [ref=e701]: .”
+                  - generic [ref=e703]:
+                    - generic [ref=e704]: Javier Amezcua
+                    - generic [ref=e705]: Sales Development Representative
+            - list [ref=e707]:
+              - listitem [ref=e708]:
+                - generic [ref=e709]:
+                  - paragraph [ref=e711]:
+                    - text: ‍
+                    - emphasis [ref=e712]: "\"There’s a"
+                    - strong [ref=e713]:
+                      - emphasis [ref=e714]: strong culture of ownership here -- but also of collaboration
+                    - emphasis [ref=e715]: . I’ve had the opportunity to take on challenging projects that stretched my skills and pushed me to think more strategically, all while being supported by teammates. Whether it's brainstorming new ideas, iterating quickly, or celebrating wins,
+                    - strong [ref=e716]:
+                      - emphasis [ref=e717]: the energy is fast-paced but deeply human
+                    - emphasis [ref=e718]: ."
+                  - generic [ref=e720]:
+                    - generic [ref=e721]: Nicky Budd-Thanos
+                    - generic [ref=e722]: Senior Content Marketing Manager
+              - listitem [ref=e723]:
+                - generic [ref=e724]:
+                  - paragraph [ref=e726]:
+                    - emphasis [ref=e727]: “Even in my first year at Cresta, it’s clear that the
+                    - strong [ref=e728]:
+                      - emphasis [ref=e729]: bar is incredibly high
+                    - emphasis [ref=e730]: — not just in engineering talent, but in empathy, curiosity, and drive. There’s a
+                    - strong [ref=e731]:
+                      - emphasis [ref=e732]: deep sense of ownership
+                    - emphasis [ref=e733]: in how we build and collaborate, and a
+                    - strong [ref=e734]:
+                      - emphasis [ref=e735]: shared commitment to solving real problems for our customers
+                    - emphasis [ref=e736]: .”
+                  - generic [ref=e738]:
+                    - generic [ref=e739]: Florin Szilagyi
+                    - generic [ref=e740]: Software and Business Development Consultant
+              - listitem [ref=e741]:
+                - generic [ref=e742]:
+                  - paragraph [ref=e744]:
+                    - emphasis [ref=e745]: “At Cresta, it feels like
+                    - strong [ref=e746]:
+                      - emphasis [ref=e747]: you’re in the engine room of a rocket ship
+                    - emphasis [ref=e748]: — moving fast, solving hard problems, and knowing exactly why it matters. There’s a
+                    - strong [ref=e749]:
+                      - emphasis [ref=e750]: shared energy grounded in curiosity, ownership, and care
+                    - emphasis [ref=e751]: . What drives us isn’t just speed, but alignment — a deep connection to our customers and to each other. It’s a culture where ambition and empathy work side by side, and
+                    - strong [ref=e752]:
+                      - emphasis [ref=e753]: you feel the impact of your work every day
+                    - emphasis [ref=e754]: .”
+                  - generic [ref=e756]:
+                    - generic [ref=e757]: Yuval Vardi
+                    - generic [ref=e758]: Revenue Operations Manager, GTM
+              - listitem [ref=e759]:
+                - generic [ref=e760]:
+                  - paragraph [ref=e762]:
+                    - emphasis [ref=e763]: “I feel lucky to work somewhere that’s
+                    - strong [ref=e764]:
+                      - emphasis [ref=e765]: so focused on its mission
+                    - emphasis [ref=e766]: . I’m very proud that Cresta
+                    - strong [ref=e767]:
+                      - emphasis [ref=e768]: fosters a culture of collaboration, ownership, and curiosity
+                    - emphasis [ref=e769]: . It’s a place where smart, driven people come together to solve challenging problems and work towards a shared goal.”
+                  - generic [ref=e771]:
+                    - generic [ref=e772]: Emily Kessel
+                    - generic [ref=e773]: Commercial Counsel
+              - listitem [ref=e774]:
+                - generic [ref=e775]:
+                  - paragraph [ref=e777]:
+                    - emphasis [ref=e778]: "\"I feel truly privileged to work alongside people who are not just"
+                    - strong [ref=e779]:
+                      - emphasis [ref=e780]: exceptionally talented but kind, humble, and selfless
+                    - emphasis [ref=e781]: . We help our customers win by
+                    - strong [ref=e782]:
+                      - emphasis [ref=e783]: valuing them as much as we value each other
+                    - emphasis [ref=e784]: ."
+                  - generic [ref=e786]:
+                    - generic [ref=e787]: Julian Zhang
+                    - generic [ref=e788]: Customer Engineer
+              - listitem [ref=e789]:
+                - generic [ref=e790]:
+                  - paragraph [ref=e792]:
+                    - emphasis [ref=e793]: "“I joined Cresta because every conversation during the interview process made one thing clear:"
+                    - strong [ref=e794]:
+                      - emphasis [ref=e795]: the people here are hungry to accomplish big things and win
+                    - emphasis [ref=e796]: by delivering real value through AI. Four years later that energy hasn’t changed; we celebrate wins together, learn fast, and stay
+                    - strong [ref=e797]:
+                      - emphasis [ref=e798]: laser-focused on delivering impact for our customers
+                    - emphasis [ref=e799]: .”
+                  - generic [ref=e801]:
+                    - generic [ref=e802]: Colin Jenkins
+                    - generic [ref=e803]: Implementation Manager
+              - listitem [ref=e804]:
+                - generic [ref=e805]:
+                  - paragraph [ref=e807]:
+                    - emphasis [ref=e808]: “I feel
+                    - strong [ref=e809]:
+                      - emphasis [ref=e810]: constantly motivated seeing how our products impact people’s day-to-day work
+                    - emphasis [ref=e811]: . It’s inspiring to hear how excited customers are about new features and how we’re evolving to meet their needs.
+                    - strong [ref=e812]:
+                      - emphasis [ref=e813]: Their excitement pushes me to do better and reminds me why building the right product truly matters
+                    - emphasis [ref=e814]: .”
+                  - generic [ref=e816]:
+                    - generic [ref=e817]: Eleanore An
+                    - generic [ref=e818]: Senior Product Manager
+              - listitem [ref=e819]:
+                - generic [ref=e820]:
+                  - paragraph [ref=e822]:
+                    - emphasis [ref=e823]: "\"From day one, it was clear this wasn’t just a job — it was a"
+                    - strong [ref=e824]:
+                      - emphasis [ref=e825]: chance to be part of something transformative
+                    - emphasis [ref=e826]: . The vision, the momentum, the belief in what we’re building — it’s electric."
+                  - generic [ref=e828]:
+                    - generic [ref=e829]: Maddie Baumann
+                    - generic [ref=e830]: Enterprise Account Executive
+              - listitem [ref=e831]:
+                - generic [ref=e832]:
+                  - paragraph [ref=e834]:
+                    - text: ‍
+                    - emphasis [ref=e835]: “The best part of Cresta is the
+                    - strong [ref=e836]:
+                      - emphasis [ref=e837]: talent density
+                    - emphasis [ref=e838]: . It’s not just ‘10x’ engineers—it’s 100x. Being surrounded by people like that is humbling and energizing.
+                    - strong [ref=e839]:
+                      - emphasis [ref=e840]: We push each other, learn from each other, and ship things that truly move the needle.
+                    - emphasis [ref=e841]: ”
+                  - generic [ref=e843]:
+                    - generic [ref=e844]: Dong Zhao
+                    - generic [ref=e845]: Software Engineer
+              - listitem [ref=e846]:
+                - generic [ref=e847]:
+                  - paragraph [ref=e849]:
+                    - emphasis [ref=e850]: “What I love about Cresta is getting to
+                    - strong [ref=e851]:
+                      - emphasis [ref=e852]: shape how businesses connect with their customers
+                    - emphasis [ref=e853]: —while working with some of the most talented people I've ever met. It's so
+                    - strong [ref=e854]:
+                      - emphasis [ref=e855]: rare to find a place where cutting-edge AI, real impact, and a genuinely supportive team all come together,
+                    - emphasis [ref=e856]: but that's exactly what we have here.”
+                  - generic [ref=e858]:
+                    - generic [ref=e859]: Melissa Abraham
+                    - generic [ref=e860]: Strategic Sales Director
+              - listitem [ref=e861]:
+                - generic [ref=e862]:
+                  - paragraph [ref=e864]:
+                    - emphasis [ref=e865]: "\"When I joined Cresta, I knew I was"
+                    - strong [ref=e866]:
+                      - emphasis [ref=e867]: stepping into something special
+                    - emphasis [ref=e868]: . In just 12 months, I’ve helped build an incredible GTM team—hiring talent across Sales, Marketing, CS, PS, and Solutions Engineering. Watching those hires thrive and fuel our momentum has been one of the most fulfilling parts of my career. From Day 1 to today,
+                    - strong [ref=e869]:
+                      - emphasis [ref=e870]: my belief in what we’re building has only grown stronger
+                    - emphasis [ref=e871]: . I feel lucky to work alongside brilliant minds and inspiring stakeholders—it still feels like we’re just getting started."
+                  - generic [ref=e873]:
+                    - generic [ref=e874]: Melissa Bair
+                    - generic [ref=e875]: GTM Recruiter
+              - listitem [ref=e876]:
+                - generic [ref=e877]:
+                  - generic [ref=e878]:
+                    - paragraph [ref=e879]:
+                      - emphasis [ref=e880]: “Working at Cresta offers not only a
+                      - strong [ref=e881]:
+                        - emphasis [ref=e882]: front-row seat to the ongoing AI revolution
+                      - emphasis [ref=e883]: ", but a chance to s"
+                      - strong [ref=e884]:
+                        - emphasis [ref=e885]: hape the future alongside some of the most talented engineers
+                      - emphasis [ref=e886]: in the industry.”
+                    - paragraph [ref=e887]:
+                      - emphasis: ‍
+                  - generic [ref=e889]:
+                    - generic [ref=e890]: Iwona Bialynicka-Birula
+                    - generic [ref=e891]: Software Engineer
+              - listitem [ref=e892]:
+                - generic [ref=e893]:
+                  - paragraph [ref=e895]:
+                    - emphasis [ref=e896]: “
+                    - strong [ref=e897]:
+                      - emphasis [ref=e898]: Extremely smart and ambitious people, cutting edge technology and a big market
+                    - emphasis [ref=e899]: to go after - joining Cresta was simply a no-brainer.”
+                  - generic [ref=e901]:
+                    - generic [ref=e902]: Robert Kugler
+                    - generic [ref=e903]: Head of Security, IT and Compliance
+              - listitem [ref=e904]:
+                - generic [ref=e905]:
+                  - paragraph [ref=e907]:
+                    - emphasis [ref=e908]: “At Cresta, I’ve
+                    - strong [ref=e909]:
+                      - emphasis [ref=e910]: witnessed a level of transformation I’ve never seen anywhere else
+                    - emphasis [ref=e911]: . The impact we’re driving—for our customers, for their frontline teams, and for their businesses—is truly remarkable. From measurable business outcomes to frontline feedback and executive-level advocacy, the results speak for themselves. What makes it so rewarding is knowing that we’re not just building technology—
+                    - strong [ref=e912]:
+                      - emphasis [ref=e913]: we’re helping our customers win, at every level.
+                    - emphasis [ref=e914]: ”
+                  - generic [ref=e916]:
+                    - generic [ref=e917]: Chad Korpeck
+                    - generic [ref=e918]: Strategic Sales Director
+              - listitem [ref=e919]:
+                - generic [ref=e920]:
+                  - paragraph [ref=e922]:
+                    - text: ‍
+                    - emphasis [ref=e923]: “Most SDR roles are a stepping stone —
+                    - strong [ref=e924]:
+                      - emphasis [ref=e925]: at Cresta, it’s a launchpad
+                    - emphasis [ref=e926]: . From day one, I’ve been learning how to think strategically, speak consultatively, and contribute to real deals. What makes it even more rewarding is how close we are to the customer. I hear firsthand how Cresta transforms live conversations, and I get to sell a product that actually delivers.
+                    - strong [ref=e927]:
+                      - emphasis [ref=e928]: When prospects ask, ‘Can it really do that?’ — we show them it already is
+                    - emphasis [ref=e929]: .”
+                  - generic [ref=e931]:
+                    - generic [ref=e932]: Javier Amezcua
+                    - generic [ref=e933]: Sales Development Representative
+          - generic [ref=e934]:
+            - list [ref=e936]:
+              - listitem [ref=e937]:
+                - generic [ref=e938]:
+                  - paragraph [ref=e940]:
+                    - text: ‍
+                    - emphasis [ref=e941]: "\"There’s a"
+                    - strong [ref=e942]:
+                      - emphasis [ref=e943]: strong culture of ownership here -- but also of collaboration
+                    - emphasis [ref=e944]: . I’ve had the opportunity to take on challenging projects that stretched my skills and pushed me to think more strategically, all while being supported by teammates. Whether it's brainstorming new ideas, iterating quickly, or celebrating wins,
+                    - strong [ref=e945]:
+                      - emphasis [ref=e946]: the energy is fast-paced but deeply human
+                    - emphasis [ref=e947]: ."
+                  - generic [ref=e949]:
+                    - generic [ref=e950]: Nicky Budd-Thanos
+                    - generic [ref=e951]: Senior Content Marketing Manager
+              - listitem [ref=e952]:
+                - generic [ref=e953]:
+                  - paragraph [ref=e955]:
+                    - emphasis [ref=e956]: “Even in my first year at Cresta, it’s clear that the
+                    - strong [ref=e957]:
+                      - emphasis [ref=e958]: bar is incredibly high
+                    - emphasis [ref=e959]: — not just in engineering talent, but in empathy, curiosity, and drive. There’s a
+                    - strong [ref=e960]:
+                      - emphasis [ref=e961]: deep sense of ownership
+                    - emphasis [ref=e962]: in how we build and collaborate, and a
+                    - strong [ref=e963]:
+                      - emphasis [ref=e964]: shared commitment to solving real problems for our customers
+                    - emphasis [ref=e965]: .”
+                  - generic [ref=e967]:
+                    - generic [ref=e968]: Florin Szilagyi
+                    - generic [ref=e969]: Software and Business Development Consultant
+              - listitem [ref=e970]:
+                - generic [ref=e971]:
+                  - paragraph [ref=e973]:
+                    - emphasis [ref=e974]: “At Cresta, it feels like
+                    - strong [ref=e975]:
+                      - emphasis [ref=e976]: you’re in the engine room of a rocket ship
+                    - emphasis [ref=e977]: — moving fast, solving hard problems, and knowing exactly why it matters. There’s a
+                    - strong [ref=e978]:
+                      - emphasis [ref=e979]: shared energy grounded in curiosity, ownership, and care
+                    - emphasis [ref=e980]: . What drives us isn’t just speed, but alignment — a deep connection to our customers and to each other. It’s a culture where ambition and empathy work side by side, and
+                    - strong [ref=e981]:
+                      - emphasis [ref=e982]: you feel the impact of your work every day
+                    - emphasis [ref=e983]: .”
+                  - generic [ref=e985]:
+                    - generic [ref=e986]: Yuval Vardi
+                    - generic [ref=e987]: Revenue Operations Manager, GTM
+              - listitem [ref=e988]:
+                - generic [ref=e989]:
+                  - paragraph [ref=e991]:
+                    - emphasis [ref=e992]: “I feel lucky to work somewhere that’s
+                    - strong [ref=e993]:
+                      - emphasis [ref=e994]: so focused on its mission
+                    - emphasis [ref=e995]: . I’m very proud that Cresta
+                    - strong [ref=e996]:
+                      - emphasis [ref=e997]: fosters a culture of collaboration, ownership, and curiosity
+                    - emphasis [ref=e998]: . It’s a place where smart, driven people come together to solve challenging problems and work towards a shared goal.”
+                  - generic [ref=e1000]:
+                    - generic [ref=e1001]: Emily Kessel
+                    - generic [ref=e1002]: Commercial Counsel
+              - listitem [ref=e1003]:
+                - generic [ref=e1004]:
+                  - paragraph [ref=e1006]:
+                    - emphasis [ref=e1007]: "\"I feel truly privileged to work alongside people who are not just"
+                    - strong [ref=e1008]:
+                      - emphasis [ref=e1009]: exceptionally talented but kind, humble, and selfless
+                    - emphasis [ref=e1010]: . We help our customers win by
+                    - strong [ref=e1011]:
+                      - emphasis [ref=e1012]: valuing them as much as we value each other
+                    - emphasis [ref=e1013]: ."
+                  - generic [ref=e1015]:
+                    - generic [ref=e1016]: Julian Zhang
+                    - generic [ref=e1017]: Customer Engineer
+              - listitem [ref=e1018]:
+                - generic [ref=e1019]:
+                  - paragraph [ref=e1021]:
+                    - emphasis [ref=e1022]: "“I joined Cresta because every conversation during the interview process made one thing clear:"
+                    - strong [ref=e1023]:
+                      - emphasis [ref=e1024]: the people here are hungry to accomplish big things and win
+                    - emphasis [ref=e1025]: by delivering real value through AI. Four years later that energy hasn’t changed; we celebrate wins together, learn fast, and stay
+                    - strong [ref=e1026]:
+                      - emphasis [ref=e1027]: laser-focused on delivering impact for our customers
+                    - emphasis [ref=e1028]: .”
+                  - generic [ref=e1030]:
+                    - generic [ref=e1031]: Colin Jenkins
+                    - generic [ref=e1032]: Implementation Manager
+              - listitem [ref=e1033]:
+                - generic [ref=e1034]:
+                  - paragraph [ref=e1036]:
+                    - emphasis [ref=e1037]: “I feel
+                    - strong [ref=e1038]:
+                      - emphasis [ref=e1039]: constantly motivated seeing how our products impact people’s day-to-day work
+                    - emphasis [ref=e1040]: . It’s inspiring to hear how excited customers are about new features and how we’re evolving to meet their needs.
+                    - strong [ref=e1041]:
+                      - emphasis [ref=e1042]: Their excitement pushes me to do better and reminds me why building the right product truly matters
+                    - emphasis [ref=e1043]: .”
+                  - generic [ref=e1045]:
+                    - generic [ref=e1046]: Eleanore An
+                    - generic [ref=e1047]: Senior Product Manager
+              - listitem [ref=e1048]:
+                - generic [ref=e1049]:
+                  - paragraph [ref=e1051]:
+                    - emphasis [ref=e1052]: "\"From day one, it was clear this wasn’t just a job — it was a"
+                    - strong [ref=e1053]:
+                      - emphasis [ref=e1054]: chance to be part of something transformative
+                    - emphasis [ref=e1055]: . The vision, the momentum, the belief in what we’re building — it’s electric."
+                  - generic [ref=e1057]:
+                    - generic [ref=e1058]: Maddie Baumann
+                    - generic [ref=e1059]: Enterprise Account Executive
+              - listitem [ref=e1060]:
+                - generic [ref=e1061]:
+                  - paragraph [ref=e1063]:
+                    - text: ‍
+                    - emphasis [ref=e1064]: “The best part of Cresta is the
+                    - strong [ref=e1065]:
+                      - emphasis [ref=e1066]: talent density
+                    - emphasis [ref=e1067]: . It’s not just ‘10x’ engineers—it’s 100x. Being surrounded by people like that is humbling and energizing.
+                    - strong [ref=e1068]:
+                      - emphasis [ref=e1069]: We push each other, learn from each other, and ship things that truly move the needle.
+                    - emphasis [ref=e1070]: ”
+                  - generic [ref=e1072]:
+                    - generic [ref=e1073]: Dong Zhao
+                    - generic [ref=e1074]: Software Engineer
+              - listitem [ref=e1075]:
+                - generic [ref=e1076]:
+                  - paragraph [ref=e1078]:
+                    - emphasis [ref=e1079]: “What I love about Cresta is getting to
+                    - strong [ref=e1080]:
+                      - emphasis [ref=e1081]: shape how businesses connect with their customers
+                    - emphasis [ref=e1082]: —while working with some of the most talented people I've ever met. It's so
+                    - strong [ref=e1083]:
+                      - emphasis [ref=e1084]: rare to find a place where cutting-edge AI, real impact, and a genuinely supportive team all come together,
+                    - emphasis [ref=e1085]: but that's exactly what we have here.”
+                  - generic [ref=e1087]:
+                    - generic [ref=e1088]: Melissa Abraham
+                    - generic [ref=e1089]: Strategic Sales Director
+              - listitem [ref=e1090]:
+                - generic [ref=e1091]:
+                  - paragraph [ref=e1093]:
+                    - emphasis [ref=e1094]: "\"When I joined Cresta, I knew I was"
+                    - strong [ref=e1095]:
+                      - emphasis [ref=e1096]: stepping into something special
+                    - emphasis [ref=e1097]: . In just 12 months, I’ve helped build an incredible GTM team—hiring talent across Sales, Marketing, CS, PS, and Solutions Engineering. Watching those hires thrive and fuel our momentum has been one of the most fulfilling parts of my career. From Day 1 to today,
+                    - strong [ref=e1098]:
+                      - emphasis [ref=e1099]: my belief in what we’re building has only grown stronger
+                    - emphasis [ref=e1100]: . I feel lucky to work alongside brilliant minds and inspiring stakeholders—it still feels like we’re just getting started."
+                  - generic [ref=e1102]:
+                    - generic [ref=e1103]: Melissa Bair
+                    - generic [ref=e1104]: GTM Recruiter
+              - listitem [ref=e1105]:
+                - generic [ref=e1106]:
+                  - generic [ref=e1107]:
+                    - paragraph [ref=e1108]:
+                      - emphasis [ref=e1109]: “Working at Cresta offers not only a
+                      - strong [ref=e1110]:
+                        - emphasis [ref=e1111]: front-row seat to the ongoing AI revolution
+                      - emphasis [ref=e1112]: ", but a chance to s"
+                      - strong [ref=e1113]:
+                        - emphasis [ref=e1114]: hape the future alongside some of the most talented engineers
+                      - emphasis [ref=e1115]: in the industry.”
+                    - paragraph [ref=e1116]:
+                      - emphasis: ‍
+                  - generic [ref=e1118]:
+                    - generic [ref=e1119]: Iwona Bialynicka-Birula
+                    - generic [ref=e1120]: Software Engineer
+              - listitem [ref=e1121]:
+                - generic [ref=e1122]:
+                  - paragraph [ref=e1124]:
+                    - emphasis [ref=e1125]: “
+                    - strong [ref=e1126]:
+                      - emphasis [ref=e1127]: Extremely smart and ambitious people, cutting edge technology and a big market
+                    - emphasis [ref=e1128]: to go after - joining Cresta was simply a no-brainer.”
+                  - generic [ref=e1130]:
+                    - generic [ref=e1131]: Robert Kugler
+                    - generic [ref=e1132]: Head of Security, IT and Compliance
+              - listitem [ref=e1133]:
+                - generic [ref=e1134]:
+                  - paragraph [ref=e1136]:
+                    - emphasis [ref=e1137]: “At Cresta, I’ve
+                    - strong [ref=e1138]:
+                      - emphasis [ref=e1139]: witnessed a level of transformation I’ve never seen anywhere else
+                    - emphasis [ref=e1140]: . The impact we’re driving—for our customers, for their frontline teams, and for their businesses—is truly remarkable. From measurable business outcomes to frontline feedback and executive-level advocacy, the results speak for themselves. What makes it so rewarding is knowing that we’re not just building technology—
+                    - strong [ref=e1141]:
+                      - emphasis [ref=e1142]: we’re helping our customers win, at every level.
+                    - emphasis [ref=e1143]: ”
+                  - generic [ref=e1145]:
+                    - generic [ref=e1146]: Chad Korpeck
+                    - generic [ref=e1147]: Strategic Sales Director
+              - listitem [ref=e1148]:
+                - generic [ref=e1149]:
+                  - paragraph [ref=e1151]:
+                    - text: ‍
+                    - emphasis [ref=e1152]: “Most SDR roles are a stepping stone —
+                    - strong [ref=e1153]:
+                      - emphasis [ref=e1154]: at Cresta, it’s a launchpad
+                    - emphasis [ref=e1155]: . From day one, I’ve been learning how to think strategically, speak consultatively, and contribute to real deals. What makes it even more rewarding is how close we are to the customer. I hear firsthand how Cresta transforms live conversations, and I get to sell a product that actually delivers.
+                    - strong [ref=e1156]:
+                      - emphasis [ref=e1157]: When prospects ask, ‘Can it really do that?’ — we show them it already is
+                    - emphasis [ref=e1158]: .”
+                  - generic [ref=e1160]:
+                    - generic [ref=e1161]: Javier Amezcua
+                    - generic [ref=e1162]: Sales Development Representative
+            - list [ref=e1164]:
+              - listitem [ref=e1165]:
+                - generic [ref=e1166]:
+                  - paragraph [ref=e1168]:
+                    - text: ‍
+                    - emphasis [ref=e1169]: "\"There’s a"
+                    - strong [ref=e1170]:
+                      - emphasis [ref=e1171]: strong culture of ownership here -- but also of collaboration
+                    - emphasis [ref=e1172]: . I’ve had the opportunity to take on challenging projects that stretched my skills and pushed me to think more strategically, all while being supported by teammates. Whether it's brainstorming new ideas, iterating quickly, or celebrating wins,
+                    - strong [ref=e1173]:
+                      - emphasis [ref=e1174]: the energy is fast-paced but deeply human
+                    - emphasis [ref=e1175]: ."
+                  - generic [ref=e1177]:
+                    - generic [ref=e1178]: Nicky Budd-Thanos
+                    - generic [ref=e1179]: Senior Content Marketing Manager
+              - listitem [ref=e1180]:
+                - generic [ref=e1181]:
+                  - paragraph [ref=e1183]:
+                    - emphasis [ref=e1184]: “Even in my first year at Cresta, it’s clear that the
+                    - strong [ref=e1185]:
+                      - emphasis [ref=e1186]: bar is incredibly high
+                    - emphasis [ref=e1187]: — not just in engineering talent, but in empathy, curiosity, and drive. There’s a
+                    - strong [ref=e1188]:
+                      - emphasis [ref=e1189]: deep sense of ownership
+                    - emphasis [ref=e1190]: in how we build and collaborate, and a
+                    - strong [ref=e1191]:
+                      - emphasis [ref=e1192]: shared commitment to solving real problems for our customers
+                    - emphasis [ref=e1193]: .”
+                  - generic [ref=e1195]:
+                    - generic [ref=e1196]: Florin Szilagyi
+                    - generic [ref=e1197]: Software and Business Development Consultant
+              - listitem [ref=e1198]:
+                - generic [ref=e1199]:
+                  - paragraph [ref=e1201]:
+                    - emphasis [ref=e1202]: “At Cresta, it feels like
+                    - strong [ref=e1203]:
+                      - emphasis [ref=e1204]: you’re in the engine room of a rocket ship
+                    - emphasis [ref=e1205]: — moving fast, solving hard problems, and knowing exactly why it matters. There’s a
+                    - strong [ref=e1206]:
+                      - emphasis [ref=e1207]: shared energy grounded in curiosity, ownership, and care
+                    - emphasis [ref=e1208]: . What drives us isn’t just speed, but alignment — a deep connection to our customers and to each other. It’s a culture where ambition and empathy work side by side, and
+                    - strong [ref=e1209]:
+                      - emphasis [ref=e1210]: you feel the impact of your work every day
+                    - emphasis [ref=e1211]: .”
+                  - generic [ref=e1213]:
+                    - generic [ref=e1214]: Yuval Vardi
+                    - generic [ref=e1215]: Revenue Operations Manager, GTM
+              - listitem [ref=e1216]:
+                - generic [ref=e1217]:
+                  - paragraph [ref=e1219]:
+                    - emphasis [ref=e1220]: “I feel lucky to work somewhere that’s
+                    - strong [ref=e1221]:
+                      - emphasis [ref=e1222]: so focused on its mission
+                    - emphasis [ref=e1223]: . I’m very proud that Cresta
+                    - strong [ref=e1224]:
+                      - emphasis [ref=e1225]: fosters a culture of collaboration, ownership, and curiosity
+                    - emphasis [ref=e1226]: . It’s a place where smart, driven people come together to solve challenging problems and work towards a shared goal.”
+                  - generic [ref=e1228]:
+                    - generic [ref=e1229]: Emily Kessel
+                    - generic [ref=e1230]: Commercial Counsel
+              - listitem [ref=e1231]:
+                - generic [ref=e1232]:
+                  - paragraph [ref=e1234]:
+                    - emphasis [ref=e1235]: "\"I feel truly privileged to work alongside people who are not just"
+                    - strong [ref=e1236]:
+                      - emphasis [ref=e1237]: exceptionally talented but kind, humble, and selfless
+                    - emphasis [ref=e1238]: . We help our customers win by
+                    - strong [ref=e1239]:
+                      - emphasis [ref=e1240]: valuing them as much as we value each other
+                    - emphasis [ref=e1241]: ."
+                  - generic [ref=e1243]:
+                    - generic [ref=e1244]: Julian Zhang
+                    - generic [ref=e1245]: Customer Engineer
+              - listitem [ref=e1246]:
+                - generic [ref=e1247]:
+                  - paragraph [ref=e1249]:
+                    - emphasis [ref=e1250]: "“I joined Cresta because every conversation during the interview process made one thing clear:"
+                    - strong [ref=e1251]:
+                      - emphasis [ref=e1252]: the people here are hungry to accomplish big things and win
+                    - emphasis [ref=e1253]: by delivering real value through AI. Four years later that energy hasn’t changed; we celebrate wins together, learn fast, and stay
+                    - strong [ref=e1254]:
+                      - emphasis [ref=e1255]: laser-focused on delivering impact for our customers
+                    - emphasis [ref=e1256]: .”
+                  - generic [ref=e1258]:
+                    - generic [ref=e1259]: Colin Jenkins
+                    - generic [ref=e1260]: Implementation Manager
+              - listitem [ref=e1261]:
+                - generic [ref=e1262]:
+                  - paragraph [ref=e1264]:
+                    - emphasis [ref=e1265]: “I feel
+                    - strong [ref=e1266]:
+                      - emphasis [ref=e1267]: constantly motivated seeing how our products impact people’s day-to-day work
+                    - emphasis [ref=e1268]: . It’s inspiring to hear how excited customers are about new features and how we’re evolving to meet their needs.
+                    - strong [ref=e1269]:
+                      - emphasis [ref=e1270]: Their excitement pushes me to do better and reminds me why building the right product truly matters
+                    - emphasis [ref=e1271]: .”
+                  - generic [ref=e1273]:
+                    - generic [ref=e1274]: Eleanore An
+                    - generic [ref=e1275]: Senior Product Manager
+              - listitem [ref=e1276]:
+                - generic [ref=e1277]:
+                  - paragraph [ref=e1279]:
+                    - emphasis [ref=e1280]: "\"From day one, it was clear this wasn’t just a job — it was a"
+                    - strong [ref=e1281]:
+                      - emphasis [ref=e1282]: chance to be part of something transformative
+                    - emphasis [ref=e1283]: . The vision, the momentum, the belief in what we’re building — it’s electric."
+                  - generic [ref=e1285]:
+                    - generic [ref=e1286]: Maddie Baumann
+                    - generic [ref=e1287]: Enterprise Account Executive
+              - listitem [ref=e1288]:
+                - generic [ref=e1289]:
+                  - paragraph [ref=e1291]:
+                    - text: ‍
+                    - emphasis [ref=e1292]: “The best part of Cresta is the
+                    - strong [ref=e1293]:
+                      - emphasis [ref=e1294]: talent density
+                    - emphasis [ref=e1295]: . It’s not just ‘10x’ engineers—it’s 100x. Being surrounded by people like that is humbling and energizing.
+                    - strong [ref=e1296]:
+                      - emphasis [ref=e1297]: We push each other, learn from each other, and ship things that truly move the needle.
+                    - emphasis [ref=e1298]: ”
+                  - generic [ref=e1300]:
+                    - generic [ref=e1301]: Dong Zhao
+                    - generic [ref=e1302]: Software Engineer
+              - listitem [ref=e1303]:
+                - generic [ref=e1304]:
+                  - paragraph [ref=e1306]:
+                    - emphasis [ref=e1307]: “What I love about Cresta is getting to
+                    - strong [ref=e1308]:
+                      - emphasis [ref=e1309]: shape how businesses connect with their customers
+                    - emphasis [ref=e1310]: —while working with some of the most talented people I've ever met. It's so
+                    - strong [ref=e1311]:
+                      - emphasis [ref=e1312]: rare to find a place where cutting-edge AI, real impact, and a genuinely supportive team all come together,
+                    - emphasis [ref=e1313]: but that's exactly what we have here.”
+                  - generic [ref=e1315]:
+                    - generic [ref=e1316]: Melissa Abraham
+                    - generic [ref=e1317]: Strategic Sales Director
+              - listitem [ref=e1318]:
+                - generic [ref=e1319]:
+                  - paragraph [ref=e1321]:
+                    - emphasis [ref=e1322]: "\"When I joined Cresta, I knew I was"
+                    - strong [ref=e1323]:
+                      - emphasis [ref=e1324]: stepping into something special
+                    - emphasis [ref=e1325]: . In just 12 months, I’ve helped build an incredible GTM team—hiring talent across Sales, Marketing, CS, PS, and Solutions Engineering. Watching those hires thrive and fuel our momentum has been one of the most fulfilling parts of my career. From Day 1 to today,
+                    - strong [ref=e1326]:
+                      - emphasis [ref=e1327]: my belief in what we’re building has only grown stronger
+                    - emphasis [ref=e1328]: . I feel lucky to work alongside brilliant minds and inspiring stakeholders—it still feels like we’re just getting started."
+                  - generic [ref=e1330]:
+                    - generic [ref=e1331]: Melissa Bair
+                    - generic [ref=e1332]: GTM Recruiter
+              - listitem [ref=e1333]:
+                - generic [ref=e1334]:
+                  - generic [ref=e1335]:
+                    - paragraph [ref=e1336]:
+                      - emphasis [ref=e1337]: “Working at Cresta offers not only a
+                      - strong [ref=e1338]:
+                        - emphasis [ref=e1339]: front-row seat to the ongoing AI revolution
+                      - emphasis [ref=e1340]: ", but a chance to s"
+                      - strong [ref=e1341]:
+                        - emphasis [ref=e1342]: hape the future alongside some of the most talented engineers
+                      - emphasis [ref=e1343]: in the industry.”
+                    - paragraph [ref=e1344]:
+                      - emphasis: ‍
+                  - generic [ref=e1346]:
+                    - generic [ref=e1347]: Iwona Bialynicka-Birula
+                    - generic [ref=e1348]: Software Engineer
+              - listitem [ref=e1349]:
+                - generic [ref=e1350]:
+                  - paragraph [ref=e1352]:
+                    - emphasis [ref=e1353]: “
+                    - strong [ref=e1354]:
+                      - emphasis [ref=e1355]: Extremely smart and ambitious people, cutting edge technology and a big market
+                    - emphasis [ref=e1356]: to go after - joining Cresta was simply a no-brainer.”
+                  - generic [ref=e1358]:
+                    - generic [ref=e1359]: Robert Kugler
+                    - generic [ref=e1360]: Head of Security, IT and Compliance
+              - listitem [ref=e1361]:
+                - generic [ref=e1362]:
+                  - paragraph [ref=e1364]:
+                    - emphasis [ref=e1365]: “At Cresta, I’ve
+                    - strong [ref=e1366]:
+                      - emphasis [ref=e1367]: witnessed a level of transformation I’ve never seen anywhere else
+                    - emphasis [ref=e1368]: . The impact we’re driving—for our customers, for their frontline teams, and for their businesses—is truly remarkable. From measurable business outcomes to frontline feedback and executive-level advocacy, the results speak for themselves. What makes it so rewarding is knowing that we’re not just building technology—
+                    - strong [ref=e1369]:
+                      - emphasis [ref=e1370]: we’re helping our customers win, at every level.
+                    - emphasis [ref=e1371]: ”
+                  - generic [ref=e1373]:
+                    - generic [ref=e1374]: Chad Korpeck
+                    - generic [ref=e1375]: Strategic Sales Director
+              - listitem [ref=e1376]:
+                - generic [ref=e1377]:
+                  - paragraph [ref=e1379]:
+                    - text: ‍
+                    - emphasis [ref=e1380]: “Most SDR roles are a stepping stone —
+                    - strong [ref=e1381]:
+                      - emphasis [ref=e1382]: at Cresta, it’s a launchpad
+                    - emphasis [ref=e1383]: . From day one, I’ve been learning how to think strategically, speak consultatively, and contribute to real deals. What makes it even more rewarding is how close we are to the customer. I hear firsthand how Cresta transforms live conversations, and I get to sell a product that actually delivers.
+                    - strong [ref=e1384]:
+                      - emphasis [ref=e1385]: When prospects ask, ‘Can it really do that?’ — we show them it already is
+                    - emphasis [ref=e1386]: .”
+                  - generic [ref=e1388]:
+                    - generic [ref=e1389]: Javier Amezcua
+                    - generic [ref=e1390]: Sales Development Representative
+        - link "View careers" [ref=e1392] [cursor=pointer]:
+          - /url: "#careers"
+          - generic [ref=e1393]: View careers
+        - generic [ref=e1397]:
+          - generic [ref=e1398]:
+            - heading "Dive deeper into Cresta" [level=2] [ref=e1399]
+            - paragraph [ref=e1400]: Curious about our history or leadership? Take a moment to double-click before submitting your application.
+            - link "Learn more about us" [ref=e1401] [cursor=pointer]:
+              - /url: /about-us
+              - generic [ref=e1402]: Learn more about us
+          - img "Computer user"
+      - generic [ref=e1405]:
+        - heading "Find a position that fits you" [level=2] [ref=e1406]
+        - generic [ref=e1407]:
+          - generic [ref=e1408]:
+            - form "Search" [ref=e1409]:
+              - generic [ref=e1410]:
+                - button "All Departments" [ref=e1412] [cursor=pointer]:
+                  - generic [ref=e1413]: All Departments
+                  - img [ref=e1415]
+                - button "All Locations" [ref=e1418] [cursor=pointer]:
+                  - generic [ref=e1419]: All Locations
+                  - img [ref=e1421]
+              - generic [ref=e1423]:
+                - img [ref=e1425]
+                - textbox "Search" [ref=e1428]
+            - paragraph [ref=e1429]: 75 roles across All Departments and All Locations
+          - generic [ref=e1430]:
+            - generic [ref=e1431]:
+              - heading "Professional Services" [level=3] [ref=e1432]
+              - generic [ref=e1434]:
+                - generic [ref=e1435]:
+                  - heading "AI Deployment Manager" [level=4] [ref=e1436]
+                  - generic [ref=e1437]: Professional Services
+                - generic [ref=e1438]:
+                  - generic [ref=e1439]:
+                    - generic [ref=e1440]:
+                      - img [ref=e1442]
+                      - generic [ref=e1451]: United States, Remote
+                    - generic [ref=e1453]:
+                      - img [ref=e1455]
+                      - generic [ref=e1458]: Full-time
+                  - link "Learn More" [ref=e1459] [cursor=pointer]:
+                    - /url: https://job-boards.greenhouse.io/cresta/jobs/5078921008
+                    - generic [ref=e1460]: Learn More
+                    - img [ref=e1462]
+            - generic [ref=e1465]:
+              - heading "Other" [level=3] [ref=e1466]
+              - generic [ref=e1467]:
+                - generic [ref=e1468]:
+                  - generic [ref=e1469]:
+                    - heading "AI Quality Assurance Intern" [level=4] [ref=e1470]
+                    - generic [ref=e1471]: Other
+                  - generic [ref=e1472]:
+                    - generic [ref=e1473]:
+                      - generic [ref=e1474]:
+                        - img [ref=e1476]
+                        - generic [ref=e1485]: Toronto, Ontario
+                      - generic [ref=e1487]:
+                        - img [ref=e1489]
+                        - generic [ref=e1492]: N/A
+                    - link "Learn More" [ref=e1493] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/5047247008
+                      - generic [ref=e1494]: Learn More
+                      - img [ref=e1496]
+                - generic [ref=e1499]:
+                  - generic [ref=e1500]:
+                    - heading "Conversational Design Intern" [level=4] [ref=e1501]
+                    - generic [ref=e1502]: Other
+                  - generic [ref=e1503]:
+                    - generic [ref=e1504]:
+                      - generic [ref=e1505]:
+                        - img [ref=e1507]
+                        - generic [ref=e1516]: Toronto Canada
+                      - generic [ref=e1518]:
+                        - img [ref=e1520]
+                        - generic [ref=e1523]: N/A
+                    - link "Learn More" [ref=e1524] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4125376008
+                      - generic [ref=e1525]: Learn More
+                      - img [ref=e1527]
+                - generic [ref=e1530]:
+                  - generic [ref=e1531]:
+                    - heading "Full Stack Engineering Intern" [level=4] [ref=e1532]
+                    - generic [ref=e1533]: Other
+                  - generic [ref=e1534]:
+                    - generic [ref=e1535]:
+                      - generic [ref=e1536]:
+                        - img [ref=e1538]
+                        - generic [ref=e1547]: Toronto Canada
+                      - generic [ref=e1549]:
+                        - img [ref=e1551]
+                        - generic [ref=e1554]: N/A
+                    - link "Learn More" [ref=e1555] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4123841008
+                      - generic [ref=e1556]: Learn More
+                      - img [ref=e1558]
+                - generic [ref=e1561]:
+                  - generic [ref=e1562]:
+                    - heading "Machine Learning Engineering Intern" [level=4] [ref=e1563]
+                    - generic [ref=e1564]: Other
+                  - generic [ref=e1565]:
+                    - generic [ref=e1566]:
+                      - generic [ref=e1567]:
+                        - img [ref=e1569]
+                        - generic [ref=e1578]: Toronto Canada
+                      - generic [ref=e1580]:
+                        - img [ref=e1582]
+                        - generic [ref=e1585]: N/A
+                    - link "Learn More" [ref=e1586] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4123863008
+                      - generic [ref=e1587]: Learn More
+                      - img [ref=e1589]
+                - generic [ref=e1592]:
+                  - generic [ref=e1593]:
+                    - heading "Product Design Intern for AI and Human Agents Platform" [level=4] [ref=e1594]
+                    - generic [ref=e1595]: Other
+                  - generic [ref=e1596]:
+                    - generic [ref=e1597]:
+                      - generic [ref=e1598]:
+                        - img [ref=e1600]
+                        - generic [ref=e1609]: Toronto, Canada
+                      - generic [ref=e1611]:
+                        - img [ref=e1613]
+                        - generic [ref=e1616]: N/A
+                    - link "Learn More" [ref=e1617] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4476000008
+                      - generic [ref=e1618]: Learn More
+                      - img [ref=e1620]
+            - generic [ref=e1623]:
+              - heading "Sales" [level=3] [ref=e1624]
+              - generic [ref=e1625]:
+                - generic [ref=e1626]:
+                  - generic [ref=e1627]:
+                    - heading "Associate Enablement Manager, GTM Onboarding" [level=4] [ref=e1628]
+                    - generic [ref=e1629]: Sales
+                  - generic [ref=e1630]:
+                    - generic [ref=e1631]:
+                      - generic [ref=e1632]:
+                        - img [ref=e1634]
+                        - generic [ref=e1643]: San Francisco, Remote
+                      - generic [ref=e1645]:
+                        - img [ref=e1647]
+                        - generic [ref=e1650]: Full-time
+                    - link "Learn More" [ref=e1651] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/5040301008
+                      - generic [ref=e1652]: Learn More
+                      - img [ref=e1654]
+                - generic [ref=e1657]:
+                  - generic [ref=e1658]:
+                    - heading "Associate Enablement Manager, SDR" [level=4] [ref=e1659]
+                    - generic [ref=e1660]: Sales
+                  - generic [ref=e1661]:
+                    - generic [ref=e1662]:
+                      - generic [ref=e1663]:
+                        - img [ref=e1665]
+                        - generic [ref=e1674]: San Francisco, Remote
+                      - generic [ref=e1676]:
+                        - img [ref=e1678]
+                        - generic [ref=e1681]: Full-time
+                    - link "Learn More" [ref=e1682] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/5040272008
+                      - generic [ref=e1683]: Learn More
+                      - img [ref=e1685]
+                - generic [ref=e1688]:
+                  - generic [ref=e1689]:
+                    - heading "Customer Strategy Director" [level=4] [ref=e1690]
+                    - generic [ref=e1691]: Sales
+                  - generic [ref=e1692]:
+                    - generic [ref=e1693]:
+                      - generic [ref=e1694]:
+                        - img [ref=e1696]
+                        - generic [ref=e1705]: United States, Remote
+                      - generic [ref=e1707]:
+                        - img [ref=e1709]
+                        - generic [ref=e1712]: Full-time
+                    - link "Learn More" [ref=e1713] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4951656008
+                      - generic [ref=e1714]: Learn More
+                      - img [ref=e1716]
+                - generic [ref=e1719]:
+                  - generic [ref=e1720]:
+                    - heading "Director, Enterprise Sales, West" [level=4] [ref=e1721]
+                    - generic [ref=e1722]: Sales
+                  - generic [ref=e1723]:
+                    - generic [ref=e1724]:
+                      - generic [ref=e1725]:
+                        - img [ref=e1727]
+                        - generic [ref=e1736]: United States, Remote
+                      - generic [ref=e1738]:
+                        - img [ref=e1740]
+                        - generic [ref=e1743]: Full-time
+                    - link "Learn More" [ref=e1744] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4789124008
+                      - generic [ref=e1745]: Learn More
+                      - img [ref=e1747]
+                - generic [ref=e1750]:
+                  - generic [ref=e1751]:
+                    - heading "Enterprise Account Executive" [level=4] [ref=e1752]
+                    - generic [ref=e1753]: Sales
+                  - generic [ref=e1754]:
+                    - generic [ref=e1755]:
+                      - generic [ref=e1756]:
+                        - img [ref=e1758]
+                        - generic [ref=e1767]: United States, Remote
+                      - generic [ref=e1769]:
+                        - img [ref=e1771]
+                        - generic [ref=e1774]: Full-time
+                    - link "Learn More" [ref=e1775] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4494927008
+                      - generic [ref=e1776]: Learn More
+                      - img [ref=e1778]
+                - generic [ref=e1781]:
+                  - generic [ref=e1782]:
+                    - heading "Enterprise Account Executive, EMEA" [level=4] [ref=e1783]
+                    - generic [ref=e1784]: Sales
+                  - generic [ref=e1785]:
+                    - generic [ref=e1786]:
+                      - generic [ref=e1787]:
+                        - img [ref=e1789]
+                        - generic [ref=e1798]: London, England, United Kingdom
+                      - generic [ref=e1800]:
+                        - img [ref=e1802]
+                        - generic [ref=e1805]: Full-time
+                    - link "Learn More" [ref=e1806] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4981775008
+                      - generic [ref=e1807]: Learn More
+                      - img [ref=e1809]
+                - generic [ref=e1812]:
+                  - generic [ref=e1813]:
+                    - heading "Enterprise Solutions Engineer" [level=4] [ref=e1814]
+                    - generic [ref=e1815]: Sales
+                  - generic [ref=e1816]:
+                    - generic [ref=e1817]:
+                      - generic [ref=e1818]:
+                        - img [ref=e1820]
+                        - generic [ref=e1829]: United States Remote
+                      - generic [ref=e1831]:
+                        - img [ref=e1833]
+                        - generic [ref=e1836]: Full-time
+                    - link "Learn More" [ref=e1837] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4906900008
+                      - generic [ref=e1838]: Learn More
+                      - img [ref=e1840]
+                - generic [ref=e1843]:
+                  - generic [ref=e1844]:
+                    - heading "Partner Sales Manager, Five9" [level=4] [ref=e1845]
+                    - generic [ref=e1846]: Sales
+                  - generic [ref=e1847]:
+                    - generic [ref=e1848]:
+                      - generic [ref=e1849]:
+                        - img [ref=e1851]
+                        - generic [ref=e1860]: United States, Remote
+                      - generic [ref=e1862]:
+                        - img [ref=e1864]
+                        - generic [ref=e1867]: Full-time
+                    - link "Learn More" [ref=e1868] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/5061506008
+                      - generic [ref=e1869]: Learn More
+                      - img [ref=e1871]
+                - generic [ref=e1874]:
+                  - generic [ref=e1875]:
+                    - heading "RVP, Strategic Sales, East" [level=4] [ref=e1876]
+                    - generic [ref=e1877]: Sales
+                  - generic [ref=e1878]:
+                    - generic [ref=e1879]:
+                      - generic [ref=e1880]:
+                        - img [ref=e1882]
+                        - generic [ref=e1891]: United States, Remote
+                      - generic [ref=e1893]:
+                        - img [ref=e1895]
+                        - generic [ref=e1898]: Full-time
+                    - link "Learn More" [ref=e1899] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/5016017008
+                      - generic [ref=e1900]: Learn More
+                      - img [ref=e1902]
+                - generic [ref=e1905]:
+                  - generic [ref=e1906]:
+                    - heading "RVP, Strategic Sales, West" [level=4] [ref=e1907]
+                    - generic [ref=e1908]: Sales
+                  - generic [ref=e1909]:
+                    - generic [ref=e1910]:
+                      - generic [ref=e1911]:
+                        - img [ref=e1913]
+                        - generic [ref=e1922]: United States, Remote
+                      - generic [ref=e1924]:
+                        - img [ref=e1926]
+                        - generic [ref=e1929]: Full-time
+                    - link "Learn More" [ref=e1930] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/5012416008
+                      - generic [ref=e1931]: Learn More
+                      - img [ref=e1933]
+                - generic [ref=e1936]:
+                  - generic [ref=e1937]:
+                    - heading "Solutions Engineer, EMEA" [level=4] [ref=e1938]
+                    - generic [ref=e1939]: Sales
+                  - generic [ref=e1940]:
+                    - generic [ref=e1941]:
+                      - generic [ref=e1942]:
+                        - img [ref=e1944]
+                        - generic [ref=e1953]: London, England, United Kingdom
+                      - generic [ref=e1955]:
+                        - img [ref=e1957]
+                        - generic [ref=e1960]: Full-time
+                    - link "Learn More" [ref=e1961] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/5021027008
+                      - generic [ref=e1962]: Learn More
+                      - img [ref=e1964]
+                - generic [ref=e1967]:
+                  - generic [ref=e1968]:
+                    - heading "Strategic Sales Director, Australia" [level=4] [ref=e1969]
+                    - generic [ref=e1970]: Sales
+                  - generic [ref=e1971]:
+                    - generic [ref=e1972]:
+                      - generic [ref=e1973]:
+                        - img [ref=e1975]
+                        - generic [ref=e1984]: Melbourne, Australia
+                      - generic [ref=e1986]:
+                        - img [ref=e1988]
+                        - generic [ref=e1991]: Full-time
+                    - link "Learn More" [ref=e1992] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4900448008
+                      - generic [ref=e1993]: Learn More
+                      - img [ref=e1995]
+                - generic [ref=e1998]:
+                  - generic [ref=e1999]:
+                    - heading "Strategic Sales Director, East" [level=4] [ref=e2000]
+                    - generic [ref=e2001]: Sales
+                  - generic [ref=e2002]:
+                    - generic [ref=e2003]:
+                      - generic [ref=e2004]:
+                        - img [ref=e2006]
+                        - generic [ref=e2015]: United States, Remote
+                      - generic [ref=e2017]:
+                        - img [ref=e2019]
+                        - generic [ref=e2022]: Full-time
+                    - link "Learn More" [ref=e2023] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4808773008
+                      - generic [ref=e2024]: Learn More
+                      - img [ref=e2026]
+                - generic [ref=e2029]:
+                  - generic [ref=e2030]:
+                    - heading "Strategic Sales Director, EMEA" [level=4] [ref=e2031]
+                    - generic [ref=e2032]: Sales
+                  - generic [ref=e2033]:
+                    - generic [ref=e2034]:
+                      - generic [ref=e2035]:
+                        - img [ref=e2037]
+                        - generic [ref=e2046]: London, England, United Kingdom
+                      - generic [ref=e2048]:
+                        - img [ref=e2050]
+                        - generic [ref=e2053]: Full-time
+                    - link "Learn More" [ref=e2054] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4888050008
+                      - generic [ref=e2055]: Learn More
+                      - img [ref=e2057]
+                - generic [ref=e2060]:
+                  - generic [ref=e2061]:
+                    - heading "Strategic Sales Director, West" [level=4] [ref=e2062]
+                    - generic [ref=e2063]: Sales
+                  - generic [ref=e2064]:
+                    - generic [ref=e2065]:
+                      - generic [ref=e2066]:
+                        - img [ref=e2068]
+                        - generic [ref=e2077]: United States, Remote
+                      - generic [ref=e2079]:
+                        - img [ref=e2081]
+                        - generic [ref=e2084]: Full-time
+                    - link "Learn More" [ref=e2085] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4808719008
+                      - generic [ref=e2086]: Learn More
+                      - img [ref=e2088]
+                - generic [ref=e2091]:
+                  - generic [ref=e2092]:
+                    - heading "Strategic Solutions Engineer, East" [level=4] [ref=e2093]
+                    - generic [ref=e2094]: Sales
+                  - generic [ref=e2095]:
+                    - generic [ref=e2096]:
+                      - generic [ref=e2097]:
+                        - img [ref=e2099]
+                        - generic [ref=e2108]: United States Remote
+                      - generic [ref=e2110]:
+                        - img [ref=e2112]
+                        - generic [ref=e2115]: Full-time
+                    - link "Learn More" [ref=e2116] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4985070008
+                      - generic [ref=e2117]: Learn More
+                      - img [ref=e2119]
+                - generic [ref=e2122]:
+                  - generic [ref=e2123]:
+                    - heading "Strategic Solutions Engineer, West" [level=4] [ref=e2124]
+                    - generic [ref=e2125]: Sales
+                  - generic [ref=e2126]:
+                    - generic [ref=e2127]:
+                      - generic [ref=e2128]:
+                        - img [ref=e2130]
+                        - generic [ref=e2139]: United States Remote
+                      - generic [ref=e2141]:
+                        - img [ref=e2143]
+                        - generic [ref=e2146]: Full-time
+                    - link "Learn More" [ref=e2147] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4983651008
+                      - generic [ref=e2148]: Learn More
+                      - img [ref=e2150]
+                - generic [ref=e2153]:
+                  - generic [ref=e2154]:
+                    - heading "VP of Customer Strategy" [level=4] [ref=e2155]
+                    - generic [ref=e2156]: Sales
+                  - generic [ref=e2157]:
+                    - generic [ref=e2158]:
+                      - generic [ref=e2159]:
+                        - img [ref=e2161]
+                        - generic [ref=e2170]: United States, Remote
+                      - generic [ref=e2172]:
+                        - img [ref=e2174]
+                        - generic [ref=e2177]: Full-time
+                    - link "Learn More" [ref=e2178] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/5031442008
+                      - generic [ref=e2179]: Learn More
+                      - img [ref=e2181]
+                - generic [ref=e2184]:
+                  - generic [ref=e2185]:
+                    - heading "VP of Partnerships, APAC" [level=4] [ref=e2186]
+                    - generic [ref=e2187]: Sales
+                  - generic [ref=e2188]:
+                    - generic [ref=e2189]:
+                      - generic [ref=e2190]:
+                        - img [ref=e2192]
+                        - generic [ref=e2201]: Melbourne, Australia
+                      - generic [ref=e2203]:
+                        - img [ref=e2205]
+                        - generic [ref=e2208]: Full-time
+                    - link "Learn More" [ref=e2209] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/5078856008
+                      - generic [ref=e2210]: Learn More
+                      - img [ref=e2212]
+            - generic [ref=e2215]:
+              - heading "Product" [level=3] [ref=e2216]
+              - generic [ref=e2217]:
+                - generic [ref=e2218]:
+                  - generic [ref=e2219]:
+                    - heading "Associate Forward Deployed Product Manager" [level=4] [ref=e2220]
+                    - generic [ref=e2221]: Product
+                  - generic [ref=e2222]:
+                    - generic [ref=e2223]:
+                      - generic [ref=e2224]:
+                        - img [ref=e2226]
+                        - generic [ref=e2235]: United States, Remote
+                      - generic [ref=e2237]:
+                        - img [ref=e2239]
+                        - generic [ref=e2242]: Full-time
+                    - link "Learn More" [ref=e2243] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4992510008
+                      - generic [ref=e2244]: Learn More
+                      - img [ref=e2246]
+                - generic [ref=e2249]:
+                  - generic [ref=e2250]:
+                    - heading "Forward Deployed Product Manager, AI Agent" [level=4] [ref=e2251]
+                    - generic [ref=e2252]: Product
+                  - generic [ref=e2253]:
+                    - generic [ref=e2254]:
+                      - generic [ref=e2255]:
+                        - img [ref=e2257]
+                        - generic [ref=e2266]: United States, Remote
+                      - generic [ref=e2268]:
+                        - img [ref=e2270]
+                        - generic [ref=e2273]: Full-time
+                    - link "Learn More" [ref=e2274] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4738837008
+                      - generic [ref=e2275]: Learn More
+                      - img [ref=e2277]
+                - generic [ref=e2280]:
+                  - generic [ref=e2281]:
+                    - heading "Forward Deployed Product Manager - AI Agent (APAC)" [level=4] [ref=e2282]
+                    - generic [ref=e2283]: Product
+                  - generic [ref=e2284]:
+                    - generic [ref=e2285]:
+                      - generic [ref=e2286]:
+                        - img [ref=e2288]
+                        - generic [ref=e2297]: Melbourne or Sydney, Australia
+                      - generic [ref=e2299]:
+                        - img [ref=e2301]
+                        - generic [ref=e2304]: Full-time
+                    - link "Learn More" [ref=e2305] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/5068285008
+                      - generic [ref=e2306]: Learn More
+                      - img [ref=e2308]
+                - generic [ref=e2311]:
+                  - generic [ref=e2312]:
+                    - heading "Forward Deployed Product Manager - AI Agent (EMEA)" [level=4] [ref=e2313]
+                    - generic [ref=e2314]: Product
+                  - generic [ref=e2315]:
+                    - generic [ref=e2316]:
+                      - generic [ref=e2317]:
+                        - img [ref=e2319]
+                        - generic [ref=e2328]: London, England, United Kingdom
+                      - generic [ref=e2330]:
+                        - img [ref=e2332]
+                        - generic [ref=e2335]: Full-time
+                    - link "Learn More" [ref=e2336] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/5068157008
+                      - generic [ref=e2337]: Learn More
+                      - img [ref=e2339]
+                - generic [ref=e2342]:
+                  - generic [ref=e2343]:
+                    - heading "Product Designer, Quality Management and Coaching Platform" [level=4] [ref=e2344]
+                    - generic [ref=e2345]: Product
+                  - generic [ref=e2346]:
+                    - generic [ref=e2347]:
+                      - generic [ref=e2348]:
+                        - img [ref=e2350]
+                        - generic [ref=e2359]: Canada (Remote)
+                      - generic [ref=e2361]:
+                        - img [ref=e2363]
+                        - generic [ref=e2366]: Full-time
+                    - link "Learn More" [ref=e2367] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4086843008
+                      - generic [ref=e2368]: Learn More
+                      - img [ref=e2370]
+                - generic [ref=e2373]:
+                  - generic [ref=e2374]:
+                    - heading "Product Operations Manager" [level=4] [ref=e2375]
+                    - generic [ref=e2376]: Product
+                  - generic [ref=e2377]:
+                    - generic [ref=e2378]:
+                      - generic [ref=e2379]:
+                        - img [ref=e2381]
+                        - generic [ref=e2390]: United States, Remote
+                      - generic [ref=e2392]:
+                        - img [ref=e2394]
+                        - generic [ref=e2397]: Full-time
+                    - link "Learn More" [ref=e2398] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/5075414008
+                      - generic [ref=e2399]: Learn More
+                      - img [ref=e2401]
+            - generic [ref=e2404]:
+              - heading "Customer Success" [level=3] [ref=e2405]
+              - generic [ref=e2406]:
+                - generic [ref=e2407]:
+                  - generic [ref=e2408]:
+                    - heading "Customer Engineer" [level=4] [ref=e2409]
+                    - generic [ref=e2410]: Customer Success
+                  - generic [ref=e2411]:
+                    - generic [ref=e2412]:
+                      - generic [ref=e2413]:
+                        - img [ref=e2415]
+                        - generic [ref=e2424]: United States, Remote
+                      - generic [ref=e2426]:
+                        - img [ref=e2428]
+                        - generic [ref=e2431]: Full-time
+                    - link "Learn More" [ref=e2432] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4964429008
+                      - generic [ref=e2433]: Learn More
+                      - img [ref=e2435]
+                - generic [ref=e2438]:
+                  - generic [ref=e2439]:
+                    - heading "Data Scientist, Customer Analytics" [level=4] [ref=e2440]
+                    - generic [ref=e2441]: Customer Success
+                  - generic [ref=e2442]:
+                    - generic [ref=e2443]:
+                      - generic [ref=e2444]:
+                        - img [ref=e2446]
+                        - generic [ref=e2455]: United States, Remote
+                      - generic [ref=e2457]:
+                        - img [ref=e2459]
+                        - generic [ref=e2462]: Full-time
+                    - link "Learn More" [ref=e2463] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/5074999008
+                      - generic [ref=e2464]: Learn More
+                      - img [ref=e2466]
+                - generic [ref=e2469]:
+                  - generic [ref=e2470]:
+                    - heading "Enterprise Customer Success Manager" [level=4] [ref=e2471]
+                    - generic [ref=e2472]: Customer Success
+                  - generic [ref=e2473]:
+                    - generic [ref=e2474]:
+                      - generic [ref=e2475]:
+                        - img [ref=e2477]
+                        - generic [ref=e2486]: United States, Remote
+                      - generic [ref=e2488]:
+                        - img [ref=e2490]
+                        - generic [ref=e2493]: Full-time
+                    - link "Learn More" [ref=e2494] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4991074008
+                      - generic [ref=e2495]: Learn More
+                      - img [ref=e2497]
+                - generic [ref=e2500]:
+                  - generic [ref=e2501]:
+                    - heading "Field Technology Director/ CTO – Strategic Industries" [level=4] [ref=e2502]
+                    - generic [ref=e2503]: Customer Success
+                  - generic [ref=e2504]:
+                    - generic [ref=e2505]:
+                      - generic [ref=e2506]:
+                        - img [ref=e2508]
+                        - generic [ref=e2517]: United States, Remote
+                      - generic [ref=e2519]:
+                        - img [ref=e2521]
+                        - generic [ref=e2524]: Full-time
+                    - link "Learn More" [ref=e2525] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/5012699008
+                      - generic [ref=e2526]: Learn More
+                      - img [ref=e2528]
+            - generic [ref=e2531]:
+              - heading "Revenue Operations" [level=3] [ref=e2532]
+              - generic [ref=e2533]:
+                - generic [ref=e2534]:
+                  - generic [ref=e2535]:
+                    - heading "Deal Strategy & Operations Manager" [level=4] [ref=e2536]
+                    - generic [ref=e2537]: Revenue Operations
+                  - generic [ref=e2538]:
+                    - generic [ref=e2539]:
+                      - generic [ref=e2540]:
+                        - img [ref=e2542]
+                        - generic [ref=e2551]: San Francisco, CA/ US, Remote (PT Time Zone Only)
+                      - generic [ref=e2553]:
+                        - img [ref=e2555]
+                        - generic [ref=e2558]: Full-time
+                    - link "Learn More" [ref=e2559] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/5096246008
+                      - generic [ref=e2560]: Learn More
+                      - img [ref=e2562]
+                - generic [ref=e2565]:
+                  - generic [ref=e2566]:
+                    - heading "Salesforce Developer, GTM Systems" [level=4] [ref=e2567]
+                    - generic [ref=e2568]: Revenue Operations
+                  - generic [ref=e2569]:
+                    - generic [ref=e2570]:
+                      - generic [ref=e2571]:
+                        - img [ref=e2573]
+                        - generic [ref=e2582]: Bangalore, India
+                      - generic [ref=e2584]:
+                        - img [ref=e2586]
+                        - generic [ref=e2589]: Full-time
+                    - link "Learn More" [ref=e2590] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4990743008
+                      - generic [ref=e2591]: Learn More
+                      - img [ref=e2593]
+            - generic [ref=e2596]:
+              - heading "Marketing" [level=3] [ref=e2597]
+              - generic [ref=e2598]:
+                - generic [ref=e2599]:
+                  - generic [ref=e2600]:
+                    - heading "Director of Partner Marketing" [level=4] [ref=e2601]
+                    - generic [ref=e2602]: Marketing
+                  - generic [ref=e2603]:
+                    - generic [ref=e2604]:
+                      - generic [ref=e2605]:
+                        - img [ref=e2607]
+                        - generic [ref=e2616]: San Francisco, CA, New York, New York, Remote
+                      - generic [ref=e2618]:
+                        - img [ref=e2620]
+                        - generic [ref=e2623]: Full-time
+                    - link "Learn More" [ref=e2624] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/5080789008
+                      - generic [ref=e2625]: Learn More
+                      - img [ref=e2627]
+                - generic [ref=e2630]:
+                  - generic [ref=e2631]:
+                    - heading "Head of Growth Marketing" [level=4] [ref=e2632]
+                    - generic [ref=e2633]: Marketing
+                  - generic [ref=e2634]:
+                    - generic [ref=e2635]:
+                      - generic [ref=e2636]:
+                        - img [ref=e2638]
+                        - generic [ref=e2647]: United States, Remote
+                      - generic [ref=e2649]:
+                        - img [ref=e2651]
+                        - generic [ref=e2654]: Full-time
+                    - link "Learn More" [ref=e2655] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4969380008
+                      - generic [ref=e2656]: Learn More
+                      - img [ref=e2658]
+                - generic [ref=e2661]:
+                  - generic [ref=e2662]:
+                    - heading "Head of International Marketing" [level=4] [ref=e2663]
+                    - generic [ref=e2664]: Marketing
+                  - generic [ref=e2665]:
+                    - generic [ref=e2666]:
+                      - generic [ref=e2667]:
+                        - img [ref=e2669]
+                        - generic [ref=e2678]: London, England, United Kingdom
+                      - generic [ref=e2680]:
+                        - img [ref=e2682]
+                        - generic [ref=e2685]: Full-time
+                    - link "Learn More" [ref=e2686] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/5055585008
+                      - generic [ref=e2687]: Learn More
+                      - img [ref=e2689]
+            - generic [ref=e2692]:
+              - heading "Engineering" [level=3] [ref=e2693]
+              - generic [ref=e2694]:
+                - generic [ref=e2695]:
+                  - generic [ref=e2696]:
+                    - heading "Forward Deployed Engineer (AI Agent)" [level=4] [ref=e2697]
+                    - generic [ref=e2698]: Engineering
+                  - generic [ref=e2699]:
+                    - generic [ref=e2700]:
+                      - generic [ref=e2701]:
+                        - img [ref=e2703]
+                        - generic [ref=e2712]: United States, Remote
+                      - generic [ref=e2714]:
+                        - img [ref=e2716]
+                        - generic [ref=e2719]: Full-time
+                    - link "Learn More" [ref=e2720] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4759347008
+                      - generic [ref=e2721]: Learn More
+                      - img [ref=e2723]
+                - generic [ref=e2726]:
+                  - generic [ref=e2727]:
+                    - heading "Forward Deployed Engineer (AI Agent)" [level=4] [ref=e2728]
+                    - generic [ref=e2729]: Engineering
+                  - generic [ref=e2730]:
+                    - generic [ref=e2731]:
+                      - generic [ref=e2732]:
+                        - img [ref=e2734]
+                        - generic [ref=e2743]: Canada (Remote)
+                      - generic [ref=e2745]:
+                        - img [ref=e2747]
+                        - generic [ref=e2750]: Full-time
+                    - link "Learn More" [ref=e2751] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4595480008
+                      - generic [ref=e2752]: Learn More
+                      - img [ref=e2754]
+                - generic [ref=e2757]:
+                  - generic [ref=e2758]:
+                    - heading "Forward Deployed Engineer (AI Agent)" [level=4] [ref=e2759]
+                    - generic [ref=e2760]: Engineering
+                  - generic [ref=e2761]:
+                    - generic [ref=e2762]:
+                      - generic [ref=e2763]:
+                        - img [ref=e2765]
+                        - generic [ref=e2774]: London, England, United Kingdom
+                      - generic [ref=e2776]:
+                        - img [ref=e2778]
+                        - generic [ref=e2781]: Full-time
+                    - link "Learn More" [ref=e2782] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/5097513008
+                      - generic [ref=e2783]: Learn More
+                      - img [ref=e2785]
+                - generic [ref=e2788]:
+                  - generic [ref=e2789]:
+                    - heading "Forward Deployed Engineering Manager" [level=4] [ref=e2790]
+                    - generic [ref=e2791]: Engineering
+                  - generic [ref=e2792]:
+                    - generic [ref=e2793]:
+                      - generic [ref=e2794]:
+                        - img [ref=e2796]
+                        - generic [ref=e2805]: United States, Remote
+                      - generic [ref=e2807]:
+                        - img [ref=e2809]
+                        - generic [ref=e2812]: Full-time
+                    - link "Learn More" [ref=e2813] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/5099068008
+                      - generic [ref=e2814]: Learn More
+                      - img [ref=e2816]
+                - generic [ref=e2819]:
+                  - generic [ref=e2820]:
+                    - heading "Infrastructure Engineer/SRE - Canada & US" [level=4] [ref=e2821]
+                    - generic [ref=e2822]: Engineering
+                  - generic [ref=e2823]:
+                    - generic [ref=e2824]:
+                      - generic [ref=e2825]:
+                        - img [ref=e2827]
+                        - generic [ref=e2836]: Canada & US (Remote)
+                      - generic [ref=e2838]:
+                        - img [ref=e2840]
+                        - generic [ref=e2843]: Full-time
+                    - link "Learn More" [ref=e2844] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4929391008
+                      - generic [ref=e2845]: Learn More
+                      - img [ref=e2847]
+                - generic [ref=e2850]:
+                  - generic [ref=e2851]:
+                    - heading "Infrastructure Software Engineer (Kubernetes)" [level=4] [ref=e2852]
+                    - generic [ref=e2853]: Engineering
+                  - generic [ref=e2854]:
+                    - generic [ref=e2855]:
+                      - generic [ref=e2856]:
+                        - img [ref=e2858]
+                        - generic [ref=e2867]: Bucharest
+                      - generic [ref=e2869]:
+                        - img [ref=e2871]
+                        - generic [ref=e2874]: Full-time
+                    - link "Learn More" [ref=e2875] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4802840008
+                      - generic [ref=e2876]: Learn More
+                      - img [ref=e2878]
+                - generic [ref=e2881]:
+                  - generic [ref=e2882]:
+                    - heading "Infrastructure Software Engineer (Kubernetes)" [level=4] [ref=e2883]
+                    - generic [ref=e2884]: Engineering
+                  - generic [ref=e2885]:
+                    - generic [ref=e2886]:
+                      - generic [ref=e2887]:
+                        - img [ref=e2889]
+                        - generic [ref=e2898]: Berlin, Berlin, Germany
+                      - generic [ref=e2900]:
+                        - img [ref=e2902]
+                        - generic [ref=e2905]: Full-time
+                    - link "Learn More" [ref=e2906] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4535898008
+                      - generic [ref=e2907]: Learn More
+                      - img [ref=e2909]
+                - generic [ref=e2912]:
+                  - generic [ref=e2913]:
+                    - heading "Senior Frontend Engineer (Mobile Experience)" [level=4] [ref=e2914]
+                    - generic [ref=e2915]: Engineering
+                  - generic [ref=e2916]:
+                    - generic [ref=e2917]:
+                      - generic [ref=e2918]:
+                        - img [ref=e2920]
+                        - generic [ref=e2929]: Alberta, Canada, British Columbia, Canada, Ontario, Canada
+                      - generic [ref=e2931]:
+                        - img [ref=e2933]
+                        - generic [ref=e2936]: Full-time
+                    - link "Learn More" [ref=e2937] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/5049642008
+                      - generic [ref=e2938]: Learn More
+                      - img [ref=e2940]
+                - generic [ref=e2943]:
+                  - generic [ref=e2944]:
+                    - heading "Senior Full Stack Engineer - QM & Coaching" [level=4] [ref=e2945]
+                    - generic [ref=e2946]: Engineering
+                  - generic [ref=e2947]:
+                    - generic [ref=e2948]:
+                      - generic [ref=e2949]:
+                        - img [ref=e2951]
+                        - generic [ref=e2960]: Canada (Remote)
+                      - generic [ref=e2962]:
+                        - img [ref=e2964]
+                        - generic [ref=e2967]: Full-time
+                    - link "Learn More" [ref=e2968] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/5026012008
+                      - generic [ref=e2969]: Learn More
+                      - img [ref=e2971]
+                - generic [ref=e2974]:
+                  - generic [ref=e2975]:
+                    - heading "Senior IT Engineer" [level=4] [ref=e2976]
+                    - generic [ref=e2977]: Engineering
+                  - generic [ref=e2978]:
+                    - generic [ref=e2979]:
+                      - generic [ref=e2980]:
+                        - img [ref=e2982]
+                        - generic [ref=e2991]: California (Hybrid)
+                      - generic [ref=e2993]:
+                        - img [ref=e2995]
+                        - generic [ref=e2998]: Full-time
+                    - link "Learn More" [ref=e2999] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4619396008
+                      - generic [ref=e3000]: Learn More
+                      - img [ref=e3002]
+                - generic [ref=e3005]:
+                  - generic [ref=e3006]:
+                    - heading "Senior Machine Learning Engineer" [level=4] [ref=e3007]
+                    - generic [ref=e3008]: Engineering
+                  - generic [ref=e3009]:
+                    - generic [ref=e3010]:
+                      - generic [ref=e3011]:
+                        - img [ref=e3013]
+                        - generic [ref=e3022]: Bucharest, Bucharest, Romania
+                      - generic [ref=e3024]:
+                        - img [ref=e3026]
+                        - generic [ref=e3029]: Full-time
+                    - link "Learn More" [ref=e3030] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/5082808008
+                      - generic [ref=e3031]: Learn More
+                      - img [ref=e3033]
+                - generic [ref=e3036]:
+                  - generic [ref=e3037]:
+                    - heading "Senior Machine Learning Engineer" [level=4] [ref=e3038]
+                    - generic [ref=e3039]: Engineering
+                  - generic [ref=e3040]:
+                    - generic [ref=e3041]:
+                      - generic [ref=e3042]:
+                        - img [ref=e3044]
+                        - generic [ref=e3053]: US, Canada (Remote)
+                      - generic [ref=e3055]:
+                        - img [ref=e3057]
+                        - generic [ref=e3060]: Full-time
+                    - link "Learn More" [ref=e3061] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4741283008
+                      - generic [ref=e3062]: Learn More
+                      - img [ref=e3064]
+                - generic [ref=e3067]:
+                  - generic [ref=e3068]:
+                    - heading "Senior Machine Learning Engineer" [level=4] [ref=e3069]
+                    - generic [ref=e3070]: Engineering
+                  - generic [ref=e3071]:
+                    - generic [ref=e3072]:
+                      - generic [ref=e3073]:
+                        - img [ref=e3075]
+                        - generic [ref=e3084]: Berlin, Berlin, Germany
+                      - generic [ref=e3086]:
+                        - img [ref=e3088]
+                        - generic [ref=e3091]: Full-time
+                    - link "Learn More" [ref=e3092] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/5082821008
+                      - generic [ref=e3093]: Learn More
+                      - img [ref=e3095]
+                - generic [ref=e3098]:
+                  - generic [ref=e3099]:
+                    - heading "Senior Machine Learning Engineer" [level=4] [ref=e3100]
+                    - generic [ref=e3101]: Engineering
+                  - generic [ref=e3102]:
+                    - generic [ref=e3103]:
+                      - generic [ref=e3104]:
+                        - img [ref=e3106]
+                        - generic [ref=e3115]: London, England, United Kingdom
+                      - generic [ref=e3117]:
+                        - img [ref=e3119]
+                        - generic [ref=e3122]: Full-time
+                    - link "Learn More" [ref=e3123] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/5101011008
+                      - generic [ref=e3124]: Learn More
+                      - img [ref=e3126]
+                - generic [ref=e3129]:
+                  - generic [ref=e3130]:
+                    - heading "Senior Software Engineer, Backend (AI Agent)" [level=4] [ref=e3131]
+                    - generic [ref=e3132]: Engineering
+                  - generic [ref=e3133]:
+                    - generic [ref=e3134]:
+                      - generic [ref=e3135]:
+                        - img [ref=e3137]
+                        - generic [ref=e3146]: Toronto, Canada (Remote)
+                      - generic [ref=e3148]:
+                        - img [ref=e3150]
+                        - generic [ref=e3153]: Full-time
+                    - link "Learn More" [ref=e3154] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4062453008
+                      - generic [ref=e3155]: Learn More
+                      - img [ref=e3157]
+                - generic [ref=e3160]:
+                  - generic [ref=e3161]:
+                    - heading "Senior Software Engineer, Backend (Berlin)" [level=4] [ref=e3162]
+                    - generic [ref=e3163]: Engineering
+                  - generic [ref=e3164]:
+                    - generic [ref=e3165]:
+                      - generic [ref=e3166]:
+                        - img [ref=e3168]
+                        - generic [ref=e3177]: Berlin, Germany (Hybrid)
+                      - generic [ref=e3179]:
+                        - img [ref=e3181]
+                        - generic [ref=e3184]: Full-time
+                    - link "Learn More" [ref=e3185] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4668107008
+                      - generic [ref=e3186]: Learn More
+                      - img [ref=e3188]
+                - generic [ref=e3191]:
+                  - generic [ref=e3192]:
+                    - heading "Senior Software Engineer, Backend (Voice Platform)" [level=4] [ref=e3193]
+                    - generic [ref=e3194]: Engineering
+                  - generic [ref=e3195]:
+                    - generic [ref=e3196]:
+                      - generic [ref=e3197]:
+                        - img [ref=e3199]
+                        - generic [ref=e3208]: Toronto, Canada (Remote)
+                      - generic [ref=e3210]:
+                        - img [ref=e3212]
+                        - generic [ref=e3215]: Full-time
+                    - link "Learn More" [ref=e3216] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4918465008
+                      - generic [ref=e3217]: Learn More
+                      - img [ref=e3219]
+                - generic [ref=e3222]:
+                  - generic [ref=e3223]:
+                    - heading "Senior Software Engineer, Backend (Voice Platform)" [level=4] [ref=e3224]
+                    - generic [ref=e3225]: Engineering
+                  - generic [ref=e3226]:
+                    - generic [ref=e3227]:
+                      - generic [ref=e3228]:
+                        - img [ref=e3230]
+                        - generic [ref=e3239]: Bucharest
+                      - generic [ref=e3241]:
+                        - img [ref=e3243]
+                        - generic [ref=e3246]: Full-time
+                    - link "Learn More" [ref=e3247] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4928801008
+                      - generic [ref=e3248]: Learn More
+                      - img [ref=e3250]
+                - generic [ref=e3253]:
+                  - generic [ref=e3254]:
+                    - heading "Senior Software Engineer, Frontend (Berlin)" [level=4] [ref=e3255]
+                    - generic [ref=e3256]: Engineering
+                  - generic [ref=e3257]:
+                    - generic [ref=e3258]:
+                      - generic [ref=e3259]:
+                        - img [ref=e3261]
+                        - generic [ref=e3270]: Berlin, Germany (Hybrid)
+                      - generic [ref=e3272]:
+                        - img [ref=e3274]
+                        - generic [ref=e3277]: Full-time
+                    - link "Learn More" [ref=e3278] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4668095008
+                      - generic [ref=e3279]: Learn More
+                      - img [ref=e3281]
+                - generic [ref=e3284]:
+                  - generic [ref=e3285]:
+                    - heading "Senior Software Engineer, Frontend (Bucharest/ Cluj)" [level=4] [ref=e3286]
+                    - generic [ref=e3287]: Engineering
+                  - generic [ref=e3288]:
+                    - generic [ref=e3289]:
+                      - generic [ref=e3290]:
+                        - img [ref=e3292]
+                        - generic [ref=e3301]: Bucharest/ Cluj
+                      - generic [ref=e3303]:
+                        - img [ref=e3305]
+                        - generic [ref=e3308]: Full-time
+                    - link "Learn More" [ref=e3309] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4614279008
+                      - generic [ref=e3310]: Learn More
+                      - img [ref=e3312]
+                - generic [ref=e3315]:
+                  - generic [ref=e3316]:
+                    - heading "Senior Software Engineer, Full Stack Authentication" [level=4] [ref=e3317]
+                    - generic [ref=e3318]: Engineering
+                  - generic [ref=e3319]:
+                    - generic [ref=e3320]:
+                      - generic [ref=e3321]:
+                        - img [ref=e3323]
+                        - generic [ref=e3332]: Alberta, Canada, British Columbia, Canada, Ontario, Canada
+                      - generic [ref=e3334]:
+                        - img [ref=e3336]
+                        - generic [ref=e3339]: Full-time
+                    - link "Learn More" [ref=e3340] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4613051008
+                      - generic [ref=e3341]: Learn More
+                      - img [ref=e3343]
+                - generic [ref=e3346]:
+                  - generic [ref=e3347]:
+                    - heading "Senior Staff Machine Learning Engineer (AI Agent)" [level=4] [ref=e3348]
+                    - generic [ref=e3349]: Engineering
+                  - generic [ref=e3350]:
+                    - generic [ref=e3351]:
+                      - generic [ref=e3352]:
+                        - img [ref=e3354]
+                        - generic [ref=e3363]: US, Canada (Remote)
+                      - generic [ref=e3365]:
+                        - img [ref=e3367]
+                        - generic [ref=e3370]: Full-time
+                    - link "Learn More" [ref=e3371] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4249943008
+                      - generic [ref=e3372]: Learn More
+                      - img [ref=e3374]
+                - generic [ref=e3377]:
+                  - generic [ref=e3378]:
+                    - heading "Software Engineer, Backend (AI Agent)" [level=4] [ref=e3379]
+                    - generic [ref=e3380]: Engineering
+                  - generic [ref=e3381]:
+                    - generic [ref=e3382]:
+                      - generic [ref=e3383]:
+                        - img [ref=e3385]
+                        - generic [ref=e3394]: Toronto, Canada (Remote)
+                      - generic [ref=e3396]:
+                        - img [ref=e3398]
+                        - generic [ref=e3401]: Full-time
+                    - link "Learn More" [ref=e3402] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4325729008
+                      - generic [ref=e3403]: Learn More
+                      - img [ref=e3405]
+                - generic [ref=e3408]:
+                  - generic [ref=e3409]:
+                    - heading "Software Engineer (Bucharest/ Cluj)" [level=4] [ref=e3410]
+                    - generic [ref=e3411]: Engineering
+                  - generic [ref=e3412]:
+                    - generic [ref=e3413]:
+                      - generic [ref=e3414]:
+                        - img [ref=e3416]
+                        - generic [ref=e3425]: Cluj
+                      - generic [ref=e3427]:
+                        - img [ref=e3429]
+                        - generic [ref=e3432]: Full-time
+                    - link "Learn More" [ref=e3433] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4145762008
+                      - generic [ref=e3434]: Learn More
+                      - img [ref=e3436]
+                - generic [ref=e3439]:
+                  - generic [ref=e3440]:
+                    - heading "Software Engineer in Test (Berlin)" [level=4] [ref=e3441]
+                    - generic [ref=e3442]: Engineering
+                  - generic [ref=e3443]:
+                    - generic [ref=e3444]:
+                      - generic [ref=e3445]:
+                        - img [ref=e3447]
+                        - generic [ref=e3456]: Berlin, Germany
+                      - generic [ref=e3458]:
+                        - img [ref=e3460]
+                        - generic [ref=e3463]: Full-time
+                    - link "Learn More" [ref=e3464] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/5030433008
+                      - generic [ref=e3465]: Learn More
+                      - img [ref=e3467]
+                - generic [ref=e3470]:
+                  - generic [ref=e3471]:
+                    - heading "Software Engineer, Knowledge Assist (Bucharest/ Cluj)" [level=4] [ref=e3472]
+                    - generic [ref=e3473]: Engineering
+                  - generic [ref=e3474]:
+                    - generic [ref=e3475]:
+                      - generic [ref=e3476]:
+                        - img [ref=e3478]
+                        - generic [ref=e3487]: Bucharest
+                      - generic [ref=e3489]:
+                        - img [ref=e3491]
+                        - generic [ref=e3494]: Full-time
+                    - link "Learn More" [ref=e3495] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4668121008
+                      - generic [ref=e3496]: Learn More
+                      - img [ref=e3498]
+                - generic [ref=e3501]:
+                  - generic [ref=e3502]:
+                    - heading "Staff Backend Software Engineer, Insights (Bucharest/ Cluj)" [level=4] [ref=e3503]
+                    - generic [ref=e3504]: Engineering
+                  - generic [ref=e3505]:
+                    - generic [ref=e3506]:
+                      - generic [ref=e3507]:
+                        - img [ref=e3509]
+                        - generic [ref=e3518]: Bucharest
+                      - generic [ref=e3520]:
+                        - img [ref=e3522]
+                        - generic [ref=e3525]: Full-time
+                    - link "Learn More" [ref=e3526] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4145763008
+                      - generic [ref=e3527]: Learn More
+                      - img [ref=e3529]
+                - generic [ref=e3532]:
+                  - generic [ref=e3533]:
+                    - heading "Staff Backend Software Engineer, Insights (Iasi)" [level=4] [ref=e3534]
+                    - generic [ref=e3535]: Engineering
+                  - generic [ref=e3536]:
+                    - generic [ref=e3537]:
+                      - generic [ref=e3538]:
+                        - img [ref=e3540]
+                        - generic [ref=e3549]: Iasi
+                      - generic [ref=e3551]:
+                        - img [ref=e3553]
+                        - generic [ref=e3556]: Full-time
+                    - link "Learn More" [ref=e3557] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/5030292008
+                      - generic [ref=e3558]: Learn More
+                      - img [ref=e3560]
+                - generic [ref=e3563]:
+                  - generic [ref=e3564]:
+                    - heading "Staff Software Engineer, Backend (AI Platform)" [level=4] [ref=e3565]
+                    - generic [ref=e3566]: Engineering
+                  - generic [ref=e3567]:
+                    - generic [ref=e3568]:
+                      - generic [ref=e3569]:
+                        - img [ref=e3571]
+                        - generic [ref=e3580]: US (Remote)
+                      - generic [ref=e3582]:
+                        - img [ref=e3584]
+                        - generic [ref=e3587]: Full-time
+                    - link "Learn More" [ref=e3588] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4675293008
+                      - generic [ref=e3589]: Learn More
+                      - img [ref=e3591]
+                - generic [ref=e3594]:
+                  - generic [ref=e3595]:
+                    - heading "Staff Software Engineer, Frontend (Insights)" [level=4] [ref=e3596]
+                    - generic [ref=e3597]: Engineering
+                  - generic [ref=e3598]:
+                    - generic [ref=e3599]:
+                      - generic [ref=e3600]:
+                        - img [ref=e3602]
+                        - generic [ref=e3611]: Cluj
+                      - generic [ref=e3613]:
+                        - img [ref=e3615]
+                        - generic [ref=e3618]: Full-time
+                    - link "Learn More" [ref=e3619] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/4614280008
+                      - generic [ref=e3620]: Learn More
+                      - img [ref=e3622]
+            - generic [ref=e3625]:
+              - heading "Sales Development" [level=3] [ref=e3626]
+              - generic [ref=e3627]:
+                - generic [ref=e3628]:
+                  - generic [ref=e3629]:
+                    - heading "Sales Development Representative, APAC" [level=4] [ref=e3630]
+                    - generic [ref=e3631]: Sales Development
+                  - generic [ref=e3632]:
+                    - generic [ref=e3633]:
+                      - generic [ref=e3634]:
+                        - img [ref=e3636]
+                        - generic [ref=e3645]: Melbourne VIC, Australia
+                      - generic [ref=e3647]:
+                        - img [ref=e3649]
+                        - generic [ref=e3652]: Full-time
+                    - link "Learn More" [ref=e3653] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/5075045008
+                      - generic [ref=e3654]: Learn More
+                      - img [ref=e3656]
+                - generic [ref=e3659]:
+                  - generic [ref=e3660]:
+                    - heading "Sales Development Representative, London" [level=4] [ref=e3661]
+                    - generic [ref=e3662]: Sales Development
+                  - generic [ref=e3663]:
+                    - generic [ref=e3664]:
+                      - generic [ref=e3665]:
+                        - img [ref=e3667]
+                        - generic [ref=e3676]: London, England
+                      - generic [ref=e3678]:
+                        - img [ref=e3680]
+                        - generic [ref=e3683]: Full-time
+                    - link "Learn More" [ref=e3684] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/5063455008
+                      - generic [ref=e3685]: Learn More
+                      - img [ref=e3687]
+                - generic [ref=e3690]:
+                  - generic [ref=e3691]:
+                    - heading "Sales Development Representative, New York" [level=4] [ref=e3692]
+                    - generic [ref=e3693]: Sales Development
+                  - generic [ref=e3694]:
+                    - generic [ref=e3695]:
+                      - generic [ref=e3696]:
+                        - img [ref=e3698]
+                        - generic [ref=e3707]: New York, New York
+                      - generic [ref=e3709]:
+                        - img [ref=e3711]
+                        - generic [ref=e3714]: Full-time
+                    - link "Learn More" [ref=e3715] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/5061989008
+                      - generic [ref=e3716]: Learn More
+                      - img [ref=e3718]
+                - generic [ref=e3721]:
+                  - generic [ref=e3722]:
+                    - heading "Sales Development Representative, San Francisco" [level=4] [ref=e3723]
+                    - generic [ref=e3724]: Sales Development
+                  - generic [ref=e3725]:
+                    - generic [ref=e3726]:
+                      - generic [ref=e3727]:
+                        - img [ref=e3729]
+                        - generic [ref=e3738]: San Francisco, CA
+                      - generic [ref=e3740]:
+                        - img [ref=e3742]
+                        - generic [ref=e3745]: Full-time
+                    - link "Learn More" [ref=e3746] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/5061988008
+                      - generic [ref=e3747]: Learn More
+                      - img [ref=e3749]
+                - generic [ref=e3752]:
+                  - generic [ref=e3753]:
+                    - heading "Sr. Director, Sales Development" [level=4] [ref=e3754]
+                    - generic [ref=e3755]: Sales Development
+                  - generic [ref=e3756]:
+                    - generic [ref=e3757]:
+                      - generic [ref=e3758]:
+                        - img [ref=e3760]
+                        - generic [ref=e3769]: San Francisco, CA/ New York
+                      - generic [ref=e3771]:
+                        - img [ref=e3773]
+                        - generic [ref=e3776]: Full-time
+                    - link "Learn More" [ref=e3777] [cursor=pointer]:
+                      - /url: https://job-boards.greenhouse.io/cresta/jobs/5061535008
+                      - generic [ref=e3778]: Learn More
+                      - img [ref=e3780]
+        - paragraph [ref=e3784]: Employment offers and any requests for information will always be made by a Cresta recruiter with a cresta.ai email address only. We will never text you about an employment opportunity, interviews or employment offers. If you are receiving an employment inquiry or employment offer from a non cresta.ai email address, please assume it is spam. If you believe you are a victim of a false employment scam we encourage you to report these incidents to the FBI iC3.
+      - generic [ref=e3785]:
+        - generic [ref=e3788]:
+          - generic [ref=e3789]:
+            - generic [ref=e3790]:
+              - link "Cresta logo":
+                - /url: /
+                - img "Cresta logo"
+              - generic [ref=e3792]:
+                - link "x account" [ref=e3793] [cursor=pointer]:
+                  - /url: https://twitter.com/cresta
+                  - img [ref=e3795]
+                - link "linkedIn account" [ref=e3798] [cursor=pointer]:
+                  - /url: https://www.linkedin.com/company/cresta-inc
+                  - img [ref=e3800]
+                - link "youTube account" [ref=e3805] [cursor=pointer]:
+                  - /url: https://www.youtube.com/@CrestaAI
+                  - img [ref=e3807]
+            - generic [ref=e3809]:
+              - generic [ref=e3810]:
+                - generic [ref=e3811]: Products
+                - generic [ref=e3813]:
+                  - link "Platform Overview" [ref=e3814] [cursor=pointer]:
+                    - /url: /platform-overview
+                    - generic [ref=e3815]: Platform Overview
+                  - link "AI Agent" [ref=e3816] [cursor=pointer]:
+                    - /url: /ai-agent
+                    - generic [ref=e3817]: AI Agent
+                  - link "Agent Assist" [ref=e3818] [cursor=pointer]:
+                    - /url: /agent-assist
+                    - generic [ref=e3819]: Agent Assist
+                  - link "Conversation Intelligence" [ref=e3820] [cursor=pointer]:
+                    - /url: /conversation-intelligence
+                    - generic [ref=e3821]: Conversation Intelligence
+              - generic [ref=e3822]:
+                - generic [ref=e3823]: Сompany
+                - generic [ref=e3825]:
+                  - link "About Cresta" [ref=e3826] [cursor=pointer]:
+                    - /url: /about-us
+                    - generic [ref=e3827]: About Cresta
+                  - link "Careers" [ref=e3828] [cursor=pointer]:
+                    - /url: /careers
+                    - generic [ref=e3829]: Careers
+                  - link "Partners" [ref=e3830] [cursor=pointer]:
+                    - /url: /partner
+                    - generic [ref=e3831]: Partners
+                  - link "Help Center" [ref=e3832] [cursor=pointer]:
+                    - /url: https://support.cresta.com/hc/en-us
+                    - generic [ref=e3833]: Help Center
+                  - link "Trust & Security" [ref=e3834] [cursor=pointer]:
+                    - /url: /trust
+                    - generic [ref=e3835]: Trust & Security
+              - generic [ref=e3836]:
+                - generic [ref=e3837]: Resources
+                - generic [ref=e3839]:
+                  - link "Resource Library" [ref=e3840] [cursor=pointer]:
+                    - /url: /resources
+                    - generic [ref=e3841]: Resource Library
+                  - link "Customer Stories" [ref=e3842] [cursor=pointer]:
+                    - /url: /customer-stories
+                    - generic [ref=e3843]: Customer Stories
+                  - link "Blog" [ref=e3844] [cursor=pointer]:
+                    - /url: /blog
+                    - generic [ref=e3845]: Blog
+                  - link "Guides" [ref=e3846] [cursor=pointer]:
+                    - /url: /guides
+                    - generic [ref=e3847]: Guides
+          - generic [ref=e3849]:
+            - generic [ref=e3850]:
+              - img "Flag of the USA" [ref=e3851]
+              - paragraph [ref=e3852]: 100 South Murphy Ave Ste 300 Sunnyvale, California 94086
+            - generic [ref=e3854]:
+              - img "Flag of Germany" [ref=e3855]
+              - paragraph [ref=e3856]:
+                - text: Karl-Liebknecht-Str. 29A
+                - text: 10178 Berlin, Germany
+            - generic [ref=e3858]:
+              - img "Flag of Canada" [ref=e3859]
+              - paragraph [ref=e3860]: 100 King Street West 1 First Canadian Place, Suite 6200 Toronto ON M5X 1E8
+        - generic [ref=e3863]:
+          - generic [ref=e3864]: © 2026 Cresta
+          - generic [ref=e3865]:
+            - link "Terms of Service" [ref=e3866] [cursor=pointer]:
+              - /url: /legal/terms-of-service
+              - generic [ref=e3867]: Terms of Service
+            - link "Privacy Policy" [ref=e3868] [cursor=pointer]:
+              - /url: /legal/privacy-policy
+              - generic [ref=e3869]: Privacy Policy
+            - link "Applicant Privacy Notice" [ref=e3870] [cursor=pointer]:
+              - /url: /legal/applicant-privacy-notice
+              - generic [ref=e3871]: Applicant Privacy Notice
+            - link "Privacy Settings" [ref=e3873] [cursor=pointer]:
+              - /url: "#"
+  - text: "-->"
+  - iframe
