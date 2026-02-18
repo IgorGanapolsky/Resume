@@ -1,0 +1,62 @@
+language: en-US
+tone_instructions: Be direct and concise. Flag security issues immediately. No praise.
+early_access: false
+
+reviews:
+  profile: assertive
+  request_changes_workflow: true
+  high_level_summary: true
+  poem: false
+  review_status: true
+  collapse_walkthrough: false
+  auto_review:
+    enabled: true
+    drafts: false
+    base_branches:
+      - main
+
+  path_instructions:
+    - path: "applications/*/jobs/**"
+      instructions: |
+        Check for embedded JavaScript blobs (window.ENV, window.__appData, <script> tags).
+        Any API keys, tokens, or credentials must NOT be present.
+        Flag any content that looks like platform credentials scraped from job boards.
+
+    - path: "rag/**"
+      instructions: |
+        Review for correctness of Thompson Sampling logic (alpha/beta updates must stay in [0,1]).
+        Verify PII patterns in shieldcortex.py are comprehensive.
+        Embedding changes must preserve L2 normalization.
+        All new code paths must have tests in rag/tests/.
+
+    - path: "rag/tests/**"
+      instructions: |
+        Tests must be isolated (tmp_path, monkeypatch). No real files mutated.
+        Assert specific values, not just "no exception raised".
+        Coverage must remain above 80%.
+
+    - path: "scripts/**"
+      instructions: |
+        scrub_job_captures.py: verify regex patterns catch both block-level and
+        inline (mid-line minified) JS blobs. Test with --dry-run before merging.
+
+    - path: "applications/job_applications/application_tracker.csv"
+      instructions: |
+        Verify status values are valid (Applied/Draft/Blocked/Closed/Rejected/Offer).
+        Date format must be YYYY-MM-DD. No empty Company or Role fields.
+        Cover Letter Used must reference an existing file.
+
+    - path: ".github/workflows/**"
+      instructions: |
+        All secrets must use ${{ secrets.* }} — never hardcoded.
+        Workflows touching main must require passing CI.
+        Gitleaks must run on every PR.
+
+  tools:
+    github-checks:
+      enabled: true
+    ast-grep:
+      enabled: true
+
+chat:
+  auto_reply: true

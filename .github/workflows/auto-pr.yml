@@ -1,0 +1,47 @@
+name: Auto Create PR
+
+on:
+  push:
+    branches:
+      - "claude/**"
+      - "feat/**"
+      - "fix/**"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create Pull Request
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          EXISTING=$(gh pr list --head "${{ github.ref_name }}" --json number --jq '.[0].number' 2>/dev/null || echo "")
+          if [ -z "$EXISTING" ]; then
+            COMMIT_MSG=$(git log -1 --format=%s)
+            CHANGES=$(git log origin/main..HEAD --oneline | head -10)
+            gh pr create \
+              --title "$COMMIT_MSG" \
+              --body "## Summary
+Auto-generated PR from \`${{ github.ref_name }}\`
+
+## Changes
+$CHANGES
+
+## Checklist
+- [ ] Tests pass
+- [ ] No secrets committed
+- [ ] Job files scrubbed
+- [ ] RAG index rebuilt if tracker changed" \
+              --base main
+            echo "✅ PR created"
+          else
+            echo "PR #$EXISTING already exists"
+          fi
