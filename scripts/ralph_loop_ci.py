@@ -15,6 +15,7 @@ import datetime as dt
 import hashlib
 import json
 import re
+import urllib.parse
 import urllib.request
 from pathlib import Path
 from typing import Dict, Iterable, List
@@ -148,7 +149,7 @@ def create_artifacts(job: Dict[str, str], today: str) -> Dict[str, str]:
     role = job["title"]
     company_slug = _slug(company)
     role_slug = _slug(role)[:64]
-    job_id = hashlib.sha1(job["url"].encode("utf-8")).hexdigest()[:8]
+    job_id = hashlib.sha256(job["url"].encode("utf-8")).hexdigest()[:8]
 
     base_dir = APPLICATIONS_DIR / company_slug
     jobs_dir = base_dir / "jobs"
@@ -219,16 +220,21 @@ def create_artifacts(job: Dict[str, str], today: str) -> Dict[str, str]:
 
 
 def infer_method(url: str) -> str:
-    u = url.lower()
-    if "ashbyhq.com" in u:
+    parsed = urllib.parse.urlsplit(url)
+    host = (parsed.hostname or "").lower()
+    path = (parsed.path or "").lower()
+
+    if host == "ashbyhq.com" or host.endswith(".ashbyhq.com"):
         return "ashby"
-    if "greenhouse.io" in u:
+    if host == "greenhouse.io" or host.endswith(".greenhouse.io"):
         return "greenhouse"
-    if "lever.co" in u:
+    if host == "lever.co" or host.endswith(".lever.co"):
         return "lever"
-    if "workday" in u:
+    if "workday" in host:
         return "workday"
-    if "linkedin.com/jobs" in u:
+    if (host == "linkedin.com" or host.endswith(".linkedin.com")) and path.startswith(
+        "/jobs"
+    ):
         return "linkedin"
     return "direct"
 
