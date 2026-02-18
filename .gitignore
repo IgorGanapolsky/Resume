@@ -1,0 +1,23 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.cache/
+
+# RAG vector store (large binary; rebuilt locally via `python3 rag/cli.py build`)
+rag/lancedb/
+
+# Submission screenshots/PDFs (contain visible form data)
+applications/*/submissions/*.png
+applications/*/submissions/*.pdf
+applications/*/submissions/*.jpg
+
+# Research screenshots
+research/*.png
+research/*.pdf
+research/*.jpg
