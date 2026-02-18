@@ -3,6 +3,7 @@ name: Auto Create PR
 on:
   push:
     branches:
+      - "main"
       - "claude/**"
       - "feat/**"
       - "fix/**"
@@ -13,6 +14,7 @@ permissions:
 
 jobs:
   create-pr:
+    if: startsWith(github.ref_name, 'claude/') || startsWith(github.ref_name, 'feat/') || startsWith(github.ref_name, 'fix/')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -27,21 +29,30 @@ jobs:
           if [ -z "$EXISTING" ]; then
             COMMIT_MSG=$(git log -1 --format=%s)
             CHANGES=$(git log origin/main..HEAD --oneline | head -10)
+            cat > /tmp/pr_body.md <<EOF
+            ## Summary
+            Auto-generated PR from \`${{ github.ref_name }}\`
+
+            ## Changes
+            $CHANGES
+
+            ## Checklist
+            - [ ] Tests pass
+            - [ ] No secrets committed
+            - [ ] Job files scrubbed
+            - [ ] RAG index rebuilt if tracker changed
+            EOF
             gh pr create \
               --title "$COMMIT_MSG" \
-              --body "## Summary
-Auto-generated PR from \`${{ github.ref_name }}\`
-
-## Changes
-$CHANGES
-
-## Checklist
-- [ ] Tests pass
-- [ ] No secrets committed
-- [ ] Job files scrubbed
-- [ ] RAG index rebuilt if tracker changed" \
+              --body-file /tmp/pr_body.md \
               --base main
             echo "✅ PR created"
           else
             echo "PR #$EXISTING already exists"
           fi
+
+  noop-on-main:
+    if: github.ref_name == 'main'
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Auto PR workflow is not applicable on main."
