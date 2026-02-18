@@ -1,0 +1,248 @@
+- generic [ref=e9]:
+  - generic [ref=e10]:
+    - banner [ref=e13]:
+      - generic [ref=e14]:
+        - img "Hugging Face" [ref=e15]
+        - heading "Our mission is to democratize good machine learning." [level=1] [ref=e16]
+        - paragraph
+        - paragraph [ref=e17]
+        - link "View jobs" [ref=e19] [cursor=pointer]:
+          - /url: "#jobs"
+    - region "Job Openings" [ref=e21]:
+      - generic [ref=e23]:
+        - heading "Job Openings" [level=2] [ref=e24]
+        - paragraph [ref=e25]: "If you're interested in joining us, but don't tick every box, we still encourage you to apply! We're building a diverse team whose skills, experiences, and background complement one another. Hot tip: unclick your automatically detected location below to see all available jobs as you can apply to them from any location!"
+        - search [ref=e27]:
+          - generic [ref=e29]:
+            - generic [ref=e32]:
+              - img
+              - searchbox "Search jobs…" [ref=e33]
+            - generic [ref=e34]:
+              - generic [ref=e36]:
+                - generic [ref=e39]:
+                  - combobox [ref=e40]: Workplace type
+                  - img
+                - textbox [ref=e41]
+              - generic [ref=e43]:
+                - generic [ref=e46]:
+                  - combobox [ref=e47]: Location (1)
+                  - img
+                - textbox [ref=e48]: United States
+              - generic [ref=e50]:
+                - generic [ref=e53]:
+                  - combobox [ref=e54]: Department
+                  - img
+                - textbox [ref=e55]
+              - generic [ref=e57]:
+                - generic [ref=e60]:
+                  - combobox [ref=e61]: Work type
+                  - img
+                - textbox [ref=e62]
+            - generic [ref=e63]:
+              - generic [ref=e65]:
+                - generic [ref=e66]: United States
+                - button "Dismiss United States" [ref=e67] [cursor=pointer]:
+                  - img [ref=e68]
+                  - generic [ref=e70]: Dismiss United States
+              - button "Clear filters" [ref=e71] [cursor=pointer]:
+                - img [ref=e72]
+                - text: Clear filters
+            - alert [ref=e74]:
+              - generic [ref=e76]: We’ve detected your location and are showing jobs in United States. Clear the filters to display jobs in all locations.
+              - button "Dismiss" [ref=e78] [cursor=pointer]:
+                - generic [ref=e79]:
+                  - img
+        - list [ref=e81]:
+          - listitem [ref=e82]:
+            - link "AI Public Policy Manager - Washington DC Policy Washington, District of Columbia, United States" [ref=e83] [cursor=pointer]:
+              - /url: /huggingface/j/095A7F1D99/
+            - heading "AI Public Policy Manager - Washington DC" [level=3] [ref=e85]:
+              - generic [ref=e86]: AI Public Policy Manager - Washington DC
+            - strong [ref=e88]: Remote
+            - generic [ref=e91]:
+              - generic [ref=e92]: Washington,
+              - generic [ref=e93]: District of Columbia,
+              - text: United States
+            - generic [ref=e94]: Policy
+            - generic [ref=e95]: Full time
+          - listitem [ref=e96]:
+            - link "Community ML Research Engineer, non-AI scientific fields - US Remote Science New York, New York, United States" [ref=e97] [cursor=pointer]:
+              - /url: /huggingface/j/86FDFE34CA/
+            - heading "Community ML Research Engineer, non-AI scientific fields - US Remote" [level=3] [ref=e99]:
+              - generic [ref=e100]: Community ML Research Engineer, non-AI scientific fields - US Remote
+            - strong [ref=e102]: Remote
+            - generic [ref=e105]:
+              - generic [ref=e106]: New York,
+              - generic [ref=e107]: New York,
+              - text: United States
+            - generic [ref=e108]: Science
+            - generic [ref=e109]: Full time
+          - listitem [ref=e110]:
+            - link "Cloud Machine Learning Engineer - US remote Revenue-Share United States" [ref=e111] [cursor=pointer]:
+              - /url: /huggingface/j/A3879724CD/
+            - heading "Cloud Machine Learning Engineer - US remote" [level=3] [ref=e113]:
+              - generic [ref=e114]: Cloud Machine Learning Engineer - US remote
+            - strong [ref=e116]: Remote
+            - generic [ref=e119]: United States
+            - generic [ref=e120]: Revenue-Share
+            - generic [ref=e121]: Full time
+          - listitem [ref=e122]:
+            - link "Open-Source Machine Learning Engineer - International Remote Open Source New York, New York, United States" [ref=e123] [cursor=pointer]:
+              - /url: /huggingface/j/56232F23CB/
+            - heading "Open-Source Machine Learning Engineer - International Remote" [level=3] [ref=e125]:
+              - generic [ref=e126]: Open-Source Machine Learning Engineer - International Remote
+            - strong [ref=e128]: Remote
+            - generic [ref=e131]:
+              - generic [ref=e132]: New York,
+              - generic [ref=e133]: New York,
+              - text: United States
+            - generic [ref=e134]: Open Source
+            - generic [ref=e135]: Full time
+          - listitem [ref=e136]:
+            - link "Wild Card Wild Card United States" [ref=e137] [cursor=pointer]:
+              - /url: /huggingface/j/0BD8C06DB3/
+            - heading "Wild Card" [level=3] [ref=e139]:
+              - generic [ref=e140]: Wild Card
+            - strong [ref=e142]: Remote
+            - generic [ref=e145]: United States
+            - generic [ref=e146]: Wild Card
+            - generic [ref=e147]: Full time
+    - region "👨‍🚀 Our Mission 🚀" [ref=e149]:
+      - generic [ref=e151]:
+        - heading "👨‍🚀 Our Mission 🚀" [level=2] [ref=e152]
+        - paragraph [ref=e153]: We’re on a mission to democratize good machine learning, one commit at a time. At Hugging Face, we build open-source resources to empower you to easily integrate AI into your products and workflows. We are convinced that AI can be accessible, optimized, and responsible. Come discover our models, datasets, services, and help us build the future of AI!
+    - region [ref=e155]:
+      - generic [ref=e158]:
+        - generic [ref=e159]:
+          - heading "+180K ⭐" [level=3] [ref=e160]
+          - paragraph [ref=e161]: Stars on Github
+        - generic [ref=e162]:
+          - heading "🧑🏾‍🤝‍🧑🏼 +30 🧑🏽‍🤝‍🧑🏻" [level=3] [ref=e163]
+          - paragraph [ref=e164]: Nationalities working at Hugging Face today — and growing
+        - generic [ref=e165]:
+          - heading "+15K 🏢" [level=3] [ref=e166]
+          - paragraph [ref=e167]: Organizations using Hugging Face
+    - region "🌎 Our Culture 🌍" [ref=e169]:
+      - generic [ref=e171]:
+        - heading "🌎 Our Culture 🌍" [level=2] [ref=e172]
+        - paragraph [ref=e177]: We are actively working to build a culture that values diversity, equity, and inclusivity. We are intentionally building a workplace where people feel respected and supported—regardless of who you are or where you come from. We believe this is foundational to building a great company and community. Hugging Face is an equal opportunity employer and we do not discriminate on the basis of race, religion, color, national origin, gender, sexual orientation, age, marital status, veteran status, or disability status.
+    - region [ref=e179]:
+      - paragraph [ref=e186]: We value development. You will work with some of the smartest people in our industry. We are an organization that has a bias for impact and is always challenging ourselves to continuously grow. We provide all employees with reimbursement for relevant conferences, training, and education. We care about your well-being. We offer flexible working hours, hybrid office options, flexible PTO, health insurance benefits (depending on where you live) for employees and their dependents, and parental leave.
+    - region [ref=e188]:
+      - paragraph [ref=e195]: We support our employees wherever they are. While we have spaces in NYC and Paris, we’re very distributed and all remote employees have the opportunity to visit our offices. If needed, we’ll also outfit your workstation to ensure you succeed. We want our teammate to be shareholders. All employees have company equity as part of their compensation package. If we succeed in becoming a category-defining platform in machine learning and artificial intelligence, everyone enjoys the upside. We support the community. We believe major scientific advancements are the result of collaboration across the field.
+    - region [ref=e197]:
+      - paragraph [ref=e204]: Your interview process will be flexible and scrappy. Don't expect to be bogged down in weeks or months of interviews like you would be at big tech. We move fast here! Your experience and expertise guide our questions. At Hugging Face, our main priority is hiring the best people, not simply filling roles. You will answer some questions regarding your background and experience but be prepared to talk about your future goals and the positive impact that you could have at Hugging Face.
+    - region [ref=e206]
+    - region "Perks & Benefits" [ref=e223]:
+      - generic [ref=e225]:
+        - heading "Perks & Benefits" [level=2] [ref=e226]
+        - paragraph [ref=e227]: and more to come!
+        - generic [ref=e228]:
+          - generic [ref=e229]:
+            - img [ref=e231]
+            - heading "Flexible Work Environment" [level=3] [ref=e233]
+          - generic [ref=e234]:
+            - img [ref=e236]
+            - heading "Health Insurance" [level=3] [ref=e238]
+          - generic [ref=e239]:
+            - img [ref=e241]
+            - heading "Unlimited PTO" [level=3] [ref=e243]
+          - generic [ref=e244]:
+            - img [ref=e246]
+            - heading "Equity" [level=3] [ref=e248]
+          - generic [ref=e249]:
+            - img [ref=e251]
+            - heading "Growth, Training, & Conferences" [level=3] [ref=e253]
+          - generic [ref=e254]:
+            - img [ref=e256]
+            - heading "Generous Parental Leave" [level=3] [ref=e258]
+    - region "Take a look at our open roles on each team!" [ref=e260]:
+      - generic [ref=e262]:
+        - heading "Take a look at our open roles on each team!" [level=2] [ref=e263]
+        - paragraph [ref=e264]: "Each of our teams live under one of three larger groups: Business, Science, and Technology. If you have questions about where a particular role is situated, feel free to send a note to careers@huggingface.co."
+        - list [ref=e265]:
+          - listitem [ref=e266]:
+            - heading "Open Source" [level=2] [ref=e268]
+            - link "1 open job" [ref=e269] [cursor=pointer]:
+              - /url: "#jobs"
+          - listitem [ref=e270]:
+            - heading "Sales" [level=2] [ref=e272]
+            - link "1 open job" [ref=e273] [cursor=pointer]:
+              - /url: "#jobs"
+          - listitem [ref=e274]:
+            - heading "Science" [level=2] [ref=e276]
+            - link "3 open jobs" [ref=e277] [cursor=pointer]:
+              - /url: "#jobs"
+          - listitem [ref=e278]:
+            - heading "Revenue-Share" [level=2] [ref=e280]
+            - link "1 open job" [ref=e281] [cursor=pointer]:
+              - /url: "#jobs"
+          - listitem [ref=e282]:
+            - heading "Wild Card" [level=2] [ref=e284]
+            - link "1 open job" [ref=e285] [cursor=pointer]:
+              - /url: "#jobs"
+          - listitem [ref=e286]:
+            - heading "Machine Learning Advocacy" [level=2] [ref=e288]
+            - link "1 open job" [ref=e289] [cursor=pointer]:
+              - /url: "#jobs"
+          - listitem [ref=e290]:
+            - heading "Policy" [level=2] [ref=e292]
+            - link "1 open job" [ref=e293] [cursor=pointer]:
+              - /url: "#jobs"
+        - link "View jobs" [ref=e295] [cursor=pointer]:
+          - /url: "#jobs"
+    - region "Our Offices" [ref=e297]:
+      - generic [ref=e299]:
+        - heading "Our Offices" [level=2] [ref=e300]
+        - paragraph [ref=e301]: We are a remote-first company that's hiring in different locations. However, we do like to gather in our offices sometimes 🤗
+        - generic [ref=e302]:
+          - generic [ref=e304]:
+            - generic [ref=e305]:
+              - heading "Paris" [level=2] [ref=e306]
+              - paragraph [ref=e308]: 124 Rue Réaumur, 75002 Paris, France
+            - iframe [ref=e310]:
+              
+          - generic [ref=e312]:
+            - generic [ref=e313]:
+              - heading "New York" [level=2] [ref=e314]
+              - paragraph [ref=e316]: 20 Jay Street, Brooklyn, NY 11201, USA
+            - iframe [ref=e318]:
+              
+    - region "Follow us" [ref=e320]:
+      - generic [ref=e322]:
+        - heading "Follow us" [level=2] [ref=e323]
+        - paragraph [ref=e324]: Stay up to date with the latest news about Hugging Face!
+        - list [ref=e326]:
+          - listitem [ref=e327]:
+            - link [ref=e328] [cursor=pointer]:
+              - /url: https://twitter.com/huggingface
+              - img [ref=e329]
+          - listitem [ref=e331]:
+            - link [ref=e332] [cursor=pointer]:
+              - /url: https://www.linkedin.com/company/huggingface/posts/?feedView=all
+              - img [ref=e333]
+  - contentinfo [ref=e335]:
+    - generic [ref=e337]:
+      - text: Hugging Face collects and processes personal data in accordance with applicable data protection laws.
+      - generic [ref=e338]:
+        - text: If you are a European Job Applicant see the
+        - link "privacy notice" [ref=e339] [cursor=pointer]:
+          - /url: https://apply.workable.com/huggingface/gdpr_policy?lng=en
+        - text: for further details.
+    - generic [ref=e340]:
+      - link "View website" [ref=e342] [cursor=pointer]:
+        - /url: https://huggingface.co/
+      - link "Help" [ref=e344] [cursor=pointer]:
+        - /url: https://jobseekers.workable.com/hc/en
+        - text: Help
+        - img [ref=e345]
+    - generic [ref=e347]:
+      - link "Accessibility" [ref=e349] [cursor=pointer]:
+        - /url: https://workable.com/web-accessibility-statement
+        - text: Accessibility
+        - img [ref=e350]
+      - button "Cookie settings" [ref=e353] [cursor=pointer]
+      - generic [ref=e354]:
+        - text: Powered by
+        - link "Workable" [ref=e355] [cursor=pointer]:
+          - /url: https://jobs.workable.com/?utm_campaign=careers_page&utm_content=careers_page&utm_medium=feature&utm_source=careers_page

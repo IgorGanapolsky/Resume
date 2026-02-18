@@ -1,0 +1,3388 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic:
+      - link "Skip to main content" [ref=e3] [cursor=pointer]:
+        - /url: "#main-content"
+      - link "Skip to footer" [ref=e4] [cursor=pointer]:
+        - /url: "#footer"
+    - generic [ref=e5]:
+      - link "Home" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - img [ref=e7]
+      - generic [ref=e9]:
+        - navigation [ref=e10]:
+          - list [ref=e11]:
+            - listitem [ref=e12] [cursor=pointer]:
+              - link "Research" [ref=e13]:
+                - /url: /research
+            - listitem [ref=e14] [cursor=pointer]:
+              - link "Economic Futures" [ref=e15]:
+                - /url: /economic-futures
+            - listitem [ref=e16] [cursor=pointer]:
+              - button "Commitments" [ref=e17]:
+                - generic [ref=e18]: Commitments
+                - img [ref=e19]
+            - listitem [ref=e21] [cursor=pointer]:
+              - button "Learn" [ref=e22]:
+                - generic [ref=e23]: Learn
+                - img [ref=e24]
+            - listitem [ref=e26] [cursor=pointer]:
+              - link "News" [ref=e27]:
+                - /url: /news
+        - generic [ref=e28]:
+          - link "Try Claude" [ref=e29] [cursor=pointer]:
+            - /url: https://claude.ai/
+          - img [ref=e31] [cursor=pointer]
+  - main [ref=e33]:
+    - generic [ref=e34]:
+      - link "Back to Careers" [ref=e35] [cursor=pointer]:
+        - /url: /careers
+        - img [ref=e37]
+        - generic [ref=e39]: Back to Careers
+      - generic [ref=e40]:
+        - heading "Join our team" [level=1] [ref=e42]
+        - generic [ref=e43]:
+          - generic [ref=e45]:
+            - combobox [ref=e46]:
+              - option "All Teams" [selected]
+              - option "AI Public Policy & Societal Impacts"
+              - option "AI Research & Engineering"
+              - option "Communications"
+              - option "Compute"
+              - option "Data Science & Analytics"
+              - option "Engineering & Design - Product"
+              - option "Finance"
+              - option "Legal"
+              - option "Marketing & Brand"
+              - option "People"
+              - option "Product Management, Support, & Operations"
+              - option "Safeguards (Trust & Safety)"
+              - option "Sales"
+              - option "Security"
+              - option "Software Engineering - Infrastructure"
+              - option "Technical Program Management"
+            - generic:
+              - img
+          - generic [ref=e48]:
+            - combobox [ref=e49]:
+              - option "All Offices" [selected]
+              - option "Bangalore, India"
+              - option "Boston, MA"
+              - option "British Columbia, CA"
+              - option "Dublin, IE"
+              - option "London, UK"
+              - option "Munich, Germany"
+              - option "New York City, NY"
+              - option "Ontario, CA"
+              - option "Paris, France"
+              - option "Remote-Friendly US (Travel Required)"
+              - option "San Francisco, CA"
+              - option "Seattle, WA"
+              - option "Seoul, South Korea"
+              - option "Sydney, Australia"
+              - option "Tokyo, Japan"
+              - option "Washington, D.C."
+              - option "Zürich, CH"
+            - generic:
+              - img
+          - generic [ref=e51]:
+            - generic:
+              - img
+            - textbox [ref=e52]:
+              - /placeholder: Search roles
+      - generic [ref=e53]:
+        - generic [ref=e54]:
+          - paragraph [ref=e56]: Team
+          - paragraph [ref=e58]: Role
+          - paragraph [ref=e60]: Location
+        - generic [ref=e61]:
+          - checkbox "AI Public Policy & Societal Impacts 9 Open Roles" [ref=e62] [cursor=pointer]
+          - generic [ref=e63] [cursor=pointer]:
+            - heading "AI Public Policy & Societal Impacts" [level=2] [ref=e65]
+            - generic [ref=e67]: 9 Open Roles
+          - generic:
+            - link "Geopolitics Analyst, Policy San Francisco, CA | New York City, NY | Washington, DC Apply" [ref=e71] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5096400008
+              - generic [ref=e72]:
+                - paragraph [ref=e74]: Geopolitics Analyst, Policy
+                - paragraph [ref=e76]: San Francisco, CA | New York City, NY | Washington, DC
+              - generic [ref=e78]:
+                - generic [ref=e79]: Apply
+                - img [ref=e81]
+            - link "Manager, National Security Policy Washington, DC Apply" [ref=e83] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5097694008
+              - generic [ref=e84]:
+                - paragraph [ref=e86]: Manager, National Security Policy
+                - paragraph [ref=e88]: Washington, DC
+              - generic [ref=e90]:
+                - generic [ref=e91]: Apply
+                - img [ref=e93]
+            - link "Product Public Policy Manager, Privacy & Data Governance San Francisco, CA Apply" [ref=e95] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5096636008
+              - generic [ref=e96]:
+                - paragraph [ref=e98]: Product Public Policy Manager, Privacy & Data Governance
+                - paragraph [ref=e100]: San Francisco, CA
+              - generic [ref=e102]:
+                - generic [ref=e103]: Apply
+                - img [ref=e105]
+            - link "Public Policy, Events Lead San Francisco, CA; Washington, DC Apply" [ref=e107] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5096699008
+              - generic [ref=e108]:
+                - paragraph [ref=e110]: Public Policy, Events Lead
+                - paragraph [ref=e112]: San Francisco, CA; Washington, DC
+              - generic [ref=e114]:
+                - generic [ref=e115]: Apply
+                - img [ref=e117]
+            - link "Regional State and Local Affairs Lead, Midwestern States Remote-Friendly (Travel-Required) | Washington, DC Apply" [ref=e119] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5096924008
+              - generic [ref=e120]:
+                - paragraph [ref=e122]: Regional State and Local Affairs Lead, Midwestern States
+                - paragraph [ref=e124]: Remote-Friendly (Travel-Required) | Washington, DC
+              - generic [ref=e126]:
+                - generic [ref=e127]: Apply
+                - img [ref=e129]
+            - link "Regional State and Local Affairs Lead, Northeast States New York City, NY Apply" [ref=e131] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5096963008
+              - generic [ref=e132]:
+                - paragraph [ref=e134]: Regional State and Local Affairs Lead, Northeast States
+                - paragraph [ref=e136]: New York City, NY
+              - generic [ref=e138]:
+                - generic [ref=e139]: Apply
+                - img [ref=e141]
+            - link "Regional State and Local Affairs Lead, Southern States Remote-Friendly (Travel-Required) | Washington, DC Apply" [ref=e143] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5096966008
+              - generic [ref=e144]:
+                - paragraph [ref=e146]: Regional State and Local Affairs Lead, Southern States
+                - paragraph [ref=e148]: Remote-Friendly (Travel-Required) | Washington, DC
+              - generic [ref=e150]:
+                - generic [ref=e151]: Apply
+                - img [ref=e153]
+            - link "Regional State and Local Affairs Lead, Western States San Francisco, CA Apply" [ref=e155] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5096539008
+              - generic [ref=e156]:
+                - paragraph [ref=e158]: Regional State and Local Affairs Lead, Western States
+                - paragraph [ref=e160]: San Francisco, CA
+              - generic [ref=e162]:
+                - generic [ref=e163]: Apply
+                - img [ref=e165]
+            - link "Research Economist, Economic Research San Francisco, CA Apply" [ref=e167] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5018472008
+              - generic [ref=e168]:
+                - paragraph [ref=e170]: Research Economist, Economic Research
+                - paragraph [ref=e172]: San Francisco, CA
+              - generic [ref=e174]:
+                - generic [ref=e175]: Apply
+                - img [ref=e177]
+        - generic [ref=e179]:
+          - checkbox "AI Research & Engineering 61 Open Roles" [ref=e180] [cursor=pointer]
+          - generic [ref=e181] [cursor=pointer]:
+            - heading "AI Research & Engineering" [level=2] [ref=e183]
+            - generic [ref=e185]: 61 Open Roles
+          - generic:
+            - link "Anthropic AI Safety Fellow London, UK; Ontario, CA; Remote-Friendly, United States; San Francisco, CA Apply" [ref=e189] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5023394008
+              - generic [ref=e190]:
+                - paragraph [ref=e192]: Anthropic AI Safety Fellow
+                - paragraph [ref=e194]: London, UK; Ontario, CA; Remote-Friendly, United States; San Francisco, CA
+              - generic [ref=e196]:
+                - generic [ref=e197]: Apply
+                - img [ref=e199]
+            - link "Anthropic AI Security Fellow London, UK; Ontario, CA; Remote-Friendly, United States; San Francisco, CA Apply" [ref=e201] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5030244008
+              - generic [ref=e202]:
+                - paragraph [ref=e204]: Anthropic AI Security Fellow
+                - paragraph [ref=e206]: London, UK; Ontario, CA; Remote-Friendly, United States; San Francisco, CA
+              - generic [ref=e208]:
+                - generic [ref=e209]: Apply
+                - img [ref=e211]
+            - link "Applied Safety Research Engineer, Safeguards San Francisco, CA Apply" [ref=e213] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5062955008
+              - generic [ref=e214]:
+                - paragraph [ref=e216]: Applied Safety Research Engineer, Safeguards
+                - paragraph [ref=e218]: San Francisco, CA
+              - generic [ref=e220]:
+                - generic [ref=e221]: Apply
+                - img [ref=e223]
+            - link "Certification Content and Systems Architect San Francisco, CA | New York City, NY Apply" [ref=e225] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5097348008
+              - generic [ref=e226]:
+                - paragraph [ref=e228]: Certification Content and Systems Architect
+                - paragraph [ref=e230]: San Francisco, CA | New York City, NY
+              - generic [ref=e232]:
+                - generic [ref=e233]: Apply
+                - img [ref=e235]
+            - link "Data Operations Manager, Computer Use & Tool Use San Francisco, CA | New York City, NY Apply" [ref=e237] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4946314008
+              - generic [ref=e238]:
+                - paragraph [ref=e240]: Data Operations Manager, Computer Use & Tool Use
+                - paragraph [ref=e242]: San Francisco, CA | New York City, NY
+              - generic [ref=e244]:
+                - generic [ref=e245]: Apply
+                - img [ref=e247]
+            - link "Education Platform Engineering Lead San Francisco, CA Apply" [ref=e249] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5098565008
+              - generic [ref=e250]:
+                - paragraph [ref=e252]: Education Platform Engineering Lead
+                - paragraph [ref=e254]: San Francisco, CA
+              - generic [ref=e256]:
+                - generic [ref=e257]: Apply
+                - img [ref=e259]
+            - link "Engineering Manager, Inference San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e261] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4741102008
+              - generic [ref=e262]:
+                - paragraph [ref=e264]: Engineering Manager, Inference
+                - paragraph [ref=e266]: San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e268]:
+                - generic [ref=e269]: Apply
+                - img [ref=e271]
+            - link "Engineering Manager, ML Acceleration San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e273] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4741104008
+              - generic [ref=e274]:
+                - paragraph [ref=e276]: Engineering Manager, ML Acceleration
+                - paragraph [ref=e278]: San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e280]:
+                - generic [ref=e281]: Apply
+                - img [ref=e283]
+            - link "[Expression of Interest] Research Manager, Interpretability San Francisco, CA Apply" [ref=e285] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4980436008
+              - generic [ref=e286]:
+                - paragraph [ref=e288]: "[Expression of Interest] Research Manager, Interpretability"
+                - paragraph [ref=e290]: San Francisco, CA
+              - generic [ref=e292]:
+                - generic [ref=e293]: Apply
+                - img [ref=e295]
+            - link "[Expression of Interest] Research Scientist/Engineer, Alignment Finetuning San Francisco, CA Apply" [ref=e297] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4520279008
+              - generic [ref=e298]:
+                - paragraph [ref=e300]: "[Expression of Interest] Research Scientist/Engineer, Alignment Finetuning"
+                - paragraph [ref=e302]: San Francisco, CA
+              - generic [ref=e304]:
+                - generic [ref=e305]: Apply
+                - img [ref=e307]
+            - link "[Expression of Interest] Research Scientist/Engineer, Honesty New York City, NY; San Francisco, CA Apply" [ref=e309] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4532887008
+              - generic [ref=e310]:
+                - paragraph [ref=e312]: "[Expression of Interest] Research Scientist/Engineer, Honesty"
+                - paragraph [ref=e314]: New York City, NY; San Francisco, CA
+              - generic [ref=e316]:
+                - generic [ref=e317]: Apply
+                - img [ref=e319]
+            - link "Founding Design Engineer, AI Capability Development, Education Labs San Francisco, CA | New York City, NY Apply" [ref=e321] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5097186008
+              - generic [ref=e322]:
+                - paragraph [ref=e324]: Founding Design Engineer, AI Capability Development, Education Labs
+                - paragraph [ref=e326]: San Francisco, CA | New York City, NY
+              - generic [ref=e328]:
+                - generic [ref=e329]: Apply
+                - img [ref=e331]
+            - link "Full Stack Software Engineer, Reinforcement Learning San Francisco, CA Apply" [ref=e333] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5098984008
+              - generic [ref=e334]:
+                - paragraph [ref=e336]: Full Stack Software Engineer, Reinforcement Learning
+                - paragraph [ref=e338]: San Francisco, CA
+              - generic [ref=e340]:
+                - generic [ref=e341]: Apply
+                - img [ref=e343]
+            - link "Machine Learning Systems Engineer, Research Tools San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e345] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4952079008
+              - generic [ref=e346]:
+                - paragraph [ref=e348]: Machine Learning Systems Engineer, Research Tools
+                - paragraph [ref=e350]: San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e352]:
+                - generic [ref=e353]: Apply
+                - img [ref=e355]
+            - link "Machine Learning Systems Engineer, RL Engineering San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e357] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4952051008
+              - generic [ref=e358]:
+                - paragraph [ref=e360]: Machine Learning Systems Engineer, RL Engineering
+                - paragraph [ref=e362]: San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e364]:
+                - generic [ref=e365]: Apply
+                - img [ref=e367]
+            - link "ML Infrastructure Engineer, Safeguards San Francisco, CA Apply" [ref=e369] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4778843008
+              - generic [ref=e370]:
+                - paragraph [ref=e372]: ML Infrastructure Engineer, Safeguards
+                - paragraph [ref=e374]: San Francisco, CA
+              - generic [ref=e376]:
+                - generic [ref=e377]: Apply
+                - img [ref=e379]
+            - link "ML/Research Engineer, Safeguards San Francisco, CA | New York City, NY Apply" [ref=e381] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4949336008
+              - generic [ref=e382]:
+                - paragraph [ref=e384]: ML/Research Engineer, Safeguards
+                - paragraph [ref=e386]: San Francisco, CA | New York City, NY
+              - generic [ref=e388]:
+                - generic [ref=e389]: Apply
+                - img [ref=e391]
+            - link "Performance Engineer New York City, NY | Seattle, WA; San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e393] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4020350008
+              - generic [ref=e394]:
+                - paragraph [ref=e396]: Performance Engineer
+                - paragraph [ref=e398]: New York City, NY | Seattle, WA; San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e400]:
+                - generic [ref=e401]: Apply
+                - img [ref=e403]
+            - link "Performance Engineer, GPU San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e405] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4926227008
+              - generic [ref=e406]:
+                - paragraph [ref=e408]: Performance Engineer, GPU
+                - paragraph [ref=e410]: San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e412]:
+                - generic [ref=e413]: Apply
+                - img [ref=e415]
+            - link "Privacy Research Engineer, Safeguards San Francisco, CA Apply" [ref=e417] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4949108008
+              - generic [ref=e418]:
+                - paragraph [ref=e420]: Privacy Research Engineer, Safeguards
+                - paragraph [ref=e422]: San Francisco, CA
+              - generic [ref=e424]:
+                - generic [ref=e425]: Apply
+                - img [ref=e427]
+            - link "Research Engineer – Cybersecurity RL San Francisco, CA | New York City, NY Apply" [ref=e429] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5025624008
+              - generic [ref=e430]:
+                - paragraph [ref=e432]: Research Engineer – Cybersecurity RL
+                - paragraph [ref=e434]: San Francisco, CA | New York City, NY
+              - generic [ref=e436]:
+                - generic [ref=e437]: Apply
+                - img [ref=e439]
+            - link "Research Engineer, Discovery San Francisco, CA Apply" [ref=e441] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4669581008
+              - generic [ref=e442]:
+                - paragraph [ref=e444]: Research Engineer, Discovery
+                - paragraph [ref=e446]: San Francisco, CA
+              - generic [ref=e448]:
+                - generic [ref=e449]: Apply
+                - img [ref=e451]
+            - link "Research Engineer, Frontier Red Team (Autonomy) San Francisco, CA Apply" [ref=e453] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5067100008
+              - generic [ref=e454]:
+                - paragraph [ref=e456]: Research Engineer, Frontier Red Team (Autonomy)
+                - paragraph [ref=e458]: San Francisco, CA
+              - generic [ref=e460]:
+                - generic [ref=e461]: Apply
+                - img [ref=e463]
+            - link "Research Engineer, Frontier Red Team (Hardware Lead) San Francisco, CA Apply" [ref=e465] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5067098008
+              - generic [ref=e466]:
+                - paragraph [ref=e468]: Research Engineer, Frontier Red Team (Hardware Lead)
+                - paragraph [ref=e470]: San Francisco, CA
+              - generic [ref=e472]:
+                - generic [ref=e473]: Apply
+                - img [ref=e475]
+            - link "Research Engineer, Interpretability San Francisco, CA Apply" [ref=e477] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4980430008
+              - generic [ref=e478]:
+                - paragraph [ref=e480]: Research Engineer, Interpretability
+                - paragraph [ref=e482]: San Francisco, CA
+              - generic [ref=e484]:
+                - generic [ref=e485]: Apply
+                - img [ref=e487]
+            - link "Research Engineer, Machine Learning (Reinforcement Learning) San Francisco, CA | New York City, NY Apply" [ref=e489] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4613568008
+              - generic [ref=e490]:
+                - paragraph [ref=e492]: Research Engineer, Machine Learning (Reinforcement Learning)
+                - paragraph [ref=e494]: San Francisco, CA | New York City, NY
+              - generic [ref=e496]:
+                - generic [ref=e497]: Apply
+                - img [ref=e499]
+            - link "Research Engineer, Model Evaluations San Francisco, CA | New York City, NY Apply" [ref=e501] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4990535008
+              - generic [ref=e502]:
+                - paragraph [ref=e504]: Research Engineer, Model Evaluations
+                - paragraph [ref=e506]: San Francisco, CA | New York City, NY
+              - generic [ref=e508]:
+                - generic [ref=e509]: Apply
+                - img [ref=e511]
+            - link "Research Engineer, Pre-training Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY Apply" [ref=e513] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4616971008
+              - generic [ref=e514]:
+                - paragraph [ref=e516]: Research Engineer, Pre-training
+                - paragraph [ref=e518]: Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY
+              - generic [ref=e520]:
+                - generic [ref=e521]: Apply
+                - img [ref=e523]
+            - link "Research Engineer, Pre-training London, UK Apply" [ref=e525] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4681526008
+              - generic [ref=e526]:
+                - paragraph [ref=e528]: Research Engineer, Pre-training
+                - paragraph [ref=e530]: London, UK
+              - generic [ref=e532]:
+                - generic [ref=e533]: Apply
+                - img [ref=e535]
+            - link "Research Engineer, Pretraining Scaling San Francisco, CA Apply" [ref=e537] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4938432008
+              - generic [ref=e538]:
+                - paragraph [ref=e540]: Research Engineer, Pretraining Scaling
+                - paragraph [ref=e542]: San Francisco, CA
+              - generic [ref=e544]:
+                - generic [ref=e545]: Apply
+                - img [ref=e547]
+            - link "Research Engineer, Pretraining Scaling (London) London, UK Apply" [ref=e549] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4938436008
+              - generic [ref=e550]:
+                - paragraph [ref=e552]: Research Engineer, Pretraining Scaling (London)
+                - paragraph [ref=e554]: London, UK
+              - generic [ref=e556]:
+                - generic [ref=e557]: Apply
+                - img [ref=e559]
+            - link "Research Engineer, Production Model Post Training San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e561] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4613592008
+              - generic [ref=e562]:
+                - paragraph [ref=e564]: Research Engineer, Production Model Post Training
+                - paragraph [ref=e566]: San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e568]:
+                - generic [ref=e569]: Apply
+                - img [ref=e571]
+            - link "Research Engineer, Production Model Post-Training - London London, UK Apply" [ref=e573] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4980460008
+              - generic [ref=e574]:
+                - paragraph [ref=e576]: Research Engineer, Production Model Post-Training - London
+                - paragraph [ref=e578]: London, UK
+              - generic [ref=e580]:
+                - generic [ref=e581]: Apply
+                - img [ref=e583]
+            - link "Research Engineer/Research Scientist, Audio Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY Apply" [ref=e585] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5074815008
+              - generic [ref=e586]:
+                - paragraph [ref=e588]: Research Engineer/Research Scientist, Audio
+                - paragraph [ref=e590]: Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY
+              - generic [ref=e592]:
+                - generic [ref=e593]: Apply
+                - img [ref=e595]
+            - link "Research Engineer / Research Scientist, Biology & Life Sciences San Francisco, CA Apply" [ref=e597] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4924308008
+              - generic [ref=e598]:
+                - paragraph [ref=e600]: Research Engineer / Research Scientist, Biology & Life Sciences
+                - paragraph [ref=e602]: San Francisco, CA
+              - generic [ref=e604]:
+                - generic [ref=e605]: Apply
+                - img [ref=e607]
+            - link "Research Engineer / Research Scientist, Pre-training Zürich, CH Apply" [ref=e609] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4799425008
+              - generic [ref=e610]:
+                - paragraph [ref=e612]: Research Engineer / Research Scientist, Pre-training
+                - paragraph [ref=e614]: Zürich, CH
+              - generic [ref=e616]:
+                - generic [ref=e617]: Apply
+                - img [ref=e619]
+            - link "Research Engineer / Research Scientist, Vision New York City, NY; San Francisco, CA; Seattle, WA Apply" [ref=e621] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5074217008
+              - generic [ref=e622]:
+                - paragraph [ref=e624]: Research Engineer / Research Scientist, Vision
+                - paragraph [ref=e626]: New York City, NY; San Francisco, CA; Seattle, WA
+              - generic [ref=e628]:
+                - generic [ref=e629]: Apply
+                - img [ref=e631]
+            - link "Research Engineer, Reward Models Platform Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY Apply" [ref=e633] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5024831008
+              - generic [ref=e634]:
+                - paragraph [ref=e636]: Research Engineer, Reward Models Platform
+                - paragraph [ref=e638]: Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY
+              - generic [ref=e640]:
+                - generic [ref=e641]: Apply
+                - img [ref=e643]
+            - link "Research Engineer, Reward Models Training San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e645] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4613599008
+              - generic [ref=e646]:
+                - paragraph [ref=e648]: Research Engineer, Reward Models Training
+                - paragraph [ref=e650]: San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e652]:
+                - generic [ref=e653]: Apply
+                - img [ref=e655]
+            - link "Research Engineer / Scientist, Alignment Science San Francisco, CA Apply" [ref=e657] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4631822008
+              - generic [ref=e658]:
+                - paragraph [ref=e660]: Research Engineer / Scientist, Alignment Science
+                - paragraph [ref=e662]: San Francisco, CA
+              - generic [ref=e664]:
+                - generic [ref=e665]: Apply
+                - img [ref=e667]
+            - link "Research Engineer / Scientist, Alignment Science, London London, UK Apply" [ref=e669] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4610158008
+              - generic [ref=e670]:
+                - paragraph [ref=e672]: Research Engineer / Scientist, Alignment Science, London
+                - paragraph [ref=e674]: London, UK
+              - generic [ref=e676]:
+                - generic [ref=e677]: Apply
+                - img [ref=e679]
+            - link "Research Engineer / Scientist, Frontier Red Team (Cyber) San Francisco, CA Apply" [ref=e681] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5076477008
+              - generic [ref=e682]:
+                - paragraph [ref=e684]: Research Engineer / Scientist, Frontier Red Team (Cyber)
+                - paragraph [ref=e686]: San Francisco, CA
+              - generic [ref=e688]:
+                - generic [ref=e689]: Apply
+                - img [ref=e691]
+            - link "Research Engineer / Scientist, Societal Impacts San Francisco, CA Apply" [ref=e693] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5076606008
+              - generic [ref=e694]:
+                - paragraph [ref=e696]: Research Engineer / Scientist, Societal Impacts
+                - paragraph [ref=e698]: San Francisco, CA
+              - generic [ref=e700]:
+                - generic [ref=e701]: Apply
+                - img [ref=e703]
+            - link "Research Engineer, Universes Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY Apply" [ref=e705] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5061517008
+              - generic [ref=e706]:
+                - paragraph [ref=e708]: Research Engineer, Universes
+                - paragraph [ref=e710]: Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY
+              - generic [ref=e712]:
+                - generic [ref=e713]: Apply
+                - img [ref=e715]
+            - link "Research Operations & Strategy Lead, Coding & Cybersecurity Data San Francisco, CA | New York City, NY Apply" [ref=e717] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4946306008
+              - generic [ref=e718]:
+                - paragraph [ref=e720]: Research Operations & Strategy Lead, Coding & Cybersecurity Data
+                - paragraph [ref=e722]: San Francisco, CA | New York City, NY
+              - generic [ref=e724]:
+                - generic [ref=e725]: Apply
+                - img [ref=e727]
+            - link "Research Scientist, Interpretability San Francisco, CA Apply" [ref=e729] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4980427008
+              - generic [ref=e730]:
+                - paragraph [ref=e732]: Research Scientist, Interpretability
+                - paragraph [ref=e734]: San Francisco, CA
+              - generic [ref=e736]:
+                - generic [ref=e737]: Apply
+                - img [ref=e739]
+            - link "Research Scientist, Societal Impacts San Francisco, CA Apply" [ref=e741] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5076616008
+              - generic [ref=e742]:
+                - paragraph [ref=e744]: Research Scientist, Societal Impacts
+                - paragraph [ref=e746]: San Francisco, CA
+              - generic [ref=e748]:
+                - generic [ref=e749]: Apply
+                - img [ref=e751]
+            - link "Senior Research Scientist, Reward Models Remote-Friendly (Travel Required) | San Francisco, CA Apply" [ref=e753] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5024835008
+              - generic [ref=e754]:
+                - paragraph [ref=e756]: Senior Research Scientist, Reward Models
+                - paragraph [ref=e758]: Remote-Friendly (Travel Required) | San Francisco, CA
+              - generic [ref=e760]:
+                - generic [ref=e761]: Apply
+                - img [ref=e763]
+            - link "Senior Software Engineer, Inference Dublin, IE Apply" [ref=e765] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4641822008
+              - generic [ref=e766]:
+                - paragraph [ref=e768]: Senior Software Engineer, Inference
+                - paragraph [ref=e770]: Dublin, IE
+              - generic [ref=e772]:
+                - generic [ref=e773]: Apply
+                - img [ref=e775]
+            - link "Senior+ Software Engineer, Research Tools San Francisco, CA | New York City, NY Apply" [ref=e777] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4981828008
+              - generic [ref=e778]:
+                - paragraph [ref=e780]: Senior+ Software Engineer, Research Tools
+                - paragraph [ref=e782]: San Francisco, CA | New York City, NY
+              - generic [ref=e784]:
+                - generic [ref=e785]: Apply
+                - img [ref=e787]
+            - link "Senior Technical Documentation Specialist, Claude Developer Platform San Francisco, CA Apply" [ref=e789] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5098567008
+              - generic [ref=e790]:
+                - paragraph [ref=e792]: Senior Technical Documentation Specialist, Claude Developer Platform
+                - paragraph [ref=e794]: San Francisco, CA
+              - generic [ref=e796]:
+                - generic [ref=e797]: Apply
+                - img [ref=e799]
+            - link "Software Engineer, Accelerator Build Infrastructure San Francisco, CA | Seattle, WA Apply" [ref=e801] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4943668008
+              - generic [ref=e802]:
+                - paragraph [ref=e804]: Software Engineer, Accelerator Build Infrastructure
+                - paragraph [ref=e806]: San Francisco, CA | Seattle, WA
+              - generic [ref=e808]:
+                - generic [ref=e809]: Apply
+                - img [ref=e811]
+            - link "Software Engineer, ML Networking San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e813] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4926242008
+              - generic [ref=e814]:
+                - paragraph [ref=e816]: Software Engineer, ML Networking
+                - paragraph [ref=e818]: San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e820]:
+                - generic [ref=e821]: Apply
+                - img [ref=e823]
+            - link "Software Engineer, Safeguards San Francisco, CA | New York City, NY Apply" [ref=e825] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4951844008
+              - generic [ref=e826]:
+                - paragraph [ref=e828]: Software Engineer, Safeguards
+                - paragraph [ref=e830]: San Francisco, CA | New York City, NY
+              - generic [ref=e832]:
+                - generic [ref=e833]: Apply
+                - img [ref=e835]
+            - link "Software Engineer, Sandboxing San Francisco, CA | New York City, NY Apply" [ref=e837] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5083039008
+              - generic [ref=e838]:
+                - paragraph [ref=e840]: Software Engineer, Sandboxing
+                - paragraph [ref=e842]: San Francisco, CA | New York City, NY
+              - generic [ref=e844]:
+                - generic [ref=e845]: Apply
+                - img [ref=e847]
+            - link "Staff Infrastructure Engineer, Pre-training San Francisco, CA Apply" [ref=e849] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4973067008
+              - generic [ref=e850]:
+                - paragraph [ref=e852]: Staff Infrastructure Engineer, Pre-training
+                - paragraph [ref=e854]: San Francisco, CA
+              - generic [ref=e856]:
+                - generic [ref=e857]: Apply
+                - img [ref=e859]
+            - link "Staff Machine Learning Engineer, Virtual Collaborator New York City, NY; San Francisco, CA; Seattle, WA Apply" [ref=e861] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4946308008
+              - generic [ref=e862]:
+                - paragraph [ref=e864]: Staff Machine Learning Engineer, Virtual Collaborator
+                - paragraph [ref=e866]: New York City, NY; San Francisco, CA; Seattle, WA
+              - generic [ref=e868]:
+                - generic [ref=e869]: Apply
+                - img [ref=e871]
+            - link "Staff Research Engineer, Discovery Team San Francisco, CA Apply" [ref=e873] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4593216008
+              - generic [ref=e874]:
+                - paragraph [ref=e876]: Staff Research Engineer, Discovery Team
+                - paragraph [ref=e878]: San Francisco, CA
+              - generic [ref=e880]:
+                - generic [ref=e881]: Apply
+                - img [ref=e883]
+            - link "Staff Software Engineer, Inference Dublin, IE Apply" [ref=e885] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4979237008
+              - generic [ref=e886]:
+                - paragraph [ref=e888]: Staff Software Engineer, Inference
+                - paragraph [ref=e890]: Dublin, IE
+              - generic [ref=e892]:
+                - generic [ref=e893]: Apply
+                - img [ref=e895]
+            - link "TPU Kernel Engineer San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e897] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4720576008
+              - generic [ref=e898]:
+                - paragraph [ref=e900]: TPU Kernel Engineer
+                - paragraph [ref=e902]: San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e904]:
+                - generic [ref=e905]: Apply
+                - img [ref=e907]
+            - link "Training Content and Systems Architect San Francisco, CA | New York City, NY Apply" [ref=e909] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5097351008
+              - generic [ref=e910]:
+                - paragraph [ref=e912]: Training Content and Systems Architect
+                - paragraph [ref=e914]: San Francisco, CA | New York City, NY
+              - generic [ref=e916]:
+                - generic [ref=e917]: Apply
+                - img [ref=e919]
+        - generic [ref=e921]:
+          - checkbox "Communications 5 Open Roles" [ref=e922] [cursor=pointer]
+          - generic [ref=e923] [cursor=pointer]:
+            - heading "Communications" [level=2] [ref=e925]
+            - generic [ref=e927]: 5 Open Roles
+          - generic:
+            - link "Corporate Communications Manager San Francisco, CA Apply" [ref=e931] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5017818008
+              - generic [ref=e932]:
+                - paragraph [ref=e934]: Corporate Communications Manager
+                - paragraph [ref=e936]: San Francisco, CA
+              - generic [ref=e938]:
+                - generic [ref=e939]: Apply
+                - img [ref=e941]
+            - link "Head of Product Communications New York City, NY; San Francisco, CA | New York City, NY Apply" [ref=e943] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4930325008
+              - generic [ref=e944]:
+                - paragraph [ref=e946]: Head of Product Communications
+                - paragraph [ref=e948]: New York City, NY; San Francisco, CA | New York City, NY
+              - generic [ref=e950]:
+                - generic [ref=e951]: Apply
+                - img [ref=e953]
+            - link "Operations Manager, Communications New York City, NY; Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY Apply" [ref=e955] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5098913008
+              - generic [ref=e956]:
+                - paragraph [ref=e958]: Operations Manager, Communications
+                - paragraph [ref=e960]: New York City, NY; Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY
+              - generic [ref=e962]:
+                - generic [ref=e963]: Apply
+                - img [ref=e965]
+            - link "Policy Communications Manager San Francisco, CA | New York City, NY; San Francisco, CA | Washington, DC Apply" [ref=e967] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4979661008
+              - generic [ref=e968]:
+                - paragraph [ref=e970]: Policy Communications Manager
+                - paragraph [ref=e972]: San Francisco, CA | New York City, NY; San Francisco, CA | Washington, DC
+              - generic [ref=e974]:
+                - generic [ref=e975]: Apply
+                - img [ref=e977]
+            - link "Strategy and Messaging Communications Lead, Narrative San Francisco, CA | New York City, NY Apply" [ref=e979] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4985093008
+              - generic [ref=e980]:
+                - paragraph [ref=e982]: Strategy and Messaging Communications Lead, Narrative
+                - paragraph [ref=e984]: San Francisco, CA | New York City, NY
+              - generic [ref=e986]:
+                - generic [ref=e987]: Apply
+                - img [ref=e989]
+        - generic [ref=e991]:
+          - checkbox "Compute 6 Open Roles" [ref=e992] [cursor=pointer]
+          - generic [ref=e993] [cursor=pointer]:
+            - heading "Compute" [level=2] [ref=e995]
+            - generic [ref=e997]: 6 Open Roles
+          - generic:
+            - link "Capacity Engineer, Compute San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e1001] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4801218008
+              - generic [ref=e1002]:
+                - paragraph [ref=e1004]: Capacity Engineer, Compute
+                - paragraph [ref=e1006]: San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e1008]:
+                - generic [ref=e1009]: Apply
+                - img [ref=e1011]
+            - link "Compute Analyst San Francisco, CA | New York City, NY Apply" [ref=e1013] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5075086008
+              - generic [ref=e1014]:
+                - paragraph [ref=e1016]: Compute Analyst
+                - paragraph [ref=e1018]: San Francisco, CA | New York City, NY
+              - generic [ref=e1020]:
+                - generic [ref=e1021]: Apply
+                - img [ref=e1023]
+            - link "Compute Capacity Strategy & Operations San Francisco, CA | New York City, NY Apply" [ref=e1025] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5068424008
+              - generic [ref=e1026]:
+                - paragraph [ref=e1028]: Compute Capacity Strategy & Operations
+                - paragraph [ref=e1030]: San Francisco, CA | New York City, NY
+              - generic [ref=e1032]:
+                - generic [ref=e1033]: Apply
+                - img [ref=e1035]
+            - link "Data Center Facility Operations Lead San Francisco, CA | New York City, NY Apply" [ref=e1037] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5023727008
+              - generic [ref=e1038]:
+                - paragraph [ref=e1040]: Data Center Facility Operations Lead
+                - paragraph [ref=e1042]: San Francisco, CA | New York City, NY
+              - generic [ref=e1044]:
+                - generic [ref=e1045]: Apply
+                - img [ref=e1047]
+            - link "Data Center Hardware Operations Lead San Francisco, CA | New York City, NY Apply" [ref=e1049] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5023719008
+              - generic [ref=e1050]:
+                - paragraph [ref=e1052]: Data Center Hardware Operations Lead
+                - paragraph [ref=e1054]: San Francisco, CA | New York City, NY
+              - generic [ref=e1056]:
+                - generic [ref=e1057]: Apply
+                - img [ref=e1059]
+            - link "Transaction Manager Remote-Friendly (Travel-Required) | San Francisco, CA | New York City, NY Apply" [ref=e1061] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5099080008
+              - generic [ref=e1062]:
+                - paragraph [ref=e1064]: Transaction Manager
+                - paragraph [ref=e1066]: Remote-Friendly (Travel-Required) | San Francisco, CA | New York City, NY
+              - generic [ref=e1068]:
+                - generic [ref=e1069]: Apply
+                - img [ref=e1071]
+        - generic [ref=e1073]:
+          - checkbox "Data Science & Analytics 2 Open Roles" [ref=e1074] [cursor=pointer]
+          - generic [ref=e1075] [cursor=pointer]:
+            - heading "Data Science & Analytics" [level=2] [ref=e1077]
+            - generic [ref=e1079]: 2 Open Roles
+          - generic:
+            - link "Analytics Data Engineer San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e1083] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4956672008
+              - generic [ref=e1084]:
+                - paragraph [ref=e1086]: Analytics Data Engineer
+                - paragraph [ref=e1088]: San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e1090]:
+                - generic [ref=e1091]: Apply
+                - img [ref=e1093]
+            - link "Data Scientist, Claude Developer Platform San Francisco, CA | New York City, NY Apply" [ref=e1095] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5098499008
+              - generic [ref=e1096]:
+                - paragraph [ref=e1098]: Data Scientist, Claude Developer Platform
+                - paragraph [ref=e1100]: San Francisco, CA | New York City, NY
+              - generic [ref=e1102]:
+                - generic [ref=e1103]: Apply
+                - img [ref=e1105]
+        - generic [ref=e1107]:
+          - checkbox "Engineering & Design - Product 24 Open Roles" [ref=e1108] [cursor=pointer]
+          - generic [ref=e1109] [cursor=pointer]:
+            - heading "Engineering & Design - Product" [level=2] [ref=e1111]
+            - generic [ref=e1113]: 24 Open Roles
+          - generic:
+            - link "Content Designer, Enterprise Growth New York City, NY | Seattle, WA; San Francisco, CA Apply" [ref=e1117] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5077227008
+              - generic [ref=e1118]:
+                - paragraph [ref=e1120]: Content Designer, Enterprise Growth
+                - paragraph [ref=e1122]: New York City, NY | Seattle, WA; San Francisco, CA
+              - generic [ref=e1124]:
+                - generic [ref=e1125]: Apply
+                - img [ref=e1127]
+            - link "Engineering Manager, Claude Developer Platform San Francisco, CA Apply" [ref=e1129] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4721383008
+              - generic [ref=e1130]:
+                - paragraph [ref=e1132]: Engineering Manager, Claude Developer Platform
+                - paragraph [ref=e1134]: San Francisco, CA
+              - generic [ref=e1136]:
+                - generic [ref=e1137]: Apply
+                - img [ref=e1139]
+            - link "Engineering Manager, Claude Services San Francisco, CA | New York City, NY Apply" [ref=e1141] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5026197008
+              - generic [ref=e1142]:
+                - paragraph [ref=e1144]: Engineering Manager, Claude Services
+                - paragraph [ref=e1146]: San Francisco, CA | New York City, NY
+              - generic [ref=e1148]:
+                - generic [ref=e1149]: Apply
+                - img [ref=e1151]
+            - link "Engineering Manager, Product Platform & Accounts Platform New York City, NY; San Francisco, CA; Seattle, WA Apply" [ref=e1153] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4889396008
+              - generic [ref=e1154]:
+                - paragraph [ref=e1156]: Engineering Manager, Product Platform & Accounts Platform
+                - paragraph [ref=e1158]: New York City, NY; San Francisco, CA; Seattle, WA
+              - generic [ref=e1160]:
+                - generic [ref=e1161]: Apply
+                - img [ref=e1163]
+            - link "Product Designer, Claude Code New York City, NY; Remote-Friendly (Travel Required) | San Francisco, CA; San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e1165] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5025976008
+              - generic [ref=e1166]:
+                - paragraph [ref=e1168]: Product Designer, Claude Code
+                - paragraph [ref=e1170]: New York City, NY; Remote-Friendly (Travel Required) | San Francisco, CA; San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e1172]:
+                - generic [ref=e1173]: Apply
+                - img [ref=e1175]
+            - link "Senior Software Engineer, Business Technology London, UK Apply" [ref=e1177] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5082983008
+              - generic [ref=e1178]:
+                - paragraph [ref=e1180]: Senior Software Engineer, Business Technology
+                - paragraph [ref=e1182]: London, UK
+              - generic [ref=e1184]:
+                - generic [ref=e1185]: Apply
+                - img [ref=e1187]
+            - link "Senior Software Engineer, Business Technology Dublin, IE Apply" [ref=e1189] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5081409008
+              - generic [ref=e1190]:
+                - paragraph [ref=e1192]: Senior Software Engineer, Business Technology
+                - paragraph [ref=e1194]: Dublin, IE
+              - generic [ref=e1196]:
+                - generic [ref=e1197]: Apply
+                - img [ref=e1199]
+            - link "Software Engineer, Android San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e1201] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4899511008
+              - generic [ref=e1202]:
+                - paragraph [ref=e1204]: Software Engineer, Android
+                - paragraph [ref=e1206]: San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e1208]:
+                - generic [ref=e1209]: Apply
+                - img [ref=e1211]
+            - link "Software Engineer, Beneficial Deployments San Francisco, CA | New York City, NY Apply" [ref=e1213] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4942024008
+              - generic [ref=e1214]:
+                - paragraph [ref=e1216]: Software Engineer, Beneficial Deployments
+                - paragraph [ref=e1218]: San Francisco, CA | New York City, NY
+              - generic [ref=e1220]:
+                - generic [ref=e1221]: Apply
+                - img [ref=e1223]
+            - link "Software Engineer, Business Technology Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA Apply" [ref=e1225] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4982198008
+              - generic [ref=e1226]:
+                - paragraph [ref=e1228]: Software Engineer, Business Technology
+                - paragraph [ref=e1230]: Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA
+              - generic [ref=e1232]:
+                - generic [ref=e1233]: Apply
+                - img [ref=e1235]
+            - link "Software Engineer, Claude Code San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e1237] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4816199008
+              - generic [ref=e1238]:
+                - paragraph [ref=e1240]: Software Engineer, Claude Code
+                - paragraph [ref=e1242]: San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e1244]:
+                - generic [ref=e1245]: Apply
+                - img [ref=e1247]
+            - link "Software Engineer, Cybersecurity Products San Francisco, CA | New York City, NY | Seattle, WA; Washington, DC Apply" [ref=e1249] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5063007008
+              - generic [ref=e1250]:
+                - paragraph [ref=e1252]: Software Engineer, Cybersecurity Products
+                - paragraph [ref=e1254]: San Francisco, CA | New York City, NY | Seattle, WA; Washington, DC
+              - generic [ref=e1256]:
+                - generic [ref=e1257]: Apply
+                - img [ref=e1259]
+            - link "Software Engineer, Desktop San Francisco, CA | Seattle, WA Apply" [ref=e1261] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4980420008
+              - generic [ref=e1262]:
+                - paragraph [ref=e1264]: Software Engineer, Desktop
+                - paragraph [ref=e1266]: San Francisco, CA | Seattle, WA
+              - generic [ref=e1268]:
+                - generic [ref=e1269]: Apply
+                - img [ref=e1271]
+            - link "Software Engineer, Enterprise Foundations San Francisco, CA | New York City, NY Apply" [ref=e1273] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4667572008
+              - generic [ref=e1274]:
+                - paragraph [ref=e1276]: Software Engineer, Enterprise Foundations
+                - paragraph [ref=e1278]: San Francisco, CA | New York City, NY
+              - generic [ref=e1280]:
+                - generic [ref=e1281]: Apply
+                - img [ref=e1283]
+            - link "Software Engineer, Growth San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e1285] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5042025008
+              - generic [ref=e1286]:
+                - paragraph [ref=e1288]: Software Engineer, Growth
+                - paragraph [ref=e1290]: San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e1292]:
+                - generic [ref=e1293]: Apply
+                - img [ref=e1295]
+            - link "Software Engineer, Healthcare & Financial Services San Francisco, CA | New York City, NY Apply" [ref=e1297] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4941996008
+              - generic [ref=e1298]:
+                - paragraph [ref=e1300]: Software Engineer, Healthcare & Financial Services
+                - paragraph [ref=e1302]: San Francisco, CA | New York City, NY
+              - generic [ref=e1304]:
+                - generic [ref=e1305]: Apply
+                - img [ref=e1307]
+            - link "Software Engineer, iOS San Francisco, CA, New York City, NY, Seattle, WA Apply" [ref=e1309] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4572744008
+              - generic [ref=e1310]:
+                - paragraph [ref=e1312]: Software Engineer, iOS
+                - paragraph [ref=e1314]: San Francisco, CA, New York City, NY, Seattle, WA
+              - generic [ref=e1316]:
+                - generic [ref=e1317]: Apply
+                - img [ref=e1319]
+            - link "Software Engineer, Labs San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e1321] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5017202008
+              - generic [ref=e1322]:
+                - paragraph [ref=e1324]: Software Engineer, Labs
+                - paragraph [ref=e1326]: San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e1328]:
+                - generic [ref=e1329]: Apply
+                - img [ref=e1331]
+            - link "Software Engineer, Platform New York City, NY; San Francisco, CA; Seattle, WA Apply" [ref=e1333] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4955107008
+              - generic [ref=e1334]:
+                - paragraph [ref=e1336]: Software Engineer, Platform
+                - paragraph [ref=e1338]: New York City, NY; San Francisco, CA; Seattle, WA
+              - generic [ref=e1340]:
+                - generic [ref=e1341]: Apply
+                - img [ref=e1343]
+            - link "Software Engineer, Public Sector San Francisco, CA | New York City, NY | Washington, DC Apply" [ref=e1345] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4902636008
+              - generic [ref=e1346]:
+                - paragraph [ref=e1348]: Software Engineer, Public Sector
+                - paragraph [ref=e1350]: San Francisco, CA | New York City, NY | Washington, DC
+              - generic [ref=e1352]:
+                - generic [ref=e1353]: Apply
+                - img [ref=e1355]
+            - link "Software Engineer, Windows - Claude Code San Francisco, CA | New York City, NY Apply" [ref=e1357] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5098506008
+              - generic [ref=e1358]:
+                - paragraph [ref=e1360]: Software Engineer, Windows - Claude Code
+                - paragraph [ref=e1362]: San Francisco, CA | New York City, NY
+              - generic [ref=e1364]:
+                - generic [ref=e1365]: Apply
+                - img [ref=e1367]
+            - link "Staff Software Engineer, Claude Developer Platform (Backend) New York City, NY; San Francisco, CA Apply" [ref=e1369] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4988878008
+              - generic [ref=e1370]:
+                - paragraph [ref=e1372]: Staff Software Engineer, Claude Developer Platform (Backend)
+                - paragraph [ref=e1374]: New York City, NY; San Francisco, CA
+              - generic [ref=e1376]:
+                - generic [ref=e1377]: Apply
+                - img [ref=e1379]
+            - link "Staff Software Engineer, Claude Developer Platform (Full Stack) San Francisco, CA Apply" [ref=e1381] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4561282008
+              - generic [ref=e1382]:
+                - paragraph [ref=e1384]: Staff Software Engineer, Claude Developer Platform (Full Stack)
+                - paragraph [ref=e1386]: San Francisco, CA
+              - generic [ref=e1388]:
+                - generic [ref=e1389]: Apply
+                - img [ref=e1391]
+            - link "Staff Software Engineer, Platform San Francisco, CA | New York City, NY Apply" [ref=e1393] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5023089008
+              - generic [ref=e1394]:
+                - paragraph [ref=e1396]: Staff Software Engineer, Platform
+                - paragraph [ref=e1398]: San Francisco, CA | New York City, NY
+              - generic [ref=e1400]:
+                - generic [ref=e1401]: Apply
+                - img [ref=e1403]
+        - generic [ref=e1405]:
+          - checkbox "Finance 24 Open Roles" [ref=e1406] [cursor=pointer]
+          - generic [ref=e1407] [cursor=pointer]:
+            - heading "Finance" [level=2] [ref=e1409]
+            - generic [ref=e1411]: 24 Open Roles
+          - generic:
+            - link "Compute Transactions & Partnerships San Francisco, CA Apply" [ref=e1415] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4986778008
+              - generic [ref=e1416]:
+                - paragraph [ref=e1418]: Compute Transactions & Partnerships
+                - paragraph [ref=e1420]: San Francisco, CA
+              - generic [ref=e1422]:
+                - generic [ref=e1423]: Apply
+                - img [ref=e1425]
+            - link "Corporate Development San Francisco, CA Apply" [ref=e1427] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4989518008
+              - generic [ref=e1428]:
+                - paragraph [ref=e1430]: Corporate Development
+                - paragraph [ref=e1432]: San Francisco, CA
+              - generic [ref=e1434]:
+                - generic [ref=e1435]: Apply
+                - img [ref=e1437]
+            - link "Corporate Finance & Strategy, Planning & Reporting San Francisco, CA Apply" [ref=e1439] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5017273008
+              - generic [ref=e1440]:
+                - paragraph [ref=e1442]: Corporate Finance & Strategy, Planning & Reporting
+                - paragraph [ref=e1444]: San Francisco, CA
+              - generic [ref=e1446]:
+                - generic [ref=e1447]: Apply
+                - img [ref=e1449]
+            - link "Director, Accounting Operations San Francisco, CA Apply" [ref=e1451] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4965218008
+              - generic [ref=e1452]:
+                - paragraph [ref=e1454]: Director, Accounting Operations
+                - paragraph [ref=e1456]: San Francisco, CA
+              - generic [ref=e1458]:
+                - generic [ref=e1459]: Apply
+                - img [ref=e1461]
+            - link "Director, Compute Infrastructure Procurement San Francisco, CA Apply" [ref=e1463] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5077105008
+              - generic [ref=e1464]:
+                - paragraph [ref=e1466]: Director, Compute Infrastructure Procurement
+                - paragraph [ref=e1468]: San Francisco, CA
+              - generic [ref=e1470]:
+                - generic [ref=e1471]: Apply
+                - img [ref=e1473]
+            - link "Director, Order Management & Billing San Francisco, CA Apply" [ref=e1475] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4959525008
+              - generic [ref=e1476]:
+                - paragraph [ref=e1478]: Director, Order Management & Billing
+                - paragraph [ref=e1480]: San Francisco, CA
+              - generic [ref=e1482]:
+                - generic [ref=e1483]: Apply
+                - img [ref=e1485]
+            - link "European Tax Lead Dublin, IE Apply" [ref=e1487] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5071198008
+              - generic [ref=e1488]:
+                - paragraph [ref=e1490]: European Tax Lead
+                - paragraph [ref=e1492]: Dublin, IE
+              - generic [ref=e1494]:
+                - generic [ref=e1495]: Apply
+                - img [ref=e1497]
+            - link "Finance & Strategy, GTM (ANZ) Sydney, Australia Apply" [ref=e1499] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5079131008
+              - generic [ref=e1500]:
+                - paragraph [ref=e1502]: Finance & Strategy, GTM (ANZ)
+                - paragraph [ref=e1504]: Sydney, Australia
+              - generic [ref=e1506]:
+                - generic [ref=e1507]: Apply
+                - img [ref=e1509]
+            - link "Finance & Strategy, GTM (Korea) Seoul, South Korea Apply" [ref=e1511] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5079133008
+              - generic [ref=e1512]:
+                - paragraph [ref=e1514]: Finance & Strategy, GTM (Korea)
+                - paragraph [ref=e1516]: Seoul, South Korea
+              - generic [ref=e1518]:
+                - generic [ref=e1519]: Apply
+                - img [ref=e1521]
+            - link "Finance Systems, Finance & Strategy Lead San Francisco, CA Apply" [ref=e1523] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5060653008
+              - generic [ref=e1524]:
+                - paragraph [ref=e1526]: Finance Systems, Finance & Strategy Lead
+                - paragraph [ref=e1528]: San Francisco, CA
+              - generic [ref=e1530]:
+                - generic [ref=e1531]: Apply
+                - img [ref=e1533]
+            - link "Finance Systems, Senior Business Systems Analyst San Francisco, CA Apply" [ref=e1535] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4991194008
+              - generic [ref=e1536]:
+                - paragraph [ref=e1538]: Finance Systems, Senior Business Systems Analyst
+                - paragraph [ref=e1540]: San Francisco, CA
+              - generic [ref=e1542]:
+                - generic [ref=e1543]: Apply
+                - img [ref=e1545]
+            - link "Finance Systems, Tax Technology Lead San Francisco, CA Apply" [ref=e1547] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5064245008
+              - generic [ref=e1548]:
+                - paragraph [ref=e1550]: Finance Systems, Tax Technology Lead
+                - paragraph [ref=e1552]: San Francisco, CA
+              - generic [ref=e1554]:
+                - generic [ref=e1555]: Apply
+                - img [ref=e1557]
+            - link "Finance Variable Compensation Lead San Francisco, CA Apply" [ref=e1559] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4831485008
+              - generic [ref=e1560]:
+                - paragraph [ref=e1562]: Finance Variable Compensation Lead
+                - paragraph [ref=e1564]: San Francisco, CA
+              - generic [ref=e1566]:
+                - generic [ref=e1567]: Apply
+                - img [ref=e1569]
+            - link "Financial Reporting Accountant San Francisco, CA Apply" [ref=e1571] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5069207008
+              - generic [ref=e1572]:
+                - paragraph [ref=e1574]: Financial Reporting Accountant
+                - paragraph [ref=e1576]: San Francisco, CA
+              - generic [ref=e1578]:
+                - generic [ref=e1579]: Apply
+                - img [ref=e1581]
+            - link "Head of Infrastructure Accounting San Francisco, CA Apply" [ref=e1583] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4756214008
+              - generic [ref=e1584]:
+                - paragraph [ref=e1586]: Head of Infrastructure Accounting
+                - paragraph [ref=e1588]: San Francisco, CA
+              - generic [ref=e1590]:
+                - generic [ref=e1591]: Apply
+                - img [ref=e1593]
+            - link "Head of IT SOX San Francisco, CA Apply" [ref=e1595] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5061691008
+              - generic [ref=e1596]:
+                - paragraph [ref=e1598]: Head of IT SOX
+                - paragraph [ref=e1600]: San Francisco, CA
+              - generic [ref=e1602]:
+                - generic [ref=e1603]: Apply
+                - img [ref=e1605]
+            - link "International Accounting Manager Dublin, IE Apply" [ref=e1607] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5060161008
+              - generic [ref=e1608]:
+                - paragraph [ref=e1610]: International Accounting Manager
+                - paragraph [ref=e1612]: Dublin, IE
+              - generic [ref=e1614]:
+                - generic [ref=e1615]: Apply
+                - img [ref=e1617]
+            - link "International Indirect Tax VAT/GST Dublin, IE Apply" [ref=e1619] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5073339008
+              - generic [ref=e1620]:
+                - paragraph [ref=e1622]: International Indirect Tax VAT/GST
+                - paragraph [ref=e1624]: Dublin, IE
+              - generic [ref=e1626]:
+                - generic [ref=e1627]: Apply
+                - img [ref=e1629]
+            - link "International Revenue Accountant Dublin, IE Apply" [ref=e1631] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4966365008
+              - generic [ref=e1632]:
+                - paragraph [ref=e1634]: International Revenue Accountant
+                - paragraph [ref=e1636]: Dublin, IE
+              - generic [ref=e1638]:
+                - generic [ref=e1639]: Apply
+                - img [ref=e1641]
+            - link "Revenue Accounting San Francisco, CA Apply" [ref=e1643] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5076754008
+              - generic [ref=e1644]:
+                - paragraph [ref=e1646]: Revenue Accounting
+                - paragraph [ref=e1648]: San Francisco, CA
+              - generic [ref=e1650]:
+                - generic [ref=e1651]: Apply
+                - img [ref=e1653]
+            - link "Revenue Systems Solution Architect San Francisco, CA Apply" [ref=e1655] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5068721008
+              - generic [ref=e1656]:
+                - paragraph [ref=e1658]: Revenue Systems Solution Architect
+                - paragraph [ref=e1660]: San Francisco, CA
+              - generic [ref=e1662]:
+                - generic [ref=e1663]: Apply
+                - img [ref=e1665]
+            - link "Sr International Payroll Specialist Dublin, IE Apply" [ref=e1667] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5076929008
+              - generic [ref=e1668]:
+                - paragraph [ref=e1670]: Sr International Payroll Specialist
+                - paragraph [ref=e1672]: Dublin, IE
+              - generic [ref=e1674]:
+                - generic [ref=e1675]: Apply
+                - img [ref=e1677]
+            - link "Technical Accounting New York City, NY; San Francisco, CA; Seattle, WA Apply" [ref=e1679] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4963718008
+              - generic [ref=e1680]:
+                - paragraph [ref=e1682]: Technical Accounting
+                - paragraph [ref=e1684]: New York City, NY; San Francisco, CA; Seattle, WA
+              - generic [ref=e1686]:
+                - generic [ref=e1687]: Apply
+                - img [ref=e1689]
+            - link "Technical Revenue Accounting San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e1691] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5077106008
+              - generic [ref=e1692]:
+                - paragraph [ref=e1694]: Technical Revenue Accounting
+                - paragraph [ref=e1696]: San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e1698]:
+                - generic [ref=e1699]: Apply
+                - img [ref=e1701]
+        - generic [ref=e1703]:
+          - checkbox "Legal 13 Open Roles" [ref=e1704] [cursor=pointer]
+          - generic [ref=e1705] [cursor=pointer]:
+            - heading "Legal" [level=2] [ref=e1707]
+            - generic [ref=e1709]: 13 Open Roles
+          - generic:
+            - link "Commercial Counsel, Colo & Networks San Francisco, CA | New York City, NY Apply" [ref=e1713] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5045003008
+              - generic [ref=e1714]:
+                - paragraph [ref=e1716]: Commercial Counsel, Colo & Networks
+                - paragraph [ref=e1718]: San Francisco, CA | New York City, NY
+              - generic [ref=e1720]:
+                - generic [ref=e1721]: Apply
+                - img [ref=e1723]
+            - link "Commercial Counsel, Compute & Infrastructure San Francisco, CA | New York City, NY Apply" [ref=e1725] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5045006008
+              - generic [ref=e1726]:
+                - paragraph [ref=e1728]: Commercial Counsel, Compute & Infrastructure
+                - paragraph [ref=e1730]: San Francisco, CA | New York City, NY
+              - generic [ref=e1732]:
+                - generic [ref=e1733]: Apply
+                - img [ref=e1735]
+            - link "Commercial Counsel, Datacenters & Construction San Francisco, CA | New York City, NY Apply" [ref=e1737] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5044994008
+              - generic [ref=e1738]:
+                - paragraph [ref=e1740]: Commercial Counsel, Datacenters & Construction
+                - paragraph [ref=e1742]: San Francisco, CA | New York City, NY
+              - generic [ref=e1744]:
+                - generic [ref=e1745]: Apply
+                - img [ref=e1747]
+            - link "Commercial Counsel, EMEA London, UK Apply" [ref=e1749] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5096573008
+              - generic [ref=e1750]:
+                - paragraph [ref=e1752]: Commercial Counsel, EMEA
+                - paragraph [ref=e1754]: London, UK
+              - generic [ref=e1756]:
+                - generic [ref=e1757]: Apply
+                - img [ref=e1759]
+            - link "Commercial Counsel, EMEA Dublin, IE Apply" [ref=e1761] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5081473008
+              - generic [ref=e1762]:
+                - paragraph [ref=e1764]: Commercial Counsel, EMEA
+                - paragraph [ref=e1766]: Dublin, IE
+              - generic [ref=e1768]:
+                - generic [ref=e1769]: Apply
+                - img [ref=e1771]
+            - link "Commercial Counsel, GTM San Francisco, CA | New York City, NY Apply" [ref=e1773] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5074052008
+              - generic [ref=e1774]:
+                - paragraph [ref=e1776]: Commercial Counsel, GTM
+                - paragraph [ref=e1778]: San Francisco, CA | New York City, NY
+              - generic [ref=e1780]:
+                - generic [ref=e1781]: Apply
+                - img [ref=e1783]
+            - link "Commercial Counsel, Partnerships & Alliances San Francisco, CA | New York City, NY Apply" [ref=e1785] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4983107008
+              - generic [ref=e1786]:
+                - paragraph [ref=e1788]: Commercial Counsel, Partnerships & Alliances
+                - paragraph [ref=e1790]: San Francisco, CA | New York City, NY
+              - generic [ref=e1792]:
+                - generic [ref=e1793]: Apply
+                - img [ref=e1795]
+            - link "Compliance Oversight Lead San Francisco, CA | New York City, NY | Washington, DC Apply" [ref=e1797] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5097831008
+              - generic [ref=e1798]:
+                - paragraph [ref=e1800]: Compliance Oversight Lead
+                - paragraph [ref=e1802]: San Francisco, CA | New York City, NY | Washington, DC
+              - generic [ref=e1804]:
+                - generic [ref=e1805]: Apply
+                - img [ref=e1807]
+            - link "Contracts Manager San Francisco, CA | New York City, NY Apply" [ref=e1809] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4987662008
+              - generic [ref=e1810]:
+                - paragraph [ref=e1812]: Contracts Manager
+                - paragraph [ref=e1814]: San Francisco, CA | New York City, NY
+              - generic [ref=e1816]:
+                - generic [ref=e1817]: Apply
+                - img [ref=e1819]
+            - link "Corporate Counsel, M&A San Francisco, CA Apply" [ref=e1821] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5059367008
+              - generic [ref=e1822]:
+                - paragraph [ref=e1824]: Corporate Counsel, M&A
+                - paragraph [ref=e1826]: San Francisco, CA
+              - generic [ref=e1828]:
+                - generic [ref=e1829]: Apply
+                - img [ref=e1831]
+            - link "Corporate Legal Specialist San Francisco, CA Apply" [ref=e1833] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5011703008
+              - generic [ref=e1834]:
+                - paragraph [ref=e1836]: Corporate Legal Specialist
+                - paragraph [ref=e1838]: San Francisco, CA
+              - generic [ref=e1840]:
+                - generic [ref=e1841]: Apply
+                - img [ref=e1843]
+            - link "Employment Counsel, EMEA London, UK Apply" [ref=e1845] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4986303008
+              - generic [ref=e1846]:
+                - paragraph [ref=e1848]: Employment Counsel, EMEA
+                - paragraph [ref=e1850]: London, UK
+              - generic [ref=e1852]:
+                - generic [ref=e1853]: Apply
+                - img [ref=e1855]
+            - link "Product Counsel, Safety San Francisco, CA | New York City, NY Apply" [ref=e1857] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5074045008
+              - generic [ref=e1858]:
+                - paragraph [ref=e1860]: Product Counsel, Safety
+                - paragraph [ref=e1862]: San Francisco, CA | New York City, NY
+              - generic [ref=e1864]:
+                - generic [ref=e1865]: Apply
+                - img [ref=e1867]
+        - generic [ref=e1869]:
+          - checkbox "Marketing & Brand 18 Open Roles" [ref=e1870] [cursor=pointer]
+          - generic [ref=e1871] [cursor=pointer]:
+            - heading "Marketing & Brand" [level=2] [ref=e1873]
+            - generic [ref=e1875]: 18 Open Roles
+          - generic:
+            - link "Customer Marketing Manager - EMEA London, UK Apply" [ref=e1879] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4971197008
+              - generic [ref=e1880]:
+                - paragraph [ref=e1882]: Customer Marketing Manager - EMEA
+                - paragraph [ref=e1884]: London, UK
+              - generic [ref=e1886]:
+                - generic [ref=e1887]: Apply
+                - img [ref=e1889]
+            - link "Developer Campaign Marketer, Claude Code San Francisco, CA | New York City, NY Apply" [ref=e1891] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5026189008
+              - generic [ref=e1892]:
+                - paragraph [ref=e1894]: Developer Campaign Marketer, Claude Code
+                - paragraph [ref=e1896]: San Francisco, CA | New York City, NY
+              - generic [ref=e1898]:
+                - generic [ref=e1899]: Apply
+                - img [ref=e1901]
+            - link "Developer Community Lead - Japan Tokyo, Japan Apply" [ref=e1903] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4992713008
+              - generic [ref=e1904]:
+                - paragraph [ref=e1906]: Developer Community Lead - Japan
+                - paragraph [ref=e1908]: Tokyo, Japan
+              - generic [ref=e1910]:
+                - generic [ref=e1911]: Apply
+                - img [ref=e1913]
+            - link "Field Marketing Lead, EMEA London, UK Apply" [ref=e1915] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5026187008
+              - generic [ref=e1916]:
+                - paragraph [ref=e1918]: Field Marketing Lead, EMEA
+                - paragraph [ref=e1920]: London, UK
+              - generic [ref=e1922]:
+                - generic [ref=e1923]: Apply
+                - img [ref=e1925]
+            - link "Field Marketing Manager, Industries San Francisco, CA | New York City, NY Apply" [ref=e1927] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4934940008
+              - generic [ref=e1928]:
+                - paragraph [ref=e1930]: Field Marketing Manager, Industries
+                - paragraph [ref=e1932]: San Francisco, CA | New York City, NY
+              - generic [ref=e1934]:
+                - generic [ref=e1935]: Apply
+                - img [ref=e1937]
+            - link "Field Marketing Manager, Startups San Francisco, CA | New York City, NY Apply" [ref=e1939] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5026192008
+              - generic [ref=e1940]:
+                - paragraph [ref=e1942]: Field Marketing Manager, Startups
+                - paragraph [ref=e1944]: San Francisco, CA | New York City, NY
+              - generic [ref=e1946]:
+                - generic [ref=e1947]: Apply
+                - img [ref=e1949]
+            - link "Head of GTM Narrative San Francisco, CA | New York City, NY Apply" [ref=e1951] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4934660008
+              - generic [ref=e1952]:
+                - paragraph [ref=e1954]: Head of GTM Narrative
+                - paragraph [ref=e1956]: San Francisco, CA | New York City, NY
+              - generic [ref=e1958]:
+                - generic [ref=e1959]: Apply
+                - img [ref=e1961]
+            - link "Head of International Marketing London, UK Apply" [ref=e1963] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5067118008
+              - generic [ref=e1964]:
+                - paragraph [ref=e1966]: Head of International Marketing
+                - paragraph [ref=e1968]: London, UK
+              - generic [ref=e1970]:
+                - generic [ref=e1971]: Apply
+                - img [ref=e1973]
+            - link "Marketing Events Lead, EMEA London, UK Apply" [ref=e1975] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4934225008
+              - generic [ref=e1976]:
+                - paragraph [ref=e1978]: Marketing Events Lead, EMEA
+                - paragraph [ref=e1980]: London, UK
+              - generic [ref=e1982]:
+                - generic [ref=e1983]: Apply
+                - img [ref=e1985]
+            - link "Partner Marketing Lead, Cloud Partners San Francisco, CA Apply" [ref=e1987] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4966206008
+              - generic [ref=e1988]:
+                - paragraph [ref=e1990]: Partner Marketing Lead, Cloud Partners
+                - paragraph [ref=e1992]: San Francisco, CA
+              - generic [ref=e1994]:
+                - generic [ref=e1995]: Apply
+                - img [ref=e1997]
+            - link "Partner Marketing Lead, GSIs San Francisco, CA Apply" [ref=e1999] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5061729008
+              - generic [ref=e2000]:
+                - paragraph [ref=e2002]: Partner Marketing Lead, GSIs
+                - paragraph [ref=e2004]: San Francisco, CA
+              - generic [ref=e2006]:
+                - generic [ref=e2007]: Apply
+                - img [ref=e2009]
+            - link "Product Marketing Lead, Agents San Francisco, CA | New York City, NY Apply" [ref=e2011] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5055669008
+              - generic [ref=e2012]:
+                - paragraph [ref=e2014]: Product Marketing Lead, Agents
+                - paragraph [ref=e2016]: San Francisco, CA | New York City, NY
+              - generic [ref=e2018]:
+                - generic [ref=e2019]: Apply
+                - img [ref=e2021]
+            - link "Product Marketing Manager, Claude Code San Francisco, CA | New York City, NY Apply" [ref=e2023] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4996752008
+              - generic [ref=e2024]:
+                - paragraph [ref=e2026]: Product Marketing Manager, Claude Code
+                - paragraph [ref=e2028]: San Francisco, CA | New York City, NY
+              - generic [ref=e2030]:
+                - generic [ref=e2031]: Apply
+                - img [ref=e2033]
+            - link "Segment Marketing Manager, Commercial New York City, NY; San Francisco, CA Apply" [ref=e2035] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5095927008
+              - generic [ref=e2036]:
+                - paragraph [ref=e2038]: Segment Marketing Manager, Commercial
+                - paragraph [ref=e2040]: New York City, NY; San Francisco, CA
+              - generic [ref=e2042]:
+                - generic [ref=e2043]: Apply
+                - img [ref=e2045]
+            - link "Segment Marketing Manager, Industries, EMEA London, UK Apply" [ref=e2047] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5026173008
+              - generic [ref=e2048]:
+                - paragraph [ref=e2050]: Segment Marketing Manager, Industries, EMEA
+                - paragraph [ref=e2052]: London, UK
+              - generic [ref=e2054]:
+                - generic [ref=e2055]: Apply
+                - img [ref=e2057]
+            - link "Segment Marketing Manager, Startups San Francisco, CA Apply" [ref=e2059] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4986738008
+              - generic [ref=e2060]:
+                - paragraph [ref=e2062]: Segment Marketing Manager, Startups
+                - paragraph [ref=e2064]: San Francisco, CA
+              - generic [ref=e2066]:
+                - generic [ref=e2067]: Apply
+                - img [ref=e2069]
+            - link "Segment Marketing Manager, Strategic Accounts San Francisco, CA | New York City, NY Apply" [ref=e2071] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5055794008
+              - generic [ref=e2072]:
+                - paragraph [ref=e2074]: Segment Marketing Manager, Strategic Accounts
+                - paragraph [ref=e2076]: San Francisco, CA | New York City, NY
+              - generic [ref=e2078]:
+                - generic [ref=e2079]: Apply
+                - img [ref=e2081]
+            - link "Technical Product Marketing Lead San Francisco, CA | New York City, NY Apply" [ref=e2083] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5055672008
+              - generic [ref=e2084]:
+                - paragraph [ref=e2086]: Technical Product Marketing Lead
+                - paragraph [ref=e2088]: San Francisco, CA | New York City, NY
+              - generic [ref=e2090]:
+                - generic [ref=e2091]: Apply
+                - img [ref=e2093]
+        - generic [ref=e2095]:
+          - checkbox "People 14 Open Roles" [ref=e2096] [cursor=pointer]
+          - generic [ref=e2097] [cursor=pointer]:
+            - heading "People" [level=2] [ref=e2099]
+            - generic [ref=e2101]: 14 Open Roles
+          - generic:
+            - link "Administrative Business Partner Munich, Germany Apply" [ref=e2105] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5080744008
+              - generic [ref=e2106]:
+                - paragraph [ref=e2108]: Administrative Business Partner
+                - paragraph [ref=e2110]: Munich, Germany
+              - generic [ref=e2112]:
+                - generic [ref=e2113]: Apply
+                - img [ref=e2115]
+            - link "[Contract, Part-time] Workplace Coordinator - Japan Tokyo, Japan Apply" [ref=e2117] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5015925008
+              - generic [ref=e2118]:
+                - paragraph [ref=e2120]: "[Contract, Part-time] Workplace Coordinator - Japan"
+                - paragraph [ref=e2122]: Tokyo, Japan
+              - generic [ref=e2124]:
+                - generic [ref=e2125]: Apply
+                - img [ref=e2127]
+            - link "Founding GTM Recruiter - ANZ Sydney, Australia Apply" [ref=e2129] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4984653008
+              - generic [ref=e2130]:
+                - paragraph [ref=e2132]: Founding GTM Recruiter - ANZ
+                - paragraph [ref=e2134]: Sydney, Australia
+              - generic [ref=e2136]:
+                - generic [ref=e2137]: Apply
+                - img [ref=e2139]
+            - link "GTM Recruiter, APAC Tokyo, Japan Apply" [ref=e2141] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5055609008
+              - generic [ref=e2142]:
+                - paragraph [ref=e2144]: GTM Recruiter, APAC
+                - paragraph [ref=e2146]: Tokyo, Japan
+              - generic [ref=e2148]:
+                - generic [ref=e2149]: Apply
+                - img [ref=e2151]
+            - link "Head of Sales & Partnerships Recruiting San Francisco, CA | New York City, NY Apply" [ref=e2153] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5062810008
+              - generic [ref=e2154]:
+                - paragraph [ref=e2156]: Head of Sales & Partnerships Recruiting
+                - paragraph [ref=e2158]: San Francisco, CA | New York City, NY
+              - generic [ref=e2160]:
+                - generic [ref=e2161]: Apply
+                - img [ref=e2163]
+            - link "Internal Mobility Program Manager San Francisco, CA | Seattle, WA Apply" [ref=e2165] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5081491008
+              - generic [ref=e2166]:
+                - paragraph [ref=e2168]: Internal Mobility Program Manager
+                - paragraph [ref=e2170]: San Francisco, CA | Seattle, WA
+              - generic [ref=e2172]:
+                - generic [ref=e2173]: Apply
+                - img [ref=e2175]
+            - link "Recruiter, AI Research San Francisco, CA Apply" [ref=e2177] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4604015008
+              - generic [ref=e2178]:
+                - paragraph [ref=e2180]: Recruiter, AI Research
+                - paragraph [ref=e2182]: San Francisco, CA
+              - generic [ref=e2184]:
+                - generic [ref=e2185]: Apply
+                - img [ref=e2187]
+            - link "Recruiter, Applied AI San Francisco, CA Apply" [ref=e2189] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4961072008
+              - generic [ref=e2190]:
+                - paragraph [ref=e2192]: Recruiter, Applied AI
+                - paragraph [ref=e2194]: San Francisco, CA
+              - generic [ref=e2196]:
+                - generic [ref=e2197]: Apply
+                - img [ref=e2199]
+            - link "Recruiter, Technical San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e2201] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4814348008
+              - generic [ref=e2202]:
+                - paragraph [ref=e2204]: Recruiter, Technical
+                - paragraph [ref=e2206]: San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e2208]:
+                - generic [ref=e2209]: Apply
+                - img [ref=e2211]
+            - link "Recruiting Coordinator Tokyo, Japan Apply" [ref=e2213] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4957830008
+              - generic [ref=e2214]:
+                - paragraph [ref=e2216]: Recruiting Coordinator
+                - paragraph [ref=e2218]: Tokyo, Japan
+              - generic [ref=e2220]:
+                - generic [ref=e2221]: Apply
+                - img [ref=e2223]
+            - link "Recruiting Coordinator [contract] Remote-Friendly, United States Apply" [ref=e2225] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5041174008
+              - generic [ref=e2226]:
+                - paragraph [ref=e2228]: Recruiting Coordinator [contract]
+                - paragraph [ref=e2230]: Remote-Friendly, United States
+              - generic [ref=e2232]:
+                - generic [ref=e2233]: Apply
+                - img [ref=e2235]
+            - link "Recruiting Data Engineering & Analytics San Francisco, CA | Seattle, WA Apply" [ref=e2237] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4886415008
+              - generic [ref=e2238]:
+                - paragraph [ref=e2240]: Recruiting Data Engineering & Analytics
+                - paragraph [ref=e2242]: San Francisco, CA | Seattle, WA
+              - generic [ref=e2244]:
+                - generic [ref=e2245]: Apply
+                - img [ref=e2247]
+            - link "Recruiting Systems Analyst Boston, MA; New York City, NY; San Francisco, CA Apply" [ref=e2249] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5065798008
+              - generic [ref=e2250]:
+                - paragraph [ref=e2252]: Recruiting Systems Analyst
+                - paragraph [ref=e2254]: Boston, MA; New York City, NY; San Francisco, CA
+              - generic [ref=e2256]:
+                - generic [ref=e2257]: Apply
+                - img [ref=e2259]
+            - link "Technical Recruiter, Specialized San Francisco, CA | Seattle, WA Apply" [ref=e2261] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4935314008
+              - generic [ref=e2262]:
+                - paragraph [ref=e2264]: Technical Recruiter, Specialized
+                - paragraph [ref=e2266]: San Francisco, CA | Seattle, WA
+              - generic [ref=e2268]:
+                - generic [ref=e2269]: Apply
+                - img [ref=e2271]
+        - generic [ref=e2273]:
+          - checkbox "Product Management, Support, & Operations 19 Open Roles" [ref=e2274] [cursor=pointer]
+          - generic [ref=e2275] [cursor=pointer]:
+            - heading "Product Management, Support, & Operations" [level=2] [ref=e2277]
+            - generic [ref=e2279]: 19 Open Roles
+          - generic:
+            - link "Developer Relations, MCP San Francisco, CA Apply" [ref=e2283] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5015340008
+              - generic [ref=e2284]:
+                - paragraph [ref=e2286]: Developer Relations, MCP
+                - paragraph [ref=e2288]: San Francisco, CA
+              - generic [ref=e2290]:
+                - generic [ref=e2291]: Apply
+                - img [ref=e2293]
+            - link "Founding Developer Relations Lead San Francisco, CA | New York City, NY Apply" [ref=e2295] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4781798008
+              - generic [ref=e2296]:
+                - paragraph [ref=e2298]: Founding Developer Relations Lead
+                - paragraph [ref=e2300]: San Francisco, CA | New York City, NY
+              - generic [ref=e2302]:
+                - generic [ref=e2303]: Apply
+                - img [ref=e2305]
+            - link "Head of Enterprise Support San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e2307] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5069448008
+              - generic [ref=e2308]:
+                - paragraph [ref=e2310]: Head of Enterprise Support
+                - paragraph [ref=e2312]: San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e2314]:
+                - generic [ref=e2315]: Apply
+                - img [ref=e2317]
+            - link "Product Manager, API San Francisco, CA | New York City, NY Apply" [ref=e2319] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4936029008
+              - generic [ref=e2320]:
+                - paragraph [ref=e2322]: Product Manager, API
+                - paragraph [ref=e2324]: San Francisco, CA | New York City, NY
+              - generic [ref=e2326]:
+                - generic [ref=e2327]: Apply
+                - img [ref=e2329]
+            - link "Product Manager, Claude Code San Francisco, CA | Seattle, WA Apply" [ref=e2331] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4985920008
+              - generic [ref=e2332]:
+                - paragraph [ref=e2334]: Product Manager, Claude Code
+                - paragraph [ref=e2336]: San Francisco, CA | Seattle, WA
+              - generic [ref=e2338]:
+                - generic [ref=e2339]: Apply
+                - img [ref=e2341]
+            - link "Product Manager, Claude Code (Enterprise) San Francisco, CA | Seattle, WA Apply" [ref=e2343] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4858247008
+              - generic [ref=e2344]:
+                - paragraph [ref=e2346]: Product Manager, Claude Code (Enterprise)
+                - paragraph [ref=e2348]: San Francisco, CA | Seattle, WA
+              - generic [ref=e2350]:
+                - generic [ref=e2351]: Apply
+                - img [ref=e2353]
+            - link "Product Manager, Claude Code Growth San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e2355] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5024981008
+              - generic [ref=e2356]:
+                - paragraph [ref=e2358]: Product Manager, Claude Code Growth
+                - paragraph [ref=e2360]: San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e2362]:
+                - generic [ref=e2363]: Apply
+                - img [ref=e2365]
+            - link "Product Manager, Revenue Platform New York City, NY; Remote-Friendly (Travel Required) | San Francisco, CA; San Francisco, CA; Seattle, WA Apply" [ref=e2367] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5077197008
+              - generic [ref=e2368]:
+                - paragraph [ref=e2370]: Product Manager, Revenue Platform
+                - paragraph [ref=e2372]: New York City, NY; Remote-Friendly (Travel Required) | San Francisco, CA; San Francisco, CA; Seattle, WA
+              - generic [ref=e2374]:
+                - generic [ref=e2375]: Apply
+                - img [ref=e2377]
+            - link "Product Operations Manager San Francisco, CA Apply" [ref=e2379] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4971429008
+              - generic [ref=e2380]:
+                - paragraph [ref=e2382]: Product Operations Manager
+                - paragraph [ref=e2384]: San Francisco, CA
+              - generic [ref=e2386]:
+                - generic [ref=e2387]: Apply
+                - img [ref=e2389]
+            - link "Product Operations Manager, Claude Code San Francisco, CA | New York City, NY Apply" [ref=e2391] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5055264008
+              - generic [ref=e2392]:
+                - paragraph [ref=e2394]: Product Operations Manager, Claude Code
+                - paragraph [ref=e2396]: San Francisco, CA | New York City, NY
+              - generic [ref=e2398]:
+                - generic [ref=e2399]: Apply
+                - img [ref=e2401]
+            - link "Product Operations Manager, Public Sector San Francisco, CA Apply" [ref=e2403] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4992055008
+              - generic [ref=e2404]:
+                - paragraph [ref=e2406]: Product Operations Manager, Public Sector
+                - paragraph [ref=e2408]: San Francisco, CA
+              - generic [ref=e2410]:
+                - generic [ref=e2411]: Apply
+                - img [ref=e2413]
+            - link "Product Operations Manager, Research Product San Francisco, CA Apply" [ref=e2415] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4992071008
+              - generic [ref=e2416]:
+                - paragraph [ref=e2418]: Product Operations Manager, Research Product
+                - paragraph [ref=e2420]: San Francisco, CA
+              - generic [ref=e2422]:
+                - generic [ref=e2423]: Apply
+                - img [ref=e2425]
+            - link "Product Support Specialist San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e2427] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4979585008
+              - generic [ref=e2428]:
+                - paragraph [ref=e2430]: Product Support Specialist
+                - paragraph [ref=e2432]: San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e2434]:
+                - generic [ref=e2435]: Apply
+                - img [ref=e2437]
+            - link "Research Product Manager San Francisco, CA | New York City, NY Apply" [ref=e2439] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4933792008
+              - generic [ref=e2440]:
+                - paragraph [ref=e2442]: Research Product Manager
+                - paragraph [ref=e2444]: San Francisco, CA | New York City, NY
+              - generic [ref=e2446]:
+                - generic [ref=e2447]: Apply
+                - img [ref=e2449]
+            - link "Research Product Manager, Labs San Francisco, CA | New York City, NY Apply" [ref=e2451] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5096878008
+              - generic [ref=e2452]:
+                - paragraph [ref=e2454]: Research Product Manager, Labs
+                - paragraph [ref=e2456]: San Francisco, CA | New York City, NY
+              - generic [ref=e2458]:
+                - generic [ref=e2459]: Apply
+                - img [ref=e2461]
+            - link "Research Product Manager, Model Behaviors San Francisco, CA | New York City, NY Apply" [ref=e2463] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5097067008
+              - generic [ref=e2464]:
+                - paragraph [ref=e2466]: Research Product Manager, Model Behaviors
+                - paragraph [ref=e2468]: San Francisco, CA | New York City, NY
+              - generic [ref=e2470]:
+                - generic [ref=e2471]: Apply
+                - img [ref=e2473]
+            - link "Support Operations Analyst San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e2475] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5080931008
+              - generic [ref=e2476]:
+                - paragraph [ref=e2478]: Support Operations Analyst
+                - paragraph [ref=e2480]: San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e2482]:
+                - generic [ref=e2483]: Apply
+                - img [ref=e2485]
+            - link "Support Operations Specialist, Content & Knowledge Management San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e2487] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5080929008
+              - generic [ref=e2488]:
+                - paragraph [ref=e2490]: Support Operations Specialist, Content & Knowledge Management
+                - paragraph [ref=e2492]: San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e2494]:
+                - generic [ref=e2495]: Apply
+                - img [ref=e2497]
+            - link "Support Operations Specialist, Learning & Education San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e2499] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5080927008
+              - generic [ref=e2500]:
+                - paragraph [ref=e2502]: Support Operations Specialist, Learning & Education
+                - paragraph [ref=e2504]: San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e2506]:
+                - generic [ref=e2507]: Apply
+                - img [ref=e2509]
+        - generic [ref=e2511]:
+          - checkbox "Safeguards (Trust & Safety) 12 Open Roles" [ref=e2512] [cursor=pointer]
+          - generic [ref=e2513] [cursor=pointer]:
+            - heading "Safeguards (Trust & Safety)" [level=2] [ref=e2515]
+            - generic [ref=e2517]: 12 Open Roles
+          - generic:
+            - link "Biological Safety Research Scientist San Francisco, CA | New York City, NY Apply" [ref=e2521] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5066977008
+              - generic [ref=e2522]:
+                - paragraph [ref=e2524]: Biological Safety Research Scientist
+                - paragraph [ref=e2526]: San Francisco, CA | New York City, NY
+              - generic [ref=e2528]:
+                - generic [ref=e2529]: Apply
+                - img [ref=e2531]
+            - link "Policy Manager, Chemical Weapons and High Yield Explosives Remote-Friendly (Travel-Required) | San Francisco, CA | Washington, DC Apply" [ref=e2533] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5066951008
+              - generic [ref=e2534]:
+                - paragraph [ref=e2536]: Policy Manager, Chemical Weapons and High Yield Explosives
+                - paragraph [ref=e2538]: Remote-Friendly (Travel-Required) | San Francisco, CA | Washington, DC
+              - generic [ref=e2540]:
+                - generic [ref=e2541]: Apply
+                - img [ref=e2543]
+            - link "Policy Manager, Harmful Persuasion San Francisco, CA | New York City, NY Apply" [ref=e2545] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5074933008
+              - generic [ref=e2546]:
+                - paragraph [ref=e2548]: Policy Manager, Harmful Persuasion
+                - paragraph [ref=e2550]: San Francisco, CA | New York City, NY
+              - generic [ref=e2552]:
+                - generic [ref=e2553]: Apply
+                - img [ref=e2555]
+            - link "Product Policy Manager, Frontier Risk Remote-Friendly (Travel-Required) | San Francisco, CA | Washington, DC Apply" [ref=e2557] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5067283008
+              - generic [ref=e2558]:
+                - paragraph [ref=e2560]: Product Policy Manager, Frontier Risk
+                - paragraph [ref=e2562]: Remote-Friendly (Travel-Required) | San Francisco, CA | Washington, DC
+              - generic [ref=e2564]:
+                - generic [ref=e2565]: Apply
+                - img [ref=e2567]
+            - link "Program Manager, Responsible Scaling Policy San Francisco, CA | New York City, NY Apply" [ref=e2569] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5073388008
+              - generic [ref=e2570]:
+                - paragraph [ref=e2572]: Program Manager, Responsible Scaling Policy
+                - paragraph [ref=e2574]: San Francisco, CA | New York City, NY
+              - generic [ref=e2576]:
+                - generic [ref=e2577]: Apply
+                - img [ref=e2579]
+            - link "Red Team Engineer, Safeguards Remote-Friendly (Travel-Required) | San Francisco, CA | Washington, DC Apply" [ref=e2581] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5070908008
+              - generic [ref=e2582]:
+                - paragraph [ref=e2584]: Red Team Engineer, Safeguards
+                - paragraph [ref=e2586]: Remote-Friendly (Travel-Required) | San Francisco, CA | Washington, DC
+              - generic [ref=e2588]:
+                - generic [ref=e2589]: Apply
+                - img [ref=e2591]
+            - link "Software Engineer, Safeguards Infrastructure London, UK Apply" [ref=e2593] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5074908008
+              - generic [ref=e2594]:
+                - paragraph [ref=e2596]: Software Engineer, Safeguards Infrastructure
+                - paragraph [ref=e2598]: London, UK
+              - generic [ref=e2600]:
+                - generic [ref=e2601]: Apply
+                - img [ref=e2603]
+            - link "Technical CBRN-E Threat Investigator Remote-Friendly (Travel-Required) | San Francisco, CA | Washington, DC Apply" [ref=e2605] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5066997008
+              - generic [ref=e2606]:
+                - paragraph [ref=e2608]: Technical CBRN-E Threat Investigator
+                - paragraph [ref=e2610]: Remote-Friendly (Travel-Required) | San Francisco, CA | Washington, DC
+              - generic [ref=e2612]:
+                - generic [ref=e2613]: Apply
+                - img [ref=e2615]
+            - link "Technical Cyber Threat Investigator Remote-Friendly (Travel-Required) | San Francisco, CA | Washington, DC Apply" [ref=e2617] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5066995008
+              - generic [ref=e2618]:
+                - paragraph [ref=e2620]: Technical Cyber Threat Investigator
+                - paragraph [ref=e2622]: Remote-Friendly (Travel-Required) | San Francisco, CA | Washington, DC
+              - generic [ref=e2624]:
+                - generic [ref=e2625]: Apply
+                - img [ref=e2627]
+            - link "Technical Policy Manager, Cyber Harms Remote-Friendly (Travel-Required) | San Francisco, CA | Washington, DC Apply" [ref=e2629] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5066981008
+              - generic [ref=e2630]:
+                - paragraph [ref=e2632]: Technical Policy Manager, Cyber Harms
+                - paragraph [ref=e2634]: Remote-Friendly (Travel-Required) | San Francisco, CA | Washington, DC
+              - generic [ref=e2636]:
+                - generic [ref=e2637]: Apply
+                - img [ref=e2639]
+            - link "Technical Scaled Abuse Threat Investigator Remote-Friendly (Travel-Required) | San Francisco, CA | Washington, DC Apply" [ref=e2641] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5067003008
+              - generic [ref=e2642]:
+                - paragraph [ref=e2644]: Technical Scaled Abuse Threat Investigator
+                - paragraph [ref=e2646]: Remote-Friendly (Travel-Required) | San Francisco, CA | Washington, DC
+              - generic [ref=e2648]:
+                - generic [ref=e2649]: Apply
+                - img [ref=e2651]
+            - link "Threat Collections Engineer Remote-Friendly (Travel-Required) | San Francisco, CA | Washington, DC Apply" [ref=e2653] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5074937008
+              - generic [ref=e2654]:
+                - paragraph [ref=e2656]: Threat Collections Engineer
+                - paragraph [ref=e2658]: Remote-Friendly (Travel-Required) | San Francisco, CA | Washington, DC
+              - generic [ref=e2660]:
+                - generic [ref=e2661]: Apply
+                - img [ref=e2663]
+        - generic [ref=e2665]:
+          - checkbox "Sales 113 Open Roles" [ref=e2666] [cursor=pointer]
+          - generic [ref=e2667] [cursor=pointer]:
+            - heading "Sales" [level=2] [ref=e2669]
+            - generic [ref=e2671]: 113 Open Roles
+          - generic:
+            - link "Account Executive, Academic Medical Centers - Beneficial Deployments San Francisco, CA Apply" [ref=e2675] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5101832008
+              - generic [ref=e2676]:
+                - paragraph [ref=e2678]: Account Executive, Academic Medical Centers - Beneficial Deployments
+                - paragraph [ref=e2680]: San Francisco, CA
+              - generic [ref=e2682]:
+                - generic [ref=e2683]: Apply
+                - img [ref=e2685]
+            - link "Account Executive, Mid Market, German Dublin, IE Apply" [ref=e2687] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4978301008
+              - generic [ref=e2688]:
+                - paragraph [ref=e2690]: Account Executive, Mid Market, German
+                - paragraph [ref=e2692]: Dublin, IE
+              - generic [ref=e2694]:
+                - generic [ref=e2695]: Apply
+                - img [ref=e2697]
+            - link "Account Executive, Mid Market UKI Dublin, IE Apply" [ref=e2699] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4948535008
+              - generic [ref=e2700]:
+                - paragraph [ref=e2702]: Account Executive, Mid Market UKI
+                - paragraph [ref=e2704]: Dublin, IE
+              - generic [ref=e2706]:
+                - generic [ref=e2707]: Apply
+                - img [ref=e2709]
+            - link "Account Executive, Mid Market - UKI Dublin, IE Apply" [ref=e2711] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4978296008
+              - generic [ref=e2712]:
+                - paragraph [ref=e2714]: Account Executive, Mid Market - UKI
+                - paragraph [ref=e2716]: Dublin, IE
+              - generic [ref=e2718]:
+                - generic [ref=e2719]: Apply
+                - img [ref=e2721]
+            - link "Account Executive, Startups Seoul, South Korea Apply" [ref=e2723] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4964935008
+              - generic [ref=e2724]:
+                - paragraph [ref=e2726]: Account Executive, Startups
+                - paragraph [ref=e2728]: Seoul, South Korea
+              - generic [ref=e2730]:
+                - generic [ref=e2731]: Apply
+                - img [ref=e2733]
+            - link "Applied AI Engineer, Beneficial Deployments San Francisco, CA | New York City, NY Apply" [ref=e2735] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5068226008
+              - generic [ref=e2736]:
+                - paragraph [ref=e2738]: Applied AI Engineer, Beneficial Deployments
+                - paragraph [ref=e2740]: San Francisco, CA | New York City, NY
+              - generic [ref=e2742]:
+                - generic [ref=e2743]: Apply
+                - img [ref=e2745]
+            - link "Applied AI Engineer (Digital Natives Business) San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e2747] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5057647008
+              - generic [ref=e2748]:
+                - paragraph [ref=e2750]: Applied AI Engineer (Digital Natives Business)
+                - paragraph [ref=e2752]: San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e2754]:
+                - generic [ref=e2755]: Apply
+                - img [ref=e2757]
+            - link "Applied AI Engineer (Startups) San Francisco, CA | New York City, NY Apply" [ref=e2759] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5073277008
+              - generic [ref=e2760]:
+                - paragraph [ref=e2762]: Applied AI Engineer (Startups)
+                - paragraph [ref=e2764]: San Francisco, CA | New York City, NY
+              - generic [ref=e2766]:
+                - generic [ref=e2767]: Apply
+                - img [ref=e2769]
+            - link "Business Development Representative San Francisco, CA | New York City, NY Apply" [ref=e2771] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4939815008
+              - generic [ref=e2772]:
+                - paragraph [ref=e2774]: Business Development Representative
+                - paragraph [ref=e2776]: San Francisco, CA | New York City, NY
+              - generic [ref=e2778]:
+                - generic [ref=e2779]: Apply
+                - img [ref=e2781]
+            - link "Business Development Representative, EMEA Dublin, IE Apply" [ref=e2783] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4969427008
+              - generic [ref=e2784]:
+                - paragraph [ref=e2786]: Business Development Representative, EMEA
+                - paragraph [ref=e2788]: Dublin, IE
+              - generic [ref=e2790]:
+                - generic [ref=e2791]: Apply
+                - img [ref=e2793]
+            - link "Cloud GTM Partnerships Lead - South Korea Seoul, South Korea Apply" [ref=e2795] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4962959008
+              - generic [ref=e2796]:
+                - paragraph [ref=e2798]: Cloud GTM Partnerships Lead - South Korea
+                - paragraph [ref=e2800]: Seoul, South Korea
+              - generic [ref=e2802]:
+                - generic [ref=e2803]: Apply
+                - img [ref=e2805]
+            - link "Customer Success Manager London, UK Apply" [ref=e2807] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5063099008
+              - generic [ref=e2808]:
+                - paragraph [ref=e2810]: Customer Success Manager
+                - paragraph [ref=e2812]: London, UK
+              - generic [ref=e2814]:
+                - generic [ref=e2815]: Apply
+                - img [ref=e2817]
+            - link "Customer Success Manager, APAC Sydney, Australia Apply" [ref=e2819] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5062759008
+              - generic [ref=e2820]:
+                - paragraph [ref=e2822]: Customer Success Manager, APAC
+                - paragraph [ref=e2824]: Sydney, Australia
+              - generic [ref=e2826]:
+                - generic [ref=e2827]: Apply
+                - img [ref=e2829]
+            - link "Customer Success Manager, Digital Native Business San Francisco, CA Apply" [ref=e2831] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5062733008
+              - generic [ref=e2832]:
+                - paragraph [ref=e2834]: Customer Success Manager, Digital Native Business
+                - paragraph [ref=e2836]: San Francisco, CA
+              - generic [ref=e2838]:
+                - generic [ref=e2839]: Apply
+                - img [ref=e2841]
+            - link "Customer Success Manager, Digital Native Businesses New York City, NY Apply" [ref=e2843] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5062393008
+              - generic [ref=e2844]:
+                - paragraph [ref=e2846]: Customer Success Manager, Digital Native Businesses
+                - paragraph [ref=e2848]: New York City, NY
+              - generic [ref=e2850]:
+                - generic [ref=e2851]: Apply
+                - img [ref=e2853]
+            - link "Customer Success Manager, Public Sector New York City, NY; San Francisco, CA; Washington, DC Apply" [ref=e2855] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5068553008
+              - generic [ref=e2856]:
+                - paragraph [ref=e2858]: Customer Success Manager, Public Sector
+                - paragraph [ref=e2860]: New York City, NY; San Francisco, CA; Washington, DC
+              - generic [ref=e2862]:
+                - generic [ref=e2863]: Apply
+                - img [ref=e2865]
+            - link "Customer Success Manager- Strategics New York City, NY; San Francisco, CA; Seattle, WA Apply" [ref=e2867] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5082455008
+              - generic [ref=e2868]:
+                - paragraph [ref=e2870]: Customer Success Manager- Strategics
+                - paragraph [ref=e2872]: New York City, NY; San Francisco, CA; Seattle, WA
+              - generic [ref=e2874]:
+                - generic [ref=e2875]: Apply
+                - img [ref=e2877]
+            - link "EMEA AE Lead, Beneficial Deployments London, UK Apply" [ref=e2879] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5072140008
+              - generic [ref=e2880]:
+                - paragraph [ref=e2882]: EMEA AE Lead, Beneficial Deployments
+                - paragraph [ref=e2884]: London, UK
+              - generic [ref=e2886]:
+                - generic [ref=e2887]: Apply
+                - img [ref=e2889]
+            - link "Emerging Account Executive- Startups San Francisco, CA Apply" [ref=e2891] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5079916008
+              - generic [ref=e2892]:
+                - paragraph [ref=e2894]: Emerging Account Executive- Startups
+                - paragraph [ref=e2896]: San Francisco, CA
+              - generic [ref=e2898]:
+                - generic [ref=e2899]: Apply
+                - img [ref=e2901]
+            - link "Engagement Manager, Applied AI Atlanta, GA; Austin, TX; Boston, MA; Chicago, IL; San Francisco, CA | New York City, NY; Washington, DC Apply" [ref=e2903] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5017903008
+              - generic [ref=e2904]:
+                - paragraph [ref=e2906]: Engagement Manager, Applied AI
+                - paragraph [ref=e2908]: Atlanta, GA; Austin, TX; Boston, MA; Chicago, IL; San Francisco, CA | New York City, NY; Washington, DC
+              - generic [ref=e2910]:
+                - generic [ref=e2911]: Apply
+                - img [ref=e2913]
+            - link "Enterprise Account Executive Tokyo, Japan Apply" [ref=e2915] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5076107008
+              - generic [ref=e2916]:
+                - paragraph [ref=e2918]: Enterprise Account Executive
+                - paragraph [ref=e2920]: Tokyo, Japan
+              - generic [ref=e2922]:
+                - generic [ref=e2923]: Apply
+                - img [ref=e2925]
+            - link "Enterprise Account Executive - Digital Native Business Bangalore, India Apply" [ref=e2927] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5073676008
+              - generic [ref=e2928]:
+                - paragraph [ref=e2930]: Enterprise Account Executive - Digital Native Business
+                - paragraph [ref=e2932]: Bangalore, India
+              - generic [ref=e2934]:
+                - generic [ref=e2935]: Apply
+                - img [ref=e2937]
+            - link "Enterprise Account Executive, Digital Native Business Munich, Germany Apply" [ref=e2939] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4974037008
+              - generic [ref=e2940]:
+                - paragraph [ref=e2942]: Enterprise Account Executive, Digital Native Business
+                - paragraph [ref=e2944]: Munich, Germany
+              - generic [ref=e2946]:
+                - generic [ref=e2947]: Apply
+                - img [ref=e2949]
+            - link "Enterprise Account Executive, Digital Native Business San Francisco, CA Apply" [ref=e2951] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4493001008
+              - generic [ref=e2952]:
+                - paragraph [ref=e2954]: Enterprise Account Executive, Digital Native Business
+                - paragraph [ref=e2956]: San Francisco, CA
+              - generic [ref=e2958]:
+                - generic [ref=e2959]: Apply
+                - img [ref=e2961]
+            - link "Enterprise Account Executive, Digital Native Business Sydney, Australia Apply" [ref=e2963] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5062762008
+              - generic [ref=e2964]:
+                - paragraph [ref=e2966]: Enterprise Account Executive, Digital Native Business
+                - paragraph [ref=e2968]: Sydney, Australia
+              - generic [ref=e2970]:
+                - generic [ref=e2971]: Apply
+                - img [ref=e2973]
+            - link "Enterprise Account Executive, Digital Native Business Paris, France Apply" [ref=e2975] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4974034008
+              - generic [ref=e2976]:
+                - paragraph [ref=e2978]: Enterprise Account Executive, Digital Native Business
+                - paragraph [ref=e2980]: Paris, France
+              - generic [ref=e2982]:
+                - generic [ref=e2983]: Apply
+                - img [ref=e2985]
+            - link "Enterprise Account Executive, DOD/IC Washington, DC Apply" [ref=e2987] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4959324008
+              - generic [ref=e2988]:
+                - paragraph [ref=e2990]: Enterprise Account Executive, DOD/IC
+                - paragraph [ref=e2992]: Washington, DC
+              - generic [ref=e2994]:
+                - generic [ref=e2995]: Apply
+                - img [ref=e2997]
+            - link "Enterprise Account Executive, EMEA Industries London, UK Apply" [ref=e2999] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4677172008
+              - generic [ref=e3000]:
+                - paragraph [ref=e3002]: Enterprise Account Executive, EMEA Industries
+                - paragraph [ref=e3004]: London, UK
+              - generic [ref=e3006]:
+                - generic [ref=e3007]: Apply
+                - img [ref=e3009]
+            - link "Enterprise Account Executive, Federal Civilian Sales Washington, DC Apply" [ref=e3011] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4959331008
+              - generic [ref=e3012]:
+                - paragraph [ref=e3014]: Enterprise Account Executive, Federal Civilian Sales
+                - paragraph [ref=e3016]: Washington, DC
+              - generic [ref=e3018]:
+                - generic [ref=e3019]: Apply
+                - img [ref=e3021]
+            - link "Enterprise Account Executive, Federal Partners Sales Washington, DC Apply" [ref=e3023] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4959334008
+              - generic [ref=e3024]:
+                - paragraph [ref=e3026]: Enterprise Account Executive, Federal Partners Sales
+                - paragraph [ref=e3028]: Washington, DC
+              - generic [ref=e3030]:
+                - generic [ref=e3031]: Apply
+                - img [ref=e3033]
+            - link "Enterprise Account Executive, Financial Services London, UK Apply" [ref=e3035] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4881468008
+              - generic [ref=e3036]:
+                - paragraph [ref=e3038]: Enterprise Account Executive, Financial Services
+                - paragraph [ref=e3040]: London, UK
+              - generic [ref=e3042]:
+                - generic [ref=e3043]: Apply
+                - img [ref=e3045]
+            - link "Enterprise Account Executive, Healthcare San Francisco, CA | New York City, NY Apply" [ref=e3047] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5074997008
+              - generic [ref=e3048]:
+                - paragraph [ref=e3050]: Enterprise Account Executive, Healthcare
+                - paragraph [ref=e3052]: San Francisco, CA | New York City, NY
+              - generic [ref=e3054]:
+                - generic [ref=e3055]: Apply
+                - img [ref=e3057]
+            - link "Enterprise Account Executive, Healthcare & Life Sciences London, UK Apply" [ref=e3059] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4677205008
+              - generic [ref=e3060]:
+                - paragraph [ref=e3062]: Enterprise Account Executive, Healthcare & Life Sciences
+                - paragraph [ref=e3064]: London, UK
+              - generic [ref=e3066]:
+                - generic [ref=e3067]: Apply
+                - img [ref=e3069]
+            - link "Enterprise Account Executive, Industries Paris, France Apply" [ref=e3071] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4881471008
+              - generic [ref=e3072]:
+                - paragraph [ref=e3074]: Enterprise Account Executive, Industries
+                - paragraph [ref=e3076]: Paris, France
+              - generic [ref=e3078]:
+                - generic [ref=e3079]: Apply
+                - img [ref=e3081]
+            - link "Enterprise Account Executive, Industries San Francisco, CA | New York City, NY Apply" [ref=e3083] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4493035008
+              - generic [ref=e3084]:
+                - paragraph [ref=e3086]: Enterprise Account Executive, Industries
+                - paragraph [ref=e3088]: San Francisco, CA | New York City, NY
+              - generic [ref=e3090]:
+                - generic [ref=e3091]: Apply
+                - img [ref=e3093]
+            - link "Enterprise Account Executive, Industries Bangalore, India Apply" [ref=e3095] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4947500008
+              - generic [ref=e3096]:
+                - paragraph [ref=e3098]: Enterprise Account Executive, Industries
+                - paragraph [ref=e3100]: Bangalore, India
+              - generic [ref=e3102]:
+                - generic [ref=e3103]: Apply
+                - img [ref=e3105]
+            - link "Enterprise Account Executive, Industries Munich, Germany Apply" [ref=e3107] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4881474008
+              - generic [ref=e3108]:
+                - paragraph [ref=e3110]: Enterprise Account Executive, Industries
+                - paragraph [ref=e3112]: Munich, Germany
+              - generic [ref=e3114]:
+                - generic [ref=e3115]: Apply
+                - img [ref=e3117]
+            - link "Enterprise Account Executive, Industries Generalist Sydney, Australia Apply" [ref=e3119] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5062757008
+              - generic [ref=e3120]:
+                - paragraph [ref=e3122]: Enterprise Account Executive, Industries Generalist
+                - paragraph [ref=e3124]: Sydney, Australia
+              - generic [ref=e3126]:
+                - generic [ref=e3127]: Apply
+                - img [ref=e3129]
+            - link "Enterprise Account Executive, Industries Generalist Seoul, South Korea Apply" [ref=e3131] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4964929008
+              - generic [ref=e3132]:
+                - paragraph [ref=e3134]: Enterprise Account Executive, Industries Generalist
+                - paragraph [ref=e3136]: Seoul, South Korea
+              - generic [ref=e3138]:
+                - generic [ref=e3139]: Apply
+                - img [ref=e3141]
+            - link "Enterprise Account Executive, Life Sciences San Francisco, CA Apply" [ref=e3143] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5074995008
+              - generic [ref=e3144]:
+                - paragraph [ref=e3146]: Enterprise Account Executive, Life Sciences
+                - paragraph [ref=e3148]: San Francisco, CA
+              - generic [ref=e3150]:
+                - generic [ref=e3151]: Apply
+                - img [ref=e3153]
+            - link "Enterprise Account Executive, State & Local Sales Remote-Friendly (Travel-Required) | San Francisco, CA | New York City, NY Apply" [ref=e3155] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4959329008
+              - generic [ref=e3156]:
+                - paragraph [ref=e3158]: Enterprise Account Executive, State & Local Sales
+                - paragraph [ref=e3160]: Remote-Friendly (Travel-Required) | San Francisco, CA | New York City, NY
+              - generic [ref=e3162]:
+                - generic [ref=e3163]: Apply
+                - img [ref=e3165]
+            - link "Enterprise Account Executive, State & Local Sales San Francisco, CA; Seattle, WA Apply" [ref=e3167] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5102665008
+              - generic [ref=e3168]:
+                - paragraph [ref=e3170]: Enterprise Account Executive, State & Local Sales
+                - paragraph [ref=e3172]: San Francisco, CA; Seattle, WA
+              - generic [ref=e3174]:
+                - generic [ref=e3175]: Apply
+                - img [ref=e3177]
+            - link "Forward Deployed Engineer, Applied AI Atlanta, GA; Austin, TX; Boston, MA; Chicago, IL; New York City, NY | Seattle, WA; San Francisco, CA | New York City, NY; Washington, DC Apply" [ref=e3179] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4985877008
+              - generic [ref=e3180]:
+                - paragraph [ref=e3182]: Forward Deployed Engineer, Applied AI
+                - paragraph [ref=e3184]: Atlanta, GA; Austin, TX; Boston, MA; Chicago, IL; New York City, NY | Seattle, WA; San Francisco, CA | New York City, NY; Washington, DC
+              - generic [ref=e3186]:
+                - generic [ref=e3187]: Apply
+                - img [ref=e3189]
+            - link "Forward Deployed Engineer, Applied AI (Federal Civilian) San Francisco, CA | New York City, NY | Washington, DC Apply" [ref=e3191] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5079562008
+              - generic [ref=e3192]:
+                - paragraph [ref=e3194]: Forward Deployed Engineer, Applied AI (Federal Civilian)
+                - paragraph [ref=e3196]: San Francisco, CA | New York City, NY | Washington, DC
+              - generic [ref=e3198]:
+                - generic [ref=e3199]: Apply
+                - img [ref=e3201]
+            - link "Global Partner Lead, Deloitte San Francisco, CA | New York City, NY Apply" [ref=e3203] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4747937008
+              - generic [ref=e3204]:
+                - paragraph [ref=e3206]: Global Partner Lead, Deloitte
+                - paragraph [ref=e3208]: San Francisco, CA | New York City, NY
+              - generic [ref=e3210]:
+                - generic [ref=e3211]: Apply
+                - img [ref=e3213]
+            - link "Global Partner Sales Manager, Systems Integrators San Francisco, CA | New York City, NY Apply" [ref=e3215] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5018233008
+              - generic [ref=e3216]:
+                - paragraph [ref=e3218]: Global Partner Sales Manager, Systems Integrators
+                - paragraph [ref=e3220]: San Francisco, CA | New York City, NY
+              - generic [ref=e3222]:
+                - generic [ref=e3223]: Apply
+                - img [ref=e3225]
+            - link "Global Technology Partner Lead San Francisco, CA | New York City, NY Apply" [ref=e3227] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5043437008
+              - generic [ref=e3228]:
+                - paragraph [ref=e3230]: Global Technology Partner Lead
+                - paragraph [ref=e3232]: San Francisco, CA | New York City, NY
+              - generic [ref=e3234]:
+                - generic [ref=e3235]: Apply
+                - img [ref=e3237]
+            - link "Google GTM Cosell Partnerships San Francisco, CA | New York City, NY Apply" [ref=e3239] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4973158008
+              - generic [ref=e3240]:
+                - paragraph [ref=e3242]: Google GTM Cosell Partnerships
+                - paragraph [ref=e3244]: San Francisco, CA | New York City, NY
+              - generic [ref=e3246]:
+                - generic [ref=e3247]: Apply
+                - img [ref=e3249]
+            - link "Growth Account Executive San Francisco, CA | New York City, NY Apply" [ref=e3251] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4423394008
+              - generic [ref=e3252]:
+                - paragraph [ref=e3254]: Growth Account Executive
+                - paragraph [ref=e3256]: San Francisco, CA | New York City, NY
+              - generic [ref=e3258]:
+                - generic [ref=e3259]: Apply
+                - img [ref=e3261]
+            - link "Growth Account Executive, Startups — EMEA Dublin, IE Apply" [ref=e3263] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5096918008
+              - generic [ref=e3264]:
+                - paragraph [ref=e3266]: Growth Account Executive, Startups — EMEA
+                - paragraph [ref=e3268]: Dublin, IE
+              - generic [ref=e3270]:
+                - generic [ref=e3271]: Apply
+                - img [ref=e3273]
+            - link "GTM Strategy & Operations (Industries), EMEA London, UK Apply" [ref=e3275] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5005519008
+              - generic [ref=e3276]:
+                - paragraph [ref=e3278]: GTM Strategy & Operations (Industries), EMEA
+                - paragraph [ref=e3280]: London, UK
+              - generic [ref=e3282]:
+                - generic [ref=e3283]: Apply
+                - img [ref=e3285]
+            - link "Head of Asset & Wealth Management, GTM Sales New York City, NY; San Francisco, CA Apply" [ref=e3287] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5041304008
+              - generic [ref=e3288]:
+                - paragraph [ref=e3290]: Head of Asset & Wealth Management, GTM Sales
+                - paragraph [ref=e3292]: New York City, NY; San Francisco, CA
+              - generic [ref=e3294]:
+                - generic [ref=e3295]: Apply
+                - img [ref=e3297]
+            - link "Head of Azure Partnership San Francisco, CA | Seattle, WA Apply" [ref=e3299] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5082397008
+              - generic [ref=e3300]:
+                - paragraph [ref=e3302]: Head of Azure Partnership
+                - paragraph [ref=e3304]: San Francisco, CA | Seattle, WA
+              - generic [ref=e3306]:
+                - generic [ref=e3307]: Apply
+                - img [ref=e3309]
+            - link "Head of Insurance, GTM Sales New York City, NY Apply" [ref=e3311] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4985438008
+              - generic [ref=e3312]:
+                - paragraph [ref=e3314]: Head of Insurance, GTM Sales
+                - paragraph [ref=e3316]: New York City, NY
+              - generic [ref=e3318]:
+                - generic [ref=e3319]: Apply
+                - img [ref=e3321]
+            - link "Head of UK & Northern Europe Partnerships London, UK Apply" [ref=e3323] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4982149008
+              - generic [ref=e3324]:
+                - paragraph [ref=e3326]: Head of UK & Northern Europe Partnerships
+                - paragraph [ref=e3328]: London, UK
+              - generic [ref=e3330]:
+                - generic [ref=e3331]: Apply
+                - img [ref=e3333]
+            - link "Incentive Compensation System Engineer San Francisco, CA | New York City, NY Apply" [ref=e3335] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5042002008
+              - generic [ref=e3336]:
+                - paragraph [ref=e3338]: Incentive Compensation System Engineer
+                - paragraph [ref=e3340]: San Francisco, CA | New York City, NY
+              - generic [ref=e3342]:
+                - generic [ref=e3343]: Apply
+                - img [ref=e3345]
+            - link "Manager, Account Executive Tokyo, Japan Apply" [ref=e3347] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5079188008
+              - generic [ref=e3348]:
+                - paragraph [ref=e3350]: Manager, Account Executive
+                - paragraph [ref=e3352]: Tokyo, Japan
+              - generic [ref=e3354]:
+                - generic [ref=e3355]: Apply
+                - img [ref=e3357]
+            - link "Manager, Account Executive - Enterprise Sales (Industries) San Francisco, CA Apply" [ref=e3359] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5054819008
+              - generic [ref=e3360]:
+                - paragraph [ref=e3362]: Manager, Account Executive - Enterprise Sales (Industries)
+                - paragraph [ref=e3364]: San Francisco, CA
+              - generic [ref=e3366]:
+                - generic [ref=e3367]: Apply
+                - img [ref=e3369]
+            - link "Manager, Account Executive - Growth Startup Sales Dublin, IE Apply" [ref=e3371] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5042447008
+              - generic [ref=e3372]:
+                - paragraph [ref=e3374]: Manager, Account Executive - Growth Startup Sales
+                - paragraph [ref=e3376]: Dublin, IE
+              - generic [ref=e3378]:
+                - generic [ref=e3379]: Apply
+                - img [ref=e3381]
+            - link "Manager, Customer Success San Francisco, CA Apply" [ref=e3383] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4914907008
+              - generic [ref=e3384]:
+                - paragraph [ref=e3386]: Manager, Customer Success
+                - paragraph [ref=e3388]: San Francisco, CA
+              - generic [ref=e3390]:
+                - generic [ref=e3391]: Apply
+                - img [ref=e3393]
+            - link "Manager, Customer Success London, UK Apply" [ref=e3395] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4989228008
+              - generic [ref=e3396]:
+                - paragraph [ref=e3398]: Manager, Customer Success
+                - paragraph [ref=e3400]: London, UK
+              - generic [ref=e3402]:
+                - generic [ref=e3403]: Apply
+                - img [ref=e3405]
+            - link "Manager, Enterprise Sales, Financial Services Paris, France Apply" [ref=e3407] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5080020008
+              - generic [ref=e3408]:
+                - paragraph [ref=e3410]: Manager, Enterprise Sales, Financial Services
+                - paragraph [ref=e3412]: Paris, France
+              - generic [ref=e3414]:
+                - generic [ref=e3415]: Apply
+                - img [ref=e3417]
+            - link "Manager, Growth Account Executive New York City, NY; San Francisco, CA Apply" [ref=e3419] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4976328008
+              - generic [ref=e3420]:
+                - paragraph [ref=e3422]: Manager, Growth Account Executive
+                - paragraph [ref=e3424]: New York City, NY; San Francisco, CA
+              - generic [ref=e3426]:
+                - generic [ref=e3427]: Apply
+                - img [ref=e3429]
+            - link "Manager of Associate Solutions Architecture, Applied AI New York City, NY; San Francisco, CA | New York City, NY Apply" [ref=e3431] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4947472008
+              - generic [ref=e3432]:
+                - paragraph [ref=e3434]: Manager of Associate Solutions Architecture, Applied AI
+                - paragraph [ref=e3436]: New York City, NY; San Francisco, CA | New York City, NY
+              - generic [ref=e3438]:
+                - generic [ref=e3439]: Apply
+                - img [ref=e3441]
+            - link "Manager of Solutions Architecture, Applied AI Tokyo, Japan Apply" [ref=e3443] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4935987008
+              - generic [ref=e3444]:
+                - paragraph [ref=e3446]: Manager of Solutions Architecture, Applied AI
+                - paragraph [ref=e3448]: Tokyo, Japan
+              - generic [ref=e3450]:
+                - generic [ref=e3451]: Apply
+                - img [ref=e3453]
+            - link "Manager of Solutions Architecture, Applied AI (Industries) San Francisco, CA | New York City, NY Apply" [ref=e3455] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4964610008
+              - generic [ref=e3456]:
+                - paragraph [ref=e3458]: Manager of Solutions Architecture, Applied AI (Industries)
+                - paragraph [ref=e3460]: San Francisco, CA | New York City, NY
+              - generic [ref=e3462]:
+                - generic [ref=e3463]: Apply
+                - img [ref=e3465]
+            - link "Manager of Solutions Architecture, Applied AI (Public Sector) San Francisco, CA | New York City, NY | Washington, DC Apply" [ref=e3467] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4973175008
+              - generic [ref=e3468]:
+                - paragraph [ref=e3470]: Manager of Solutions Architecture, Applied AI (Public Sector)
+                - paragraph [ref=e3472]: San Francisco, CA | New York City, NY | Washington, DC
+              - generic [ref=e3474]:
+                - generic [ref=e3475]: Apply
+                - img [ref=e3477]
+            - link "Manager, Sales Development - Enterprise San Francisco, CA | New York City, NY Apply" [ref=e3479] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5095484008
+              - generic [ref=e3480]:
+                - paragraph [ref=e3482]: Manager, Sales Development - Enterprise
+                - paragraph [ref=e3484]: San Francisco, CA | New York City, NY
+              - generic [ref=e3486]:
+                - generic [ref=e3487]: Apply
+                - img [ref=e3489]
+            - link "Manager, Sales Development - Startups/Commercial San Francisco, CA | New York City, NY Apply" [ref=e3491] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5099163008
+              - generic [ref=e3492]:
+                - paragraph [ref=e3494]: Manager, Sales Development - Startups/Commercial
+                - paragraph [ref=e3496]: San Francisco, CA | New York City, NY
+              - generic [ref=e3498]:
+                - generic [ref=e3499]: Apply
+                - img [ref=e3501]
+            - link "Manager, Solutions Architect Seoul, South Korea Apply" [ref=e3503] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5064817008
+              - generic [ref=e3504]:
+                - paragraph [ref=e3506]: Manager, Solutions Architect
+                - paragraph [ref=e3508]: Seoul, South Korea
+              - generic [ref=e3510]:
+                - generic [ref=e3511]: Apply
+                - img [ref=e3513]
+            - link "Manager, Startup Account Executive New York City, NY; San Francisco, CA Apply" [ref=e3515] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4880880008
+              - generic [ref=e3516]:
+                - paragraph [ref=e3518]: Manager, Startup Account Executive
+                - paragraph [ref=e3520]: New York City, NY; San Francisco, CA
+              - generic [ref=e3522]:
+                - generic [ref=e3523]: Apply
+                - img [ref=e3525]
+            - link "Manager, Strategic Account Executive - Digital Native Sales San Francisco, CA Apply" [ref=e3527] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4958721008
+              - generic [ref=e3528]:
+                - paragraph [ref=e3530]: Manager, Strategic Account Executive - Digital Native Sales
+                - paragraph [ref=e3532]: San Francisco, CA
+              - generic [ref=e3534]:
+                - generic [ref=e3535]: Apply
+                - img [ref=e3537]
+            - link "Microsoft GTM Partnership, Enterprise San Francisco, CA | Seattle, WA Apply" [ref=e3539] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5018195008
+              - generic [ref=e3540]:
+                - paragraph [ref=e3542]: Microsoft GTM Partnership, Enterprise
+                - paragraph [ref=e3544]: San Francisco, CA | Seattle, WA
+              - generic [ref=e3546]:
+                - generic [ref=e3547]: Apply
+                - img [ref=e3549]
+            - link "Mid-Market Account Executive, High Tech San Francisco, CA | New York City, NY Apply" [ref=e3551] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5077996008
+              - generic [ref=e3552]:
+                - paragraph [ref=e3554]: Mid-Market Account Executive, High Tech
+                - paragraph [ref=e3556]: San Francisco, CA | New York City, NY
+              - generic [ref=e3558]:
+                - generic [ref=e3559]: Apply
+                - img [ref=e3561]
+            - link "Mid-Market Account Executive, Industries San Francisco, CA | New York City, NY Apply" [ref=e3563] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4931772008
+              - generic [ref=e3564]:
+                - paragraph [ref=e3566]: Mid-Market Account Executive, Industries
+                - paragraph [ref=e3568]: San Francisco, CA | New York City, NY
+              - generic [ref=e3570]:
+                - generic [ref=e3571]: Apply
+                - img [ref=e3573]
+            - link "Nonprofit Account Executive New York City, NY Apply" [ref=e3575] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5083143008
+              - generic [ref=e3576]:
+                - paragraph [ref=e3578]: Nonprofit Account Executive
+                - paragraph [ref=e3580]: New York City, NY
+              - generic [ref=e3582]:
+                - generic [ref=e3583]: Apply
+                - img [ref=e3585]
+            - link "Nonprofit Account Executive San Francisco, CA | New York City, NY Apply" [ref=e3587] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4976314008
+              - generic [ref=e3588]:
+                - paragraph [ref=e3590]: Nonprofit Account Executive
+                - paragraph [ref=e3592]: San Francisco, CA | New York City, NY
+              - generic [ref=e3594]:
+                - generic [ref=e3595]: Apply
+                - img [ref=e3597]
+            - link "Partner Development Manager, Build Partners San Francisco, CA | New York City, NY Apply" [ref=e3599] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5043460008
+              - generic [ref=e3600]:
+                - paragraph [ref=e3602]: Partner Development Manager, Build Partners
+                - paragraph [ref=e3604]: San Francisco, CA | New York City, NY
+              - generic [ref=e3606]:
+                - generic [ref=e3607]: Apply
+                - img [ref=e3609]
+            - link "Partner Operations Specialist San Francisco, CA | New York City, NY Apply" [ref=e3611] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5043435008
+              - generic [ref=e3612]:
+                - paragraph [ref=e3614]: Partner Operations Specialist
+                - paragraph [ref=e3616]: San Francisco, CA | New York City, NY
+              - generic [ref=e3618]:
+                - generic [ref=e3619]: Apply
+                - img [ref=e3621]
+            - link "Partner Sales Manager Bangalore, India Apply" [ref=e3623] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5069899008
+              - generic [ref=e3624]:
+                - paragraph [ref=e3626]: Partner Sales Manager
+                - paragraph [ref=e3628]: Bangalore, India
+              - generic [ref=e3630]:
+                - generic [ref=e3631]: Apply
+                - img [ref=e3633]
+            - link "Partner Solutions Architect, Applied AI San Francisco, CA | New York City, NY; Seattle, WA Apply" [ref=e3635] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4950664008
+              - generic [ref=e3636]:
+                - paragraph [ref=e3638]: Partner Solutions Architect, Applied AI
+                - paragraph [ref=e3640]: San Francisco, CA | New York City, NY; Seattle, WA
+              - generic [ref=e3642]:
+                - generic [ref=e3643]: Apply
+                - img [ref=e3645]
+            - link "Program Manager, AI for Science San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e3647] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5080796008
+              - generic [ref=e3648]:
+                - paragraph [ref=e3650]: Program Manager, AI for Science
+                - paragraph [ref=e3652]: San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e3654]:
+                - generic [ref=e3655]: Apply
+                - img [ref=e3657]
+            - link "Revenue Strategy & Operations Lead, Japan Tokyo, Japan Apply" [ref=e3659] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5016171008
+              - generic [ref=e3660]:
+                - paragraph [ref=e3662]: Revenue Strategy & Operations Lead, Japan
+                - paragraph [ref=e3664]: Tokyo, Japan
+              - generic [ref=e3666]:
+                - generic [ref=e3667]: Apply
+                - img [ref=e3669]
+            - link "Salesforce Administrator San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e3671] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5075070008
+              - generic [ref=e3672]:
+                - paragraph [ref=e3674]: Salesforce Administrator
+                - paragraph [ref=e3676]: San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e3678]:
+                - generic [ref=e3679]: Apply
+                - img [ref=e3681]
+            - link "Sales Manager, Digital Native Business London, UK Apply" [ref=e3683] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5079358008
+              - generic [ref=e3684]:
+                - paragraph [ref=e3686]: Sales Manager, Digital Native Business
+                - paragraph [ref=e3688]: London, UK
+              - generic [ref=e3690]:
+                - generic [ref=e3691]: Apply
+                - img [ref=e3693]
+            - link "SMB Account Executive, Industries San Francisco, CA | New York City, NY Apply" [ref=e3695] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4931782008
+              - generic [ref=e3696]:
+                - paragraph [ref=e3698]: SMB Account Executive, Industries
+                - paragraph [ref=e3700]: San Francisco, CA | New York City, NY
+              - generic [ref=e3702]:
+                - generic [ref=e3703]: Apply
+                - img [ref=e3705]
+            - link "Solutions Architect, Applied AI Seoul, South Korea Apply" [ref=e3707] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4962867008
+              - generic [ref=e3708]:
+                - paragraph [ref=e3710]: Solutions Architect, Applied AI
+                - paragraph [ref=e3712]: Seoul, South Korea
+              - generic [ref=e3714]:
+                - generic [ref=e3715]: Apply
+                - img [ref=e3717]
+            - link "Solutions Architect, Applied AI Tokyo, Japan Apply" [ref=e3719] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5076109008
+              - generic [ref=e3720]:
+                - paragraph [ref=e3722]: Solutions Architect, Applied AI
+                - paragraph [ref=e3724]: Tokyo, Japan
+              - generic [ref=e3726]:
+                - generic [ref=e3727]: Apply
+                - img [ref=e3729]
+            - link "Solutions Architect, Applied AI (Beneficial Deployments) San Francisco, CA | New York City, NY Apply" [ref=e3731] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5062712008
+              - generic [ref=e3732]:
+                - paragraph [ref=e3734]: Solutions Architect, Applied AI (Beneficial Deployments)
+                - paragraph [ref=e3736]: San Francisco, CA | New York City, NY
+              - generic [ref=e3738]:
+                - generic [ref=e3739]: Apply
+                - img [ref=e3741]
+            - link "Solutions Architect, Applied AI (Digital Native Business) San Francisco, CA | New York City, NY Apply" [ref=e3743] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5065835008
+              - generic [ref=e3744]:
+                - paragraph [ref=e3746]: Solutions Architect, Applied AI (Digital Native Business)
+                - paragraph [ref=e3748]: San Francisco, CA | New York City, NY
+              - generic [ref=e3750]:
+                - generic [ref=e3751]: Apply
+                - img [ref=e3753]
+            - link "Solutions Architect, Applied AI (Federal Civilian) San Francisco, CA | New York City, NY | Washington, DC Apply" [ref=e3755] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5079540008
+              - generic [ref=e3756]:
+                - paragraph [ref=e3758]: Solutions Architect, Applied AI (Federal Civilian)
+                - paragraph [ref=e3760]: San Francisco, CA | New York City, NY | Washington, DC
+              - generic [ref=e3762]:
+                - generic [ref=e3763]: Apply
+                - img [ref=e3765]
+            - link "Solutions Architect, Applied AI (Industries) Paris, France Apply" [ref=e3767] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4977626008
+              - generic [ref=e3768]:
+                - paragraph [ref=e3770]: Solutions Architect, Applied AI (Industries)
+                - paragraph [ref=e3772]: Paris, France
+              - generic [ref=e3774]:
+                - generic [ref=e3775]: Apply
+                - img [ref=e3777]
+            - link "Solutions Architect, Applied AI (Industries) Munich, Germany Apply" [ref=e3779] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4977624008
+              - generic [ref=e3780]:
+                - paragraph [ref=e3782]: Solutions Architect, Applied AI (Industries)
+                - paragraph [ref=e3784]: Munich, Germany
+              - generic [ref=e3786]:
+                - generic [ref=e3787]: Apply
+                - img [ref=e3789]
+            - link "Solutions Architect, Applied AI (Industries) New York City, NY; San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e3791] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4461444008
+              - generic [ref=e3792]:
+                - paragraph [ref=e3794]: Solutions Architect, Applied AI (Industries)
+                - paragraph [ref=e3796]: New York City, NY; San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e3798]:
+                - generic [ref=e3799]: Apply
+                - img [ref=e3801]
+            - link "Solutions Architect, Applied AI (Industries) London, UK Apply" [ref=e3803] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5031670008
+              - generic [ref=e3804]:
+                - paragraph [ref=e3806]: Solutions Architect, Applied AI (Industries)
+                - paragraph [ref=e3808]: London, UK
+              - generic [ref=e3810]:
+                - generic [ref=e3811]: Apply
+                - img [ref=e3813]
+            - link "Solutions Architect, Applied AI (National Security) Washington, DC Apply" [ref=e3815] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5079511008
+              - generic [ref=e3816]:
+                - paragraph [ref=e3818]: Solutions Architect, Applied AI (National Security)
+                - paragraph [ref=e3820]: Washington, DC
+              - generic [ref=e3822]:
+                - generic [ref=e3823]: Apply
+                - img [ref=e3825]
+            - link "Solutions Architect, Applied AI (Startups) London, UK Apply" [ref=e3827] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4968059008
+              - generic [ref=e3828]:
+                - paragraph [ref=e3830]: Solutions Architect, Applied AI (Startups)
+                - paragraph [ref=e3832]: London, UK
+              - generic [ref=e3834]:
+                - generic [ref=e3835]: Apply
+                - img [ref=e3837]
+            - link "Solutions Architect, Applied AI (Startups) San Francisco, CA | New York City, NY Apply" [ref=e3839] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5057258008
+              - generic [ref=e3840]:
+                - paragraph [ref=e3842]: Solutions Architect, Applied AI (Startups)
+                - paragraph [ref=e3844]: San Francisco, CA | New York City, NY
+              - generic [ref=e3846]:
+                - generic [ref=e3847]: Apply
+                - img [ref=e3849]
+            - link "Startup Account Executive San Francisco, CA | New York City, NY Apply" [ref=e3851] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4461450008
+              - generic [ref=e3852]:
+                - paragraph [ref=e3854]: Startup Account Executive
+                - paragraph [ref=e3856]: San Francisco, CA | New York City, NY
+              - generic [ref=e3858]:
+                - generic [ref=e3859]: Apply
+                - img [ref=e3861]
+            - link "Startup Account Executive Bangalore, India Apply" [ref=e3863] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4947497008
+              - generic [ref=e3864]:
+                - paragraph [ref=e3866]: Startup Account Executive
+                - paragraph [ref=e3868]: Bangalore, India
+              - generic [ref=e3870]:
+                - generic [ref=e3871]: Apply
+                - img [ref=e3873]
+            - link "Startup Account Executive - UKI Dublin, IE Apply" [ref=e3875] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4978280008
+              - generic [ref=e3876]:
+                - paragraph [ref=e3878]: Startup Account Executive - UKI
+                - paragraph [ref=e3880]: Dublin, IE
+              - generic [ref=e3882]:
+                - generic [ref=e3883]: Apply
+                - img [ref=e3885]
+            - link "Startup Partnerships San Francisco, CA Apply" [ref=e3887] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5054997008
+              - generic [ref=e3888]:
+                - paragraph [ref=e3890]: Startup Partnerships
+                - paragraph [ref=e3892]: San Francisco, CA
+              - generic [ref=e3894]:
+                - generic [ref=e3895]: Apply
+                - img [ref=e3897]
+            - link "Startup Partnerships - EMEA London, UK Apply" [ref=e3899] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5021140008
+              - generic [ref=e3900]:
+                - paragraph [ref=e3902]: Startup Partnerships - EMEA
+                - paragraph [ref=e3904]: London, UK
+              - generic [ref=e3906]:
+                - generic [ref=e3907]: Apply
+                - img [ref=e3909]
+            - link "Strategic Account Executive, Asset & Wealth Management New York City, NY; San Francisco, CA Apply" [ref=e3911] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5058191008
+              - generic [ref=e3912]:
+                - paragraph [ref=e3914]: Strategic Account Executive, Asset & Wealth Management
+                - paragraph [ref=e3916]: New York City, NY; San Francisco, CA
+              - generic [ref=e3918]:
+                - generic [ref=e3919]: Apply
+                - img [ref=e3921]
+            - link "Strategic Account Executive, Digital Native Business San Francisco, CA | Seattle, WA Apply" [ref=e3923] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4996335008
+              - generic [ref=e3924]:
+                - paragraph [ref=e3926]: Strategic Account Executive, Digital Native Business
+                - paragraph [ref=e3928]: San Francisco, CA | Seattle, WA
+              - generic [ref=e3930]:
+                - generic [ref=e3931]: Apply
+                - img [ref=e3933]
+            - link "Strategic Account Executive, Digital Native Business – Cybersecurity San Francisco, CA | New York City, NY Apply" [ref=e3935] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5075093008
+              - generic [ref=e3936]:
+                - paragraph [ref=e3938]: Strategic Account Executive, Digital Native Business – Cybersecurity
+                - paragraph [ref=e3940]: San Francisco, CA | New York City, NY
+              - generic [ref=e3942]:
+                - generic [ref=e3943]: Apply
+                - img [ref=e3945]
+            - link "Strategic Account Executive, Industries New York City, NY; San Francisco, CA Apply" [ref=e3947] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5055446008
+              - generic [ref=e3948]:
+                - paragraph [ref=e3950]: Strategic Account Executive, Industries
+                - paragraph [ref=e3952]: New York City, NY; San Francisco, CA
+              - generic [ref=e3954]:
+                - generic [ref=e3955]: Apply
+                - img [ref=e3957]
+            - link "Strategic Account Executive, Insurance New York City, NY Apply" [ref=e3959] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4986288008
+              - generic [ref=e3960]:
+                - paragraph [ref=e3962]: Strategic Account Executive, Insurance
+                - paragraph [ref=e3964]: New York City, NY
+              - generic [ref=e3966]:
+                - generic [ref=e3967]: Apply
+                - img [ref=e3969]
+            - link "Strategic Account Executive, Investment Banking & Capital Markets New York City, NY; San Francisco, CA Apply" [ref=e3971] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5041290008
+              - generic [ref=e3972]:
+                - paragraph [ref=e3974]: Strategic Account Executive, Investment Banking & Capital Markets
+                - paragraph [ref=e3976]: New York City, NY; San Francisco, CA
+              - generic [ref=e3978]:
+                - generic [ref=e3979]: Apply
+                - img [ref=e3981]
+            - link "Strategic Account Executive, LATAM Financial Services New York City, NY; San Francisco, CA Apply" [ref=e3983] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5041301008
+              - generic [ref=e3984]:
+                - paragraph [ref=e3986]: Strategic Account Executive, LATAM Financial Services
+                - paragraph [ref=e3988]: New York City, NY; San Francisco, CA
+              - generic [ref=e3990]:
+                - generic [ref=e3991]: Apply
+                - img [ref=e3993]
+            - link "Strategic Account Executive, Retail & Commercial Banking San Francisco, CA | New York City, NY Apply" [ref=e3995] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5041299008
+              - generic [ref=e3996]:
+                - paragraph [ref=e3998]: Strategic Account Executive, Retail & Commercial Banking
+                - paragraph [ref=e4000]: San Francisco, CA | New York City, NY
+              - generic [ref=e4002]:
+                - generic [ref=e4003]: Apply
+                - img [ref=e4005]
+            - link "Strategic Account Executive, Startups New York City, NY; San Francisco, CA Apply" [ref=e4007] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4979834008
+              - generic [ref=e4008]:
+                - paragraph [ref=e4010]: Strategic Account Executive, Startups
+                - paragraph [ref=e4012]: New York City, NY; San Francisco, CA
+              - generic [ref=e4014]:
+                - generic [ref=e4015]: Apply
+                - img [ref=e4017]
+            - link "Strategic Growth Account Executive, Startups Dublin, IE Apply" [ref=e4019] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5042442008
+              - generic [ref=e4020]:
+                - paragraph [ref=e4022]: Strategic Growth Account Executive, Startups
+                - paragraph [ref=e4024]: Dublin, IE
+              - generic [ref=e4026]:
+                - generic [ref=e4027]: Apply
+                - img [ref=e4029]
+        - generic [ref=e4031]:
+          - checkbox "Security 26 Open Roles" [ref=e4032] [cursor=pointer]
+          - generic [ref=e4033] [cursor=pointer]:
+            - heading "Security" [level=2] [ref=e4035]
+            - generic [ref=e4037]: 26 Open Roles
+          - generic:
+            - link "Application Security Engineer Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY Apply" [ref=e4041] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4502508008
+              - generic [ref=e4042]:
+                - paragraph [ref=e4044]: Application Security Engineer
+                - paragraph [ref=e4046]: Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY
+              - generic [ref=e4048]:
+                - generic [ref=e4049]: Apply
+                - img [ref=e4051]
+            - link "Application Security Engineering Manager New York City, NY; San Francisco, CA; Seattle, WA Apply" [ref=e4053] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4562813008
+              - generic [ref=e4054]:
+                - paragraph [ref=e4056]: Application Security Engineering Manager
+                - paragraph [ref=e4058]: New York City, NY; San Francisco, CA; Seattle, WA
+              - generic [ref=e4060]:
+                - generic [ref=e4061]: Apply
+                - img [ref=e4063]
+            - link "Business Systems Analyst - Security Workforce Boston, MA; Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY; Washington, DC Apply" [ref=e4065] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5097159008
+              - generic [ref=e4066]:
+                - paragraph [ref=e4068]: Business Systems Analyst - Security Workforce
+                - paragraph [ref=e4070]: Boston, MA; Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY; Washington, DC
+              - generic [ref=e4072]:
+                - generic [ref=e4073]: Apply
+                - img [ref=e4075]
+            - link "Customer Trust Lead San Francisco, CA | New York City, NY Apply" [ref=e4077] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4971331008
+              - generic [ref=e4078]:
+                - paragraph [ref=e4080]: Customer Trust Lead
+                - paragraph [ref=e4082]: San Francisco, CA | New York City, NY
+              - generic [ref=e4084]:
+                - generic [ref=e4085]: Apply
+                - img [ref=e4087]
+            - link "Data Center Physical Security Lead Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY; Washington, DC Apply" [ref=e4089] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5059602008
+              - generic [ref=e4090]:
+                - paragraph [ref=e4092]: Data Center Physical Security Lead
+                - paragraph [ref=e4094]: Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY; Washington, DC
+              - generic [ref=e4096]:
+                - generic [ref=e4097]: Apply
+                - img [ref=e4099]
+            - link "Engineering Manager, Cloud Security San Francisco, CA | Seattle, WA; Seattle, WA Apply" [ref=e4101] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4897424008
+              - generic [ref=e4102]:
+                - paragraph [ref=e4104]: Engineering Manager, Cloud Security
+                - paragraph [ref=e4106]: San Francisco, CA | Seattle, WA; Seattle, WA
+              - generic [ref=e4108]:
+                - generic [ref=e4109]: Apply
+                - img [ref=e4111]
+            - link "Engineering Manager, Detection and Response San Francisco, CA | New York City, NY Apply" [ref=e4113] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5071506008
+              - generic [ref=e4114]:
+                - paragraph [ref=e4116]: Engineering Manager, Detection and Response
+                - paragraph [ref=e4118]: San Francisco, CA | New York City, NY
+              - generic [ref=e4120]:
+                - generic [ref=e4121]: Apply
+                - img [ref=e4123]
+            - link "Event Security Program Manager Remote-Friendly (Travel Required) | San Francisco, CA Apply" [ref=e4125] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4965200008
+              - generic [ref=e4126]:
+                - paragraph [ref=e4128]: Event Security Program Manager
+                - paragraph [ref=e4130]: Remote-Friendly (Travel Required) | San Francisco, CA
+              - generic [ref=e4132]:
+                - generic [ref=e4133]: Apply
+                - img [ref=e4135]
+            - link "Head of Security Risk San Francisco, CA | New York City, NY Apply" [ref=e4137] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5097202008
+              - generic [ref=e4138]:
+                - paragraph [ref=e4140]: Head of Security Risk
+                - paragraph [ref=e4142]: San Francisco, CA | New York City, NY
+              - generic [ref=e4144]:
+                - generic [ref=e4145]: Apply
+                - img [ref=e4147]
+            - link "IT Support Engineer San Francisco, CA | New York City, NY Apply" [ref=e4149] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4802076008
+              - generic [ref=e4150]:
+                - paragraph [ref=e4152]: IT Support Engineer
+                - paragraph [ref=e4154]: San Francisco, CA | New York City, NY
+              - generic [ref=e4156]:
+                - generic [ref=e4157]: Apply
+                - img [ref=e4159]
+            - link "IT Systems Engineer Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY Apply" [ref=e4161] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4887952008
+              - generic [ref=e4162]:
+                - paragraph [ref=e4164]: IT Systems Engineer
+                - paragraph [ref=e4166]: Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY
+              - generic [ref=e4168]:
+                - generic [ref=e4169]: Apply
+                - img [ref=e4171]
+            - link "Manager, IT Support & Operations San Francisco, CA Apply" [ref=e4173] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5041319008
+              - generic [ref=e4174]:
+                - paragraph [ref=e4176]: Manager, IT Support & Operations
+                - paragraph [ref=e4178]: San Francisco, CA
+              - generic [ref=e4180]:
+                - generic [ref=e4181]: Apply
+                - img [ref=e4183]
+            - link "Platform Hardware Security New York City, NY | Seattle, WA; San Francisco, CA | New York City, NY | Seattle, WA; Washington, DC Apply" [ref=e4185] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4929689008
+              - generic [ref=e4186]:
+                - paragraph [ref=e4188]: Platform Hardware Security
+                - paragraph [ref=e4190]: New York City, NY | Seattle, WA; San Francisco, CA | New York City, NY | Seattle, WA; Washington, DC
+              - generic [ref=e4192]:
+                - generic [ref=e4193]: Apply
+                - img [ref=e4195]
+            - link "Platform Security Engineering - Auditor San Francisco, CA | New York City, NY Apply" [ref=e4197] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5098973008
+              - generic [ref=e4198]:
+                - paragraph [ref=e4200]: Platform Security Engineering - Auditor
+                - paragraph [ref=e4202]: San Francisco, CA | New York City, NY
+              - generic [ref=e4204]:
+                - generic [ref=e4205]: Apply
+                - img [ref=e4207]
+            - link "Platform Security Engineer, Operating Systems San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e4209] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4929693008
+              - generic [ref=e4210]:
+                - paragraph [ref=e4212]: Platform Security Engineer, Operating Systems
+                - paragraph [ref=e4214]: San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e4216]:
+                - generic [ref=e4217]: Apply
+                - img [ref=e4219]
+            - link "Principal Threat Intelligence Lead Remote-Friendly (Travel-Required) | San Francisco, CA | New York City, NY Apply" [ref=e4221] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5078114008
+              - generic [ref=e4222]:
+                - paragraph [ref=e4224]: Principal Threat Intelligence Lead
+                - paragraph [ref=e4226]: Remote-Friendly (Travel-Required) | San Francisco, CA | New York City, NY
+              - generic [ref=e4228]:
+                - generic [ref=e4229]: Apply
+                - img [ref=e4231]
+            - link "Security Development Project Specialist Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY Apply" [ref=e4233] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5041343008
+              - generic [ref=e4234]:
+                - paragraph [ref=e4236]: Security Development Project Specialist
+                - paragraph [ref=e4238]: Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY
+              - generic [ref=e4240]:
+                - generic [ref=e4241]: Apply
+                - img [ref=e4243]
+            - link "Security Engineer, Detection & Response San Francisco, CA | New York City, NY | Seattle, WA; Washington, DC Apply" [ref=e4245] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4982193008
+              - generic [ref=e4246]:
+                - paragraph [ref=e4248]: Security Engineer, Detection & Response
+                - paragraph [ref=e4250]: San Francisco, CA | New York City, NY | Seattle, WA; Washington, DC
+              - generic [ref=e4252]:
+                - generic [ref=e4253]: Apply
+                - img [ref=e4255]
+            - link "Security GRC Specialist, Public Sector San Francisco, CA | New York City, NY | Washington, DC Apply" [ref=e4257] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4960248008
+              - generic [ref=e4258]:
+                - paragraph [ref=e4260]: Security GRC Specialist, Public Sector
+                - paragraph [ref=e4262]: San Francisco, CA | New York City, NY | Washington, DC
+              - generic [ref=e4264]:
+                - generic [ref=e4265]: Apply
+                - img [ref=e4267]
+            - link "Security Risk & Compliance, Cloud & Data Centers San Francisco, CA | New York City, NY | Seattle, WA; Washington, DC Apply" [ref=e4269] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5070425008
+              - generic [ref=e4270]:
+                - paragraph [ref=e4272]: Security Risk & Compliance, Cloud & Data Centers
+                - paragraph [ref=e4274]: San Francisco, CA | New York City, NY | Seattle, WA; Washington, DC
+              - generic [ref=e4276]:
+                - generic [ref=e4277]: Apply
+                - img [ref=e4279]
+            - link "Security Software Engineer, D&R Platform San Francisco, CA | New York City, NY | Seattle, WA; Washington, DC Apply" [ref=e4281] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4595463008
+              - generic [ref=e4282]:
+                - paragraph [ref=e4284]: Security Software Engineer, D&R Platform
+                - paragraph [ref=e4286]: San Francisco, CA | New York City, NY | Seattle, WA; Washington, DC
+              - generic [ref=e4288]:
+                - generic [ref=e4289]: Apply
+                - img [ref=e4291]
+            - link "Senior Security Engineer, Detection & Response Zürich, CH Apply" [ref=e4293] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5068288008
+              - generic [ref=e4294]:
+                - paragraph [ref=e4296]: Senior Security Engineer, Detection & Response
+                - paragraph [ref=e4298]: Zürich, CH
+              - generic [ref=e4300]:
+                - generic [ref=e4301]: Apply
+                - img [ref=e4303]
+            - link "Senior Security Software Engineer, D&R Platform Zürich, CH Apply" [ref=e4305] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5068313008
+              - generic [ref=e4306]:
+                - paragraph [ref=e4308]: Senior Security Software Engineer, D&R Platform
+                - paragraph [ref=e4310]: Zürich, CH
+              - generic [ref=e4312]:
+                - generic [ref=e4313]: Apply
+                - img [ref=e4315]
+            - link "Senior Software Security Engineer New York City, NY; San Francisco, CA; Seattle, WA Apply" [ref=e4317] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4887959008
+              - generic [ref=e4318]:
+                - paragraph [ref=e4320]: Senior Software Security Engineer
+                - paragraph [ref=e4322]: New York City, NY; San Francisco, CA; Seattle, WA
+              - generic [ref=e4324]:
+                - generic [ref=e4325]: Apply
+                - img [ref=e4327]
+            - link "Senior Software Security Engineer Zürich, CH Apply" [ref=e4329] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5056795008
+              - generic [ref=e4330]:
+                - paragraph [ref=e4332]: Senior Software Security Engineer
+                - paragraph [ref=e4334]: Zürich, CH
+              - generic [ref=e4336]:
+                - generic [ref=e4337]: Apply
+                - img [ref=e4339]
+            - link "Senior Software Security Engineer London, UK Apply" [ref=e4341] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5022845008
+              - generic [ref=e4342]:
+                - paragraph [ref=e4344]: Senior Software Security Engineer
+                - paragraph [ref=e4346]: London, UK
+              - generic [ref=e4348]:
+                - generic [ref=e4349]: Apply
+                - img [ref=e4351]
+        - generic [ref=e4353]:
+          - checkbox "Software Engineering - Infrastructure 15 Open Roles" [ref=e4354] [cursor=pointer]
+          - generic [ref=e4355] [cursor=pointer]:
+            - heading "Software Engineering - Infrastructure" [level=2] [ref=e4357]
+            - generic [ref=e4359]: 15 Open Roles
+          - generic:
+            - link "Engineering Manager, Cloud Inference Azure San Francisco, CA | Seattle, WA; Seattle, WA Apply" [ref=e4363] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5068272008
+              - generic [ref=e4364]:
+                - paragraph [ref=e4366]: Engineering Manager, Cloud Inference Azure
+                - paragraph [ref=e4368]: San Francisco, CA | Seattle, WA; Seattle, WA
+              - generic [ref=e4370]:
+                - generic [ref=e4371]: Apply
+                - img [ref=e4373]
+            - link "Engineering Manager, Networking Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY Apply" [ref=e4375] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4949199008
+              - generic [ref=e4376]:
+                - paragraph [ref=e4378]: Engineering Manager, Networking
+                - paragraph [ref=e4380]: Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY
+              - generic [ref=e4382]:
+                - generic [ref=e4383]: Apply
+                - img [ref=e4385]
+            - link "Infrastructure Engineer, Sandboxing San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e4387] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5030680008
+              - generic [ref=e4388]:
+                - paragraph [ref=e4390]: Infrastructure Engineer, Sandboxing
+                - paragraph [ref=e4392]: San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e4394]:
+                - generic [ref=e4395]: Apply
+                - img [ref=e4397]
+            - link "Senior Software Engineer, Build Systems San Francisco, CA | New York City, NY Apply" [ref=e4399] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5103176008
+              - generic [ref=e4400]:
+                - paragraph [ref=e4402]: Senior Software Engineer, Build Systems
+                - paragraph [ref=e4404]: San Francisco, CA | New York City, NY
+              - generic [ref=e4406]:
+                - generic [ref=e4407]: Apply
+                - img [ref=e4409]
+            - link "Senior Software Engineer, Continuous Integration San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e4411] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5095630008
+              - generic [ref=e4412]:
+                - paragraph [ref=e4414]: Senior Software Engineer, Continuous Integration
+                - paragraph [ref=e4416]: San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e4418]:
+                - generic [ref=e4419]: Apply
+                - img [ref=e4421]
+            - link "Senior Software Engineer, Infrastructure London, UK Apply" [ref=e4423] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4915842008
+              - generic [ref=e4424]:
+                - paragraph [ref=e4426]: Senior Software Engineer, Infrastructure
+                - paragraph [ref=e4428]: London, UK
+              - generic [ref=e4430]:
+                - generic [ref=e4431]: Apply
+                - img [ref=e4433]
+            - link "Senior Software Engineer, Infrastructure New York City, NY; San Francisco, CA; Seattle, WA Apply" [ref=e4435] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4632118008
+              - generic [ref=e4436]:
+                - paragraph [ref=e4438]: Senior Software Engineer, Infrastructure
+                - paragraph [ref=e4440]: New York City, NY; San Francisco, CA; Seattle, WA
+              - generic [ref=e4442]:
+                - generic [ref=e4443]: Apply
+                - img [ref=e4445]
+            - link "Senior / Staff+ Software Engineer - Autonomous Agent Infrastructure San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e4447] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5065894008
+              - generic [ref=e4448]:
+                - paragraph [ref=e4450]: Senior / Staff+ Software Engineer - Autonomous Agent Infrastructure
+                - paragraph [ref=e4452]: San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e4454]:
+                - generic [ref=e4455]: Apply
+                - img [ref=e4457]
+            - link "Senior/Staff Software Engineer, Inference New York City, NY; San Francisco, CA | New York City, NY | Seattle, WA; Seattle, WA Apply" [ref=e4459] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4951696008
+              - generic [ref=e4460]:
+                - paragraph [ref=e4462]: Senior/Staff Software Engineer, Inference
+                - paragraph [ref=e4464]: New York City, NY; San Francisco, CA | New York City, NY | Seattle, WA; Seattle, WA
+              - generic [ref=e4466]:
+                - generic [ref=e4467]: Apply
+                - img [ref=e4469]
+            - link "Software Engineer, Python Language New York City, NY; San Francisco, CA Apply" [ref=e4471] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4935567008
+              - generic [ref=e4472]:
+                - paragraph [ref=e4474]: Software Engineer, Python Language
+                - paragraph [ref=e4476]: New York City, NY; San Francisco, CA
+              - generic [ref=e4478]:
+                - generic [ref=e4479]: Apply
+                - img [ref=e4481]
+            - link "Software Engineer, Sandboxing (Systems) San Francisco, CA | New York City, NY Apply" [ref=e4483] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5025591008
+              - generic [ref=e4484]:
+                - paragraph [ref=e4486]: Software Engineer, Sandboxing (Systems)
+                - paragraph [ref=e4488]: San Francisco, CA | New York City, NY
+              - generic [ref=e4490]:
+                - generic [ref=e4491]: Apply
+                - img [ref=e4493]
+            - link "Staff Software Engineer, Build Systems San Francisco, CA | New York City, NY Apply" [ref=e4495] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5103029008
+              - generic [ref=e4496]:
+                - paragraph [ref=e4498]: Staff Software Engineer, Build Systems
+                - paragraph [ref=e4500]: San Francisco, CA | New York City, NY
+              - generic [ref=e4502]:
+                - generic [ref=e4503]: Apply
+                - img [ref=e4505]
+            - link "Staff+ Software Engineer, Databases San Francisco, CA | New York City, NY Apply" [ref=e4507] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4970463008
+              - generic [ref=e4508]:
+                - paragraph [ref=e4510]: Staff+ Software Engineer, Databases
+                - paragraph [ref=e4512]: San Francisco, CA | New York City, NY
+              - generic [ref=e4514]:
+                - generic [ref=e4515]: Apply
+                - img [ref=e4517]
+            - link "Staff+ Software Engineer, Data Infrastructure San Francisco, CA | Seattle, WA Apply" [ref=e4519] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4941204008
+              - generic [ref=e4520]:
+                - paragraph [ref=e4522]: Staff+ Software Engineer, Data Infrastructure
+                - paragraph [ref=e4524]: San Francisco, CA | Seattle, WA
+              - generic [ref=e4526]:
+                - generic [ref=e4527]: Apply
+                - img [ref=e4529]
+            - link "Staff+ Software Engineer, Infrastructure San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e4531] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4970314008
+              - generic [ref=e4532]:
+                - paragraph [ref=e4534]: Staff+ Software Engineer, Infrastructure
+                - paragraph [ref=e4536]: San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e4538]:
+                - generic [ref=e4539]: Apply
+                - img [ref=e4541]
+        - generic [ref=e4543]:
+          - checkbox "Technical Program Management 8 Open Roles" [ref=e4544] [cursor=pointer]
+          - generic [ref=e4545] [cursor=pointer]:
+            - heading "Technical Program Management" [level=2] [ref=e4547]
+            - generic [ref=e4549]: 8 Open Roles
+          - generic:
+            - link "Technical Program Manager, Claude Experiences San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e4553] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5062968008
+              - generic [ref=e4554]:
+                - paragraph [ref=e4556]: Technical Program Manager, Claude Experiences
+                - paragraph [ref=e4558]: San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e4560]:
+                - generic [ref=e4561]: Apply
+                - img [ref=e4563]
+            - link "Technical Program Manager, Data Center Infrastructure San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e4565] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5013743008
+              - generic [ref=e4566]:
+                - paragraph [ref=e4568]: Technical Program Manager, Data Center Infrastructure
+                - paragraph [ref=e4570]: San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e4572]:
+                - generic [ref=e4573]: Apply
+                - img [ref=e4575]
+            - link "Technical Program Manager, Enterprise Readiness San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e4577] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5078403008
+              - generic [ref=e4578]:
+                - paragraph [ref=e4580]: Technical Program Manager, Enterprise Readiness
+                - paragraph [ref=e4582]: San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e4584]:
+                - generic [ref=e4585]: Apply
+                - img [ref=e4587]
+            - link "Technical Program Manager, Inference San Francisco, CA | Seattle, WA Apply" [ref=e4589] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4913784008
+              - generic [ref=e4590]:
+                - paragraph [ref=e4592]: Technical Program Manager, Inference
+                - paragraph [ref=e4594]: San Francisco, CA | Seattle, WA
+              - generic [ref=e4596]:
+                - generic [ref=e4597]: Apply
+                - img [ref=e4599]
+            - link "Technical Program Manager, Launches San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e4601] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5062960008
+              - generic [ref=e4602]:
+                - paragraph [ref=e4604]: Technical Program Manager, Launches
+                - paragraph [ref=e4606]: San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e4608]:
+                - generic [ref=e4609]: Apply
+                - img [ref=e4611]
+            - link "Technical Program Manager, Model Evaluations San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e4613] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/5018714008
+              - generic [ref=e4614]:
+                - paragraph [ref=e4616]: Technical Program Manager, Model Evaluations
+                - paragraph [ref=e4618]: San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e4620]:
+                - generic [ref=e4621]: Apply
+                - img [ref=e4623]
+            - link "Technical Program Manager, Safeguards San Francisco, CA | New York City, NY Apply" [ref=e4625] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4960417008
+              - generic [ref=e4626]:
+                - paragraph [ref=e4628]: Technical Program Manager, Safeguards
+                - paragraph [ref=e4630]: San Francisco, CA | New York City, NY
+              - generic [ref=e4632]:
+                - generic [ref=e4633]: Apply
+                - img [ref=e4635]
+            - link "Technical Program Manager, Security San Francisco, CA | New York City, NY | Seattle, WA Apply" [ref=e4637] [cursor=pointer]:
+              - /url: https://job-boards.greenhouse.io/anthropic/jobs/4989788008
+              - generic [ref=e4638]:
+                - paragraph [ref=e4640]: Technical Program Manager, Security
+                - paragraph [ref=e4642]: San Francisco, CA | New York City, NY | Seattle, WA
+              - generic [ref=e4644]:
+                - generic [ref=e4645]: Apply
+                - img [ref=e4647]
+  - contentinfo "Site footer" [ref=e4649]:
+    - generic [ref=e4650]:
+      - link "Return to homepage" [ref=e4652] [cursor=pointer]:
+        - /url: /
+        - img [ref=e4653]
+      - navigation "Footer navigation" [ref=e4655]:
+        - generic [ref=e4656]:
+          - generic [ref=e4657]:
+            - heading "Products" [level=3] [ref=e4658]
+            - list [ref=e4659]:
+              - listitem [ref=e4660]:
+                - link "Claude" [ref=e4661] [cursor=pointer]:
+                  - /url: https://claude.com/product/overview
+              - listitem [ref=e4662]:
+                - link "Claude Code" [ref=e4663] [cursor=pointer]:
+                  - /url: https://claude.com/product/claude-code
+              - listitem [ref=e4664]:
+                - link "Cowork" [ref=e4665] [cursor=pointer]:
+                  - /url: https://claude.com/product/cowork
+              - listitem [ref=e4666]:
+                - link "Claude in Chrome" [ref=e4667] [cursor=pointer]:
+                  - /url: https://claude.com/chrome
+              - listitem [ref=e4668]:
+                - link "Claude in Excel" [ref=e4669] [cursor=pointer]:
+                  - /url: https://claude.com/claude-in-excel
+              - listitem [ref=e4670]:
+                - link "Claude in Slack" [ref=e4671] [cursor=pointer]:
+                  - /url: https://claude.com/claude-in-slack
+              - listitem [ref=e4672]:
+                - link "Skills" [ref=e4673] [cursor=pointer]:
+                  - /url: https://www.claude.com/skills
+              - listitem [ref=e4674]:
+                - link "Max plan" [ref=e4675] [cursor=pointer]:
+                  - /url: https://claude.com/pricing/max
+              - listitem [ref=e4676]:
+                - link "Team plan" [ref=e4677] [cursor=pointer]:
+                  - /url: https://claude.com/pricing/team
+              - listitem [ref=e4678]:
+                - link "Enterprise plan" [ref=e4679] [cursor=pointer]:
+                  - /url: https://claude.com/pricing/enterprise
+              - listitem [ref=e4680]:
+                - link "Download app" [ref=e4681] [cursor=pointer]:
+                  - /url: https://claude.ai/download
+              - listitem [ref=e4682]:
+                - link "Pricing" [ref=e4683] [cursor=pointer]:
+                  - /url: https://claude.com/pricing
+              - listitem [ref=e4684]:
+                - link "Log in to Claude" [ref=e4685] [cursor=pointer]:
+                  - /url: https://claude.ai/
+          - generic [ref=e4686]:
+            - heading "Models" [level=3] [ref=e4687]
+            - list [ref=e4688]:
+              - listitem [ref=e4689]:
+                - link "Opus" [ref=e4690] [cursor=pointer]:
+                  - /url: https://www.anthropic.com/claude/opus
+              - listitem [ref=e4691]:
+                - link "Sonnet" [ref=e4692] [cursor=pointer]:
+                  - /url: https://www.anthropic.com/claude/sonnet
+              - listitem [ref=e4693]:
+                - link "Haiku" [ref=e4694] [cursor=pointer]:
+                  - /url: https://www.anthropic.com/claude/haiku
+        - generic [ref=e4695]:
+          - generic [ref=e4696]:
+            - heading "Solutions" [level=3] [ref=e4697]
+            - list [ref=e4698]:
+              - listitem [ref=e4699]:
+                - link "AI agents" [ref=e4700] [cursor=pointer]:
+                  - /url: https://claude.com/solutions/agents
+              - listitem [ref=e4701]:
+                - link "Code modernization" [ref=e4702] [cursor=pointer]:
+                  - /url: https://claude.com/solutions/code-modernization
+              - listitem [ref=e4703]:
+                - link "Coding" [ref=e4704] [cursor=pointer]:
+                  - /url: https://claude.com/solutions/coding
+              - listitem [ref=e4705]:
+                - link "Customer support" [ref=e4706] [cursor=pointer]:
+                  - /url: https://claude.com/solutions/customer-support
+              - listitem [ref=e4707]:
+                - link "Education" [ref=e4708] [cursor=pointer]:
+                  - /url: https://claude.com/solutions/education
+              - listitem [ref=e4709]:
+                - link "Financial services" [ref=e4710] [cursor=pointer]:
+                  - /url: https://claude.com/solutions/financial-services
+              - listitem [ref=e4711]:
+                - link "Government" [ref=e4712] [cursor=pointer]:
+                  - /url: https://claude.com/solutions/government
+              - listitem [ref=e4713]:
+                - link "Healthcare" [ref=e4714] [cursor=pointer]:
+                  - /url: https://claude.com/solutions/healthcare
+              - listitem [ref=e4715]:
+                - link "Life sciences" [ref=e4716] [cursor=pointer]:
+                  - /url: https://claude.com/solutions/life-sciences
+              - listitem [ref=e4717]:
+                - link "Nonprofits" [ref=e4718] [cursor=pointer]:
+                  - /url: https://claude.com/solutions/nonprofits
+          - generic [ref=e4719]:
+            - heading "Claude Developer Platform" [level=3] [ref=e4720]
+            - list [ref=e4721]:
+              - listitem [ref=e4722]:
+                - link "Overview" [ref=e4723] [cursor=pointer]:
+                  - /url: https://claude.com/platform/api
+              - listitem [ref=e4724]:
+                - link "Developer docs" [ref=e4725] [cursor=pointer]:
+                  - /url: https://platform.claude.com/docs
+              - listitem [ref=e4726]:
+                - link "Pricing" [ref=e4727] [cursor=pointer]:
+                  - /url: https://claude.com/pricing#api
+              - listitem [ref=e4728]:
+                - link "Regional Compliance" [ref=e4729] [cursor=pointer]:
+                  - /url: https://claude.com/regional-compliance
+              - listitem [ref=e4730]:
+                - link "Amazon Bedrock" [ref=e4731] [cursor=pointer]:
+                  - /url: https://claude.com/partners/amazon-bedrock
+              - listitem [ref=e4732]:
+                - link "Google Cloud’s Vertex AI" [ref=e4733] [cursor=pointer]:
+                  - /url: https://claude.com/partners/google-cloud-vertex-ai
+              - listitem [ref=e4734]:
+                - link "Console login" [ref=e4735] [cursor=pointer]:
+                  - /url: https://platform.claude.com/
+        - generic [ref=e4736]:
+          - generic [ref=e4737]:
+            - heading "Learn" [level=3] [ref=e4738]
+            - list [ref=e4739]:
+              - listitem [ref=e4740]:
+                - link "Blog" [ref=e4741] [cursor=pointer]:
+                  - /url: https://claude.com/blog
+              - listitem [ref=e4742]:
+                - link "Claude partner network" [ref=e4743] [cursor=pointer]:
+                  - /url: https://claude.com/partners
+              - listitem [ref=e4744]:
+                - link "Connectors" [ref=e4745] [cursor=pointer]:
+                  - /url: https://claude.com/connectors
+              - listitem [ref=e4746]:
+                - link "Courses" [ref=e4747] [cursor=pointer]:
+                  - /url: /learn
+              - listitem [ref=e4748]:
+                - link "Customer stories" [ref=e4749] [cursor=pointer]:
+                  - /url: https://claude.com/customers
+              - listitem [ref=e4750]:
+                - link "Engineering at Anthropic" [ref=e4751] [cursor=pointer]:
+                  - /url: /engineering
+              - listitem [ref=e4752]:
+                - link "Events" [ref=e4753] [cursor=pointer]:
+                  - /url: /events
+              - listitem [ref=e4754]:
+                - link "Plugins" [ref=e4755] [cursor=pointer]:
+                  - /url: https://claude.com/plugins
+              - listitem [ref=e4756]:
+                - link "Powered by Claude" [ref=e4757] [cursor=pointer]:
+                  - /url: https://claude.com/partners/powered-by-claude
+              - listitem [ref=e4758]:
+                - link "Service partners" [ref=e4759] [cursor=pointer]:
+                  - /url: https://claude.com/partners/services
+              - listitem [ref=e4760]:
+                - link "Startups program" [ref=e4761] [cursor=pointer]:
+                  - /url: https://claude.com/programs/startups
+              - listitem [ref=e4762]:
+                - link "Tutorials" [ref=e4763] [cursor=pointer]:
+                  - /url: https://claude.com/resources/tutorials
+              - listitem [ref=e4764]:
+                - link "Use cases" [ref=e4765] [cursor=pointer]:
+                  - /url: https://claude.com/resources/use-cases
+          - generic [ref=e4766]:
+            - heading "Company" [level=3] [ref=e4767]
+            - list [ref=e4768]:
+              - listitem [ref=e4769]:
+                - link "Anthropic" [ref=e4770] [cursor=pointer]:
+                  - /url: /company
+              - listitem [ref=e4771]:
+                - link "Careers" [ref=e4772] [cursor=pointer]:
+                  - /url: /careers
+              - listitem [ref=e4773]:
+                - link "Economic Futures" [ref=e4774] [cursor=pointer]:
+                  - /url: /economic-index
+              - listitem [ref=e4775]:
+                - link "Research" [ref=e4776] [cursor=pointer]:
+                  - /url: /research
+              - listitem [ref=e4777]:
+                - link "News" [ref=e4778] [cursor=pointer]:
+                  - /url: /news
+              - listitem [ref=e4779]:
+                - link "Claude’s Constitution" [ref=e4780] [cursor=pointer]:
+                  - /url: /constitution
+              - listitem [ref=e4781]:
+                - link "Responsible Scaling Policy" [ref=e4782] [cursor=pointer]:
+                  - /url: https://www.anthropic.com/news/announcing-our-updated-responsible-scaling-policy
+              - listitem [ref=e4783]:
+                - link "Security and compliance" [ref=e4784] [cursor=pointer]:
+                  - /url: https://trust.anthropic.com/
+              - listitem [ref=e4785]:
+                - link "Transparency" [ref=e4786] [cursor=pointer]:
+                  - /url: /transparency
+        - generic [ref=e4787]:
+          - generic [ref=e4788]:
+            - heading "Help and security" [level=3] [ref=e4789]
+            - list [ref=e4790]:
+              - listitem [ref=e4791]:
+                - link "Availability" [ref=e4792] [cursor=pointer]:
+                  - /url: https://www.anthropic.com/supported-countries
+              - listitem [ref=e4793]:
+                - link "Status" [ref=e4794] [cursor=pointer]:
+                  - /url: https://status.anthropic.com/
+              - listitem [ref=e4795]:
+                - link "Support center" [ref=e4796] [cursor=pointer]:
+                  - /url: https://support.claude.com/en/
+          - generic [ref=e4797]:
+            - heading "Terms and policies" [level=3] [ref=e4798]
+            - list [ref=e4799]:
+              - button "Privacy choices" [ref=e4800] [cursor=pointer]
+              - listitem [ref=e4801]:
+                - link "Privacy policy" [ref=e4802] [cursor=pointer]:
+                  - /url: https://www.anthropic.com/legal/privacy
+              - listitem [ref=e4803]:
+                - link "Consumer health data privacy policy" [ref=e4804] [cursor=pointer]:
+                  - /url: https://www.anthropic.com/legal/consumer-health-data-privacy-policy
+              - listitem [ref=e4805]:
+                - link "Responsible disclosure policy" [ref=e4806] [cursor=pointer]:
+                  - /url: https://www.anthropic.com/responsible-disclosure-policy
+              - listitem [ref=e4807]:
+                - 'link "Terms of service: Commercial" [ref=e4808] [cursor=pointer]':
+                  - /url: https://www.anthropic.com/legal/commercial-terms
+              - listitem [ref=e4809]:
+                - 'link "Terms of service: Consumer" [ref=e4810] [cursor=pointer]':
+                  - /url: https://www.anthropic.com/legal/consumer-terms
+              - listitem [ref=e4811]:
+                - link "Usage policy" [ref=e4812] [cursor=pointer]:
+                  - /url: https://www.anthropic.com/legal/aup
+      - generic [ref=e4813]:
+        - contentinfo [ref=e4814]: © 2025 Anthropic PBC
+        - navigation "Social media links" [ref=e4815]:
+          - listitem [ref=e4816]:
+            - link "Visit our LinkedIn page" [ref=e4817] [cursor=pointer]:
+              - /url: https://www.linkedin.com/company/anthropicresearch
+              - img [ref=e4818]
+          - listitem [ref=e4820]:
+            - link "Visit our X (formerly Twitter) profile" [ref=e4821] [cursor=pointer]:
+              - /url: https://x.com/AnthropicAI
+              - img [ref=e4822]
+          - listitem [ref=e4824]:
+            - link "Visit our YouTube channel" [ref=e4825] [cursor=pointer]:
+              - /url: https://www.youtube.com/@anthropic-ai
+              - img [ref=e4826]
+  - alert [ref=e4828]

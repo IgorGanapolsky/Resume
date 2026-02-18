@@ -1,0 +1,1643 @@
+- generic [active] [ref=e1]:
+  - link "Mistral AI logo" [ref=e4] [cursor=pointer]:
+    - /url: https://jobs.lever.co/mistral
+    - img "Mistral AI logo" [ref=e5]
+  - generic [ref=e9]:
+    - generic [ref=e10]:
+      - 'button "Filter by Location type: All" [ref=e11]':
+        - generic [ref=e12] [cursor=pointer]:
+          - text: Location type
+          - img [ref=e13]
+      - 'button "Filter by Location: All" [ref=e15]':
+        - generic [ref=e16] [cursor=pointer]:
+          - text: Location
+          - img [ref=e17]
+      - 'button "Filter by Team: All" [ref=e19]':
+        - generic [ref=e20] [cursor=pointer]:
+          - text: Team
+          - img [ref=e21]
+      - 'button "Filter by Work type: All" [ref=e23]':
+        - generic [ref=e24] [cursor=pointer]:
+          - text: Work type
+          - img [ref=e25]
+    - generic [ref=e27]:
+      - generic [ref=e28]:
+        - generic [ref=e29]: Business
+        - generic [ref=e31]:
+          - link "Apply" [ref=e33] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/7abbb0ea-1df4-4fbf-854d-4e084d09e969
+          - link "Account Executive - Enterprise (ANZ) Hybrid — Sydney" [ref=e34] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/7abbb0ea-1df4-4fbf-854d-4e084d09e969
+            - heading "Account Executive - Enterprise (ANZ)" [level=5] [ref=e35]
+            - generic [ref=e36]:
+              - generic [ref=e37]: Hybrid —
+              - generic [ref=e38]: Sydney
+        - generic [ref=e39]:
+          - link "Apply" [ref=e41] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/7894fd8a-ffc9-4c89-87f0-f8a7b695cf01
+          - link "Account Executive – AI for Citizens On-site — Full-time Paris" [ref=e42] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/7894fd8a-ffc9-4c89-87f0-f8a7b695cf01
+            - heading "Account Executive – AI for Citizens" [level=5] [ref=e43]
+            - generic [ref=e44]:
+              - generic [ref=e45]: On-site —
+              - generic [ref=e46]: Full-time
+              - generic [ref=e47]: Paris
+        - generic [ref=e48]:
+          - link "Apply" [ref=e50] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/618c9763-cb22-4343-baca-cf1cf6b05f5c
+          - link "Account Executive, Digital Native US Hybrid — Palo Alto" [ref=e51] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/618c9763-cb22-4343-baca-cf1cf6b05f5c
+            - heading "Account Executive, Digital Native US" [level=5] [ref=e52]
+            - generic [ref=e53]:
+              - generic [ref=e54]: Hybrid —
+              - generic [ref=e55]: Palo Alto
+        - generic [ref=e56]:
+          - link "Apply" [ref=e58] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/ed08b81f-9c52-4f86-addd-c4c06f3b114a
+          - link "Account Executive, Enterprise - New York Hybrid — New York, NY" [ref=e59] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/ed08b81f-9c52-4f86-addd-c4c06f3b114a
+            - heading "Account Executive, Enterprise - New York" [level=5] [ref=e60]
+            - generic [ref=e61]:
+              - generic [ref=e62]: Hybrid —
+              - generic [ref=e63]: New York, NY
+        - generic [ref=e64]:
+          - link "Apply" [ref=e66] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/25757afe-9b9d-4be7-87e1-e744eaa01105
+          - link "Account Executive, Enterprise - SF Bay Area Hybrid — Palo Alto" [ref=e67] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/25757afe-9b9d-4be7-87e1-e744eaa01105
+            - heading "Account Executive, Enterprise - SF Bay Area" [level=5] [ref=e68]
+            - generic [ref=e69]:
+              - generic [ref=e70]: Hybrid —
+              - generic [ref=e71]: Palo Alto
+        - generic [ref=e72]:
+          - link "Apply" [ref=e74] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/5fb6179e-74ae-46c8-9cde-95b71890e76a
+          - link "Account Executive, Enterprise, DACH Hybrid — Full-time Munich" [ref=e75] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/5fb6179e-74ae-46c8-9cde-95b71890e76a
+            - heading "Account Executive, Enterprise, DACH" [level=5] [ref=e76]
+            - generic [ref=e77]:
+              - generic [ref=e78]: Hybrid —
+              - generic [ref=e79]: Full-time
+              - generic [ref=e80]: Munich
+        - generic [ref=e81]:
+          - link "Apply" [ref=e83] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/46bf0c1c-cca2-4941-bd8d-18024fa59afa
+          - link "Account Executive, Enterprise, France - Paris Hybrid — Full-time Paris" [ref=e84] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/46bf0c1c-cca2-4941-bd8d-18024fa59afa
+            - heading "Account Executive, Enterprise, France - Paris" [level=5] [ref=e85]
+            - generic [ref=e86]:
+              - generic [ref=e87]: Hybrid —
+              - generic [ref=e88]: Full-time
+              - generic [ref=e89]: Paris
+        - generic [ref=e90]:
+          - link "Apply" [ref=e92] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/04a3a058-aff8-4cc4-a419-eb09e83fa947
+          - link "Account Executive, Enterprise, Netherlands Remote — Full-time Amsterdam" [ref=e93] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/04a3a058-aff8-4cc4-a419-eb09e83fa947
+            - heading "Account Executive, Enterprise, Netherlands" [level=5] [ref=e94]
+            - generic [ref=e95]:
+              - generic [ref=e96]: Remote —
+              - generic [ref=e97]: Full-time
+              - generic [ref=e98]: Amsterdam
+        - generic [ref=e99]:
+          - link "Apply" [ref=e101] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/80c5f091-29e1-4500-b6cc-862fc7801dd3
+          - link "Account Executive, Enterprise, Spain - Madrid Hybrid — Full-time Madrid" [ref=e102] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/80c5f091-29e1-4500-b6cc-862fc7801dd3
+            - heading "Account Executive, Enterprise, Spain - Madrid" [level=5] [ref=e103]
+            - generic [ref=e104]:
+              - generic [ref=e105]: Hybrid —
+              - generic [ref=e106]: Full-time
+              - generic [ref=e107]: Madrid
+        - generic [ref=e108]:
+          - link "Apply" [ref=e110] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/52808932-3aaa-419f-a08d-1fb2a0aed781
+          - link "Account Executive, Enterprise, UK - London On-site — Full-time London" [ref=e111] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/52808932-3aaa-419f-a08d-1fb2a0aed781
+            - heading "Account Executive, Enterprise, UK - London" [level=5] [ref=e112]
+            - generic [ref=e113]:
+              - generic [ref=e114]: On-site —
+              - generic [ref=e115]: Full-time
+              - generic [ref=e116]: London
+        - generic [ref=e117]:
+          - link "Apply" [ref=e119] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/abff0584-d2e2-446e-b2a8-28d660e3773a
+          - link "Account Manager - Morocco On-site — Full-time Casablanca" [ref=e120] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/abff0584-d2e2-446e-b2a8-28d660e3773a
+            - heading "Account Manager - Morocco" [level=5] [ref=e121]
+            - generic [ref=e122]:
+              - generic [ref=e123]: On-site —
+              - generic [ref=e124]: Full-time
+              - generic [ref=e125]: Casablanca
+        - generic [ref=e126]:
+          - link "Apply" [ref=e128] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/de824898-0b7c-483f-9888-0c0ec8b4073f
+          - link "ASEAN Partner Lead / GTM On-site — Full-time Singapore" [ref=e129] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/de824898-0b7c-483f-9888-0c0ec8b4073f
+            - heading "ASEAN Partner Lead / GTM" [level=5] [ref=e130]
+            - generic [ref=e131]:
+              - generic [ref=e132]: On-site —
+              - generic [ref=e133]: Full-time
+              - generic [ref=e134]: Singapore
+        - generic [ref=e135]:
+          - link "Apply" [ref=e137] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/f726927c-b779-48ce-b12f-d11e6c68436c
+          - link "Australia Partner Lead On-site — Full-time Sydney" [ref=e138] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/f726927c-b779-48ce-b12f-d11e6c68436c
+            - heading "Australia Partner Lead" [level=5] [ref=e139]
+            - generic [ref=e140]:
+              - generic [ref=e141]: On-site —
+              - generic [ref=e142]: Full-time
+              - generic [ref=e143]: Sydney
+        - generic [ref=e144]:
+          - link "Apply" [ref=e146] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/b551de18-b9ae-493e-beb1-629fe9e88381
+          - link "Business Development Manager - Tech Partners On-site — Full-time Paris / London" [ref=e147] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/b551de18-b9ae-493e-beb1-629fe9e88381
+            - heading "Business Development Manager - Tech Partners" [level=5] [ref=e148]
+            - generic [ref=e149]:
+              - generic [ref=e150]: On-site —
+              - generic [ref=e151]: Full-time
+              - generic [ref=e152]: Paris / London
+        - generic [ref=e153]:
+          - link "Apply" [ref=e155] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/57e56568-86ad-42ac-af3f-6a68f34fca87
+          - link "Director of Sales Enablement On-site — Full-time Paris / London" [ref=e156] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/57e56568-86ad-42ac-af3f-6a68f34fca87
+            - heading "Director of Sales Enablement" [level=5] [ref=e157]
+            - generic [ref=e158]:
+              - generic [ref=e159]: On-site —
+              - generic [ref=e160]: Full-time
+              - generic [ref=e161]: Paris / London
+        - generic [ref=e162]:
+          - link "Apply" [ref=e164] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/59407c00-6d99-468d-bca6-5fd6b02bec7b
+          - link "Director of Systems Integrators On-site — Full-time Paris / London" [ref=e165] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/59407c00-6d99-468d-bca6-5fd6b02bec7b
+            - heading "Director of Systems Integrators" [level=5] [ref=e166]
+            - generic [ref=e167]:
+              - generic [ref=e168]: On-site —
+              - generic [ref=e169]: Full-time
+              - generic [ref=e170]: Paris / London
+        - generic [ref=e171]:
+          - link "Apply" [ref=e173] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/29aa0964-a859-464b-832c-a12a2154b501
+          - link "Partner Manager SI - EMEA Hybrid — Full-time Paris / London" [ref=e174] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/29aa0964-a859-464b-832c-a12a2154b501
+            - heading "Partner Manager SI - EMEA" [level=5] [ref=e175]
+            - generic [ref=e176]:
+              - generic [ref=e177]: Hybrid —
+              - generic [ref=e178]: Full-time
+              - generic [ref=e179]: Paris / London
+        - generic [ref=e180]:
+          - link "Apply" [ref=e182] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/2e48b51e-4872-41ee-833d-f8b57d25cf0d
+          - link "Strategic Partner Lead - OEM and Neoclouds Remote — Full-time Palo Alto" [ref=e183] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/2e48b51e-4872-41ee-833d-f8b57d25cf0d
+            - heading "Strategic Partner Lead - OEM and Neoclouds" [level=5] [ref=e184]
+            - generic [ref=e185]:
+              - generic [ref=e186]: Remote —
+              - generic [ref=e187]: Full-time
+              - generic [ref=e188]: Palo Alto
+        - generic [ref=e189]:
+          - link "Apply" [ref=e191] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/03e85b97-a91d-46e9-afa4-77945235277a
+          - link "Strategic Partner Lead, SAP On-site — Munich" [ref=e192] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/03e85b97-a91d-46e9-afa4-77945235277a
+            - heading "Strategic Partner Lead, SAP" [level=5] [ref=e193]
+            - generic [ref=e194]:
+              - generic [ref=e195]: On-site —
+              - generic [ref=e196]: Munich
+      - generic [ref=e197]:
+        - generic [ref=e198]: Corporate
+        - generic [ref=e200]:
+          - link "Apply" [ref=e202] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/8a74fb66-c6ae-40eb-981d-d07ca17593be
+          - link "Executive Assistant to the CRO - Paris, France On-site — Full-time Paris" [ref=e203] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/8a74fb66-c6ae-40eb-981d-d07ca17593be
+            - heading "Executive Assistant to the CRO - Paris, France" [level=5] [ref=e204]
+            - generic [ref=e205]:
+              - generic [ref=e206]: On-site —
+              - generic [ref=e207]: Full-time
+              - generic [ref=e208]: Paris
+        - generic [ref=e209]:
+          - link "Apply" [ref=e211] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/9f3f377e-c85c-4521-b0ea-52afbca2a5e4
+          - link "Executive Assistant to the VP Engineering - Paris On-site — Full-time Paris" [ref=e212] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/9f3f377e-c85c-4521-b0ea-52afbca2a5e4
+            - heading "Executive Assistant to the VP Engineering - Paris" [level=5] [ref=e213]
+            - generic [ref=e214]:
+              - generic [ref=e215]: On-site —
+              - generic [ref=e216]: Full-time
+              - generic [ref=e217]: Paris
+        - generic [ref=e218]:
+          - link "Apply" [ref=e220] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/43714d11-e677-44aa-beb7-170d230b7f6c
+          - link "Executive Assistant to VP Legal On-site — Full-time Paris" [ref=e221] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/43714d11-e677-44aa-beb7-170d230b7f6c
+            - heading "Executive Assistant to VP Legal" [level=5] [ref=e222]
+            - generic [ref=e223]:
+              - generic [ref=e224]: On-site —
+              - generic [ref=e225]: Full-time
+              - generic [ref=e226]: Paris
+      - generic [ref=e227]:
+        - generic [ref=e228]: Engineering & Infra
+        - generic [ref=e230]:
+          - link "Apply" [ref=e232] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/c79ff8ed-6689-4dda-aec6-979a5dc767d0
+          - link "AI Engineer, Product On-site — Full-time Paris" [ref=e233] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/c79ff8ed-6689-4dda-aec6-979a5dc767d0
+            - heading "AI Engineer, Product" [level=5] [ref=e234]
+            - generic [ref=e235]:
+              - generic [ref=e236]: On-site —
+              - generic [ref=e237]: Full-time
+              - generic [ref=e238]: Paris
+        - generic [ref=e239]:
+          - link "Apply" [ref=e241] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/edd9f582-15b4-4ddb-9624-c3721ad648b8
+          - link "Data Analyst On-site — Full-time Paris" [ref=e242] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/edd9f582-15b4-4ddb-9624-c3721ad648b8
+            - heading "Data Analyst" [level=5] [ref=e243]
+            - generic [ref=e244]:
+              - generic [ref=e245]: On-site —
+              - generic [ref=e246]: Full-time
+              - generic [ref=e247]: Paris
+        - generic [ref=e248]:
+          - link "Apply" [ref=e250] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/bf5bcae2-839b-492e-a5bc-11d4427ee843
+          - link "Data Scientist Hybrid — Full-time Paris" [ref=e251] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/bf5bcae2-839b-492e-a5bc-11d4427ee843
+            - heading "Data Scientist" [level=5] [ref=e252]
+            - generic [ref=e253]:
+              - generic [ref=e254]: Hybrid —
+              - generic [ref=e255]: Full-time
+              - generic [ref=e256]: Paris
+        - generic [ref=e257]:
+          - link "Apply" [ref=e259] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/ddf7bcbb-e223-4768-a553-6e95df472cf7
+          - link "Datacenter Hardware Engineer, HPC On-site — Full-time Paris" [ref=e260] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/ddf7bcbb-e223-4768-a553-6e95df472cf7
+            - heading "Datacenter Hardware Engineer, HPC" [level=5] [ref=e261]
+            - generic [ref=e262]:
+              - generic [ref=e263]: On-site —
+              - generic [ref=e264]: Full-time
+              - generic [ref=e265]: Paris
+        - generic [ref=e266]:
+          - link "Apply" [ref=e268] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/add3ec37-a655-4a60-8823-1e871aa1e9b2
+          - link "Engineering Manager On-site — Full-time Paris" [ref=e269] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/add3ec37-a655-4a60-8823-1e871aa1e9b2
+            - heading "Engineering Manager" [level=5] [ref=e270]
+            - generic [ref=e271]:
+              - generic [ref=e272]: On-site —
+              - generic [ref=e273]: Full-time
+              - generic [ref=e274]: Paris
+        - generic [ref=e275]:
+          - link "Apply" [ref=e277] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/518da612-f986-4e7c-afa7-d7d65fc66bfd
+          - link "Engineering Team Lead On-site — Full-time Paris" [ref=e278] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/518da612-f986-4e7c-afa7-d7d65fc66bfd
+            - heading "Engineering Team Lead" [level=5] [ref=e279]
+            - generic [ref=e280]:
+              - generic [ref=e281]: On-site —
+              - generic [ref=e282]: Full-time
+              - generic [ref=e283]: Paris
+        - generic [ref=e284]:
+          - link "Apply" [ref=e286] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/e0859107-d3ef-47ea-b128-06ab832fe728
+          - link "Engineering Team Lead, Cloud Deployments Hybrid — Full-time New York, NY" [ref=e287] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/e0859107-d3ef-47ea-b128-06ab832fe728
+            - heading "Engineering Team Lead, Cloud Deployments" [level=5] [ref=e288]
+            - generic [ref=e289]:
+              - generic [ref=e290]: Hybrid —
+              - generic [ref=e291]: Full-time
+              - generic [ref=e292]: New York, NY
+        - generic [ref=e293]:
+          - link "Apply" [ref=e295] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/ea94b55b-58e1-437b-bf3d-07ed150308e3
+          - link "Field Hardware Engineer, HPC On-site — Full-time Paris" [ref=e296] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/ea94b55b-58e1-437b-bf3d-07ed150308e3
+            - heading "Field Hardware Engineer, HPC" [level=5] [ref=e297]
+            - generic [ref=e298]:
+              - generic [ref=e299]: On-site —
+              - generic [ref=e300]: Full-time
+              - generic [ref=e301]: Paris
+        - generic [ref=e302]:
+          - link "Apply" [ref=e304] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/9aa2cdb4-8471-458a-937f-24be6853ddff
+          - link "Frontend Web Engineer, Creative & Brand Experience Remote — Full-time Paris" [ref=e305] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/9aa2cdb4-8471-458a-937f-24be6853ddff
+            - heading "Frontend Web Engineer, Creative & Brand Experience" [level=5] [ref=e306]
+            - generic [ref=e307]:
+              - generic [ref=e308]: Remote —
+              - generic [ref=e309]: Full-time
+              - generic [ref=e310]: Paris
+        - generic [ref=e311]:
+          - link "Apply" [ref=e313] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/557d2a1e-41d7-4711-b797-abfe56de55e5
+          - link "IT Engineer (System Administrator) On-site — Full-time Paris" [ref=e314] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/557d2a1e-41d7-4711-b797-abfe56de55e5
+            - heading "IT Engineer (System Administrator)" [level=5] [ref=e315]
+            - generic [ref=e316]:
+              - generic [ref=e317]: On-site —
+              - generic [ref=e318]: Full-time
+              - generic [ref=e319]: Paris
+        - generic [ref=e320]:
+          - link "Apply" [ref=e322] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/24afc4c1-c92f-47b5-8266-07d870f32ef2
+          - link "IT Technician On-site — Full-time Paris" [ref=e323] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/24afc4c1-c92f-47b5-8266-07d870f32ef2
+            - heading "IT Technician" [level=5] [ref=e324]
+            - generic [ref=e325]:
+              - generic [ref=e326]: On-site —
+              - generic [ref=e327]: Full-time
+              - generic [ref=e328]: Paris
+        - generic [ref=e329]:
+          - link "Apply" [ref=e331] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/0593f273-44f5-4c20-a84c-0406d5da6a0b
+          - link "Lead Software Engineer, Runtime On-site — Full-time Paris / London" [ref=e332] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/0593f273-44f5-4c20-a84c-0406d5da6a0b
+            - heading "Lead Software Engineer, Runtime" [level=5] [ref=e333]
+            - generic [ref=e334]:
+              - generic [ref=e335]: On-site —
+              - generic [ref=e336]: Full-time
+              - generic [ref=e337]: Paris / London
+        - generic [ref=e338]:
+          - link "Apply" [ref=e340] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/aef81704-b44b-4a42-bdb0-a895cf709df6
+          - link "M&A Tech Engineer On-site — Full-time Paris / London" [ref=e341] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/aef81704-b44b-4a42-bdb0-a895cf709df6
+            - heading "M&A Tech Engineer" [level=5] [ref=e342]
+            - generic [ref=e343]:
+              - generic [ref=e344]: On-site —
+              - generic [ref=e345]: Full-time
+              - generic [ref=e346]: Paris / London
+        - generic [ref=e347]:
+          - link "Apply" [ref=e349] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/ef4c26fc-3fdb-4dd2-a64e-95264ee769dd
+          - link "Machine Learning Engineer, Open-Source Software - Paris/London Hybrid — Full-time Paris / London" [ref=e350] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/ef4c26fc-3fdb-4dd2-a64e-95264ee769dd
+            - heading "Machine Learning Engineer, Open-Source Software - Paris/London" [level=5] [ref=e351]
+            - generic [ref=e352]:
+              - generic [ref=e353]: Hybrid —
+              - generic [ref=e354]: Full-time
+              - generic [ref=e355]: Paris / London
+        - generic [ref=e356]:
+          - link "Apply" [ref=e358] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/6e16e4fa-a60b-4270-a815-06b0450fb597
+          - link "Site Reliability Engineer Remote — Full-time Paris / London" [ref=e359] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/6e16e4fa-a60b-4270-a815-06b0450fb597
+            - heading "Site Reliability Engineer" [level=5] [ref=e360]
+            - generic [ref=e361]:
+              - generic [ref=e362]: Remote —
+              - generic [ref=e363]: Full-time
+              - generic [ref=e364]: Paris / London
+        - generic [ref=e365]:
+          - link "Apply" [ref=e367] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/c3f5b0a2-0dc0-40a6-9a13-e5962c7c76d4
+          - link "Software Engineer (CMS & Web) Remote — Full-time Paris" [ref=e368] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/c3f5b0a2-0dc0-40a6-9a13-e5962c7c76d4
+            - heading "Software Engineer (CMS & Web)" [level=5] [ref=e369]
+            - generic [ref=e370]:
+              - generic [ref=e371]: Remote —
+              - generic [ref=e372]: Full-time
+              - generic [ref=e373]: Paris
+        - generic [ref=e374]:
+          - link "Apply" [ref=e376] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/305432ef-27ac-4012-a893-a662813ac6e9
+          - link "Software Engineer, Frontend Hybrid — Full-time Paris / London" [ref=e377] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/305432ef-27ac-4012-a893-a662813ac6e9
+            - heading "Software Engineer, Frontend" [level=5] [ref=e378]
+            - generic [ref=e379]:
+              - generic [ref=e380]: Hybrid —
+              - generic [ref=e381]: Full-time
+              - generic [ref=e382]: Paris / London
+        - generic [ref=e383]:
+          - link "Apply" [ref=e385] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/77b8339f-da37-4f38-b554-1d154f72ca8f
+          - link "Software Engineer, Backend (London) On-site — Full-time London" [ref=e386] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/77b8339f-da37-4f38-b554-1d154f72ca8f
+            - heading "Software Engineer, Backend (London)" [level=5] [ref=e387]
+            - generic [ref=e388]:
+              - generic [ref=e389]: On-site —
+              - generic [ref=e390]: Full-time
+              - generic [ref=e391]: London
+        - generic [ref=e392]:
+          - link "Apply" [ref=e394] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/e76d2957-2bf6-4d8f-90a2-29bf9a927823
+          - link "Software Engineer, Backend (Paris) On-site — Full-time Paris" [ref=e395] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/e76d2957-2bf6-4d8f-90a2-29bf9a927823
+            - heading "Software Engineer, Backend (Paris)" [level=5] [ref=e396]
+            - generic [ref=e397]:
+              - generic [ref=e398]: On-site —
+              - generic [ref=e399]: Full-time
+              - generic [ref=e400]: Paris
+        - generic [ref=e401]:
+          - link "Apply" [ref=e403] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/4db39406-fcec-4f12-abc1-42ecaa50d84f
+          - link "Software Engineer, Cloud Deployments Hybrid — Full-time New York, NY" [ref=e404] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/4db39406-fcec-4f12-abc1-42ecaa50d84f
+            - heading "Software Engineer, Cloud Deployments" [level=5] [ref=e405]
+            - generic [ref=e406]:
+              - generic [ref=e407]: Hybrid —
+              - generic [ref=e408]: Full-time
+              - generic [ref=e409]: New York, NY
+        - generic [ref=e410]:
+          - link "Apply" [ref=e412] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/d60f6c60-ad5e-4753-af8a-56365b7db8b8
+          - link "Software Engineer, Compute Infrastructure Remote — Full-time Paris / London / Berlin/Munich/Frankfurt / Barcelona/Madrid / Amsterdam / Brussels / Madrid / Marseille / Munich / Luxembourg" [ref=e413] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/d60f6c60-ad5e-4753-af8a-56365b7db8b8
+            - heading "Software Engineer, Compute Infrastructure" [level=5] [ref=e414]
+            - generic [ref=e415]:
+              - generic [ref=e416]: Remote —
+              - generic [ref=e417]: Full-time
+              - generic [ref=e418]: Paris / London / Berlin/Munich/Frankfurt / Barcelona/Madrid / Amsterdam / Brussels / Madrid / Marseille / Munich / Luxembourg
+        - generic [ref=e419]:
+          - link "Apply" [ref=e421] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/db67d7a2-bcec-4151-9b3a-8212ddabf419
+          - link "Software Engineer, Data On-site — Full-time Paris" [ref=e422] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/db67d7a2-bcec-4151-9b3a-8212ddabf419
+            - heading "Software Engineer, Data" [level=5] [ref=e423]
+            - generic [ref=e424]:
+              - generic [ref=e425]: On-site —
+              - generic [ref=e426]: Full-time
+              - generic [ref=e427]: Paris
+        - generic [ref=e428]:
+          - link "Apply" [ref=e430] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/31364497-4081-454a-b50c-12d15daf6876
+          - link "Software Engineer, Deployment Infrastructure On-site — Full-time Paris" [ref=e431] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/31364497-4081-454a-b50c-12d15daf6876
+            - heading "Software Engineer, Deployment Infrastructure" [level=5] [ref=e432]
+            - generic [ref=e433]:
+              - generic [ref=e434]: On-site —
+              - generic [ref=e435]: Full-time
+              - generic [ref=e436]: Paris
+        - generic [ref=e437]:
+          - link "Apply" [ref=e439] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/c9e16eb0-0cb9-423d-8495-a96d10782622
+          - link "Software Engineer, DevEx On-site — Full-time Paris" [ref=e440] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/c9e16eb0-0cb9-423d-8495-a96d10782622
+            - heading "Software Engineer, DevEx" [level=5] [ref=e441]
+            - generic [ref=e442]:
+              - generic [ref=e443]: On-site —
+              - generic [ref=e444]: Full-time
+              - generic [ref=e445]: Paris
+        - generic [ref=e446]:
+          - link "Apply" [ref=e448] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/3eef7a1f-cd9d-430e-ac67-9d52534c346a
+          - link "Software Engineer, Enterprise Agents Hybrid — Full-time Paris" [ref=e449] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/3eef7a1f-cd9d-430e-ac67-9d52534c346a
+            - heading "Software Engineer, Enterprise Agents" [level=5] [ref=e450]
+            - generic [ref=e451]:
+              - generic [ref=e452]: Hybrid —
+              - generic [ref=e453]: Full-time
+              - generic [ref=e454]: Paris
+        - generic [ref=e455]:
+          - link "Apply" [ref=e457] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/70d5293a-9183-40d9-874a-cc08a14d5de6
+          - link "Software Engineer, Knowledge and Search On-site — Full-time Paris / London" [ref=e458] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/70d5293a-9183-40d9-874a-cc08a14d5de6
+            - heading "Software Engineer, Knowledge and Search" [level=5] [ref=e459]
+            - generic [ref=e460]:
+              - generic [ref=e461]: On-site —
+              - generic [ref=e462]: Full-time
+              - generic [ref=e463]: Paris / London
+        - generic [ref=e464]:
+          - link "Apply" [ref=e466] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/108dd647-59bd-4077-a840-2a0036404f58
+          - link "Software Engineer, Mistral Vibe On-site — Full-time Paris" [ref=e467] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/108dd647-59bd-4077-a840-2a0036404f58
+            - heading "Software Engineer, Mistral Vibe" [level=5] [ref=e468]
+            - generic [ref=e469]:
+              - generic [ref=e470]: On-site —
+              - generic [ref=e471]: Full-time
+              - generic [ref=e472]: Paris
+        - generic [ref=e473]:
+          - link "Apply" [ref=e475] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/cf4616fc-977a-475c-bb2e-eb46a2c4a94f
+          - link "Software Engineer, New Grad On-site — Full-time Paris" [ref=e476] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/cf4616fc-977a-475c-bb2e-eb46a2c4a94f
+            - heading "Software Engineer, New Grad" [level=5] [ref=e477]
+            - generic [ref=e478]:
+              - generic [ref=e479]: On-site —
+              - generic [ref=e480]: Full-time
+              - generic [ref=e481]: Paris
+        - generic [ref=e482]:
+          - link "Apply" [ref=e484] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/03918386-cb56-4e4d-afa8-1f8b7676a4a6
+          - link "Software Engineer, QA Hybrid — Full-time Paris" [ref=e485] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/03918386-cb56-4e4d-afa8-1f8b7676a4a6
+            - heading "Software Engineer, QA" [level=5] [ref=e486]
+            - generic [ref=e487]:
+              - generic [ref=e488]: Hybrid —
+              - generic [ref=e489]: Full-time
+              - generic [ref=e490]: Paris
+        - generic [ref=e491]:
+          - link "Apply" [ref=e493] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/9f6e6513-fd9e-411b-b558-540bc12b2fe4
+          - link "Software Engineer, Security On-site — Full-time Paris" [ref=e494] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/9f6e6513-fd9e-411b-b558-540bc12b2fe4
+            - heading "Software Engineer, Security" [level=5] [ref=e495]
+            - generic [ref=e496]:
+              - generic [ref=e497]: On-site —
+              - generic [ref=e498]: Full-time
+              - generic [ref=e499]: Paris
+        - generic [ref=e500]:
+          - link "Apply" [ref=e502] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/e0b55281-55c6-4143-9bf8-e4418c667f9f
+          - link "Team Lead, SOC (Security Operations Center) Hybrid — Full-time Paris" [ref=e503] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/e0b55281-55c6-4143-9bf8-e4418c667f9f
+            - heading "Team Lead, SOC (Security Operations Center)" [level=5] [ref=e504]
+            - generic [ref=e505]:
+              - generic [ref=e506]: Hybrid —
+              - generic [ref=e507]: Full-time
+              - generic [ref=e508]: Paris
+        - generic [ref=e509]:
+          - link "Apply" [ref=e511] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/a1854159-922e-4de7-adb6-7c1b608c147f
+          - link "Technical Program Manager, Engineering Hybrid — Full-time Paris" [ref=e512] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/a1854159-922e-4de7-adb6-7c1b608c147f
+            - heading "Technical Program Manager, Engineering" [level=5] [ref=e513]
+            - generic [ref=e514]:
+              - generic [ref=e515]: Hybrid —
+              - generic [ref=e516]: Full-time
+              - generic [ref=e517]: Paris
+        - generic [ref=e518]:
+          - link "Apply" [ref=e520] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/f00a13aa-61f1-4c56-993c-20846adc2b15
+          - link "Technical Support Engineer – On-Premise On-site — Full-time Paris" [ref=e521] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/f00a13aa-61f1-4c56-993c-20846adc2b15
+            - heading "Technical Support Engineer – On-Premise" [level=5] [ref=e522]
+            - generic [ref=e523]:
+              - generic [ref=e524]: On-site —
+              - generic [ref=e525]: Full-time
+              - generic [ref=e526]: Paris
+      - generic [ref=e527]:
+        - generic [ref=e528]: Finance
+        - generic [ref=e530]:
+          - link "Apply" [ref=e532] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/b977a8c9-bfcd-48ca-a370-5c42661e2c81
+          - link "Accounting Project Manager On-site — Full-time Paris" [ref=e533] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/b977a8c9-bfcd-48ca-a370-5c42661e2c81
+            - heading "Accounting Project Manager" [level=5] [ref=e534]
+            - generic [ref=e535]:
+              - generic [ref=e536]: On-site —
+              - generic [ref=e537]: Full-time
+              - generic [ref=e538]: Paris
+        - generic [ref=e539]:
+          - link "Apply" [ref=e541] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/c7ffe998-bf72-4459-8b48-ab1eeeeeb090
+          - link "Director of Internal Control On-site — Full-time Paris" [ref=e542] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/c7ffe998-bf72-4459-8b48-ab1eeeeeb090
+            - heading "Director of Internal Control" [level=5] [ref=e543]
+            - generic [ref=e544]:
+              - generic [ref=e545]: On-site —
+              - generic [ref=e546]: Full-time
+              - generic [ref=e547]: Paris
+        - generic [ref=e548]:
+          - link "Apply" [ref=e550] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/389ac750-6789-4a0f-898b-4654d68ee81c
+          - link "FP&A Manager - Paris Hybrid — Full-time Paris" [ref=e551] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/389ac750-6789-4a0f-898b-4654d68ee81c
+            - heading "FP&A Manager - Paris" [level=5] [ref=e552]
+            - generic [ref=e553]:
+              - generic [ref=e554]: Hybrid —
+              - generic [ref=e555]: Full-time
+              - generic [ref=e556]: Paris
+        - generic [ref=e557]:
+          - link "Apply" [ref=e559] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/eb6a8a44-19f6-4b84-bce8-8a818542d2c4
+          - link "General Accountant On-site — Full-time Paris" [ref=e560] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/eb6a8a44-19f6-4b84-bce8-8a818542d2c4
+            - heading "General Accountant" [level=5] [ref=e561]
+            - generic [ref=e562]:
+              - generic [ref=e563]: On-site —
+              - generic [ref=e564]: Full-time
+              - generic [ref=e565]: Paris
+        - generic [ref=e566]:
+          - link "Apply" [ref=e568] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/e0446179-23d8-4d5f-889b-791e0f73e405
+          - link "IFRS Lead On-site — Full-time Paris" [ref=e569] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/e0446179-23d8-4d5f-889b-791e0f73e405
+            - heading "IFRS Lead" [level=5] [ref=e570]
+            - generic [ref=e571]:
+              - generic [ref=e572]: On-site —
+              - generic [ref=e573]: Full-time
+              - generic [ref=e574]: Paris
+        - generic [ref=e575]:
+          - link "Apply" [ref=e577] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/05357f94-2843-4385-a5ef-1a132ad88315
+          - link "IFRS Specialist On-site — Full-time Paris" [ref=e578] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/05357f94-2843-4385-a5ef-1a132ad88315
+            - heading "IFRS Specialist" [level=5] [ref=e579]
+            - generic [ref=e580]:
+              - generic [ref=e581]: On-site —
+              - generic [ref=e582]: Full-time
+              - generic [ref=e583]: Paris
+        - generic [ref=e584]:
+          - link "Apply" [ref=e586] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/91be2b7d-9278-4cab-b261-c20a82b8e88c
+          - link "International Tax Manager On-site — Paris" [ref=e587] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/91be2b7d-9278-4cab-b261-c20a82b8e88c
+            - heading "International Tax Manager" [level=5] [ref=e588]
+            - generic [ref=e589]:
+              - generic [ref=e590]: On-site —
+              - generic [ref=e591]: Paris
+        - generic [ref=e592]:
+          - link "Apply" [ref=e594] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/4e71696d-b7c9-4848-a13d-a215e8940b19
+          - link "Procurement Lead, Mistral AI On-site — Full-time Paris" [ref=e595] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/4e71696d-b7c9-4848-a13d-a215e8940b19
+            - heading "Procurement Lead, Mistral AI" [level=5] [ref=e596]
+            - generic [ref=e597]:
+              - generic [ref=e598]: On-site —
+              - generic [ref=e599]: Full-time
+              - generic [ref=e600]: Paris
+        - generic [ref=e601]:
+          - link "Apply" [ref=e603] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/145631ca-34dd-4664-b2b7-86fed4469eea
+          - link "Revenue Recognition Specialist On-site — Full-time Paris" [ref=e604] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/145631ca-34dd-4664-b2b7-86fed4469eea
+            - heading "Revenue Recognition Specialist" [level=5] [ref=e605]
+            - generic [ref=e606]:
+              - generic [ref=e607]: On-site —
+              - generic [ref=e608]: Full-time
+              - generic [ref=e609]: Paris
+        - generic [ref=e610]:
+          - link "Apply" [ref=e612] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/0baa1b95-4fbe-4359-8770-e1fc913549de
+          - link "Strategic Finance Analysis, AI Costs On-site — Full-time Paris" [ref=e613] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/0baa1b95-4fbe-4359-8770-e1fc913549de
+            - heading "Strategic Finance Analysis, AI Costs" [level=5] [ref=e614]
+            - generic [ref=e615]:
+              - generic [ref=e616]: On-site —
+              - generic [ref=e617]: Full-time
+              - generic [ref=e618]: Paris
+        - generic [ref=e619]:
+          - link "Apply" [ref=e621] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/fb640746-16d1-48ad-acfb-6e8615962921
+          - link "Strategic Finance, Mistral Compute On-site — Full-time Paris" [ref=e622] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/fb640746-16d1-48ad-acfb-6e8615962921
+            - heading "Strategic Finance, Mistral Compute" [level=5] [ref=e623]
+            - generic [ref=e624]:
+              - generic [ref=e625]: On-site —
+              - generic [ref=e626]: Full-time
+              - generic [ref=e627]: Paris
+      - generic [ref=e628]:
+        - generic [ref=e629]: HR
+        - generic [ref=e631]:
+          - link "Apply" [ref=e633] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/1dc94bc3-b4f1-460d-9d81-e6f333f8c8c2
+          - link "Founding Coordinator and Candidate Experience Lead On-site — Full-time Paris" [ref=e634] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/1dc94bc3-b4f1-460d-9d81-e6f333f8c8c2
+            - heading "Founding Coordinator and Candidate Experience Lead" [level=5] [ref=e635]
+            - generic [ref=e636]:
+              - generic [ref=e637]: On-site —
+              - generic [ref=e638]: Full-time
+              - generic [ref=e639]: Paris
+        - generic [ref=e640]:
+          - link "Apply" [ref=e642] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/21e7e5d6-a469-4eeb-a0c5-2e0f3e92bd9e
+          - link "HR Business Partner On-site — Full-time Paris" [ref=e643] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/21e7e5d6-a469-4eeb-a0c5-2e0f3e92bd9e
+            - heading "HR Business Partner" [level=5] [ref=e644]
+            - generic [ref=e645]:
+              - generic [ref=e646]: On-site —
+              - generic [ref=e647]: Full-time
+              - generic [ref=e648]: Paris
+        - generic [ref=e649]:
+          - link "Apply" [ref=e651] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/6f702ee6-aa29-4285-917a-a741f5af5801
+          - link "HR Business Partner US Hybrid — Full-time Palo Alto" [ref=e652] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/6f702ee6-aa29-4285-917a-a741f5af5801
+            - heading "HR Business Partner US" [level=5] [ref=e653]
+            - generic [ref=e654]:
+              - generic [ref=e655]: Hybrid —
+              - generic [ref=e656]: Full-time
+              - generic [ref=e657]: Palo Alto
+        - generic [ref=e658]:
+          - link "Apply" [ref=e660] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/00174d62-29ca-42c3-8dfb-8bc396384d48
+          - link "HR People Ops EMEA Hybrid — Full-time Paris" [ref=e661] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/00174d62-29ca-42c3-8dfb-8bc396384d48
+            - heading "HR People Ops EMEA" [level=5] [ref=e662]
+            - generic [ref=e663]:
+              - generic [ref=e664]: Hybrid —
+              - generic [ref=e665]: Full-time
+              - generic [ref=e666]: Paris
+        - generic [ref=e667]:
+          - link "Apply" [ref=e669] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/101bfd72-059b-4064-8f2e-f9646fd56818
+          - link "Office Manager Lead, America/APAC On-site — Full-time Palo Alto" [ref=e670] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/101bfd72-059b-4064-8f2e-f9646fd56818
+            - heading "Office Manager Lead, America/APAC" [level=5] [ref=e671]
+            - generic [ref=e672]:
+              - generic [ref=e673]: On-site —
+              - generic [ref=e674]: Full-time
+              - generic [ref=e675]: Palo Alto
+        - generic [ref=e676]:
+          - link "Apply" [ref=e678] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/b1005559-123a-4207-97c1-60fcd67bef5b
+          - link "Talent Acquisition - EMEA (Contractor) On-site — Full-time / freelance Paris" [ref=e679] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/b1005559-123a-4207-97c1-60fcd67bef5b
+            - heading "Talent Acquisition - EMEA (Contractor)" [level=5] [ref=e680]
+            - generic [ref=e681]:
+              - generic [ref=e682]: On-site —
+              - generic [ref=e683]: Full-time / freelance
+              - generic [ref=e684]: Paris
+        - generic [ref=e685]:
+          - link "Apply" [ref=e687] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/9c9bd375-c6d3-46a4-8338-4882254cc717
+          - link "Talent Acquisition - US (Contractor) Hybrid — Full-time / freelance Palo Alto / New York, NY" [ref=e688] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/9c9bd375-c6d3-46a4-8338-4882254cc717
+            - heading "Talent Acquisition - US (Contractor)" [level=5] [ref=e689]
+            - generic [ref=e690]:
+              - generic [ref=e691]: Hybrid —
+              - generic [ref=e692]: Full-time / freelance
+              - generic [ref=e693]: Palo Alto / New York, NY
+        - generic [ref=e694]:
+          - link "Apply" [ref=e696] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/41262cfd-5a86-4645-b059-1de4ee9b9ccb
+          - link "Talent Acquisition (Engineering/Product/GTM/ Science) - EMEA On-site — Full-time Paris / London / Madrid / Amsterdam / Berlin/Munich/Frankfurt" [ref=e697] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/41262cfd-5a86-4645-b059-1de4ee9b9ccb
+            - heading "Talent Acquisition (Engineering/Product/GTM/ Science) - EMEA" [level=5] [ref=e698]
+            - generic [ref=e699]:
+              - generic [ref=e700]: On-site —
+              - generic [ref=e701]: Full-time
+              - generic [ref=e702]: Paris / London / Madrid / Amsterdam / Berlin/Munich/Frankfurt
+        - generic [ref=e703]:
+          - link "Apply" [ref=e705] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/f4226e68-4a9a-4b95-a879-f2f993e5808b
+          - link "Talent Acquisition Lead - Paris On-site — Full-time Paris" [ref=e706] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/f4226e68-4a9a-4b95-a879-f2f993e5808b
+            - heading "Talent Acquisition Lead - Paris" [level=5] [ref=e707]
+            - generic [ref=e708]:
+              - generic [ref=e709]: On-site —
+              - generic [ref=e710]: Full-time
+              - generic [ref=e711]: Paris
+        - generic [ref=e712]:
+          - link "Apply" [ref=e714] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/5ee49b30-7757-4e24-aa54-080265ce1d15
+          - link "Talent Acquisition, USA Hybrid — Full-time Palo Alto / New York, NY" [ref=e715] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/5ee49b30-7757-4e24-aa54-080265ce1d15
+            - heading "Talent Acquisition, USA" [level=5] [ref=e716]
+            - generic [ref=e717]:
+              - generic [ref=e718]: Hybrid —
+              - generic [ref=e719]: Full-time
+              - generic [ref=e720]: Palo Alto / New York, NY
+      - generic [ref=e721]:
+        - generic [ref=e722]: Legal
+        - generic [ref=e724]:
+          - link "Apply" [ref=e726] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/98602aa8-828c-421d-bc98-1e6b90e3c84c
+          - link "Commercial Legal Counsel, DACH On-site — Full-time Paris / Munich" [ref=e727] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/98602aa8-828c-421d-bc98-1e6b90e3c84c
+            - heading "Commercial Legal Counsel, DACH" [level=5] [ref=e728]
+            - generic [ref=e729]:
+              - generic [ref=e730]: On-site —
+              - generic [ref=e731]: Full-time
+              - generic [ref=e732]: Paris / Munich
+        - generic [ref=e733]:
+          - link "Apply" [ref=e735] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/0048593b-1ca4-4c35-855e-be944c2cb655
+          - link "Commercial Legal Counsel, EMEA On-site — Full-time Paris" [ref=e736] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/0048593b-1ca4-4c35-855e-be944c2cb655
+            - heading "Commercial Legal Counsel, EMEA" [level=5] [ref=e737]
+            - generic [ref=e738]:
+              - generic [ref=e739]: On-site —
+              - generic [ref=e740]: Full-time
+              - generic [ref=e741]: Paris
+        - generic [ref=e742]:
+          - link "Apply" [ref=e744] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/6d371a04-601d-4a3c-86e1-f6c4b78eea9e
+          - link "Compliance Legal Counsel On-site — Full-time Paris" [ref=e745] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/6d371a04-601d-4a3c-86e1-f6c4b78eea9e
+            - heading "Compliance Legal Counsel" [level=5] [ref=e746]
+            - generic [ref=e747]:
+              - generic [ref=e748]: On-site —
+              - generic [ref=e749]: Full-time
+              - generic [ref=e750]: Paris
+        - generic [ref=e751]:
+          - link "Apply" [ref=e753] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/0d94546e-a15a-4644-8115-0b960f79d973
+          - link "Compute Legal Counsel On-site — Full-time Paris" [ref=e754] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/0d94546e-a15a-4644-8115-0b960f79d973
+            - heading "Compute Legal Counsel" [level=5] [ref=e755]
+            - generic [ref=e756]:
+              - generic [ref=e757]: On-site —
+              - generic [ref=e758]: Full-time
+              - generic [ref=e759]: Paris
+        - generic [ref=e760]:
+          - link "Apply" [ref=e762] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/5fdce0c7-57d6-48a3-a2ff-e067d1ee90c7
+          - link "Corporate Legal Counsel On-site — Full-time Paris" [ref=e763] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/5fdce0c7-57d6-48a3-a2ff-e067d1ee90c7
+            - heading "Corporate Legal Counsel" [level=5] [ref=e764]
+            - generic [ref=e765]:
+              - generic [ref=e766]: On-site —
+              - generic [ref=e767]: Full-time
+              - generic [ref=e768]: Paris
+        - generic [ref=e769]:
+          - link "Apply" [ref=e771] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/98ed73c1-6700-42a4-b36f-8a8305c5f37c
+          - link "Labour Legal Counsel On-site — Full-time Paris" [ref=e772] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/98ed73c1-6700-42a4-b36f-8a8305c5f37c
+            - heading "Labour Legal Counsel" [level=5] [ref=e773]
+            - generic [ref=e774]:
+              - generic [ref=e775]: On-site —
+              - generic [ref=e776]: Full-time
+              - generic [ref=e777]: Paris
+        - generic [ref=e778]:
+          - link "Apply" [ref=e780] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/0a274090-e9f9-4ed4-a6e0-aac5acdf4248
+          - link "Legal Counsel, Copyright Attorney On-site — Full-time Paris / London" [ref=e781] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/0a274090-e9f9-4ed4-a6e0-aac5acdf4248
+            - heading "Legal Counsel, Copyright Attorney" [level=5] [ref=e782]
+            - generic [ref=e783]:
+              - generic [ref=e784]: On-site —
+              - generic [ref=e785]: Full-time
+              - generic [ref=e786]: Paris / London
+        - generic [ref=e787]:
+          - link "Apply" [ref=e789] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/bd69355b-9159-4bad-b52d-b71110e65090
+          - link "Legal Tech Associate, IP & Licensing Business On-site — Full-time Palo Alto" [ref=e790] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/bd69355b-9159-4bad-b52d-b71110e65090
+            - heading "Legal Tech Associate, IP & Licensing Business" [level=5] [ref=e791]
+            - generic [ref=e792]:
+              - generic [ref=e793]: On-site —
+              - generic [ref=e794]: Full-time
+              - generic [ref=e795]: Palo Alto
+        - generic [ref=e796]:
+          - link "Apply" [ref=e798] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/b84413c1-00a1-4663-8697-aa6548cc87f8
+          - link "Licensing Executive On-site — Full-time Paris / Palo Alto / New York, NY" [ref=e799] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/b84413c1-00a1-4663-8697-aa6548cc87f8
+            - heading "Licensing Executive" [level=5] [ref=e800]
+            - generic [ref=e801]:
+              - generic [ref=e802]: On-site —
+              - generic [ref=e803]: Full-time
+              - generic [ref=e804]: Paris / Palo Alto / New York, NY
+        - generic [ref=e805]:
+          - link "Apply" [ref=e807] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/25e20280-bdd6-4dee-9857-9247aeac0067
+          - link "Privacy Legal Counsel Hybrid — Full-time Paris" [ref=e808] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/25e20280-bdd6-4dee-9857-9247aeac0067
+            - heading "Privacy Legal Counsel" [level=5] [ref=e809]
+            - generic [ref=e810]:
+              - generic [ref=e811]: Hybrid —
+              - generic [ref=e812]: Full-time
+              - generic [ref=e813]: Paris
+      - generic [ref=e814]:
+        - generic [ref=e815]: Marketing
+        - generic [ref=e817]:
+          - link "Apply" [ref=e819] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/fdac4b59-454b-4b45-bb74-9124134c129b
+          - link "Field Marketing Manager, EMEA On-site — Full-time Paris / London" [ref=e820] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/fdac4b59-454b-4b45-bb74-9124134c129b
+            - heading "Field Marketing Manager, EMEA" [level=5] [ref=e821]
+            - generic [ref=e822]:
+              - generic [ref=e823]: On-site —
+              - generic [ref=e824]: Full-time
+              - generic [ref=e825]: Paris / London
+        - generic [ref=e826]:
+          - link "Apply" [ref=e828] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/e97be5bf-6ee6-41d6-8a48-6626e9718ca6
+          - link "Partner Marketing Lead Hybrid — New York, NY / Palo Alto" [ref=e829] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/e97be5bf-6ee6-41d6-8a48-6626e9718ca6
+            - heading "Partner Marketing Lead" [level=5] [ref=e830]
+            - generic [ref=e831]:
+              - generic [ref=e832]: Hybrid —
+              - generic [ref=e833]: New York, NY / Palo Alto
+        - generic [ref=e834]:
+          - link "Apply" [ref=e836] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/281f4a57-dbe2-40b5-a35f-e180e15a4f12
+          - link "Senior Product Marketing Manager On-site — Full-time Paris / London" [ref=e837] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/281f4a57-dbe2-40b5-a35f-e180e15a4f12
+            - heading "Senior Product Marketing Manager" [level=5] [ref=e838]
+            - generic [ref=e839]:
+              - generic [ref=e840]: On-site —
+              - generic [ref=e841]: Full-time
+              - generic [ref=e842]: Paris / London
+        - generic [ref=e843]:
+          - link "Apply" [ref=e845] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/9afa0429-e845-4ef3-ac0b-0625e869edea
+          - link "Senior Product Marketing Manager, Enterprise products On-site — Full-time Paris / London" [ref=e846] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/9afa0429-e845-4ef3-ac0b-0625e869edea
+            - heading "Senior Product Marketing Manager, Enterprise products" [level=5] [ref=e847]
+            - generic [ref=e848]:
+              - generic [ref=e849]: On-site —
+              - generic [ref=e850]: Full-time
+              - generic [ref=e851]: Paris / London
+        - generic [ref=e852]:
+          - link "Apply" [ref=e854] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/942f8627-3079-416b-a2a7-bf651b336acb
+          - link "Technical Marketing Engineer On-site — Paris / London" [ref=e855] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/942f8627-3079-416b-a2a7-bf651b336acb
+            - heading "Technical Marketing Engineer" [level=5] [ref=e856]
+            - generic [ref=e857]:
+              - generic [ref=e858]: On-site —
+              - generic [ref=e859]: Paris / London
+      - generic [ref=e860]:
+        - generic [ref=e861]: PA & Coms
+        - generic [ref=e863]:
+          - link "Apply" [ref=e865] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/dad622c0-15dc-4db8-bad4-f6008a03ba89
+          - link "Head of Communications, APAC On-site — Full-time Singapore" [ref=e866] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/dad622c0-15dc-4db8-bad4-f6008a03ba89
+            - heading "Head of Communications, APAC" [level=5] [ref=e867]
+            - generic [ref=e868]:
+              - generic [ref=e869]: On-site —
+              - generic [ref=e870]: Full-time
+              - generic [ref=e871]: Singapore
+      - generic [ref=e872]:
+        - generic [ref=e873]: Product
+        - generic [ref=e875]:
+          - link "Apply" [ref=e877] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/1b4158ae-ae7d-42a1-8b00-424353ebd730
+          - link "Product Designer, AI Studio On-site — Full-time Paris / London" [ref=e878] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/1b4158ae-ae7d-42a1-8b00-424353ebd730
+            - heading "Product Designer, AI Studio" [level=5] [ref=e879]
+            - generic [ref=e880]:
+              - generic [ref=e881]: On-site —
+              - generic [ref=e882]: Full-time
+              - generic [ref=e883]: Paris / London
+        - generic [ref=e884]:
+          - link "Apply" [ref=e886] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/0bfeed03-77a7-4670-a843-9d08b9e8b452
+          - link "Product Designer, Le Chat On-site — Full-time Paris / London / Amsterdam / Barcelona/Madrid / Berlin/Munich/Frankfurt / Madrid" [ref=e887] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/0bfeed03-77a7-4670-a843-9d08b9e8b452
+            - heading "Product Designer, Le Chat" [level=5] [ref=e888]
+            - generic [ref=e889]:
+              - generic [ref=e890]: On-site —
+              - generic [ref=e891]: Full-time
+              - generic [ref=e892]: Paris / London / Amsterdam / Barcelona/Madrid / Berlin/Munich/Frankfurt / Madrid
+        - generic [ref=e893]:
+          - link "Apply" [ref=e895] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/dc06d3cf-cd4e-48a3-9e87-d44cddc172f5
+          - link "Product Designer, Mistral Code On-site — Full-time Paris / London / Amsterdam / Berlin/Munich/Frankfurt / Barcelona/Madrid / Madrid" [ref=e896] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/dc06d3cf-cd4e-48a3-9e87-d44cddc172f5
+            - heading "Product Designer, Mistral Code" [level=5] [ref=e897]
+            - generic [ref=e898]:
+              - generic [ref=e899]: On-site —
+              - generic [ref=e900]: Full-time
+              - generic [ref=e901]: Paris / London / Amsterdam / Berlin/Munich/Frankfurt / Barcelona/Madrid / Madrid
+        - generic [ref=e902]:
+          - link "Apply" [ref=e904] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/282e0150-5664-48e4-aa41-843493efdd4c
+          - link "Product Designer, Web apps On-site — Full-time Paris / London / New York, NY / Berlin/Munich/Frankfurt / Barcelona/Madrid / Amsterdam / Munich / Madrid / Luxembourg" [ref=e905] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/282e0150-5664-48e4-aa41-843493efdd4c
+            - heading "Product Designer, Web apps" [level=5] [ref=e906]
+            - generic [ref=e907]:
+              - generic [ref=e908]: On-site —
+              - generic [ref=e909]: Full-time
+              - generic [ref=e910]: Paris / London / New York, NY / Berlin/Munich/Frankfurt / Barcelona/Madrid / Amsterdam / Munich / Madrid / Luxembourg
+        - generic [ref=e911]:
+          - link "Apply" [ref=e913] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/17451d76-dd74-4a01-8959-c2a9e18b19de
+          - link "Product Manager, AI Assistant Hybrid — Full-time Paris / London" [ref=e914] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/17451d76-dd74-4a01-8959-c2a9e18b19de
+            - heading "Product Manager, AI Assistant" [level=5] [ref=e915]
+            - generic [ref=e916]:
+              - generic [ref=e917]: Hybrid —
+              - generic [ref=e918]: Full-time
+              - generic [ref=e919]: Paris / London
+        - generic [ref=e920]:
+          - link "Apply" [ref=e922] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/6201f9a0-233f-4de3-a8cc-65b75e99370f
+          - link "Product Manager, AI Studio On-site — Full-time Paris" [ref=e923] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/6201f9a0-233f-4de3-a8cc-65b75e99370f
+            - heading "Product Manager, AI Studio" [level=5] [ref=e924]
+            - generic [ref=e925]:
+              - generic [ref=e926]: On-site —
+              - generic [ref=e927]: Full-time
+              - generic [ref=e928]: Paris
+        - generic [ref=e929]:
+          - link "Apply" [ref=e931] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/e769b26a-90e9-4c6f-877c-a145a93f705d
+          - link "Product Manager, Audio Hybrid — Full-time New York, NY" [ref=e932] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/e769b26a-90e9-4c6f-877c-a145a93f705d
+            - heading "Product Manager, Audio" [level=5] [ref=e933]
+            - generic [ref=e934]:
+              - generic [ref=e935]: Hybrid —
+              - generic [ref=e936]: Full-time
+              - generic [ref=e937]: New York, NY
+        - generic [ref=e938]:
+          - link "Apply" [ref=e940] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/c08c3a0f-9899-4e6c-8195-8b1cc24c56ff
+          - link "Product Manager, Context & Search On-site — Full-time Paris / London" [ref=e941] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/c08c3a0f-9899-4e6c-8195-8b1cc24c56ff
+            - heading "Product Manager, Context & Search" [level=5] [ref=e942]
+            - generic [ref=e943]:
+              - generic [ref=e944]: On-site —
+              - generic [ref=e945]: Full-time
+              - generic [ref=e946]: Paris / London
+        - generic [ref=e947]:
+          - link "Apply" [ref=e949] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/7809b483-bdae-4964-97c7-5b8d232a142f
+          - link "Product Manager, Document Intelligence Hybrid — Full-time New York, NY" [ref=e950] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/7809b483-bdae-4964-97c7-5b8d232a142f
+            - heading "Product Manager, Document Intelligence" [level=5] [ref=e951]
+            - generic [ref=e952]:
+              - generic [ref=e953]: Hybrid —
+              - generic [ref=e954]: Full-time
+              - generic [ref=e955]: New York, NY
+        - generic [ref=e956]:
+          - link "Apply" [ref=e958] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/2f5ca403-4654-4b6f-8379-592920ceb2b3
+          - link "Product Manager, Science On-site — Full-time Paris" [ref=e959] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/2f5ca403-4654-4b6f-8379-592920ceb2b3
+            - heading "Product Manager, Science" [level=5] [ref=e960]
+            - generic [ref=e961]:
+              - generic [ref=e962]: On-site —
+              - generic [ref=e963]: Full-time
+              - generic [ref=e964]: Paris
+        - generic [ref=e965]:
+          - link "Apply" [ref=e967] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/ef656934-7246-4d93-b341-c907c348c444
+          - link "Product Operations Manager On-site — Full-time Paris" [ref=e968] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/ef656934-7246-4d93-b341-c907c348c444
+            - heading "Product Operations Manager" [level=5] [ref=e969]
+            - generic [ref=e970]:
+              - generic [ref=e971]: On-site —
+              - generic [ref=e972]: Full-time
+              - generic [ref=e973]: Paris
+      - generic [ref=e974]:
+        - generic [ref=e975]: Research
+        - generic [ref=e977]:
+          - link "Apply" [ref=e979] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/94173e13-3050-4044-862a-e8dfc2deda5e
+          - link "AI Scientist - Audio Hybrid — Full-time Paris / Palo Alto" [ref=e980] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/94173e13-3050-4044-862a-e8dfc2deda5e
+            - heading "AI Scientist - Audio" [level=5] [ref=e981]
+            - generic [ref=e982]:
+              - generic [ref=e983]: Hybrid —
+              - generic [ref=e984]: Full-time
+              - generic [ref=e985]: Paris / Palo Alto
+        - generic [ref=e986]:
+          - link "Apply" [ref=e988] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/7b20d2c8-d5a7-4efd-a13e-05d920ec5985
+          - link "AI Scientist - Palo Alto Hybrid — Full-time Palo Alto" [ref=e989] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/7b20d2c8-d5a7-4efd-a13e-05d920ec5985
+            - heading "AI Scientist - Palo Alto" [level=5] [ref=e990]
+            - generic [ref=e991]:
+              - generic [ref=e992]: Hybrid —
+              - generic [ref=e993]: Full-time
+              - generic [ref=e994]: Palo Alto
+        - generic [ref=e995]:
+          - link "Apply" [ref=e997] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/82d34b33-6f6b-42a2-b09f-6696c83ce7d0
+          - link "AI Scientist - Paris, London (Internship Phd) On-site — Fixed term Paris / London" [ref=e998] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/82d34b33-6f6b-42a2-b09f-6696c83ce7d0
+            - heading "AI Scientist - Paris, London (Internship Phd)" [level=5] [ref=e999]
+            - generic [ref=e1000]:
+              - generic [ref=e1001]: On-site —
+              - generic [ref=e1002]: Fixed term
+              - generic [ref=e1003]: Paris / London
+        - generic [ref=e1004]:
+          - link "Apply" [ref=e1006] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/292397f0-4ac7-4309-a0e8-63c97761a2cb
+          - link "AI Scientist - Paris, London (Internship, Master's students) On-site — Fixed term Paris / London" [ref=e1007] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/292397f0-4ac7-4309-a0e8-63c97761a2cb
+            - heading "AI Scientist - Paris, London (Internship, Master's students)" [level=5] [ref=e1008]
+            - generic [ref=e1009]:
+              - generic [ref=e1010]: On-site —
+              - generic [ref=e1011]: Fixed term
+              - generic [ref=e1012]: Paris / London
+        - generic [ref=e1013]:
+          - link "Apply" [ref=e1015] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/675b7f06-a76b-4144-af0c-4dd3282ef489
+          - link "AI Scientist - Paris/London - Onsite or Hybrid or Remote Hybrid — Full-time Paris" [ref=e1016] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/675b7f06-a76b-4144-af0c-4dd3282ef489
+            - heading "AI Scientist - Paris/London - Onsite or Hybrid or Remote" [level=5] [ref=e1017]
+            - generic [ref=e1018]:
+              - generic [ref=e1019]: Hybrid —
+              - generic [ref=e1020]: Full-time
+              - generic [ref=e1021]: Paris
+        - generic [ref=e1022]:
+          - link "Apply" [ref=e1024] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/60f9dc5b-6d1c-4236-be38-be7233669f00
+          - link "AI Scientist - Robotics Hybrid — Full-time Paris" [ref=e1025] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/60f9dc5b-6d1c-4236-be38-be7233669f00
+            - heading "AI Scientist - Robotics" [level=5] [ref=e1026]
+            - generic [ref=e1027]:
+              - generic [ref=e1028]: Hybrid —
+              - generic [ref=e1029]: Full-time
+              - generic [ref=e1030]: Paris
+        - generic [ref=e1031]:
+          - link "Apply" [ref=e1033] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/4e498cbf-151e-483a-b3f7-76ff64a22041
+          - link "AI Scientist - Warsaw Hybrid — Full-time Warsaw" [ref=e1034] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/4e498cbf-151e-483a-b3f7-76ff64a22041
+            - heading "AI Scientist - Warsaw" [level=5] [ref=e1035]
+            - generic [ref=e1036]:
+              - generic [ref=e1037]: Hybrid —
+              - generic [ref=e1038]: Full-time
+              - generic [ref=e1039]: Warsaw
+        - generic [ref=e1040]:
+          - link "Apply" [ref=e1042] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/bedfc2aa-f1b6-4136-bd17-b3abe4c06120
+          - link "AI Scientist - Zurich Hybrid — Full-time Zurich" [ref=e1043] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/bedfc2aa-f1b6-4136-bd17-b3abe4c06120
+            - heading "AI Scientist - Zurich" [level=5] [ref=e1044]
+            - generic [ref=e1045]:
+              - generic [ref=e1046]: Hybrid —
+              - generic [ref=e1047]: Full-time
+              - generic [ref=e1048]: Zurich
+        - generic [ref=e1049]:
+          - link "Apply" [ref=e1051] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/c223a38c-99f8-4582-bf3d-bd08c5a35460
+          - link "Annotation Specialist On-site — Full-time Paris" [ref=e1052] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/c223a38c-99f8-4582-bf3d-bd08c5a35460
+            - heading "Annotation Specialist" [level=5] [ref=e1053]
+            - generic [ref=e1054]:
+              - generic [ref=e1055]: On-site —
+              - generic [ref=e1056]: Full-time
+              - generic [ref=e1057]: Paris
+        - generic [ref=e1058]:
+          - link "Apply" [ref=e1060] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/4337cebc-b951-4528-98f8-ebcb45db5645
+          - link "Model Behavior Architect On-site — Full-time Paris / London / New York, NY" [ref=e1061] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/4337cebc-b951-4528-98f8-ebcb45db5645
+            - heading "Model Behavior Architect" [level=5] [ref=e1062]
+            - generic [ref=e1063]:
+              - generic [ref=e1064]: On-site —
+              - generic [ref=e1065]: Full-time
+              - generic [ref=e1066]: Paris / London / New York, NY
+        - generic [ref=e1067]:
+          - link "Apply" [ref=e1069] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/ef744f52-3ceb-42f1-84f6-1c8bde220eb1
+          - link "Research Engineer - Robotics On-site — Full-time Paris" [ref=e1070] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/ef744f52-3ceb-42f1-84f6-1c8bde220eb1
+            - heading "Research Engineer - Robotics" [level=5] [ref=e1071]
+            - generic [ref=e1072]:
+              - generic [ref=e1073]: On-site —
+              - generic [ref=e1074]: Full-time
+              - generic [ref=e1075]: Paris
+        - generic [ref=e1076]:
+          - link "Apply" [ref=e1078] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/bada0014-0f32-4370-b55f-81c5595c7339
+          - link "Research Engineer, Machine Learning Hybrid — Full-time Palo Alto" [ref=e1079] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/bada0014-0f32-4370-b55f-81c5595c7339
+            - heading "Research Engineer, Machine Learning" [level=5] [ref=e1080]
+            - generic [ref=e1081]:
+              - generic [ref=e1082]: Hybrid —
+              - generic [ref=e1083]: Full-time
+              - generic [ref=e1084]: Palo Alto
+        - generic [ref=e1085]:
+          - link "Apply" [ref=e1087] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/07447e1d-7900-46d4-b61b-186f2f76847f
+          - link "Research Engineer, Machine Learning - Paris/London/Zurich/Warsaw Hybrid — Full-time Paris / London / Zurich / Warsaw" [ref=e1088] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/07447e1d-7900-46d4-b61b-186f2f76847f
+            - heading "Research Engineer, Machine Learning - Paris/London/Zurich/Warsaw" [level=5] [ref=e1089]
+            - generic [ref=e1090]:
+              - generic [ref=e1091]: Hybrid —
+              - generic [ref=e1092]: Full-time
+              - generic [ref=e1093]: Paris / London / Zurich / Warsaw
+        - generic [ref=e1094]:
+          - link "Apply" [ref=e1096] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/18be2b70-c05d-48e4-82ac-e5cb462c96c0
+          - link "Software Engineer, DevOps, Research Platform Remote — Full-time Paris / London" [ref=e1097] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/18be2b70-c05d-48e4-82ac-e5cb462c96c0
+            - heading "Software Engineer, DevOps, Research Platform" [level=5] [ref=e1098]
+            - generic [ref=e1099]:
+              - generic [ref=e1100]: Remote —
+              - generic [ref=e1101]: Full-time
+              - generic [ref=e1102]: Paris / London
+        - generic [ref=e1103]:
+          - link "Apply" [ref=e1105] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/df0d75c1-97ef-4e50-85e6-0ffd8f5b7d7c
+          - link "Software Engineer, Research Team - Paris/London Hybrid — Full-time Paris / London" [ref=e1106] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/df0d75c1-97ef-4e50-85e6-0ffd8f5b7d7c
+            - heading "Software Engineer, Research Team - Paris/London" [level=5] [ref=e1107]
+            - generic [ref=e1108]:
+              - generic [ref=e1109]: Hybrid —
+              - generic [ref=e1110]: Full-time
+              - generic [ref=e1111]: Paris / London
+        - generic [ref=e1112]:
+          - link "Apply" [ref=e1114] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/ca5ae045-5425-42fd-a8f3-c9b3d807a540
+          - link "Technical Program Manager, Human Data Annotation (Code) - Paris/London/Palo Alto Hybrid — Full-time Paris / London / Palo Alto" [ref=e1115] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/ca5ae045-5425-42fd-a8f3-c9b3d807a540
+            - heading "Technical Program Manager, Human Data Annotation (Code) - Paris/London/Palo Alto" [level=5] [ref=e1116]
+            - generic [ref=e1117]:
+              - generic [ref=e1118]: Hybrid —
+              - generic [ref=e1119]: Full-time
+              - generic [ref=e1120]: Paris / London / Palo Alto
+        - generic [ref=e1121]:
+          - link "Apply" [ref=e1123] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/f86250cf-1241-4b25-b7bc-4990c358ea1a
+          - link "Technical Program Manager, Science Operations - Paris Hybrid — Full-time Paris" [ref=e1124] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/f86250cf-1241-4b25-b7bc-4990c358ea1a
+            - heading "Technical Program Manager, Science Operations - Paris" [level=5] [ref=e1125]
+            - generic [ref=e1126]:
+              - generic [ref=e1127]: Hybrid —
+              - generic [ref=e1128]: Full-time
+              - generic [ref=e1129]: Paris
+      - generic [ref=e1130]:
+        - generic [ref=e1131]: Solutions
+        - generic [ref=e1133]:
+          - link "Apply" [ref=e1135] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/9808a516-afa8-49a4-93e2-dfc6c616ea0b
+          - link "AI Deployment Strategist - Australia On-site — Full-time Sydney" [ref=e1136] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/9808a516-afa8-49a4-93e2-dfc6c616ea0b
+            - heading "AI Deployment Strategist - Australia" [level=5] [ref=e1137]
+            - generic [ref=e1138]:
+              - generic [ref=e1139]: On-site —
+              - generic [ref=e1140]: Full-time
+              - generic [ref=e1141]: Sydney
+        - generic [ref=e1142]:
+          - link "Apply" [ref=e1144] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/bb02882b-fb2e-4d06-9d5e-bd7654eee8e7
+          - link "AI Deployment Strategist - Luxembourg On-site — Full-time Luxembourg" [ref=e1145] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/bb02882b-fb2e-4d06-9d5e-bd7654eee8e7
+            - heading "AI Deployment Strategist - Luxembourg" [level=5] [ref=e1146]
+            - generic [ref=e1147]:
+              - generic [ref=e1148]: On-site —
+              - generic [ref=e1149]: Full-time
+              - generic [ref=e1150]: Luxembourg
+        - generic [ref=e1151]:
+          - link "Apply" [ref=e1153] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/0cde829a-c9b9-4ee1-827f-9bd30c1810fc
+          - link "AI Deployment Strategist - Marseille On-site — Full-time Marseille" [ref=e1154] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/0cde829a-c9b9-4ee1-827f-9bd30c1810fc
+            - heading "AI Deployment Strategist - Marseille" [level=5] [ref=e1155]
+            - generic [ref=e1156]:
+              - generic [ref=e1157]: On-site —
+              - generic [ref=e1158]: Full-time
+              - generic [ref=e1159]: Marseille
+        - generic [ref=e1160]:
+          - link "Apply" [ref=e1162] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/c9e2dbb5-00ed-4096-ba88-ac0bdffb68fd
+          - link "AI Deployment Strategist - MENA Hybrid — Full-time Abu Dhabi" [ref=e1163] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/c9e2dbb5-00ed-4096-ba88-ac0bdffb68fd
+            - heading "AI Deployment Strategist - MENA" [level=5] [ref=e1164]
+            - generic [ref=e1165]:
+              - generic [ref=e1166]: Hybrid —
+              - generic [ref=e1167]: Full-time
+              - generic [ref=e1168]: Abu Dhabi
+        - generic [ref=e1169]:
+          - link "Apply" [ref=e1171] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/61940037-e5e0-47f9-b980-88a1c6f0b8a8
+          - link "AI Deployment Strategist - Montreal Hybrid — Full-time Montreal" [ref=e1172] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/61940037-e5e0-47f9-b980-88a1c6f0b8a8
+            - heading "AI Deployment Strategist - Montreal" [level=5] [ref=e1173]
+            - generic [ref=e1174]:
+              - generic [ref=e1175]: Hybrid —
+              - generic [ref=e1176]: Full-time
+              - generic [ref=e1177]: Montreal
+        - generic [ref=e1178]:
+          - link "Apply" [ref=e1180] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/8f93bac1-1885-41ea-8650-cb5454be97e7
+          - link "AI Deployment Strategist - Morocco On-site — Full-time Casablanca" [ref=e1181] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/8f93bac1-1885-41ea-8650-cb5454be97e7
+            - heading "AI Deployment Strategist - Morocco" [level=5] [ref=e1182]
+            - generic [ref=e1183]:
+              - generic [ref=e1184]: On-site —
+              - generic [ref=e1185]: Full-time
+              - generic [ref=e1186]: Casablanca
+        - generic [ref=e1187]:
+          - link "Apply" [ref=e1189] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/1937a5af-2c9b-4a75-bb91-b06ebe714dbd
+          - link "AI Deployment Strategist - Munich, Germany On-site — Full-time Munich / Berlin/Munich/Frankfurt" [ref=e1190] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/1937a5af-2c9b-4a75-bb91-b06ebe714dbd
+            - heading "AI Deployment Strategist - Munich, Germany" [level=5] [ref=e1191]
+            - generic [ref=e1192]:
+              - generic [ref=e1193]: On-site —
+              - generic [ref=e1194]: Full-time
+              - generic [ref=e1195]: Munich / Berlin/Munich/Frankfurt
+        - generic [ref=e1196]:
+          - link "Apply" [ref=e1198] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/2aaf4e18-0943-4ebe-914d-cc9e32db8834
+          - link "AI Deployment Strategist - Netherlands On-site — Full-time Amsterdam" [ref=e1199] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/2aaf4e18-0943-4ebe-914d-cc9e32db8834
+            - heading "AI Deployment Strategist - Netherlands" [level=5] [ref=e1200]
+            - generic [ref=e1201]:
+              - generic [ref=e1202]: On-site —
+              - generic [ref=e1203]: Full-time
+              - generic [ref=e1204]: Amsterdam
+        - generic [ref=e1205]:
+          - link "Apply" [ref=e1207] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/1abe543d-4e31-4510-9782-ddab360080aa
+          - link "AI Deployment Strategist - Palo Alto Hybrid — Full-time Palo Alto" [ref=e1208] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/1abe543d-4e31-4510-9782-ddab360080aa
+            - heading "AI Deployment Strategist - Palo Alto" [level=5] [ref=e1209]
+            - generic [ref=e1210]:
+              - generic [ref=e1211]: Hybrid —
+              - generic [ref=e1212]: Full-time
+              - generic [ref=e1213]: Palo Alto
+        - generic [ref=e1214]:
+          - link "Apply" [ref=e1216] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/f9697798-31f8-4809-87b6-05eeb5261353
+          - link "AI Deployment Strategist - Paris On-site — Full-time Paris / Marseille" [ref=e1217] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/f9697798-31f8-4809-87b6-05eeb5261353
+            - heading "AI Deployment Strategist - Paris" [level=5] [ref=e1218]
+            - generic [ref=e1219]:
+              - generic [ref=e1220]: On-site —
+              - generic [ref=e1221]: Full-time
+              - generic [ref=e1222]: Paris / Marseille
+        - generic [ref=e1223]:
+          - link "Apply" [ref=e1225] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/55c2e8f4-a3ea-4e59-9ccf-dac2fee26c65
+          - link "AI Deployment Strategist - Singapore Hybrid — Full-time Singapore" [ref=e1226] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/55c2e8f4-a3ea-4e59-9ccf-dac2fee26c65
+            - heading "AI Deployment Strategist - Singapore" [level=5] [ref=e1227]
+            - generic [ref=e1228]:
+              - generic [ref=e1229]: Hybrid —
+              - generic [ref=e1230]: Full-time
+              - generic [ref=e1231]: Singapore
+        - generic [ref=e1232]:
+          - link "Apply" [ref=e1234] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/2aaf3b8e-3bee-46b7-9942-70351e63007f
+          - link "AI Deployment Strategist - Spain Hybrid — Full-time Madrid" [ref=e1235] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/2aaf3b8e-3bee-46b7-9942-70351e63007f
+            - heading "AI Deployment Strategist - Spain" [level=5] [ref=e1236]
+            - generic [ref=e1237]:
+              - generic [ref=e1238]: Hybrid —
+              - generic [ref=e1239]: Full-time
+              - generic [ref=e1240]: Madrid
+        - generic [ref=e1241]:
+          - link "Apply" [ref=e1243] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/e59555e3-899d-4e1e-875f-90b825bc1e28
+          - link "AI Deployment Strategist - UK On-site — Full-time London" [ref=e1244] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/e59555e3-899d-4e1e-875f-90b825bc1e28
+            - heading "AI Deployment Strategist - UK" [level=5] [ref=e1245]
+            - generic [ref=e1246]:
+              - generic [ref=e1247]: On-site —
+              - generic [ref=e1248]: Full-time
+              - generic [ref=e1249]: London
+        - generic [ref=e1250]:
+          - link "Apply" [ref=e1252] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/1db62ee4-ec6b-4297-a834-463ae10bae9d
+          - link "AI Deployment Strategist, Public Sector - Paris On-site — Full-time Paris" [ref=e1253] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/1db62ee4-ec6b-4297-a834-463ae10bae9d
+            - heading "AI Deployment Strategist, Public Sector - Paris" [level=5] [ref=e1254]
+            - generic [ref=e1255]:
+              - generic [ref=e1256]: On-site —
+              - generic [ref=e1257]: Full-time
+              - generic [ref=e1258]: Paris
+        - generic [ref=e1259]:
+          - link "Apply" [ref=e1261] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/1fe045c3-40c3-4d6c-ad4a-89145f28b9fa
+          - link "AI Deployment Strategist, Public Sector - Singapore Hybrid — Singapore" [ref=e1262] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/1fe045c3-40c3-4d6c-ad4a-89145f28b9fa
+            - heading "AI Deployment Strategist, Public Sector - Singapore" [level=5] [ref=e1263]
+            - generic [ref=e1264]:
+              - generic [ref=e1265]: Hybrid —
+              - generic [ref=e1266]: Singapore
+        - generic [ref=e1267]:
+          - link "Apply" [ref=e1269] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/5ef21cae-ffac-488c-a954-7cd016a8f39e
+          - link "AI Solution Architect - Montreal Hybrid — Full-time Montreal" [ref=e1270] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/5ef21cae-ffac-488c-a954-7cd016a8f39e
+            - heading "AI Solution Architect - Montreal" [level=5] [ref=e1271]
+            - generic [ref=e1272]:
+              - generic [ref=e1273]: Hybrid —
+              - generic [ref=e1274]: Full-time
+              - generic [ref=e1275]: Montreal
+        - generic [ref=e1276]:
+          - link "Apply" [ref=e1278] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/70006329-2601-48a2-907e-ffe178c03051
+          - link "AI Solution Architect - Palo Alto Hybrid — Full-time Palo Alto" [ref=e1279] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/70006329-2601-48a2-907e-ffe178c03051
+            - heading "AI Solution Architect - Palo Alto" [level=5] [ref=e1280]
+            - generic [ref=e1281]:
+              - generic [ref=e1282]: Hybrid —
+              - generic [ref=e1283]: Full-time
+              - generic [ref=e1284]: Palo Alto
+        - generic [ref=e1285]:
+          - link "Apply" [ref=e1287] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/80358670-36c7-4b00-85f9-9051dc8a341e
+          - link "Applied AI Engineer, Senior/Staff Devops/SRE - Singapore On-site — Singapore" [ref=e1288] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/80358670-36c7-4b00-85f9-9051dc8a341e
+            - heading "Applied AI Engineer, Senior/Staff Devops/SRE - Singapore" [level=5] [ref=e1289]
+            - generic [ref=e1290]:
+              - generic [ref=e1291]: On-site —
+              - generic [ref=e1292]: Singapore
+        - generic [ref=e1293]:
+          - link "Apply" [ref=e1295] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/aceffeba-c4e9-4b3b-adff-e7e78b986c5c
+          - link "Applied AI Engineer, Fullstack Software Engineer - EMEA Hybrid — Full-time Paris / Marseille / London / Luxembourg / Lausanne" [ref=e1296] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/aceffeba-c4e9-4b3b-adff-e7e78b986c5c
+            - heading "Applied AI Engineer, Fullstack Software Engineer - EMEA" [level=5] [ref=e1297]
+            - generic [ref=e1298]:
+              - generic [ref=e1299]: Hybrid —
+              - generic [ref=e1300]: Full-time
+              - generic [ref=e1301]: Paris / Marseille / London / Luxembourg / Lausanne
+        - generic [ref=e1302]:
+          - link "Apply" [ref=e1304] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/21bfa08c-f4f7-41e2-968d-aef29c2acf66
+          - link "Applied AI Engineer, Fullstack Software Engineer - Singapore Hybrid — Full-time Singapore" [ref=e1305] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/21bfa08c-f4f7-41e2-968d-aef29c2acf66
+            - heading "Applied AI Engineer, Fullstack Software Engineer - Singapore" [level=5] [ref=e1306]
+            - generic [ref=e1307]:
+              - generic [ref=e1308]: Hybrid —
+              - generic [ref=e1309]: Full-time
+              - generic [ref=e1310]: Singapore
+        - generic [ref=e1311]:
+          - link "Apply" [ref=e1313] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/3e51d533-1f2d-48e3-9a2b-33fc7e8b0c0c
+          - link "Applied AI Engineer, Senior/Staff Devops/SRE - EMEA On-site — Full-time Paris / London / Marseille / Luxembourg / Lausanne" [ref=e1314] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/3e51d533-1f2d-48e3-9a2b-33fc7e8b0c0c
+            - heading "Applied AI Engineer, Senior/Staff Devops/SRE - EMEA" [level=5] [ref=e1315]
+            - generic [ref=e1316]:
+              - generic [ref=e1317]: On-site —
+              - generic [ref=e1318]: Full-time
+              - generic [ref=e1319]: Paris / London / Marseille / Luxembourg / Lausanne
+        - generic [ref=e1320]:
+          - link "Apply" [ref=e1322] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/3d9a6ece-1f8c-4e0b-a275-fde6300ed1f8
+          - link "Applied AI, AI Engineer for Mistral On-site — Full-time Paris" [ref=e1323] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/3d9a6ece-1f8c-4e0b-a275-fde6300ed1f8
+            - heading "Applied AI, AI Engineer for Mistral" [level=5] [ref=e1324]
+            - generic [ref=e1325]:
+              - generic [ref=e1326]: On-site —
+              - generic [ref=e1327]: Full-time
+              - generic [ref=e1328]: Paris
+        - generic [ref=e1329]:
+          - link "Apply" [ref=e1331] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/e0db3860-0a80-47a8-958a-f8e62f3bb59c
+          - link "Applied AI, Evaluation Engineer On-site — Full-time Paris" [ref=e1332] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/e0db3860-0a80-47a8-958a-f8e62f3bb59c
+            - heading "Applied AI, Evaluation Engineer" [level=5] [ref=e1333]
+            - generic [ref=e1334]:
+              - generic [ref=e1335]: On-site —
+              - generic [ref=e1336]: Full-time
+              - generic [ref=e1337]: Paris
+        - generic [ref=e1338]:
+          - link "Apply" [ref=e1340] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/881941e1-2741-48e2-8767-12866965fac5
+          - link "Applied AI, Forward Deployed Machine Learning Engineer - (Internship) On-site — Paris / London" [ref=e1341] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/881941e1-2741-48e2-8767-12866965fac5
+            - heading "Applied AI, Forward Deployed Machine Learning Engineer - (Internship)" [level=5] [ref=e1342]
+            - generic [ref=e1343]:
+              - generic [ref=e1344]: On-site —
+              - generic [ref=e1345]: Paris / London
+        - generic [ref=e1346]:
+          - link "Apply" [ref=e1348] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/77f6fd1b-65cf-45d8-9b68-594c62732f62
+          - link "Applied AI, Forward Deployed Machine Learning Engineer - EMEA On-site — Full-time Paris / London / Luxembourg / Marseille / Amsterdam / Munich / Lausanne" [ref=e1349] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/77f6fd1b-65cf-45d8-9b68-594c62732f62
+            - heading "Applied AI, Forward Deployed Machine Learning Engineer - EMEA" [level=5] [ref=e1350]
+            - generic [ref=e1351]:
+              - generic [ref=e1352]: On-site —
+              - generic [ref=e1353]: Full-time
+              - generic [ref=e1354]: Paris / London / Luxembourg / Marseille / Amsterdam / Munich / Lausanne
+        - generic [ref=e1355]:
+          - link "Apply" [ref=e1357] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/cb2137e6-d6b1-47d7-8450-6370a61f2b79
+          - link "Applied AI, Forward Deployed Machine Learning Engineer - Morocco On-site — Full-time Casablanca" [ref=e1358] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/cb2137e6-d6b1-47d7-8450-6370a61f2b79
+            - heading "Applied AI, Forward Deployed Machine Learning Engineer - Morocco" [level=5] [ref=e1359]
+            - generic [ref=e1360]:
+              - generic [ref=e1361]: On-site —
+              - generic [ref=e1362]: Full-time
+              - generic [ref=e1363]: Casablanca
+        - generic [ref=e1364]:
+          - link "Apply" [ref=e1366] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/fb15ec7f-d9e9-4246-9d36-486d46c289e4
+          - link "Applied AI, Senior MLOps Engineer - NYC Hybrid — Full-time New York, NY" [ref=e1367] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/fb15ec7f-d9e9-4246-9d36-486d46c289e4
+            - heading "Applied AI, Senior MLOps Engineer - NYC" [level=5] [ref=e1368]
+            - generic [ref=e1369]:
+              - generic [ref=e1370]: Hybrid —
+              - generic [ref=e1371]: Full-time
+              - generic [ref=e1372]: New York, NY
+        - generic [ref=e1373]:
+          - link "Apply" [ref=e1375] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/ebfdc0da-13fd-4ae9-9861-bedb5ff493ea
+          - link "Applied AI, Technical Lead - Forward Deployed AI Engineer Hybrid — Full-time New York, NY" [ref=e1376] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/ebfdc0da-13fd-4ae9-9861-bedb5ff493ea
+            - heading "Applied AI, Technical Lead - Forward Deployed AI Engineer" [level=5] [ref=e1377]
+            - generic [ref=e1378]:
+              - generic [ref=e1379]: Hybrid —
+              - generic [ref=e1380]: Full-time
+              - generic [ref=e1381]: New York, NY
+        - generic [ref=e1382]:
+          - link "Apply" [ref=e1384] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/e2cf255f-49c8-4630-afe0-7f665f51f01f
+          - link "Applied AI, Technical Lead, Forward Deployed AI Engineer - EMEA Hybrid — Full-time Paris / Munich" [ref=e1385] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/e2cf255f-49c8-4630-afe0-7f665f51f01f
+            - heading "Applied AI, Technical Lead, Forward Deployed AI Engineer - EMEA" [level=5] [ref=e1386]
+            - generic [ref=e1387]:
+              - generic [ref=e1388]: Hybrid —
+              - generic [ref=e1389]: Full-time
+              - generic [ref=e1390]: Paris / Munich
+        - generic [ref=e1391]:
+          - link "Apply" [ref=e1393] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/b7ae8fc4-5779-4ad2-8f5b-632b4d9498cf
+          - link "Applied Scientist / Research Engineer - EMEA Hybrid — Full-time Paris / London / Luxembourg / Marseille / Lausanne" [ref=e1394] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/b7ae8fc4-5779-4ad2-8f5b-632b4d9498cf
+            - heading "Applied Scientist / Research Engineer - EMEA" [level=5] [ref=e1395]
+            - generic [ref=e1396]:
+              - generic [ref=e1397]: Hybrid —
+              - generic [ref=e1398]: Full-time
+              - generic [ref=e1399]: Paris / London / Luxembourg / Marseille / Lausanne
+        - generic [ref=e1400]:
+          - link "Apply" [ref=e1402] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/c41d9d9e-f0ea-4621-a4a9-3f10dfa9ae84
+          - link "Applied Scientist / Research Engineer - Singapore On-site — Full-time Singapore" [ref=e1403] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/c41d9d9e-f0ea-4621-a4a9-3f10dfa9ae84
+            - heading "Applied Scientist / Research Engineer - Singapore" [level=5] [ref=e1404]
+            - generic [ref=e1405]:
+              - generic [ref=e1406]: On-site —
+              - generic [ref=e1407]: Full-time
+              - generic [ref=e1408]: Singapore
+        - generic [ref=e1409]:
+          - link "Apply" [ref=e1411] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/426ef8c0-eb26-4004-a690-f33c62b445a7
+          - link "Applied Scientist / Research Engineer (Internship) On-site — Full-time Paris / London" [ref=e1412] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/426ef8c0-eb26-4004-a690-f33c62b445a7
+            - heading "Applied Scientist / Research Engineer (Internship)" [level=5] [ref=e1413]
+            - generic [ref=e1414]:
+              - generic [ref=e1415]: On-site —
+              - generic [ref=e1416]: Full-time
+              - generic [ref=e1417]: Paris / London
+        - generic [ref=e1418]:
+          - link "Apply" [ref=e1420] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/b9f9f198-752c-421a-aec8-c3b66a93e20f
+          - link "Deployment Strategist, AI & Hybrid Cloud - Paris On-site — Full-time Paris / London / Amsterdam" [ref=e1421] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/b9f9f198-752c-421a-aec8-c3b66a93e20f
+            - heading "Deployment Strategist, AI & Hybrid Cloud - Paris" [level=5] [ref=e1422]
+            - generic [ref=e1423]:
+              - generic [ref=e1424]: On-site —
+              - generic [ref=e1425]: Full-time
+              - generic [ref=e1426]: Paris / London / Amsterdam
+        - generic [ref=e1427]:
+          - link "Apply" [ref=e1429] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/e77ddd2b-6644-42d1-8fd0-1c30659d25da
+          - link "Future AI Global leaders - Applied AI & Engineering On-site — Full-time Paris" [ref=e1430] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/e77ddd2b-6644-42d1-8fd0-1c30659d25da
+            - heading "Future AI Global leaders - Applied AI & Engineering" [level=5] [ref=e1431]
+            - generic [ref=e1432]:
+              - generic [ref=e1433]: On-site —
+              - generic [ref=e1434]: Full-time
+              - generic [ref=e1435]: Paris
+        - generic [ref=e1436]:
+          - link "Apply" [ref=e1438] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/94666639-0ad0-4f88-b448-850532253c75
+          - link "Future AI Global leaders - Applied Science On-site — Full-time Paris" [ref=e1439] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/94666639-0ad0-4f88-b448-850532253c75
+            - heading "Future AI Global leaders - Applied Science" [level=5] [ref=e1440]
+            - generic [ref=e1441]:
+              - generic [ref=e1442]: On-site —
+              - generic [ref=e1443]: Full-time
+              - generic [ref=e1444]: Paris
+        - generic [ref=e1445]:
+          - link "Apply" [ref=e1447] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/facee1f9-382a-4433-993b-cecca22879ba
+          - link "Head, EMEA Customer Success Management - EMEA On-site — Full-time Paris" [ref=e1448] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/facee1f9-382a-4433-993b-cecca22879ba
+            - heading "Head, EMEA Customer Success Management - EMEA" [level=5] [ref=e1449]
+            - generic [ref=e1450]:
+              - generic [ref=e1451]: On-site —
+              - generic [ref=e1452]: Full-time
+              - generic [ref=e1453]: Paris
+        - generic [ref=e1454]:
+          - link "Apply" [ref=e1456] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/fe3542b5-4f99-4d62-af6a-fbdfd13bf0e4
+          - link "Partner Deployment Strategist - ASEAN On-site — Full-time Singapore" [ref=e1457] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/fe3542b5-4f99-4d62-af6a-fbdfd13bf0e4
+            - heading "Partner Deployment Strategist - ASEAN" [level=5] [ref=e1458]
+            - generic [ref=e1459]:
+              - generic [ref=e1460]: On-site —
+              - generic [ref=e1461]: Full-time
+              - generic [ref=e1462]: Singapore
+        - generic [ref=e1463]:
+          - link "Apply" [ref=e1465] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/dfb77ba1-727b-454e-a323-e6e0eafec561
+          - link "Partner Deployment Strategist - EMEA Hybrid — Full-time Paris / London" [ref=e1466] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/dfb77ba1-727b-454e-a323-e6e0eafec561
+            - heading "Partner Deployment Strategist - EMEA" [level=5] [ref=e1467]
+            - generic [ref=e1468]:
+              - generic [ref=e1469]: Hybrid —
+              - generic [ref=e1470]: Full-time
+              - generic [ref=e1471]: Paris / London
+        - generic [ref=e1472]:
+          - link "Apply" [ref=e1474] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/ad4c8ed7-0917-407d-bce6-e285e9186e25
+          - link "Partner Solution Architect, USA Remote — Full-time New York, NY / Palo Alto" [ref=e1475] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/ad4c8ed7-0917-407d-bce6-e285e9186e25
+            - heading "Partner Solution Architect, USA" [level=5] [ref=e1476]
+            - generic [ref=e1477]:
+              - generic [ref=e1478]: Remote —
+              - generic [ref=e1479]: Full-time
+              - generic [ref=e1480]: New York, NY / Palo Alto
+        - generic [ref=e1481]:
+          - link "Apply" [ref=e1483] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/0004f890-99d5-47c5-bb67-8f3f76a1e08f
+          - link "Senior AI Deployment Strategist - Paris On-site — Full-time Paris / Marseille" [ref=e1484] [cursor=pointer]:
+            - /url: https://jobs.lever.co/mistral/0004f890-99d5-47c5-bb67-8f3f76a1e08f
+            - heading "Senior AI Deployment Strategist - Paris" [level=5] [ref=e1485]
+            - generic [ref=e1486]:
+              - generic [ref=e1487]: On-site —
+              - generic [ref=e1488]: Full-time
+              - generic [ref=e1489]: Paris / Marseille
+  - generic [ref=e1491]:
+    - paragraph [ref=e1492]:
+      - link "Mistral AI Home Page" [ref=e1493] [cursor=pointer]:
+        - /url: https://mistral.ai
+    - paragraph [ref=e1495]: We may use artificial intelligence (AI) tools to support parts of the hiring process, such as reviewing applications, analyzing resumes, or assessing responses. These tools assist our recruitment team but do not replace human judgment. Final hiring decisions are ultimately made by humans. If you would like more information about how your data is processed, please contact us.
+    - link "Jobs powered by Lever logo" [ref=e1496] [cursor=pointer]:
+      - /url: https://www.lever.co/job-seeker-support/
+      - generic [ref=e1497]: Jobs powered by
+      - img "Lever logo" [ref=e1498]

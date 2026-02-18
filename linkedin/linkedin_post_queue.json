@@ -1,0 +1,193 @@
+{
+  "schedule": {
+    "posting_days": [
+      "wednesday",
+      "friday"
+    ],
+    "posts_per_week": 3,
+    "current_week_start": "2026-02-02"
+  },
+  "queue": [
+    {
+      "id": 1,
+      "title": "React Native New Architecture",
+      "status": "posted",
+      "posted_at": "2026-02-02T08:45:00Z",
+      "url": "https://www.linkedin.com/feed/update/urn:li:share:7424086201894318081"
+    },
+    {
+      "id": 2,
+      "title": "GitHub Actions Automation",
+      "status": "posted",
+      "posted_at": "2026-02-02T08:50:00Z",
+      "url": "https://www.linkedin.com/feed/update/urn:li:share:7424087327582576640"
+    },
+    {
+      "id": 3,
+      "title": "Self-Improving AI Agents (RLHF)",
+      "status": "pending",
+      "scheduled_for": "2026-02-05",
+      "content_key": "post_a_rlhf",
+      "source_file": "linkedin_posts_cutting_edge.md",
+      "priority": "high",
+      "tags": [
+        "AI",
+        "RLHF",
+        "MachineLearning",
+        "DeveloperTools"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "AI Memory That Actually Works (RAG)",
+      "status": "pending",
+      "scheduled_for": "2026-02-07",
+      "content_key": "post_b_rag",
+      "source_file": "linkedin_posts_cutting_edge.md",
+      "priority": "high",
+      "tags": [
+        "AI",
+        "RAG",
+        "VectorDatabase",
+        "LanceDB"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Autonomous AI Agents (Ralphex)",
+      "status": "pending",
+      "scheduled_for": "2026-02-10",
+      "content_key": "post_c_ralphex",
+      "source_file": "linkedin_posts_cutting_edge.md",
+      "priority": "high",
+      "tags": [
+        "AI",
+        "Agents",
+        "Automation",
+        "ClaudeCode"
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Browser Automation for AI (LinkedIn Autoposter)",
+      "status": "pending",
+      "scheduled_for": "2026-02-12",
+      "content_key": "post_d_browser",
+      "source_file": "linkedin_posts_cutting_edge.md",
+      "priority": "medium",
+      "tags": [
+        "AI",
+        "Automation",
+        "LinkedIn",
+        "Playwright"
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Hive-Inspired Self-Evolution",
+      "status": "pending",
+      "scheduled_for": "2026-02-14",
+      "content_key": "post_e_hive",
+      "source_file": "linkedin_posts_cutting_edge.md",
+      "priority": "high",
+      "tags": [
+        "AI",
+        "MachineLearning",
+        "SelfImproving",
+        "Hive"
+      ]
+    },
+    {
+      "id": 8,
+      "title": "The RLHF Stack I Actually Use",
+      "status": "pending",
+      "scheduled_for": "2026-02-17",
+      "content_key": "post_f_stack",
+      "source_file": "linkedin_posts_cutting_edge.md",
+      "priority": "high",
+      "tags": [
+        "RLHF",
+        "AI",
+        "ThompsonSampling",
+        "OpenSource"
+      ]
+    },
+    {
+      "id": 9,
+      "title": "KDP Puzzle Books Promotion",
+      "content": "\ud83d\udca1 Did you know? Kindle Scribe supports writable puzzle books!\n\nI've created optimized puzzle books:\n\ud83d\udcdd Large print grids\n\ud83d\udcdd Pen-friendly layouts\n\ud83d\udcdd 50-100 puzzles per book\n\nPerfect for commutes, flights, or relaxation.\n\nSearch \"Kindle Scribe word search\" on Amazon!\n\n#KindleScribe #WordSearch #Sudoku",
+      "scheduled_for": "2026-02-04",
+      "status": "posted",
+      "tags": [
+        "KDP",
+        "KindleScribe",
+        "Puzzles",
+        "SideHustle"
+      ],
+      "priority": "medium",
+      "posted_at": "2026-02-04T16:03:30.105477",
+      "url": "https://www.linkedin.com/feed/"
+    },
+    {
+      "id": 10,
+      "title": "Mistake Made. Lesson Learned.",
+      "status": "posted",
+      "content": "\ud83d\udcda Mistake Made. Lesson Learned.\n\nMistake Made. Lesson Learned. - What failed gets remembered. The system adapts.\n\nBuilding an AI trading system that learns from every decision.\n\n#AITrading #RLHF #BuildingInPublic #FinTech\n\nhttps://dev.to/igorganapolsky/mistake-made-lesson-learned-130e",
+      "source": "rlhf_auto",
+      "signal": "negative",
+      "created_at": "2026-02-04T20:48:18Z",
+      "tags": [
+        "AITrading",
+        "RLHF",
+        "BuildingInPublic",
+        "FinTech"
+      ],
+      "posted_at": "2026-02-04T20:54:22Z"
+    },
+    {
+      "id": 11,
+      "title": "24/7 Automations for $0/Month - Gumroad Launch",
+      "status": "posted",
+      "content": "\ud83d\ude80 How I Run 24/7 Automations for $0/Month\n\nApplied to 21 jobs \u2192 0 responses. Built automation tools instead.\n\nHere's what I created:\n\u2713 GitHub Actions workflows (FREE tier = 2,000 min/month)\n\u2713 Python job scanner (runs every 2 hours)\n\u2713 ntfy.sh alerts (instant notifications)\n\u2713 Zero server costs\n\nLIVE NOW:\n\ud83c\udd93 FREE Starter: https://iganapolsky.gumroad.com/l/zheyl\n\ud83d\udcb0 Full Stack ($79): https://iganapolsky.gumroad.com/l/nvwulz\n\n#automation #github #devops #sideproject",
+      "scheduled_for": "2026-02-04",
+      "tags": [
+        "automation",
+        "github",
+        "devops",
+        "sideproject",
+        "gumroad"
+      ],
+      "priority": "high",
+      "source": "gumroad_promo",
+      "posted_at": "2026-02-04T16:04:06.005397",
+      "url": "https://www.linkedin.com/feed/"
+    }
+  ],
+  "archived": [
+    {
+      "id": "old_3",
+      "title": "Claude AI for Developer Tooling",
+      "reason": "Replaced with more specific RLHF content",
+      "archived_at": "2026-02-02"
+    },
+    {
+      "id": "old_4",
+      "title": "On-Device ML / TensorFlow Lite",
+      "reason": "Replaced with RAG/memory content",
+      "archived_at": "2026-02-02"
+    },
+    {
+      "id": "old_5",
+      "title": "Multi-Repo Architecture",
+      "reason": "Generic - replaced with agent architecture",
+      "archived_at": "2026-02-02"
+    },
+    {
+      "id": "old_6",
+      "title": "Job Search Transparency",
+      "reason": "Save for later - build credibility first",
+      "archived_at": "2026-02-02"
+    }
+  ],
+  "analytics_history": []
+}

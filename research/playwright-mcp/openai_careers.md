@@ -1,0 +1,5751 @@
+- generic [active] [ref=e1]:
+  - banner:
+    - generic [ref=e2]:
+      - link "Skip to main content":
+        - /url: "#main"
+      - generic [ref=e4]:
+        - generic [ref=e5]:
+          - button "Open Search" [ref=e5222] [cursor=pointer]:
+            - img [ref=e5223]
+          - button "Close Search" [ref=e5225] [cursor=pointer]:
+            - img [ref=e5226]
+        - button "Log in" [ref=e14] [cursor=pointer]
+    - generic [ref=e16]:
+      - link "OpenAI Home" [ref=e18] [cursor=pointer]:
+        - /url: /
+        - img [ref=e19]
+        - img [ref=e22]
+      - button "Toggle navigation sidebar" [expanded] [ref=e29] [cursor=pointer]:
+        - img [ref=e5228]
+  - generic [ref=e32]:
+    - generic [ref=e33]:
+      - generic [ref=e34]: Switch to
+      - list [ref=e35]:
+        - listitem [ref=e36]:
+          - link [ref=e37] [cursor=pointer]:
+            - /url: https://chatgpt.com/?openaicom-did=2956b477-a210-4083-ad82-001fdc32184a&openaicom_referred=true
+            - text: ChatGPT
+            - generic [ref=e38]: (opens in a new window)
+        - listitem [ref=e39]:
+          - link [ref=e40] [cursor=pointer]:
+            - /url: https://sora.com/
+            - text: Sora
+            - generic [ref=e41]: (opens in a new window)
+        - listitem [ref=e42]:
+          - link [ref=e43] [cursor=pointer]:
+            - /url: https://platform.openai.com/
+            - text: API Platform
+            - generic [ref=e44]: (opens in a new window)
+    - generic [ref=e45]:
+      - navigation:
+        - generic [ref=e47]:
+          - link "Home" [ref=e48] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e49]:
+              - img [ref=e51]
+              - generic [ref=e53]: Home
+          - list [ref=e54]:
+            - listitem [ref=e55]:
+              - link "About Us" [ref=e57] [cursor=pointer]:
+                - /url: /about/
+            - listitem [ref=e58]:
+              - link "Our Charter" [ref=e60] [cursor=pointer]:
+                - /url: /charter/
+            - listitem [ref=e61]:
+              - link "Foundation" [ref=e63] [cursor=pointer]:
+                - /url: /foundation/
+            - listitem [ref=e64]:
+              - link "Careers" [ref=e66] [cursor=pointer]:
+                - /url: /careers/
+            - listitem [ref=e67]:
+              - link "Brand Guidelines" [ref=e69] [cursor=pointer]:
+                - /url: /brand/
+        - button "Navigate to another product." [ref=e71] [cursor=pointer]:
+          - img [ref=e72]
+    - generic [ref=e75]:
+      - main [ref=e76]:
+        - generic [ref=e77]: Careers | OpenAI
+        - generic [ref=e78]:
+          - heading "Careers at OpenAI" [level=1] [ref=e79]
+          - generic [ref=e80]:
+            - generic [ref=e81]:
+              - button "Filter jobs by title" [ref=e83] [cursor=pointer]:
+                - img [ref=e85]
+              - generic [ref=e87]: 493 jobs
+            - generic [ref=e88]:
+              - button "All teams" [ref=e89] [cursor=pointer]:
+                - img [ref=e90]
+                - text: All teams
+              - button "All locations" [ref=e92] [cursor=pointer]:
+                - img [ref=e93]
+                - text: All locations
+          - generic [ref=e96]:
+            - generic [ref=e98]:
+              - link "Account Director, Digital Native Sales Seoul, South Korea" [ref=e99] [cursor=pointer]:
+                - /url: /careers/account-director-digital-native-seoul-south-korea/
+                - generic [ref=e100]:
+                  - heading "Account Director, Digital Native" [level=2] [ref=e101]
+                  - generic [ref=e102]: Sales
+                - generic [ref=e103]: Seoul, South Korea
+              - link "Apply now" [ref=e104] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/52263a22-1621-4dbb-9a11-ae4490f2acc8/application
+                - img [ref=e105]
+                - text: Apply now
+            - generic [ref=e108]:
+              - link "Account Director, Digital Native Core Sales 4 locations" [ref=e109] [cursor=pointer]:
+                - /url: /careers/account-director-digital-native-core-san-francisco/
+                - generic [ref=e110]:
+                  - heading "Account Director, Digital Native Core" [level=2] [ref=e111]
+                  - generic [ref=e112]: Sales
+                - generic [ref=e113]: 4 locations
+              - link "Apply now" [ref=e114] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/fbb68247-eb54-4ad1-94b4-26e0dc24fd23/application
+                - img [ref=e115]
+                - text: Apply now
+            - generic [ref=e118]:
+              - link "Account Director, Digital Native New Business Sales 4 locations" [ref=e119] [cursor=pointer]:
+                - /url: /careers/account-director-digital-native-new-business-san-francisco/
+                - generic [ref=e120]:
+                  - heading "Account Director, Digital Native New Business" [level=2] [ref=e121]
+                  - generic [ref=e122]: Sales
+                - generic [ref=e123]: 4 locations
+              - link "Apply now" [ref=e124] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/07fb9365-8e80-48fe-86df-08d60dd46f43/application
+                - img [ref=e125]
+                - text: Apply now
+            - generic [ref=e128]:
+              - link "Account Director, Digital Natives Sales Delhi, India" [ref=e129] [cursor=pointer]:
+                - /url: /careers/account-director-digital-natives-delhi-india/
+                - generic [ref=e130]:
+                  - heading "Account Director, Digital Natives" [level=2] [ref=e131]
+                  - generic [ref=e132]: Sales
+                - generic [ref=e133]: Delhi, India
+              - link "Apply now" [ref=e134] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/d085d2ec-0256-4ecf-b493-81ea34942e51/application
+                - img [ref=e135]
+                - text: Apply now
+            - generic [ref=e138]:
+              - link "Account Director, Digital Natives Sales Sydney, Australia" [ref=e139] [cursor=pointer]:
+                - /url: /careers/account-director-digital-natives-sydney-australia/
+                - generic [ref=e140]:
+                  - heading "Account Director, Digital Natives" [level=2] [ref=e141]
+                  - generic [ref=e142]: Sales
+                - generic [ref=e143]: Sydney, Australia
+              - link "Apply now" [ref=e144] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/cfcd1321-4f2d-41b9-ab0a-7525dbe245a4/application
+                - img [ref=e145]
+                - text: Apply now
+            - generic [ref=e148]:
+              - link "Account Director, Digital Natives - Land team Sales Dublin, Ireland" [ref=e149] [cursor=pointer]:
+                - /url: /careers/account-director-digital-natives-land-team-dublin-ireland/
+                - generic [ref=e150]:
+                  - heading "Account Director, Digital Natives - Land team" [level=2] [ref=e151]
+                  - generic [ref=e152]: Sales
+                - generic [ref=e153]: Dublin, Ireland
+              - link "Apply now" [ref=e154] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/89be806d-c9d6-4f84-a2ca-633f87d21955/application
+                - img [ref=e155]
+                - text: Apply now
+            - generic [ref=e158]:
+              - link "Account Director, Digital Natives - Land Team Sales Munich, Germany" [ref=e159] [cursor=pointer]:
+                - /url: /careers/account-director-digital-natives-land-team-munich-germany/
+                - generic [ref=e160]:
+                  - heading "Account Director, Digital Natives - Land Team" [level=2] [ref=e161]
+                  - generic [ref=e162]: Sales
+                - generic [ref=e163]: Munich, Germany
+              - link "Apply now" [ref=e164] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/900eedb0-2e1c-40de-b62c-9f7c8482d3c3/application
+                - img [ref=e165]
+                - text: Apply now
+            - generic [ref=e168]:
+              - link "Account Director, Education Sales 2 locations" [ref=e169] [cursor=pointer]:
+                - /url: /careers/account-director-education-dublin-ireland/
+                - generic [ref=e170]:
+                  - heading "Account Director, Education" [level=2] [ref=e171]
+                  - generic [ref=e172]: Sales
+                - generic [ref=e173]: 2 locations
+              - link "Apply now" [ref=e174] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/a8f86859-ad6a-4381-80ee-d7f9b8bc4fb3/application
+                - img [ref=e175]
+                - text: Apply now
+            - generic [ref=e178]:
+              - link "Account Director, Enterprise Sales 4 locations" [ref=e179] [cursor=pointer]:
+                - /url: /careers/account-director-enterprise-san-francisco/
+                - generic [ref=e180]:
+                  - heading "Account Director, Enterprise" [level=2] [ref=e181]
+                  - generic [ref=e182]: Sales
+                - generic [ref=e183]: 4 locations
+              - link "Apply now" [ref=e184] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/d70ce148-7d67-44e8-9880-29dabaaef7ca/application
+                - img [ref=e185]
+                - text: Apply now
+            - generic [ref=e188]:
+              - link "Account Director, Federal Civilian OpenAI for Gov Washington, DC" [ref=e189] [cursor=pointer]:
+                - /url: /careers/account-director-federal-civilian-washington-dc/
+                - generic [ref=e190]:
+                  - heading "Account Director, Federal Civilian" [level=2] [ref=e191]
+                  - generic [ref=e192]: OpenAI for Gov
+                - generic [ref=e193]: Washington, DC
+              - link "Apply now" [ref=e194] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/625d8018-a39e-4fec-913d-8bd319537e5c/application
+                - img [ref=e195]
+                - text: Apply now
+            - generic [ref=e198]:
+              - link "Account Director, Federal Partnerships OpenAI for Gov Washington, DC" [ref=e199] [cursor=pointer]:
+                - /url: /careers/account-director-federal-partnerships-washington-dc/
+                - generic [ref=e200]:
+                  - heading "Account Director, Federal Partnerships" [level=2] [ref=e201]
+                  - generic [ref=e202]: OpenAI for Gov
+                - generic [ref=e203]: Washington, DC
+              - link "Apply now" [ref=e204] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/fada5332-3ae3-46f2-afa2-10c5878bdd25/application
+                - img [ref=e205]
+                - text: Apply now
+            - generic [ref=e208]:
+              - link "Account Director, Financial Services Sales New York City" [ref=e209] [cursor=pointer]:
+                - /url: /careers/account-director-financial-services-new-york-city/
+                - generic [ref=e210]:
+                  - heading "Account Director, Financial Services" [level=2] [ref=e211]
+                  - generic [ref=e212]: Sales
+                - generic [ref=e213]: New York City
+              - link "Apply now" [ref=e214] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/9b8b0edd-89e3-43d2-8b34-65df8e55ca79/application
+                - img [ref=e215]
+                - text: Apply now
+            - generic [ref=e218]:
+              - link "Account Director, Healthcare & Life Sciences Sales 3 locations" [ref=e219] [cursor=pointer]:
+                - /url: /careers/account-director-healthcare-and-life-sciences-san-francisco/
+                - generic [ref=e220]:
+                  - heading "Account Director, Healthcare & Life Sciences" [level=2] [ref=e221]
+                  - generic [ref=e222]: Sales
+                - generic [ref=e223]: 3 locations
+              - link "Apply now" [ref=e224] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/93d9be71-6502-4e48-94c2-1c17724e2bc7/application
+                - img [ref=e225]
+                - text: Apply now
+            - generic [ref=e228]:
+              - link "Account Director, Large Enterprise Sales 4 locations" [ref=e229] [cursor=pointer]:
+                - /url: /careers/account-director-large-enterprise-san-francisco/
+                - generic [ref=e230]:
+                  - heading "Account Director, Large Enterprise" [level=2] [ref=e231]
+                  - generic [ref=e232]: Sales
+                - generic [ref=e233]: 4 locations
+              - link "Apply now" [ref=e234] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/4e972540-c28c-4d16-a169-498ba032373c/application
+                - img [ref=e235]
+                - text: Apply now
+            - generic [ref=e238]:
+              - link "Account Director, Large Enterprise Sales Sydney, Australia" [ref=e239] [cursor=pointer]:
+                - /url: /careers/account-director-large-enterprise-sydney-australia/
+                - generic [ref=e240]:
+                  - heading "Account Director, Large Enterprise" [level=2] [ref=e241]
+                  - generic [ref=e242]: Sales
+                - generic [ref=e243]: Sydney, Australia
+              - link "Apply now" [ref=e244] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/544bf400-898f-4078-8d6c-a50b86f1c9ea/application
+                - img [ref=e245]
+                - text: Apply now
+            - generic [ref=e248]:
+              - link "Account Director, Large Enterprise Sales Munich, Germany" [ref=e249] [cursor=pointer]:
+                - /url: /careers/account-director-large-enterprise-munich-germany/
+                - generic [ref=e250]:
+                  - heading "Account Director, Large Enterprise" [level=2] [ref=e251]
+                  - generic [ref=e252]: Sales
+                - generic [ref=e253]: Munich, Germany
+              - link "Apply now" [ref=e254] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/acf02839-8949-4047-a906-83a780449773/application
+                - img [ref=e255]
+                - text: Apply now
+            - generic [ref=e258]:
+              - link "Account Director, Large Enterprise Sales Seoul, South Korea" [ref=e259] [cursor=pointer]:
+                - /url: /careers/account-director-large-enterprise-seoul-south-korea/
+                - generic [ref=e260]:
+                  - heading "Account Director, Large Enterprise" [level=2] [ref=e261]
+                  - generic [ref=e262]: Sales
+                - generic [ref=e263]: Seoul, South Korea
+              - link "Apply now" [ref=e264] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/25920df6-571d-4e05-aa12-384453f406f8/application
+                - img [ref=e265]
+                - text: Apply now
+            - generic [ref=e268]:
+              - link "Account Director, Large Enterprise Sales Delhi, India" [ref=e269] [cursor=pointer]:
+                - /url: /careers/account-director-large-enterprise-delhi-india/
+                - generic [ref=e270]:
+                  - heading "Account Director, Large Enterprise" [level=2] [ref=e271]
+                  - generic [ref=e272]: Sales
+                - generic [ref=e273]: Delhi, India
+              - link "Apply now" [ref=e274] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/fd8c0f71-da99-4d1a-97f7-ff6b72420689/application
+                - img [ref=e275]
+                - text: Apply now
+            - generic [ref=e278]:
+              - link "Account Director, Large Enterprise (Southeast Asia) Sales Singapore" [ref=e279] [cursor=pointer]:
+                - /url: /careers/account-director-large-enterprise-(southeast-asia)-singapore/
+                - generic [ref=e280]:
+                  - heading "Account Director, Large Enterprise (Southeast Asia)" [level=2] [ref=e281]
+                  - generic [ref=e282]: Sales
+                - generic [ref=e283]: Singapore
+              - link "Apply now" [ref=e284] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/479f51fd-27f7-4f2f-b8b3-05e65fb2b1c8/application
+                - img [ref=e285]
+                - text: Apply now
+            - generic [ref=e288]:
+              - link "Account Director, Mid-Market Sales Seoul, South Korea" [ref=e289] [cursor=pointer]:
+                - /url: /careers/account-director-mid-market-seoul-south-korea/
+                - generic [ref=e290]:
+                  - heading "Account Director, Mid-Market" [level=2] [ref=e291]
+                  - generic [ref=e292]: Sales
+                - generic [ref=e293]: Seoul, South Korea
+              - link "Apply now" [ref=e294] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/48b532d8-56f7-4091-bc28-f6cd87f2addd/application
+                - img [ref=e295]
+                - text: Apply now
+            - generic [ref=e298]:
+              - link "Account Director, Mid-Market Enterprise Sales San Francisco" [ref=e299] [cursor=pointer]:
+                - /url: /careers/account-director-mid-market-enterprise-san-francisco/
+                - generic [ref=e300]:
+                  - heading "Account Director, Mid-Market Enterprise" [level=2] [ref=e301]
+                  - generic [ref=e302]: Sales
+                - generic [ref=e303]: San Francisco
+              - link "Apply now" [ref=e304] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/da4a6959-0a9a-4090-ae12-e06e45fe2f28/application
+                - img [ref=e305]
+                - text: Apply now
+            - generic [ref=e308]:
+              - link "Account Director, Retail Sales San Francisco" [ref=e309] [cursor=pointer]:
+                - /url: /careers/account-director-retail-san-francisco/
+                - generic [ref=e310]:
+                  - heading "Account Director, Retail" [level=2] [ref=e311]
+                  - generic [ref=e312]: Sales
+                - generic [ref=e313]: San Francisco
+              - link "Apply now" [ref=e314] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/8ec4cda9-b98e-489b-add5-ebbba53be0aa/application
+                - img [ref=e315]
+                - text: Apply now
+            - generic [ref=e318]:
+              - link "Account Director, Startups Expansion Sales 2 locations" [ref=e319] [cursor=pointer]:
+                - /url: /careers/account-director-startups-expansion-san-francisco/
+                - generic [ref=e320]:
+                  - heading "Account Director, Startups Expansion" [level=2] [ref=e321]
+                  - generic [ref=e322]: Sales
+                - generic [ref=e323]: 2 locations
+              - link "Apply now" [ref=e324] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/a9748e8e-02a3-4333-9eae-997c378d96cf/application
+                - img [ref=e325]
+                - text: Apply now
+            - generic [ref=e328]:
+              - link "Account Director, Startups | India Sales India - Remote" [ref=e329] [cursor=pointer]:
+                - /url: /careers/account-director-startups-or-india-india-remote/
+                - generic [ref=e330]:
+                  - heading "Account Director, Startups | India" [level=2] [ref=e331]
+                  - generic [ref=e332]: Sales
+                - generic [ref=e333]: India - Remote
+              - link "Apply now" [ref=e334] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/7e98cded-5304-4ad4-a710-eeb872718ba9/application
+                - img [ref=e335]
+                - text: Apply now
+            - generic [ref=e338]:
+              - link "Account Director, Startups New Business Sales 2 locations" [ref=e339] [cursor=pointer]:
+                - /url: /careers/account-director-startups-new-business-san-francisco/
+                - generic [ref=e340]:
+                  - heading "Account Director, Startups New Business" [level=2] [ref=e341]
+                  - generic [ref=e342]: Sales
+                - generic [ref=e343]: 2 locations
+              - link "Apply now" [ref=e344] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/d77d8b22-c585-40d8-aa44-219730573a1f/application
+                - img [ref=e345]
+                - text: Apply now
+            - generic [ref=e348]:
+              - link "Account Director - Tokyo Sales Tokyo, Japan" [ref=e349] [cursor=pointer]:
+                - /url: /careers/account-director-tokyo-tokyo-japan/
+                - generic [ref=e350]:
+                  - heading "Account Director - Tokyo" [level=2] [ref=e351]
+                  - generic [ref=e352]: Sales
+                - generic [ref=e353]: Tokyo, Japan
+              - link "Apply now" [ref=e354] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/18f58952-c242-4562-8732-073a0ae8029e/application
+                - img [ref=e355]
+                - text: Apply now
+            - generic [ref=e358]:
+              - link "Administrative Business Partner (Technical Leadership Support) Executive Operations San Francisco" [ref=e359] [cursor=pointer]:
+                - /url: /careers/administrative-business-partner-(technical-leadership-support)-san-francisco/
+                - generic [ref=e360]:
+                  - heading "Administrative Business Partner (Technical Leadership Support)" [level=2] [ref=e361]
+                  - generic [ref=e362]: Executive Operations
+                - generic [ref=e363]: San Francisco
+              - link "Apply now" [ref=e364] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/a02f563f-fd55-4d9b-888a-5f90b6ac6135/application
+                - img [ref=e365]
+                - text: Apply now
+            - generic [ref=e368]:
+              - link "AI Adoption Manager - Tokyo AI Success Tokyo, Japan" [ref=e369] [cursor=pointer]:
+                - /url: /careers/ai-adoption-manager-tokyo-tokyo-japan/
+                - generic [ref=e370]:
+                  - heading "AI Adoption Manager - Tokyo" [level=2] [ref=e371]
+                  - generic [ref=e372]: AI Success
+                - generic [ref=e373]: Tokyo, Japan
+              - link "Apply now" [ref=e374] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/ed35af5d-0bb2-457a-bbeb-ca04a1412d0e/application
+                - img [ref=e375]
+                - text: Apply now
+            - generic [ref=e378]:
+              - link "AI Deployment Engineer Technical Success New York City" [ref=e379] [cursor=pointer]:
+                - /url: /careers/ai-deployment-engineer-new-york-city/
+                - generic [ref=e380]:
+                  - heading "AI Deployment Engineer" [level=2] [ref=e381]
+                  - generic [ref=e382]: Technical Success
+                - generic [ref=e383]: New York City
+              - link "Apply now" [ref=e384] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/6bacc51d-6580-4089-93ca-7df3bce4b635/application
+                - img [ref=e385]
+                - text: Apply now
+            - generic [ref=e388]:
+              - link "AI Deployment Engineer Technical Success Remote - US" [ref=e389] [cursor=pointer]:
+                - /url: /careers/ai-deployment-engineer-remote-us/
+                - generic [ref=e390]:
+                  - heading "AI Deployment Engineer" [level=2] [ref=e391]
+                  - generic [ref=e392]: Technical Success
+                - generic [ref=e393]: Remote - US
+              - link "Apply now" [ref=e394] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/a0f063e7-8d60-43d8-a042-7612c7adc8fb/application
+                - img [ref=e395]
+                - text: Apply now
+            - generic [ref=e398]:
+              - link "AI Deployment Engineer Technical Success Seattle" [ref=e399] [cursor=pointer]:
+                - /url: /careers/ai-deployment-engineer-seattle/
+                - generic [ref=e400]:
+                  - heading "AI Deployment Engineer" [level=2] [ref=e401]
+                  - generic [ref=e402]: Technical Success
+                - generic [ref=e403]: Seattle
+              - link "Apply now" [ref=e404] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/d47a49d1-2d22-4dd2-b135-597e95d890b0/application
+                - img [ref=e405]
+                - text: Apply now
+            - generic [ref=e408]:
+              - link "AI Deployment Engineer Technical Success San Francisco" [ref=e409] [cursor=pointer]:
+                - /url: /careers/ai-deployment-engineer-san-francisco/
+                - generic [ref=e410]:
+                  - heading "AI Deployment Engineer" [level=2] [ref=e411]
+                  - generic [ref=e412]: Technical Success
+                - generic [ref=e413]: San Francisco
+              - link "Apply now" [ref=e414] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/fbefd5d2-affe-47e1-9e87-d2b5de317b40/application
+                - img [ref=e415]
+                - text: Apply now
+            - generic [ref=e418]:
+              - link "AI Deployment Engineer- ChatGPT Ecosystem Technical Success 2 locations" [ref=e419] [cursor=pointer]:
+                - /url: /careers/ai-deployment-engineer-chatgpt-ecosystem-san-francisco/
+                - generic [ref=e420]:
+                  - heading "AI Deployment Engineer- ChatGPT Ecosystem" [level=2] [ref=e421]
+                  - generic [ref=e422]: Technical Success
+                - generic [ref=e423]: 2 locations
+              - link "Apply now" [ref=e424] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/c9acc73a-b118-4802-bb51-87f3d57df883/application
+                - img [ref=e425]
+                - text: Apply now
+            - generic [ref=e428]:
+              - link "AI Deployment Engineer- ChatGPT Ecosystem Technical Success 2 locations" [ref=e429] [cursor=pointer]:
+                - /url: /careers/ai-deployment-engineer-chatgpt-ecosystem-remote-us/
+                - generic [ref=e430]:
+                  - heading "AI Deployment Engineer- ChatGPT Ecosystem" [level=2] [ref=e431]
+                  - generic [ref=e432]: Technical Success
+                - generic [ref=e433]: 2 locations
+              - link "Apply now" [ref=e434] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/387e28ec-a4db-42da-9448-b6dbb7b13901/application
+                - img [ref=e435]
+                - text: Apply now
+            - generic [ref=e438]:
+              - link "AI Deployment Engineer- Codex Technical Success San Francisco" [ref=e439] [cursor=pointer]:
+                - /url: /careers/ai-deployment-engineer-codex-san-francisco/
+                - generic [ref=e440]:
+                  - heading "AI Deployment Engineer- Codex" [level=2] [ref=e441]
+                  - generic [ref=e442]: Technical Success
+                - generic [ref=e443]: San Francisco
+              - link "Apply now" [ref=e444] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/ca7e4019-bf93-42fd-8f15-fac59c6e237c/application
+                - img [ref=e445]
+                - text: Apply now
+            - generic [ref=e448]:
+              - link "AI Deployment Engineer- Codex Technical Success Remote - US" [ref=e449] [cursor=pointer]:
+                - /url: /careers/ai-deployment-engineer-codex-remote-us/
+                - generic [ref=e450]:
+                  - heading "AI Deployment Engineer- Codex" [level=2] [ref=e451]
+                  - generic [ref=e452]: Technical Success
+                - generic [ref=e453]: Remote - US
+              - link "Apply now" [ref=e454] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/4f4221ef-f2bc-4dc1-9086-69ba126e4903/application
+                - img [ref=e455]
+                - text: Apply now
+            - generic [ref=e458]:
+              - link "AI Deployment Engineer, Gov OpenAI for Gov Washington, DC" [ref=e459] [cursor=pointer]:
+                - /url: /careers/ai-deployment-engineer-gov-washington-dc/
+                - generic [ref=e460]:
+                  - heading "AI Deployment Engineer, Gov" [level=2] [ref=e461]
+                  - generic [ref=e462]: OpenAI for Gov
+                - generic [ref=e463]: Washington, DC
+              - link "Apply now" [ref=e464] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/be7b1bf5-37ab-40f7-9ec1-e9732244f12a/application
+                - img [ref=e465]
+                - text: Apply now
+            - generic [ref=e468]:
+              - link "AI Deployment Engineer- Startups Technical Success San Francisco" [ref=e469] [cursor=pointer]:
+                - /url: /careers/ai-deployment-engineer-startups-san-francisco/
+                - generic [ref=e470]:
+                  - heading "AI Deployment Engineer- Startups" [level=2] [ref=e471]
+                  - generic [ref=e472]: Technical Success
+                - generic [ref=e473]: San Francisco
+              - link "Apply now" [ref=e474] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/71e7252f-abb1-4b74-8e69-318413042357/application
+                - img [ref=e475]
+                - text: Apply now
+            - generic [ref=e478]:
+              - link "AI Deployment Engineer- Startups Technical Success New York City" [ref=e479] [cursor=pointer]:
+                - /url: /careers/ai-deployment-engineer-startups-new-york-city/
+                - generic [ref=e480]:
+                  - heading "AI Deployment Engineer- Startups" [level=2] [ref=e481]
+                  - generic [ref=e482]: Technical Success
+                - generic [ref=e483]: New York City
+              - link "Apply now" [ref=e484] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/f92d5695-306d-4af2-8d8b-a09259dd626a/application
+                - img [ref=e485]
+                - text: Apply now
+            - generic [ref=e488]:
+              - link "AI Deployment Manager - San Francisco GTM Readiness San Francisco" [ref=e489] [cursor=pointer]:
+                - /url: /careers/ai-deployment-manager-san-francisco-san-francisco/
+                - generic [ref=e490]:
+                  - heading "AI Deployment Manager - San Francisco" [level=2] [ref=e491]
+                  - generic [ref=e492]: GTM Readiness
+                - generic [ref=e493]: San Francisco
+              - link "Apply now" [ref=e494] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/5d66a54f-ad89-4155-ac37-9dcd7d52db34/application
+                - img [ref=e495]
+                - text: Apply now
+            - generic [ref=e498]:
+              - link "AI Success Engineer AI Success Dublin, Ireland" [ref=e499] [cursor=pointer]:
+                - /url: /careers/ai-success-engineer-dublin-ireland/
+                - generic [ref=e500]:
+                  - heading "AI Success Engineer" [level=2] [ref=e501]
+                  - generic [ref=e502]: AI Success
+                - generic [ref=e503]: Dublin, Ireland
+              - link "Apply now" [ref=e504] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/96c050b2-f428-4dbd-89b5-16d9cd6be678/application
+                - img [ref=e505]
+                - text: Apply now
+            - generic [ref=e508]:
+              - link "AI Success Engineer | DACH AI Success Munich, Germany" [ref=e509] [cursor=pointer]:
+                - /url: /careers/ai-success-engineer-or-dach-munich-germany/
+                - generic [ref=e510]:
+                  - heading "AI Success Engineer | DACH" [level=2] [ref=e511]
+                  - generic [ref=e512]: AI Success
+                - generic [ref=e513]: Munich, Germany
+              - link "Apply now" [ref=e514] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/91f29c3e-2e2a-44db-bdcd-de808c30e004/application
+                - img [ref=e515]
+                - text: Apply now
+            - generic [ref=e518]:
+              - link "AI Success Engineer - EDU AI Success San Francisco" [ref=e519] [cursor=pointer]:
+                - /url: /careers/ai-success-engineer-edu-san-francisco/
+                - generic [ref=e520]:
+                  - heading "AI Success Engineer - EDU" [level=2] [ref=e521]
+                  - generic [ref=e522]: AI Success
+                - generic [ref=e523]: San Francisco
+              - link "Apply now" [ref=e524] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/7cd8205b-fd73-4af1-9103-1b1fed3b0c22/application
+                - img [ref=e525]
+                - text: Apply now
+            - generic [ref=e528]:
+              - link "AI Success Engineer - India AI Success Delhi, India" [ref=e529] [cursor=pointer]:
+                - /url: /careers/ai-success-engineer-india-delhi-india/
+                - generic [ref=e530]:
+                  - heading "AI Success Engineer - India" [level=2] [ref=e531]
+                  - generic [ref=e532]: AI Success
+                - generic [ref=e533]: Delhi, India
+              - link "Apply now" [ref=e534] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/346e9855-8de1-4a06-a3f2-816c2164abd3/application
+                - img [ref=e535]
+                - text: Apply now
+            - generic [ref=e538]:
+              - link "AI Success Engineer - NYC AI Success New York City" [ref=e539] [cursor=pointer]:
+                - /url: /careers/ai-success-engineer-nyc-new-york-city/
+                - generic [ref=e540]:
+                  - heading "AI Success Engineer - NYC" [level=2] [ref=e541]
+                  - generic [ref=e542]: AI Success
+                - generic [ref=e543]: New York City
+              - link "Apply now" [ref=e544] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/d4548828-191b-4cbf-9fd4-058d16416e49/application
+                - img [ref=e545]
+                - text: Apply now
+            - generic [ref=e548]:
+              - link "AI Success Engineer - San Francisco AI Success San Francisco" [ref=e549] [cursor=pointer]:
+                - /url: /careers/ai-success-engineer-san-francisco-san-francisco/
+                - generic [ref=e550]:
+                  - heading "AI Success Engineer - San Francisco" [level=2] [ref=e551]
+                  - generic [ref=e552]: AI Success
+                - generic [ref=e553]: San Francisco
+              - link "Apply now" [ref=e554] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/daa43488-c4a7-4b3d-b93e-283135c65b2e/application
+                - img [ref=e555]
+                - text: Apply now
+            - generic [ref=e558]:
+              - link "AI Success Engineer - São Paulo, Brazil AI Success São Paulo" [ref=e559] [cursor=pointer]:
+                - /url: /careers/ai-success-engineer-sao-paulo-brazil-sao-paulo/
+                - generic [ref=e560]:
+                  - heading "AI Success Engineer - São Paulo, Brazil" [level=2] [ref=e561]
+                  - generic [ref=e562]: AI Success
+                - generic [ref=e563]: São Paulo
+              - link "Apply now" [ref=e564] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/c7d41e7c-7e84-4af5-85b9-bbc1a3b08e87/application
+                - img [ref=e565]
+                - text: Apply now
+            - generic [ref=e568]:
+              - link "AI Success Engineer - Singapore AI Success Singapore" [ref=e569] [cursor=pointer]:
+                - /url: /careers/ai-success-engineer-singapore-singapore/
+                - generic [ref=e570]:
+                  - heading "AI Success Engineer - Singapore" [level=2] [ref=e571]
+                  - generic [ref=e572]: AI Success
+                - generic [ref=e573]: Singapore
+              - link "Apply now" [ref=e574] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/26b7994e-6d80-45c1-b8c6-a675f2161fd9/application
+                - img [ref=e575]
+                - text: Apply now
+            - generic [ref=e578]:
+              - link "AI Success Engineer - US Remote AI Success Remote - US" [ref=e579] [cursor=pointer]:
+                - /url: /careers/ai-success-engineer-us-remote-remote-us/
+                - generic [ref=e580]:
+                  - heading "AI Success Engineer - US Remote" [level=2] [ref=e581]
+                  - generic [ref=e582]: AI Success
+                - generic [ref=e583]: Remote - US
+              - link "Apply now" [ref=e584] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/ea339283-7650-4b50-9d24-08d143af260a/application
+                - img [ref=e585]
+                - text: Apply now
+            - generic [ref=e588]:
+              - link "AI Support Engineer - Dublin User Operations Dublin, Ireland" [ref=e589] [cursor=pointer]:
+                - /url: /careers/ai-support-engineer-dublin-dublin-ireland/
+                - generic [ref=e590]:
+                  - heading "AI Support Engineer - Dublin" [level=2] [ref=e591]
+                  - generic [ref=e592]: User Operations
+                - generic [ref=e593]: Dublin, Ireland
+              - link "Apply now" [ref=e594] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/d5b65a7c-3294-453f-a674-4cb1c0e2aaa7/application
+                - img [ref=e595]
+                - text: Apply now
+            - generic [ref=e598]:
+              - link "AI Support Engineer - San Francisco User Operations San Francisco" [ref=e599] [cursor=pointer]:
+                - /url: /careers/ai-support-engineer-san-francisco-san-francisco/
+                - generic [ref=e600]:
+                  - heading "AI Support Engineer - San Francisco" [level=2] [ref=e601]
+                  - generic [ref=e602]: User Operations
+                - generic [ref=e603]: San Francisco
+              - link "Apply now" [ref=e604] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/99f823a1-66ec-44bd-ba30-d3645aa49d74/application
+                - img [ref=e605]
+                - text: Apply now
+            - generic [ref=e608]:
+              - link "AI Support Engineer - Singapore User Operations Singapore" [ref=e609] [cursor=pointer]:
+                - /url: /careers/ai-support-engineer-singapore-singapore/
+                - generic [ref=e610]:
+                  - heading "AI Support Engineer - Singapore" [level=2] [ref=e611]
+                  - generic [ref=e612]: User Operations
+                - generic [ref=e613]: Singapore
+              - link "Apply now" [ref=e614] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/d1b2eec3-bd8b-49db-aee4-e42fd7e029eb/application
+                - img [ref=e615]
+                - text: Apply now
+            - generic [ref=e618]:
+              - link "AI Support Engineer - Tokyo User Operations Tokyo, Japan" [ref=e619] [cursor=pointer]:
+                - /url: /careers/ai-support-engineer-tokyo-tokyo-japan/
+                - generic [ref=e620]:
+                  - heading "AI Support Engineer - Tokyo" [level=2] [ref=e621]
+                  - generic [ref=e622]: User Operations
+                - generic [ref=e623]: Tokyo, Japan
+              - link "Apply now" [ref=e624] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/3306b104-c137-4582-abfe-97de621ab9c4/application
+                - img [ref=e625]
+                - text: Apply now
+            - generic [ref=e628]:
+              - link "Analytics Engineer, Finance Finance San Francisco" [ref=e629] [cursor=pointer]:
+                - /url: /careers/analytics-engineer-finance-san-francisco/
+                - generic [ref=e630]:
+                  - heading "Analytics Engineer, Finance" [level=2] [ref=e631]
+                  - generic [ref=e632]: Finance
+                - generic [ref=e633]: San Francisco
+              - link "Apply now" [ref=e634] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/7cd50a19-65f2-4a52-89a2-512130e58c5c/application
+                - img [ref=e635]
+                - text: Apply now
+            - generic [ref=e638]:
+              - link "Analytics Engineer, GTM Data Science San Francisco" [ref=e639] [cursor=pointer]:
+                - /url: /careers/analytics-engineer-gtm-san-francisco/
+                - generic [ref=e640]:
+                  - heading "Analytics Engineer, GTM" [level=2] [ref=e641]
+                  - generic [ref=e642]: Data Science
+                - generic [ref=e643]: San Francisco
+              - link "Apply now" [ref=e644] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/3b4ffc44-c818-4ff1-9d1e-d0acf46f1976/application
+                - img [ref=e645]
+                - text: Apply now
+            - generic [ref=e648]:
+              - link "Android Engineer, Applied Foundations Applied AI Engineering San Francisco" [ref=e649] [cursor=pointer]:
+                - /url: /careers/android-engineer-applied-foundations-san-francisco/
+                - generic [ref=e650]:
+                  - heading "Android Engineer, Applied Foundations" [level=2] [ref=e651]
+                  - generic [ref=e652]: Applied AI Engineering
+                - generic [ref=e653]: San Francisco
+              - link "Apply now" [ref=e654] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/6202038a-323b-43ce-ae10-534acba4145c/application
+                - img [ref=e655]
+                - text: Apply now
+            - generic [ref=e658]:
+              - link "Applied Data Science & Machine Learning Leader - Global Forecasting Data Science San Francisco" [ref=e659] [cursor=pointer]:
+                - /url: /careers/applied-data-science-and-machine-learning-leader-global-forecasting-san-francisco/
+                - generic [ref=e660]:
+                  - heading "Applied Data Science & Machine Learning Leader - Global Forecasting" [level=2] [ref=e661]
+                  - generic [ref=e662]: Data Science
+                - generic [ref=e663]: San Francisco
+              - link "Apply now" [ref=e664] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/5d856b70-b7b9-4f03-8a29-748b3d9dc61f/application
+                - img [ref=e665]
+                - text: Apply now
+            - generic [ref=e668]:
+              - link "Applied Data Scientist, Unit Economics Understanding Data Science San Francisco" [ref=e669] [cursor=pointer]:
+                - /url: /careers/applied-data-scientist-unit-economics-understanding-san-francisco/
+                - generic [ref=e670]:
+                  - heading "Applied Data Scientist, Unit Economics Understanding" [level=2] [ref=e671]
+                  - generic [ref=e672]: Data Science
+                - generic [ref=e673]: San Francisco
+              - link "Apply now" [ref=e674] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/9f69106f-c2c9-4f14-9938-f38eb42cab50/application
+                - img [ref=e675]
+                - text: Apply now
+            - generic [ref=e678]:
+              - link "Art Director, Creative Studio Creative San Francisco" [ref=e679] [cursor=pointer]:
+                - /url: /careers/art-director-creative-studio-san-francisco/
+                - generic [ref=e680]:
+                  - heading "Art Director, Creative Studio" [level=2] [ref=e681]
+                  - generic [ref=e682]: Creative
+                - generic [ref=e683]: San Francisco
+              - link "Apply now" [ref=e684] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/a9015a6a-7833-41ca-9c05-e6669adc40eb/application
+                - img [ref=e685]
+                - text: Apply now
+            - generic [ref=e688]:
+              - link "Associate General Counsel, Japan Legal Tokyo, Japan" [ref=e689] [cursor=pointer]:
+                - /url: /careers/associate-general-counsel-japan-tokyo-japan/
+                - generic [ref=e690]:
+                  - heading "Associate General Counsel, Japan" [level=2] [ref=e691]
+                  - generic [ref=e692]: Legal
+                - generic [ref=e693]: Tokyo, Japan
+              - link "Apply now" [ref=e694] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/61a69494-0f58-44ec-8cbd-f7285b8aee59/application
+                - img [ref=e695]
+                - text: Apply now
+            - generic [ref=e698]:
+              - link "Associate General Counsel, Policy (LATAM) Legal São Paulo" [ref=e699] [cursor=pointer]:
+                - /url: /careers/associate-general-counsel-policy-(latam)-sao-paulo/
+                - generic [ref=e700]:
+                  - heading "Associate General Counsel, Policy (LATAM)" [level=2] [ref=e701]
+                  - generic [ref=e702]: Legal
+                - generic [ref=e703]: São Paulo
+              - link "Apply now" [ref=e704] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/53619ac5-fe55-4125-8936-fd7a6eae6b40/application
+                - img [ref=e705]
+                - text: Apply now
+            - generic [ref=e708]:
+              - link "AudioVisual Deployment Engineer IT San Francisco" [ref=e709] [cursor=pointer]:
+                - /url: /careers/audiovisual-deployment-engineer-san-francisco/
+                - generic [ref=e710]:
+                  - heading "AudioVisual Deployment Engineer" [level=2] [ref=e711]
+                  - generic [ref=e712]: IT
+                - generic [ref=e713]: San Francisco
+              - link "Apply now" [ref=e714] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/b1c9dcec-7b89-4a0d-a5ce-877df3bbbbca/application
+                - img [ref=e715]
+                - text: Apply now
+            - generic [ref=e718]:
+              - link "B2B Strategic Finance Strategic Finance San Francisco" [ref=e719] [cursor=pointer]:
+                - /url: /careers/b2b-strategic-finance-san-francisco/
+                - generic [ref=e720]:
+                  - heading "B2B Strategic Finance" [level=2] [ref=e721]
+                  - generic [ref=e722]: Strategic Finance
+                - generic [ref=e723]: San Francisco
+              - link "Apply now" [ref=e724] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/4f1870f0-b0a8-44fb-b6fe-28638b45ae47/application
+                - img [ref=e725]
+                - text: Apply now
+            - generic [ref=e728]:
+              - link "Backend Engineer, Consumer Products Consumer Products San Francisco" [ref=e729] [cursor=pointer]:
+                - /url: /careers/backend-engineer-consumer-products-san-francisco/
+                - generic [ref=e730]:
+                  - heading "Backend Engineer, Consumer Products" [level=2] [ref=e731]
+                  - generic [ref=e732]: Consumer Products
+                - generic [ref=e733]: San Francisco
+              - link "Apply now" [ref=e734] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/8e301350-62fb-4251-bc34-c7036498f08c/application
+                - img [ref=e735]
+                - text: Apply now
+            - generic [ref=e738]:
+              - link "Backend Software Engineer - B2B Applications B2B Applications 3 locations" [ref=e739] [cursor=pointer]:
+                - /url: /careers/backend-software-engineer-b2b-applications-san-francisco/
+                - generic [ref=e740]:
+                  - heading "Backend Software Engineer - B2B Applications" [level=2] [ref=e741]
+                  - generic [ref=e742]: B2B Applications
+                - generic [ref=e743]: 3 locations
+              - link "Apply now" [ref=e744] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/73eb1b69-095d-4f27-84ba-54f5df9bc230/application
+                - img [ref=e745]
+                - text: Apply now
+            - generic [ref=e748]:
+              - link "Backend Software Engineer (Evals) Applied AI 2 locations" [ref=e749] [cursor=pointer]:
+                - /url: /careers/backend-software-engineer-(evals)-san-francisco/
+                - generic [ref=e750]:
+                  - heading "Backend Software Engineer (Evals)" [level=2] [ref=e751]
+                  - generic [ref=e752]: Applied AI
+                - generic [ref=e753]: 2 locations
+              - link "Apply now" [ref=e754] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/3d064454-c0c3-4225-bc2c-6d8c0f8735b2/application
+                - img [ref=e755]
+                - text: Apply now
+            - generic [ref=e758]:
+              - link "Backend Software Engineer, Growth Applied AI Engineering San Francisco" [ref=e759] [cursor=pointer]:
+                - /url: /careers/backend-software-engineer-growth-san-francisco/
+                - generic [ref=e760]:
+                  - heading "Backend Software Engineer, Growth" [level=2] [ref=e761]
+                  - generic [ref=e762]: Applied AI Engineering
+                - generic [ref=e763]: San Francisco
+              - link "Apply now" [ref=e764] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/dd2025b9-4d18-4ad7-a78c-7a643419ecc5/application
+                - img [ref=e765]
+                - text: Apply now
+            - generic [ref=e768]:
+              - link "Backend Software Engineer, GTM Innovation Applied AI San Francisco" [ref=e769] [cursor=pointer]:
+                - /url: /careers/backend-software-engineer-gtm-innovation-san-francisco/
+                - generic [ref=e770]:
+                  - heading "Backend Software Engineer, GTM Innovation" [level=2] [ref=e771]
+                  - generic [ref=e772]: Applied AI
+                - generic [ref=e773]: San Francisco
+              - link "Apply now" [ref=e774] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/43174eb6-0ffe-4744-9323-c7969e7ea2e1/application
+                - img [ref=e775]
+                - text: Apply now
+            - generic [ref=e778]:
+              - link "Brand Designer, Events Creative San Francisco" [ref=e779] [cursor=pointer]:
+                - /url: /careers/brand-designer-events-san-francisco/
+                - generic [ref=e780]:
+                  - heading "Brand Designer, Events" [level=2] [ref=e781]
+                  - generic [ref=e782]: Creative
+                - generic [ref=e783]: San Francisco
+              - link "Apply now" [ref=e784] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/f44a68f7-a8d1-4d4b-9d55-fd7cf31f7abf/application
+                - img [ref=e785]
+                - text: Apply now
+            - generic [ref=e788]:
+              - link "Brand Designer, Marketing Creative San Francisco" [ref=e789] [cursor=pointer]:
+                - /url: /careers/brand-designer-marketing-san-francisco/
+                - generic [ref=e790]:
+                  - heading "Brand Designer, Marketing" [level=2] [ref=e791]
+                  - generic [ref=e792]: Creative
+                - generic [ref=e793]: San Francisco
+              - link "Apply now" [ref=e794] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/0f7665c6-6fbd-400b-84c1-f85372d4ee8c/application
+                - img [ref=e795]
+                - text: Apply now
+            - generic [ref=e798]:
+              - link "Business Communications Lead, APAC Communications Singapore" [ref=e799] [cursor=pointer]:
+                - /url: /careers/business-communications-lead-apac-singapore/
+                - generic [ref=e800]:
+                  - heading "Business Communications Lead, APAC" [level=2] [ref=e801]
+                  - generic [ref=e802]: Communications
+                - generic [ref=e803]: Singapore
+              - link "Apply now" [ref=e804] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/4df9c3db-a5e6-4c6c-afae-f62434344107/application
+                - img [ref=e805]
+                - text: Apply now
+            - generic [ref=e808]:
+              - link "Camera Firmware Engineer, Consumer Products Consumer Products San Francisco" [ref=e809] [cursor=pointer]:
+                - /url: /careers/camera-firmware-engineer-consumer-products-san-francisco/
+                - generic [ref=e810]:
+                  - heading "Camera Firmware Engineer, Consumer Products" [level=2] [ref=e811]
+                  - generic [ref=e812]: Consumer Products
+                - generic [ref=e813]: San Francisco
+              - link "Apply now" [ref=e814] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/1dc05fc7-ceb7-4827-a905-9d1beb77a4a0/application
+                - img [ref=e815]
+                - text: Apply now
+            - generic [ref=e818]:
+              - link "Camera ISP Software Engineer, Consumer Products Consumer Products San Francisco" [ref=e819] [cursor=pointer]:
+                - /url: /careers/camera-isp-software-engineer-consumer-products-san-francisco/
+                - generic [ref=e820]:
+                  - heading "Camera ISP Software Engineer, Consumer Products" [level=2] [ref=e821]
+                  - generic [ref=e822]: Consumer Products
+                - generic [ref=e823]: San Francisco
+              - link "Apply now" [ref=e824] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/10c30695-c831-44e3-b6b9-cb31e2643791/application
+                - img [ref=e825]
+                - text: Apply now
+            - generic [ref=e828]:
+              - link "Client Platform Engineer IT New York City" [ref=e829] [cursor=pointer]:
+                - /url: /careers/client-platform-engineer-new-york-city/
+                - generic [ref=e830]:
+                  - heading "Client Platform Engineer" [level=2] [ref=e831]
+                  - generic [ref=e832]: IT
+                - generic [ref=e833]: New York City
+              - link "Apply now" [ref=e834] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/e45e0ff2-12f1-4c12-a4a3-c93406dad33f/application
+                - img [ref=e835]
+                - text: Apply now
+            - generic [ref=e838]:
+              - link "Client Platform Engineer IT Remote - US" [ref=e839] [cursor=pointer]:
+                - /url: /careers/client-platform-engineer-remote-us/
+                - generic [ref=e840]:
+                  - heading "Client Platform Engineer" [level=2] [ref=e841]
+                  - generic [ref=e842]: IT
+                - generic [ref=e843]: Remote - US
+              - link "Apply now" [ref=e844] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/720bd7ae-2d65-4f1c-b01a-86278dedabde/application
+                - img [ref=e845]
+                - text: Apply now
+            - generic [ref=e848]:
+              - link "Client Platform Engineer IT San Francisco" [ref=e849] [cursor=pointer]:
+                - /url: /careers/client-platform-engineer-san-francisco/
+                - generic [ref=e850]:
+                  - heading "Client Platform Engineer" [level=2] [ref=e851]
+                  - generic [ref=e852]: IT
+                - generic [ref=e853]: San Francisco
+              - link "Apply now" [ref=e854] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/2115c524-07dd-401c-8549-5598ce5cbc9c/application
+                - img [ref=e855]
+                - text: Apply now
+            - generic [ref=e858]:
+              - link "Compute Business Operations Lead Compute San Francisco" [ref=e859] [cursor=pointer]:
+                - /url: /careers/compute-business-operations-lead-san-francisco/
+                - generic [ref=e860]:
+                  - heading "Compute Business Operations Lead" [level=2] [ref=e861]
+                  - generic [ref=e862]: Compute
+                - generic [ref=e863]: San Francisco
+              - link "Apply now" [ref=e864] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/44055a6b-4545-49aa-8a21-c0bc4cbfef18/application
+                - img [ref=e865]
+                - text: Apply now
+            - generic [ref=e868]:
+              - link "Compute & Infrastructure Accounting Manager Finance San Francisco" [ref=e869] [cursor=pointer]:
+                - /url: /careers/compute-and-infrastructure-accounting-manager-san-francisco/
+                - generic [ref=e870]:
+                  - heading "Compute & Infrastructure Accounting Manager" [level=2] [ref=e871]
+                  - generic [ref=e872]: Finance
+                - generic [ref=e873]: San Francisco
+              - link "Apply now" [ref=e874] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/87da10b2-742a-4de7-a0ca-45d6ad087d39/application
+                - img [ref=e875]
+                - text: Apply now
+            - generic [ref=e878]:
+              - link "Compute Infrastructure Strategy Lead Compute San Francisco" [ref=e879] [cursor=pointer]:
+                - /url: /careers/compute-infrastructure-strategy-lead-san-francisco/
+                - generic [ref=e880]:
+                  - heading "Compute Infrastructure Strategy Lead" [level=2] [ref=e881]
+                  - generic [ref=e882]: Compute
+                - generic [ref=e883]: San Francisco
+              - link "Apply now" [ref=e884] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/e1a1a6b0-10f9-4749-a48d-4c8c0407a5d9/application
+                - img [ref=e885]
+                - text: Apply now
+            - generic [ref=e888]:
+              - link "Connectivity Software Engineer Consumer Products San Francisco" [ref=e889] [cursor=pointer]:
+                - /url: /careers/connectivity-software-engineer-san-francisco/
+                - generic [ref=e890]:
+                  - heading "Connectivity Software Engineer" [level=2] [ref=e891]
+                  - generic [ref=e892]: Consumer Products
+                - generic [ref=e893]: San Francisco
+              - link "Apply now" [ref=e894] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/9b2c68f2-5ce8-44f9-a30c-d8016ac66d86/application
+                - img [ref=e895]
+                - text: Apply now
+            - generic [ref=e898]:
+              - link "Content Designer Product Design 2 locations" [ref=e899] [cursor=pointer]:
+                - /url: /careers/content-designer-san-francisco/
+                - generic [ref=e900]:
+                  - heading "Content Designer" [level=2] [ref=e901]
+                  - generic [ref=e902]: Product Design
+                - generic [ref=e903]: 2 locations
+              - link "Apply now" [ref=e904] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/472db8e3-37ee-4c62-be3e-a1266869694a/application
+                - img [ref=e905]
+                - text: Apply now
+            - generic [ref=e908]:
+              - link "Content Integrity Analyst User Operations San Francisco" [ref=e909] [cursor=pointer]:
+                - /url: /careers/content-integrity-analyst-san-francisco/
+                - generic [ref=e910]:
+                  - heading "Content Integrity Analyst" [level=2] [ref=e911]
+                  - generic [ref=e912]: User Operations
+                - generic [ref=e913]: San Francisco
+              - link "Apply now" [ref=e914] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/77b85828-3d4f-4958-b5cf-4787ca04975a/application
+                - img [ref=e915]
+                - text: Apply now
+            - generic [ref=e918]:
+              - link "Copywriter, Creative Studio Creative San Francisco" [ref=e919] [cursor=pointer]:
+                - /url: /careers/copywriter-creative-studio-san-francisco/
+                - generic [ref=e920]:
+                  - heading "Copywriter, Creative Studio" [level=2] [ref=e921]
+                  - generic [ref=e922]: Creative
+                - generic [ref=e923]: San Francisco
+              - link "Apply now" [ref=e924] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/2768a82f-2e29-456a-888f-f890e5b4c8e1/application
+                - img [ref=e925]
+                - text: Apply now
+            - generic [ref=e928]:
+              - link "Corporate Development, Strategy & Scouting Lead Finance San Francisco" [ref=e929] [cursor=pointer]:
+                - /url: /careers/corporate-development-strategy-and-scouting-lead-san-francisco/
+                - generic [ref=e930]:
+                  - heading "Corporate Development, Strategy & Scouting Lead" [level=2] [ref=e931]
+                  - generic [ref=e932]: Finance
+                - generic [ref=e933]: San Francisco
+              - link "Apply now" [ref=e934] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/29442d2b-76a6-49ef-837a-978be748ab2e/application
+                - img [ref=e935]
+                - text: Apply now
+            - generic [ref=e938]:
+              - link "Corporate Finance Manager Strategic Finance San Francisco" [ref=e939] [cursor=pointer]:
+                - /url: /careers/corporate-finance-manager-san-francisco/
+                - generic [ref=e940]:
+                  - heading "Corporate Finance Manager" [level=2] [ref=e941]
+                  - generic [ref=e942]: Strategic Finance
+                - generic [ref=e943]: San Francisco
+              - link "Apply now" [ref=e944] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/3a368969-a1c9-49a1-aec5-98c9b12b0637/application
+                - img [ref=e945]
+                - text: Apply now
+            - generic [ref=e948]:
+              - link "Corporate Security Manager, Global Design & Construction Corporate Security New York City" [ref=e949] [cursor=pointer]:
+                - /url: /careers/corporate-security-manager-global-design-and-construction-new-york-city/
+                - generic [ref=e950]:
+                  - heading "Corporate Security Manager, Global Design & Construction" [level=2] [ref=e951]
+                  - generic [ref=e952]: Corporate Security
+                - generic [ref=e953]: New York City
+              - link "Apply now" [ref=e954] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/4904eae6-87f4-437a-b691-22f423d79033/application
+                - img [ref=e955]
+                - text: Apply now
+            - generic [ref=e958]:
+              - link "Corporate Security Operations Manager, Tokyo Corporate Security Tokyo, Japan" [ref=e959] [cursor=pointer]:
+                - /url: /careers/corporate-security-operations-manager-tokyo-tokyo-japan/
+                - generic [ref=e960]:
+                  - heading "Corporate Security Operations Manager, Tokyo" [level=2] [ref=e961]
+                  - generic [ref=e962]: Corporate Security
+                - generic [ref=e963]: Tokyo, Japan
+              - link "Apply now" [ref=e964] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/6640e439-1217-4075-9441-602b543c9afa/application
+                - img [ref=e965]
+                - text: Apply now
+            - generic [ref=e968]:
+              - link "Data Analyst, User Operations User Operations San Francisco" [ref=e969] [cursor=pointer]:
+                - /url: /careers/data-analyst-user-operations-san-francisco/
+                - generic [ref=e970]:
+                  - heading "Data Analyst, User Operations" [level=2] [ref=e971]
+                  - generic [ref=e972]: User Operations
+                - generic [ref=e973]: San Francisco
+              - link "Apply now" [ref=e974] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/1f37ae5b-791a-4505-9575-183cc4bb9d5e/application
+                - img [ref=e975]
+                - text: Apply now
+            - generic [ref=e978]:
+              - link "Datacenter Hardware Operations Technician, AI Compute Infrastructure - Stargate Datacenter Design Remote - US" [ref=e979] [cursor=pointer]:
+                - /url: /careers/datacenter-hardware-operations-technician-ai-compute-infrastructure-stargate-remote-us/
+                - generic [ref=e980]:
+                  - heading "Datacenter Hardware Operations Technician, AI Compute Infrastructure - Stargate" [level=2] [ref=e981]
+                  - generic [ref=e982]: Datacenter Design
+                - generic [ref=e983]: Remote - US
+              - link "Apply now" [ref=e984] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/b9a4a809-a965-4dbe-aeef-6ce1593903dd/application
+                - img [ref=e985]
+                - text: Apply now
+            - generic [ref=e988]:
+              - link "Datacenter Networking Technician, AI Compute Deployment - Stargate Datacenter Design Remote - US" [ref=e989] [cursor=pointer]:
+                - /url: /careers/datacenter-networking-technician-ai-compute-deployment-stargate-remote-us/
+                - generic [ref=e990]:
+                  - heading "Datacenter Networking Technician, AI Compute Deployment - Stargate" [level=2] [ref=e991]
+                  - generic [ref=e992]: Datacenter Design
+                - generic [ref=e993]: Remote - US
+              - link "Apply now" [ref=e994] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/3ca637f8-c0d6-4253-8568-1f31b02adf76/application
+                - img [ref=e995]
+                - text: Apply now
+            - generic [ref=e998]:
+              - link "Data Engineer, Analytics Applied AI Engineering San Francisco" [ref=e999] [cursor=pointer]:
+                - /url: /careers/data-engineer-analytics-san-francisco/
+                - generic [ref=e1000]:
+                  - heading "Data Engineer, Analytics" [level=2] [ref=e1001]
+                  - generic [ref=e1002]: Applied AI Engineering
+                - generic [ref=e1003]: San Francisco
+              - link "Apply now" [ref=e1004] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/fc5bbc77-a30c-4e7a-9acc-8a2e748545b4/application
+                - img [ref=e1005]
+                - text: Apply now
+            - generic [ref=e1008]:
+              - link "Data Scientist Data Science San Francisco" [ref=e1009] [cursor=pointer]:
+                - /url: /careers/data-scientist-san-francisco/
+                - generic [ref=e1010]:
+                  - heading "Data Scientist" [level=2] [ref=e1011]
+                  - generic [ref=e1012]: Data Science
+                - generic [ref=e1013]: San Francisco
+              - link "Apply now" [ref=e1014] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/71655236-0303-42aa-9135-b2f27f2457ab/application
+                - img [ref=e1015]
+                - text: Apply now
+            - generic [ref=e1018]:
+              - link "Data Scientist, Codex Data Science San Francisco" [ref=e1019] [cursor=pointer]:
+                - /url: /careers/data-scientist-codex-san-francisco/
+                - generic [ref=e1020]:
+                  - heading "Data Scientist, Codex" [level=2] [ref=e1021]
+                  - generic [ref=e1022]: Data Science
+                - generic [ref=e1023]: San Francisco
+              - link "Apply now" [ref=e1024] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/994bf78e-55ec-4c02-9326-6f90c08bcebe/application
+                - img [ref=e1025]
+                - text: Apply now
+            - generic [ref=e1028]:
+              - link "Data Scientist, Financial Engineering Data Science San Francisco" [ref=e1029] [cursor=pointer]:
+                - /url: /careers/data-scientist-financial-engineering-san-francisco/
+                - generic [ref=e1030]:
+                  - heading "Data Scientist, Financial Engineering" [level=2] [ref=e1031]
+                  - generic [ref=e1032]: Data Science
+                - generic [ref=e1033]: San Francisco
+              - link "Apply now" [ref=e1034] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/898a87fb-4cb8-450e-9840-ee5dc710a57d/application
+                - img [ref=e1035]
+                - text: Apply now
+            - generic [ref=e1038]:
+              - link "Data Scientist, Infrastructure Data Science San Francisco" [ref=e1039] [cursor=pointer]:
+                - /url: /careers/data-scientist-infrastructure-san-francisco/
+                - generic [ref=e1040]:
+                  - heading "Data Scientist, Infrastructure" [level=2] [ref=e1041]
+                  - generic [ref=e1042]: Data Science
+                - generic [ref=e1043]: San Francisco
+              - link "Apply now" [ref=e1044] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/e71cf565-4b21-4b0d-bf45-b22e58ca95eb/application
+                - img [ref=e1045]
+                - text: Apply now
+            - generic [ref=e1048]:
+              - link "Data Scientist, Integrity Data Science San Francisco" [ref=e1049] [cursor=pointer]:
+                - /url: /careers/data-scientist-integrity-san-francisco/
+                - generic [ref=e1050]:
+                  - heading "Data Scientist, Integrity" [level=2] [ref=e1051]
+                  - generic [ref=e1052]: Data Science
+                - generic [ref=e1053]: San Francisco
+              - link "Apply now" [ref=e1054] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/8feaa669-a6a7-452a-b784-58379782ddd7/application
+                - img [ref=e1055]
+                - text: Apply now
+            - generic [ref=e1058]:
+              - link "Data Scientist, Marketing Data Science 2 locations" [ref=e1059] [cursor=pointer]:
+                - /url: /careers/data-scientist-marketing-san-francisco/
+                - generic [ref=e1060]:
+                  - heading "Data Scientist, Marketing" [level=2] [ref=e1061]
+                  - generic [ref=e1062]: Data Science
+                - generic [ref=e1063]: 2 locations
+              - link "Apply now" [ref=e1064] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/53af7bd6-8eb0-4328-88ba-ed9dd74bb22e/application
+                - img [ref=e1065]
+                - text: Apply now
+            - generic [ref=e1068]:
+              - link "Data Scientist, Platform and B2B Products Data Science San Francisco" [ref=e1069] [cursor=pointer]:
+                - /url: /careers/data-scientist-platform-and-b2b-products-san-francisco/
+                - generic [ref=e1070]:
+                  - heading "Data Scientist, Platform and B2B Products" [level=2] [ref=e1071]
+                  - generic [ref=e1072]: Data Science
+                - generic [ref=e1073]: San Francisco
+              - link "Apply now" [ref=e1074] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/f1567543-4de1-468e-9054-bc5fd21a55e2/application
+                - img [ref=e1075]
+                - text: Apply now
+            - generic [ref=e1078]:
+              - link "Data Scientist, Product Data Science 2 locations" [ref=e1079] [cursor=pointer]:
+                - /url: /careers/data-scientist-product-san-francisco/
+                - generic [ref=e1080]:
+                  - heading "Data Scientist, Product" [level=2] [ref=e1081]
+                  - generic [ref=e1082]: Data Science
+                - generic [ref=e1083]: 2 locations
+              - link "Apply now" [ref=e1084] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/579e2994-ec43-4869-8ad1-8cda8088f74b/application
+                - img [ref=e1085]
+                - text: Apply now
+            - generic [ref=e1088]:
+              - link "Data Scientist, Strategic Intelligence & Risk Data Science San Francisco" [ref=e1089] [cursor=pointer]:
+                - /url: /careers/data-scientist-strategic-intelligence-and-risk-san-francisco/
+                - generic [ref=e1090]:
+                  - heading "Data Scientist, Strategic Intelligence & Risk" [level=2] [ref=e1091]
+                  - generic [ref=e1092]: Data Science
+                - generic [ref=e1093]: San Francisco
+              - link "Apply now" [ref=e1094] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/6131fc4f-bfc8-49f3-8223-773a55d15583/application
+                - img [ref=e1095]
+                - text: Apply now
+            - generic [ref=e1098]:
+              - link "Data Scientist, User Operations Data Science 2 locations" [ref=e1099] [cursor=pointer]:
+                - /url: /careers/data-scientist-user-operations-new-york-city/
+                - generic [ref=e1100]:
+                  - heading "Data Scientist, User Operations" [level=2] [ref=e1101]
+                  - generic [ref=e1102]: Data Science
+                - generic [ref=e1103]: 2 locations
+              - link "Apply now" [ref=e1104] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/dd418f6d-7212-491c-944c-aeac9dc066ec/application
+                - img [ref=e1105]
+                - text: Apply now
+            - generic [ref=e1108]:
+              - link "Deal Desk Sr. Lead Finance San Francisco" [ref=e1109] [cursor=pointer]:
+                - /url: /careers/deal-desk-sr.-lead-san-francisco
+                - generic [ref=e1110]:
+                  - heading "Deal Desk Sr. Lead" [level=2] [ref=e1111]
+                  - generic [ref=e1112]: Finance
+                - generic [ref=e1113]: San Francisco
+              - link "Apply now" [ref=e1114] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/c680b539-6a7a-48e2-84c6-f5ea212c5a07/application
+                - img [ref=e1115]
+                - text: Apply now
+            - generic [ref=e1118]:
+              - link "Deal Lead, Special Situtations Partnerships San Francisco" [ref=e1119] [cursor=pointer]:
+                - /url: /careers/deal-lead-special-situtations-san-francisco/
+                - generic [ref=e1120]:
+                  - heading "Deal Lead, Special Situtations" [level=2] [ref=e1121]
+                  - generic [ref=e1122]: Partnerships
+                - generic [ref=e1123]: San Francisco
+              - link "Apply now" [ref=e1124] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/52a7bdd8-3e03-4164-8b9b-78b0adcce2ab/application
+                - img [ref=e1125]
+                - text: Apply now
+            - generic [ref=e1128]:
+              - link "Design Verification Engineer Hardware San Francisco" [ref=e1129] [cursor=pointer]:
+                - /url: /careers/design-verification-engineer-san-francisco/
+                - generic [ref=e1130]:
+                  - heading "Design Verification Engineer" [level=2] [ref=e1131]
+                  - generic [ref=e1132]: Hardware
+                - generic [ref=e1133]: San Francisco
+              - link "Apply now" [ref=e1134] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/3a415c1d-4f66-4578-8eb3-8b15ef0ab52b/application
+                - img [ref=e1135]
+                - text: Apply now
+            - generic [ref=e1138]:
+              - link "Developer Experience Engineer Developer Experience San Francisco" [ref=e1139] [cursor=pointer]:
+                - /url: /careers/developer-experience-engineer-san-francisco/
+                - generic [ref=e1140]:
+                  - heading "Developer Experience Engineer" [level=2] [ref=e1141]
+                  - generic [ref=e1142]: Developer Experience
+                - generic [ref=e1143]: San Francisco
+              - link "Apply now" [ref=e1144] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/bc40de6b-6dbc-49ce-9fc4-d9728baa1ec6/application
+                - img [ref=e1145]
+                - text: Apply now
+            - generic [ref=e1148]:
+              - link "Developer Product Communications Lead Communications San Francisco" [ref=e1149] [cursor=pointer]:
+                - /url: /careers/developer-product-communications-lead-san-francisco/
+                - generic [ref=e1150]:
+                  - heading "Developer Product Communications Lead" [level=2] [ref=e1151]
+                  - generic [ref=e1152]: Communications
+                - generic [ref=e1153]: San Francisco
+              - link "Apply now" [ref=e1154] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/a10e13f7-1863-49e7-b7ab-0a9b430aa639/application
+                - img [ref=e1155]
+                - text: Apply now
+            - generic [ref=e1158]:
+              - link "Digital Natives Sales Manager, APAC Sales Singapore" [ref=e1159] [cursor=pointer]:
+                - /url: /careers/digital-natives-sales-manager-apac-singapore/
+                - generic [ref=e1160]:
+                  - heading "Digital Natives Sales Manager, APAC" [level=2] [ref=e1161]
+                  - generic [ref=e1162]: Sales
+                - generic [ref=e1163]: Singapore
+              - link "Apply now" [ref=e1164] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/9e1ae735-3a86-48d2-827c-aa0034563e61/application
+                - img [ref=e1165]
+                - text: Apply now
+            - generic [ref=e1168]:
+              - link "Director of Data Engineering and Agentic AI Automation, Finance Finance San Francisco" [ref=e1169] [cursor=pointer]:
+                - /url: /careers/director-of-data-engineering-and-agentic-ai-automation-finance-san-francisco/
+                - generic [ref=e1170]:
+                  - heading "Director of Data Engineering and Agentic AI Automation, Finance" [level=2] [ref=e1171]
+                  - generic [ref=e1172]: Finance
+                - generic [ref=e1173]: San Francisco
+              - link "Apply now" [ref=e1174] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/e84e7b7e-a82e-411e-929a-615dc3080280/application
+                - img [ref=e1175]
+                - text: Apply now
+            - generic [ref=e1178]:
+              - link "Director of Recruiting Operations Recruiting San Francisco" [ref=e1179] [cursor=pointer]:
+                - /url: /careers/director-of-recruiting-operations-san-francisco/
+                - generic [ref=e1180]:
+                  - heading "Director of Recruiting Operations" [level=2] [ref=e1181]
+                  - generic [ref=e1182]: Recruiting
+                - generic [ref=e1183]: San Francisco
+              - link "Apply now" [ref=e1184] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/c2e8aff9-96a6-4941-b037-31419e819cc1/application
+                - img [ref=e1185]
+                - text: Apply now
+            - generic [ref=e1188]:
+              - link "Director of Strategic Finance, Payments & Platform Strategic Finance 2 locations" [ref=e1189] [cursor=pointer]:
+                - /url: /careers/director-of-strategic-finance-payments-and-platform-san-francisco/
+                - generic [ref=e1190]:
+                  - heading "Director of Strategic Finance, Payments & Platform" [level=2] [ref=e1191]
+                  - generic [ref=e1192]: Strategic Finance
+                - generic [ref=e1193]: 2 locations
+              - link "Apply now" [ref=e1194] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/5f737c63-76a3-4c60-a313-14ed8429f767/application
+                - img [ref=e1195]
+                - text: Apply now
+            - generic [ref=e1198]:
+              - link "Director, People Operations Human Resources San Francisco" [ref=e1199] [cursor=pointer]:
+                - /url: /careers/director-people-operations-san-francisco/
+                - generic [ref=e1200]:
+                  - heading "Director, People Operations" [level=2] [ref=e1201]
+                  - generic [ref=e1202]: Human Resources
+                - generic [ref=e1203]: San Francisco
+              - link "Apply now" [ref=e1204] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/7fa9f3f2-4945-4081-a3ba-eccdef8a6121/application
+                - img [ref=e1205]
+                - text: Apply now
+            - generic [ref=e1208]:
+              - link "Distributed Training Engineer, Sora Sora San Francisco" [ref=e1209] [cursor=pointer]:
+                - /url: /careers/distributed-training-engineer-sora-san-francisco/
+                - generic [ref=e1210]:
+                  - heading "Distributed Training Engineer, Sora" [level=2] [ref=e1211]
+                  - generic [ref=e1212]: Sora
+                - generic [ref=e1213]: San Francisco
+              - link "Apply now" [ref=e1214] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/2f1c59a8-570b-4192-9b5b-422f1a632cb6/application
+                - img [ref=e1215]
+                - text: Apply now
+            - generic [ref=e1218]:
+              - link "Embedded SWE, Consumer Products Consumer Products San Francisco" [ref=e1219] [cursor=pointer]:
+                - /url: /careers/embedded-swe-consumer-products-san-francisco/
+                - generic [ref=e1220]:
+                  - heading "Embedded SWE, Consumer Products" [level=2] [ref=e1221]
+                  - generic [ref=e1222]: Consumer Products
+                - generic [ref=e1223]: San Francisco
+              - link "Apply now" [ref=e1224] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/2710d0c7-8f1c-4e1a-bf7a-4000fc5a8d68/application
+                - img [ref=e1225]
+                - text: Apply now
+            - generic [ref=e1228]:
+              - link "Employment Investigator Employment Investigations San Francisco" [ref=e1229] [cursor=pointer]:
+                - /url: /careers/employment-investigator-san-francisco/
+                - generic [ref=e1230]:
+                  - heading "Employment Investigator" [level=2] [ref=e1231]
+                  - generic [ref=e1232]: Employment Investigations
+                - generic [ref=e1233]: San Francisco
+              - link "Apply now" [ref=e1234] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/32b29357-3027-4892-9e7c-ec4e88301836/application
+                - img [ref=e1235]
+                - text: Apply now
+            - generic [ref=e1238]:
+              - link "Engineering Manager, Answer Experience Applied AI Engineering San Francisco" [ref=e1239] [cursor=pointer]:
+                - /url: /careers/engineering-manager-answer-experience-san-francisco/
+                - generic [ref=e1240]:
+                  - heading "Engineering Manager, Answer Experience" [level=2] [ref=e1241]
+                  - generic [ref=e1242]: Applied AI Engineering
+                - generic [ref=e1243]: San Francisco
+              - link "Apply now" [ref=e1244] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/5816f1a5-c3c2-4ae8-9739-8a2ba7f139ef/application
+                - img [ref=e1245]
+                - text: Apply now
+            - generic [ref=e1248]:
+              - link "Engineering Manager, Atlas Applied AI Engineering San Francisco" [ref=e1249] [cursor=pointer]:
+                - /url: /careers/engineering-manager-atlas-san-francisco/
+                - generic [ref=e1250]:
+                  - heading "Engineering Manager, Atlas" [level=2] [ref=e1251]
+                  - generic [ref=e1252]: Applied AI Engineering
+                - generic [ref=e1253]: San Francisco
+              - link "Apply now" [ref=e1254] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/59761b88-8b28-41bf-949d-0e1dd35884b8/application
+                - img [ref=e1255]
+                - text: Apply now
+            - generic [ref=e1258]:
+              - link "Engineering Manager, Business Growth (ChatGPT) Applied AI Engineering San Francisco" [ref=e1259] [cursor=pointer]:
+                - /url: /careers/engineering-manager-business-growth-(chatgpt)-san-francisco/
+                - generic [ref=e1260]:
+                  - heading "Engineering Manager, Business Growth (ChatGPT)" [level=2] [ref=e1261]
+                  - generic [ref=e1262]: Applied AI Engineering
+                - generic [ref=e1263]: San Francisco
+              - link "Apply now" [ref=e1264] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/262aa714-a866-477f-aa54-55ff57ad25db/application
+                - img [ref=e1265]
+                - text: Apply now
+            - generic [ref=e1268]:
+              - link "Engineering Manager, ChatGPT Growth Applied AI Engineering San Francisco" [ref=e1269] [cursor=pointer]:
+                - /url: /careers/engineering-manager-chatgpt-growth-san-francisco/
+                - generic [ref=e1270]:
+                  - heading "Engineering Manager, ChatGPT Growth" [level=2] [ref=e1271]
+                  - generic [ref=e1272]: Applied AI Engineering
+                - generic [ref=e1273]: San Francisco
+              - link "Apply now" [ref=e1274] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/492897e2-a970-42e5-ae50-96746cd35a54/application
+                - img [ref=e1275]
+                - text: Apply now
+            - generic [ref=e1278]:
+              - link "Engineering Manager, Cloud Infrastructure Automation Applied AI Engineering San Francisco" [ref=e1279] [cursor=pointer]:
+                - /url: /careers/engineering-manager-cloud-infrastructure-automation-san-francisco/
+                - generic [ref=e1280]:
+                  - heading "Engineering Manager, Cloud Infrastructure Automation" [level=2] [ref=e1281]
+                  - generic [ref=e1282]: Applied AI Engineering
+                - generic [ref=e1283]: San Francisco
+              - link "Apply now" [ref=e1284] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/dbc90441-2c81-44e6-bbf1-27f9d3b4af80/application
+                - img [ref=e1285]
+                - text: Apply now
+            - generic [ref=e1288]:
+              - link "Engineering Manager, Enterprise Ecosystem Applied AI Engineering Seattle" [ref=e1289] [cursor=pointer]:
+                - /url: /careers/engineering-manager-enterprise-ecosystem-seattle/
+                - generic [ref=e1290]:
+                  - heading "Engineering Manager, Enterprise Ecosystem" [level=2] [ref=e1291]
+                  - generic [ref=e1292]: Applied AI Engineering
+                - generic [ref=e1293]: Seattle
+              - link "Apply now" [ref=e1294] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/a4794c59-a84c-4c01-86b9-96a44682728e/application
+                - img [ref=e1295]
+                - text: Apply now
+            - generic [ref=e1298]:
+              - link "Engineering Manager, Identity Infrastructure Applied AI Engineering San Francisco" [ref=e1299] [cursor=pointer]:
+                - /url: /careers/engineering-manager-identity-infrastructure-san-francisco/
+                - generic [ref=e1300]:
+                  - heading "Engineering Manager, Identity Infrastructure" [level=2] [ref=e1301]
+                  - generic [ref=e1302]: Applied AI Engineering
+                - generic [ref=e1303]: San Francisco
+              - link "Apply now" [ref=e1304] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/3ee22a2b-17f6-4848-93e4-b43e61169002/application
+                - img [ref=e1305]
+                - text: Apply now
+            - generic [ref=e1308]:
+              - link "Engineering Manager, Multimodal (API) Applied AI Engineering San Francisco" [ref=e1309] [cursor=pointer]:
+                - /url: /careers/engineering-manager-multimodal-(api)-san-francisco/
+                - generic [ref=e1310]:
+                  - heading "Engineering Manager, Multimodal (API)" [level=2] [ref=e1311]
+                  - generic [ref=e1312]: Applied AI Engineering
+                - generic [ref=e1313]: San Francisco
+              - link "Apply now" [ref=e1314] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/1d7f4747-54a3-4141-a39a-c6e7700e969b/application
+                - img [ref=e1315]
+                - text: Apply now
+            - generic [ref=e1318]:
+              - link "Engineering Manager, Youth Well-Being Applied AI Engineering San Francisco" [ref=e1319] [cursor=pointer]:
+                - /url: /careers/engineering-manager-youth-well-being-san-francisco/
+                - generic [ref=e1320]:
+                  - heading "Engineering Manager, Youth Well-Being" [level=2] [ref=e1321]
+                  - generic [ref=e1322]: Applied AI Engineering
+                - generic [ref=e1323]: San Francisco
+              - link "Apply now" [ref=e1324] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/c2477792-a6e1-4aef-aaea-998c9d4e5041/application
+                - img [ref=e1325]
+                - text: Apply now
+            - generic [ref=e1328]:
+              - link "Enterprise Security Engineer IT San Francisco" [ref=e1329] [cursor=pointer]:
+                - /url: /careers/enterprise-security-engineer-san-francisco/
+                - generic [ref=e1330]:
+                  - heading "Enterprise Security Engineer" [level=2] [ref=e1331]
+                  - generic [ref=e1332]: IT
+                - generic [ref=e1333]: San Francisco
+              - link "Apply now" [ref=e1334] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/4fb47557-86d2-47c3-9c6a-909aeb561329/application
+                - img [ref=e1335]
+                - text: Apply now
+            - generic [ref=e1338]:
+              - link "Enterprise Security Engineer IT Seattle" [ref=e1339] [cursor=pointer]:
+                - /url: /careers/enterprise-security-engineer-seattle/
+                - generic [ref=e1340]:
+                  - heading "Enterprise Security Engineer" [level=2] [ref=e1341]
+                  - generic [ref=e1342]: IT
+                - generic [ref=e1343]: Seattle
+              - link "Apply now" [ref=e1344] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/28c34712-6818-47fb-a4de-de9201ddc86f/application
+                - img [ref=e1345]
+                - text: Apply now
+            - generic [ref=e1348]:
+              - link "Enterprise Security Engineer IT Remote - US" [ref=e1349] [cursor=pointer]:
+                - /url: /careers/enterprise-security-engineer-remote-us/
+                - generic [ref=e1350]:
+                  - heading "Enterprise Security Engineer" [level=2] [ref=e1351]
+                  - generic [ref=e1352]: IT
+                - generic [ref=e1353]: Remote - US
+              - link "Apply now" [ref=e1354] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/47048627-427e-4566-b349-847e52a5def1/application
+                - img [ref=e1355]
+                - text: Apply now
+            - generic [ref=e1358]:
+              - link "Enterprise Security Engineer IT New York City" [ref=e1359] [cursor=pointer]:
+                - /url: /careers/enterprise-security-engineer-new-york-city/
+                - generic [ref=e1360]:
+                  - heading "Enterprise Security Engineer" [level=2] [ref=e1361]
+                  - generic [ref=e1362]: IT
+                - generic [ref=e1363]: New York City
+              - link "Apply now" [ref=e1364] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/720b6d72-0c98-4acc-ab75-d67dd36fbccf/application
+                - img [ref=e1365]
+                - text: Apply now
+            - generic [ref=e1368]:
+              - link "Executive Business Partner Executive Operations San Francisco" [ref=e1369] [cursor=pointer]:
+                - /url: /careers/executive-business-partner-san-francisco/
+                - generic [ref=e1370]:
+                  - heading "Executive Business Partner" [level=2] [ref=e1371]
+                  - generic [ref=e1372]: Executive Operations
+                - generic [ref=e1373]: San Francisco
+              - link "Apply now" [ref=e1374] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/146861d1-8905-4e7f-abf8-6d5c4aafbc1f/application
+                - img [ref=e1375]
+                - text: Apply now
+            - generic [ref=e1378]:
+              - link "Executive Business Partner (Technical VP Support) Executive Operations San Francisco" [ref=e1379] [cursor=pointer]:
+                - /url: /careers/executive-business-partner-(technical-vp-support)-san-francisco/
+                - generic [ref=e1380]:
+                  - heading "Executive Business Partner (Technical VP Support)" [level=2] [ref=e1381]
+                  - generic [ref=e1382]: Executive Operations
+                - generic [ref=e1383]: San Francisco
+              - link "Apply now" [ref=e1384] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/24eec9b9-a91d-4e3b-9691-77f2edda4674/application
+                - img [ref=e1385]
+                - text: Apply now
+            - generic [ref=e1388]:
+              - link "Executive Recruiting Coordinator Recruiting San Francisco" [ref=e1389] [cursor=pointer]:
+                - /url: /careers/executive-recruiting-coordinator-san-francisco/
+                - generic [ref=e1390]:
+                  - heading "Executive Recruiting Coordinator" [level=2] [ref=e1391]
+                  - generic [ref=e1392]: Recruiting
+                - generic [ref=e1393]: San Francisco
+              - link "Apply now" [ref=e1394] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/6ae782c6-11d6-4b42-a082-3c5785b21adc/application
+                - img [ref=e1395]
+                - text: Apply now
+            - generic [ref=e1398]:
+              - link "Executive, Strategic Global Partnerships & Ecosystem Sales San Francisco" [ref=e1399] [cursor=pointer]:
+                - /url: /careers/executive-strategic-global-partnerships-and-ecosystem-san-francisco/
+                - generic [ref=e1400]:
+                  - heading "Executive, Strategic Global Partnerships & Ecosystem" [level=2] [ref=e1401]
+                  - generic [ref=e1402]: Sales
+                - generic [ref=e1403]: San Francisco
+              - link "Apply now" [ref=e1404] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/e8ba0659-9398-4f6d-af86-28f094061e5f/application
+                - img [ref=e1405]
+                - text: Apply now
+            - generic [ref=e1408]:
+              - link "Facilities Standards & Strategy, Program Manager Workplace San Francisco" [ref=e1409] [cursor=pointer]:
+                - /url: /careers/facilities-standards-and-strategy-program-manager-san-francisco/
+                - generic [ref=e1410]:
+                  - heading "Facilities Standards & Strategy, Program Manager" [level=2] [ref=e1411]
+                  - generic [ref=e1412]: Workplace
+                - generic [ref=e1413]: San Francisco
+              - link "Apply now" [ref=e1414] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/65fd56aa-ed36-4e66-9c3e-85551248581d/application
+                - img [ref=e1415]
+                - text: Apply now
+            - generic [ref=e1418]:
+              - link "Forward Deployed Engineer - Dublin Model Deployment for Business Dublin, Ireland" [ref=e1419] [cursor=pointer]:
+                - /url: /careers/forward-deployed-engineer-dublin-dublin-ireland/
+                - generic [ref=e1420]:
+                  - heading "Forward Deployed Engineer - Dublin" [level=2] [ref=e1421]
+                  - generic [ref=e1422]: Model Deployment for Business
+                - generic [ref=e1423]: Dublin, Ireland
+              - link "Apply now" [ref=e1424] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/b40efa93-da3c-4593-bc98-03d203cd0488/application
+                - img [ref=e1425]
+                - text: Apply now
+            - generic [ref=e1428]:
+              - link "Forward Deployed Engineer (FDE), Financial Services - NYC Model Deployment for Business New York City" [ref=e1429] [cursor=pointer]:
+                - /url: /careers/forward-deployed-engineer-(fde)-financial-services-nyc-new-york-city/
+                - generic [ref=e1430]:
+                  - heading "Forward Deployed Engineer (FDE), Financial Services - NYC" [level=2] [ref=e1431]
+                  - generic [ref=e1432]: Model Deployment for Business
+                - generic [ref=e1433]: New York City
+              - link "Apply now" [ref=e1434] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/23568366-d9e6-4d18-80b8-5ae9e87c61e6/application
+                - img [ref=e1435]
+                - text: Apply now
+            - generic [ref=e1438]:
+              - link "Forward Deployed Engineer (FDE), Life Sciences - Dublin Model Deployment for Business Dublin, Ireland" [ref=e1439] [cursor=pointer]:
+                - /url: /careers/forward-deployed-engineer-(fde)-life-sciences-dublin-dublin-ireland/
+                - generic [ref=e1440]:
+                  - heading "Forward Deployed Engineer (FDE), Life Sciences - Dublin" [level=2] [ref=e1441]
+                  - generic [ref=e1442]: Model Deployment for Business
+                - generic [ref=e1443]: Dublin, Ireland
+              - link "Apply now" [ref=e1444] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/babf4e1e-ebbd-469c-85d3-9d0dafb695f6/application
+                - img [ref=e1445]
+                - text: Apply now
+            - generic [ref=e1448]:
+              - link "Forward Deployed Engineer (FDE), Life Sciences - London Model Deployment for Business London, UK" [ref=e1449] [cursor=pointer]:
+                - /url: /careers/forward-deployed-engineer-(fde)-life-sciences-london-london-uk/
+                - generic [ref=e1450]:
+                  - heading "Forward Deployed Engineer (FDE), Life Sciences - London" [level=2] [ref=e1451]
+                  - generic [ref=e1452]: Model Deployment for Business
+                - generic [ref=e1453]: London, UK
+              - link "Apply now" [ref=e1454] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/e6126527-ac5c-4426-9e05-181c28bde3c0/application
+                - img [ref=e1455]
+                - text: Apply now
+            - generic [ref=e1458]:
+              - link "Forward Deployed Engineer (FDE), Life Sciences - Munich Model Deployment for Business Munich, Germany" [ref=e1459] [cursor=pointer]:
+                - /url: /careers/forward-deployed-engineer-(fde)-life-sciences-munich-munich-germany/
+                - generic [ref=e1460]:
+                  - heading "Forward Deployed Engineer (FDE), Life Sciences - Munich" [level=2] [ref=e1461]
+                  - generic [ref=e1462]: Model Deployment for Business
+                - generic [ref=e1463]: Munich, Germany
+              - link "Apply now" [ref=e1464] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/7c028f0a-929b-4616-bf9d-ba77bb0284c2/application
+                - img [ref=e1465]
+                - text: Apply now
+            - generic [ref=e1468]:
+              - link "Forward Deployed Engineer (FDE), Life Sciences - NYC Model Deployment for Business New York City" [ref=e1469] [cursor=pointer]:
+                - /url: /careers/forward-deployed-engineer-(fde)-life-sciences-nyc-new-york-city/
+                - generic [ref=e1470]:
+                  - heading "Forward Deployed Engineer (FDE), Life Sciences - NYC" [level=2] [ref=e1471]
+                  - generic [ref=e1472]: Model Deployment for Business
+                - generic [ref=e1473]: New York City
+              - link "Apply now" [ref=e1474] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/55e611d8-b284-458e-908c-baccd091d0c0/application
+                - img [ref=e1475]
+                - text: Apply now
+            - generic [ref=e1478]:
+              - link "Forward Deployed Engineer (FDE), Life Sciences - Paris Model Deployment for Business Paris, France" [ref=e1479] [cursor=pointer]:
+                - /url: /careers/forward-deployed-engineer-(fde)-life-sciences-paris-paris-france/
+                - generic [ref=e1480]:
+                  - heading "Forward Deployed Engineer (FDE), Life Sciences - Paris" [level=2] [ref=e1481]
+                  - generic [ref=e1482]: Model Deployment for Business
+                - generic [ref=e1483]: Paris, France
+              - link "Apply now" [ref=e1484] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/9b3f6bfd-2b8a-4de1-b05f-65ea74b736fa/application
+                - img [ref=e1485]
+                - text: Apply now
+            - generic [ref=e1488]:
+              - link "Forward Deployed Engineer (FDE), Life Sciences - SF Model Deployment for Business San Francisco" [ref=e1489] [cursor=pointer]:
+                - /url: /careers/forward-deployed-engineer-(fde)-life-sciences-sf-san-francisco/
+                - generic [ref=e1490]:
+                  - heading "Forward Deployed Engineer (FDE), Life Sciences - SF" [level=2] [ref=e1491]
+                  - generic [ref=e1492]: Model Deployment for Business
+                - generic [ref=e1493]: San Francisco
+              - link "Apply now" [ref=e1494] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/c6e5f4a6-8ab1-4653-be9d-e2bca259e84a/application
+                - img [ref=e1495]
+                - text: Apply now
+            - generic [ref=e1498]:
+              - link "Forward Deployed Engineer (FDE) - NYC Model Deployment for Business New York City" [ref=e1499] [cursor=pointer]:
+                - /url: /careers/forward-deployed-engineer-(fde)-nyc-new-york-city/
+                - generic [ref=e1500]:
+                  - heading "Forward Deployed Engineer (FDE) - NYC" [level=2] [ref=e1501]
+                  - generic [ref=e1502]: Model Deployment for Business
+                - generic [ref=e1503]: New York City
+              - link "Apply now" [ref=e1504] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/cf31f5f6-4e67-4695-808c-9cdd2e1fa3b1/application
+                - img [ref=e1505]
+                - text: Apply now
+            - generic [ref=e1508]:
+              - link "Forward Deployed Engineer (FDE) - SF Model Deployment for Business San Francisco" [ref=e1509] [cursor=pointer]:
+                - /url: /careers/forward-deployed-engineer-(fde)-sf-san-francisco/
+                - generic [ref=e1510]:
+                  - heading "Forward Deployed Engineer (FDE) - SF" [level=2] [ref=e1511]
+                  - generic [ref=e1512]: Model Deployment for Business
+                - generic [ref=e1513]: San Francisco
+              - link "Apply now" [ref=e1514] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/305a4b22-7ff9-4fa5-9229-c6a22c9aa64f/application
+                - img [ref=e1515]
+                - text: Apply now
+            - generic [ref=e1518]:
+              - link "Forward Deployed Engineer, Gov OpenAI for Gov 3 locations" [ref=e1519] [cursor=pointer]:
+                - /url: /careers/forward-deployed-engineer-gov-washington-dc/
+                - generic [ref=e1520]:
+                  - heading "Forward Deployed Engineer, Gov" [level=2] [ref=e1521]
+                  - generic [ref=e1522]: OpenAI for Gov
+                - generic [ref=e1523]: 3 locations
+              - link "Apply now" [ref=e1524] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/db5a708d-1d7a-4aa3-8dd3-0d0423b6b69f/application
+                - img [ref=e1525]
+                - text: Apply now
+            - generic [ref=e1528]:
+              - link "Forward Deployed Engineer - London Model Deployment for Business London, UK" [ref=e1529] [cursor=pointer]:
+                - /url: /careers/forward-deployed-engineer-london-london-uk/
+                - generic [ref=e1530]:
+                  - heading "Forward Deployed Engineer - London" [level=2] [ref=e1531]
+                  - generic [ref=e1532]: Model Deployment for Business
+                - generic [ref=e1533]: London, UK
+              - link "Apply now" [ref=e1534] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/cf83e70e-6949-480f-ad97-df0f22cd0283/application
+                - img [ref=e1535]
+                - text: Apply now
+            - generic [ref=e1538]:
+              - link "Forward Deployed Engineer - Munich Model Deployment for Business Munich, Germany" [ref=e1539] [cursor=pointer]:
+                - /url: /careers/forward-deployed-engineer-munich-munich-germany/
+                - generic [ref=e1540]:
+                  - heading "Forward Deployed Engineer - Munich" [level=2] [ref=e1541]
+                  - generic [ref=e1542]: Model Deployment for Business
+                - generic [ref=e1543]: Munich, Germany
+              - link "Apply now" [ref=e1544] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/05223b5a-5ff1-4fe7-9f97-4ef7fc68b8ef/application
+                - img [ref=e1545]
+                - text: Apply now
+            - generic [ref=e1548]:
+              - link "Forward Deployed Engineer - Paris Model Deployment for Business Paris, France" [ref=e1549] [cursor=pointer]:
+                - /url: /careers/forward-deployed-engineer-paris-paris-france/
+                - generic [ref=e1550]:
+                  - heading "Forward Deployed Engineer - Paris" [level=2] [ref=e1551]
+                  - generic [ref=e1552]: Model Deployment for Business
+                - generic [ref=e1553]: Paris, France
+              - link "Apply now" [ref=e1554] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/9ddb1bd1-3ee0-4350-88f7-3710057b8c93/application
+                - img [ref=e1555]
+                - text: Apply now
+            - generic [ref=e1558]:
+              - link "Forward Deployed Engineer - Singapore Model Deployment for Business Singapore" [ref=e1559] [cursor=pointer]:
+                - /url: /careers/forward-deployed-engineer-singapore-singapore/
+                - generic [ref=e1560]:
+                  - heading "Forward Deployed Engineer - Singapore" [level=2] [ref=e1561]
+                  - generic [ref=e1562]: Model Deployment for Business
+                - generic [ref=e1563]: Singapore
+              - link "Apply now" [ref=e1564] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/823fe212-7774-4387-a24b-b52f54c25fa3/application
+                - img [ref=e1565]
+                - text: Apply now
+            - generic [ref=e1568]:
+              - link "Forward Deployed Engineer - Tokyo Model Deployment for Business Tokyo, Japan" [ref=e1569] [cursor=pointer]:
+                - /url: /careers/forward-deployed-engineer-tokyo-tokyo-japan/
+                - generic [ref=e1570]:
+                  - heading "Forward Deployed Engineer - Tokyo" [level=2] [ref=e1571]
+                  - generic [ref=e1572]: Model Deployment for Business
+                - generic [ref=e1573]: Tokyo, Japan
+              - link "Apply now" [ref=e1574] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/51b17595-3a70-43be-a333-3a3952303284/application
+                - img [ref=e1575]
+                - text: Apply now
+            - generic [ref=e1578]:
+              - link "Forward Deployed Software Engineer - Dublin Model Deployment for Business Dublin, Ireland" [ref=e1579] [cursor=pointer]:
+                - /url: /careers/forward-deployed-software-engineer-dublin-dublin-ireland/
+                - generic [ref=e1580]:
+                  - heading "Forward Deployed Software Engineer - Dublin" [level=2] [ref=e1581]
+                  - generic [ref=e1582]: Model Deployment for Business
+                - generic [ref=e1583]: Dublin, Ireland
+              - link "Apply now" [ref=e1584] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/63003bd5-05c8-408a-8d5a-8f5deb16113f/application
+                - img [ref=e1585]
+                - text: Apply now
+            - generic [ref=e1588]:
+              - link "Forward Deployed Software Engineer - London Model Deployment for Business London, UK" [ref=e1589] [cursor=pointer]:
+                - /url: /careers/forward-deployed-software-engineer-london-london-uk/
+                - generic [ref=e1590]:
+                  - heading "Forward Deployed Software Engineer - London" [level=2] [ref=e1591]
+                  - generic [ref=e1592]: Model Deployment for Business
+                - generic [ref=e1593]: London, UK
+              - link "Apply now" [ref=e1594] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/54b2072e-4c1c-40e4-b2dc-ec51d9d0ab60/application
+                - img [ref=e1595]
+                - text: Apply now
+            - generic [ref=e1598]:
+              - link "Forward Deployed Software Engineer - Munich Model Deployment for Business Munich, Germany" [ref=e1599] [cursor=pointer]:
+                - /url: /careers/forward-deployed-software-engineer-munich-munich-germany/
+                - generic [ref=e1600]:
+                  - heading "Forward Deployed Software Engineer - Munich" [level=2] [ref=e1601]
+                  - generic [ref=e1602]: Model Deployment for Business
+                - generic [ref=e1603]: Munich, Germany
+              - link "Apply now" [ref=e1604] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/07d62dc2-9bbc-4149-ba43-d4ab748a21f4/application
+                - img [ref=e1605]
+                - text: Apply now
+            - generic [ref=e1608]:
+              - link "Forward Deployed Software Engineer - NYC Model Deployment for Business New York City" [ref=e1609] [cursor=pointer]:
+                - /url: /careers/forward-deployed-software-engineer-nyc-new-york-city/
+                - generic [ref=e1610]:
+                  - heading "Forward Deployed Software Engineer - NYC" [level=2] [ref=e1611]
+                  - generic [ref=e1612]: Model Deployment for Business
+                - generic [ref=e1613]: New York City
+              - link "Apply now" [ref=e1614] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/533c0fc9-b773-476d-9f96-a0528efbab0e/application
+                - img [ref=e1615]
+                - text: Apply now
+            - generic [ref=e1618]:
+              - link "Forward Deployed Software Engineer - Paris Model Deployment for Business Paris, France" [ref=e1619] [cursor=pointer]:
+                - /url: /careers/forward-deployed-software-engineer-paris-paris-france/
+                - generic [ref=e1620]:
+                  - heading "Forward Deployed Software Engineer - Paris" [level=2] [ref=e1621]
+                  - generic [ref=e1622]: Model Deployment for Business
+                - generic [ref=e1623]: Paris, France
+              - link "Apply now" [ref=e1624] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/961f6c58-1572-48a8-bb8b-2bffdf82a5cc/application
+                - img [ref=e1625]
+                - text: Apply now
+            - generic [ref=e1628]:
+              - link "Forward Deployed Software Engineer - SF Model Deployment for Business San Francisco" [ref=e1629] [cursor=pointer]:
+                - /url: /careers/forward-deployed-software-engineer-sf-san-francisco/
+                - generic [ref=e1630]:
+                  - heading "Forward Deployed Software Engineer - SF" [level=2] [ref=e1631]
+                  - generic [ref=e1632]: Model Deployment for Business
+                - generic [ref=e1633]: San Francisco
+              - link "Apply now" [ref=e1634] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/00207abc-49b7-465c-a219-f7c1140f8047/application
+                - img [ref=e1635]
+                - text: Apply now
+            - generic [ref=e1638]:
+              - link "Forward Deployed Software Engineer - Singapore Model Deployment for Business Singapore" [ref=e1639] [cursor=pointer]:
+                - /url: /careers/forward-deployed-software-engineer-singapore-singapore/
+                - generic [ref=e1640]:
+                  - heading "Forward Deployed Software Engineer - Singapore" [level=2] [ref=e1641]
+                  - generic [ref=e1642]: Model Deployment for Business
+                - generic [ref=e1643]: Singapore
+              - link "Apply now" [ref=e1644] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/d952e0d3-44e1-464c-a8c8-4b812023cca6/application
+                - img [ref=e1645]
+                - text: Apply now
+            - generic [ref=e1648]:
+              - link "Forward Deployed Software Engineer - Tokyo Model Deployment for Business Tokyo, Japan" [ref=e1649] [cursor=pointer]:
+                - /url: /careers/forward-deployed-software-engineer-tokyo-tokyo-japan/
+                - generic [ref=e1650]:
+                  - heading "Forward Deployed Software Engineer - Tokyo" [level=2] [ref=e1651]
+                  - generic [ref=e1652]: Model Deployment for Business
+                - generic [ref=e1653]: Tokyo, Japan
+              - link "Apply now" [ref=e1654] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/e98851f0-08d7-42ef-a499-dc96d8f96dab/application
+                - img [ref=e1655]
+                - text: Apply now
+            - generic [ref=e1658]:
+              - link "Fraud & Risk Analyst User Operations San Francisco" [ref=e1659] [cursor=pointer]:
+                - /url: /careers/fraud-and-risk-analyst-san-francisco/
+                - generic [ref=e1660]:
+                  - heading "Fraud & Risk Analyst" [level=2] [ref=e1661]
+                  - generic [ref=e1662]: User Operations
+                - generic [ref=e1663]: San Francisco
+              - link "Apply now" [ref=e1664] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/2f13a80f-645e-44a6-9af8-f183d3409203/application
+                - img [ref=e1665]
+                - text: Apply now
+            - generic [ref=e1668]:
+              - link "Frontend Engineer, Dotcom (Marketing) Marketing 2 locations" [ref=e1669] [cursor=pointer]:
+                - /url: /careers/frontend-engineer-dotcom-(marketing)-san-francisco/
+                - generic [ref=e1670]:
+                  - heading "Frontend Engineer, Dotcom (Marketing)" [level=2] [ref=e1671]
+                  - generic [ref=e1672]: Marketing
+                - generic [ref=e1673]: 2 locations
+              - link "Apply now" [ref=e1674] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/ffc3f648-a39d-4403-ad16-e8d38c88d572/application
+                - img [ref=e1675]
+                - text: Apply now
+            - generic [ref=e1678]:
+              - link "Frontend Engineer, Financial Web Platform Applied AI Engineering San Francisco" [ref=e1679] [cursor=pointer]:
+                - /url: /careers/frontend-engineer-financial-web-platform-san-francisco/
+                - generic [ref=e1680]:
+                  - heading "Frontend Engineer, Financial Web Platform" [level=2] [ref=e1681]
+                  - generic [ref=e1682]: Applied AI Engineering
+                - generic [ref=e1683]: San Francisco
+              - link "Apply now" [ref=e1684] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/192980b8-b874-4493-a8c1-f7d5660f00f3/application
+                - img [ref=e1685]
+                - text: Apply now
+            - generic [ref=e1688]:
+              - link "Frontend Software Engineer - B2B Applications B2B Applications 2 locations" [ref=e1689] [cursor=pointer]:
+                - /url: /careers/frontend-software-engineer-b2b-applications-san-francisco/
+                - generic [ref=e1690]:
+                  - heading "Frontend Software Engineer - B2B Applications" [level=2] [ref=e1691]
+                  - generic [ref=e1692]: B2B Applications
+                - generic [ref=e1693]: 2 locations
+              - link "Apply now" [ref=e1694] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/58a04a52-68d8-478c-a32f-7ce6125cb7c0/application
+                - img [ref=e1695]
+                - text: Apply now
+            - generic [ref=e1698]:
+              - link "Full-Stack Engineer, Consumer Products Software San Francisco" [ref=e1699] [cursor=pointer]:
+                - /url: /careers/full-stack-engineer-consumer-products-san-francisco/
+                - generic [ref=e1700]:
+                  - heading "Full-Stack Engineer, Consumer Products" [level=2] [ref=e1701]
+                  - generic [ref=e1702]: Software
+                - generic [ref=e1703]: San Francisco
+              - link "Apply now" [ref=e1704] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/a6fdcc3b-e740-488c-ba1d-a166a0384057/application
+                - img [ref=e1705]
+                - text: Apply now
+            - generic [ref=e1708]:
+              - link "Full Stack Engineer, Fleet Scheduling Scaling San Francisco" [ref=e1709] [cursor=pointer]:
+                - /url: /careers/full-stack-engineer-fleet-scheduling-san-francisco/
+                - generic [ref=e1710]:
+                  - heading "Full Stack Engineer, Fleet Scheduling" [level=2] [ref=e1711]
+                  - generic [ref=e1712]: Scaling
+                - generic [ref=e1713]: San Francisco
+              - link "Apply now" [ref=e1714] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/9d11e1d8-af1d-413b-873f-d8fac2bdee99/application
+                - img [ref=e1715]
+                - text: Apply now
+            - generic [ref=e1718]:
+              - link "Full Stack Engineer, Health AI Applied AI Engineering San Francisco" [ref=e1719] [cursor=pointer]:
+                - /url: /careers/full-stack-engineer-health-ai-san-francisco/
+                - generic [ref=e1720]:
+                  - heading "Full Stack Engineer, Health AI" [level=2] [ref=e1721]
+                  - generic [ref=e1722]: Applied AI Engineering
+                - generic [ref=e1723]: San Francisco
+              - link "Apply now" [ref=e1724] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/c2aeb70d-3eca-4c4f-a414-6394b30fea80/application
+                - img [ref=e1725]
+                - text: Apply now
+            - generic [ref=e1728]:
+              - link "Fullstack Engineer, Intelligence Systems Intelligence & Investigations San Francisco" [ref=e1729] [cursor=pointer]:
+                - /url: /careers/fullstack-engineer-intelligence-systems-san-francisco/
+                - generic [ref=e1730]:
+                  - heading "Fullstack Engineer, Intelligence Systems" [level=2] [ref=e1731]
+                  - generic [ref=e1732]: Intelligence & Investigations
+                - generic [ref=e1733]: San Francisco
+              - link "Apply now" [ref=e1734] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/52c72cb9-7c44-4cba-b440-e05262a38491/application
+                - img [ref=e1735]
+                - text: Apply now
+            - generic [ref=e1738]:
+              - link "Fullstack Engineer, Safety Engineering Safety Systems San Francisco" [ref=e1739] [cursor=pointer]:
+                - /url: /careers/fullstack-engineer-safety-engineering-san-francisco/
+                - generic [ref=e1740]:
+                  - heading "Fullstack Engineer, Safety Engineering" [level=2] [ref=e1741]
+                  - generic [ref=e1742]: Safety Systems
+                - generic [ref=e1743]: San Francisco
+              - link "Apply now" [ref=e1744] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/a6501870-774b-447f-8620-2b78854f9655/application
+                - img [ref=e1745]
+                - text: Apply now
+            - generic [ref=e1748]:
+              - link "Full Stack Software Engineer, B2B Applications B2B Applications 2 locations" [ref=e1749] [cursor=pointer]:
+                - /url: /careers/full-stack-software-engineer-b2b-applications-san-francisco/
+                - generic [ref=e1750]:
+                  - heading "Full Stack Software Engineer, B2B Applications" [level=2] [ref=e1751]
+                  - generic [ref=e1752]: B2B Applications
+                - generic [ref=e1753]: 2 locations
+              - link "Apply now" [ref=e1754] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/e72077d7-2aca-4752-a0f6-1ff9ffe13fdf/application
+                - img [ref=e1755]
+                - text: Apply now
+            - generic [ref=e1758]:
+              - link "Full Stack Software Engineer - Enterprise Agents B2B Applications San Francisco" [ref=e1759] [cursor=pointer]:
+                - /url: /careers/full-stack-software-engineer-enterprise-agents-san-francisco/
+                - generic [ref=e1760]:
+                  - heading "Full Stack Software Engineer - Enterprise Agents" [level=2] [ref=e1761]
+                  - generic [ref=e1762]: B2B Applications
+                - generic [ref=e1763]: San Francisco
+              - link "Apply now" [ref=e1764] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/04ef9318-32fc-47df-a163-452569e13b58/application
+                - img [ref=e1765]
+                - text: Apply now
+            - generic [ref=e1768]:
+              - link "Full-Stack Software Engineer, Frontier Exploration OpenAI Labs San Francisco" [ref=e1769] [cursor=pointer]:
+                - /url: /careers/full-stack-software-engineer-frontier-exploration-san-francisco/
+                - generic [ref=e1770]:
+                  - heading "Full-Stack Software Engineer, Frontier Exploration" [level=2] [ref=e1771]
+                  - generic [ref=e1772]: OpenAI Labs
+                - generic [ref=e1773]: San Francisco
+              - link "Apply now" [ref=e1774] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/c3391b6b-2305-4b03-880f-57bc52217420/application
+                - img [ref=e1775]
+                - text: Apply now
+            - generic [ref=e1778]:
+              - link "Full Stack Software Engineer, Growth Applied AI Engineering San Francisco" [ref=e1779] [cursor=pointer]:
+                - /url: /careers/full-stack-software-engineer-growth-san-francisco/
+                - generic [ref=e1780]:
+                  - heading "Full Stack Software Engineer, Growth" [level=2] [ref=e1781]
+                  - generic [ref=e1782]: Applied AI Engineering
+                - generic [ref=e1783]: San Francisco
+              - link "Apply now" [ref=e1784] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/77bc0b3a-35c1-4ecf-99c7-1b3b19d959ca/application
+                - img [ref=e1785]
+                - text: Apply now
+            - generic [ref=e1788]:
+              - link "Full Stack Software Engineer, GTM Innovation Applied AI San Francisco" [ref=e1789] [cursor=pointer]:
+                - /url: /careers/full-stack-software-engineer-gtm-innovation-san-francisco/
+                - generic [ref=e1790]:
+                  - heading "Full Stack Software Engineer, GTM Innovation" [level=2] [ref=e1791]
+                  - generic [ref=e1792]: Applied AI
+                - generic [ref=e1793]: San Francisco
+              - link "Apply now" [ref=e1794] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/a2c9f105-b41a-41db-afd8-e70a54b3f21c/application
+                - img [ref=e1795]
+                - text: Apply now
+            - generic [ref=e1798]:
+              - link "Full Stack Software Engineer, International Growth- ChatGPT Applied AI Engineering San Francisco" [ref=e1799] [cursor=pointer]:
+                - /url: /careers/full-stack-software-engineer-international-growth-chatgpt-san-francisco/
+                - generic [ref=e1800]:
+                  - heading "Full Stack Software Engineer, International Growth- ChatGPT" [level=2] [ref=e1801]
+                  - generic [ref=e1802]: Applied AI Engineering
+                - generic [ref=e1803]: San Francisco
+              - link "Apply now" [ref=e1804] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/21321217-bc4e-4159-95d2-d862276cc11f/application
+                - img [ref=e1805]
+                - text: Apply now
+            - generic [ref=e1808]:
+              - link "Full-Stack SWE, Data Acquisition (Foundations) Foundations San Francisco" [ref=e1809] [cursor=pointer]:
+                - /url: /careers/full-stack-swe-data-acquisition-(foundations)-san-francisco/
+                - generic [ref=e1810]:
+                  - heading "Full-Stack SWE, Data Acquisition (Foundations)" [level=2] [ref=e1811]
+                  - generic [ref=e1812]: Foundations
+                - generic [ref=e1813]: San Francisco
+              - link "Apply now" [ref=e1814] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/a886ff48-b8a1-4e28-b468-296713a5ad78/application
+                - img [ref=e1815]
+                - text: Apply now
+            - generic [ref=e1818]:
+              - link "Global Business Insights & Automation Lead Data Science San Francisco" [ref=e1819] [cursor=pointer]:
+                - /url: /careers/global-business-insights-and-automation-lead-san-francisco/
+                - generic [ref=e1820]:
+                  - heading "Global Business Insights & Automation Lead" [level=2] [ref=e1821]
+                  - generic [ref=e1822]: Data Science
+                - generic [ref=e1823]: San Francisco
+              - link "Apply now" [ref=e1824] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/0981e580-8e64-4b41-b130-d148412f6433/application
+                - img [ref=e1825]
+                - text: Apply now
+            - generic [ref=e1828]:
+              - link "Global Candidate Experience Manager Recruiting San Francisco" [ref=e1829] [cursor=pointer]:
+                - /url: /careers/global-candidate-experience-manager-san-francisco/
+                - generic [ref=e1830]:
+                  - heading "Global Candidate Experience Manager" [level=2] [ref=e1831]
+                  - generic [ref=e1832]: Recruiting
+                - generic [ref=e1833]: San Francisco
+              - link "Apply now" [ref=e1834] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/b1f8c55e-928b-4a3a-a54a-a23e87ccf387/application
+                - img [ref=e1835]
+                - text: Apply now
+            - generic [ref=e1838]:
+              - link "Global Payroll Operations Lead Finance San Francisco" [ref=e1839] [cursor=pointer]:
+                - /url: /careers/global-payroll-operations-lead-san-francisco/
+                - generic [ref=e1840]:
+                  - heading "Global Payroll Operations Lead" [level=2] [ref=e1841]
+                  - generic [ref=e1842]: Finance
+                - generic [ref=e1843]: San Francisco
+              - link "Apply now" [ref=e1844] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/3c1c4d17-cdf9-44c7-a56d-a5ee93696c4c/application
+                - img [ref=e1845]
+                - text: Apply now
+            - generic [ref=e1848]:
+              - link "Global Safety Response Operations Analyst User Operations San Francisco" [ref=e1849] [cursor=pointer]:
+                - /url: /careers/global-safety-response-operations-analyst-san-francisco/
+                - generic [ref=e1850]:
+                  - heading "Global Safety Response Operations Analyst" [level=2] [ref=e1851]
+                  - generic [ref=e1852]: User Operations
+                - generic [ref=e1853]: San Francisco
+              - link "Apply now" [ref=e1854] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/9e77e103-6b70-4b45-a344-d87c4a2d7e12/application
+                - img [ref=e1855]
+                - text: Apply now
+            - generic [ref=e1858]:
+              - link "Government Account Director, Defense OpenAI for Gov Washington, DC" [ref=e1859] [cursor=pointer]:
+                - /url: /careers/government-account-director-defense-washington-dc/
+                - generic [ref=e1860]:
+                  - heading "Government Account Director, Defense" [level=2] [ref=e1861]
+                  - generic [ref=e1862]: OpenAI for Gov
+                - generic [ref=e1863]: Washington, DC
+              - link "Apply now" [ref=e1864] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/dc0b907b-f833-4559-8fd8-d3d4c80b58d8/application
+                - img [ref=e1865]
+                - text: Apply now
+            - generic [ref=e1868]:
+              - link "Growth - Emails, Notifications and Lifecycle Growth New York City" [ref=e1869] [cursor=pointer]:
+                - /url: /careers/growth-emails-notifications-and-lifecycle-new-york-city/
+                - generic [ref=e1870]:
+                  - heading "Growth - Emails, Notifications and Lifecycle" [level=2] [ref=e1871]
+                  - generic [ref=e1872]: Growth
+                - generic [ref=e1873]: New York City
+              - link "Apply now" [ref=e1874] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/c3426270-157e-4709-bf13-aee7743f7c39/application
+                - img [ref=e1875]
+                - text: Apply now
+            - generic [ref=e1878]:
+              - link "Growth - Emails, Notifications and Lifecycle Growth San Francisco" [ref=e1879] [cursor=pointer]:
+                - /url: /careers/growth-emails-notifications-and-lifecycle-san-francisco/
+                - generic [ref=e1880]:
+                  - heading "Growth - Emails, Notifications and Lifecycle" [level=2] [ref=e1881]
+                  - generic [ref=e1882]: Growth
+                - generic [ref=e1883]: San Francisco
+              - link "Apply now" [ref=e1884] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/8e146ecb-2bc4-406e-843d-b4b5a8dc09ef/application
+                - img [ref=e1885]
+                - text: Apply now
+            - generic [ref=e1888]:
+              - link "Growth Lead, India Growth Delhi, India" [ref=e1889] [cursor=pointer]:
+                - /url: /careers/growth-lead-india-delhi-india/
+                - generic [ref=e1890]:
+                  - heading "Growth Lead, India" [level=2] [ref=e1891]
+                  - generic [ref=e1892]: Growth
+                - generic [ref=e1893]: Delhi, India
+              - link "Apply now" [ref=e1894] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/dcfd6980-c363-4499-8444-9a1953240cf2/application
+                - img [ref=e1895]
+                - text: Apply now
+            - generic [ref=e1898]:
+              - link "Growth Lead, Korea Growth Seoul, South Korea" [ref=e1899] [cursor=pointer]:
+                - /url: /careers/growth-lead-korea-seoul-south-korea/
+                - generic [ref=e1900]:
+                  - heading "Growth Lead, Korea" [level=2] [ref=e1901]
+                  - generic [ref=e1902]: Growth
+                - generic [ref=e1903]: Seoul, South Korea
+              - link "Apply now" [ref=e1904] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/c6ce7090-9061-4dae-90d5-3e120f179a39/application
+                - img [ref=e1905]
+                - text: Apply now
+            - generic [ref=e1908]:
+              - link "Growth Paid Marketing Platform Engineer Applied AI Engineering San Francisco" [ref=e1909] [cursor=pointer]:
+                - /url: /careers/growth-paid-marketing-platform-engineer-san-francisco/
+                - generic [ref=e1910]:
+                  - heading "Growth Paid Marketing Platform Engineer" [level=2] [ref=e1911]
+                  - generic [ref=e1912]: Applied AI Engineering
+                - generic [ref=e1913]: San Francisco
+              - link "Apply now" [ref=e1914] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/6c746be3-32ec-4a5a-a462-5ca13dcab90e/application
+                - img [ref=e1915]
+                - text: Apply now
+            - generic [ref=e1918]:
+              - link "Growth - Performance Marketing & Growth Optimizations Growth San Francisco" [ref=e1919] [cursor=pointer]:
+                - /url: /careers/growth-performance-marketing-and-growth-optimizations-san-francisco/
+                - generic [ref=e1920]:
+                  - heading "Growth - Performance Marketing & Growth Optimizations" [level=2] [ref=e1921]
+                  - generic [ref=e1922]: Growth
+                - generic [ref=e1923]: San Francisco
+              - link "Apply now" [ref=e1924] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/72f67cce-7dc8-4e12-a475-9423f2666f0b/application
+                - img [ref=e1925]
+                - text: Apply now
+            - generic [ref=e1928]:
+              - link "Growth - Performance Marketing & Growth Optimizations Growth New York City" [ref=e1929] [cursor=pointer]:
+                - /url: /careers/growth-performance-marketing-and-growth-optimizations-new-york-city/
+                - generic [ref=e1930]:
+                  - heading "Growth - Performance Marketing & Growth Optimizations" [level=2] [ref=e1931]
+                  - generic [ref=e1932]: Growth
+                - generic [ref=e1933]: New York City
+              - link "Apply now" [ref=e1934] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/bb109aba-609f-4021-a457-ae0bec1cf9f4/application
+                - img [ref=e1935]
+                - text: Apply now
+            - generic [ref=e1938]:
+              - link "GTM Enablement Manager - Onboarding GTM Readiness San Francisco" [ref=e1939] [cursor=pointer]:
+                - /url: /careers/gtm-enablement-manager-onboarding-san-francisco/
+                - generic [ref=e1940]:
+                  - heading "GTM Enablement Manager - Onboarding" [level=2] [ref=e1941]
+                  - generic [ref=e1942]: GTM Readiness
+                - generic [ref=e1943]: San Francisco
+              - link "Apply now" [ref=e1944] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/6d392f6b-c668-4f54-92ef-26c5f198394a/application
+                - img [ref=e1945]
+                - text: Apply now
+            - generic [ref=e1948]:
+              - link "Hardware Procurement Operations Lead (Controls & Integrations) Finance San Francisco" [ref=e1949] [cursor=pointer]:
+                - /url: /careers/hardware-procurement-operations-lead-(controls-and-integrations)-san-francisco/
+                - generic [ref=e1950]:
+                  - heading "Hardware Procurement Operations Lead (Controls & Integrations)" [level=2] [ref=e1951]
+                  - generic [ref=e1952]: Finance
+                - generic [ref=e1953]: San Francisco
+              - link "Apply now" [ref=e1954] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/90e90165-9f42-4271-8e35-085f822a7c48/application
+                - img [ref=e1955]
+                - text: Apply now
+            - generic [ref=e1958]:
+              - link "Hardware Regulatory & Compliance Engineer Consumer Products San Francisco" [ref=e1959] [cursor=pointer]:
+                - /url: /careers/hardware-regulatory-and-compliance-engineer-san-francisco/
+                - generic [ref=e1960]:
+                  - heading "Hardware Regulatory & Compliance Engineer" [level=2] [ref=e1961]
+                  - generic [ref=e1962]: Consumer Products
+                - generic [ref=e1963]: San Francisco
+              - link "Apply now" [ref=e1964] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/77cbcdbd-fb43-42ac-b080-50b11f934a57/application
+                - img [ref=e1965]
+                - text: Apply now
+            - generic [ref=e1968]:
+              - link "Head of Business Communications Communications San Francisco" [ref=e1969] [cursor=pointer]:
+                - /url: /careers/head-of-business-communications-san-francisco/
+                - generic [ref=e1970]:
+                  - heading "Head of Business Communications" [level=2] [ref=e1971]
+                  - generic [ref=e1972]: Communications
+                - generic [ref=e1973]: San Francisco
+              - link "Apply now" [ref=e1974] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/b5b3f2ea-1ae9-4620-aadd-eb7a66174739/application
+                - img [ref=e1975]
+                - text: Apply now
+            - generic [ref=e1978]:
+              - link "Head of Data Science and Machine Learning, Global Forecasting Data Science San Francisco" [ref=e1979] [cursor=pointer]:
+                - /url: /careers/head-of-data-science-and-machine-learning-global-forecasting-san-francisco/
+                - generic [ref=e1980]:
+                  - heading "Head of Data Science and Machine Learning, Global Forecasting" [level=2] [ref=e1981]
+                  - generic [ref=e1982]: Data Science
+                - generic [ref=e1983]: San Francisco
+              - link "Apply now" [ref=e1984] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/154756ce-294f-49d6-a362-80ff96c01a3f/application
+                - img [ref=e1985]
+                - text: Apply now
+            - generic [ref=e1988]:
+              - link "Head of Infrastructure Communications Communications San Francisco" [ref=e1989] [cursor=pointer]:
+                - /url: /careers/head-of-infrastructure-communications-san-francisco/
+                - generic [ref=e1990]:
+                  - heading "Head of Infrastructure Communications" [level=2] [ref=e1991]
+                  - generic [ref=e1992]: Communications
+                - generic [ref=e1993]: San Francisco
+              - link "Apply now" [ref=e1994] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/7237ec82-84c7-4561-8939-b5c22fda88d4/application
+                - img [ref=e1995]
+                - text: Apply now
+            - generic [ref=e1998]:
+              - link "Head of Operations and Strategy Finance San Francisco" [ref=e1999] [cursor=pointer]:
+                - /url: /careers/head-of-operations-and-strategy-san-francisco/
+                - generic [ref=e2000]:
+                  - heading "Head of Operations and Strategy" [level=2] [ref=e2001]
+                  - generic [ref=e2002]: Finance
+                - generic [ref=e2003]: San Francisco
+              - link "Apply now" [ref=e2004] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/9abc8099-1f84-42d2-8018-f86cbc739a0f/application
+                - img [ref=e2005]
+                - text: Apply now
+            - generic [ref=e2008]:
+              - link "Head of Professional Services Technical Success San Francisco" [ref=e2009] [cursor=pointer]:
+                - /url: /careers/head-of-professional-services-san-francisco/
+                - generic [ref=e2010]:
+                  - heading "Head of Professional Services" [level=2] [ref=e2011]
+                  - generic [ref=e2012]: Technical Success
+                - generic [ref=e2013]: San Francisco
+              - link "Apply now" [ref=e2014] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/532ab802-1085-4539-a9cc-a76cf14575c7/application
+                - img [ref=e2015]
+                - text: Apply now
+            - generic [ref=e2018]:
+              - link "Head of Sales Development Sales San Francisco" [ref=e2019] [cursor=pointer]:
+                - /url: /careers/head-of-sales-development-san-francisco/
+                - generic [ref=e2020]:
+                  - heading "Head of Sales Development" [level=2] [ref=e2021]
+                  - generic [ref=e2022]: Sales
+                - generic [ref=e2023]: San Francisco
+              - link "Apply now" [ref=e2024] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/be835dc7-1270-4a46-9955-5093cba9d830/application
+                - img [ref=e2025]
+                - text: Apply now
+            - generic [ref=e2028]:
+              - link "Head of Sales Enablement Go To Market San Francisco" [ref=e2029] [cursor=pointer]:
+                - /url: /careers/head-of-sales-enablement-san-francisco/
+                - generic [ref=e2030]:
+                  - heading "Head of Sales Enablement" [level=2] [ref=e2031]
+                  - generic [ref=e2032]: Go To Market
+                - generic [ref=e2033]: San Francisco
+              - link "Apply now" [ref=e2034] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/fb8dbe07-00b0-4329-8925-c99b3aabcdfd/application
+                - img [ref=e2035]
+                - text: Apply now
+            - generic [ref=e2038]:
+              - link "Head of Sales Industries Go To Market San Francisco" [ref=e2039] [cursor=pointer]:
+                - /url: /careers/head-of-sales-industries-san-francisco/
+                - generic [ref=e2040]:
+                  - heading "Head of Sales Industries" [level=2] [ref=e2041]
+                  - generic [ref=e2042]: Go To Market
+                - generic [ref=e2043]: San Francisco
+              - link "Apply now" [ref=e2044] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/014ca821-2453-47fa-90be-b7904717b1c0/application
+                - img [ref=e2045]
+                - text: Apply now
+            - generic [ref=e2048]:
+              - link "Head of Trade Compliance & Operations Finance San Francisco" [ref=e2049] [cursor=pointer]:
+                - /url: /careers/head-of-trade-compliance-and-operations-san-francisco/
+                - generic [ref=e2050]:
+                  - heading "Head of Trade Compliance & Operations" [level=2] [ref=e2051]
+                  - generic [ref=e2052]: Finance
+                - generic [ref=e2053]: San Francisco
+              - link "Apply now" [ref=e2054] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/c4f29f69-6f99-4094-aa1b-84429e34bd71/application
+                - img [ref=e2055]
+                - text: Apply now
+            - generic [ref=e2058]:
+              - link "HPC Systems Engineer, Consumer Products Consumer Products San Francisco" [ref=e2059] [cursor=pointer]:
+                - /url: /careers/hpc-systems-engineer-consumer-products-san-francisco/
+                - generic [ref=e2060]:
+                  - heading "HPC Systems Engineer, Consumer Products" [level=2] [ref=e2061]
+                  - generic [ref=e2062]: Consumer Products
+                - generic [ref=e2063]: San Francisco
+              - link "Apply now" [ref=e2064] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/5a46713e-d282-403d-b49b-595dfa08a723/application
+                - img [ref=e2065]
+                - text: Apply now
+            - generic [ref=e2068]:
+              - link "Inference Technical Lead, Sora Sora San Francisco" [ref=e2069] [cursor=pointer]:
+                - /url: /careers/inference-technical-lead-sora-san-francisco/
+                - generic [ref=e2070]:
+                  - heading "Inference Technical Lead, Sora" [level=2] [ref=e2071]
+                  - generic [ref=e2072]: Sora
+                - generic [ref=e2073]: San Francisco
+              - link "Apply now" [ref=e2074] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/3c2d1178-777f-4613-a084-75a3d37cd1af/application
+                - img [ref=e2075]
+                - text: Apply now
+            - generic [ref=e2078]:
+              - link "iOS Engineer, Applied Foundations Applied AI Engineering San Francisco" [ref=e2079] [cursor=pointer]:
+                - /url: /careers/ios-engineer-applied-foundations-san-francisco/
+                - generic [ref=e2080]:
+                  - heading "iOS Engineer, Applied Foundations" [level=2] [ref=e2081]
+                  - generic [ref=e2082]: Applied AI Engineering
+                - generic [ref=e2083]: San Francisco
+              - link "Apply now" [ref=e2084] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/775240dd-6d36-401a-acca-128df0459610/application
+                - img [ref=e2085]
+                - text: Apply now
+            - generic [ref=e2088]:
+              - link "iOS Engineer, ChatGPT (Seattle) Applied AI Engineering Seattle" [ref=e2089] [cursor=pointer]:
+                - /url: /careers/ios-engineer-chatgpt-(seattle)-seattle/
+                - generic [ref=e2090]:
+                  - heading "iOS Engineer, ChatGPT (Seattle)" [level=2] [ref=e2091]
+                  - generic [ref=e2092]: Applied AI Engineering
+                - generic [ref=e2093]: Seattle
+              - link "Apply now" [ref=e2094] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/6a753329-3acb-4b3c-b29f-b0d10aae7ebe/application
+                - img [ref=e2095]
+                - text: Apply now
+            - generic [ref=e2098]:
+              - link "IT Support Specialist IT Seattle" [ref=e2099] [cursor=pointer]:
+                - /url: /careers/it-support-specialist-seattle/
+                - generic [ref=e2100]:
+                  - heading "IT Support Specialist" [level=2] [ref=e2101]
+                  - generic [ref=e2102]: IT
+                - generic [ref=e2103]: Seattle
+              - link "Apply now" [ref=e2104] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/49ae54dc-3d33-4107-8112-63fac1ee86ca/application
+                - img [ref=e2105]
+                - text: Apply now
+            - generic [ref=e2108]:
+              - link "Launch Manager, Certifications GTM Readiness San Francisco" [ref=e2109] [cursor=pointer]:
+                - /url: /careers/launch-manager-certifications-san-francisco/
+                - generic [ref=e2110]:
+                  - heading "Launch Manager, Certifications" [level=2] [ref=e2111]
+                  - generic [ref=e2112]: GTM Readiness
+                - generic [ref=e2113]: San Francisco
+              - link "Apply now" [ref=e2114] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/3e701c5b-8e09-4f9b-9faa-186b4e3b19e8/application
+                - img [ref=e2115]
+                - text: Apply now
+            - generic [ref=e2118]:
+              - link "Lead Comp Partner EMEA Total Rewards 2 locations" [ref=e2119] [cursor=pointer]:
+                - /url: /careers/lead-comp-partner-emea-london-uk/
+                - generic [ref=e2120]:
+                  - heading "Lead Comp Partner EMEA" [level=2] [ref=e2121]
+                  - generic [ref=e2122]: Total Rewards
+                - generic [ref=e2123]: 2 locations
+              - link "Apply now" [ref=e2124] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/9e565571-08e3-4250-bd1b-400be2352fab/application
+                - img [ref=e2125]
+                - text: Apply now
+            - generic [ref=e2128]:
+              - link "Leave & Accommodation Case Manager Total Rewards San Francisco" [ref=e2129] [cursor=pointer]:
+                - /url: /careers/leave-and-accommodation-case-manager-san-francisco/
+                - generic [ref=e2130]:
+                  - heading "Leave & Accommodation Case Manager" [level=2] [ref=e2131]
+                  - generic [ref=e2132]: Total Rewards
+                - generic [ref=e2133]: San Francisco
+              - link "Apply now" [ref=e2134] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/129b6636-1dcf-464a-a6d1-a579ef0dc758/application
+                - img [ref=e2135]
+                - text: Apply now
+            - generic [ref=e2138]:
+              - link "Linux Kernels Software Lead Hardware San Francisco" [ref=e2139] [cursor=pointer]:
+                - /url: /careers/linux-kernels-software-lead-san-francisco/
+                - generic [ref=e2140]:
+                  - heading "Linux Kernels Software Lead" [level=2] [ref=e2141]
+                  - generic [ref=e2142]: Hardware
+                - generic [ref=e2143]: San Francisco
+              - link "Apply now" [ref=e2144] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/e5691162-4e45-4dc6-a6bf-64f60ebf1ac4/application
+                - img [ref=e2145]
+                - text: Apply now
+            - generic [ref=e2148]:
+              - link "Machine Learning Data Scientist, Forecasting Data Science San Francisco" [ref=e2149] [cursor=pointer]:
+                - /url: /careers/machine-learning-data-scientist-forecasting-san-francisco/
+                - generic [ref=e2150]:
+                  - heading "Machine Learning Data Scientist, Forecasting" [level=2] [ref=e2151]
+                  - generic [ref=e2152]: Data Science
+                - generic [ref=e2153]: San Francisco
+              - link "Apply now" [ref=e2154] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/0b57e309-426d-4f5c-a28c-6dd941b84703/application
+                - img [ref=e2155]
+                - text: Apply now
+            - generic [ref=e2158]:
+              - link "Manager, AI Deployment - AMER AI Success New York City" [ref=e2159] [cursor=pointer]:
+                - /url: /careers/manager-ai-deployment-amer-new-york-city/
+                - generic [ref=e2160]:
+                  - heading "Manager, AI Deployment - AMER" [level=2] [ref=e2161]
+                  - generic [ref=e2162]: AI Success
+                - generic [ref=e2163]: New York City
+              - link "Apply now" [ref=e2164] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/227ea1b3-6fc4-44ca-93db-d59373121180/application
+                - img [ref=e2165]
+                - text: Apply now
+            - generic [ref=e2168]:
+              - link "Manager, AI Deployment Engineering Technical Success San Francisco" [ref=e2169] [cursor=pointer]:
+                - /url: /careers/manager-ai-deployment-engineering-san-francisco/
+                - generic [ref=e2170]:
+                  - heading "Manager, AI Deployment Engineering" [level=2] [ref=e2171]
+                  - generic [ref=e2172]: Technical Success
+                - generic [ref=e2173]: San Francisco
+              - link "Apply now" [ref=e2174] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/ba2ead69-d118-4a91-a4d7-c880d17fa7f9/application
+                - img [ref=e2175]
+                - text: Apply now
+            - generic [ref=e2178]:
+              - link "Manager, Forward Deployed Engineering Model Deployment for Business New York City" [ref=e2179] [cursor=pointer]:
+                - /url: /careers/manager-forward-deployed-engineering-new-york-city/
+                - generic [ref=e2180]:
+                  - heading "Manager, Forward Deployed Engineering" [level=2] [ref=e2181]
+                  - generic [ref=e2182]: Model Deployment for Business
+                - generic [ref=e2183]: New York City
+              - link "Apply now" [ref=e2184] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/a9a02cb4-a26e-4a09-94dd-90044c45b0b6/application
+                - img [ref=e2185]
+                - text: Apply now
+            - generic [ref=e2188]:
+              - link "Manager, Forward Deployed Engineering - Singapore Model Deployment for Business Singapore" [ref=e2189] [cursor=pointer]:
+                - /url: /careers/manager-forward-deployed-engineering-singapore-singapore/
+                - generic [ref=e2190]:
+                  - heading "Manager, Forward Deployed Engineering - Singapore" [level=2] [ref=e2191]
+                  - generic [ref=e2192]: Model Deployment for Business
+                - generic [ref=e2193]: Singapore
+              - link "Apply now" [ref=e2194] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/5491c82c-c9bb-474e-88fc-4bb14f3ad141/application
+                - img [ref=e2195]
+                - text: Apply now
+            - generic [ref=e2198]:
+              - link "Manager, Forward Deployed Engineering - Tokyo Model Deployment for Business Tokyo, Japan" [ref=e2199] [cursor=pointer]:
+                - /url: /careers/manager-forward-deployed-engineering-tokyo-tokyo-japan/
+                - generic [ref=e2200]:
+                  - heading "Manager, Forward Deployed Engineering - Tokyo" [level=2] [ref=e2201]
+                  - generic [ref=e2202]: Model Deployment for Business
+                - generic [ref=e2203]: Tokyo, Japan
+              - link "Apply now" [ref=e2204] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/3b3c7975-0fc2-433d-b82d-00dd2a135dcd/application
+                - img [ref=e2205]
+                - text: Apply now
+            - generic [ref=e2208]:
+              - link "Manager, Protection Scientist Engineer, Intelligence and Investigations Intelligence & Investigations San Francisco" [ref=e2209] [cursor=pointer]:
+                - /url: /careers/manager-protection-scientist-engineer-intelligence-and-investigations-san-francisco/
+                - generic [ref=e2210]:
+                  - heading "Manager, Protection Scientist Engineer, Intelligence and Investigations" [level=2] [ref=e2211]
+                  - generic [ref=e2212]: Intelligence & Investigations
+                - generic [ref=e2213]: San Francisco
+              - link "Apply now" [ref=e2214] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/336f3864-ccbf-44eb-bfc9-8090432a8e6f/application
+                - img [ref=e2215]
+                - text: Apply now
+            - generic [ref=e2218]:
+              - link "Manager, Solutions Engineering - Australia & New Zealand Technical Success Sydney, Australia" [ref=e2219] [cursor=pointer]:
+                - /url: /careers/manager-solutions-engineering-australia-and-new-zealand-sydney-australia/
+                - generic [ref=e2220]:
+                  - heading "Manager, Solutions Engineering - Australia & New Zealand" [level=2] [ref=e2221]
+                  - generic [ref=e2222]: Technical Success
+                - generic [ref=e2223]: Sydney, Australia
+              - link "Apply now" [ref=e2224] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/15f63470-49bc-475f-ba02-a743bca42cfd/application
+                - img [ref=e2225]
+                - text: Apply now
+            - generic [ref=e2228]:
+              - link "Marketing & Creative Operations Lead, International Marketing London, UK" [ref=e2229] [cursor=pointer]:
+                - /url: /careers/marketing-and-creative-operations-lead-international-london-uk/
+                - generic [ref=e2230]:
+                  - heading "Marketing & Creative Operations Lead, International" [level=2] [ref=e2231]
+                  - generic [ref=e2232]: Marketing
+                - generic [ref=e2233]: London, UK
+              - link "Apply now" [ref=e2234] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/26f65980-fa3d-42a7-9aa0-03e29b699c96/application
+                - img [ref=e2235]
+                - text: Apply now
+            - generic [ref=e2238]:
+              - link "Mechanical Engineer, Hardware Systems Hardware San Francisco" [ref=e2239] [cursor=pointer]:
+                - /url: /careers/mechanical-engineer-hardware-systems-san-francisco/
+                - generic [ref=e2240]:
+                  - heading "Mechanical Engineer, Hardware Systems" [level=2] [ref=e2241]
+                  - generic [ref=e2242]: Hardware
+                - generic [ref=e2243]: San Francisco
+              - link "Apply now" [ref=e2244] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/eda4a2d1-682f-418e-8055-222eaf7c9abd/application
+                - img [ref=e2245]
+                - text: Apply now
+            - generic [ref=e2248]:
+              - link "Media Relations, Safety Communications Communications San Francisco" [ref=e2249] [cursor=pointer]:
+                - /url: /careers/media-relations-safety-communications-san-francisco/
+                - generic [ref=e2250]:
+                  - heading "Media Relations, Safety Communications" [level=2] [ref=e2251]
+                  - generic [ref=e2252]: Communications
+                - generic [ref=e2253]: San Francisco
+              - link "Apply now" [ref=e2254] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/0867dab4-ed8e-46d5-92ce-a769ebda7c03/application
+                - img [ref=e2255]
+                - text: Apply now
+            - generic [ref=e2258]:
+              - link "Mid-Market Enterprise Sales Manager Sales Singapore" [ref=e2259] [cursor=pointer]:
+                - /url: /careers/mid-market-enterprise-sales-manager-singapore/
+                - generic [ref=e2260]:
+                  - heading "Mid-Market Enterprise Sales Manager" [level=2] [ref=e2261]
+                  - generic [ref=e2262]: Sales
+                - generic [ref=e2263]: Singapore
+              - link "Apply now" [ref=e2264] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/9c6be49a-b970-4bdd-8f60-627a4a153c56/application
+                - img [ref=e2265]
+                - text: Apply now
+            - generic [ref=e2268]:
+              - link "Model Policy Manager Safety Systems San Francisco" [ref=e2269] [cursor=pointer]:
+                - /url: /careers/model-policy-manager-san-francisco/
+                - generic [ref=e2270]:
+                  - heading "Model Policy Manager" [level=2] [ref=e2271]
+                  - generic [ref=e2272]: Safety Systems
+                - generic [ref=e2273]: San Francisco
+              - link "Apply now" [ref=e2274] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/2f942546-be42-4cd1-aca8-334ec8c61031/application
+                - img [ref=e2275]
+                - text: Apply now
+            - generic [ref=e2278]:
+              - link "Motion Designer Creative San Francisco" [ref=e2279] [cursor=pointer]:
+                - /url: /careers/motion-designer-san-francisco/
+                - generic [ref=e2280]:
+                  - heading "Motion Designer" [level=2] [ref=e2281]
+                  - generic [ref=e2282]: Creative
+                - generic [ref=e2283]: San Francisco
+              - link "Apply now" [ref=e2284] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/1a5fd449-539f-429f-b61a-68a62414bd80/application
+                - img [ref=e2285]
+                - text: Apply now
+            - generic [ref=e2288]:
+              - link "Networking Operating System Firmware Engineer Hardware San Francisco" [ref=e2289] [cursor=pointer]:
+                - /url: /careers/networking-operating-system-firmware-engineer-san-francisco/
+                - generic [ref=e2290]:
+                  - heading "Networking Operating System Firmware Engineer" [level=2] [ref=e2291]
+                  - generic [ref=e2292]: Hardware
+                - generic [ref=e2293]: San Francisco
+              - link "Apply now" [ref=e2294] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/582b878e-61bf-4be2-8b30-623434baf726/application
+                - img [ref=e2295]
+                - text: Apply now
+            - generic [ref=e2298]:
+              - link "Offensive Security Engineer, Agent Security Security 5 locations" [ref=e2299] [cursor=pointer]:
+                - /url: /careers/offensive-security-engineer-agent-security-san-francisco/
+                - generic [ref=e2300]:
+                  - heading "Offensive Security Engineer, Agent Security" [level=2] [ref=e2301]
+                  - generic [ref=e2302]: Security
+                - generic [ref=e2303]: 5 locations
+              - link "Apply now" [ref=e2304] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/bb97fffc-cdda-43a3-a6bc-234f9c031720/application
+                - img [ref=e2305]
+                - text: Apply now
+            - generic [ref=e2308]:
+              - link "Offensive Security Engineer, Hardware Security San Francisco" [ref=e2309] [cursor=pointer]:
+                - /url: /careers/offensive-security-engineer-hardware-san-francisco/
+                - generic [ref=e2310]:
+                  - heading "Offensive Security Engineer, Hardware" [level=2] [ref=e2311]
+                  - generic [ref=e2312]: Security
+                - generic [ref=e2313]: San Francisco
+              - link "Apply now" [ref=e2314] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/f123bbe4-7f19-46c8-a6ab-4a5d7b714988/application
+                - img [ref=e2315]
+                - text: Apply now
+            - generic [ref=e2318]:
+              - link "Operations Program Manager, AI Infrastructure Hardware San Francisco" [ref=e2319] [cursor=pointer]:
+                - /url: /careers/operations-program-manager-ai-infrastructure-san-francisco/
+                - generic [ref=e2320]:
+                  - heading "Operations Program Manager, AI Infrastructure" [level=2] [ref=e2321]
+                  - generic [ref=e2322]: Hardware
+                - generic [ref=e2323]: San Francisco
+              - link "Apply now" [ref=e2324] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/063d1957-23f0-4976-b8bd-93a0d4a31cfb/application
+                - img [ref=e2325]
+                - text: Apply now
+            - generic [ref=e2328]:
+              - link "Partner Director, ASEAN Partnerships Singapore" [ref=e2329] [cursor=pointer]:
+                - /url: /careers/partner-director-asean-singapore/
+                - generic [ref=e2330]:
+                  - heading "Partner Director, ASEAN" [level=2] [ref=e2331]
+                  - generic [ref=e2332]: Partnerships
+                - generic [ref=e2333]: Singapore
+              - link "Apply now" [ref=e2334] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/db39e45e-98df-460c-b64b-5ce8435c35ba/application
+                - img [ref=e2335]
+                - text: Apply now
+            - generic [ref=e2338]:
+              - link "Partner Director, Global Accenture Alliance Partnerships San Francisco" [ref=e2339] [cursor=pointer]:
+                - /url: /careers/partner-director-global-accenture-alliance-san-francisco/
+                - generic [ref=e2340]:
+                  - heading "Partner Director, Global Accenture Alliance" [level=2] [ref=e2341]
+                  - generic [ref=e2342]: Partnerships
+                - generic [ref=e2343]: San Francisco
+              - link "Apply now" [ref=e2344] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/628c4ccb-9314-4c2d-826a-51ed585cef5e/application
+                - img [ref=e2345]
+                - text: Apply now
+            - generic [ref=e2348]:
+              - link "Partner Director, SMB Partnerships Partnerships San Francisco" [ref=e2349] [cursor=pointer]:
+                - /url: /careers/partner-director-smb-partnerships-san-francisco/
+                - generic [ref=e2350]:
+                  - heading "Partner Director, SMB Partnerships" [level=2] [ref=e2351]
+                  - generic [ref=e2352]: Partnerships
+                - generic [ref=e2353]: San Francisco
+              - link "Apply now" [ref=e2354] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/e6e8d9bc-9cf4-4408-b8c9-6a6a62d761c9/application
+                - img [ref=e2355]
+                - text: Apply now
+            - generic [ref=e2358]:
+              - link "Partner Solutions Architect Technical Success San Francisco" [ref=e2359] [cursor=pointer]:
+                - /url: /careers/partner-solutions-architect-san-francisco/
+                - generic [ref=e2360]:
+                  - heading "Partner Solutions Architect" [level=2] [ref=e2361]
+                  - generic [ref=e2362]: Technical Success
+                - generic [ref=e2363]: San Francisco
+              - link "Apply now" [ref=e2364] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/552396f4-dc83-43de-9230-6301e5f461bd/application
+                - img [ref=e2365]
+                - text: Apply now
+            - generic [ref=e2368]:
+              - link "People Data Automation Analyst Human Resources San Francisco" [ref=e2369] [cursor=pointer]:
+                - /url: /careers/people-data-automation-analyst-san-francisco/
+                - generic [ref=e2370]:
+                  - heading "People Data Automation Analyst" [level=2] [ref=e2371]
+                  - generic [ref=e2372]: Human Resources
+                - generic [ref=e2373]: San Francisco
+              - link "Apply now" [ref=e2374] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/888ad3a1-d534-4f3a-9464-e351ea64fd8b/application
+                - img [ref=e2375]
+                - text: Apply now
+            - generic [ref=e2378]:
+              - link "People Systems Analyst (Core - Absence) Finance San Francisco" [ref=e2379] [cursor=pointer]:
+                - /url: /careers/people-systems-analyst-(core-absence)-san-francisco/
+                - generic [ref=e2380]:
+                  - heading "People Systems Analyst (Core - Absence)" [level=2] [ref=e2381]
+                  - generic [ref=e2382]: Finance
+                - generic [ref=e2383]: San Francisco
+              - link "Apply now" [ref=e2384] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/2d1e8616-1478-44e6-861a-01db8763b59b/application
+                - img [ref=e2385]
+                - text: Apply now
+            - generic [ref=e2388]:
+              - link "Physical Design Engineer Hardware San Francisco" [ref=e2389] [cursor=pointer]:
+                - /url: /careers/physical-design-engineer-san-francisco/
+                - generic [ref=e2390]:
+                  - heading "Physical Design Engineer" [level=2] [ref=e2391]
+                  - generic [ref=e2392]: Hardware
+                - generic [ref=e2393]: San Francisco
+              - link "Apply now" [ref=e2394] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/5a265d2b-683f-4cea-9b69-8e137e704ab3/application
+                - img [ref=e2395]
+                - text: Apply now
+            - generic [ref=e2398]:
+              - link "PM - Finance Transformation Finance San Francisco" [ref=e2399] [cursor=pointer]:
+                - /url: /careers/pm-finance-transformation-san-francisco/
+                - generic [ref=e2400]:
+                  - heading "PM - Finance Transformation" [level=2] [ref=e2401]
+                  - generic [ref=e2402]: Finance
+                - generic [ref=e2403]: San Francisco
+              - link "Apply now" [ref=e2404] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/39313583-f388-44c2-a1dd-ae94075643bd/application
+                - img [ref=e2405]
+                - text: Apply now
+            - generic [ref=e2408]:
+              - link "Principal Software Engineer, ChatGPT for Work Applied AI Engineering San Francisco" [ref=e2409] [cursor=pointer]:
+                - /url: /careers/principal-software-engineer-chatgpt-for-work-san-francisco/
+                - generic [ref=e2410]:
+                  - heading "Principal Software Engineer, ChatGPT for Work" [level=2] [ref=e2411]
+                  - generic [ref=e2412]: Applied AI Engineering
+                - generic [ref=e2413]: San Francisco
+              - link "Apply now" [ref=e2414] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/df2ae3d2-84f4-430e-bdcc-1db2b00c1b3a/application
+                - img [ref=e2415]
+                - text: Apply now
+            - generic [ref=e2418]:
+              - link "Private Equity Partnerships Manager Sales 2 locations" [ref=e2419] [cursor=pointer]:
+                - /url: /careers/private-equity-partnerships-manager-new-york-city/
+                - generic [ref=e2420]:
+                  - heading "Private Equity Partnerships Manager" [level=2] [ref=e2421]
+                  - generic [ref=e2422]: Sales
+                - generic [ref=e2423]: 2 locations
+              - link "Apply now" [ref=e2424] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/7c797baa-e263-48bd-a633-069acca0a496/application
+                - img [ref=e2425]
+                - text: Apply now
+            - generic [ref=e2428]:
+              - link "Product Designer, Business Products Product Design San Francisco" [ref=e2429] [cursor=pointer]:
+                - /url: /careers/product-designer-business-products-san-francisco/
+                - generic [ref=e2430]:
+                  - heading "Product Designer, Business Products" [level=2] [ref=e2431]
+                  - generic [ref=e2432]: Product Design
+                - generic [ref=e2433]: San Francisco
+              - link "Apply now" [ref=e2434] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/e253cfa4-bf03-44d5-b2cb-12a7ecc6f44a/application
+                - img [ref=e2435]
+                - text: Apply now
+            - generic [ref=e2438]:
+              - link "Product Designer, ChatGPT Product Design San Francisco" [ref=e2439] [cursor=pointer]:
+                - /url: /careers/product-designer-chatgpt-san-francisco/
+                - generic [ref=e2440]:
+                  - heading "Product Designer, ChatGPT" [level=2] [ref=e2441]
+                  - generic [ref=e2442]: Product Design
+                - generic [ref=e2443]: San Francisco
+              - link "Apply now" [ref=e2444] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/09d97355-0437-4054-8604-73920c0beb1a/application
+                - img [ref=e2445]
+                - text: Apply now
+            - generic [ref=e2448]:
+              - link "Product Designer, Growth Product Design San Francisco" [ref=e2449] [cursor=pointer]:
+                - /url: /careers/product-designer-growth-san-francisco/
+                - generic [ref=e2450]:
+                  - heading "Product Designer, Growth" [level=2] [ref=e2451]
+                  - generic [ref=e2452]: Product Design
+                - generic [ref=e2453]: San Francisco
+              - link "Apply now" [ref=e2454] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/ef88aaa6-f7e1-4afe-ab69-a13f2aa94eae/application
+                - img [ref=e2455]
+                - text: Apply now
+            - generic [ref=e2458]:
+              - link "Product Engagement Specialist User Operations San Francisco" [ref=e2459] [cursor=pointer]:
+                - /url: /careers/product-engagement-specialist-san-francisco/
+                - generic [ref=e2460]:
+                  - heading "Product Engagement Specialist" [level=2] [ref=e2461]
+                  - generic [ref=e2462]: User Operations
+                - generic [ref=e2463]: San Francisco
+              - link "Apply now" [ref=e2464] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/de22c15a-9730-436d-944b-0e251a62a082/application
+                - img [ref=e2465]
+                - text: Apply now
+            - generic [ref=e2468]:
+              - link "Product Engineer, GTM Innovation Applied AI San Francisco" [ref=e2469] [cursor=pointer]:
+                - /url: /careers/product-engineer-gtm-innovation-san-francisco/
+                - generic [ref=e2470]:
+                  - heading "Product Engineer, GTM Innovation" [level=2] [ref=e2471]
+                  - generic [ref=e2472]: Applied AI
+                - generic [ref=e2473]: San Francisco
+              - link "Apply now" [ref=e2474] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/3bb3c9f8-78d1-4df5-b47e-235f8ed5cbf9/application
+                - img [ref=e2475]
+                - text: Apply now
+            - generic [ref=e2478]:
+              - link "Product Manager, API Model Behavior Product Management San Francisco" [ref=e2479] [cursor=pointer]:
+                - /url: /careers/product-manager-api-model-behavior-san-francisco/
+                - generic [ref=e2480]:
+                  - heading "Product Manager, API Model Behavior" [level=2] [ref=e2481]
+                  - generic [ref=e2482]: Product Management
+                - generic [ref=e2483]: San Francisco
+              - link "Apply now" [ref=e2484] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/9c7a4984-4367-425c-8a8b-87dad1fbb596/application
+                - img [ref=e2485]
+                - text: Apply now
+            - generic [ref=e2488]:
+              - link "Product Manager, Codex Product Management San Francisco" [ref=e2489] [cursor=pointer]:
+                - /url: /careers/product-manager-codex-san-francisco/
+                - generic [ref=e2490]:
+                  - heading "Product Manager, Codex" [level=2] [ref=e2491]
+                  - generic [ref=e2492]: Product Management
+                - generic [ref=e2493]: San Francisco
+              - link "Apply now" [ref=e2494] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/14adce00-7414-40cf-bec2-3871c289a54d/application
+                - img [ref=e2495]
+                - text: Apply now
+            - generic [ref=e2498]:
+              - link "Product Manager, Countries & Governments Product Management San Francisco" [ref=e2499] [cursor=pointer]:
+                - /url: /careers/product-manager-countries-and-governments-san-francisco/
+                - generic [ref=e2500]:
+                  - heading "Product Manager, Countries & Governments" [level=2] [ref=e2501]
+                  - generic [ref=e2502]: Product Management
+                - generic [ref=e2503]: San Francisco
+              - link "Apply now" [ref=e2504] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/928f546c-4a7a-46e8-8e5b-b5a866180ee7/application
+                - img [ref=e2505]
+                - text: Apply now
+            - generic [ref=e2508]:
+              - link "Product Manager, Integrity Product Management London, UK" [ref=e2509] [cursor=pointer]:
+                - /url: /careers/product-manager-integrity-london-uk/
+                - generic [ref=e2510]:
+                  - heading "Product Manager, Integrity" [level=2] [ref=e2511]
+                  - generic [ref=e2512]: Product Management
+                - generic [ref=e2513]: London, UK
+              - link "Apply now" [ref=e2514] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/11ef39d5-d230-414b-9f3e-a0624efa5b11/application
+                - img [ref=e2515]
+                - text: Apply now
+            - generic [ref=e2518]:
+              - link "Product Manager, IT IT San Francisco" [ref=e2519] [cursor=pointer]:
+                - /url: /careers/product-manager-it-san-francisco/
+                - generic [ref=e2520]:
+                  - heading "Product Manager, IT" [level=2] [ref=e2521]
+                  - generic [ref=e2522]: IT
+                - generic [ref=e2523]: San Francisco
+              - link "Apply now" [ref=e2524] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/576c413a-ed95-49ff-a857-da6a03676277/application
+                - img [ref=e2525]
+                - text: Apply now
+            - generic [ref=e2528]:
+              - link "Product Manager, Model Behavior Product Management San Francisco" [ref=e2529] [cursor=pointer]:
+                - /url: /careers/product-manager-model-behavior-san-francisco/
+                - generic [ref=e2530]:
+                  - heading "Product Manager, Model Behavior" [level=2] [ref=e2531]
+                  - generic [ref=e2532]: Product Management
+                - generic [ref=e2533]: San Francisco
+              - link "Apply now" [ref=e2534] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/398a407e-a558-4488-a6b9-2e952b6e5124/application
+                - img [ref=e2535]
+                - text: Apply now
+            - generic [ref=e2538]:
+              - link "Product Manager, Private Computing & Encryption Product Management San Francisco" [ref=e2539] [cursor=pointer]:
+                - /url: /careers/product-manager-private-computing-and-encryption-san-francisco/
+                - generic [ref=e2540]:
+                  - heading "Product Manager, Private Computing & Encryption" [level=2] [ref=e2541]
+                  - generic [ref=e2542]: Product Management
+                - generic [ref=e2543]: San Francisco
+              - link "Apply now" [ref=e2544] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/4a9ce666-e362-4f76-8089-8af255d48398/application
+                - img [ref=e2545]
+                - text: Apply now
+            - generic [ref=e2548]:
+              - link "Product Manager, Safety Systems Product Management San Francisco" [ref=e2549] [cursor=pointer]:
+                - /url: /careers/product-manager-safety-systems-san-francisco/
+                - generic [ref=e2550]:
+                  - heading "Product Manager, Safety Systems" [level=2] [ref=e2551]
+                  - generic [ref=e2552]: Product Management
+                - generic [ref=e2553]: San Francisco
+              - link "Apply now" [ref=e2554] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/f6c971e8-453f-4fd1-acc8-aa57e8bd4007/application
+                - img [ref=e2555]
+                - text: Apply now
+            - generic [ref=e2558]:
+              - link "Product Marketing Manager ChatGPT, Campaigns Marketing San Francisco" [ref=e2559] [cursor=pointer]:
+                - /url: /careers/product-marketing-manager-chatgpt-campaigns-san-francisco/
+                - generic [ref=e2560]:
+                  - heading "Product Marketing Manager ChatGPT, Campaigns" [level=2] [ref=e2561]
+                  - generic [ref=e2562]: Marketing
+                - generic [ref=e2563]: San Francisco
+              - link "Apply now" [ref=e2564] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/04028348-b723-4da5-aae2-b7dc0e21b385/application
+                - img [ref=e2565]
+                - text: Apply now
+            - generic [ref=e2568]:
+              - link "Product Marketing Manager ChatGPT, Products Marketing San Francisco" [ref=e2569] [cursor=pointer]:
+                - /url: /careers/product-marketing-manager-chatgpt-products-san-francisco/
+                - generic [ref=e2570]:
+                  - heading "Product Marketing Manager ChatGPT, Products" [level=2] [ref=e2571]
+                  - generic [ref=e2572]: Marketing
+                - generic [ref=e2573]: San Francisco
+              - link "Apply now" [ref=e2574] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/f6d4d72e-2067-44f4-b5ae-381ecb78e477/application
+                - img [ref=e2575]
+                - text: Apply now
+            - generic [ref=e2578]:
+              - link "Product Partnerships Lead, India Product Partnerships India - Remote" [ref=e2579] [cursor=pointer]:
+                - /url: /careers/product-partnerships-lead-india-india-remote/
+                - generic [ref=e2580]:
+                  - heading "Product Partnerships Lead, India" [level=2] [ref=e2581]
+                  - generic [ref=e2582]: Product Partnerships
+                - generic [ref=e2583]: India - Remote
+              - link "Apply now" [ref=e2584] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/64f9b8d6-3912-42c0-8fc0-49359d8a6c9c/application
+                - img [ref=e2585]
+                - text: Apply now
+            - generic [ref=e2588]:
+              - link "Product Partnerships Lead, Japan Product Partnerships Tokyo, Japan" [ref=e2589] [cursor=pointer]:
+                - /url: /careers/product-partnerships-lead-japan-tokyo-japan/
+                - generic [ref=e2590]:
+                  - heading "Product Partnerships Lead, Japan" [level=2] [ref=e2591]
+                  - generic [ref=e2592]: Product Partnerships
+                - generic [ref=e2593]: Tokyo, Japan
+              - link "Apply now" [ref=e2594] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/f9fede5b-a611-40ed-b9e4-65f436e5ceaa/application
+                - img [ref=e2595]
+                - text: Apply now
+            - generic [ref=e2598]:
+              - link "Product Performance Engineer Applied AI Engineering San Francisco" [ref=e2599] [cursor=pointer]:
+                - /url: /careers/product-performance-engineer-san-francisco/
+                - generic [ref=e2600]:
+                  - heading "Product Performance Engineer" [level=2] [ref=e2601]
+                  - generic [ref=e2602]: Applied AI Engineering
+                - generic [ref=e2603]: San Francisco
+              - link "Apply now" [ref=e2604] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/38ddaa2c-a490-427a-8457-0e92bf00138c/application
+                - img [ref=e2605]
+                - text: Apply now
+            - generic [ref=e2608]:
+              - link "Product Policy - Data Scientist Product Policy San Francisco" [ref=e2609] [cursor=pointer]:
+                - /url: /careers/product-policy-data-scientist-san-francisco/
+                - generic [ref=e2610]:
+                  - heading "Product Policy - Data Scientist" [level=2] [ref=e2611]
+                  - generic [ref=e2612]: Product Policy
+                - generic [ref=e2613]: San Francisco
+              - link "Apply now" [ref=e2614] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/fc8a9723-6e53-4ed4-a2ba-001f0828d7ba/application
+                - img [ref=e2615]
+                - text: Apply now
+            - generic [ref=e2618]:
+              - link "Product & Solutions Lead, Safety and Security Intelligence & Investigations San Francisco" [ref=e2619] [cursor=pointer]:
+                - /url: /careers/product-and-solutions-lead-safety-and-security-san-francisco/
+                - generic [ref=e2620]:
+                  - heading "Product & Solutions Lead, Safety and Security" [level=2] [ref=e2621]
+                  - generic [ref=e2622]: Intelligence & Investigations
+                - generic [ref=e2623]: San Francisco
+              - link "Apply now" [ref=e2624] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/c664cc09-d996-450c-8683-ad591ac27c11/application
+                - img [ref=e2625]
+                - text: Apply now
+            - generic [ref=e2628]:
+              - link "Program Manager IT San Francisco" [ref=e2629] [cursor=pointer]:
+                - /url: /careers/program-manager-san-francisco/
+                - generic [ref=e2630]:
+                  - heading "Program Manager" [level=2] [ref=e2631]
+                  - generic [ref=e2632]: IT
+                - generic [ref=e2633]: San Francisco
+              - link "Apply now" [ref=e2634] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/61e43cfe-6783-411d-b621-3d035eda06e5/application
+                - img [ref=e2635]
+                - text: Apply now
+            - generic [ref=e2638]:
+              - link "Program Manager, Human Data Human Data San Francisco" [ref=e2639] [cursor=pointer]:
+                - /url: /careers/program-manager-human-data-san-francisco/
+                - generic [ref=e2640]:
+                  - heading "Program Manager, Human Data" [level=2] [ref=e2641]
+                  - generic [ref=e2642]: Human Data
+                - generic [ref=e2643]: San Francisco
+              - link "Apply now" [ref=e2644] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/932c9cc1-c542-4f67-8d0d-443de87b8213/application
+                - img [ref=e2645]
+                - text: Apply now
+            - generic [ref=e2648]:
+              - link "Program Manager, Human Data -Strategic Initiatives Human Data San Francisco" [ref=e2649] [cursor=pointer]:
+                - /url: /careers/program-manager-human-data-strategic-initiatives-san-francisco/
+                - generic [ref=e2650]:
+                  - heading "Program Manager, Human Data -Strategic Initiatives" [level=2] [ref=e2651]
+                  - generic [ref=e2652]: Human Data
+                - generic [ref=e2653]: San Francisco
+              - link "Apply now" [ref=e2654] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/2d8d9b1d-8135-4166-8bff-3cb9258c636c/application
+                - img [ref=e2655]
+                - text: Apply now
+            - generic [ref=e2658]:
+              - link "Protection Scientist Engineer, Intelligence and Investigations Intelligence & Investigations London, UK" [ref=e2659] [cursor=pointer]:
+                - /url: /careers/protection-scientist-engineer-intelligence-and-investigations-london-uk/
+                - generic [ref=e2660]:
+                  - heading "Protection Scientist Engineer, Intelligence and Investigations" [level=2] [ref=e2661]
+                  - generic [ref=e2662]: Intelligence & Investigations
+                - generic [ref=e2663]: London, UK
+              - link "Apply now" [ref=e2664] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/3fefc615-6950-4a29-9214-eefdc4e659e3/application
+                - img [ref=e2665]
+                - text: Apply now
+            - generic [ref=e2668]:
+              - link "Protection Scientist Engineer, Intelligence and Investigations Intelligence & Investigations 4 locations" [ref=e2669] [cursor=pointer]:
+                - /url: /careers/protection-scientist-engineer-intelligence-and-investigations-san-francisco/
+                - generic [ref=e2670]:
+                  - heading "Protection Scientist Engineer, Intelligence and Investigations" [level=2] [ref=e2671]
+                  - generic [ref=e2672]: Intelligence & Investigations
+                - generic [ref=e2673]: 4 locations
+              - link "Apply now" [ref=e2674] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/529feb11-4b9b-4baf-9b3f-f2b100156c5a/application
+                - img [ref=e2675]
+                - text: Apply now
+            - generic [ref=e2678]:
+              - link "QA Software Engineer, Consumer Products Consumer Products San Francisco" [ref=e2679] [cursor=pointer]:
+                - /url: /careers/qa-software-engineer-consumer-products-san-francisco/
+                - generic [ref=e2680]:
+                  - heading "QA Software Engineer, Consumer Products" [level=2] [ref=e2681]
+                  - generic [ref=e2682]: Consumer Products
+                - generic [ref=e2683]: San Francisco
+              - link "Apply now" [ref=e2684] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/1ba666a4-0be2-4bd0-ad51-39ed7164c241/application
+                - img [ref=e2685]
+                - text: Apply now
+            - generic [ref=e2688]:
+              - link "Qualified Security Manager Corporate Security San Francisco" [ref=e2689] [cursor=pointer]:
+                - /url: /careers/qualified-security-manager-san-francisco/
+                - generic [ref=e2690]:
+                  - heading "Qualified Security Manager" [level=2] [ref=e2691]
+                  - generic [ref=e2692]: Corporate Security
+                - generic [ref=e2693]: San Francisco
+              - link "Apply now" [ref=e2694] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/dff58a49-d445-465f-ae24-beaa4477e040/application
+                - img [ref=e2695]
+                - text: Apply now
+            - generic [ref=e2698]:
+              - link "Quantitative Intelligence Analyst Intelligence & Investigations San Francisco" [ref=e2699] [cursor=pointer]:
+                - /url: /careers/quantitative-intelligence-analyst-san-francisco/
+                - generic [ref=e2700]:
+                  - heading "Quantitative Intelligence Analyst" [level=2] [ref=e2701]
+                  - generic [ref=e2702]: Intelligence & Investigations
+                - generic [ref=e2703]: San Francisco
+              - link "Apply now" [ref=e2704] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/0ed88787-a794-4089-b022-e2d316a436bc/application
+                - img [ref=e2705]
+                - text: Apply now
+            - generic [ref=e2708]:
+              - link "Quantitative UX Researcher, Product Policy Strategy & Operations San Francisco" [ref=e2709] [cursor=pointer]:
+                - /url: /careers/quantitative-ux-researcher-product-policy-san-francisco/
+                - generic [ref=e2710]:
+                  - heading "Quantitative UX Researcher, Product Policy" [level=2] [ref=e2711]
+                  - generic [ref=e2712]: Strategy & Operations
+                - generic [ref=e2713]: San Francisco
+              - link "Apply now" [ref=e2714] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/d870e9dd-e83d-491c-b047-9f9dd2a1dee2/application
+                - img [ref=e2715]
+                - text: Apply now
+            - generic [ref=e2718]:
+              - link "Quote to Cash Systems Engineer Revenue Operations San Francisco" [ref=e2719] [cursor=pointer]:
+                - /url: /careers/quote-to-cash-systems-engineer-san-francisco/
+                - generic [ref=e2720]:
+                  - heading "Quote to Cash Systems Engineer" [level=2] [ref=e2721]
+                  - generic [ref=e2722]: Revenue Operations
+                - generic [ref=e2723]: San Francisco
+              - link "Apply now" [ref=e2724] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/4adb7fb8-2272-45c5-97a3-4de6be7f665e/application
+                - img [ref=e2725]
+                - text: Apply now
+            - generic [ref=e2728]:
+              - link "Recruiting Manager, Applied AI Engineering Recruiting San Francisco" [ref=e2729] [cursor=pointer]:
+                - /url: /careers/recruiting-manager-applied-ai-engineering-san-francisco/
+                - generic [ref=e2730]:
+                  - heading "Recruiting Manager, Applied AI Engineering" [level=2] [ref=e2731]
+                  - generic [ref=e2732]: Recruiting
+                - generic [ref=e2733]: San Francisco
+              - link "Apply now" [ref=e2734] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/148f1bde-1146-45df-8cc3-613576a61b87/application
+                - img [ref=e2735]
+                - text: Apply now
+            - generic [ref=e2738]:
+              - link "Regulatory Operations Analyst User Operations Dublin, Ireland" [ref=e2739] [cursor=pointer]:
+                - /url: /careers/regulatory-operations-analyst-dublin-ireland/
+                - generic [ref=e2740]:
+                  - heading "Regulatory Operations Analyst" [level=2] [ref=e2741]
+                  - generic [ref=e2742]: User Operations
+                - generic [ref=e2743]: Dublin, Ireland
+              - link "Apply now" [ref=e2744] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/a236b8f1-e5d1-494e-ad76-f6027935fafb/application
+                - img [ref=e2745]
+                - text: Apply now
+            - generic [ref=e2748]:
+              - link "Release Engineer, Consumer Products Consumer Products San Francisco" [ref=e2749] [cursor=pointer]:
+                - /url: /careers/release-engineer-consumer-products-san-francisco/
+                - generic [ref=e2750]:
+                  - heading "Release Engineer, Consumer Products" [level=2] [ref=e2751]
+                  - generic [ref=e2752]: Consumer Products
+                - generic [ref=e2753]: San Francisco
+              - link "Apply now" [ref=e2754] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/63f7f0b3-ba2c-437b-87ba-ec476729f071/application
+                - img [ref=e2755]
+                - text: Apply now
+            - generic [ref=e2758]:
+              - link "Reliability/DFX Engineer Hardware San Francisco" [ref=e2759] [cursor=pointer]:
+                - /url: /careers/reliabilitydfx-engineer-san-francisco/
+                - generic [ref=e2760]:
+                  - heading "Reliability/DFX Engineer" [level=2] [ref=e2761]
+                  - generic [ref=e2762]: Hardware
+                - generic [ref=e2763]: San Francisco
+              - link "Apply now" [ref=e2764] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/b2c5f3d7-5dfd-45f6-a4fa-fa372f5875a5/application
+                - img [ref=e2765]
+                - text: Apply now
+            - generic [ref=e2768]:
+              - link "Research Engineer Research San Francisco" [ref=e2769] [cursor=pointer]:
+                - /url: /careers/research-engineer-san-francisco/
+                - generic [ref=e2770]:
+                  - heading "Research Engineer" [level=2] [ref=e2771]
+                  - generic [ref=e2772]: Research
+                - generic [ref=e2773]: San Francisco
+              - link "Apply now" [ref=e2774] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/240d459b-696d-43eb-8497-fab3e56ecd9b/application
+                - img [ref=e2775]
+                - text: Apply now
+            - generic [ref=e2778]:
+              - link "Research Engineer, AI for Science Research San Francisco" [ref=e2779] [cursor=pointer]:
+                - /url: /careers/research-engineer-ai-for-science-san-francisco/
+                - generic [ref=e2780]:
+                  - heading "Research Engineer, AI for Science" [level=2] [ref=e2781]
+                  - generic [ref=e2782]: Research
+                - generic [ref=e2783]: San Francisco
+              - link "Apply now" [ref=e2784] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/d1425d2b-0c54-4fc9-8e21-fc8b9ae60238/application
+                - img [ref=e2785]
+                - text: Apply now
+            - generic [ref=e2788]:
+              - link "Research Engineer, Applied AI Engineering Applied AI Engineering San Francisco" [ref=e2789] [cursor=pointer]:
+                - /url: /careers/research-engineer-applied-ai-engineering-san-francisco/
+                - generic [ref=e2790]:
+                  - heading "Research Engineer, Applied AI Engineering" [level=2] [ref=e2791]
+                  - generic [ref=e2792]: Applied AI Engineering
+                - generic [ref=e2793]: San Francisco
+              - link "Apply now" [ref=e2794] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/d44c9f70-4aef-45a4-a36a-54fb65663ccb/application
+                - img [ref=e2795]
+                - text: Apply now
+            - generic [ref=e2798]:
+              - link "Research Engineer, Codex Research San Francisco" [ref=e2799] [cursor=pointer]:
+                - /url: /careers/research-engineer-codex-san-francisco/
+                - generic [ref=e2800]:
+                  - heading "Research Engineer, Codex" [level=2] [ref=e2801]
+                  - generic [ref=e2802]: Research
+                - generic [ref=e2803]: San Francisco
+              - link "Apply now" [ref=e2804] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/793964ae-d40b-45e3-9798-84f4b6da48c5/application
+                - img [ref=e2805]
+                - text: Apply now
+            - generic [ref=e2808]:
+              - link "Research Engineer, Frontier Evals & Environments Research San Francisco" [ref=e2809] [cursor=pointer]:
+                - /url: /careers/research-engineer-frontier-evals-and-environments-san-francisco/
+                - generic [ref=e2810]:
+                  - heading "Research Engineer, Frontier Evals & Environments" [level=2] [ref=e2811]
+                  - generic [ref=e2812]: Research
+                - generic [ref=e2813]: San Francisco
+              - link "Apply now" [ref=e2814] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/bba18df5-f30f-4d2c-909c-30e651f95579/application
+                - img [ref=e2815]
+                - text: Apply now
+            - generic [ref=e2818]:
+              - link "Research Engineer, Frontier Evals & Environments - Finance Reasoning San Francisco" [ref=e2819] [cursor=pointer]:
+                - /url: /careers/research-engineer-frontier-evals-and-environments-finance-san-francisco/
+                - generic [ref=e2820]:
+                  - heading "Research Engineer, Frontier Evals & Environments - Finance" [level=2] [ref=e2821]
+                  - generic [ref=e2822]: Reasoning
+                - generic [ref=e2823]: San Francisco
+              - link "Apply now" [ref=e2824] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/9708b52d-909d-4a3c-a21e-f8043c3679ce/application
+                - img [ref=e2825]
+                - text: Apply now
+            - generic [ref=e2828]:
+              - link "Research Engineer, Human-Centered AI Human Data San Francisco" [ref=e2829] [cursor=pointer]:
+                - /url: /careers/research-engineer-human-centered-ai-san-francisco/
+                - generic [ref=e2830]:
+                  - heading "Research Engineer, Human-Centered AI" [level=2] [ref=e2831]
+                  - generic [ref=e2832]: Human Data
+                - generic [ref=e2833]: San Francisco
+              - link "Apply now" [ref=e2834] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/efc51caf-24fb-4399-a6c8-b7e6966d846a/application
+                - img [ref=e2835]
+                - text: Apply now
+            - generic [ref=e2838]:
+              - link "Research Engineer, Human Data Human Data San Francisco" [ref=e2839] [cursor=pointer]:
+                - /url: /careers/research-engineer-human-data-san-francisco/
+                - generic [ref=e2840]:
+                  - heading "Research Engineer, Human Data" [level=2] [ref=e2841]
+                  - generic [ref=e2842]: Human Data
+                - generic [ref=e2843]: San Francisco
+              - link "Apply now" [ref=e2844] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/5a9e36ba-64bc-4a60-aca5-263c0f3a6e4d/application
+                - img [ref=e2845]
+                - text: Apply now
+            - generic [ref=e2848]:
+              - link "Research Engineer, Notifications Applied AI Engineering San Francisco" [ref=e2849] [cursor=pointer]:
+                - /url: /careers/research-engineer-notifications-san-francisco/
+                - generic [ref=e2850]:
+                  - heading "Research Engineer, Notifications" [level=2] [ref=e2851]
+                  - generic [ref=e2852]: Applied AI Engineering
+                - generic [ref=e2853]: San Francisco
+              - link "Apply now" [ref=e2854] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/8fc7124f-6338-4ff5-93ec-c6050a31cb93/application
+                - img [ref=e2855]
+                - text: Apply now
+            - generic [ref=e2858]:
+              - link "Research Engineer, Privacy Security San Francisco" [ref=e2859] [cursor=pointer]:
+                - /url: /careers/research-engineer-privacy-san-francisco/
+                - generic [ref=e2860]:
+                  - heading "Research Engineer, Privacy" [level=2] [ref=e2861]
+                  - generic [ref=e2862]: Security
+                - generic [ref=e2863]: San Francisco
+              - link "Apply now" [ref=e2864] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/cc434f5b-dc0b-42fd-97ec-e0171545c6e9/application
+                - img [ref=e2865]
+                - text: Apply now
+            - generic [ref=e2868]:
+              - link "Research Engineer / Research Scientist - Foundations Retrieval Lead Foundations San Francisco" [ref=e2869] [cursor=pointer]:
+                - /url: /careers/research-engineer-research-scientist-foundations-retrieval-lead-san-francisco/
+                - generic [ref=e2870]:
+                  - heading "Research Engineer / Research Scientist - Foundations Retrieval Lead" [level=2] [ref=e2871]
+                  - generic [ref=e2872]: Foundations
+                - generic [ref=e2873]: San Francisco
+              - link "Apply now" [ref=e2874] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/020b2aae-8be0-408c-ab49-20eefa8541af/application
+                - img [ref=e2875]
+                - text: Apply now
+            - generic [ref=e2878]:
+              - link "Research Engineer / Research Scientist, Post-Training Post-training San Francisco" [ref=e2879] [cursor=pointer]:
+                - /url: /careers/research-engineer-research-scientist-post-training-san-francisco/
+                - generic [ref=e2880]:
+                  - heading "Research Engineer / Research Scientist, Post-Training" [level=2] [ref=e2881]
+                  - generic [ref=e2882]: Post-training
+                - generic [ref=e2883]: San Francisco
+              - link "Apply now" [ref=e2884] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/1c516e9f-c97d-4a40-8529-9871dac615a5/application
+                - img [ref=e2885]
+                - text: Apply now
+            - generic [ref=e2888]:
+              - link "Research Engineer/Research Scientist, RL/Reasoning Reasoning San Francisco" [ref=e2889] [cursor=pointer]:
+                - /url: /careers/research-engineerresearch-scientist-rlreasoning-san-francisco/
+                - generic [ref=e2890]:
+                  - heading "Research Engineer/Research Scientist, RL/Reasoning" [level=2] [ref=e2891]
+                  - generic [ref=e2892]: Reasoning
+                - generic [ref=e2893]: San Francisco
+              - link "Apply now" [ref=e2894] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/7e198d81-34e0-48b6-b64e-a501a75f9d53/application
+                - img [ref=e2895]
+                - text: Apply now
+            - generic [ref=e2898]:
+              - link "Research Engineer, Retrieval & Search, Applied Engineering Applied AI Engineering San Francisco" [ref=e2899] [cursor=pointer]:
+                - /url: /careers/research-engineer-retrieval-and-search-applied-engineering-san-francisco/
+                - generic [ref=e2900]:
+                  - heading "Research Engineer, Retrieval & Search, Applied Engineering" [level=2] [ref=e2901]
+                  - generic [ref=e2902]: Applied AI Engineering
+                - generic [ref=e2903]: San Francisco
+              - link "Apply now" [ref=e2904] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/7322d344-9325-4a92-8445-0a2c4e9272f8/application
+                - img [ref=e2905]
+                - text: Apply now
+            - generic [ref=e2908]:
+              - link "Research Engineer/Scientist - Generative UI, Consumer Products Consumer Products San Francisco" [ref=e2909] [cursor=pointer]:
+                - /url: /careers/research-engineerscientist-generative-ui-consumer-products-san-francisco/
+                - generic [ref=e2910]:
+                  - heading "Research Engineer/Scientist - Generative UI, Consumer Products" [level=2] [ref=e2911]
+                  - generic [ref=e2912]: Consumer Products
+                - generic [ref=e2913]: San Francisco
+              - link "Apply now" [ref=e2914] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/da35b1bd-82b2-4955-a2f8-7a24ee8f1dbc/application
+                - img [ref=e2915]
+                - text: Apply now
+            - generic [ref=e2918]:
+              - link "Researcher, Alignment Alignment San Francisco" [ref=e2919] [cursor=pointer]:
+                - /url: /careers/researcher-alignment-san-francisco/
+                - generic [ref=e2920]:
+                  - heading "Researcher, Alignment" [level=2] [ref=e2921]
+                  - generic [ref=e2922]: Alignment
+                - generic [ref=e2923]: San Francisco
+              - link "Apply now" [ref=e2924] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/941bad28-7abe-43c7-b20a-2bc7e5b3c6e8/application
+                - img [ref=e2925]
+                - text: Apply now
+            - generic [ref=e2928]:
+              - link "Researcher, Health AI Safety Systems San Francisco" [ref=e2929] [cursor=pointer]:
+                - /url: /careers/researcher-health-ai-san-francisco/
+                - generic [ref=e2930]:
+                  - heading "Researcher, Health AI" [level=2] [ref=e2931]
+                  - generic [ref=e2932]: Safety Systems
+                - generic [ref=e2933]: San Francisco
+              - link "Apply now" [ref=e2934] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/bcbe08e3-9593-431d-bc99-37e35e035742/application
+                - img [ref=e2935]
+                - text: Apply now
+            - generic [ref=e2938]:
+              - link "Researcher, Interpretability Safety Systems San Francisco" [ref=e2939] [cursor=pointer]:
+                - /url: /careers/researcher-interpretability-san-francisco/
+                - generic [ref=e2940]:
+                  - heading "Researcher, Interpretability" [level=2] [ref=e2941]
+                  - generic [ref=e2942]: Safety Systems
+                - generic [ref=e2943]: San Francisco
+              - link "Apply now" [ref=e2944] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/c44268f1-717b-4da3-9943-2557f7d739f0/application
+                - img [ref=e2945]
+                - text: Apply now
+            - generic [ref=e2948]:
+              - link "Researcher, Misalignment Research Safety Systems New York City" [ref=e2949] [cursor=pointer]:
+                - /url: /careers/researcher-misalignment-research-new-york-city/
+                - generic [ref=e2950]:
+                  - heading "Researcher, Misalignment Research" [level=2] [ref=e2951]
+                  - generic [ref=e2952]: Safety Systems
+                - generic [ref=e2953]: New York City
+              - link "Apply now" [ref=e2954] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/7055f010-99f4-4c76-8361-ba5b5f9af1d0/application
+                - img [ref=e2955]
+                - text: Apply now
+            - generic [ref=e2958]:
+              - link "Researcher, Preparedness Preparedness San Francisco" [ref=e2959] [cursor=pointer]:
+                - /url: /careers/researcher-preparedness-san-francisco/
+                - generic [ref=e2960]:
+                  - heading "Researcher, Preparedness" [level=2] [ref=e2961]
+                  - generic [ref=e2962]: Preparedness
+                - generic [ref=e2963]: San Francisco
+              - link "Apply now" [ref=e2964] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/3fc46cbc-7e5a-4edc-96dc-ca433e76d181/application
+                - img [ref=e2965]
+                - text: Apply now
+            - generic [ref=e2968]:
+              - link "Researcher, Pretraining Safety Safety Systems San Francisco" [ref=e2969] [cursor=pointer]:
+                - /url: /careers/researcher-pretraining-safety-san-francisco/
+                - generic [ref=e2970]:
+                  - heading "Researcher, Pretraining Safety" [level=2] [ref=e2971]
+                  - generic [ref=e2972]: Safety Systems
+                - generic [ref=e2973]: San Francisco
+              - link "Apply now" [ref=e2974] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/d829b701-5ee2-414f-8596-ef94911a168a/application
+                - img [ref=e2975]
+                - text: Apply now
+            - generic [ref=e2978]:
+              - link "Researcher, Robustness & Safety Training Safety Systems San Francisco" [ref=e2979] [cursor=pointer]:
+                - /url: /careers/researcher-robustness-and-safety-training-san-francisco/
+                - generic [ref=e2980]:
+                  - heading "Researcher, Robustness & Safety Training" [level=2] [ref=e2981]
+                  - generic [ref=e2982]: Safety Systems
+                - generic [ref=e2983]: San Francisco
+              - link "Apply now" [ref=e2984] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/2560ed50-5535-42b8-b069-9ebc28ce7493/application
+                - img [ref=e2985]
+                - text: Apply now
+            - generic [ref=e2988]:
+              - link "Researcher, Safety Oversight Safety Systems San Francisco" [ref=e2989] [cursor=pointer]:
+                - /url: /careers/researcher-safety-oversight-san-francisco/
+                - generic [ref=e2990]:
+                  - heading "Researcher, Safety Oversight" [level=2] [ref=e2991]
+                  - generic [ref=e2992]: Safety Systems
+                - generic [ref=e2993]: San Francisco
+              - link "Apply now" [ref=e2994] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/9b11373c-1643-4ea6-bbcd-033d5b8a0d3e/application
+                - img [ref=e2995]
+                - text: Apply now
+            - generic [ref=e2998]:
+              - link "Researcher, Synthetic RL Research San Francisco" [ref=e2999] [cursor=pointer]:
+                - /url: /careers/researcher-synthetic-rl-san-francisco/
+                - generic [ref=e3000]:
+                  - heading "Researcher, Synthetic RL" [level=2] [ref=e3001]
+                  - generic [ref=e3002]: Research
+                - generic [ref=e3003]: San Francisco
+              - link "Apply now" [ref=e3004] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/60d3700b-ba82-4fa6-a6bb-7b2b67070510/application
+                - img [ref=e3005]
+                - text: Apply now
+            - generic [ref=e3008]:
+              - link "Researcher, Training Training San Francisco" [ref=e3009] [cursor=pointer]:
+                - /url: /careers/researcher-training-san-francisco/
+                - generic [ref=e3010]:
+                  - heading "Researcher, Training" [level=2] [ref=e3011]
+                  - generic [ref=e3012]: Training
+                - generic [ref=e3013]: San Francisco
+              - link "Apply now" [ref=e3014] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/97d3670c-e75a-4bb2-a235-171765f5f10e/application
+                - img [ref=e3015]
+                - text: Apply now
+            - generic [ref=e3018]:
+              - link "Researcher, Trustworthy AI Safety Systems San Francisco" [ref=e3019] [cursor=pointer]:
+                - /url: /careers/researcher-trustworthy-ai-san-francisco/
+                - generic [ref=e3020]:
+                  - heading "Researcher, Trustworthy AI" [level=2] [ref=e3021]
+                  - generic [ref=e3022]: Safety Systems
+                - generic [ref=e3023]: San Francisco
+              - link "Apply now" [ref=e3024] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/71acba5c-dbae-406f-b983-f40943c43068/application
+                - img [ref=e3025]
+                - text: Apply now
+            - generic [ref=e3028]:
+              - link "Research-Hardware Codesign Engineer Hardware San Francisco" [ref=e3029] [cursor=pointer]:
+                - /url: /careers/research-hardware-codesign-engineer-san-francisco/
+                - generic [ref=e3030]:
+                  - heading "Research-Hardware Codesign Engineer" [level=2] [ref=e3031]
+                  - generic [ref=e3032]: Hardware
+                - generic [ref=e3033]: San Francisco
+              - link "Apply now" [ref=e3034] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/5931abef-191b-417e-89f1-1d06f00e908c/application
+                - img [ref=e3035]
+                - text: Apply now
+            - generic [ref=e3038]:
+              - link "Research Lead, Chemical & Biological Risk Safety Systems San Francisco" [ref=e3039] [cursor=pointer]:
+                - /url: /careers/research-lead-chemical-and-biological-risk-san-francisco/
+                - generic [ref=e3040]:
+                  - heading "Research Lead, Chemical & Biological Risk" [level=2] [ref=e3041]
+                  - generic [ref=e3042]: Safety Systems
+                - generic [ref=e3043]: San Francisco
+              - link "Apply now" [ref=e3044] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/ea5ae64d-6d5a-4a11-b064-fe44633212a0/application
+                - img [ref=e3045]
+                - text: Apply now
+            - generic [ref=e3048]:
+              - link "Research Lead, Cyber Safety Systems San Francisco" [ref=e3049] [cursor=pointer]:
+                - /url: /careers/research-lead-cyber-san-francisco/
+                - generic [ref=e3050]:
+                  - heading "Research Lead, Cyber" [level=2] [ref=e3051]
+                  - generic [ref=e3052]: Safety Systems
+                - generic [ref=e3053]: San Francisco
+              - link "Apply now" [ref=e3054] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/2c0ebd83-0b1d-4ec1-a28c-7dbbc05a7c1d/application
+                - img [ref=e3055]
+                - text: Apply now
+            - generic [ref=e3058]:
+              - link "Research Scientist Research San Francisco" [ref=e3059] [cursor=pointer]:
+                - /url: /careers/research-scientist-san-francisco/
+                - generic [ref=e3060]:
+                  - heading "Research Scientist" [level=2] [ref=e3061]
+                  - generic [ref=e3062]: Research
+                - generic [ref=e3063]: San Francisco
+              - link "Apply now" [ref=e3064] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/5f0c6579-0bfb-4a06-8a43-1dd371499e10/application
+                - img [ref=e3065]
+                - text: Apply now
+            - generic [ref=e3068]:
+              - link "Research Scientist, Mathematical Sciences Research San Francisco" [ref=e3069] [cursor=pointer]:
+                - /url: /careers/research-scientist-mathematical-sciences-san-francisco/
+                - generic [ref=e3070]:
+                  - heading "Research Scientist, Mathematical Sciences" [level=2] [ref=e3071]
+                  - generic [ref=e3072]: Research
+                - generic [ref=e3073]: San Francisco
+              - link "Apply now" [ref=e3074] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/3f7e0545-a6b4-4108-82ca-653d16262934/application
+                - img [ref=e3075]
+                - text: Apply now
+            - generic [ref=e3078]:
+              - link "Robotics Software Engineer Robotics San Francisco" [ref=e3079] [cursor=pointer]:
+                - /url: /careers/robotics-software-engineer-san-francisco/
+                - generic [ref=e3080]:
+                  - heading "Robotics Software Engineer" [level=2] [ref=e3081]
+                  - generic [ref=e3082]: Robotics
+                - generic [ref=e3083]: San Francisco
+              - link "Apply now" [ref=e3084] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/fabfc6c5-57b5-49ba-aae9-e7dd5d7030ca/application
+                - img [ref=e3085]
+                - text: Apply now
+            - generic [ref=e3088]:
+              - link "RTL & Codesign Engineer Hardware San Francisco" [ref=e3089] [cursor=pointer]:
+                - /url: /careers/rtl-and-codesign-engineer-san-francisco/
+                - generic [ref=e3090]:
+                  - heading "RTL & Codesign Engineer" [level=2] [ref=e3091]
+                  - generic [ref=e3092]: Hardware
+                - generic [ref=e3093]: San Francisco
+              - link "Apply now" [ref=e3094] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/31b998a9-f62a-439e-89e4-b51aea6311f7/application
+                - img [ref=e3095]
+                - text: Apply now
+            - generic [ref=e3098]:
+              - link "RTL & Co-design Engineer (junior) Hardware San Francisco" [ref=e3099] [cursor=pointer]:
+                - /url: /careers/rtl-and-co-design-engineer-(junior)-san-francisco/
+                - generic [ref=e3100]:
+                  - heading "RTL & Co-design Engineer (junior)" [level=2] [ref=e3101]
+                  - generic [ref=e3102]: Hardware
+                - generic [ref=e3103]: San Francisco
+              - link "Apply now" [ref=e3104] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/77b815de-b7c5-4b87-8582-e8c752aea849/application
+                - img [ref=e3105]
+                - text: Apply now
+            - generic [ref=e3108]:
+              - link "Safety Response Operations Lead User Operations Singapore" [ref=e3109] [cursor=pointer]:
+                - /url: /careers/safety-response-operations-lead-singapore/
+                - generic [ref=e3110]:
+                  - heading "Safety Response Operations Lead" [level=2] [ref=e3111]
+                  - generic [ref=e3112]: User Operations
+                - generic [ref=e3113]: Singapore
+              - link "Apply now" [ref=e3114] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/d9be9157-c307-4ac4-9aa6-ad2fe7104808/application
+                - img [ref=e3115]
+                - text: Apply now
+            - generic [ref=e3118]:
+              - link "Safety Response Operations Lead User Operations Dublin, Ireland" [ref=e3119] [cursor=pointer]:
+                - /url: /careers/safety-response-operations-lead-dublin-ireland/
+                - generic [ref=e3120]:
+                  - heading "Safety Response Operations Lead" [level=2] [ref=e3121]
+                  - generic [ref=e3122]: User Operations
+                - generic [ref=e3123]: Dublin, Ireland
+              - link "Apply now" [ref=e3124] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/a691fb04-abfd-46f0-8ddc-87c64dd3e0c6/application
+                - img [ref=e3125]
+                - text: Apply now
+            - generic [ref=e3128]:
+              - link "Salesforce Engineer (GTM Systems) Finance San Francisco" [ref=e3129] [cursor=pointer]:
+                - /url: /careers/salesforce-engineer-(gtm-systems)-san-francisco/
+                - generic [ref=e3130]:
+                  - heading "Salesforce Engineer (GTM Systems)" [level=2] [ref=e3131]
+                  - generic [ref=e3132]: Finance
+                - generic [ref=e3133]: San Francisco
+              - link "Apply now" [ref=e3134] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/aa2d74d0-ec0f-45e3-99a6-df1634e8c9a8/application
+                - img [ref=e3135]
+                - text: Apply now
+            - generic [ref=e3138]:
+              - link "Sales Lead, Korea Sales Seoul, South Korea" [ref=e3139] [cursor=pointer]:
+                - /url: /careers/sales-lead-korea-seoul-south-korea/
+                - generic [ref=e3140]:
+                  - heading "Sales Lead, Korea" [level=2] [ref=e3141]
+                  - generic [ref=e3142]: Sales
+                - generic [ref=e3143]: Seoul, South Korea
+              - link "Apply now" [ref=e3144] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/d866a47d-0333-4ebf-a0d1-39c1d7edd127/application
+                - img [ref=e3145]
+                - text: Apply now
+            - generic [ref=e3148]:
+              - link "Sales Strategy & Operations - Government and Education Revenue Operations San Francisco" [ref=e3149] [cursor=pointer]:
+                - /url: /careers/sales-strategy-and-operations-government-and-education-san-francisco/
+                - generic [ref=e3150]:
+                  - heading "Sales Strategy & Operations - Government and Education" [level=2] [ref=e3151]
+                  - generic [ref=e3152]: Revenue Operations
+                - generic [ref=e3153]: San Francisco
+              - link "Apply now" [ref=e3154] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/ea4344ac-db86-4110-bf42-3bce177801d4/application
+                - img [ref=e3155]
+                - text: Apply now
+            - generic [ref=e3158]:
+              - link "Security Engineer, Agent Security Security San Francisco" [ref=e3159] [cursor=pointer]:
+                - /url: /careers/security-engineer-agent-security-san-francisco/
+                - generic [ref=e3160]:
+                  - heading "Security Engineer, Agent Security" [level=2] [ref=e3161]
+                  - generic [ref=e3162]: Security
+                - generic [ref=e3163]: San Francisco
+              - link "Apply now" [ref=e3164] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/e9bea775-7eb6-438a-ab96-27d5f941e69d/application
+                - img [ref=e3165]
+                - text: Apply now
+            - generic [ref=e3168]:
+              - link "Security Engineer, Application Security Security San Francisco" [ref=e3169] [cursor=pointer]:
+                - /url: /careers/security-engineer-application-security-san-francisco/
+                - generic [ref=e3170]:
+                  - heading "Security Engineer, Application Security" [level=2] [ref=e3171]
+                  - generic [ref=e3172]: Security
+                - generic [ref=e3173]: San Francisco
+              - link "Apply now" [ref=e3174] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/0322d6d8-6588-4209-a304-83e768063a25/application
+                - img [ref=e3175]
+                - text: Apply now
+            - generic [ref=e3178]:
+              - link "Security Engineer, Application Security Security New York City" [ref=e3179] [cursor=pointer]:
+                - /url: /careers/security-engineer-application-security-new-york-city/
+                - generic [ref=e3180]:
+                  - heading "Security Engineer, Application Security" [level=2] [ref=e3181]
+                  - generic [ref=e3182]: Security
+                - generic [ref=e3183]: New York City
+              - link "Apply now" [ref=e3184] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/ec5a5d98-6314-44d9-9466-8d4d7ee866f6/application
+                - img [ref=e3185]
+                - text: Apply now
+            - generic [ref=e3188]:
+              - link "Security Engineer, Application Security Security Seattle" [ref=e3189] [cursor=pointer]:
+                - /url: /careers/security-engineer-application-security-seattle/
+                - generic [ref=e3190]:
+                  - heading "Security Engineer, Application Security" [level=2] [ref=e3191]
+                  - generic [ref=e3192]: Security
+                - generic [ref=e3193]: Seattle
+              - link "Apply now" [ref=e3194] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/1e110226-448a-4c0b-b0e4-d0f5df579fbf/application
+                - img [ref=e3195]
+                - text: Apply now
+            - generic [ref=e3198]:
+              - link "Security Engineer, Detection and Response Security 3 locations" [ref=e3199] [cursor=pointer]:
+                - /url: /careers/security-engineer-detection-and-response-san-francisco/
+                - generic [ref=e3200]:
+                  - heading "Security Engineer, Detection and Response" [level=2] [ref=e3201]
+                  - generic [ref=e3202]: Security
+                - generic [ref=e3203]: 3 locations
+              - link "Apply now" [ref=e3204] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/f956b77c-3cc5-4fdd-9463-2a6e5047e57c/application
+                - img [ref=e3205]
+                - text: Apply now
+            - generic [ref=e3208]:
+              - link "Security Engineer, Detection and Response Security 3 locations" [ref=e3209] [cursor=pointer]:
+                - /url: /careers/security-engineer-detection-and-response-sydney-australia/
+                - generic [ref=e3210]:
+                  - heading "Security Engineer, Detection and Response" [level=2] [ref=e3211]
+                  - generic [ref=e3212]: Security
+                - generic [ref=e3213]: 3 locations
+              - link "Apply now" [ref=e3214] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/3728b144-f640-42be-84af-94f6b0743d7c/application
+                - img [ref=e3215]
+                - text: Apply now
+            - generic [ref=e3218]:
+              - link "Security Engineer, Detection and Response Security London, UK" [ref=e3219] [cursor=pointer]:
+                - /url: /careers/security-engineer-detection-and-response-london-uk/
+                - generic [ref=e3220]:
+                  - heading "Security Engineer, Detection and Response" [level=2] [ref=e3221]
+                  - generic [ref=e3222]: Security
+                - generic [ref=e3223]: London, UK
+              - link "Apply now" [ref=e3224] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/2d8b30c7-afa3-42ca-b315-ead35e8457ab/application
+                - img [ref=e3225]
+                - text: Apply now
+            - generic [ref=e3228]:
+              - link "Security Engineer, Infrastructure Security Security 4 locations" [ref=e3229] [cursor=pointer]:
+                - /url: /careers/security-engineer-infrastructure-security-remote-us/
+                - generic [ref=e3230]:
+                  - heading "Security Engineer, Infrastructure Security" [level=2] [ref=e3231]
+                  - generic [ref=e3232]: Security
+                - generic [ref=e3233]: 4 locations
+              - link "Apply now" [ref=e3234] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/f51f750f-a737-4441-8f96-30133a2a8049/application
+                - img [ref=e3235]
+                - text: Apply now
+            - generic [ref=e3238]:
+              - link "Security Engineer, Insider Threat Detection & Response Security 4 locations" [ref=e3239] [cursor=pointer]:
+                - /url: /careers/security-engineer-insider-threat-detection-and-response-san-francisco/
+                - generic [ref=e3240]:
+                  - heading "Security Engineer, Insider Threat Detection & Response" [level=2] [ref=e3241]
+                  - generic [ref=e3242]: Security
+                - generic [ref=e3243]: 4 locations
+              - link "Apply now" [ref=e3244] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/f84dbb5c-6008-40f1-b388-1434d159d4a4/application
+                - img [ref=e3245]
+                - text: Apply now
+            - generic [ref=e3248]:
+              - link "Security Researcher, Trusted Computing and Cryptography Security Remote - US" [ref=e3249] [cursor=pointer]:
+                - /url: /careers/security-researcher-trusted-computing-and-cryptography-remote-us/
+                - generic [ref=e3250]:
+                  - heading "Security Researcher, Trusted Computing and Cryptography" [level=2] [ref=e3251]
+                  - generic [ref=e3252]: Security
+                - generic [ref=e3253]: Remote - US
+              - link "Apply now" [ref=e3254] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/664ee8c3-5506-4300-838b-6e860cf4b31b/application
+                - img [ref=e3255]
+                - text: Apply now
+            - generic [ref=e3258]:
+              - link "Security Solutions Engineer, Pre-Sales (Security Specialist) - APAC Technical Success Singapore" [ref=e3259] [cursor=pointer]:
+                - /url: /careers/security-solutions-engineer-pre-sales-(security-specialist)-apac-singapore/
+                - generic [ref=e3260]:
+                  - heading "Security Solutions Engineer, Pre-Sales (Security Specialist) - APAC" [level=2] [ref=e3261]
+                  - generic [ref=e3262]: Technical Success
+                - generic [ref=e3263]: Singapore
+              - link "Apply now" [ref=e3264] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/215b02db-1cbf-4f97-8866-7a460ddf7b35/application
+                - img [ref=e3265]
+                - text: Apply now
+            - generic [ref=e3268]:
+              - link "Security Technical Program Manager, Lead Security San Francisco" [ref=e3269] [cursor=pointer]:
+                - /url: /careers/security-technical-program-manager-lead-san-francisco/
+                - generic [ref=e3270]:
+                  - heading "Security Technical Program Manager, Lead" [level=2] [ref=e3271]
+                  - generic [ref=e3272]: Security
+                - generic [ref=e3273]: San Francisco
+              - link "Apply now" [ref=e3274] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/8f8e3b0d-7f16-4ace-91e7-c89319f17fc8/application
+                - img [ref=e3275]
+                - text: Apply now
+            - generic [ref=e3278]:
+              - link "Senior Counsel, Employment (EMEA) Legal Dublin, Ireland" [ref=e3279] [cursor=pointer]:
+                - /url: /careers/senior-counsel-employment-(emea)-dublin-ireland/
+                - generic [ref=e3280]:
+                  - heading "Senior Counsel, Employment (EMEA)" [level=2] [ref=e3281]
+                  - generic [ref=e3282]: Legal
+                - generic [ref=e3283]: Dublin, Ireland
+              - link "Apply now" [ref=e3284] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/1f143012-77c0-4e50-b1e7-a1a53988645b/application
+                - img [ref=e3285]
+                - text: Apply now
+            - generic [ref=e3288]:
+              - link "Senior Counsel, India Legal Delhi, India" [ref=e3289] [cursor=pointer]:
+                - /url: /careers/senior-counsel-india-delhi-india/
+                - generic [ref=e3290]:
+                  - heading "Senior Counsel, India" [level=2] [ref=e3291]
+                  - generic [ref=e3292]: Legal
+                - generic [ref=e3293]: Delhi, India
+              - link "Apply now" [ref=e3294] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/1e226011-5b6e-48c1-9dab-85ea6662890e/application
+                - img [ref=e3295]
+                - text: Apply now
+            - generic [ref=e3298]:
+              - link "Senior Counsel, Litigation Legal San Francisco" [ref=e3299] [cursor=pointer]:
+                - /url: /careers/senior-counsel-litigation-san-francisco/
+                - generic [ref=e3300]:
+                  - heading "Senior Counsel, Litigation" [level=2] [ref=e3301]
+                  - generic [ref=e3302]: Legal
+                - generic [ref=e3303]: San Francisco
+              - link "Apply now" [ref=e3304] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/6b47b641-39f4-41ed-944f-d1d6316398ac/application
+                - img [ref=e3305]
+                - text: Apply now
+            - generic [ref=e3308]:
+              - link "Senior Counsel, Litigation & Regulatory Legal San Francisco" [ref=e3309] [cursor=pointer]:
+                - /url: /careers/senior-counsel-litigation-and-regulatory-san-francisco/
+                - generic [ref=e3310]:
+                  - heading "Senior Counsel, Litigation & Regulatory" [level=2] [ref=e3311]
+                  - generic [ref=e3312]: Legal
+                - generic [ref=e3313]: San Francisco
+              - link "Apply now" [ref=e3314] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/efbb5cb8-ed3c-4e64-9713-e7ad8f6086fa/application
+                - img [ref=e3315]
+                - text: Apply now
+            - generic [ref=e3318]:
+              - link "Senior Counsel, Product (Hardware) Legal San Francisco" [ref=e3319] [cursor=pointer]:
+                - /url: /careers/senior-counsel-product-(hardware)-san-francisco/
+                - generic [ref=e3320]:
+                  - heading "Senior Counsel, Product (Hardware)" [level=2] [ref=e3321]
+                  - generic [ref=e3322]: Legal
+                - generic [ref=e3323]: San Francisco
+              - link "Apply now" [ref=e3324] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/58e06fac-53aa-4e9b-8915-d63ad77e0a2f/application
+                - img [ref=e3325]
+                - text: Apply now
+            - generic [ref=e3328]:
+              - link "Senior Employment Investigator Employment Investigations San Francisco" [ref=e3329] [cursor=pointer]:
+                - /url: /careers/senior-employment-investigator-san-francisco/
+                - generic [ref=e3330]:
+                  - heading "Senior Employment Investigator" [level=2] [ref=e3331]
+                  - generic [ref=e3332]: Employment Investigations
+                - generic [ref=e3333]: San Francisco
+              - link "Apply now" [ref=e3334] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/7d692cd3-c6d5-4ab5-9d17-82d1c4549bd9/application
+                - img [ref=e3335]
+                - text: Apply now
+            - generic [ref=e3338]:
+              - link "Senior IT Support Specialist IT San Francisco" [ref=e3339] [cursor=pointer]:
+                - /url: /careers/senior-it-support-specialist-san-francisco/
+                - generic [ref=e3340]:
+                  - heading "Senior IT Support Specialist" [level=2] [ref=e3341]
+                  - generic [ref=e3342]: IT
+                - generic [ref=e3343]: San Francisco
+              - link "Apply now" [ref=e3344] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/85fd3fda-63a2-40ea-b53a-4dd1b1722bc4/application
+                - img [ref=e3345]
+                - text: Apply now
+            - generic [ref=e3348]:
+              - link "Senior Legal Counsel, Patents Legal San Francisco" [ref=e3349] [cursor=pointer]:
+                - /url: /careers/senior-legal-counsel-patents-san-francisco/
+                - generic [ref=e3350]:
+                  - heading "Senior Legal Counsel, Patents" [level=2] [ref=e3351]
+                  - generic [ref=e3352]: Legal
+                - generic [ref=e3353]: San Francisco
+              - link "Apply now" [ref=e3354] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/9c387387-da22-4b39-a018-db45498d95e3/application
+                - img [ref=e3355]
+                - text: Apply now
+            - generic [ref=e3358]:
+              - link "Senior Manager, Supply Chain Business Process Architect Finance San Francisco" [ref=e3359] [cursor=pointer]:
+                - /url: /careers/senior-manager-supply-chain-business-process-architect-san-francisco/
+                - generic [ref=e3360]:
+                  - heading "Senior Manager, Supply Chain Business Process Architect" [level=2] [ref=e3361]
+                  - generic [ref=e3362]: Finance
+                - generic [ref=e3363]: San Francisco
+              - link "Apply now" [ref=e3364] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/3a958250-1998-4d10-8fbd-38932dc88c51/application
+                - img [ref=e3365]
+                - text: Apply now
+            - generic [ref=e3368]:
+              - link "Senior Research Engineer/Scientist - Edge, Consumer Products Consumer Products San Francisco" [ref=e3369] [cursor=pointer]:
+                - /url: /careers/senior-research-engineerscientist-edge-consumer-products-san-francisco/
+                - generic [ref=e3370]:
+                  - heading "Senior Research Engineer/Scientist - Edge, Consumer Products" [level=2] [ref=e3371]
+                  - generic [ref=e3372]: Consumer Products
+                - generic [ref=e3373]: San Francisco
+              - link "Apply now" [ref=e3374] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/7f9eb43b-423e-43e4-9f42-d14b8ba0f234/application
+                - img [ref=e3375]
+                - text: Apply now
+            - generic [ref=e3378]:
+              - link "Senior Software Engineer, Data Acquisition Foundations San Francisco" [ref=e3379] [cursor=pointer]:
+                - /url: /careers/senior-software-engineer-data-acquisition-san-francisco/
+                - generic [ref=e3380]:
+                  - heading "Senior Software Engineer, Data Acquisition" [level=2] [ref=e3381]
+                  - generic [ref=e3382]: Foundations
+                - generic [ref=e3383]: San Francisco
+              - link "Apply now" [ref=e3384] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/70c63d7a-df6f-48f0-b529-f02221e3dc23/application
+                - img [ref=e3385]
+                - text: Apply now
+            - generic [ref=e3388]:
+              - link "Senior Software Engineer, Identity Platform Applied AI Engineering San Francisco" [ref=e3389] [cursor=pointer]:
+                - /url: /careers/senior-software-engineer-identity-platform-san-francisco/
+                - generic [ref=e3390]:
+                  - heading "Senior Software Engineer, Identity Platform" [level=2] [ref=e3391]
+                  - generic [ref=e3392]: Applied AI Engineering
+                - generic [ref=e3393]: San Francisco
+              - link "Apply now" [ref=e3394] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/10980026-e468-4516-958c-7c697793d1d4/application
+                - img [ref=e3395]
+                - text: Apply now
+            - generic [ref=e3398]:
+              - link "Senior Support Engineer User Operations San Francisco" [ref=e3399] [cursor=pointer]:
+                - /url: /careers/senior-support-engineer-san-francisco/
+                - generic [ref=e3400]:
+                  - heading "Senior Support Engineer" [level=2] [ref=e3401]
+                  - generic [ref=e3402]: User Operations
+                - generic [ref=e3403]: San Francisco
+              - link "Apply now" [ref=e3404] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/5431666c-530b-49c0-b67e-32477f9eaf5e/application
+                - img [ref=e3405]
+                - text: Apply now
+            - generic [ref=e3408]:
+              - link "Senior Support Engineer - Dublin User Operations Dublin, Ireland" [ref=e3409] [cursor=pointer]:
+                - /url: /careers/senior-support-engineer-dublin-dublin-ireland/
+                - generic [ref=e3410]:
+                  - heading "Senior Support Engineer - Dublin" [level=2] [ref=e3411]
+                  - generic [ref=e3412]: User Operations
+                - generic [ref=e3413]: Dublin, Ireland
+              - link "Apply now" [ref=e3414] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/988016e1-de50-42be-925a-438b97291c5d/application
+                - img [ref=e3415]
+                - text: Apply now
+            - generic [ref=e3418]:
+              - link "Senior Support Engineer - Singapore User Operations Singapore" [ref=e3419] [cursor=pointer]:
+                - /url: /careers/senior-support-engineer-singapore-singapore/
+                - generic [ref=e3420]:
+                  - heading "Senior Support Engineer - Singapore" [level=2] [ref=e3421]
+                  - generic [ref=e3422]: User Operations
+                - generic [ref=e3423]: Singapore
+              - link "Apply now" [ref=e3424] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/b3e5fcf7-50ad-4765-ac03-ac71e8b20cb8/application
+                - img [ref=e3425]
+                - text: Apply now
+            - generic [ref=e3428]:
+              - link "Senior Support Engineer - Tokyo User Operations Tokyo, Japan" [ref=e3429] [cursor=pointer]:
+                - /url: /careers/senior-support-engineer-tokyo-tokyo-japan/
+                - generic [ref=e3430]:
+                  - heading "Senior Support Engineer - Tokyo" [level=2] [ref=e3431]
+                  - generic [ref=e3432]: User Operations
+                - generic [ref=e3433]: Tokyo, Japan
+              - link "Apply now" [ref=e3434] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/b2fd550d-3e04-434e-bb91-c5b7bc8ac8b7/application
+                - img [ref=e3435]
+                - text: Apply now
+            - generic [ref=e3438]:
+              - link "Senior Technical Sourcer, Scaling Recruiting 2 locations" [ref=e3439] [cursor=pointer]:
+                - /url: /careers/senior-technical-sourcer-scaling-san-francisco/
+                - generic [ref=e3440]:
+                  - heading "Senior Technical Sourcer, Scaling" [level=2] [ref=e3441]
+                  - generic [ref=e3442]: Recruiting
+                - generic [ref=e3443]: 2 locations
+              - link "Apply now" [ref=e3444] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/736100a6-e4c2-4522-a562-bcc56494b9a2/application
+                - img [ref=e3445]
+                - text: Apply now
+            - generic [ref=e3448]:
+              - link "Signal Integrity Engineer Hardware San Francisco" [ref=e3449] [cursor=pointer]:
+                - /url: /careers/signal-integrity-engineer-san-francisco/
+                - generic [ref=e3450]:
+                  - heading "Signal Integrity Engineer" [level=2] [ref=e3451]
+                  - generic [ref=e3452]: Hardware
+                - generic [ref=e3453]: San Francisco
+              - link "Apply now" [ref=e3454] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/97507b0b-1d56-4801-ab20-4f22fe221593/application
+                - img [ref=e3455]
+                - text: Apply now
+            - generic [ref=e3458]:
+              - link "Simulation Environments Engineer Robotics San Francisco" [ref=e3459] [cursor=pointer]:
+                - /url: /careers/simulation-environments-engineer-san-francisco/
+                - generic [ref=e3460]:
+                  - heading "Simulation Environments Engineer" [level=2] [ref=e3461]
+                  - generic [ref=e3462]: Robotics
+                - generic [ref=e3463]: San Francisco
+              - link "Apply now" [ref=e3464] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/39cd0dd8-520d-4932-80bf-7495a1d1d11b/application
+                - img [ref=e3465]
+                - text: Apply now
+            - generic [ref=e3468]:
+              - link "Simulation Realism Engineer Robotics San Francisco" [ref=e3469] [cursor=pointer]:
+                - /url: /careers/simulation-realism-engineer-san-francisco/
+                - generic [ref=e3470]:
+                  - heading "Simulation Realism Engineer" [level=2] [ref=e3471]
+                  - generic [ref=e3472]: Robotics
+                - generic [ref=e3473]: San Francisco
+              - link "Apply now" [ref=e3474] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/e2e59dcf-1017-45c5-8e6e-509a5812959b/application
+                - img [ref=e3475]
+                - text: Apply now
+            - generic [ref=e3478]:
+              - link "Site Reliability Engineer, Frontier Systems Infrastructure Supercomputing San Francisco" [ref=e3479] [cursor=pointer]:
+                - /url: /careers/site-reliability-engineer-frontier-systems-infrastructure-san-francisco/
+                - generic [ref=e3480]:
+                  - heading "Site Reliability Engineer, Frontier Systems Infrastructure" [level=2] [ref=e3481]
+                  - generic [ref=e3482]: Supercomputing
+                - generic [ref=e3483]: San Francisco
+              - link "Apply now" [ref=e3484] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/ad2cf782-15a4-48c7-9133-1788e3f33bbb/application
+                - img [ref=e3485]
+                - text: Apply now
+            - generic [ref=e3488]:
+              - link "SMS Prototype Handling Specialist Security San Francisco" [ref=e3489] [cursor=pointer]:
+                - /url: /careers/sms-prototype-handling-specialist-san-francisco/
+                - generic [ref=e3490]:
+                  - heading "SMS Prototype Handling Specialist" [level=2] [ref=e3491]
+                  - generic [ref=e3492]: Security
+                - generic [ref=e3493]: San Francisco
+              - link "Apply now" [ref=e3494] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/eda8b702-16b1-4fec-8444-76969695ac5d/application
+                - img [ref=e3495]
+                - text: Apply now
+            - generic [ref=e3498]:
+              - link "Software Engineer Consumer Products San Francisco" [ref=e3499] [cursor=pointer]:
+                - /url: /careers/software-engineer-san-francisco/
+                - generic [ref=e3500]:
+                  - heading "Software Engineer" [level=2] [ref=e3501]
+                  - generic [ref=e3502]: Consumer Products
+                - generic [ref=e3503]: San Francisco
+              - link "Apply now" [ref=e3504] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/f7bc4727-dfbe-4967-8677-7968b471e309/application
+                - img [ref=e3505]
+                - text: Apply now
+            - generic [ref=e3508]:
+              - link "Software Engineer, Accelerators Kernels San Francisco" [ref=e3509] [cursor=pointer]:
+                - /url: /careers/software-engineer-accelerators-san-francisco/
+                - generic [ref=e3510]:
+                  - heading "Software Engineer, Accelerators" [level=2] [ref=e3511]
+                  - generic [ref=e3512]: Kernels
+                - generic [ref=e3513]: San Francisco
+              - link "Apply now" [ref=e3514] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/f386b209-1259-4b79-bf5a-aa97fc7ce77b/application
+                - img [ref=e3515]
+                - text: Apply now
+            - generic [ref=e3518]:
+              - link "Software Engineer, Ads Integrity Applied AI Engineering San Francisco" [ref=e3519] [cursor=pointer]:
+                - /url: /careers/software-engineer-ads-integrity-san-francisco/
+                - generic [ref=e3520]:
+                  - heading "Software Engineer, Ads Integrity" [level=2] [ref=e3521]
+                  - generic [ref=e3522]: Applied AI Engineering
+                - generic [ref=e3523]: San Francisco
+              - link "Apply now" [ref=e3524] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/475c2d10-ac6a-4a1b-a851-f0451e7c2b93/application
+                - img [ref=e3525]
+                - text: Apply now
+            - generic [ref=e3528]:
+              - link "Software Engineer, Agent Infrastructure Scaling 2 locations" [ref=e3529] [cursor=pointer]:
+                - /url: /careers/software-engineer-agent-infrastructure-san-francisco/
+                - generic [ref=e3530]:
+                  - heading "Software Engineer, Agent Infrastructure" [level=2] [ref=e3531]
+                  - generic [ref=e3532]: Scaling
+                - generic [ref=e3533]: 2 locations
+              - link "Apply now" [ref=e3534] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/c1316397-25bb-4add-9e9d-0e3ea8ba929a/application
+                - img [ref=e3535]
+                - text: Apply now
+            - generic [ref=e3538]:
+              - link "Software Engineer, AI Safety Safety Systems San Francisco" [ref=e3539] [cursor=pointer]:
+                - /url: /careers/software-engineer-ai-safety-san-francisco/
+                - generic [ref=e3540]:
+                  - heading "Software Engineer, AI Safety" [level=2] [ref=e3541]
+                  - generic [ref=e3542]: Safety Systems
+                - generic [ref=e3543]: San Francisco
+              - link "Apply now" [ref=e3544] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/b9dee2a0-9bb3-447e-9bce-2b1bed784e5b/application
+                - img [ref=e3545]
+                - text: Apply now
+            - generic [ref=e3548]:
+              - link "Software Engineer, API Engineer B2B Applications San Francisco" [ref=e3549] [cursor=pointer]:
+                - /url: /careers/software-engineer-api-engineer-san-francisco/
+                - generic [ref=e3550]:
+                  - heading "Software Engineer, API Engineer" [level=2] [ref=e3551]
+                  - generic [ref=e3552]: B2B Applications
+                - generic [ref=e3553]: San Francisco
+              - link "Apply now" [ref=e3554] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/22781653-051b-4c75-8725-b80233c67b1e/application
+                - img [ref=e3555]
+                - text: Apply now
+            - generic [ref=e3558]:
+              - link "Software Engineer, Applied Evals B2B Applications San Francisco" [ref=e3559] [cursor=pointer]:
+                - /url: /careers/software-engineer-applied-evals-san-francisco/
+                - generic [ref=e3560]:
+                  - heading "Software Engineer, Applied Evals" [level=2] [ref=e3561]
+                  - generic [ref=e3562]: B2B Applications
+                - generic [ref=e3563]: San Francisco
+              - link "Apply now" [ref=e3564] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/99121e6d-a542-4881-968f-4cd89d9f583c/application
+                - img [ref=e3565]
+                - text: Apply now
+            - generic [ref=e3568]:
+              - link "Software Engineer, Applied Foundations - London Applied AI Engineering London, UK" [ref=e3569] [cursor=pointer]:
+                - /url: /careers/software-engineer-applied-foundations-london-london-uk/
+                - generic [ref=e3570]:
+                  - heading "Software Engineer, Applied Foundations - London" [level=2] [ref=e3571]
+                  - generic [ref=e3572]: Applied AI Engineering
+                - generic [ref=e3573]: London, UK
+              - link "Apply now" [ref=e3574] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/46703db4-6023-4ac6-93a8-22dc95009945/application
+                - img [ref=e3575]
+                - text: Apply now
+            - generic [ref=e3578]:
+              - link "Software Engineer, Backend Applied AI Engineering San Francisco" [ref=e3579] [cursor=pointer]:
+                - /url: /careers/software-engineer-backend-san-francisco/
+                - generic [ref=e3580]:
+                  - heading "Software Engineer, Backend" [level=2] [ref=e3581]
+                  - generic [ref=e3582]: Applied AI Engineering
+                - generic [ref=e3583]: San Francisco
+              - link "Apply now" [ref=e3584] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/d0e21c22-c089-44f7-9acb-1e67c8925635/application
+                - img [ref=e3585]
+                - text: Apply now
+            - generic [ref=e3588]:
+              - link "Software Engineer, Backend (Knowledge Innovation) Applied AI 2 locations" [ref=e3589] [cursor=pointer]:
+                - /url: /careers/software-engineer-backend-(knowledge-innovation)-san-francisco/
+                - generic [ref=e3590]:
+                  - heading "Software Engineer, Backend (Knowledge Innovation)" [level=2] [ref=e3591]
+                  - generic [ref=e3592]: Applied AI
+                - generic [ref=e3593]: 2 locations
+              - link "Apply now" [ref=e3594] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/bd190cad-99ec-4fe7-8f8f-de96b5aa5969/application
+                - img [ref=e3595]
+                - text: Apply now
+            - generic [ref=e3598]:
+              - link "Software Engineer, Backend - Sora Sora 2 locations" [ref=e3599] [cursor=pointer]:
+                - /url: /careers/software-engineer-backend-sora-san-francisco/
+                - generic [ref=e3600]:
+                  - heading "Software Engineer, Backend - Sora" [level=2] [ref=e3601]
+                  - generic [ref=e3602]: Sora
+                - generic [ref=e3603]: 2 locations
+              - link "Apply now" [ref=e3604] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/9e3b5fda-e2c0-4da5-b0ef-b356a75f2d3c/application
+                - img [ref=e3605]
+                - text: Apply now
+            - generic [ref=e3608]:
+              - link "Software Engineer, Caching Infrastructure Applied AI Infrastructure San Francisco" [ref=e3609] [cursor=pointer]:
+                - /url: /careers/software-engineer-caching-infrastructure-san-francisco/
+                - generic [ref=e3610]:
+                  - heading "Software Engineer, Caching Infrastructure" [level=2] [ref=e3611]
+                  - generic [ref=e3612]: Applied AI Infrastructure
+                - generic [ref=e3613]: San Francisco
+              - link "Apply now" [ref=e3614] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/a20b7fc6-6f01-4618-ba35-37b40083f93e/application
+                - img [ref=e3615]
+                - text: Apply now
+            - generic [ref=e3618]:
+              - link "Software Engineer, ChatGPT for Work Applied AI Engineering 2 locations" [ref=e3619] [cursor=pointer]:
+                - /url: /careers/software-engineer-chatgpt-for-work-seattle/
+                - generic [ref=e3620]:
+                  - heading "Software Engineer, ChatGPT for Work" [level=2] [ref=e3621]
+                  - generic [ref=e3622]: Applied AI Engineering
+                - generic [ref=e3623]: 2 locations
+              - link "Apply now" [ref=e3624] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/d8cbc2b8-9530-433b-ba18-6622bb79990e/application
+                - img [ref=e3625]
+                - text: Apply now
+            - generic [ref=e3628]:
+              - link "Software Engineer, Cloud Infrastructure Applied AI Infrastructure London, UK" [ref=e3629] [cursor=pointer]:
+                - /url: /careers/software-engineer-cloud-infrastructure-london-uk/
+                - generic [ref=e3630]:
+                  - heading "Software Engineer, Cloud Infrastructure" [level=2] [ref=e3631]
+                  - generic [ref=e3632]: Applied AI Infrastructure
+                - generic [ref=e3633]: London, UK
+              - link "Apply now" [ref=e3634] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/29c2c171-fb63-4985-9ac5-229b2ff5ced6/application
+                - img [ref=e3635]
+                - text: Apply now
+            - generic [ref=e3638]:
+              - link "Software Engineer, Cloud Infrastructure Applied AI Infrastructure San Francisco" [ref=e3639] [cursor=pointer]:
+                - /url: /careers/software-engineer-cloud-infrastructure-san-francisco/
+                - generic [ref=e3640]:
+                  - heading "Software Engineer, Cloud Infrastructure" [level=2] [ref=e3641]
+                  - generic [ref=e3642]: Applied AI Infrastructure
+                - generic [ref=e3643]: San Francisco
+              - link "Apply now" [ref=e3644] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/12342ebb-dcd4-45e2-b875-fc5447fdb7d8/application
+                - img [ref=e3645]
+                - text: Apply now
+            - generic [ref=e3648]:
+              - link "Software Engineer, Codex Cloud Applied AI Engineering 2 locations" [ref=e3649] [cursor=pointer]:
+                - /url: /careers/software-engineer-codex-cloud-san-francisco/
+                - generic [ref=e3650]:
+                  - heading "Software Engineer, Codex Cloud" [level=2] [ref=e3651]
+                  - generic [ref=e3652]: Applied AI Engineering
+                - generic [ref=e3653]: 2 locations
+              - link "Apply now" [ref=e3654] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/130a5389-83e1-493f-9205-542d3ff53afb/application
+                - img [ref=e3655]
+                - text: Apply now
+            - generic [ref=e3658]:
+              - link "Software Engineer, Codex for Teams Applied AI Engineering San Francisco" [ref=e3659] [cursor=pointer]:
+                - /url: /careers/software-engineer-codex-for-teams-san-francisco/
+                - generic [ref=e3660]:
+                  - heading "Software Engineer, Codex for Teams" [level=2] [ref=e3661]
+                  - generic [ref=e3662]: Applied AI Engineering
+                - generic [ref=e3663]: San Francisco
+              - link "Apply now" [ref=e3664] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/89f58eb2-519f-4a36-8be0-2e594724e1bc/application
+                - img [ref=e3665]
+                - text: Apply now
+            - generic [ref=e3668]:
+              - link "Software Engineer, Codex for Teams Applied AI Engineering London, UK" [ref=e3669] [cursor=pointer]:
+                - /url: /careers/software-engineer-codex-for-teams-london-uk/
+                - generic [ref=e3670]:
+                  - heading "Software Engineer, Codex for Teams" [level=2] [ref=e3671]
+                  - generic [ref=e3672]: Applied AI Engineering
+                - generic [ref=e3673]: London, UK
+              - link "Apply now" [ref=e3674] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/c1c8b058-2f0d-4192-8a9e-c21d0f24952c/application
+                - img [ref=e3675]
+                - text: Apply now
+            - generic [ref=e3678]:
+              - link "Software Engineer, Collective Communication Scaling San Francisco" [ref=e3679] [cursor=pointer]:
+                - /url: /careers/software-engineer-collective-communication-san-francisco/
+                - generic [ref=e3680]:
+                  - heading "Software Engineer, Collective Communication" [level=2] [ref=e3681]
+                  - generic [ref=e3682]: Scaling
+                - generic [ref=e3683]: San Francisco
+              - link "Apply now" [ref=e3684] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/340c0c22-8d8f-4232-b17e-f642b64c25c3/application
+                - img [ref=e3685]
+                - text: Apply now
+            - generic [ref=e3688]:
+              - link "Software Engineer, Compute - Storage Runtime 2 locations" [ref=e3689] [cursor=pointer]:
+                - /url: /careers/software-engineer-compute-storage-san-francisco/
+                - generic [ref=e3690]:
+                  - heading "Software Engineer, Compute - Storage" [level=2] [ref=e3691]
+                  - generic [ref=e3692]: Runtime
+                - generic [ref=e3693]: 2 locations
+              - link "Apply now" [ref=e3694] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/7649205e-20dc-4bb4-9358-69474a851132/application
+                - img [ref=e3695]
+                - text: Apply now
+            - generic [ref=e3698]:
+              - link "Software Engineer, Core Services Applied AI Infrastructure San Francisco" [ref=e3699] [cursor=pointer]:
+                - /url: /careers/software-engineer-core-services-san-francisco/
+                - generic [ref=e3700]:
+                  - heading "Software Engineer, Core Services" [level=2] [ref=e3701]
+                  - generic [ref=e3702]: Applied AI Infrastructure
+                - generic [ref=e3703]: San Francisco
+              - link "Apply now" [ref=e3704] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/21bfde35-ffec-42d2-a2c6-8a03dad789d5/application
+                - img [ref=e3705]
+                - text: Apply now
+            - generic [ref=e3708]:
+              - link "Software Engineer, Data Acquisition Foundations San Francisco" [ref=e3709] [cursor=pointer]:
+                - /url: /careers/software-engineer-data-acquisition-san-francisco/
+                - generic [ref=e3710]:
+                  - heading "Software Engineer, Data Acquisition" [level=2] [ref=e3711]
+                  - generic [ref=e3712]: Foundations
+                - generic [ref=e3713]: San Francisco
+              - link "Apply now" [ref=e3714] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/41d9d129-2e58-4ad3-be81-2e5096f4da4d/application
+                - img [ref=e3715]
+                - text: Apply now
+            - generic [ref=e3718]:
+              - link "Software Engineer, Database Systems Applied AI Infrastructure San Francisco" [ref=e3719] [cursor=pointer]:
+                - /url: /careers/software-engineer-database-systems-san-francisco/
+                - generic [ref=e3720]:
+                  - heading "Software Engineer, Database Systems" [level=2] [ref=e3721]
+                  - generic [ref=e3722]: Applied AI Infrastructure
+                - generic [ref=e3723]: San Francisco
+              - link "Apply now" [ref=e3724] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/2b5e8e15-7952-4170-a927-2ad68e318ed6/application
+                - img [ref=e3725]
+                - text: Apply now
+            - generic [ref=e3728]:
+              - link "Software Engineer, Data Infrastructure Applied AI Infrastructure San Francisco" [ref=e3729] [cursor=pointer]:
+                - /url: /careers/software-engineer-data-infrastructure-san-francisco/
+                - generic [ref=e3730]:
+                  - heading "Software Engineer, Data Infrastructure" [level=2] [ref=e3731]
+                  - generic [ref=e3732]: Applied AI Infrastructure
+                - generic [ref=e3733]: San Francisco
+              - link "Apply now" [ref=e3734] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/f763c6b3-5167-4a67-b691-4c3fa2c44156/application
+                - img [ref=e3735]
+                - text: Apply now
+            - generic [ref=e3738]:
+              - link "Software Engineer, Data Infrastructure - Research Scaling San Francisco" [ref=e3739] [cursor=pointer]:
+                - /url: /careers/software-engineer-data-infrastructure-research-san-francisco/
+                - generic [ref=e3740]:
+                  - heading "Software Engineer, Data Infrastructure - Research" [level=2] [ref=e3741]
+                  - generic [ref=e3742]: Scaling
+                - generic [ref=e3743]: San Francisco
+              - link "Apply now" [ref=e3744] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/b7a2e30f-c5f6-4710-b53e-64d64bcce189/application
+                - img [ref=e3745]
+                - text: Apply now
+            - generic [ref=e3748]:
+              - link "Software Engineer, Data Visualization Scaling San Francisco" [ref=e3749] [cursor=pointer]:
+                - /url: /careers/software-engineer-data-visualization-san-francisco/
+                - generic [ref=e3750]:
+                  - heading "Software Engineer, Data Visualization" [level=2] [ref=e3751]
+                  - generic [ref=e3752]: Scaling
+                - generic [ref=e3753]: San Francisco
+              - link "Apply now" [ref=e3754] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/282d6a81-412a-4e3a-b588-851ff30ebb50/application
+                - img [ref=e3755]
+                - text: Apply now
+            - generic [ref=e3758]:
+              - link "Software Engineer, Developer Productivity Applied AI Infrastructure 2 locations" [ref=e3759] [cursor=pointer]:
+                - /url: /careers/software-engineer-developer-productivity-san-francisco/
+                - generic [ref=e3760]:
+                  - heading "Software Engineer, Developer Productivity" [level=2] [ref=e3761]
+                  - generic [ref=e3762]: Applied AI Infrastructure
+                - generic [ref=e3763]: 2 locations
+              - link "Apply now" [ref=e3764] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/2cba0d45-7a4f-4f38-ac73-3f8633bf0349/application
+                - img [ref=e3765]
+                - text: Apply now
+            - generic [ref=e3768]:
+              - link "Software Engineer, Distributed Data Systems (Sora) Sora San Francisco" [ref=e3769] [cursor=pointer]:
+                - /url: /careers/software-engineer-distributed-data-systems-(sora)-san-francisco/
+                - generic [ref=e3770]:
+                  - heading "Software Engineer, Distributed Data Systems (Sora)" [level=2] [ref=e3771]
+                  - generic [ref=e3772]: Sora
+                - generic [ref=e3773]: San Francisco
+              - link "Apply now" [ref=e3774] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/da07ba71-81fd-47c7-adb1-2b2d1eaed325/application
+                - img [ref=e3775]
+                - text: Apply now
+            - generic [ref=e3778]:
+              - link "Software Engineer, Distributed Systems Scaling San Francisco" [ref=e3779] [cursor=pointer]:
+                - /url: /careers/software-engineer-distributed-systems-san-francisco/
+                - generic [ref=e3780]:
+                  - heading "Software Engineer, Distributed Systems" [level=2] [ref=e3781]
+                  - generic [ref=e3782]: Scaling
+                - generic [ref=e3783]: San Francisco
+              - link "Apply now" [ref=e3784] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/bea9f284-8b4d-45c8-aec0-57c47c07ed5f/application
+                - img [ref=e3785]
+                - text: Apply now
+            - generic [ref=e3788]:
+              - link "Software Engineer, Encryption Software 6 locations" [ref=e3789] [cursor=pointer]:
+                - /url: /careers/software-engineer-encryption-london-uk/
+                - generic [ref=e3790]:
+                  - heading "Software Engineer, Encryption" [level=2] [ref=e3791]
+                  - generic [ref=e3792]: Software
+                - generic [ref=e3793]: 6 locations
+              - link "Apply now" [ref=e3794] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/988bf175-3219-4e75-baa6-52ecd147ea0f/application
+                - img [ref=e3795]
+                - text: Apply now
+            - generic [ref=e3798]:
+              - link "Software Engineer, Encryption Software 2 locations" [ref=e3799] [cursor=pointer]:
+                - /url: /careers/software-engineer-encryption-san-francisco/
+                - generic [ref=e3800]:
+                  - heading "Software Engineer, Encryption" [level=2] [ref=e3801]
+                  - generic [ref=e3802]: Software
+                - generic [ref=e3803]: 2 locations
+              - link "Apply now" [ref=e3804] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/a71c177c-d75e-4b2b-b9c0-1b37bfcd9618/application
+                - img [ref=e3805]
+                - text: Apply now
+            - generic [ref=e3808]:
+              - link "Software Engineer, Enterprise AI Platform B2B Applications San Francisco" [ref=e3809] [cursor=pointer]:
+                - /url: /careers/software-engineer-enterprise-ai-platform-san-francisco/
+                - generic [ref=e3810]:
+                  - heading "Software Engineer, Enterprise AI Platform" [level=2] [ref=e3811]
+                  - generic [ref=e3812]: B2B Applications
+                - generic [ref=e3813]: San Francisco
+              - link "Apply now" [ref=e3814] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/2f4ded22-dcc4-4e2c-94be-ca824071a7b7/application
+                - img [ref=e3815]
+                - text: Apply now
+            - generic [ref=e3818]:
+              - link "Software Engineer, Enterprise Identity Applied AI Engineering San Francisco" [ref=e3819] [cursor=pointer]:
+                - /url: /careers/software-engineer-enterprise-identity-san-francisco/
+                - generic [ref=e3820]:
+                  - heading "Software Engineer, Enterprise Identity" [level=2] [ref=e3821]
+                  - generic [ref=e3822]: Applied AI Engineering
+                - generic [ref=e3823]: San Francisco
+              - link "Apply now" [ref=e3824] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/51d782f6-dd73-429b-9b09-c96b499645e0/application
+                - img [ref=e3825]
+                - text: Apply now
+            - generic [ref=e3828]:
+              - link "Software Engineer, Financial Engineering Applied AI Engineering San Francisco" [ref=e3829] [cursor=pointer]:
+                - /url: /careers/software-engineer-financial-engineering-san-francisco/
+                - generic [ref=e3830]:
+                  - heading "Software Engineer, Financial Engineering" [level=2] [ref=e3831]
+                  - generic [ref=e3832]: Applied AI Engineering
+                - generic [ref=e3833]: San Francisco
+              - link "Apply now" [ref=e3834] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/4ef5bf23-cf0e-4b97-a639-11f963c99b88/application
+                - img [ref=e3835]
+                - text: Apply now
+            - generic [ref=e3838]:
+              - link "Software Engineer, Fleet Hardware Health Scaling San Francisco" [ref=e3839] [cursor=pointer]:
+                - /url: /careers/software-engineer-fleet-hardware-health-san-francisco/
+                - generic [ref=e3840]:
+                  - heading "Software Engineer, Fleet Hardware Health" [level=2] [ref=e3841]
+                  - generic [ref=e3842]: Scaling
+                - generic [ref=e3843]: San Francisco
+              - link "Apply now" [ref=e3844] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/57551641-208c-48d9-bfb8-9a298d7e7510/application
+                - img [ref=e3845]
+                - text: Apply now
+            - generic [ref=e3848]:
+              - link "Software Engineer, Fleet Management Scaling San Francisco" [ref=e3849] [cursor=pointer]:
+                - /url: /careers/software-engineer-fleet-management-san-francisco/
+                - generic [ref=e3850]:
+                  - heading "Software Engineer, Fleet Management" [level=2] [ref=e3851]
+                  - generic [ref=e3852]: Scaling
+                - generic [ref=e3853]: San Francisco
+              - link "Apply now" [ref=e3854] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/7809102e-e82a-4678-bf7c-221de8acc0d6/application
+                - img [ref=e3855]
+                - text: Apply now
+            - generic [ref=e3858]:
+              - link "Software Engineer, Frontier Clusters Infrastructure Supercomputing San Francisco" [ref=e3859] [cursor=pointer]:
+                - /url: /careers/software-engineer-frontier-clusters-infrastructure-san-francisco/
+                - generic [ref=e3860]:
+                  - heading "Software Engineer, Frontier Clusters Infrastructure" [level=2] [ref=e3861]
+                  - generic [ref=e3862]: Supercomputing
+                - generic [ref=e3863]: San Francisco
+              - link "Apply now" [ref=e3864] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/770d5c3f-4e72-4b49-aec4-d444e8ad7a64/application
+                - img [ref=e3865]
+                - text: Apply now
+            - generic [ref=e3868]:
+              - link "Software Engineer, Frontier Systems Frontiers Clusters San Francisco" [ref=e3869] [cursor=pointer]:
+                - /url: /careers/software-engineer-frontier-systems-san-francisco/
+                - generic [ref=e3870]:
+                  - heading "Software Engineer, Frontier Systems" [level=2] [ref=e3871]
+                  - generic [ref=e3872]: Frontiers Clusters
+                - generic [ref=e3873]: San Francisco
+              - link "Apply now" [ref=e3874] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/d7efc55b-2fde-4d3f-ae34-2e467f02a57c/application
+                - img [ref=e3875]
+                - text: Apply now
+            - generic [ref=e3878]:
+              - link "Software Engineer, Frontier Systems - Power Management Frontiers Clusters San Francisco" [ref=e3879] [cursor=pointer]:
+                - /url: /careers/software-engineer-frontier-systems-power-management-san-francisco/
+                - generic [ref=e3880]:
+                  - heading "Software Engineer, Frontier Systems - Power Management" [level=2] [ref=e3881]
+                  - generic [ref=e3882]: Frontiers Clusters
+                - generic [ref=e3883]: San Francisco
+              - link "Apply now" [ref=e3884] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/633d5574-92e4-4327-9783-7ea831223dea/application
+                - img [ref=e3885]
+                - text: Apply now
+            - generic [ref=e3888]:
+              - link "Software Engineer, Full-Stack — Developer Experience Applied AI Infrastructure 2 locations" [ref=e3889] [cursor=pointer]:
+                - /url: /careers/software-engineer-full-stack-developer-experience-san-francisco/
+                - generic [ref=e3890]:
+                  - heading "Software Engineer, Full-Stack — Developer Experience" [level=2] [ref=e3891]
+                  - generic [ref=e3892]: Applied AI Infrastructure
+                - generic [ref=e3893]: 2 locations
+              - link "Apply now" [ref=e3894] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/202eb061-23d7-4a58-80c8-bc3b41e56d39/application
+                - img [ref=e3895]
+                - text: Apply now
+            - generic [ref=e3898]:
+              - link "Software Engineer, Full Stack (Knowledge Innovation) Applied AI 2 locations" [ref=e3899] [cursor=pointer]:
+                - /url: /careers/software-engineer-full-stack-(knowledge-innovation)-san-francisco/
+                - generic [ref=e3900]:
+                  - heading "Software Engineer, Full Stack (Knowledge Innovation)" [level=2] [ref=e3901]
+                  - generic [ref=e3902]: Applied AI
+                - generic [ref=e3903]: 2 locations
+              - link "Apply now" [ref=e3904] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/7613aca3-9dd8-41cd-b114-06ef4de967a9/application
+                - img [ref=e3905]
+                - text: Apply now
+            - generic [ref=e3908]:
+              - link "Software Engineer, Full Stack (People Innovation) Applied AI 2 locations" [ref=e3909] [cursor=pointer]:
+                - /url: /careers/software-engineer-full-stack-(people-innovation)-remote-us/
+                - generic [ref=e3910]:
+                  - heading "Software Engineer, Full Stack (People Innovation)" [level=2] [ref=e3911]
+                  - generic [ref=e3912]: Applied AI
+                - generic [ref=e3913]: 2 locations
+              - link "Apply now" [ref=e3914] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/d4780eac-03ad-4dae-861f-99af22b4287e/application
+                - img [ref=e3915]
+                - text: Apply now
+            - generic [ref=e3918]:
+              - link "Software Engineer, Full Stack, Revenue Platform Applied AI Engineering San Francisco" [ref=e3919] [cursor=pointer]:
+                - /url: /careers/software-engineer-full-stack-revenue-platform-san-francisco/
+                - generic [ref=e3920]:
+                  - heading "Software Engineer, Full Stack, Revenue Platform" [level=2] [ref=e3921]
+                  - generic [ref=e3922]: Applied AI Engineering
+                - generic [ref=e3923]: San Francisco
+              - link "Apply now" [ref=e3924] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/8427b270-8440-400c-bc18-ff24c4f0f987/application
+                - img [ref=e3925]
+                - text: Apply now
+            - generic [ref=e3928]:
+              - link "Software Engineer, Gov B2B Applications 3 locations" [ref=e3929] [cursor=pointer]:
+                - /url: /careers/software-engineer-gov-washington-dc/
+                - generic [ref=e3930]:
+                  - heading "Software Engineer, Gov" [level=2] [ref=e3931]
+                  - generic [ref=e3932]: B2B Applications
+                - generic [ref=e3933]: 3 locations
+              - link "Apply now" [ref=e3934] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/a90cdb7c-1c33-4fca-9a96-26c236006f14/application
+                - img [ref=e3935]
+                - text: Apply now
+            - generic [ref=e3938]:
+              - link "Software Engineer, GPU Infrastructure Scaling San Francisco" [ref=e3939] [cursor=pointer]:
+                - /url: /careers/software-engineer-gpu-infrastructure-san-francisco/
+                - generic [ref=e3940]:
+                  - heading "Software Engineer, GPU Infrastructure" [level=2] [ref=e3941]
+                  - generic [ref=e3942]: Scaling
+                - generic [ref=e3943]: San Francisco
+              - link "Apply now" [ref=e3944] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/3beb61ab-5d94-47f8-8c7d-fff796708e11/application
+                - img [ref=e3945]
+                - text: Apply now
+            - generic [ref=e3948]:
+              - link "Software Engineer, GPU Infrastructure - HPC Scaling San Francisco" [ref=e3949] [cursor=pointer]:
+                - /url: /careers/software-engineer-gpu-infrastructure-hpc-san-francisco/
+                - generic [ref=e3950]:
+                  - heading "Software Engineer, GPU Infrastructure - HPC" [level=2] [ref=e3951]
+                  - generic [ref=e3952]: Scaling
+                - generic [ref=e3953]: San Francisco
+              - link "Apply now" [ref=e3954] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/f58cb1eb-9642-4a4d-a14d-d7a57d583a11/application
+                - img [ref=e3955]
+                - text: Apply now
+            - generic [ref=e3958]:
+              - link "Software Engineer, Hardware Hardware San Francisco" [ref=e3959] [cursor=pointer]:
+                - /url: /careers/software-engineer-hardware-san-francisco/
+                - generic [ref=e3960]:
+                  - heading "Software Engineer, Hardware" [level=2] [ref=e3961]
+                  - generic [ref=e3962]: Hardware
+                - generic [ref=e3963]: San Francisco
+              - link "Apply now" [ref=e3964] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/778e3a4f-c318-4a79-a745-00e722e5ee47/application
+                - img [ref=e3965]
+                - text: Apply now
+            - generic [ref=e3968]:
+              - link "Software Engineer, Inference – AMD GPU Enablement Inference San Francisco" [ref=e3969] [cursor=pointer]:
+                - /url: /careers/software-engineer-inference-amd-gpu-enablement-san-francisco/
+                - generic [ref=e3970]:
+                  - heading "Software Engineer, Inference – AMD GPU Enablement" [level=2] [ref=e3971]
+                  - generic [ref=e3972]: Inference
+                - generic [ref=e3973]: San Francisco
+              - link "Apply now" [ref=e3974] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/9b79406c-89a8-49bd-8a38-e72db80996e9/application
+                - img [ref=e3975]
+                - text: Apply now
+            - generic [ref=e3978]:
+              - link "Software Engineer, Inference - Multi Modal Inference San Francisco" [ref=e3979] [cursor=pointer]:
+                - /url: /careers/software-engineer-inference-multi-modal-san-francisco/
+                - generic [ref=e3980]:
+                  - heading "Software Engineer, Inference - Multi Modal" [level=2] [ref=e3981]
+                  - generic [ref=e3982]: Inference
+                - generic [ref=e3983]: San Francisco
+              - link "Apply now" [ref=e3984] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/4d14449e-5e7f-45d4-b103-8776a6c87086/application
+                - img [ref=e3985]
+                - text: Apply now
+            - generic [ref=e3988]:
+              - link "Software Engineer, Infrastructure - Analytics Analytics San Francisco" [ref=e3989] [cursor=pointer]:
+                - /url: /careers/software-engineer-infrastructure-analytics-san-francisco/
+                - generic [ref=e3990]:
+                  - heading "Software Engineer, Infrastructure - Analytics" [level=2] [ref=e3991]
+                  - generic [ref=e3992]: Analytics
+                - generic [ref=e3993]: San Francisco
+              - link "Apply now" [ref=e3994] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/d169ecba-8366-485b-bc53-11a01d408b2d/application
+                - img [ref=e3995]
+                - text: Apply now
+            - generic [ref=e3998]:
+              - link "Software Engineer, Infrastructure Reliability Applied AI Infrastructure San Francisco" [ref=e3999] [cursor=pointer]:
+                - /url: /careers/software-engineer-infrastructure-reliability-san-francisco/
+                - generic [ref=e4000]:
+                  - heading "Software Engineer, Infrastructure Reliability" [level=2] [ref=e4001]
+                  - generic [ref=e4002]: Applied AI Infrastructure
+                - generic [ref=e4003]: San Francisco
+              - link "Apply now" [ref=e4004] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/621bb104-9daa-4c9e-949a-03d5730334e8/application
+                - img [ref=e4005]
+                - text: Apply now
+            - generic [ref=e4008]:
+              - link "Software Engineer, Infrastructure Security Security 4 locations" [ref=e4009] [cursor=pointer]:
+                - /url: /careers/software-engineer-infrastructure-security-remote-us/
+                - generic [ref=e4010]:
+                  - heading "Software Engineer, Infrastructure Security" [level=2] [ref=e4011]
+                  - generic [ref=e4012]: Security
+                - generic [ref=e4013]: 4 locations
+              - link "Apply now" [ref=e4014] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/98ad9beb-4f91-496c-bd16-ac0b2a8d5bb2/application
+                - img [ref=e4015]
+                - text: Apply now
+            - generic [ref=e4018]:
+              - link "Software Engineer, Integrity Foundations Applied AI Engineering San Francisco" [ref=e4019] [cursor=pointer]:
+                - /url: /careers/software-engineer-integrity-foundations-san-francisco/
+                - generic [ref=e4020]:
+                  - heading "Software Engineer, Integrity Foundations" [level=2] [ref=e4021]
+                  - generic [ref=e4022]: Applied AI Engineering
+                - generic [ref=e4023]: San Francisco
+              - link "Apply now" [ref=e4024] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/991948b7-0305-4125-bb9a-625f5bc24189/application
+                - img [ref=e4025]
+                - text: Apply now
+            - generic [ref=e4028]:
+              - link "Software Engineer, Internal Applications - Enterprise IT San Francisco" [ref=e4029] [cursor=pointer]:
+                - /url: /careers/software-engineer-internal-applications-enterprise-san-francisco/
+                - generic [ref=e4030]:
+                  - heading "Software Engineer, Internal Applications - Enterprise" [level=2] [ref=e4031]
+                  - generic [ref=e4032]: IT
+                - generic [ref=e4033]: San Francisco
+              - link "Apply now" [ref=e4034] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/0b24e041-9848-4df3-8289-90efe454d9f5/application
+                - img [ref=e4035]
+                - text: Apply now
+            - generic [ref=e4038]:
+              - link "Software Engineer Internship / Co-op, Applied Emerging Talent (Fall 2026) Emerging Talent San Francisco" [ref=e4039] [cursor=pointer]:
+                - /url: /careers/software-engineer-internship-co-op-applied-emerging-talent-(fall-2026)-san-francisco/
+                - generic [ref=e4040]:
+                  - heading "Software Engineer Internship / Co-op, Applied Emerging Talent (Fall 2026)" [level=2] [ref=e4041]
+                  - generic [ref=e4042]: Emerging Talent
+                - generic [ref=e4043]: San Francisco
+              - link "Apply now" [ref=e4044] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/1f3353ed-78eb-4a01-b783-c44b1c086711/application
+                - img [ref=e4045]
+                - text: Apply now
+            - generic [ref=e4048]:
+              - link "Software Engineer - Jobs Platform & Certifications Applied AI Engineering San Francisco" [ref=e4049] [cursor=pointer]:
+                - /url: /careers/software-engineer-jobs-platform-and-certifications-san-francisco/
+                - generic [ref=e4050]:
+                  - heading "Software Engineer - Jobs Platform & Certifications" [level=2] [ref=e4051]
+                  - generic [ref=e4052]: Applied AI Engineering
+                - generic [ref=e4053]: San Francisco
+              - link "Apply now" [ref=e4054] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/a97e89f0-67ad-41c9-a2d3-f64c4ab9a732/application
+                - img [ref=e4055]
+                - text: Apply now
+            - generic [ref=e4058]:
+              - link "Software Engineer, Load Balancing - Inference Inference San Francisco" [ref=e4059] [cursor=pointer]:
+                - /url: /careers/software-engineer-load-balancing-inference-san-francisco/
+                - generic [ref=e4060]:
+                  - heading "Software Engineer, Load Balancing - Inference" [level=2] [ref=e4061]
+                  - generic [ref=e4062]: Inference
+                - generic [ref=e4063]: San Francisco
+              - link "Apply now" [ref=e4064] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/9a3883c3-5b2d-402f-aac0-f32810032072/application
+                - img [ref=e4065]
+                - text: Apply now
+            - generic [ref=e4068]:
+              - link "Software Engineer, Model Inference Inference San Francisco" [ref=e4069] [cursor=pointer]:
+                - /url: /careers/software-engineer-model-inference-san-francisco/
+                - generic [ref=e4070]:
+                  - heading "Software Engineer, Model Inference" [level=2] [ref=e4071]
+                  - generic [ref=e4072]: Inference
+                - generic [ref=e4073]: San Francisco
+              - link "Apply now" [ref=e4074] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/83b6755d-7785-4186-9050-5ef3ad127941/application
+                - img [ref=e4075]
+                - text: Apply now
+            - generic [ref=e4078]:
+              - link "Software Engineer, Monetization AI/ML Applied AI Engineering San Francisco" [ref=e4079] [cursor=pointer]:
+                - /url: /careers/software-engineer-monetization-aiml-san-francisco/
+                - generic [ref=e4080]:
+                  - heading "Software Engineer, Monetization AI/ML" [level=2] [ref=e4081]
+                  - generic [ref=e4082]: Applied AI Engineering
+                - generic [ref=e4083]: San Francisco
+              - link "Apply now" [ref=e4084] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/a7b192bf-3d2e-4acb-9c97-fad3de0609db/application
+                - img [ref=e4085]
+                - text: Apply now
+            - generic [ref=e4088]:
+              - link "Software Engineer, Monetization Infrastructure Applied AI Engineering San Francisco" [ref=e4089] [cursor=pointer]:
+                - /url: /careers/software-engineer-monetization-infrastructure-san-francisco/
+                - generic [ref=e4090]:
+                  - heading "Software Engineer, Monetization Infrastructure" [level=2] [ref=e4091]
+                  - generic [ref=e4092]: Applied AI Engineering
+                - generic [ref=e4093]: San Francisco
+              - link "Apply now" [ref=e4094] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/a4ea79c8-e79f-4126-8c1f-032289024961/application
+                - img [ref=e4095]
+                - text: Apply now
+            - generic [ref=e4098]:
+              - link "Software Engineer, Monetization Product & Platform Applied AI Engineering San Francisco" [ref=e4099] [cursor=pointer]:
+                - /url: /careers/software-engineer-monetization-product-and-platform-san-francisco/
+                - generic [ref=e4100]:
+                  - heading "Software Engineer, Monetization Product & Platform" [level=2] [ref=e4101]
+                  - generic [ref=e4102]: Applied AI Engineering
+                - generic [ref=e4103]: San Francisco
+              - link "Apply now" [ref=e4104] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/c51e48ce-31ad-4176-a6d5-4a785b44ab73/application
+                - img [ref=e4105]
+                - text: Apply now
+            - generic [ref=e4108]:
+              - link "Software Engineer, Networking - Inference Inference San Francisco" [ref=e4109] [cursor=pointer]:
+                - /url: /careers/software-engineer-networking-inference-san-francisco/
+                - generic [ref=e4110]:
+                  - heading "Software Engineer, Networking - Inference" [level=2] [ref=e4111]
+                  - generic [ref=e4112]: Inference
+                - generic [ref=e4113]: San Francisco
+              - link "Apply now" [ref=e4114] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/87e84ba5-4864-499d-b84d-184d8cd18119/application
+                - img [ref=e4115]
+                - text: Apply now
+            - generic [ref=e4118]:
+              - link "Software Engineer, Online Storage Applied AI Engineering San Francisco" [ref=e4119] [cursor=pointer]:
+                - /url: /careers/software-engineer-online-storage-san-francisco/
+                - generic [ref=e4120]:
+                  - heading "Software Engineer, Online Storage" [level=2] [ref=e4121]
+                  - generic [ref=e4122]: Applied AI Engineering
+                - generic [ref=e4123]: San Francisco
+              - link "Apply now" [ref=e4124] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/bd1c8680-acf0-45d7-ad66-f301ea72c10c/application
+                - img [ref=e4125]
+                - text: Apply now
+            - generic [ref=e4128]:
+              - link "Software Engineer, Online Storage Applied AI Engineering Seattle" [ref=e4129] [cursor=pointer]:
+                - /url: /careers/software-engineer-online-storage-seattle/
+                - generic [ref=e4130]:
+                  - heading "Software Engineer, Online Storage" [level=2] [ref=e4131]
+                  - generic [ref=e4132]: Applied AI Engineering
+                - generic [ref=e4133]: Seattle
+              - link "Apply now" [ref=e4134] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/460b4295-3803-4dda-983d-3b0fea0b0fc4/application
+                - img [ref=e4135]
+                - text: Apply now
+            - generic [ref=e4138]:
+              - link "Software Engineer, Payments Applied AI Engineering San Francisco" [ref=e4139] [cursor=pointer]:
+                - /url: /careers/software-engineer-payments-san-francisco/
+                - generic [ref=e4140]:
+                  - heading "Software Engineer, Payments" [level=2] [ref=e4141]
+                  - generic [ref=e4142]: Applied AI Engineering
+                - generic [ref=e4143]: San Francisco
+              - link "Apply now" [ref=e4144] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/0da75470-7e1e-44c3-90df-6f93cf90b968/application
+                - img [ref=e4145]
+                - text: Apply now
+            - generic [ref=e4148]:
+              - link "Software Engineer, Platform Systems Scaling San Francisco" [ref=e4149] [cursor=pointer]:
+                - /url: /careers/software-engineer-platform-systems-san-francisco/
+                - generic [ref=e4150]:
+                  - heading "Software Engineer, Platform Systems" [level=2] [ref=e4151]
+                  - generic [ref=e4152]: Scaling
+                - generic [ref=e4153]: San Francisco
+              - link "Apply now" [ref=e4154] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/5e4ed6d1-2417-4bf5-bae0-905931c488e3/application
+                - img [ref=e4155]
+                - text: Apply now
+            - generic [ref=e4158]:
+              - link "Software Engineer, Platform Systems Scaling London, UK" [ref=e4159] [cursor=pointer]:
+                - /url: /careers/software-engineer-platform-systems-london-uk/
+                - generic [ref=e4160]:
+                  - heading "Software Engineer, Platform Systems" [level=2] [ref=e4161]
+                  - generic [ref=e4162]: Scaling
+                - generic [ref=e4163]: London, UK
+              - link "Apply now" [ref=e4164] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/4349f80b-3518-4e4d-b9eb-3e5e9b490cc7/application
+                - img [ref=e4165]
+                - text: Apply now
+            - generic [ref=e4168]:
+              - link "Software Engineer, Privacy Security Dublin, Ireland" [ref=e4169] [cursor=pointer]:
+                - /url: /careers/software-engineer-privacy-dublin-ireland/
+                - generic [ref=e4170]:
+                  - heading "Software Engineer, Privacy" [level=2] [ref=e4171]
+                  - generic [ref=e4172]: Security
+                - generic [ref=e4173]: Dublin, Ireland
+              - link "Apply now" [ref=e4174] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/fb5862cc-244c-410b-b287-47df89ad1e43/application
+                - img [ref=e4175]
+                - text: Apply now
+            - generic [ref=e4178]:
+              - link "Software Engineer, Privacy Security San Francisco" [ref=e4179] [cursor=pointer]:
+                - /url: /careers/software-engineer-privacy-san-francisco/
+                - generic [ref=e4180]:
+                  - heading "Software Engineer, Privacy" [level=2] [ref=e4181]
+                  - generic [ref=e4182]: Security
+                - generic [ref=e4183]: San Francisco
+              - link "Apply now" [ref=e4184] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/8a1b804f-b070-4c61-bd3d-cdf39ef9d935/application
+                - img [ref=e4185]
+                - text: Apply now
+            - generic [ref=e4188]:
+              - link "Software Engineer - Privacy & Compliance Applied AI Infrastructure 2 locations" [ref=e4189] [cursor=pointer]:
+                - /url: /careers/software-engineer-privacy-and-compliance-san-francisco/
+                - generic [ref=e4190]:
+                  - heading "Software Engineer - Privacy & Compliance" [level=2] [ref=e4191]
+                  - generic [ref=e4192]: Applied AI Infrastructure
+                - generic [ref=e4193]: 2 locations
+              - link "Apply now" [ref=e4194] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/23b158fe-709e-4bf5-856c-d10953d32f60/application
+                - img [ref=e4195]
+                - text: Apply now
+            - generic [ref=e4198]:
+              - link "Software Engineer, Privacy Infrastructure Security San Francisco" [ref=e4199] [cursor=pointer]:
+                - /url: /careers/software-engineer-privacy-infrastructure-san-francisco/
+                - generic [ref=e4200]:
+                  - heading "Software Engineer, Privacy Infrastructure" [level=2] [ref=e4201]
+                  - generic [ref=e4202]: Security
+                - generic [ref=e4203]: San Francisco
+              - link "Apply now" [ref=e4204] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/07153f7c-7e8b-4283-a879-cb07a224e083/application
+                - img [ref=e4205]
+                - text: Apply now
+            - generic [ref=e4208]:
+              - link "Software Engineer, Private Computing Consumer Products 6 locations" [ref=e4209] [cursor=pointer]:
+                - /url: /careers/software-engineer-private-computing-london-uk/
+                - generic [ref=e4210]:
+                  - heading "Software Engineer, Private Computing" [level=2] [ref=e4211]
+                  - generic [ref=e4212]: Consumer Products
+                - generic [ref=e4213]: 6 locations
+              - link "Apply now" [ref=e4214] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/875f4cc3-d503-450f-8523-317838aa45c1/application
+                - img [ref=e4215]
+                - text: Apply now
+            - generic [ref=e4218]:
+              - link "Software Engineer, Private Computing Consumer Products 2 locations" [ref=e4219] [cursor=pointer]:
+                - /url: /careers/software-engineer-private-computing-san-francisco/
+                - generic [ref=e4220]:
+                  - heading "Software Engineer, Private Computing" [level=2] [ref=e4221]
+                  - generic [ref=e4222]: Consumer Products
+                - generic [ref=e4223]: 2 locations
+              - link "Apply now" [ref=e4224] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/c59e48ef-37c0-414b-aef7-f52c5f05cde8/application
+                - img [ref=e4225]
+                - text: Apply now
+            - generic [ref=e4228]:
+              - link "Software Engineer, Productivity Compute San Francisco" [ref=e4229] [cursor=pointer]:
+                - /url: /careers/software-engineer-productivity-san-francisco/
+                - generic [ref=e4230]:
+                  - heading "Software Engineer, Productivity" [level=2] [ref=e4231]
+                  - generic [ref=e4232]: Compute
+                - generic [ref=e4233]: San Francisco
+              - link "Apply now" [ref=e4234] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/c02b35b2-af37-4740-a702-2ed3b5dc3cf1/application
+                - img [ref=e4235]
+                - text: Apply now
+            - generic [ref=e4238]:
+              - link "Software Engineer, Real Time Applied AI Engineering Seattle" [ref=e4239] [cursor=pointer]:
+                - /url: /careers/software-engineer-real-time-seattle/
+                - generic [ref=e4240]:
+                  - heading "Software Engineer, Real Time" [level=2] [ref=e4241]
+                  - generic [ref=e4242]: Applied AI Engineering
+                - generic [ref=e4243]: Seattle
+              - link "Apply now" [ref=e4244] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/75420421-5a2a-4d99-8755-9eeff799de95/application
+                - img [ref=e4245]
+                - text: Apply now
+            - generic [ref=e4248]:
+              - link "Software Engineer, Reliability Applied AI Infrastructure San Francisco" [ref=e4249] [cursor=pointer]:
+                - /url: /careers/software-engineer-reliability-san-francisco/
+                - generic [ref=e4250]:
+                  - heading "Software Engineer, Reliability" [level=2] [ref=e4251]
+                  - generic [ref=e4252]: Applied AI Infrastructure
+                - generic [ref=e4253]: San Francisco
+              - link "Apply now" [ref=e4254] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/1faee5e7-3b2f-4d8c-9a6f-ff0f2a4a42a7/application
+                - img [ref=e4255]
+                - text: Apply now
+            - generic [ref=e4258]:
+              - link "Software Engineer, Research Developer Productivity Fleet Clusters San Francisco" [ref=e4259] [cursor=pointer]:
+                - /url: /careers/software-engineer-research-developer-productivity-san-francisco/
+                - generic [ref=e4260]:
+                  - heading "Software Engineer, Research Developer Productivity" [level=2] [ref=e4261]
+                  - generic [ref=e4262]: Fleet Clusters
+                - generic [ref=e4263]: San Francisco
+              - link "Apply now" [ref=e4264] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/e6d5ca02-f30b-4ac5-a69d-c947efb430f9/application
+                - img [ref=e4265]
+                - text: Apply now
+            - generic [ref=e4268]:
+              - link "Software Engineer, Research - Human Data Human Data 2 locations" [ref=e4269] [cursor=pointer]:
+                - /url: /careers/software-engineer-research-human-data-san-francisco/
+                - generic [ref=e4270]:
+                  - heading "Software Engineer, Research - Human Data" [level=2] [ref=e4271]
+                  - generic [ref=e4272]: Human Data
+                - generic [ref=e4273]: 2 locations
+              - link "Apply now" [ref=e4274] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/4d6a5951-9838-434c-830a-22cb938ea228/application
+                - img [ref=e4275]
+                - text: Apply now
+            - generic [ref=e4278]:
+              - link "Software Engineer, Research Infrastructure Scaling San Francisco" [ref=e4279] [cursor=pointer]:
+                - /url: /careers/software-engineer-research-infrastructure-san-francisco/
+                - generic [ref=e4280]:
+                  - heading "Software Engineer, Research Infrastructure" [level=2] [ref=e4281]
+                  - generic [ref=e4282]: Scaling
+                - generic [ref=e4283]: San Francisco
+              - link "Apply now" [ref=e4284] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/a58add97-1968-4d5c-b504-ab62bea12df3/application
+                - img [ref=e4285]
+                - text: Apply now
+            - generic [ref=e4288]:
+              - link "Software Engineer, Scaled Abuse Applied AI Engineering San Francisco" [ref=e4289] [cursor=pointer]:
+                - /url: /careers/software-engineer-scaled-abuse-san-francisco/
+                - generic [ref=e4290]:
+                  - heading "Software Engineer, Scaled Abuse" [level=2] [ref=e4291]
+                  - generic [ref=e4292]: Applied AI Engineering
+                - generic [ref=e4293]: San Francisco
+              - link "Apply now" [ref=e4294] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/3c67f712-697d-48d8-b05c-01be896e61da/application
+                - img [ref=e4295]
+                - text: Apply now
+            - generic [ref=e4298]:
+              - link "Software Engineer, Search Evaluations Applied AI Infrastructure San Francisco" [ref=e4299] [cursor=pointer]:
+                - /url: /careers/software-engineer-search-evaluations-san-francisco/
+                - generic [ref=e4300]:
+                  - heading "Software Engineer, Search Evaluations" [level=2] [ref=e4301]
+                  - generic [ref=e4302]: Applied AI Infrastructure
+                - generic [ref=e4303]: San Francisco
+              - link "Apply now" [ref=e4304] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/0552edc8-2695-40c5-935b-7bf6863a910a/application
+                - img [ref=e4305]
+                - text: Apply now
+            - generic [ref=e4308]:
+              - link "Software Engineer, Search Infrastructure Applied AI Engineering San Francisco" [ref=e4309] [cursor=pointer]:
+                - /url: /careers/software-engineer-search-infrastructure-san-francisco/
+                - generic [ref=e4310]:
+                  - heading "Software Engineer, Search Infrastructure" [level=2] [ref=e4311]
+                  - generic [ref=e4312]: Applied AI Engineering
+                - generic [ref=e4313]: San Francisco
+              - link "Apply now" [ref=e4314] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/7285ddb0-2912-4c79-a48f-1778070544ed/application
+                - img [ref=e4315]
+                - text: Apply now
+            - generic [ref=e4318]:
+              - link "Software Engineer, Security Observability Security Seattle" [ref=e4319] [cursor=pointer]:
+                - /url: /careers/software-engineer-security-observability-seattle/
+                - generic [ref=e4320]:
+                  - heading "Software Engineer, Security Observability" [level=2] [ref=e4321]
+                  - generic [ref=e4322]: Security
+                - generic [ref=e4323]: Seattle
+              - link "Apply now" [ref=e4324] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/747bb870-4ef1-4bfd-b2c0-d48042a85080/application
+                - img [ref=e4325]
+                - text: Apply now
+            - generic [ref=e4328]:
+              - link "Software Engineer, Security Observability Security New York City" [ref=e4329] [cursor=pointer]:
+                - /url: /careers/software-engineer-security-observability-new-york-city/
+                - generic [ref=e4330]:
+                  - heading "Software Engineer, Security Observability" [level=2] [ref=e4331]
+                  - generic [ref=e4332]: Security
+                - generic [ref=e4333]: New York City
+              - link "Apply now" [ref=e4334] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/1e4e9985-babf-4bd9-8fe8-a2016250780d/application
+                - img [ref=e4335]
+                - text: Apply now
+            - generic [ref=e4338]:
+              - link "Software Engineer, Security Observability Security Remote - US" [ref=e4339] [cursor=pointer]:
+                - /url: /careers/software-engineer-security-observability-remote-us/
+                - generic [ref=e4340]:
+                  - heading "Software Engineer, Security Observability" [level=2] [ref=e4341]
+                  - generic [ref=e4342]: Security
+                - generic [ref=e4343]: Remote - US
+              - link "Apply now" [ref=e4344] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/92bf4ff3-7acf-4e49-8e09-47e4e8bd1f83/application
+                - img [ref=e4345]
+                - text: Apply now
+            - generic [ref=e4348]:
+              - link "Software Engineer, Security Observability Security San Francisco" [ref=e4349] [cursor=pointer]:
+                - /url: /careers/software-engineer-security-observability-san-francisco/
+                - generic [ref=e4350]:
+                  - heading "Software Engineer, Security Observability" [level=2] [ref=e4351]
+                  - generic [ref=e4352]: Security
+                - generic [ref=e4353]: San Francisco
+              - link "Apply now" [ref=e4354] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/3e254907-5101-438d-8708-f6f34e5c75ea/application
+                - img [ref=e4355]
+                - text: Apply now
+            - generic [ref=e4358]:
+              - link "Software Engineer - Sensing, Consumer Products Consumer Products San Francisco" [ref=e4359] [cursor=pointer]:
+                - /url: /careers/software-engineer-sensing-consumer-products-san-francisco/
+                - generic [ref=e4360]:
+                  - heading "Software Engineer - Sensing, Consumer Products" [level=2] [ref=e4361]
+                  - generic [ref=e4362]: Consumer Products
+                - generic [ref=e4363]: San Francisco
+              - link "Apply now" [ref=e4364] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/f6dfb6c0-44af-4512-af8c-967b8bb12867/application
+                - img [ref=e4365]
+                - text: Apply now
+            - generic [ref=e4368]:
+              - link "Software Engineer, Triton Compiler Kernels San Francisco" [ref=e4369] [cursor=pointer]:
+                - /url: /careers/software-engineer-triton-compiler-san-francisco/
+                - generic [ref=e4370]:
+                  - heading "Software Engineer, Triton Compiler" [level=2] [ref=e4371]
+                  - generic [ref=e4372]: Kernels
+                - generic [ref=e4373]: San Francisco
+              - link "Apply now" [ref=e4374] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/fb15e668-3c43-4f85-b4c6-8a59b5e40c45/application
+                - img [ref=e4375]
+                - text: Apply now
+            - generic [ref=e4378]:
+              - link "Software Engineer, Trusted Computing and Cryptography Security Remote - US" [ref=e4379] [cursor=pointer]:
+                - /url: /careers/software-engineer-trusted-computing-and-cryptography-remote-us/
+                - generic [ref=e4380]:
+                  - heading "Software Engineer, Trusted Computing and Cryptography" [level=2] [ref=e4381]
+                  - generic [ref=e4382]: Security
+                - generic [ref=e4383]: Remote - US
+              - link "Apply now" [ref=e4384] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/c6c4c2fb-cb2c-45d4-9f7c-e3356cd534d7/application
+                - img [ref=e4385]
+                - text: Apply now
+            - generic [ref=e4388]:
+              - link "Software Engineer, Youth Well-Being Applied AI Engineering San Francisco" [ref=e4389] [cursor=pointer]:
+                - /url: /careers/software-engineer-youth-well-being-san-francisco/
+                - generic [ref=e4390]:
+                  - heading "Software Engineer, Youth Well-Being" [level=2] [ref=e4391]
+                  - generic [ref=e4392]: Applied AI Engineering
+                - generic [ref=e4393]: San Francisco
+              - link "Apply now" [ref=e4394] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/f4e8a433-ae96-44ac-a7f9-97070335395f/application
+                - img [ref=e4395]
+                - text: Apply now
+            - generic [ref=e4398]:
+              - link "Solution Engineer | DACH Technical Success Munich, Germany" [ref=e4399] [cursor=pointer]:
+                - /url: /careers/solution-engineer-or-dach-munich-germany/
+                - generic [ref=e4400]:
+                  - heading "Solution Engineer | DACH" [level=2] [ref=e4401]
+                  - generic [ref=e4402]: Technical Success
+                - generic [ref=e4403]: Munich, Germany
+              - link "Apply now" [ref=e4404] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/c00094f9-e071-4870-afec-104beb3ce499/application
+                - img [ref=e4405]
+                - text: Apply now
+            - generic [ref=e4408]:
+              - link "Solution Engineer, Security Specialist - EMEA Technical Success Dublin, Ireland" [ref=e4409] [cursor=pointer]:
+                - /url: /careers/solution-engineer-security-specialist-emea-dublin-ireland/
+                - generic [ref=e4410]:
+                  - heading "Solution Engineer, Security Specialist - EMEA" [level=2] [ref=e4411]
+                  - generic [ref=e4412]: Technical Success
+                - generic [ref=e4413]: Dublin, Ireland
+              - link "Apply now" [ref=e4414] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/167e28ac-fcf1-4078-899b-5be464abde7e/application
+                - img [ref=e4415]
+                - text: Apply now
+            - generic [ref=e4418]:
+              - link "Solutions Architect Technical Success Singapore" [ref=e4419] [cursor=pointer]:
+                - /url: /careers/solutions-architect-singapore/
+                - generic [ref=e4420]:
+                  - heading "Solutions Architect" [level=2] [ref=e4421]
+                  - generic [ref=e4422]: Technical Success
+                - generic [ref=e4423]: Singapore
+              - link "Apply now" [ref=e4424] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/8acfba11-707e-4d8e-a860-88643fae24ba/application
+                - img [ref=e4425]
+                - text: Apply now
+            - generic [ref=e4428]:
+              - link "Solutions Architect Technical Success Delhi, India" [ref=e4429] [cursor=pointer]:
+                - /url: /careers/solutions-architect-delhi-india/
+                - generic [ref=e4430]:
+                  - heading "Solutions Architect" [level=2] [ref=e4431]
+                  - generic [ref=e4432]: Technical Success
+                - generic [ref=e4433]: Delhi, India
+              - link "Apply now" [ref=e4434] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/bf036b23-cd23-46d0-a02f-4b1483f4698a/application
+                - img [ref=e4435]
+                - text: Apply now
+            - generic [ref=e4438]:
+              - link "Solutions Architect Technical Success Seoul, South Korea" [ref=e4439] [cursor=pointer]:
+                - /url: /careers/solutions-architect-seoul-south-korea/
+                - generic [ref=e4440]:
+                  - heading "Solutions Architect" [level=2] [ref=e4441]
+                  - generic [ref=e4442]: Technical Success
+                - generic [ref=e4443]: Seoul, South Korea
+              - link "Apply now" [ref=e4444] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/04435c05-7a05-4802-894d-c173327fbac8/application
+                - img [ref=e4445]
+                - text: Apply now
+            - generic [ref=e4448]:
+              - link "Solutions Architect Technical Success Sydney, Australia" [ref=e4449] [cursor=pointer]:
+                - /url: /careers/solutions-architect-sydney-australia/
+                - generic [ref=e4450]:
+                  - heading "Solutions Architect" [level=2] [ref=e4451]
+                  - generic [ref=e4452]: Technical Success
+                - generic [ref=e4453]: Sydney, Australia
+              - link "Apply now" [ref=e4454] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/83730f3e-3a96-476e-afb0-15f1f045ab03/application
+                - img [ref=e4455]
+                - text: Apply now
+            - generic [ref=e4458]:
+              - link "Solutions Architect, Generative AI Deployment Technical Success Munich, Germany" [ref=e4459] [cursor=pointer]:
+                - /url: /careers/solutions-architect-generative-ai-deployment-munich-germany/
+                - generic [ref=e4460]:
+                  - heading "Solutions Architect, Generative AI Deployment" [level=2] [ref=e4461]
+                  - generic [ref=e4462]: Technical Success
+                - generic [ref=e4463]: Munich, Germany
+              - link "Apply now" [ref=e4464] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/35d2d05f-77f4-49b4-92fd-8ff83dc8980e/application
+                - img [ref=e4465]
+                - text: Apply now
+            - generic [ref=e4468]:
+              - link "Solutions Architect, Media Partnerships Technical Success New York City" [ref=e4469] [cursor=pointer]:
+                - /url: /careers/solutions-architect-media-partnerships-new-york-city/
+                - generic [ref=e4470]:
+                  - heading "Solutions Architect, Media Partnerships" [level=2] [ref=e4471]
+                  - generic [ref=e4472]: Technical Success
+                - generic [ref=e4473]: New York City
+              - link "Apply now" [ref=e4474] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/13fc0b60-f322-4821-82c1-4327a725b563/application
+                - img [ref=e4475]
+                - text: Apply now
+            - generic [ref=e4478]:
+              - link "Solutions Architect, Startups Technical Success Seoul, South Korea" [ref=e4479] [cursor=pointer]:
+                - /url: /careers/solutions-architect-startups-seoul-south-korea/
+                - generic [ref=e4480]:
+                  - heading "Solutions Architect, Startups" [level=2] [ref=e4481]
+                  - generic [ref=e4482]: Technical Success
+                - generic [ref=e4483]: Seoul, South Korea
+              - link "Apply now" [ref=e4484] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/6158a9bc-0bae-4627-896a-06e7ca779c14/application
+                - img [ref=e4485]
+                - text: Apply now
+            - generic [ref=e4488]:
+              - link "Solutions Architect, Startups Technical Success India - Remote" [ref=e4489] [cursor=pointer]:
+                - /url: /careers/solutions-architect-startups-india-remote/
+                - generic [ref=e4490]:
+                  - heading "Solutions Architect, Startups" [level=2] [ref=e4491]
+                  - generic [ref=e4492]: Technical Success
+                - generic [ref=e4493]: India - Remote
+              - link "Apply now" [ref=e4494] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/ac1de598-3891-4d1b-bbb6-4c3997a8bef8/application
+                - img [ref=e4495]
+                - text: Apply now
+            - generic [ref=e4498]:
+              - link "Solutions Architect - Tokyo Technical Success Tokyo, Japan" [ref=e4499] [cursor=pointer]:
+                - /url: /careers/solutions-architect-tokyo-tokyo-japan/
+                - generic [ref=e4500]:
+                  - heading "Solutions Architect - Tokyo" [level=2] [ref=e4501]
+                  - generic [ref=e4502]: Technical Success
+                - generic [ref=e4503]: Tokyo, Japan
+              - link "Apply now" [ref=e4504] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/0a1d9e45-0548-4fda-b72b-0125be76a371/application
+                - img [ref=e4505]
+                - text: Apply now
+            - generic [ref=e4508]:
+              - link "Solutions Engineer Technical Success Singapore" [ref=e4509] [cursor=pointer]:
+                - /url: /careers/solutions-engineer-singapore/
+                - generic [ref=e4510]:
+                  - heading "Solutions Engineer" [level=2] [ref=e4511]
+                  - generic [ref=e4512]: Technical Success
+                - generic [ref=e4513]: Singapore
+              - link "Apply now" [ref=e4514] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/b8fbe6d1-6363-4366-8484-de32cf4d1410/application
+                - img [ref=e4515]
+                - text: Apply now
+            - generic [ref=e4518]:
+              - link "Solutions Engineer Technical Success Delhi, India" [ref=e4519] [cursor=pointer]:
+                - /url: /careers/solutions-engineer-delhi-india/
+                - generic [ref=e4520]:
+                  - heading "Solutions Engineer" [level=2] [ref=e4521]
+                  - generic [ref=e4522]: Technical Success
+                - generic [ref=e4523]: Delhi, India
+              - link "Apply now" [ref=e4524] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/28cd6fe2-4096-426b-8b08-52a66458e2c6/application
+                - img [ref=e4525]
+                - text: Apply now
+            - generic [ref=e4528]:
+              - link "Solutions Engineer Technical Success Sydney, Australia" [ref=e4529] [cursor=pointer]:
+                - /url: /careers/solutions-engineer-sydney-australia/
+                - generic [ref=e4530]:
+                  - heading "Solutions Engineer" [level=2] [ref=e4531]
+                  - generic [ref=e4532]: Technical Success
+                - generic [ref=e4533]: Sydney, Australia
+              - link "Apply now" [ref=e4534] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/b47aae11-78e1-4321-947a-94a2fa3e83b4/application
+                - img [ref=e4535]
+                - text: Apply now
+            - generic [ref=e4538]:
+              - link "Solutions Engineer Technical Success Seoul, South Korea" [ref=e4539] [cursor=pointer]:
+                - /url: /careers/solutions-engineer-seoul-south-korea/
+                - generic [ref=e4540]:
+                  - heading "Solutions Engineer" [level=2] [ref=e4541]
+                  - generic [ref=e4542]: Technical Success
+                - generic [ref=e4543]: Seoul, South Korea
+              - link "Apply now" [ref=e4544] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/ad06299f-d4e2-4de6-a925-b2e94b3c1d0b/application
+                - img [ref=e4545]
+                - text: Apply now
+            - generic [ref=e4548]:
+              - link "Solutions Engineer, Core Digital Native Technical Success 2 locations" [ref=e4549] [cursor=pointer]:
+                - /url: /careers/solutions-engineer-core-digital-native-san-francisco/
+                - generic [ref=e4550]:
+                  - heading "Solutions Engineer, Core Digital Native" [level=2] [ref=e4551]
+                  - generic [ref=e4552]: Technical Success
+                - generic [ref=e4553]: 2 locations
+              - link "Apply now" [ref=e4554] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/2b0cc340-7866-4d1c-8d17-f1ebd1de1d9c/application
+                - img [ref=e4555]
+                - text: Apply now
+            - generic [ref=e4558]:
+              - link "Solutions Engineer, Financial Services Technical Success 2 locations" [ref=e4559] [cursor=pointer]:
+                - /url: /careers/solutions-engineer-financial-services-san-francisco/
+                - generic [ref=e4560]:
+                  - heading "Solutions Engineer, Financial Services" [level=2] [ref=e4561]
+                  - generic [ref=e4562]: Technical Success
+                - generic [ref=e4563]: 2 locations
+              - link "Apply now" [ref=e4564] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/9624824f-e028-4c78-aa31-2949597ecc85/application
+                - img [ref=e4565]
+                - text: Apply now
+            - generic [ref=e4568]:
+              - link "Solutions Engineer, Healthcare & Life Sciences Technical Success 2 locations" [ref=e4569] [cursor=pointer]:
+                - /url: /careers/solutions-engineer-healthcare-and-life-sciences-san-francisco/
+                - generic [ref=e4570]:
+                  - heading "Solutions Engineer, Healthcare & Life Sciences" [level=2] [ref=e4571]
+                  - generic [ref=e4572]: Technical Success
+                - generic [ref=e4573]: 2 locations
+              - link "Apply now" [ref=e4574] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/b8439f2c-523e-411d-8ca6-54212ec69efd/application
+                - img [ref=e4575]
+                - text: Apply now
+            - generic [ref=e4578]:
+              - link "Solutions Engineering Manager | EMEA Technical Success London, UK" [ref=e4579] [cursor=pointer]:
+                - /url: /careers/solutions-engineering-manager-or-emea-london-uk/
+                - generic [ref=e4580]:
+                  - heading "Solutions Engineering Manager | EMEA" [level=2] [ref=e4581]
+                  - generic [ref=e4582]: Technical Success
+                - generic [ref=e4583]: London, UK
+              - link "Apply now" [ref=e4584] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/95eb1d34-aff5-4521-8894-a28a57b09fe9/application
+                - img [ref=e4585]
+                - text: Apply now
+            - generic [ref=e4588]:
+              - link "Solutions Engineer, Pre-Sales Technical Success New York City" [ref=e4589] [cursor=pointer]:
+                - /url: /careers/solutions-engineer-pre-sales-new-york-city/
+                - generic [ref=e4590]:
+                  - heading "Solutions Engineer, Pre-Sales" [level=2] [ref=e4591]
+                  - generic [ref=e4592]: Technical Success
+                - generic [ref=e4593]: New York City
+              - link "Apply now" [ref=e4594] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/e665817a-bf86-4208-8cf3-c1754c28b401/application
+                - img [ref=e4595]
+                - text: Apply now
+            - generic [ref=e4598]:
+              - link "Solutions Engineer, Pre-Sales Technical Success San Francisco" [ref=e4599] [cursor=pointer]:
+                - /url: /careers/solutions-engineer-pre-sales-san-francisco/
+                - generic [ref=e4600]:
+                  - heading "Solutions Engineer, Pre-Sales" [level=2] [ref=e4601]
+                  - generic [ref=e4602]: Technical Success
+                - generic [ref=e4603]: San Francisco
+              - link "Apply now" [ref=e4604] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/98a36c10-3497-4955-9cc0-a6f211e4dc1b/application
+                - img [ref=e4605]
+                - text: Apply now
+            - generic [ref=e4608]:
+              - link "Solutions Engineer, Pre-Sales - Tokyo Technical Success Tokyo, Japan" [ref=e4609] [cursor=pointer]:
+                - /url: /careers/solutions-engineer-pre-sales-tokyo-tokyo-japan/
+                - generic [ref=e4610]:
+                  - heading "Solutions Engineer, Pre-Sales - Tokyo" [level=2] [ref=e4611]
+                  - generic [ref=e4612]: Technical Success
+                - generic [ref=e4613]: Tokyo, Japan
+              - link "Apply now" [ref=e4614] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/57cfe1d3-27b6-4761-909c-fec7829e9227/application
+                - img [ref=e4615]
+                - text: Apply now
+            - generic [ref=e4618]:
+              - link "Solutions Engineer, Private Equity Technical Success 2 locations" [ref=e4619] [cursor=pointer]:
+                - /url: /careers/solutions-engineer-private-equity-san-francisco/
+                - generic [ref=e4620]:
+                  - heading "Solutions Engineer, Private Equity" [level=2] [ref=e4621]
+                  - generic [ref=e4622]: Technical Success
+                - generic [ref=e4623]: 2 locations
+              - link "Apply now" [ref=e4624] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/cd121fe8-7548-4475-acbb-5ed2b38801ba/application
+                - img [ref=e4625]
+                - text: Apply now
+            - generic [ref=e4628]:
+              - link "Solutions Engineer, Retail Technical Success 2 locations" [ref=e4629] [cursor=pointer]:
+                - /url: /careers/solutions-engineer-retail-san-francisco/
+                - generic [ref=e4630]:
+                  - heading "Solutions Engineer, Retail" [level=2] [ref=e4631]
+                  - generic [ref=e4632]: Technical Success
+                - generic [ref=e4633]: 2 locations
+              - link "Apply now" [ref=e4634] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/4555fa07-2176-4435-b287-06f793fae063/application
+                - img [ref=e4635]
+                - text: Apply now
+            - generic [ref=e4638]:
+              - link "Solutions Engineer- Startups Technical Success San Francisco" [ref=e4639] [cursor=pointer]:
+                - /url: /careers/solutions-engineer-startups-san-francisco/
+                - generic [ref=e4640]:
+                  - heading "Solutions Engineer- Startups" [level=2] [ref=e4641]
+                  - generic [ref=e4642]: Technical Success
+                - generic [ref=e4643]: San Francisco
+              - link "Apply now" [ref=e4644] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/26fa0f98-b834-4c1a-9a53-8a6e6bba6934/application
+                - img [ref=e4645]
+                - text: Apply now
+            - generic [ref=e4648]:
+              - link "Sr. Employee Relations Partner (Non-Investigations) Employee Relations San Francisco" [ref=e4649] [cursor=pointer]:
+                - /url: /careers/sr.-employee-relations-partner-(non-investigations)-san-francisco
+                - generic [ref=e4650]:
+                  - heading "Sr. Employee Relations Partner (Non-Investigations)" [level=2] [ref=e4651]
+                  - generic [ref=e4652]: Employee Relations
+                - generic [ref=e4653]: San Francisco
+              - link "Apply now" [ref=e4654] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/18021d39-fb98-44a8-bd75-12c1a9bf0774/application
+                - img [ref=e4655]
+                - text: Apply now
+            - generic [ref=e4658]:
+              - link "Sr. HR Business Partner HRBP San Francisco" [ref=e4659] [cursor=pointer]:
+                - /url: /careers/sr.-hr-business-partner-san-francisco
+                - generic [ref=e4660]:
+                  - heading "Sr. HR Business Partner" [level=2] [ref=e4661]
+                  - generic [ref=e4662]: HRBP
+                - generic [ref=e4663]: San Francisco
+              - link "Apply now" [ref=e4664] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/b345393f-fbf9-4dbe-8cde-c36529511639/application
+                - img [ref=e4665]
+                - text: Apply now
+            - generic [ref=e4668]:
+              - link "Strategic Finance, B2B Transactions Lead Strategic Finance San Francisco" [ref=e4669] [cursor=pointer]:
+                - /url: /careers/strategic-finance-b2b-transactions-lead-san-francisco/
+                - generic [ref=e4670]:
+                  - heading "Strategic Finance, B2B Transactions Lead" [level=2] [ref=e4671]
+                  - generic [ref=e4672]: Strategic Finance
+                - generic [ref=e4673]: San Francisco
+              - link "Apply now" [ref=e4674] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/112c7777-5a35-4701-a681-2e3c1d149bde/application
+                - img [ref=e4675]
+                - text: Apply now
+            - generic [ref=e4678]:
+              - link "Strategic Finance, Compute Strategic Finance San Francisco" [ref=e4679] [cursor=pointer]:
+                - /url: /careers/strategic-finance-compute-san-francisco/
+                - generic [ref=e4680]:
+                  - heading "Strategic Finance, Compute" [level=2] [ref=e4681]
+                  - generic [ref=e4682]: Strategic Finance
+                - generic [ref=e4683]: San Francisco
+              - link "Apply now" [ref=e4684] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/b4196174-9cc3-487d-9d21-848bc283b80f/application
+                - img [ref=e4685]
+                - text: Apply now
+            - generic [ref=e4688]:
+              - link "Strategic Finance, Hardware Financial Consolidations & Systems Strategic Finance San Francisco" [ref=e4689] [cursor=pointer]:
+                - /url: /careers/strategic-finance-hardware-financial-consolidations-and-systems-san-francisco/
+                - generic [ref=e4690]:
+                  - heading "Strategic Finance, Hardware Financial Consolidations & Systems" [level=2] [ref=e4691]
+                  - generic [ref=e4692]: Strategic Finance
+                - generic [ref=e4693]: San Francisco
+              - link "Apply now" [ref=e4694] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/45e4d17f-0756-4d3d-99bd-d363edebbad6/application
+                - img [ref=e4695]
+                - text: Apply now
+            - generic [ref=e4698]:
+              - link "Strategic Finance, Hardware R&D Finance Manager Strategic Finance San Francisco" [ref=e4699] [cursor=pointer]:
+                - /url: /careers/strategic-finance-hardware-randd-finance-manager-san-francisco/
+                - generic [ref=e4700]:
+                  - heading "Strategic Finance, Hardware R&D Finance Manager" [level=2] [ref=e4701]
+                  - generic [ref=e4702]: Strategic Finance
+                - generic [ref=e4703]: San Francisco
+              - link "Apply now" [ref=e4704] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/9548776c-d623-4a63-af2c-c3a4a1d9685f/application
+                - img [ref=e4705]
+                - text: Apply now
+            - generic [ref=e4708]:
+              - link "Strategic Finance Lead, Robotics Hardware Strategic Finance San Francisco" [ref=e4709] [cursor=pointer]:
+                - /url: /careers/strategic-finance-lead-robotics-hardware-san-francisco/
+                - generic [ref=e4710]:
+                  - heading "Strategic Finance Lead, Robotics Hardware" [level=2] [ref=e4711]
+                  - generic [ref=e4712]: Strategic Finance
+                - generic [ref=e4713]: San Francisco
+              - link "Apply now" [ref=e4714] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/1830388e-c82e-41ad-95a6-25728d3dda73/application
+                - img [ref=e4715]
+                - text: Apply now
+            - generic [ref=e4718]:
+              - link "Strategic Sourcing & Partnerships - Software Tools & Licenses Hardware San Francisco" [ref=e4719] [cursor=pointer]:
+                - /url: /careers/strategic-sourcing-and-partnerships-software-tools-and-licenses-san-francisco/
+                - generic [ref=e4720]:
+                  - heading "Strategic Sourcing & Partnerships - Software Tools & Licenses" [level=2] [ref=e4721]
+                  - generic [ref=e4722]: Hardware
+                - generic [ref=e4723]: San Francisco
+              - link "Apply now" [ref=e4724] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/7d562b4b-bfcf-4e82-a953-a0059e18f45b/application
+                - img [ref=e4725]
+                - text: Apply now
+            - generic [ref=e4728]:
+              - link "Support Delivery Lead, EMEA - Dublin User Operations Dublin, Ireland" [ref=e4729] [cursor=pointer]:
+                - /url: /careers/support-delivery-lead-emea-dublin-dublin-ireland/
+                - generic [ref=e4730]:
+                  - heading "Support Delivery Lead, EMEA - Dublin" [level=2] [ref=e4731]
+                  - generic [ref=e4732]: User Operations
+                - generic [ref=e4733]: Dublin, Ireland
+              - link "Apply now" [ref=e4734] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/9148a023-9b50-4b9c-87f0-5ef32fd6cec9/application
+                - img [ref=e4735]
+                - text: Apply now
+            - generic [ref=e4738]:
+              - link "Support Delivery Lead, EMEA - London User Operations London, UK" [ref=e4739] [cursor=pointer]:
+                - /url: /careers/support-delivery-lead-emea-london-london-uk/
+                - generic [ref=e4740]:
+                  - heading "Support Delivery Lead, EMEA - London" [level=2] [ref=e4741]
+                  - generic [ref=e4742]: User Operations
+                - generic [ref=e4743]: London, UK
+              - link "Apply now" [ref=e4744] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/12a9208e-b1f9-405e-bce7-105370496d6c/application
+                - img [ref=e4745]
+                - text: Apply now
+            - generic [ref=e4748]:
+              - link "Support Partner Manager User Operations San Francisco" [ref=e4749] [cursor=pointer]:
+                - /url: /careers/support-partner-manager-san-francisco/
+                - generic [ref=e4750]:
+                  - heading "Support Partner Manager" [level=2] [ref=e4751]
+                  - generic [ref=e4752]: User Operations
+                - generic [ref=e4753]: San Francisco
+              - link "Apply now" [ref=e4754] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/d4084bb6-f9fa-46df-87ef-da6caed88455/application
+                - img [ref=e4755]
+                - text: Apply now
+            - generic [ref=e4758]:
+              - link "Support Systems Architect User Operations San Francisco" [ref=e4759] [cursor=pointer]:
+                - /url: /careers/support-systems-architect-san-francisco/
+                - generic [ref=e4760]:
+                  - heading "Support Systems Architect" [level=2] [ref=e4761]
+                  - generic [ref=e4762]: User Operations
+                - generic [ref=e4763]: San Francisco
+              - link "Apply now" [ref=e4764] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/782db0f6-a03d-4f9f-9eb2-191831b37939/application
+                - img [ref=e4765]
+                - text: Apply now
+            - generic [ref=e4768]:
+              - link "System Software Engineer, Applied Foundations Applied AI Engineering San Francisco" [ref=e4769] [cursor=pointer]:
+                - /url: /careers/system-software-engineer-applied-foundations-san-francisco/
+                - generic [ref=e4770]:
+                  - heading "System Software Engineer, Applied Foundations" [level=2] [ref=e4771]
+                  - generic [ref=e4772]: Applied AI Engineering
+                - generic [ref=e4773]: San Francisco
+              - link "Apply now" [ref=e4774] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/c846de9c-ef4a-457d-a567-3aed8ff8389a/application
+                - img [ref=e4775]
+                - text: Apply now
+            - generic [ref=e4778]:
+              - link "System Software Engineer, Consumer Products Consumer Products San Francisco" [ref=e4779] [cursor=pointer]:
+                - /url: /careers/system-software-engineer-consumer-products-san-francisco/
+                - generic [ref=e4780]:
+                  - heading "System Software Engineer, Consumer Products" [level=2] [ref=e4781]
+                  - generic [ref=e4782]: Consumer Products
+                - generic [ref=e4783]: San Francisco
+              - link "Apply now" [ref=e4784] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/20f525b7-f958-4c95-a055-f914ab3adb95/application
+                - img [ref=e4785]
+                - text: Apply now
+            - generic [ref=e4788]:
+              - link "Technical Business Development Manager – Infrastructure Compute San Francisco" [ref=e4789] [cursor=pointer]:
+                - /url: /careers/technical-business-development-manager-infrastructure-san-francisco/
+                - generic [ref=e4790]:
+                  - heading "Technical Business Development Manager – Infrastructure" [level=2] [ref=e4791]
+                  - generic [ref=e4792]: Compute
+                - generic [ref=e4793]: San Francisco
+              - link "Apply now" [ref=e4794] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/301fca01-2b84-403a-ae98-50e72024521e/application
+                - img [ref=e4795]
+                - text: Apply now
+            - generic [ref=e4798]:
+              - link "Technical Deployment Lead, Financial Services Model Deployment for Business New York City" [ref=e4799] [cursor=pointer]:
+                - /url: /careers/technical-deployment-lead-financial-services-new-york-city/
+                - generic [ref=e4800]:
+                  - heading "Technical Deployment Lead, Financial Services" [level=2] [ref=e4801]
+                  - generic [ref=e4802]: Model Deployment for Business
+                - generic [ref=e4803]: New York City
+              - link "Apply now" [ref=e4804] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/7bdd4df4-b53d-4442-a116-69be7d9d4b1f/application
+                - img [ref=e4805]
+                - text: Apply now
+            - generic [ref=e4808]:
+              - link "Technical Deployment Lead, Forward Deployed Engineering - Tokyo Model Deployment for Business Tokyo, Japan" [ref=e4809] [cursor=pointer]:
+                - /url: /careers/technical-deployment-lead-forward-deployed-engineering-tokyo-tokyo-japan/
+                - generic [ref=e4810]:
+                  - heading "Technical Deployment Lead, Forward Deployed Engineering - Tokyo" [level=2] [ref=e4811]
+                  - generic [ref=e4812]: Model Deployment for Business
+                - generic [ref=e4813]: Tokyo, Japan
+              - link "Apply now" [ref=e4814] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/3a6275d3-5b3f-4101-9ca5-b92dcb3bbc46/application
+                - img [ref=e4815]
+                - text: Apply now
+            - generic [ref=e4818]:
+              - link "Technical Lead, Safety Research Safety Systems San Francisco" [ref=e4819] [cursor=pointer]:
+                - /url: /careers/technical-lead-safety-research-san-francisco/
+                - generic [ref=e4820]:
+                  - heading "Technical Lead, Safety Research" [level=2] [ref=e4821]
+                  - generic [ref=e4822]: Safety Systems
+                - generic [ref=e4823]: San Francisco
+              - link "Apply now" [ref=e4824] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/273b4c99-273e-4a70-aff9-19c0d959dcef/application
+                - img [ref=e4825]
+                - text: Apply now
+            - generic [ref=e4828]:
+              - link "Technical Program Manager – Adversarial Model Research Human Data San Francisco" [ref=e4829] [cursor=pointer]:
+                - /url: /careers/technical-program-manager-adversarial-model-research-san-francisco/
+                - generic [ref=e4830]:
+                  - heading "Technical Program Manager – Adversarial Model Research" [level=2] [ref=e4831]
+                  - generic [ref=e4832]: Human Data
+                - generic [ref=e4833]: San Francisco
+              - link "Apply now" [ref=e4834] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/65913e57-80e0-4a1a-bbc3-265ae8a1a41b/application
+                - img [ref=e4835]
+                - text: Apply now
+            - generic [ref=e4838]:
+              - link "Technical Program Manager, Hardware Systems Technical Program Management San Francisco" [ref=e4839] [cursor=pointer]:
+                - /url: /careers/technical-program-manager-hardware-systems-san-francisco/
+                - generic [ref=e4840]:
+                  - heading "Technical Program Manager, Hardware Systems" [level=2] [ref=e4841]
+                  - generic [ref=e4842]: Technical Program Management
+                - generic [ref=e4843]: San Francisco
+              - link "Apply now" [ref=e4844] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/7286ced5-39fd-424e-8f35-348354dee979/application
+                - img [ref=e4845]
+                - text: Apply now
+            - generic [ref=e4848]:
+              - link "Technical Program Manager, Human Data Technical Program Management San Francisco" [ref=e4849] [cursor=pointer]:
+                - /url: /careers/technical-program-manager-human-data-san-francisco/
+                - generic [ref=e4850]:
+                  - heading "Technical Program Manager, Human Data" [level=2] [ref=e4851]
+                  - generic [ref=e4852]: Technical Program Management
+                - generic [ref=e4853]: San Francisco
+              - link "Apply now" [ref=e4854] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/71004494-9a55-4ed5-b458-2ff475f0d881/application
+                - img [ref=e4855]
+                - text: Apply now
+            - generic [ref=e4858]:
+              - link "Technical Program Manager, Knowledge Innovation Technical Program Management San Francisco" [ref=e4859] [cursor=pointer]:
+                - /url: /careers/technical-program-manager-knowledge-innovation-san-francisco/
+                - generic [ref=e4860]:
+                  - heading "Technical Program Manager, Knowledge Innovation" [level=2] [ref=e4861]
+                  - generic [ref=e4862]: Technical Program Management
+                - generic [ref=e4863]: San Francisco
+              - link "Apply now" [ref=e4864] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/c263d4e8-631c-40a1-b741-8007f4aa0830/application
+                - img [ref=e4865]
+                - text: Apply now
+            - generic [ref=e4868]:
+              - link "Technical Program Manager, Partnership Site Deployment - Stargate Datacenter Design San Francisco" [ref=e4869] [cursor=pointer]:
+                - /url: /careers/technical-program-manager-partnership-site-deployment-stargate-san-francisco/
+                - generic [ref=e4870]:
+                  - heading "Technical Program Manager, Partnership Site Deployment - Stargate" [level=2] [ref=e4871]
+                  - generic [ref=e4872]: Datacenter Design
+                - generic [ref=e4873]: San Francisco
+              - link "Apply now" [ref=e4874] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/504f12ff-95ce-4c5b-930d-cfd96ac88c80/application
+                - img [ref=e4875]
+                - text: Apply now
+            - generic [ref=e4878]:
+              - link "Technical Program Manager, Support Delivery User Operations San Francisco" [ref=e4879] [cursor=pointer]:
+                - /url: /careers/technical-program-manager-support-delivery-san-francisco/
+                - generic [ref=e4880]:
+                  - heading "Technical Program Manager, Support Delivery" [level=2] [ref=e4881]
+                  - generic [ref=e4882]: User Operations
+                - generic [ref=e4883]: San Francisco
+              - link "Apply now" [ref=e4884] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/ab5cee1d-8807-4a8f-9f58-1855a04003b7/application
+                - img [ref=e4885]
+                - text: Apply now
+            - generic [ref=e4888]:
+              - link "Technical Program Manager, Trustworthy AI Technical Program Management San Francisco" [ref=e4889] [cursor=pointer]:
+                - /url: /careers/technical-program-manager-trustworthy-ai-san-francisco/
+                - generic [ref=e4890]:
+                  - heading "Technical Program Manager, Trustworthy AI" [level=2] [ref=e4891]
+                  - generic [ref=e4892]: Technical Program Management
+                - generic [ref=e4893]: San Francisco
+              - link "Apply now" [ref=e4894] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/2ce31dca-6a6b-4bc3-abab-9b7ed5ba92d5/application
+                - img [ref=e4895]
+                - text: Apply now
+            - generic [ref=e4898]:
+              - link "Thermal Engineer Hardware San Francisco" [ref=e4899] [cursor=pointer]:
+                - /url: /careers/thermal-engineer-san-francisco/
+                - generic [ref=e4900]:
+                  - heading "Thermal Engineer" [level=2] [ref=e4901]
+                  - generic [ref=e4902]: Hardware
+                - generic [ref=e4903]: San Francisco
+              - link "Apply now" [ref=e4904] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/343d9176-1bd5-48cf-a771-dd4ecf726b77/application
+                - img [ref=e4905]
+                - text: Apply now
+            - generic [ref=e4908]:
+              - link "Third Party Risk Senior Manager, APAC Finance Singapore" [ref=e4909] [cursor=pointer]:
+                - /url: /careers/third-party-risk-senior-manager-apac-singapore/
+                - generic [ref=e4910]:
+                  - heading "Third Party Risk Senior Manager, APAC" [level=2] [ref=e4911]
+                  - generic [ref=e4912]: Finance
+                - generic [ref=e4913]: Singapore
+              - link "Apply now" [ref=e4914] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/8908ef4d-2be3-409e-a058-e4e12987941c/application
+                - img [ref=e4915]
+                - text: Apply now
+            - generic [ref=e4918]:
+              - link "TLM, Machine Learning, Integrity Applied AI Engineering San Francisco" [ref=e4919] [cursor=pointer]:
+                - /url: /careers/tlm-machine-learning-integrity-san-francisco/
+                - generic [ref=e4920]:
+                  - heading "TLM, Machine Learning, Integrity" [level=2] [ref=e4921]
+                  - generic [ref=e4922]: Applied AI Engineering
+                - generic [ref=e4923]: San Francisco
+              - link "Apply now" [ref=e4924] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/4e60d650-47a7-44fb-8031-02976c7ddc55/application
+                - img [ref=e4925]
+                - text: Apply now
+            - generic [ref=e4928]:
+              - 'link "Training: ML Framework Engineer Scaling San Francisco" [ref=e4929] [cursor=pointer]':
+                - /url: /careers/training:-ml-framework-engineer-san-francisco/
+                - generic [ref=e4930]:
+                  - 'heading "Training: ML Framework Engineer" [level=2] [ref=e4931]'
+                  - generic [ref=e4932]: Scaling
+                - generic [ref=e4933]: San Francisco
+              - link "Apply now" [ref=e4934] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/d8794980-1d3f-4d82-8b48-811449b6c492/application
+                - img [ref=e4935]
+                - text: Apply now
+            - generic [ref=e4938]:
+              - link "Training Performance Engineer Runtime San Francisco" [ref=e4939] [cursor=pointer]:
+                - /url: /careers/training-performance-engineer-san-francisco/
+                - generic [ref=e4940]:
+                  - heading "Training Performance Engineer" [level=2] [ref=e4941]
+                  - generic [ref=e4942]: Runtime
+                - generic [ref=e4943]: San Francisco
+              - link "Apply now" [ref=e4944] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/6eb386ac-9056-4795-aa79-a27e105faf5c/application
+                - img [ref=e4945]
+                - text: Apply now
+            - generic [ref=e4948]:
+              - link "Trust & Safety Operations Analyst User Operations San Francisco" [ref=e4949] [cursor=pointer]:
+                - /url: /careers/trust-and-safety-operations-analyst-san-francisco/
+                - generic [ref=e4950]:
+                  - heading "Trust & Safety Operations Analyst" [level=2] [ref=e4951]
+                  - generic [ref=e4952]: User Operations
+                - generic [ref=e4953]: San Francisco
+              - link "Apply now" [ref=e4954] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/eb54b316-26fb-498f-a68c-9990ff9c402c/application
+                - img [ref=e4955]
+                - text: Apply now
+            - generic [ref=e4958]:
+              - link "Trust & Safety Operations Manager, Monetization User Operations San Francisco" [ref=e4959] [cursor=pointer]:
+                - /url: /careers/trust-and-safety-operations-manager-monetization-san-francisco/
+                - generic [ref=e4960]:
+                  - heading "Trust & Safety Operations Manager, Monetization" [level=2] [ref=e4961]
+                  - generic [ref=e4962]: User Operations
+                - generic [ref=e4963]: San Francisco
+              - link "Apply now" [ref=e4964] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/c28a901e-0712-4c5f-b97c-1cc0b483f829/application
+                - img [ref=e4965]
+                - text: Apply now
+            - generic [ref=e4968]:
+              - link "US Benefits Analyst Total Rewards San Francisco" [ref=e4969] [cursor=pointer]:
+                - /url: /careers/us-benefits-analyst-san-francisco/
+                - generic [ref=e4970]:
+                  - heading "US Benefits Analyst" [level=2] [ref=e4971]
+                  - generic [ref=e4972]: Total Rewards
+                - generic [ref=e4973]: San Francisco
+              - link "Apply now" [ref=e4974] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/2a45b96f-bf17-4a3a-95ca-be293fec1fd7/application
+                - img [ref=e4975]
+                - text: Apply now
+            - generic [ref=e4978]:
+              - link "User Safety & Risk Operations Manager, Ops Enablement & Analytics User Operations San Francisco" [ref=e4979] [cursor=pointer]:
+                - /url: /careers/user-safety-and-risk-operations-manager-ops-enablement-and-analytics-san-francisco/
+                - generic [ref=e4980]:
+                  - heading "User Safety & Risk Operations Manager, Ops Enablement & Analytics" [level=2] [ref=e4981]
+                  - generic [ref=e4982]: User Operations
+                - generic [ref=e4983]: San Francisco
+              - link "Apply now" [ref=e4984] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/bd18449a-57dc-4831-86ba-c190462a0c2b/application
+                - img [ref=e4985]
+                - text: Apply now
+            - generic [ref=e4988]:
+              - link "Value Engineering Lead, AI Deployment and Adoption AI Success San Francisco" [ref=e4989] [cursor=pointer]:
+                - /url: /careers/value-engineering-lead-ai-deployment-and-adoption-san-francisco/
+                - generic [ref=e4990]:
+                  - heading "Value Engineering Lead, AI Deployment and Adoption" [level=2] [ref=e4991]
+                  - generic [ref=e4992]: AI Success
+                - generic [ref=e4993]: San Francisco
+              - link "Apply now" [ref=e4994] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/227dd1fb-d01d-462b-9e1a-4185e902860d/application
+                - img [ref=e4995]
+                - text: Apply now
+            - generic [ref=e4998]:
+              - link "Vendor Security Program Manager Security 4 locations" [ref=e4999] [cursor=pointer]:
+                - /url: /careers/vendor-security-program-manager-san-francisco/
+                - generic [ref=e5000]:
+                  - heading "Vendor Security Program Manager" [level=2] [ref=e5001]
+                  - generic [ref=e5002]: Security
+                - generic [ref=e5003]: 4 locations
+              - link "Apply now" [ref=e5004] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/fb1e823e-cfcc-4293-8893-cc77e467c561/application
+                - img [ref=e5005]
+                - text: Apply now
+            - generic [ref=e5008]:
+              - link "Vertical Marketing Lead Marketing San Francisco" [ref=e5009] [cursor=pointer]:
+                - /url: /careers/vertical-marketing-lead-san-francisco/
+                - generic [ref=e5010]:
+                  - heading "Vertical Marketing Lead" [level=2] [ref=e5011]
+                  - generic [ref=e5012]: Marketing
+                - generic [ref=e5013]: San Francisco
+              - link "Apply now" [ref=e5014] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/0e078d07-fb0b-4893-b90a-f50e413f3e13/application
+                - img [ref=e5015]
+                - text: Apply now
+            - generic [ref=e5018]:
+              - link "Workplace Business Partner Workplace San Francisco" [ref=e5019] [cursor=pointer]:
+                - /url: /careers/workplace-business-partner-san-francisco/
+                - generic [ref=e5020]:
+                  - heading "Workplace Business Partner" [level=2] [ref=e5021]
+                  - generic [ref=e5022]: Workplace
+                - generic [ref=e5023]: San Francisco
+              - link "Apply now" [ref=e5024] [cursor=pointer]:
+                - /url: https://jobs.ashbyhq.com/openai/ecb47e6d-c6c1-4b91-9638-55c41eb16766/application
+                - img [ref=e5025]
+                - text: Apply now
+      - contentinfo [ref=e5027]:
+        - generic [ref=e5029]:
+          - generic [ref=e5030]:
+            - generic [ref=e5031]:
+              - heading "Our Research" [level=2] [ref=e5032]
+              - list [ref=e5033]:
+                - listitem [ref=e5034]:
+                  - link "Research Index" [ref=e5035] [cursor=pointer]:
+                    - /url: /research/index/
+                - listitem [ref=e5036]:
+                  - link "Research Overview" [ref=e5037] [cursor=pointer]:
+                    - /url: /research/
+                - listitem [ref=e5038]:
+                  - link "Research Residency" [ref=e5039] [cursor=pointer]:
+                    - /url: /residency/
+                - listitem [ref=e5040]:
+                  - link "OpenAI for Science" [ref=e5041] [cursor=pointer]:
+                    - /url: /science/
+            - generic [ref=e5042]:
+              - heading "Latest Advancements" [level=2] [ref=e5043]
+              - list [ref=e5044]:
+                - listitem [ref=e5045]:
+                  - link "GPT-5" [ref=e5046] [cursor=pointer]:
+                    - /url: /gpt-5/
+                - listitem [ref=e5047]:
+                  - link "OpenAI o3" [ref=e5048] [cursor=pointer]:
+                    - /url: /index/introducing-o3-and-o4-mini/
+                - listitem [ref=e5049]:
+                  - link "OpenAI o4-mini" [ref=e5050] [cursor=pointer]:
+                    - /url: /index/introducing-o3-and-o4-mini/
+                - listitem [ref=e5051]:
+                  - link "GPT-4o" [ref=e5052] [cursor=pointer]:
+                    - /url: /index/gpt-4o-system-card/
+                - listitem [ref=e5053]:
+                  - link "GPT-4o mini" [ref=e5054] [cursor=pointer]:
+                    - /url: /index/gpt-4o-mini-advancing-cost-efficient-intelligence/
+                - listitem [ref=e5055]:
+                  - link "Sora" [ref=e5056] [cursor=pointer]:
+                    - /url: /index/sora-system-card/
+            - generic [ref=e5057]:
+              - heading "Safety" [level=2] [ref=e5058]
+              - list [ref=e5059]:
+                - listitem [ref=e5060]:
+                  - link "Safety Approach" [ref=e5061] [cursor=pointer]:
+                    - /url: /safety/
+                - listitem [ref=e5062]:
+                  - link "Security & Privacy" [ref=e5063] [cursor=pointer]:
+                    - /url: /security-and-privacy/
+                - listitem [ref=e5064]:
+                  - link "Trust & Transparency" [ref=e5065] [cursor=pointer]:
+                    - /url: /trust-and-transparency/
+          - generic [ref=e5066]:
+            - generic [ref=e5067]:
+              - heading "ChatGPT" [level=2] [ref=e5068]
+              - list [ref=e5069]:
+                - listitem [ref=e5070]:
+                  - link "Explore ChatGPT (opens in a new window)" [ref=e5071] [cursor=pointer]:
+                    - /url: https://chatgpt.com/overview?openaicom-did=2956b477-a210-4083-ad82-001fdc32184a&openaicom_referred=true
+                    - text: Explore ChatGPT
+                    - img [ref=e5072]
+                    - generic [ref=e5074]: (opens in a new window)
+                - listitem [ref=e5075]:
+                  - link "Business" [ref=e5076] [cursor=pointer]:
+                    - /url: https://chatgpt.com/business/business-plan?openaicom-did=2956b477-a210-4083-ad82-001fdc32184a&openaicom_referred=true
+                - listitem [ref=e5077]:
+                  - link "Enterprise" [ref=e5078] [cursor=pointer]:
+                    - /url: https://chatgpt.com/business/enterprise?openaicom-did=2956b477-a210-4083-ad82-001fdc32184a&openaicom_referred=true
+                - listitem [ref=e5079]:
+                  - link "Education" [ref=e5080] [cursor=pointer]:
+                    - /url: https://chatgpt.com/business/education?openaicom-did=2956b477-a210-4083-ad82-001fdc32184a&openaicom_referred=true
+                - listitem [ref=e5081]:
+                  - link "Pricing (opens in a new window)" [ref=e5082] [cursor=pointer]:
+                    - /url: https://chatgpt.com/pricing?openaicom-did=2956b477-a210-4083-ad82-001fdc32184a&openaicom_referred=true
+                    - text: Pricing
+                    - img [ref=e5083]
+                    - generic [ref=e5085]: (opens in a new window)
+                - listitem [ref=e5086]:
+                  - link "Download (opens in a new window)" [ref=e5087] [cursor=pointer]:
+                    - /url: https://chatgpt.com/download?openaicom-did=2956b477-a210-4083-ad82-001fdc32184a&openaicom_referred=true
+                    - text: Download
+                    - img [ref=e5088]
+                    - generic [ref=e5090]: (opens in a new window)
+            - generic [ref=e5091]:
+              - heading "Sora" [level=2] [ref=e5092]
+              - list [ref=e5093]:
+                - listitem [ref=e5094]:
+                  - link "Sora Overview" [ref=e5095] [cursor=pointer]:
+                    - /url: /sora/
+                - listitem [ref=e5096]:
+                  - link "Features" [ref=e5097] [cursor=pointer]:
+                    - /url: /sora/#features
+                - listitem [ref=e5098]:
+                  - link "Pricing" [ref=e5099] [cursor=pointer]:
+                    - /url: /sora/#pricing
+                - listitem [ref=e5100]:
+                  - link "Sora log in (opens in a new window)" [ref=e5101] [cursor=pointer]:
+                    - /url: https://sora.com/
+                    - text: Sora log in
+                    - img [ref=e5102]
+                    - generic [ref=e5104]: (opens in a new window)
+            - generic [ref=e5105]:
+              - heading "API Platform" [level=2] [ref=e5106]
+              - list [ref=e5107]:
+                - listitem [ref=e5108]:
+                  - link "Platform Overview" [ref=e5109] [cursor=pointer]:
+                    - /url: /api/
+                - listitem [ref=e5110]:
+                  - link "Pricing" [ref=e5111] [cursor=pointer]:
+                    - /url: /api/pricing/
+                - listitem [ref=e5112]:
+                  - link "API log in (opens in a new window)" [ref=e5113] [cursor=pointer]:
+                    - /url: https://platform.openai.com/login
+                    - text: API log in
+                    - img [ref=e5114]
+                    - generic [ref=e5116]: (opens in a new window)
+                - listitem [ref=e5117]:
+                  - link "Documentation (opens in a new window)" [ref=e5118] [cursor=pointer]:
+                    - /url: https://platform.openai.com/docs/overview
+                    - text: Documentation
+                    - img [ref=e5119]
+                    - generic [ref=e5121]: (opens in a new window)
+                - listitem [ref=e5122]:
+                  - link "Developer Forum (opens in a new window)" [ref=e5123] [cursor=pointer]:
+                    - /url: https://community.openai.com/
+                    - text: Developer Forum
+                    - img [ref=e5124]
+                    - generic [ref=e5126]: (opens in a new window)
+          - generic [ref=e5127]:
+            - generic [ref=e5128]:
+              - heading "For Business" [level=2] [ref=e5129]
+              - list [ref=e5130]:
+                - listitem [ref=e5131]:
+                  - link "Business Overview" [ref=e5132] [cursor=pointer]:
+                    - /url: /business/
+                - listitem [ref=e5133]:
+                  - link "Solutions" [ref=e5134] [cursor=pointer]:
+                    - /url: /solutions/
+                - listitem [ref=e5135]:
+                  - link "Contact Sales" [ref=e5136] [cursor=pointer]:
+                    - /url: /contact-sales/
+            - generic [ref=e5137]:
+              - heading "Company" [level=2] [ref=e5138]
+              - list [ref=e5139]:
+                - listitem [ref=e5140]:
+                  - link "About Us" [ref=e5141] [cursor=pointer]:
+                    - /url: /about/
+                - listitem [ref=e5142]:
+                  - link "Our Charter" [ref=e5143] [cursor=pointer]:
+                    - /url: /charter/
+                - listitem [ref=e5144]:
+                  - link "Foundation" [ref=e5145] [cursor=pointer]:
+                    - /url: /foundation/
+                - listitem [ref=e5146]:
+                  - link "Careers" [ref=e5147] [cursor=pointer]:
+                    - /url: /careers/
+                - listitem [ref=e5148]:
+                  - link "Brand" [ref=e5149] [cursor=pointer]:
+                    - /url: /brand/
+            - generic [ref=e5150]:
+              - heading "Support" [level=2] [ref=e5151]
+              - list [ref=e5152]:
+                - listitem [ref=e5153]:
+                  - link "Help Center (opens in a new window)" [ref=e5154] [cursor=pointer]:
+                    - /url: https://help.openai.com/
+                    - text: Help Center
+                    - img [ref=e5155]
+                    - generic [ref=e5157]: (opens in a new window)
+            - generic [ref=e5158]:
+              - heading "More" [level=2] [ref=e5159]
+              - list [ref=e5160]:
+                - listitem [ref=e5161]:
+                  - link "News" [ref=e5162] [cursor=pointer]:
+                    - /url: /news/
+                - listitem [ref=e5163]:
+                  - link "Stories" [ref=e5164] [cursor=pointer]:
+                    - /url: /stories/
+                - listitem [ref=e5165]:
+                  - link "Livestreams" [ref=e5166] [cursor=pointer]:
+                    - /url: /live/
+                - listitem [ref=e5167]:
+                  - link "Podcast" [ref=e5168] [cursor=pointer]:
+                    - /url: /podcast/
+                - listitem [ref=e5169]:
+                  - link "RSS" [ref=e5170] [cursor=pointer]:
+                    - /url: /news/rss.xml
+          - generic [ref=e5172]:
+            - heading "Terms & Policies" [level=2] [ref=e5173]
+            - list [ref=e5174]:
+              - listitem [ref=e5175]:
+                - link "Terms of Use" [ref=e5176] [cursor=pointer]:
+                  - /url: /policies/terms-of-use/
+              - listitem [ref=e5177]:
+                - link "Privacy Policy" [ref=e5178] [cursor=pointer]:
+                  - /url: /policies/privacy-policy/
+              - listitem [ref=e5179]:
+                - link "Other Policies" [ref=e5180] [cursor=pointer]:
+                  - /url: /policies/
+        - generic [ref=e5181]:
+          - generic [ref=e5182]:
+            - link "X" [ref=e5183] [cursor=pointer]:
+              - /url: https://x.com/OpenAI
+              - img [ref=e5184]
+              - generic [ref=e5186]: (opens in a new window)
+            - link "YouTube" [ref=e5187] [cursor=pointer]:
+              - /url: https://www.youtube.com/OpenAI
+              - img [ref=e5188]
+              - generic [ref=e5190]: (opens in a new window)
+            - link "LinkedIn" [ref=e5191] [cursor=pointer]:
+              - /url: https://www.linkedin.com/company/openai
+              - img [ref=e5192]
+              - generic [ref=e5194]: (opens in a new window)
+            - link "GitHub" [ref=e5195] [cursor=pointer]:
+              - /url: https://github.com/openai
+              - img [ref=e5196]
+              - generic [ref=e5198]: (opens in a new window)
+            - link "Instagram" [ref=e5199] [cursor=pointer]:
+              - /url: https://www.instagram.com/openai/
+              - img [ref=e5200]
+              - generic [ref=e5202]: (opens in a new window)
+            - link "TikTok" [ref=e5203] [cursor=pointer]:
+              - /url: https://www.tiktok.com/@openai
+              - img [ref=e5204]
+              - generic [ref=e5206]: (opens in a new window)
+            - link "Discord" [ref=e5207] [cursor=pointer]:
+              - /url: https://discord.gg/openai
+              - img [ref=e5208]
+              - generic [ref=e5210]: (opens in a new window)
+          - generic [ref=e5211]:
+            - generic [ref=e5212]: OpenAI © 2015–2026
+            - button "Manage Cookies" [ref=e5213] [cursor=pointer]
+          - generic [ref=e5214]:
+            - button "Change language" [ref=e5215] [cursor=pointer]:
+              - generic [ref=e5216]:
+                - img [ref=e5217]
+                - generic [ref=e5220]:
+                  - text: English
+                  - generic [ref=e5221]: United States
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - img
+                      - textbox "Search locales by name or region":
+                        - /placeholder: Search
+  - alert [ref=e5230]

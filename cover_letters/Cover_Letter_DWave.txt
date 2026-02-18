@@ -1,0 +1,28 @@
+Igor Ganapolsky
+Coral Springs, FL
+iganapolsky@gmail.com | (201) 639-1534
+github.com/IgorGanapolsky | https://www.linkedin.com/in/igor-ganapolsky-859317343/
+
+January 30, 2026
+
+D-Wave Quantum Hiring Team
+Burnaby, BC / Remote US
+
+Re: Software Specialist, Support II (Intermediate)
+
+I'm applying for the Software Specialist, Support II role at D-Wave Quantum. I've spent the last 6+ years building production software systems and deploying ML at scale—from serving 5M+ monthly users at Subway to architecting multi-agent AI platforms.
+
+At Subway, I deployed a RAG pipeline using GPT-4 and Pinecone that reduced token costs by 40% and maintained <200ms latency. I also built a Dialogflow CX conversational AI system on Vertex AI that cut customer service load by 35%. This experience directly translates to supporting customers developing quantum applications—I understand both the technical depth and the customer communication skills required.
+
+What makes my background unique for this role is the combination of customer-facing technical support and deep software expertise. I have strong Python skills, experience with cloud platforms (GCP, AWS), and a passion for helping developers succeed with complex technology. My experience debugging ML systems and explaining technical concepts to diverse audiences aligns perfectly with supporting quantum developers on the Leap platform.
+
+I also built an open-source multi-agent AI trading system (github.com/IgorGanapolsky/trading) that coordinates multiple AI models—demonstrating my ability to work with cutting-edge technology and document complex systems clearly.
+
+I'm drawn to D-Wave because quantum computing represents the next frontier of computation, and your practical approach to delivering value today is exactly the kind of innovation I want to support. As a Florida resident, I'm excited about the Remote US position and the opportunity to help developers access quantum computing.
+
+I'd be excited to discuss how my technical support experience and software background can help D-Wave's customers succeed with quantum applications. Thanks for considering my application.
+
+Best regards,
+Igor Ganapolsky
+
+P.S. I publish my work openly at dev.to/igorganapolsky—130+ technical articles on software development and deployment.

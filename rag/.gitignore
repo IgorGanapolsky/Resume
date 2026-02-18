@@ -1,0 +1,6 @@
+# Local vector store and caches
+lancedb/
+__pycache__/
+*.pyc
+.cache/
+

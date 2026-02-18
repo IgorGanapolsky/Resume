@@ -1,0 +1,444 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e6]:
+      - generic [ref=e7]:
+        - img "D-Wave Quantum Careers" [ref=e9]
+        - heading "D-Wave Quantum Careers" [level=3] [ref=e10]
+        - heading "Come work with us!" [level=6] [ref=e11]
+      - generic [ref=e12]:
+        - generic [ref=e13]:
+          - generic [ref=e14]:
+            - generic [ref=e16]: 
+            - textbox "Search" [ref=e17]
+          - generic [ref=e20]:
+            - generic [ref=e22]: 
+            - combobox "Tree" [ref=e26]
+            - generic [ref=e28]: 
+          - generic [ref=e31]:
+            - generic [ref=e33]: 
+            - combobox "Tree" [ref=e34]
+            - generic [ref=e36]: 
+          - generic [ref=e39]:
+            - generic [ref=e41]: 
+            - combobox "Tree" [ref=e42]
+            - generic [ref=e44]: 
+        - generic [ref=e46]:
+          - paragraph [ref=e47]: 22 roles across
+          - paragraph [ref=e48]: all departments
+          - paragraph [ref=e49]: in
+          - paragraph [ref=e50]: all locations
+      - generic [ref=e51]:
+        - generic [ref=e52]:
+          - generic [ref=e53]:
+            - heading "Business Services" [level=3] [ref=e54]
+            - generic [ref=e55]:
+              - generic [ref=e56]:
+                - link "Senior Business Analyst - Sales Systems" [ref=e58] [cursor=pointer]:
+                  - /url: /d-wave-quantum/jobs/492f2a70-5941-455b-ab05-b5e1157c4358
+                - generic [ref=e59]:
+                  - generic [ref=e60]:
+                    - generic [ref=e61]: 
+                    - paragraph [ref=e62]: Business Services
+                  - generic [ref=e64]:
+                    - generic [ref=e65]: 
+                    - paragraph [ref=e66]: Burnaby, Canada
+                  - generic [ref=e68]:
+                    - generic [ref=e69]: 
+                    - paragraph [ref=e70]: Hybrid (Burnaby, British Columbia, CA)
+                  - generic [ref=e72]:
+                    - generic [ref=e73]: 
+                    - paragraph [ref=e74]: +1 more locations
+              - link "View job" [ref=e75] [cursor=pointer]:
+                - /url: /d-wave-quantum/jobs/492f2a70-5941-455b-ab05-b5e1157c4358
+                - button "View job" [ref=e77]:
+                  - generic [ref=e78]:
+                    - generic [ref=e79]: View job
+                    - generic [ref=e80]: 
+            - generic [ref=e81]:
+              - generic [ref=e82]:
+                - link "Senior Manager, HR Business Partner" [ref=e84] [cursor=pointer]:
+                  - /url: /d-wave-quantum/jobs/82330dee-8cf2-4b4e-851b-c2cda218f980
+                - generic [ref=e85]:
+                  - generic [ref=e86]:
+                    - generic [ref=e87]: 
+                    - paragraph [ref=e88]: Business Services
+                  - generic [ref=e90]:
+                    - generic [ref=e91]: 
+                    - paragraph [ref=e92]: Remote (New Haven, Connecticut, US)
+              - link "View job" [ref=e93] [cursor=pointer]:
+                - /url: /d-wave-quantum/jobs/82330dee-8cf2-4b4e-851b-c2cda218f980
+                - button "View job" [ref=e95]:
+                  - generic [ref=e96]:
+                    - generic [ref=e97]: View job
+                    - generic [ref=e98]: 
+            - generic [ref=e99]:
+              - generic [ref=e100]:
+                - link "Senior Paralegal/Senior Contracts Specialist" [ref=e102] [cursor=pointer]:
+                  - /url: /d-wave-quantum/jobs/faa5c7e8-264d-4f36-9866-a63104406d7f
+                - generic [ref=e103]:
+                  - generic [ref=e104]:
+                    - generic [ref=e105]: 
+                    - paragraph [ref=e106]: Business Services
+                  - generic [ref=e108]:
+                    - generic [ref=e109]: 
+                    - paragraph [ref=e110]: Remote (Canada)
+                  - generic [ref=e112]:
+                    - generic [ref=e113]: 
+                    - paragraph [ref=e114]: Remote (United States)
+              - link "View job" [ref=e115] [cursor=pointer]:
+                - /url: /d-wave-quantum/jobs/faa5c7e8-264d-4f36-9866-a63104406d7f
+                - button "View job" [ref=e117]:
+                  - generic [ref=e118]:
+                    - generic [ref=e119]: View job
+                    - generic [ref=e120]: 
+            - generic [ref=e121]:
+              - generic [ref=e122]:
+                - link "Senior Patent Specialist" [ref=e124] [cursor=pointer]:
+                  - /url: /d-wave-quantum/jobs/3d2c068a-33d6-4b9b-9b15-28b22fb73d24
+                - generic [ref=e125]:
+                  - generic [ref=e126]:
+                    - generic [ref=e127]: 
+                    - paragraph [ref=e128]: Business Services
+                  - generic [ref=e130]:
+                    - generic [ref=e131]: 
+                    - paragraph [ref=e132]: Burnaby, Canada
+                  - generic [ref=e134]:
+                    - generic [ref=e135]: 
+                    - paragraph [ref=e136]: Remote (Canada)
+              - link "View job" [ref=e137] [cursor=pointer]:
+                - /url: /d-wave-quantum/jobs/3d2c068a-33d6-4b9b-9b15-28b22fb73d24
+                - button "View job" [ref=e139]:
+                  - generic [ref=e140]:
+                    - generic [ref=e141]: View job
+                    - generic [ref=e142]: 
+            - generic [ref=e143]:
+              - generic [ref=e144]:
+                - link "Senior Recruiter" [ref=e146] [cursor=pointer]:
+                  - /url: /d-wave-quantum/jobs/1feb8996-5abe-474d-bd94-3fdedfdd1620
+                - generic [ref=e147]:
+                  - generic [ref=e148]:
+                    - generic [ref=e149]: 
+                    - paragraph [ref=e150]: Business Services
+                  - generic [ref=e152]:
+                    - generic [ref=e153]: 
+                    - paragraph [ref=e154]: Remote (Canada)
+                  - generic [ref=e156]:
+                    - generic [ref=e157]: 
+                    - paragraph [ref=e158]: Remote (United States)
+              - link "View job" [ref=e159] [cursor=pointer]:
+                - /url: /d-wave-quantum/jobs/1feb8996-5abe-474d-bd94-3fdedfdd1620
+                - button "View job" [ref=e161]:
+                  - generic [ref=e162]:
+                    - generic [ref=e163]: View job
+                    - generic [ref=e164]: 
+            - generic [ref=e165]:
+              - generic [ref=e166]:
+                - link "Senior Technical Recruiter" [ref=e168] [cursor=pointer]:
+                  - /url: /d-wave-quantum/jobs/40537c2b-79cd-4f7f-a0b8-915c14b2b9c6
+                - generic [ref=e169]:
+                  - generic [ref=e170]:
+                    - generic [ref=e171]: 
+                    - paragraph [ref=e172]: Business Services
+                  - generic [ref=e174]:
+                    - generic [ref=e175]: 
+                    - paragraph [ref=e176]: New Haven, CT
+              - link "View job" [ref=e177] [cursor=pointer]:
+                - /url: /d-wave-quantum/jobs/40537c2b-79cd-4f7f-a0b8-915c14b2b9c6
+                - button "View job" [ref=e179]:
+                  - generic [ref=e180]:
+                    - generic [ref=e181]: View job
+                    - generic [ref=e182]: 
+          - generic [ref=e183]:
+            - heading "Research and Development" [level=3] [ref=e184]
+            - generic [ref=e185]:
+              - generic [ref=e186]:
+                - link "Algorithms Researcher II" [ref=e188] [cursor=pointer]:
+                  - /url: /d-wave-quantum/jobs/a43c5699-0f0b-4473-8f8f-012b98ca346d
+                - generic [ref=e189]:
+                  - generic [ref=e190]:
+                    - generic [ref=e191]: 
+                    - paragraph [ref=e192]: Research and Development
+                  - generic [ref=e194]:
+                    - generic [ref=e195]: 
+                    - paragraph [ref=e196]: Burnaby, Canada
+                  - generic [ref=e198]:
+                    - generic [ref=e199]: 
+                    - paragraph [ref=e200]: Hybrid (Burnaby, British Columbia, CA)
+                  - generic [ref=e202]:
+                    - generic [ref=e203]: 
+                    - paragraph [ref=e204]: +1 more locations
+              - link "View job" [ref=e205] [cursor=pointer]:
+                - /url: /d-wave-quantum/jobs/a43c5699-0f0b-4473-8f8f-012b98ca346d
+                - button "View job" [ref=e207]:
+                  - generic [ref=e208]:
+                    - generic [ref=e209]: View job
+                    - generic [ref=e210]: 
+            - generic [ref=e211]:
+              - generic [ref=e212]:
+                - link "EDA Tool Developer (Intermediate, Senior, or Staff)" [ref=e214] [cursor=pointer]:
+                  - /url: /d-wave-quantum/jobs/7f894cbc-4d44-4cc8-b0cf-1de0ef439efb
+                - generic [ref=e215]:
+                  - generic [ref=e216]:
+                    - generic [ref=e217]: 
+                    - paragraph [ref=e218]: Research and Development
+                  - generic [ref=e220]:
+                    - generic [ref=e221]: 
+                    - paragraph [ref=e222]: Burnaby, Canada
+                  - generic [ref=e224]:
+                    - generic [ref=e225]: 
+                    - paragraph [ref=e226]: Hybrid (Burnaby, British Columbia, CA)
+              - link "View job" [ref=e227] [cursor=pointer]:
+                - /url: /d-wave-quantum/jobs/7f894cbc-4d44-4cc8-b0cf-1de0ef439efb
+                - button "View job" [ref=e229]:
+                  - generic [ref=e230]:
+                    - generic [ref=e231]: View job
+                    - generic [ref=e232]: 
+            - generic [ref=e233]:
+              - generic [ref=e234]:
+                - link "Embedded Systems Engineer II" [ref=e236] [cursor=pointer]:
+                  - /url: /d-wave-quantum/jobs/509831e6-375f-40df-8d4a-e5260ae6410e
+                - generic [ref=e237]:
+                  - generic [ref=e238]:
+                    - generic [ref=e239]: 
+                    - paragraph [ref=e240]: Research and Development
+                  - generic [ref=e242]:
+                    - generic [ref=e243]: 
+                    - paragraph [ref=e244]: Burnaby, Canada
+                  - generic [ref=e246]:
+                    - generic [ref=e247]: 
+                    - paragraph [ref=e248]: Hybrid (Burnaby, British Columbia, CA)
+              - link "View job" [ref=e249] [cursor=pointer]:
+                - /url: /d-wave-quantum/jobs/509831e6-375f-40df-8d4a-e5260ae6410e
+                - button "View job" [ref=e251]:
+                  - generic [ref=e252]:
+                    - generic [ref=e253]: View job
+                    - generic [ref=e254]: 
+            - generic [ref=e255]:
+              - generic [ref=e256]:
+                - link "Manager, Electrical Production" [ref=e258] [cursor=pointer]:
+                  - /url: /d-wave-quantum/jobs/bb965989-b8bd-44c9-80e3-e8ac5cad1cd4
+                - generic [ref=e259]:
+                  - generic [ref=e260]:
+                    - generic [ref=e261]: 
+                    - paragraph [ref=e262]: Research and Development
+                  - generic [ref=e264]:
+                    - generic [ref=e265]: 
+                    - paragraph [ref=e266]: Burnaby, Canada
+                  - generic [ref=e268]:
+                    - generic [ref=e269]: 
+                    - paragraph [ref=e270]: Hybrid (Burnaby, British Columbia, CA)
+              - link "View job" [ref=e271] [cursor=pointer]:
+                - /url: /d-wave-quantum/jobs/bb965989-b8bd-44c9-80e3-e8ac5cad1cd4
+                - button "View job" [ref=e273]:
+                  - generic [ref=e274]:
+                    - generic [ref=e275]: View job
+                    - generic [ref=e276]: 
+            - generic [ref=e277]:
+              - generic [ref=e278]:
+                - link "Manager, Quantum Processor Development" [ref=e280] [cursor=pointer]:
+                  - /url: /d-wave-quantum/jobs/b67e1675-8169-4c36-9ed3-8979b579e516
+                - generic [ref=e281]:
+                  - generic [ref=e282]:
+                    - generic [ref=e283]: 
+                    - paragraph [ref=e284]: Research and Development
+                  - generic [ref=e286]:
+                    - generic [ref=e287]: 
+                    - paragraph [ref=e288]: Burnaby, Canada
+                  - generic [ref=e290]:
+                    - generic [ref=e291]: 
+                    - paragraph [ref=e292]: Hybrid (Burnaby, British Columbia, CA)
+              - link "View job" [ref=e293] [cursor=pointer]:
+                - /url: /d-wave-quantum/jobs/b67e1675-8169-4c36-9ed3-8979b579e516
+                - button "View job" [ref=e295]:
+                  - generic [ref=e296]:
+                    - generic [ref=e297]: View job
+                    - generic [ref=e298]: 
+            - generic [ref=e299]:
+              - generic [ref=e300]:
+                - link "Manager, Supply Chain" [ref=e302] [cursor=pointer]:
+                  - /url: /d-wave-quantum/jobs/91bc2b1f-20ff-4c8d-a06d-4dc64c348de3
+                - generic [ref=e303]:
+                  - generic [ref=e304]:
+                    - generic [ref=e305]: 
+                    - paragraph [ref=e306]: Research and Development
+                  - generic [ref=e308]:
+                    - generic [ref=e309]: 
+                    - paragraph [ref=e310]: Burnaby, Canada
+              - link "View job" [ref=e311] [cursor=pointer]:
+                - /url: /d-wave-quantum/jobs/91bc2b1f-20ff-4c8d-a06d-4dc64c348de3
+                - button "View job" [ref=e313]:
+                  - generic [ref=e314]:
+                    - generic [ref=e315]: View job
+                    - generic [ref=e316]: 
+            - generic [ref=e317]:
+              - generic [ref=e318]:
+                - link "Software Developer Team Lead, Processor Software" [ref=e320] [cursor=pointer]:
+                  - /url: /d-wave-quantum/jobs/6b269dbc-8a19-4510-aecf-a3837ce943cc
+                - generic [ref=e321]:
+                  - generic [ref=e322]:
+                    - generic [ref=e323]: 
+                    - paragraph [ref=e324]: Research and Development
+                  - generic [ref=e326]:
+                    - generic [ref=e327]: 
+                    - paragraph [ref=e328]: Burnaby, Canada
+                  - generic [ref=e330]:
+                    - generic [ref=e331]: 
+                    - paragraph [ref=e332]: Hybrid (Burnaby, British Columbia, CA)
+              - link "View job" [ref=e333] [cursor=pointer]:
+                - /url: /d-wave-quantum/jobs/6b269dbc-8a19-4510-aecf-a3837ce943cc
+                - button "View job" [ref=e335]:
+                  - generic [ref=e336]:
+                    - generic [ref=e337]: View job
+                    - generic [ref=e338]: 
+            - generic [ref=e339]:
+              - generic [ref=e340]:
+                - link "Software Specialist, Support II (Intermediate)" [ref=e342] [cursor=pointer]:
+                  - /url: /d-wave-quantum/jobs/37177347-e697-4ee8-8473-780548104708
+                - generic [ref=e343]:
+                  - generic [ref=e344]:
+                    - generic [ref=e345]: 
+                    - paragraph [ref=e346]: Research and Development
+                  - generic [ref=e348]:
+                    - generic [ref=e349]: 
+                    - paragraph [ref=e350]: Remote (United States)
+              - link "View job" [ref=e351] [cursor=pointer]:
+                - /url: /d-wave-quantum/jobs/37177347-e697-4ee8-8473-780548104708
+                - button "View job" [ref=e353]:
+                  - generic [ref=e354]:
+                    - generic [ref=e355]: View job
+                    - generic [ref=e356]: 
+            - generic [ref=e357]:
+              - generic [ref=e358]:
+                - link "Superconducting IC Designer (Intermediate, Senior, or Staff)" [ref=e360] [cursor=pointer]:
+                  - /url: /d-wave-quantum/jobs/95f170a4-92d9-4c0b-8252-2f6ca69efeec
+                - generic [ref=e361]:
+                  - generic [ref=e362]:
+                    - generic [ref=e363]: 
+                    - paragraph [ref=e364]: Research and Development
+                  - generic [ref=e366]:
+                    - generic [ref=e367]: 
+                    - paragraph [ref=e368]: Burnaby, Canada
+                  - generic [ref=e370]:
+                    - generic [ref=e371]: 
+                    - paragraph [ref=e372]: Hybrid (Burnaby, British Columbia, CA)
+              - link "View job" [ref=e373] [cursor=pointer]:
+                - /url: /d-wave-quantum/jobs/95f170a4-92d9-4c0b-8252-2f6ca69efeec
+                - button "View job" [ref=e375]:
+                  - generic [ref=e376]:
+                    - generic [ref=e377]: View job
+                    - generic [ref=e378]: 
+          - generic [ref=e379]:
+            - heading "Sales and Marketing" [level=3] [ref=e380]
+            - generic [ref=e381]:
+              - generic [ref=e382]:
+                - link "Senior Application Developer" [ref=e384] [cursor=pointer]:
+                  - /url: /d-wave-quantum/jobs/f078b9da-cdd9-4d6b-8e75-9b9d68309659
+                - generic [ref=e385]:
+                  - generic [ref=e386]:
+                    - generic [ref=e387]: 
+                    - paragraph [ref=e388]: Sales and Marketing
+                  - generic [ref=e390]:
+                    - generic [ref=e391]: 
+                    - paragraph [ref=e392]: Remote (United States)
+              - link "View job" [ref=e393] [cursor=pointer]:
+                - /url: /d-wave-quantum/jobs/f078b9da-cdd9-4d6b-8e75-9b9d68309659
+                - button "View job" [ref=e395]:
+                  - generic [ref=e396]:
+                    - generic [ref=e397]: View job
+                    - generic [ref=e398]: 
+            - generic [ref=e399]:
+              - generic [ref=e400]:
+                - link "Senior Solutions Architect - Optimisation (UK & Ireland)" [ref=e402] [cursor=pointer]:
+                  - /url: /d-wave-quantum/jobs/5829ca6b-78d9-452c-88e9-bb45033437c9
+                - generic [ref=e403]:
+                  - generic [ref=e404]:
+                    - generic [ref=e405]: 
+                    - paragraph [ref=e406]: Sales and Marketing
+                  - generic [ref=e408]:
+                    - generic [ref=e409]: 
+                    - paragraph [ref=e410]: Remote (United Kingdom)
+              - link "View job" [ref=e411] [cursor=pointer]:
+                - /url: /d-wave-quantum/jobs/5829ca6b-78d9-452c-88e9-bb45033437c9
+                - button "View job" [ref=e413]:
+                  - generic [ref=e414]:
+                    - generic [ref=e415]: View job
+                    - generic [ref=e416]: 
+            - generic [ref=e417]:
+              - generic [ref=e418]:
+                - link "Senior Solutions Architect - Optimization – U.S. Government" [ref=e420] [cursor=pointer]:
+                  - /url: /d-wave-quantum/jobs/7d7d38e4-c87b-4e67-8c79-9ec0205c897c
+                - generic [ref=e421]:
+                  - generic [ref=e422]:
+                    - generic [ref=e423]: 
+                    - paragraph [ref=e424]: Sales and Marketing
+                  - generic [ref=e426]:
+                    - generic [ref=e427]: 
+                    - paragraph [ref=e428]: Remote (United States)
+              - link "View job" [ref=e429] [cursor=pointer]:
+                - /url: /d-wave-quantum/jobs/7d7d38e4-c87b-4e67-8c79-9ec0205c897c
+                - button "View job" [ref=e431]:
+                  - generic [ref=e432]:
+                    - generic [ref=e433]: View job
+                    - generic [ref=e434]: 
+            - generic [ref=e435]:
+              - generic [ref=e436]:
+                - link "Staff Engagement Manager (UK & Ireland)" [ref=e438] [cursor=pointer]:
+                  - /url: /d-wave-quantum/jobs/6850bce3-602b-4fbd-8a88-c6c654eb02fd
+                - generic [ref=e439]:
+                  - generic [ref=e440]:
+                    - generic [ref=e441]: 
+                    - paragraph [ref=e442]: Sales and Marketing
+                  - generic [ref=e444]:
+                    - generic [ref=e445]: 
+                    - paragraph [ref=e446]: Remote (United Kingdom)
+              - link "View job" [ref=e447] [cursor=pointer]:
+                - /url: /d-wave-quantum/jobs/6850bce3-602b-4fbd-8a88-c6c654eb02fd
+                - button "View job" [ref=e449]:
+                  - generic [ref=e450]:
+                    - generic [ref=e451]: View job
+                    - generic [ref=e452]: 
+            - generic [ref=e453]:
+              - generic [ref=e454]:
+                - link "Staff Technical Account Manager (US) Optimization" [ref=e456] [cursor=pointer]:
+                  - /url: /d-wave-quantum/jobs/e7529ed2-e8a3-4f83-87ef-58f373718dcf
+                - generic [ref=e457]:
+                  - generic [ref=e458]:
+                    - generic [ref=e459]: 
+                    - paragraph [ref=e460]: Sales and Marketing
+                  - generic [ref=e462]:
+                    - generic [ref=e463]: 
+                    - paragraph [ref=e464]: Remote (United States)
+              - link "View job" [ref=e465] [cursor=pointer]:
+                - /url: /d-wave-quantum/jobs/e7529ed2-e8a3-4f83-87ef-58f373718dcf
+                - button "View job" [ref=e467]:
+                  - generic [ref=e468]:
+                    - generic [ref=e469]: View job
+                    - generic [ref=e470]: 
+        - navigation [ref=e471]:
+          - list [ref=e472]:
+            - listitem:
+              - button "Previous page":
+                - generic: 
+            - listitem [ref=e473] [cursor=pointer]:
+              - generic "Page 1 of 2, selected" [ref=e474]:
+                - paragraph [ref=e475]: "1"
+            - listitem [ref=e476] [cursor=pointer]:
+              - generic "Page 2 of 2" [ref=e477]:
+                - paragraph [ref=e478]: "2"
+            - listitem [ref=e479] [cursor=pointer]:
+              - button "Next page" [ref=e480]:
+                - generic [ref=e481]: 
+    - generic [ref=e483]:
+      - generic [ref=e484]:
+        - link "Terms of service" [ref=e485] [cursor=pointer]:
+          - /url: https://app.rippling.com/legal/user
+        - link "Privacy" [ref=e486] [cursor=pointer]:
+          - /url: https://app.rippling.com/legal/privacy
+        - link "Cookies" [ref=e487] [cursor=pointer]:
+          - /url: https://app.rippling.com/legal/cookie-notice
+        - link "Powered by Rippling" [ref=e488] [cursor=pointer]:
+          - /url: https://www.rippling.com/recruiting
+      - generic [ref=e492] [cursor=pointer]:
+        - combobox "Search" [ref=e496]: United States (English)
+        - generic [ref=e498]: 
+  - alert [ref=e499]: D-Wave Quantum Careers

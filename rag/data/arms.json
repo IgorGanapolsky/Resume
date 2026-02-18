@@ -1,0 +1,275 @@
+{
+  "cat:remote": {
+    "name": "cat:remote",
+    "alpha": 2.000000000000001,
+    "beta": 19.999999999999993,
+    "pulls": 20,
+    "total_reward": 1.0000000000000002
+  },
+  "cat:ai": {
+    "name": "cat:ai",
+    "alpha": 1.8000000000000007,
+    "beta": 18.199999999999992,
+    "pulls": 18,
+    "total_reward": 0.8000000000000002
+  },
+  "cat:react-native": {
+    "name": "cat:react-native",
+    "alpha": 1.3000000000000003,
+    "beta": 6.7,
+    "pulls": 6,
+    "total_reward": 0.3
+  },
+  "method:lever": {
+    "name": "method:lever",
+    "alpha": 1.05,
+    "beta": 1.95,
+    "pulls": 1,
+    "total_reward": 0.05
+  },
+  "cat:mobile": {
+    "name": "cat:mobile",
+    "alpha": 1.4000000000000004,
+    "beta": 8.6,
+    "pulls": 8,
+    "total_reward": 0.39999999999999997
+  },
+  "method:direct": {
+    "name": "method:direct",
+    "alpha": 2.2,
+    "beta": 23.79999999999999,
+    "pulls": 24,
+    "total_reward": 1.2000000000000004
+  },
+  "cat:cicd": {
+    "name": "cat:cicd",
+    "alpha": 1.05,
+    "beta": 1.95,
+    "pulls": 1,
+    "total_reward": 0.05
+  },
+  "cat:consultancy": {
+    "name": "cat:consultancy",
+    "alpha": 1.1,
+    "beta": 2.9,
+    "pulls": 2,
+    "total_reward": 0.1
+  },
+  "cat:voice": {
+    "name": "cat:voice",
+    "alpha": 1.05,
+    "beta": 1.95,
+    "pulls": 1,
+    "total_reward": 0.05
+  },
+  "cat:local": {
+    "name": "cat:local",
+    "alpha": 1.4500000000000004,
+    "beta": 9.549999999999999,
+    "pulls": 9,
+    "total_reward": 0.44999999999999996
+  },
+  "cat:quantum": {
+    "name": "cat:quantum",
+    "alpha": 1.05,
+    "beta": 1.95,
+    "pulls": 1,
+    "total_reward": 0.05
+  },
+  "cat:boca-raton": {
+    "name": "cat:boca-raton",
+    "alpha": 1.1,
+    "beta": 2.9,
+    "pulls": 2,
+    "total_reward": 0.1
+  },
+  "cat:agents": {
+    "name": "cat:agents",
+    "alpha": 1.1,
+    "beta": 2.9,
+    "pulls": 2,
+    "total_reward": 0.1
+  },
+  "cat:miami": {
+    "name": "cat:miami",
+    "alpha": 1.3500000000000003,
+    "beta": 7.65,
+    "pulls": 7,
+    "total_reward": 0.35
+  },
+  "method:wellfound": {
+    "name": "method:wellfound",
+    "alpha": 1.2000000000000002,
+    "beta": 4.8,
+    "pulls": 4,
+    "total_reward": 0.2
+  },
+  "cat:healthcare": {
+    "name": "cat:healthcare",
+    "alpha": 1.3000000000000003,
+    "beta": 6.7,
+    "pulls": 6,
+    "total_reward": 0.3
+  },
+  "cat:rag": {
+    "name": "cat:rag",
+    "alpha": 1.05,
+    "beta": 1.95,
+    "pulls": 1,
+    "total_reward": 0.05
+  },
+  "cat:edge": {
+    "name": "cat:edge",
+    "alpha": 1.05,
+    "beta": 1.95,
+    "pulls": 1,
+    "total_reward": 0.05
+  },
+  "cat:devtools": {
+    "name": "cat:devtools",
+    "alpha": 1.1,
+    "beta": 2.9,
+    "pulls": 2,
+    "total_reward": 0.1
+  },
+  "cat:ml": {
+    "name": "cat:ml",
+    "alpha": 1.1,
+    "beta": 2.9,
+    "pulls": 2,
+    "total_reward": 0.1
+  },
+  "cat:api": {
+    "name": "cat:api",
+    "alpha": 1.05,
+    "beta": 1.95,
+    "pulls": 1,
+    "total_reward": 0.05
+  },
+  "cat:fintech": {
+    "name": "cat:fintech",
+    "alpha": 1.1,
+    "beta": 2.9,
+    "pulls": 2,
+    "total_reward": 0.1
+  },
+  "cat:security": {
+    "name": "cat:security",
+    "alpha": 1.05,
+    "beta": 1.95,
+    "pulls": 1,
+    "total_reward": 0.05
+  },
+  "cat:crypto": {
+    "name": "cat:crypto",
+    "alpha": 1.1500000000000001,
+    "beta": 3.8499999999999996,
+    "pulls": 3,
+    "total_reward": 0.15000000000000002
+  },
+  "cat:trading": {
+    "name": "cat:trading",
+    "alpha": 1.05,
+    "beta": 1.95,
+    "pulls": 1,
+    "total_reward": 0.05
+  },
+  "cat:infra": {
+    "name": "cat:infra",
+    "alpha": 1.0,
+    "beta": 3.0,
+    "pulls": 2,
+    "total_reward": 0.0
+  },
+  "cat:kubernetes": {
+    "name": "cat:kubernetes",
+    "alpha": 1.0,
+    "beta": 2.0,
+    "pulls": 1,
+    "total_reward": 0.0
+  },
+  "cat:inference": {
+    "name": "cat:inference",
+    "alpha": 1.0,
+    "beta": 2.0,
+    "pulls": 1,
+    "total_reward": 0.0
+  },
+  "cat:gateway": {
+    "name": "cat:gateway",
+    "alpha": 1.0,
+    "beta": 2.0,
+    "pulls": 1,
+    "total_reward": 0.0
+  },
+  "method:ashby": {
+    "name": "method:ashby",
+    "alpha": 1.0,
+    "beta": 3.0,
+    "pulls": 2,
+    "total_reward": 0.0
+  },
+  "cat:backend": {
+    "name": "cat:backend",
+    "alpha": 1.0,
+    "beta": 2.0,
+    "pulls": 1,
+    "total_reward": 0.0
+  },
+  "cat:evals": {
+    "name": "cat:evals",
+    "alpha": 1.05,
+    "beta": 1.95,
+    "pulls": 1,
+    "total_reward": 0.05
+  },
+  "cat:reasoning": {
+    "name": "cat:reasoning",
+    "alpha": 1.05,
+    "beta": 1.95,
+    "pulls": 1,
+    "total_reward": 0.05
+  },
+  "cat:debugging": {
+    "name": "cat:debugging",
+    "alpha": 1.05,
+    "beta": 1.95,
+    "pulls": 1,
+    "total_reward": 0.05
+  },
+  "method:mercor": {
+    "name": "method:mercor",
+    "alpha": 1.1,
+    "beta": 2.9,
+    "pulls": 2,
+    "total_reward": 0.1
+  },
+  "cat:macos": {
+    "name": "cat:macos",
+    "alpha": 1.05,
+    "beta": 1.95,
+    "pulls": 1,
+    "total_reward": 0.05
+  },
+  "cat:office": {
+    "name": "cat:office",
+    "alpha": 1.05,
+    "beta": 1.95,
+    "pulls": 1,
+    "total_reward": 0.05
+  },
+  "cat:annotation": {
+    "name": "cat:annotation",
+    "alpha": 1.05,
+    "beta": 1.95,
+    "pulls": 1,
+    "total_reward": 0.05
+  },
+  "cat:workflows": {
+    "name": "cat:workflows",
+    "alpha": 1.05,
+    "beta": 1.95,
+    "pulls": 1,
+    "total_reward": 0.05
+  }
+}
