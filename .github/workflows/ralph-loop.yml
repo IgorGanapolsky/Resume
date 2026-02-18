@@ -1,0 +1,67 @@
+name: Ralph Loop
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+    inputs:
+      max_new_jobs:
+        description: "Max new draft jobs to add this run"
+        required: false
+        default: "10"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: ralph-loop
+  cancel-in-progress: false
+
+jobs:
+  iterate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install numpy lancedb
+
+      - name: Discover and prepare draft jobs
+        run: |
+          MAX_NEW="${{ github.event.inputs.max_new_jobs }}"
+          if [ -z "$MAX_NEW" ]; then MAX_NEW=10; fi
+          python3 scripts/ralph_loop_ci.py --max-new-jobs "$MAX_NEW"
+
+      - name: Rebuild RAG index
+        run: |
+          python3 rag/cli.py build
+          python3 rag/cli.py status
+
+      - name: Scrub job captures
+        run: |
+          python3 scripts/scrub_job_captures.py
+
+      - name: Create Pull Request for loop updates
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore(ralph-loop): discovery iteration update"
+          title: "chore: Ralph Loop discovery iteration"
+          body: |
+            Automated Ralph Loop run.
+
+            - Discovered and added new draft opportunities
+            - Generated company job artifacts and tailored placeholders
+            - Rebuilt RAG index
+          branch: ralph/loop
+          delete-branch: true
+          labels: |
+            automation

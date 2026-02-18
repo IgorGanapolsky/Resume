@@ -24,6 +24,13 @@ Copy-paste these answers when applying. All fields are ready to go.
 
 ---
 
+## USER DEFAULTS FOR COMMON SCREENERS
+
+- **College / University:** Manhattan College
+- **Are you excited to work in-office five days per week?** Yes
+
+---
+
 ## OWNER.COM - Software Engineer, Full-Stack
 
 **Apply URL:** https://jobs.ashbyhq.com/Owner/c39ef087-95b7-4328-b791-8b257ffd4682/application

@@ -23,7 +23,6 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-          cache: pip
       - name: Install Ruff
         run: pip install ruff
       - name: Ruff lint
@@ -40,7 +39,6 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-          cache: pip
       - name: Install dependencies
         run: |
           pip install numpy lancedb pytest pytest-cov
@@ -85,7 +83,6 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-          cache: pip
       - name: Install dependencies
         run: pip install numpy lancedb
       - name: Build RAG index

@@ -55,6 +55,24 @@ python3 rag/cli.py scan
 cd rag && python3 -m pytest tests/ -v
 ```
 
+## Ralph Loop (GitHub CI)
+
+Continuous loop runs in GitHub Actions via `.github/workflows/ralph-loop.yml`:
+
+- Schedule: every 30 minutes
+- Actions:
+  - discover new jobs from remote feeds
+  - add new `Draft` rows to `applications/job_applications/application_tracker.csv`
+  - generate per-company artifacts under `applications/<company>/`
+  - rebuild RAG index
+  - open/update a PR with changes
+
+Manual run:
+
+1. Open **Actions** -> **Ralph Loop**
+2. Click **Run workflow**
+3. Optionally set `max_new_jobs`
+
 ## Principles
 
 - Evidence before assertion: never mark `Applied` without a confirmation screenshot
