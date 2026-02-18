@@ -1,6 +1,6 @@
 import re
 from dataclasses import dataclass
-from typing import Iterable, List, Tuple
+from typing import List
 
 
 @dataclass(frozen=True)
@@ -31,7 +31,9 @@ def scan_pii(text: str) -> List[Finding]:
         window_end = min(len(text), dm.end() + 40)
         window = text[window_start:window_end]
         if _DOB_CONTEXT_RE.search(window):
-            findings.append(Finding("dob", dm.start(), dm.end(), text[dm.start() : dm.end()]))
+            findings.append(
+                Finding("dob", dm.start(), dm.end(), text[dm.start() : dm.end()])
+            )
 
     return findings
 
@@ -63,5 +65,3 @@ def assert_no_high_risk_pii(text: str, *, context: str = "") -> None:
     kinds = ", ".join(sorted({f.kind for f in findings}))
     where = f" ({context})" if context else ""
     raise ValueError(f"High-risk PII detected: {kinds}{where}; refusing to ingest/log.")
-
-

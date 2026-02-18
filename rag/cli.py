@@ -16,12 +16,11 @@ import argparse
 import csv
 import hashlib
 import json
-import os
 import time
 from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Dict, Iterable, List, Optional, Tuple
+from typing import Dict, Iterable, List, Optional
 
 import numpy as np
 
@@ -30,7 +29,7 @@ try:
 except Exception:  # pragma: no cover
     lancedb = None  # type: ignore
 
-from memalign import normalize_row, slug, infer_application_method
+from memalign import normalize_row, slug
 from shieldcortex import assert_no_high_risk_pii, redact
 from rlhf import ThompsonModel, VALID_OUTCOMES
 
@@ -49,6 +48,7 @@ ARMS_JSON = DATA_DIR / "arms.json"
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
+
 
 def _utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
@@ -131,12 +131,26 @@ def _build_application_record(row: Dict[str, str]) -> Dict:
     role = str(n.get("Role", "")).strip()
 
     artifacts = _collect_company_artifacts(company)
-    evidence = [str(p.relative_to(ROOT)) for p in artifacts if "/submissions/" in str(p).replace("\\", "/")]
-    resumes = [str(p.relative_to(ROOT)) for p in artifacts if "/tailored_resumes/" in str(p).replace("\\", "/")]
-    cover_letters_dir = [str(p.relative_to(ROOT)) for p in artifacts if "/cover_letters/" in str(p).replace("\\", "/")]
+    evidence = [
+        str(p.relative_to(ROOT))
+        for p in artifacts
+        if "/submissions/" in str(p).replace("\\", "/")
+    ]
+    resumes = [
+        str(p.relative_to(ROOT))
+        for p in artifacts
+        if "/tailored_resumes/" in str(p).replace("\\", "/")
+    ]
+    cover_letters_dir = [
+        str(p.relative_to(ROOT))
+        for p in artifacts
+        if "/cover_letters/" in str(p).replace("\\", "/")
+    ]
 
     cl_key = str(n.get("Cover Letter Used", "") or "")
-    cover_letter_path = _resolve_cover_letter(cl_key, company) or (cover_letters_dir[0] if cover_letters_dir else None)
+    cover_letter_path = _resolve_cover_letter(cl_key, company) or (
+        cover_letters_dir[0] if cover_letters_dir else None
+    )
 
     rag_text = _build_rag_text(n, company, role, artifacts)
 
@@ -166,6 +180,7 @@ def _build_application_record(row: Dict[str, str]) -> Dict:
 # ---------------------------------------------------------------------------
 # Embedding: field-boosted + bigram hashing (offline, deterministic)
 # ---------------------------------------------------------------------------
+
 
 def _tokenize(text: str) -> List[str]:
     tokens = text.lower().split()
@@ -202,6 +217,7 @@ def _record_embedding(rec: Dict, *, dims: int = 1536) -> np.ndarray:
 # Commands
 # ---------------------------------------------------------------------------
 
+
 def build() -> None:
     """Rebuild JSONL + LanceDB index from tracker CSV."""
     DATA_DIR.mkdir(parents=True, exist_ok=True)
@@ -217,7 +233,11 @@ def build() -> None:
         try:
             rec = _build_application_record(r)
         except Exception as e:
-            _append_event(None, "ingest_error", f"Failed to ingest {r.get('Company','')} / {r.get('Role','')}: {e}")
+            _append_event(
+                None,
+                "ingest_error",
+                f"Failed to ingest {r.get('Company', '')} / {r.get('Role', '')}: {e}",
+            )
             continue
         if rec["app_id"] in seen_ids:
             continue  # Deduplicate on stable app_id
@@ -268,7 +288,9 @@ def build() -> None:
 def query(q: str, *, k: int = 8) -> None:
     """Semantic search over indexed applications."""
     if lancedb is None:
-        raise SystemExit("lancedb unavailable; run build to generate JSONL, or install lancedb.")
+        raise SystemExit(
+            "lancedb unavailable; run build to generate JSONL, or install lancedb."
+        )
 
     db = lancedb.connect(str(LANCEDB_DIR))
     table = db.open_table("applications")
@@ -317,7 +339,11 @@ def status() -> None:
         n = counts.get(st, 0)
         bar = "█" * n
         print(f"  {st:<10} {n:>3}  {bar}")
-    other = {k: v for k, v in counts.items() if k not in ["Applied", "Draft", "Blocked", "Closed", "Rejected", "Offer"]}
+    other = {
+        k: v
+        for k, v in counts.items()
+        if k not in ["Applied", "Draft", "Blocked", "Closed", "Rejected", "Offer"]
+    }
     for k, v in sorted(other.items()):
         print(f"  {k:<10} {v:>3}")
 
@@ -326,12 +352,16 @@ def status() -> None:
         for d in drafts:
             tags = ";".join(d.get("tags", []))[:40]
             method = d.get("application_method", "?")
-            print(f"  [{method:<10}] {d['company']:<22}  {d['role'][:45]:<45}  [{tags}]")
+            print(
+                f"  [{method:<10}] {d['company']:<22}  {d['role'][:45]:<45}  [{tags}]"
+            )
 
     if blocked:
         print(f"\n── Blocked ({len(blocked)}) ────────────────────────────────────────")
         for b in blocked:
-            print(f"  [{b.get('application_method','?'):<10}] {b['company']:<22}  {b['role'][:45]}")
+            print(
+                f"  [{b.get('application_method', '?'):<10}] {b['company']:<22}  {b['role'][:45]}"
+            )
 
     print(f"\n  Total: {len(records)} applications tracked")
     print()
@@ -360,7 +390,9 @@ def feedback(app_id: str, outcome: str) -> None:
     updates the RLHF arms accordingly.
     """
     if outcome not in VALID_OUTCOMES:
-        raise SystemExit(f"Unknown outcome {outcome!r}. Valid: {sorted(VALID_OUTCOMES)}")
+        raise SystemExit(
+            f"Unknown outcome {outcome!r}. Valid: {sorted(VALID_OUTCOMES)}"
+        )
 
     apps_path = DATA_DIR / "applications.jsonl"
     if not apps_path.exists():
@@ -462,6 +494,7 @@ def scan() -> None:
 # ---------------------------------------------------------------------------
 # CLI
 # ---------------------------------------------------------------------------
+
 
 def main() -> None:
     ap = argparse.ArgumentParser(

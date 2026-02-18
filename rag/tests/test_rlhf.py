@@ -1,6 +1,5 @@
 """Tests for rlhf.py — Thompson Sampling RLHF engine."""
 
-import json
 import random
 
 import pytest
@@ -36,7 +35,7 @@ class TestArm:
 
     def test_update_clips_to_unit_interval(self):
         arm = Arm(name="cat:ai")
-        arm.update(2.0)   # above 1.0 → clipped
+        arm.update(2.0)  # above 1.0 → clipped
         arm.update(-1.0)  # below 0.0 → clipped
         assert arm.alpha <= 3.0
         assert arm.beta <= 3.0
@@ -95,7 +94,9 @@ class TestThompsonModel:
             model.record_outcome([tag], "direct", "response", save=False)
         top = model.recommend(k=3)
         assert len(top) == 3
-        assert all(isinstance(name, str) and isinstance(val, float) for name, val in top)
+        assert all(
+            isinstance(name, str) and isinstance(val, float) for name, val in top
+        )
 
     def test_recommend_sorted_descending(self, tmp_path):
         random.seed(0)
@@ -117,21 +118,30 @@ class TestThompsonModel:
     def test_all_outcome_rewards_covered(self):
         assert set(OUTCOME_REWARDS.keys()) == VALID_OUTCOMES
 
-    @pytest.mark.parametrize("outcome,expected_min,expected_max", [
-        ("blocked", 0.0, 0.1),
-        ("no_response", 0.0, 0.15),
-        ("rejected", 0.1, 0.3),
-        ("response", 0.4, 0.6),
-        ("interview", 0.7, 0.9),
-        ("offer", 1.0, 1.0),
-    ])
+    @pytest.mark.parametrize(
+        "outcome,expected_min,expected_max",
+        [
+            ("blocked", 0.0, 0.1),
+            ("no_response", 0.0, 0.15),
+            ("rejected", 0.1, 0.3),
+            ("response", 0.4, 0.6),
+            ("interview", 0.7, 0.9),
+            ("offer", 1.0, 1.0),
+        ],
+    )
     def test_reward_ordering(self, outcome, expected_min, expected_max):
         r = OUTCOME_REWARDS[outcome]
-        assert expected_min <= r <= expected_max, f"{outcome}: {r} not in [{expected_min}, {expected_max}]"
+        assert expected_min <= r <= expected_max, (
+            f"{outcome}: {r} not in [{expected_min}, {expected_max}]"
+        )
 
     def test_bootstrap_from_records(self, tmp_path):
         records = [
-            {"status": "Applied", "tags": ["ai", "remote"], "application_method": "ashby"},
+            {
+                "status": "Applied",
+                "tags": ["ai", "remote"],
+                "application_method": "ashby",
+            },
             {"status": "Blocked", "tags": ["infra"], "application_method": "ashby"},
             {"status": "Draft", "tags": ["mobile"], "application_method": "lever"},
         ]

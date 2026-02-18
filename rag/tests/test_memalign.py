@@ -81,7 +81,7 @@ class TestNormalizeStatus:
             ("rejected", "Rejected"),
             ("offer", "Offer"),
             ("Unknown Status", "Unknown Status"),  # passthrough
-            ("", "Draft"),                          # default
+            ("", "Draft"),  # default
         ],
     )
     def test_mapping(self, raw, expected):
@@ -124,12 +124,24 @@ class TestNormalizeRow:
         assert result["app_id"].startswith("acme__engineer__")
 
     def test_normalizes_tags(self):
-        row = {"Company": "X", "Role": "Y", "Career Page URL": "", "Tags": "a;b;c", "Status": ""}
+        row = {
+            "Company": "X",
+            "Role": "Y",
+            "Career Page URL": "",
+            "Tags": "a;b;c",
+            "Status": "",
+        }
         result = normalize_row(row)
         assert result["Tags"] == ["a", "b", "c"]
 
     def test_normalizes_status(self):
-        row = {"Company": "X", "Role": "Y", "Career Page URL": "", "Tags": "", "Status": "applied"}
+        row = {
+            "Company": "X",
+            "Role": "Y",
+            "Career Page URL": "",
+            "Tags": "",
+            "Status": "applied",
+        }
         result = normalize_row(row)
         assert result["Status"] == "Applied"
 

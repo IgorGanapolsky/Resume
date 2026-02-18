@@ -1,7 +1,6 @@
 import hashlib
 import re
-from dataclasses import dataclass
-from typing import Dict, List, Optional
+from typing import Dict, List
 
 
 _NON_ALNUM_RE = re.compile(r"[^a-z0-9]+")

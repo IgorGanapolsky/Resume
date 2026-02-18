@@ -15,17 +15,17 @@ import math
 import random
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Tuple
 
 
 # Reward values for each outcome type. Kept in [0, 1] so Beta updates are bounded.
 OUTCOME_REWARDS: Dict[str, float] = {
-    "blocked": 0.0,       # ATS spam block — no signal beyond method friction
+    "blocked": 0.0,  # ATS spam block — no signal beyond method friction
     "no_response": 0.05,  # Applied but heard nothing (small positive: at least not bounced)
-    "rejected": 0.2,      # Got to review; some engagement
-    "response": 0.5,      # Recruiter reached out
-    "interview": 0.8,     # Technical interview scheduled
-    "offer": 1.0,         # Offer received
+    "rejected": 0.2,  # Got to review; some engagement
+    "response": 0.5,  # Recruiter reached out
+    "interview": 0.8,  # Technical interview scheduled
+    "offer": 1.0,  # Offer received
 }
 
 VALID_OUTCOMES = frozenset(OUTCOME_REWARDS)
@@ -34,8 +34,8 @@ VALID_OUTCOMES = frozenset(OUTCOME_REWARDS)
 @dataclass
 class Arm:
     name: str
-    alpha: float = 1.0   # Beta prior: pseudo-successes + 1
-    beta: float = 1.0    # Beta prior: pseudo-failures + 1
+    alpha: float = 1.0  # Beta prior: pseudo-successes + 1
+    beta: float = 1.0  # Beta prior: pseudo-failures + 1
     pulls: int = 0
     total_reward: float = 0.0
 
@@ -157,15 +157,13 @@ class ThompsonModel:
         rows.sort(key=lambda r: r["mean_reward"], reverse=True)
         return rows
 
-    def bootstrap_from_records(
-        self, records: List[Dict], *, save: bool = True
-    ) -> None:
+    def bootstrap_from_records(self, records: List[Dict], *, save: bool = True) -> None:
         """Seed Thompson model from historical application records in JSONL.
 
         For Applied/Blocked records we have partial signals; Draft/Closed are skipped.
         """
         status_to_outcome = {
-            "Applied": "no_response",   # Optimistic baseline until real feedback
+            "Applied": "no_response",  # Optimistic baseline until real feedback
             "Blocked": "blocked",
             "Rejected": "rejected",
             "Offer": "offer",

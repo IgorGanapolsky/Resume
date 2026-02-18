@@ -61,6 +61,7 @@ async def _cdp_capture(
         ping_interval=10,
         ping_timeout=30,
     ) as ws:
+
         async def send(method: str, params: dict | None = None):
             nonlocal msg_id
             msg_id += 1
@@ -89,7 +90,6 @@ async def _cdp_capture(
 
         # Wait for basic load event, but don't trust it for SPAs.
         start = time.time()
-        saw_load = False
         while True:
             if time.time() - start > timeout_s:
                 break
@@ -98,7 +98,6 @@ async def _cdp_capture(
             if msg.get("id") == nav_id:
                 continue
             if msg.get("method") == "Page.loadEventFired":
-                saw_load = True
                 break
 
         # Wait for content to actually render (React/SPA can render after load event).
@@ -116,9 +115,9 @@ async def _cdp_capture(
                 },
             )
             msg = await recv_until(want_id=eval_id, timeout_s=timeout_s)
-            val = (((msg.get("result") or {}).get("result") or {}).get("value") or {})
-            body_text = (val.get("t") or "")
-            rs = (val.get("rs") or "")
+            val = ((msg.get("result") or {}).get("result") or {}).get("value") or {}
+            body_text = val.get("t") or ""
+            rs = val.get("rs") or ""
             if rs == "complete" and len(body_text.strip()) >= 200:
                 break
             await asyncio.sleep(0.5)
@@ -136,7 +135,7 @@ async def _cdp_capture(
             },
         )
         msg = await recv_until(want_id=eval_id2, timeout_s=timeout_s)
-        body_text = (((msg.get("result") or {}).get("result") or {}).get("value") or "")
+        body_text = ((msg.get("result") or {}).get("result") or {}).get("value") or ""
 
         # Optional clicks (e.g., "Submit Application" then "Apply anyway").
         click_texts = click_texts or []
@@ -154,7 +153,11 @@ async def _cdp_capture(
             )
             await send(
                 "Runtime.evaluate",
-                {"expression": click_expr, "returnByValue": True, "awaitPromise": False},
+                {
+                    "expression": click_expr,
+                    "returnByValue": True,
+                    "awaitPromise": False,
+                },
             )
             await asyncio.sleep(1.2)
 
@@ -174,7 +177,7 @@ async def _cdp_capture(
                     },
                 )
                 msg = await recv_until(want_id=eval_idw, timeout_s=timeout_s)
-                cur = (((msg.get("result") or {}).get("result") or {}).get("value") or "")
+                cur = ((msg.get("result") or {}).get("result") or {}).get("value") or ""
                 cur_l = cur.lower()
                 if any(n in cur_l for n in needles):
                     body_text = cur
@@ -217,7 +220,11 @@ def main() -> None:
 
     if args.tab_id:
         target = next(
-            (t for t in _json_get(f"http://localhost:{args.port}/json/list") if t.get("id") == args.tab_id),
+            (
+                t
+                for t in _json_get(f"http://localhost:{args.port}/json/list")
+                if t.get("id") == args.tab_id
+            ),
             None,
         )
         if not target:

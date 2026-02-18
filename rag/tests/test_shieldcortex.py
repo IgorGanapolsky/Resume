@@ -1,7 +1,7 @@
 """Tests for shieldcortex.py — PII detection and redaction."""
 
 import pytest
-from shieldcortex import Finding, assert_no_high_risk_pii, redact, scan_pii
+from shieldcortex import assert_no_high_risk_pii, redact, scan_pii
 
 
 class TestScanPii:

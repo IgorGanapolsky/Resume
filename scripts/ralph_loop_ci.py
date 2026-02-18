@@ -69,11 +69,15 @@ def discover_remotive() -> Iterable[Dict[str, str]]:
                 "source": "remotive",
                 "company": _safe_text(str(job.get("company_name", ""))),
                 "title": _safe_text(str(job.get("title", ""))),
-                "location": _safe_text(str(job.get("candidate_required_location", "Remote"))),
+                "location": _safe_text(
+                    str(job.get("candidate_required_location", "Remote"))
+                ),
                 "salary": _safe_text(str(job.get("salary", ""))),
                 "job_type": _safe_text(str(job.get("job_type", ""))),
                 "url": _safe_text(str(job.get("url", ""))),
-                "tags": ";".join([_slug(str(t)) for t in job.get("tags", []) if str(t).strip()]),
+                "tags": ";".join(
+                    [_slug(str(t)) for t in job.get("tags", []) if str(t).strip()]
+                ),
             }
         )
     return out
@@ -204,7 +208,9 @@ def create_artifacts(job: Dict[str, str], today: str) -> Dict[str, str]:
         )
 
     if BASE_RESUME.exists() and not resume_html.exists():
-        resume_html.write_text(BASE_RESUME.read_text(encoding="utf-8"), encoding="utf-8")
+        resume_html.write_text(
+            BASE_RESUME.read_text(encoding="utf-8"), encoding="utf-8"
+        )
 
     return {
         "job_md": str(job_md.relative_to(ROOT)),
@@ -237,7 +243,11 @@ def main() -> None:
     fieldnames, rows = read_tracker()
     existing_urls = {(_safe_text(r.get("Career Page URL", "")).lower()) for r in rows}
     existing_pairs = {
-        (_safe_text(r.get("Company", "")).lower(), _safe_text(r.get("Role", "")).lower()) for r in rows
+        (
+            _safe_text(r.get("Company", "")).lower(),
+            _safe_text(r.get("Role", "")).lower(),
+        )
+        for r in rows
     }
 
     discovered = list(discover_remotive()) + list(discover_remoteok())
