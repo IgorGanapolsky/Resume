@@ -41,6 +41,13 @@ jobs:
           if [ -z "$MAX_NEW" ]; then MAX_NEW=10; fi
           python3 scripts/ralph_loop_ci.py --max-new-jobs "$MAX_NEW"
 
+      - name: Promote high-fit drafts to ready queue
+        run: |
+          python3 scripts/ci_submit_pipeline.py \
+            --queue-only \
+            --fit-threshold 70 \
+            --report applications/job_applications/ci_ready_queue_report.json
+
       - name: Rebuild RAG index
         run: |
           python3 rag/cli.py build
