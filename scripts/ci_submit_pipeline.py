@@ -83,6 +83,11 @@ TRACKER_REMOTE_FIELDS = (
     "Remote Evidence",
     "Submission Lane",
 )
+TRACKER_SUBMISSION_FIELDS = (
+    "Submitted Resume Path",
+    "Submission Evidence Path",
+    "Submission Verified At",
+)
 
 
 def _slug(text: str) -> str:
@@ -1489,7 +1494,9 @@ def run_pipeline(
 ) -> int:
     fields, rows = _read_tracker(tracker_csv)
     adapters = list(adapters or [AshbyAdapter(), GreenhouseAdapter(), LeverAdapter()])
-    fields = _ensure_tracker_fields(fields, rows, TRACKER_REMOTE_FIELDS)
+    fields = _ensure_tracker_fields(
+        fields, rows, TRACKER_REMOTE_FIELDS + TRACKER_SUBMISSION_FIELDS
+    )
 
     profile = _load_profile_from_env(profile_env)
     auth_map = _load_auth_by_adapter(auth_env)
@@ -1731,16 +1738,22 @@ def run_pipeline(
         row_result["verified"] = result.verified
         row_result["screenshot"] = str(result.screenshot) if result.screenshot else None
 
+        resume_exists = resume_path.exists()
         screenshot_ok = (
             result.screenshot is not None
             and result.screenshot.exists()
             and result.screenshot.stat().st_size > 0
         )
-        if result.verified and screenshot_ok:
+        if result.verified and screenshot_ok and resume_exists:
             row["Status"] = "Applied"
             row["Date Applied"] = _today_iso()
             if not str(row.get("Follow Up Date", "")).strip():
                 row["Follow Up Date"] = _next_follow_up(7)
+            row["Submitted Resume Path"] = str(resume_path)
+            row["Submission Evidence Path"] = str(result.screenshot)
+            row["Submission Verified At"] = dt.datetime.now(
+                dt.timezone.utc
+            ).isoformat()
             row["Notes"] = _append_note(
                 str(row.get("Notes", "")),
                 (
@@ -1755,6 +1768,8 @@ def run_pipeline(
             row_errors = ["verification_failed"]
             if result.details.startswith("missing_required_answers:"):
                 row_errors.append(result.details)
+            if not resume_exists:
+                row_errors.append("missing_or_invalid_submitted_resume_path")
             if not screenshot_ok:
                 row_errors.append("missing_or_empty_confirmation_screenshot")
             row_result["errors"] = row_errors

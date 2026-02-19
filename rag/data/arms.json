@@ -8,10 +8,10 @@
   },
   "cat:ai": {
     "name": "cat:ai",
-    "alpha": 1.8000000000000007,
-    "beta": 18.199999999999992,
-    "pulls": 18,
-    "total_reward": 0.8000000000000002
+    "alpha": 2.000000000000001,
+    "beta": 23.999999999999993,
+    "pulls": 24,
+    "total_reward": 1.0000000000000002
   },
   "cat:react-native": {
     "name": "cat:react-native",
@@ -36,10 +36,10 @@
   },
   "method:direct": {
     "name": "method:direct",
-    "alpha": 2.2,
-    "beta": 23.79999999999999,
-    "pulls": 24,
-    "total_reward": 1.2000000000000004
+    "alpha": 2.4000000000000004,
+    "beta": 24.59999999999999,
+    "pulls": 25,
+    "total_reward": 1.4000000000000004
   },
   "cat:cicd": {
     "name": "cat:cicd",
@@ -86,8 +86,8 @@
   "cat:agents": {
     "name": "cat:agents",
     "alpha": 1.1,
-    "beta": 2.9,
-    "pulls": 2,
+    "beta": 4.9,
+    "pulls": 4,
     "total_reward": 0.1
   },
   "cat:miami": {
@@ -177,43 +177,43 @@
   "cat:infra": {
     "name": "cat:infra",
     "alpha": 1.0,
-    "beta": 3.0,
-    "pulls": 2,
+    "beta": 8.0,
+    "pulls": 7,
     "total_reward": 0.0
   },
   "cat:kubernetes": {
     "name": "cat:kubernetes",
     "alpha": 1.0,
-    "beta": 2.0,
-    "pulls": 1,
+    "beta": 3.0,
+    "pulls": 2,
     "total_reward": 0.0
   },
   "cat:inference": {
     "name": "cat:inference",
     "alpha": 1.0,
-    "beta": 2.0,
-    "pulls": 1,
+    "beta": 4.0,
+    "pulls": 3,
     "total_reward": 0.0
   },
   "cat:gateway": {
     "name": "cat:gateway",
     "alpha": 1.0,
-    "beta": 2.0,
-    "pulls": 1,
+    "beta": 3.0,
+    "pulls": 2,
     "total_reward": 0.0
   },
   "method:ashby": {
     "name": "method:ashby",
     "alpha": 1.0,
-    "beta": 3.0,
-    "pulls": 2,
+    "beta": 7.0,
+    "pulls": 6,
     "total_reward": 0.0
   },
   "cat:backend": {
     "name": "cat:backend",
     "alpha": 1.0,
-    "beta": 2.0,
-    "pulls": 1,
+    "beta": 3.0,
+    "pulls": 2,
     "total_reward": 0.0
   },
   "cat:evals": {
@@ -271,5 +271,33 @@
     "beta": 1.95,
     "pulls": 1,
     "total_reward": 0.05
+  },
+  "cat:performance": {
+    "name": "cat:performance",
+    "alpha": 1.0,
+    "beta": 2.0,
+    "pulls": 1,
+    "total_reward": 0.0
+  },
+  "method:greenhouse": {
+    "name": "method:greenhouse",
+    "alpha": 1.0,
+    "beta": 2.0,
+    "pulls": 1,
+    "total_reward": 0.0
+  },
+  "cat:enterprise": {
+    "name": "cat:enterprise",
+    "alpha": 1.2,
+    "beta": 2.8,
+    "pulls": 2,
+    "total_reward": 0.2
+  },
+  "cat:genai": {
+    "name": "cat:genai",
+    "alpha": 1.2,
+    "beta": 1.8,
+    "pulls": 1,
+    "total_reward": 0.2
   }
 }

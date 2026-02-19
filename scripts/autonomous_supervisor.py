@@ -383,9 +383,20 @@ def build_lane_plan(
             depends_on=["discover", "prepare_submit_artifacts"],
         ),
         Lane(
+            name="submission_artifact_audit",
+            command=[
+                "python3",
+                "scripts/audit_submission_artifacts.py",
+                "--write",
+                "--report",
+                "applications/job_applications/submission_artifact_audit_report.json",
+            ],
+            depends_on=["queue_gate"],
+        ),
+        Lane(
             name="rag_build",
             command=["python3", "rag/cli.py", "build"],
-            depends_on=["queue_gate"],
+            depends_on=["queue_gate", "submission_artifact_audit"],
         ),
         Lane(
             name="scrub_job_captures",
