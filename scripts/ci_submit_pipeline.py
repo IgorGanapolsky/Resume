@@ -319,7 +319,9 @@ class PlaywrightFormAdapter(SiteAdapter):
                         details="submit_button_not_found",
                     )
 
+                self._post_submit_retry(form_scope, page, profile, answers)
                 confirmed = self._wait_for_confirmation(page, form_scope)
+                failure_details = self._extract_failure_details(page, form_scope)
                 task.confirmation_path.parent.mkdir(parents=True, exist_ok=True)
                 page.screenshot(path=str(task.confirmation_path), full_page=True)
 
@@ -332,7 +334,7 @@ class PlaywrightFormAdapter(SiteAdapter):
                     else None,
                     details="confirmed"
                     if confirmed
-                    else "confirmation_text_not_detected",
+                    else (failure_details or "confirmation_text_not_detected"),
                 )
         except PlaywrightTimeoutError:
             return SubmitResult(
@@ -353,6 +355,14 @@ class PlaywrightFormAdapter(SiteAdapter):
         self, scope: Any, page: Any, answers: SubmitAnswers
     ) -> List[str]:
         return []
+
+    def _post_submit_retry(
+        self, scope: Any, page: Any, profile: Profile, answers: SubmitAnswers
+    ) -> bool:
+        return False
+
+    def _extract_failure_details(self, page: Any, scope: Any) -> Optional[str]:
+        return None
 
     def _resolve_form_scope(self, page: Any) -> Optional[Any]:
         try:
@@ -873,7 +883,10 @@ class AshbyAdapter(PlaywrightFormAdapter):
             re.compile(r"prefer not", re.I),
             re.compile(r"decline to", re.I),
             re.compile(r"do not wish", re.I),
+            re.compile(r"don't wish", re.I),
+            re.compile(r"do n't wish", re.I),
             re.compile(r"choose not to", re.I),
+            re.compile(r"don't want", re.I),
         )
         for target in (scope, page):
             try:
@@ -910,6 +923,171 @@ class AshbyAdapter(PlaywrightFormAdapter):
                 if container is None:
                     continue
                 self._click_choice_in_container(container, preferred_patterns)
+
+    def _post_submit_retry(
+        self, scope: Any, page: Any, profile: Profile, answers: SubmitAnswers
+    ) -> bool:
+        if not self._has_required_question_error(scope, page):
+            return False
+        self._set_prefer_not_to_say_defaults(scope, page, answers.eeo_default)
+        self._fill_unanswered_radio_groups(scope, page)
+        self._fill_unanswered_selects(scope, page)
+        self._apply_required_answers(scope, page, answers)
+        if not self._click_submit(scope, page):
+            return False
+        try:
+            page.wait_for_timeout(1000)
+        except Exception:
+            pass
+        return True
+
+    def _extract_failure_details(self, page: Any, scope: Any) -> Optional[str]:
+        if self._has_required_question_error(scope, page):
+            return "required_questions_unanswered_after_retry"
+        return None
+
+    def _has_required_question_error(self, scope: Any, page: Any) -> bool:
+        patterns = (
+            re.compile(r"review and answer all required questions", re.I),
+            re.compile(r"answer all required questions", re.I),
+            re.compile(r"please complete all required fields", re.I),
+            re.compile(r"required question", re.I),
+        )
+        texts: List[str] = []
+        for target in (scope, page):
+            try:
+                text = target.inner_text("body")
+            except Exception:
+                continue
+            if text:
+                texts.append(str(text))
+        blob = "\n".join(texts)
+        return any(pattern.search(blob) for pattern in patterns)
+
+    def _fill_unanswered_radio_groups(self, scope: Any, page: Any) -> int:
+        total = 0
+        preferred = [
+            "prefer not",
+            "decline to",
+            "do not wish",
+            "don't wish",
+            "do n't wish",
+            "choose not to",
+            "don't want",
+            "do not want",
+        ]
+        no_like = [" no ", "no,", "no.", "none", "not"]
+        script = """
+        ({preferred, noLike}) => {
+          const normalize = (value) => (value || "").toLowerCase();
+          const radioGroups = new Map();
+          for (const input of Array.from(document.querySelectorAll("input[type='radio'][name]"))) {
+            if (!input.name) continue;
+            if (!radioGroups.has(input.name)) radioGroups.set(input.name, []);
+            radioGroups.get(input.name).push(input);
+          }
+          const labelFor = (input) => {
+            const byId = input.id ? document.querySelector(`label[for="${input.id}"]`) : null;
+            if (byId && byId.textContent) return byId.textContent;
+            const wrapped = input.closest("label");
+            if (wrapped && wrapped.textContent) return wrapped.textContent;
+            const aria = input.getAttribute("aria-label");
+            if (aria) return aria;
+            const parentText = input.parentElement && input.parentElement.textContent;
+            return parentText || "";
+          };
+          const hasToken = (value, tokens) => tokens.some((token) => normalize(value).includes(token));
+          let changed = 0;
+          for (const options of radioGroups.values()) {
+            if (options.some((option) => option.checked)) continue;
+            const ranked = options.map((option) => ({ option, text: normalize(labelFor(option)) }));
+            let choice = ranked.find((item) => hasToken(item.text, preferred));
+            if (!choice) {
+              choice = ranked.find((item) => noLike.some((token) => item.text.includes(token)));
+            }
+            if (!choice && ranked.length > 0) {
+              choice = ranked[0];
+            }
+            if (!choice) continue;
+            choice.option.checked = true;
+            choice.option.dispatchEvent(new Event("input", { bubbles: true }));
+            choice.option.dispatchEvent(new Event("change", { bubbles: true }));
+            changed += 1;
+          }
+          return changed;
+        }
+        """
+        for target in (scope, page):
+            try:
+                changed = int(
+                    target.evaluate(
+                        script,
+                        {
+                            "preferred": preferred,
+                            "noLike": no_like,
+                        },
+                    )
+                    or 0
+                )
+            except Exception:
+                continue
+            total += changed
+        return total
+
+    def _fill_unanswered_selects(self, scope: Any, page: Any) -> int:
+        total = 0
+        preferred = [
+            "prefer not",
+            "decline to",
+            "do not wish",
+            "don't wish",
+            "choose not to",
+            "don't want",
+            "do not want",
+        ]
+        no_like = [" no ", "no,", "no.", "none", "not"]
+        script = """
+        ({preferred, noLike}) => {
+          const normalize = (value) => (value || "").toLowerCase();
+          const hasToken = (value, tokens) => tokens.some((token) => normalize(value).includes(token));
+          let changed = 0;
+          for (const select of Array.from(document.querySelectorAll("select"))) {
+            const current = normalize(select.value);
+            if (current) continue;
+            const options = Array.from(select.options || []).filter((option) => normalize(option.value));
+            if (!options.length) continue;
+            let choice = options.find((option) => hasToken(option.textContent, preferred));
+            if (!choice) {
+              choice = options.find((option) => noLike.some((token) => normalize(option.textContent).includes(token)));
+            }
+            if (!choice) {
+              choice = options[0];
+            }
+            if (!choice) continue;
+            select.value = choice.value;
+            select.dispatchEvent(new Event("input", { bubbles: true }));
+            select.dispatchEvent(new Event("change", { bubbles: true }));
+            changed += 1;
+          }
+          return changed;
+        }
+        """
+        for target in (scope, page):
+            try:
+                changed = int(
+                    target.evaluate(
+                        script,
+                        {
+                            "preferred": preferred,
+                            "noLike": no_like,
+                        },
+                    )
+                    or 0
+                )
+            except Exception:
+                continue
+            total += changed
+        return total
 
     def _diagnose_question_controls(
         self, scope: Any, page: Any, markers: Sequence[str]

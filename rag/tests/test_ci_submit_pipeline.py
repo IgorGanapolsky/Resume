@@ -863,3 +863,85 @@ def test_fill_yes_no_text_in_container_uses_text_field():
     ok = adapter._fill_yes_no_text_in_container(container, False)
     assert ok is True
     assert container.filled == "No"
+
+
+def test_ashby_extract_failure_details_reports_required_questions():
+    mod = _load_module()
+    adapter = mod.AshbyAdapter()
+    scope = _FakeScope(
+        text="Please review and answer all required questions before submitting your application."
+    )
+    page = _FakeScope(text="")
+
+    detail = adapter._extract_failure_details(page, scope)
+    assert detail == "required_questions_unanswered_after_retry"
+
+
+def test_ashby_post_submit_retry_runs_fallbacks_and_retries(monkeypatch):
+    mod = _load_module()
+    adapter = mod.AshbyAdapter()
+    scope = _FakeScope(text="")
+    page = _FakeScope(text="")
+    calls: list[str] = []
+
+    monkeypatch.setattr(adapter, "_has_required_question_error", lambda s, p: True)
+    monkeypatch.setattr(
+        adapter,
+        "_set_prefer_not_to_say_defaults",
+        lambda s, p, default_text: calls.append("eeo"),
+    )
+    monkeypatch.setattr(
+        adapter, "_fill_unanswered_radio_groups", lambda s, p: calls.append("radios")
+    )
+    monkeypatch.setattr(
+        adapter, "_fill_unanswered_selects", lambda s, p: calls.append("selects")
+    )
+    monkeypatch.setattr(
+        adapter, "_apply_required_answers", lambda s, p, answers: calls.append("answers")
+    )
+    monkeypatch.setattr(
+        adapter, "_click_submit", lambda s, p: calls.append("submit") or True
+    )
+
+    answers = mod.SubmitAnswers(
+        work_authorization_us=True,
+        require_sponsorship=False,
+        role_interest="ai-heavy, LLM-first project with an industry leader",
+        eeo_default="prefer not to say",
+    )
+    profile = mod.Profile(
+        first_name="Igor",
+        last_name="Ganapolsky",
+        email="iganapolsky@gmail.com",
+        phone="(201) 639-1534",
+    )
+
+    ok = adapter._post_submit_retry(scope, page, profile, answers)
+    assert ok is True
+    assert calls == ["eeo", "radios", "selects", "answers", "submit"]
+
+
+def test_ashby_post_submit_retry_no_error_banner_no_retry(monkeypatch):
+    mod = _load_module()
+    adapter = mod.AshbyAdapter()
+    scope = _FakeScope(text="")
+    page = _FakeScope(text="")
+
+    monkeypatch.setattr(adapter, "_has_required_question_error", lambda s, p: False)
+    monkeypatch.setattr(adapter, "_click_submit", lambda s, p: False)
+
+    answers = mod.SubmitAnswers(
+        work_authorization_us=True,
+        require_sponsorship=False,
+        role_interest="ai-heavy, LLM-first project with an industry leader",
+        eeo_default="prefer not to say",
+    )
+    profile = mod.Profile(
+        first_name="Igor",
+        last_name="Ganapolsky",
+        email="iganapolsky@gmail.com",
+        phone="(201) 639-1534",
+    )
+
+    ok = adapter._post_submit_retry(scope, page, profile, answers)
+    assert ok is False
