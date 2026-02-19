@@ -147,6 +147,7 @@ class Profile:
     linkedin: str = ""
     github: str = ""
     website: str = ""
+    current_company: str = ""
 
 
 @dataclass
@@ -252,6 +253,23 @@ class PlaywrightFormAdapter(SiteAdapter):
                     context_kwargs["storage_state"] = storage_state_arg
                 context = browser.new_context(**context_kwargs)
                 page = context.new_page()
+                submit_error_detail: Optional[str] = None
+
+                def _capture_submit_error(response: Any) -> None:
+                    nonlocal submit_error_detail
+                    if submit_error_detail:
+                        return
+                    try:
+                        detail = self._extract_submit_error_detail(response)
+                    except Exception:
+                        detail = None
+                    if detail:
+                        submit_error_detail = detail
+
+                try:
+                    page.on("response", _capture_submit_error)
+                except Exception:
+                    pass
                 page.goto(task.url, wait_until="domcontentloaded", timeout=60000)
                 form_scope = self._resolve_form_scope(page)
                 if form_scope is None:
@@ -270,7 +288,10 @@ class PlaywrightFormAdapter(SiteAdapter):
                     form_scope, "Full Name", f"{profile.first_name} {profile.last_name}"
                 )
                 self._fill_text(
-                    form_scope, "Name", f"{profile.first_name} {profile.last_name}"
+                    form_scope,
+                    "Name",
+                    f"{profile.first_name} {profile.last_name}",
+                    exact_label=True,
                 )
                 self._fill_text(form_scope, "Email", profile.email)
                 self._fill_text(form_scope, "Phone", profile.phone)
@@ -283,6 +304,13 @@ class PlaywrightFormAdapter(SiteAdapter):
                     self._fill_text(form_scope, "GitHub", profile.github)
                 if profile.website:
                     self._fill_text(form_scope, "Website", profile.website)
+                if profile.current_company:
+                    self._fill_text(
+                        form_scope, "Current Company", profile.current_company
+                    )
+                    self._fill_text(
+                        form_scope, "Current Employer", profile.current_company
+                    )
 
                 missing_answers = self._apply_required_answers(
                     form_scope, page, answers
@@ -309,6 +337,7 @@ class PlaywrightFormAdapter(SiteAdapter):
                 # Resume upload is mandatory for this pipeline.
                 file_input = form_scope.locator("input[type='file']").first
                 file_input.set_input_files(str(task.resume_path))
+                self._after_resume_upload(form_scope, page)
 
                 if not self._click_submit(form_scope, page):
                     browser.close()
@@ -325,6 +354,8 @@ class PlaywrightFormAdapter(SiteAdapter):
                 ):
                     confirmed = self._wait_for_confirmation(page, form_scope)
                 failure_details = self._extract_failure_details(page, form_scope)
+                if not failure_details:
+                    failure_details = submit_error_detail
                 task.confirmation_path.parent.mkdir(parents=True, exist_ok=True)
                 page.screenshot(path=str(task.confirmation_path), full_page=True)
 
@@ -367,6 +398,12 @@ class PlaywrightFormAdapter(SiteAdapter):
     def _extract_failure_details(self, page: Any, scope: Any) -> Optional[str]:
         return None
 
+    def _extract_submit_error_detail(self, response: Any) -> Optional[str]:
+        return None
+
+    def _after_resume_upload(self, scope: Any, page: Any) -> None:
+        return None
+
     def _resolve_form_scope(self, page: Any) -> Optional[Any]:
         try:
             if page.locator("input[type='file']").count() > 0:
@@ -381,11 +418,17 @@ class PlaywrightFormAdapter(SiteAdapter):
                 continue
         return None
 
-    def _fill_text(self, scope: Any, key: str, value: str) -> None:
+    def _fill_text(
+        self, scope: Any, key: str, value: str, *, exact_label: bool = False
+    ) -> None:
         if not value:
             return
+        label_pattern = re.compile(rf"^\\s*{re.escape(key)}\\s*[:*]?\\s*$", re.I)
         attempts = [
-            lambda: scope.get_by_label(key, exact=False).first.fill(value, timeout=1500),
+            lambda: scope.get_by_label(
+                label_pattern if exact_label else key,
+                exact=bool(exact_label),
+            ).first.fill(value, timeout=1500),
             lambda: scope.get_by_placeholder(key).first.fill(value, timeout=1500),
             lambda: scope.locator(
                 f"input[name*='{key.lower().replace(' ', '')}']"
@@ -952,6 +995,64 @@ class AshbyAdapter(PlaywrightFormAdapter):
         if self._has_required_question_error(scope, page):
             return "required_questions_unanswered_after_retry"
         return None
+
+    def _extract_submit_error_detail(self, response: Any) -> Optional[str]:
+        url = str(getattr(response, "url", "") or "")
+        if "ApiSubmitMultipleFormsAction" not in url:
+            return None
+        try:
+            payload = response.json()
+        except Exception:
+            return None
+        if not isinstance(payload, dict):
+            return None
+        errors = payload.get("errors")
+        if not isinstance(errors, list):
+            return None
+        for entry in errors:
+            if not isinstance(entry, dict):
+                continue
+            extensions = entry.get("extensions")
+            error_type = ""
+            error_id = ""
+            if isinstance(extensions, dict):
+                error_type = str(extensions.get("ashbyErrorType", "")).strip()
+                error_id = str(extensions.get("ashbyErrorId", "")).strip()
+            message = str(entry.get("message", "")).strip().lower()
+            if error_type == "RECAPTCHA_SCORE_BELOW_THRESHOLD" or (
+                "possible spam" in message and "submit your application again" in message
+            ):
+                suffix = f":{error_id}" if error_id else ""
+                return f"recaptcha_score_below_threshold{suffix}"
+        return None
+
+    def _after_resume_upload(self, scope: Any, page: Any) -> None:
+        # Ashby asynchronously parses the uploaded resume. Submitting before this
+        # settles can drop the click without creating a submit request.
+        try:
+            page.wait_for_timeout(2500)
+        except Exception:
+            return
+        for _ in range(12):
+            text = ""
+            for target in (scope, page):
+                try:
+                    text = str(target.inner_text("body") or "")
+                except Exception:
+                    continue
+                if text:
+                    break
+            normalized = text.lower()
+            if (
+                "parsing your resume" in normalized
+                or "autofilling key fields" in normalized
+            ):
+                try:
+                    page.wait_for_timeout(500)
+                except Exception:
+                    break
+                continue
+            break
 
     def _has_required_question_error(self, scope: Any, page: Any) -> bool:
         patterns = (
@@ -1568,6 +1669,9 @@ def _load_profile_from_env(env_name: str) -> Optional[Profile]:
         linkedin=str(payload.get("linkedin", "")).strip(),
         github=str(payload.get("github", "")).strip(),
         website=str(payload.get("website", "")).strip(),
+        current_company=str(
+            payload.get("current_company", payload.get("current_employer", ""))
+        ).strip(),
     )
 
 
@@ -1960,6 +2064,28 @@ def run_pipeline(
             )
             row_result["result"] = "applied"
             applied_count += 1
+        elif result.details.startswith("recaptcha_score_below_threshold"):
+            row_result["result"] = "skipped"
+            row_errors = [
+                "antibot_blocked_requires_manual_submit",
+                result.details,
+            ]
+            if not resume_exists:
+                row_errors.append("missing_or_invalid_submitted_resume_path")
+            if not screenshot_ok:
+                row_errors.append("missing_or_empty_confirmation_screenshot")
+            row_result["errors"] = row_errors
+            row["Status"] = DEFAULT_READY_STATUS
+            row["Notes"] = _append_note(
+                str(row.get("Notes", "")),
+                (
+                    f"CI submit blocked by anti-bot on {_today_iso()} via {adapter.name}. "
+                    f"Reason={result.details}. Manual browser submit required."
+                ),
+            )
+            skipped_count += 1
+            if count_skipped_as_failures:
+                failed_count += 1
         else:
             row_result["result"] = "failed"
             row_errors = ["verification_failed"]

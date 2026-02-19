@@ -702,6 +702,15 @@ class _FakeScope:
         return None
 
 
+class _FakeResponse:
+    def __init__(self, url: str, payload):
+        self.url = url
+        self._payload = payload
+
+    def json(self):
+        return self._payload
+
+
 class _FakeAshbyPage(_FakeScope):
     def __init__(self):
         super().__init__(has_file=False)
@@ -777,6 +786,49 @@ def test_load_answers_from_env_parses_required_fields(monkeypatch):
     assert "industry leader" in answers.role_interest
 
 
+def test_load_profile_from_env_parses_current_company(monkeypatch):
+    mod = _load_module()
+    key = "TEST_CI_SUBMIT_PROFILE_JSON"
+    monkeypatch.setenv(
+        key,
+        json.dumps(
+            {
+                "first_name": "Igor",
+                "last_name": "Ganapolsky",
+                "email": "iganapolsky@gmail.com",
+                "phone": "(201) 639-1534",
+                "linkedin": "https://www.linkedin.com/in/igor-ganapolsky-859317343/",
+                "current_company": "Subway",
+            }
+        ),
+    )
+    profile = mod._load_profile_from_env(key)
+    assert profile is not None
+    assert profile.current_company == "Subway"
+
+
+def test_ashby_extract_submit_error_detail_handles_recaptcha_spam():
+    mod = _load_module()
+    adapter = mod.AshbyAdapter()
+    response = _FakeResponse(
+        "https://jobs.ashbyhq.com/api/non-user-graphql?op=ApiSubmitMultipleFormsAction",
+        {
+            "errors": [
+                {
+                    "message": "Your application submission was flagged as possible spam. If you believe this was a mistake, please submit your application again.",
+                    "extensions": {
+                        "ashbyErrorType": "RECAPTCHA_SCORE_BELOW_THRESHOLD",
+                        "ashbyErrorId": "95f30271-233d-4058-8604-0d986c85da54",
+                    },
+                }
+            ],
+            "data": None,
+        },
+    )
+    detail = adapter._extract_submit_error_detail(response)
+    assert detail == "recaptcha_score_below_threshold:95f30271-233d-4058-8604-0d986c85da54"
+
+
 def test_execute_requires_answers_secret(tmp_path, monkeypatch):
     mod = _load_module()
     monkeypatch.setattr(mod, "ROOT", tmp_path)
@@ -835,6 +887,102 @@ def test_execute_requires_answers_secret(tmp_path, monkeypatch):
         answers_env="TEST_ANSWERS",
     )
     assert rc == 2
+
+
+def test_execute_recaptcha_block_counts_as_skipped_not_failed(tmp_path, monkeypatch):
+    mod = _load_module()
+    monkeypatch.setattr(mod, "ROOT", tmp_path)
+
+    company = "Baseten"
+    role = "Senior Software Engineer - Infrastructure"
+    company_slug = mod._slug(company)
+    role_slug = mod._slug(role)[:64]
+    resume_dir = tmp_path / "applications" / company_slug / "tailored_resumes"
+    cover_dir = tmp_path / "applications" / company_slug / "cover_letters"
+    jobs_dir = tmp_path / "applications" / company_slug / "jobs"
+    submissions_dir = tmp_path / "applications" / company_slug / "submissions"
+    resume_dir.mkdir(parents=True, exist_ok=True)
+    cover_dir.mkdir(parents=True, exist_ok=True)
+    jobs_dir.mkdir(parents=True, exist_ok=True)
+    submissions_dir.mkdir(parents=True, exist_ok=True)
+    (resume_dir / f"2026-02-19_{company_slug}_{role_slug}.docx").write_bytes(b"docx")
+    (resume_dir / f"2026-02-19_{company_slug}_{role_slug}.html").write_text(
+        (
+            "Forward-Deployed AI/Software Engineer "
+            "FORWARD-DEPLOYED COMPETENCIES "
+            "customer-facing delivery "
+            "integration engineering "
+            "Python APIs"
+        ),
+        encoding="utf-8",
+    )
+    (cover_dir / f"2026-02-19_{company_slug}_{role_slug}.md").write_text(
+        "Cover letter", encoding="utf-8"
+    )
+    (jobs_dir / f"2026-02-19_{company_slug}_{role_slug}_abc123.md").write_text(
+        "Remote. Requirements: customer integrations and Python.",
+        encoding="utf-8",
+    )
+
+    tracker = tmp_path / "application_tracker.csv"
+    report = tmp_path / "report.json"
+    _write_tracker(
+        tracker,
+        [
+            {
+                "Company": company,
+                "Role": role,
+                "Location": "Remote",
+                "Salary Range": "",
+                "Status": "ReadyToSubmit",
+                "Date Applied": "",
+                "Follow Up Date": "",
+                "Response": "",
+                "Interview Stage": "Initial",
+                "Days To Response": "",
+                "Response Type": "",
+                "Cover Letter Used": "",
+                "What Worked": "",
+                "Tags": "ai;infra;python",
+                "Notes": "",
+                "Career Page URL": "https://jobs.ashbyhq.com/baseten/abc123",
+            }
+        ],
+    )
+
+    class _RecaptchaAdapter(mod.SiteAdapter):
+        name = "ashby"
+
+        def matches(self, url: str) -> bool:
+            return "ashbyhq.com" in url
+
+        def submit(self, task, profile, auth, answers):
+            screenshot = submissions_dir / "confirm.png"
+            screenshot.write_bytes(b"png")
+            return mod.SubmitResult(
+                adapter=self.name,
+                verified=False,
+                screenshot=screenshot,
+                details="recaptcha_score_below_threshold:abc123",
+            )
+
+    rc = mod.run_pipeline(
+        tracker_csv=tracker,
+        report_path=report,
+        dry_run=False,
+        queue_only=False,
+        max_jobs=1,
+        fail_on_error=True,
+        require_secret_auth=False,
+        adapters=[_RecaptchaAdapter()],
+    )
+    assert rc == 0
+    payload = json.loads(report.read_text(encoding="utf-8"))
+    assert payload["applied_count"] == 0
+    assert payload["failed_count"] == 0
+    assert payload["skipped_count"] == 1
+    assert payload["results"][0]["result"] == "skipped"
+    assert "antibot_blocked_requires_manual_submit" in payload["results"][0]["errors"]
 
 
 def test_select_yes_no_on_select_handles_yes():
