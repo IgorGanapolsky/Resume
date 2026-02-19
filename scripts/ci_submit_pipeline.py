@@ -198,6 +198,7 @@ class PlaywrightFormAdapter(SiteAdapter):
     host_patterns: Sequence[re.Pattern[str]] = ()
     submit_button_patterns: Sequence[str] = ()
     success_text_patterns: Sequence[str] = ()
+    success_url_patterns: Sequence[str] = ()
 
     def matches(self, url: str) -> bool:
         host = (urllib.parse.urlsplit(url).hostname or "").lower()
@@ -371,7 +372,13 @@ class PlaywrightFormAdapter(SiteAdapter):
             except Exception:
                 continue
         normalized = "\n".join(texts).lower()
-        return any(re.search(p, normalized, re.I) for p in self.success_text_patterns)
+        if any(re.search(p, normalized, re.I) for p in self.success_text_patterns):
+            return True
+        page_url = str(getattr(page, "url", "") or "").lower()
+        return bool(
+            page_url
+            and any(re.search(p, page_url, re.I) for p in self.success_url_patterns)
+        )
 
 
 class AshbyAdapter(PlaywrightFormAdapter):
@@ -384,8 +391,20 @@ class AshbyAdapter(PlaywrightFormAdapter):
     )
     success_text_patterns = (
         r"thank you for applying",
+        r"thanks for applying",
+        r"thanks for your application",
+        r"thanks for your interest",
+        r"your application has been submitted",
+        r"application submitted",
+        r"application received",
         r"application was successfully submitted",
         r"we'll be in touch",
+    )
+    success_url_patterns = (
+        r"thank[-_]?you",
+        r"submitted",
+        r"confirmation",
+        r"application.*complete",
     )
 
     def _resolve_form_scope(self, page: Any) -> Optional[Any]:

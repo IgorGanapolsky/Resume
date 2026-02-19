@@ -71,6 +71,17 @@ jobs:
             --report applications/job_applications/autonomous_supervisor_report.json \
             $EXTRA_ARGS
 
+      - name: Upload submit diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ralph-loop-diagnostics-${{ github.run_id }}
+          if-no-files-found: warn
+          path: |
+            applications/job_applications/*report*.json
+            applications/job_applications/application_tracker.csv
+            applications/*/submissions/*ci_confirmation*.png
+
       - name: Create Pull Request for loop updates
         uses: peter-evans/create-pull-request@v6
         with:

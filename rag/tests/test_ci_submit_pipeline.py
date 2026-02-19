@@ -630,14 +630,22 @@ class _FakeLocator:
 
 
 class _FakeScope:
-    def __init__(self, has_file: bool = False):
+    def __init__(self, has_file: bool = False, text: str = "", url: str = ""):
         self.has_file = has_file
+        self._text = text
+        self.url = url
         self.frames = []
 
     def locator(self, selector: str):
         if selector == "input[type='file']":
             return _FakeLocator(lambda: 1 if self.has_file else 0)
         return _FakeLocator(lambda: 0)
+
+    def inner_text(self, selector: str):
+        return self._text
+
+    def wait_for_timeout(self, ms: int):
+        return None
 
 
 class _FakeAshbyPage(_FakeScope):
@@ -679,3 +687,16 @@ def test_ashby_resolve_form_scope_clicks_apply_when_form_hidden():
     assert scope is page
     assert page.has_file is True
     assert page.apply_clicks >= 1
+
+
+def test_wait_for_confirmation_accepts_success_url():
+    mod = _load_module()
+    adapter = mod.AshbyAdapter()
+    page = _FakeScope(
+        has_file=True,
+        text="",
+        url="https://jobs.ashbyhq.com/example/application/submitted",
+    )
+    scope = _FakeScope(has_file=True, text="", url=page.url)
+
+    assert adapter._wait_for_confirmation(page, scope) is True
