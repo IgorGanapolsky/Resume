@@ -1243,9 +1243,7 @@ def watch(interval: int = 10) -> None:
 def autonomous(interval: int = 30) -> None:
     """Autonomous loop: rebuild index + sync tracker outcomes on tracker changes."""
     last_mtime: Optional[float] = None
-    print(
-        f"Autonomous mode watching {TRACKER_CSV} every {interval}s. Ctrl-C to stop."
-    )
+    print(f"Autonomous mode watching {TRACKER_CSV} every {interval}s. Ctrl-C to stop.")
     while True:
         try:
             mtime = TRACKER_CSV.stat().st_mtime
