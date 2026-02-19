@@ -46,8 +46,9 @@ def test_build_lane_plan_contains_queue_gate_and_parallel_lanes():
     lane_map = {lane.name: lane for lane in lanes}
     assert lane_map["prepare_submit_artifacts"].depends_on == ["discover"]
     assert lane_map["queue_gate"].depends_on == ["discover", "prepare_submit_artifacts"]
-    assert lane_map["submission_artifact_audit"].depends_on == ["queue_gate"]
-    assert lane_map["rag_build"].depends_on == ["queue_gate", "submission_artifact_audit"]
+    assert lane_map["submit_dry_run"].depends_on == ["queue_gate"]
+    assert lane_map["submission_artifact_audit"].depends_on == ["submit_dry_run"]
+    assert lane_map["rag_build"].depends_on == ["submission_artifact_audit"]
     assert lane_map["scrub_job_captures"].depends_on == ["queue_gate"]
     assert lane_map["submit_dry_run"].depends_on == ["queue_gate"]
     assert "--fit-threshold" in lane_map["queue_gate"].command

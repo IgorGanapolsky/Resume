@@ -382,37 +382,13 @@ def build_lane_plan(
             ],
             depends_on=["discover", "prepare_submit_artifacts"],
         ),
-        Lane(
-            name="submission_artifact_audit",
-            command=[
-                "python3",
-                "scripts/audit_submission_artifacts.py",
-                "--write",
-                "--report",
-                "applications/job_applications/submission_artifact_audit_report.json",
-            ],
-            depends_on=["queue_gate"],
-        ),
-        Lane(
-            name="rag_build",
-            command=["python3", "rag/cli.py", "build"],
-            depends_on=["queue_gate", "submission_artifact_audit"],
-        ),
-        Lane(
-            name="scrub_job_captures",
-            command=["python3", "scripts/scrub_job_captures.py"],
-            depends_on=["queue_gate"],
-        ),
-        Lane(
-            name="rag_status",
-            command=["python3", "rag/cli.py", "status"],
-            depends_on=["rag_build"],
-        ),
     ]
+    submit_lane_name: str
     if execute_submissions:
+        submit_lane_name = "submit_execute"
         lanes.append(
             Lane(
-                name="submit_execute",
+                name=submit_lane_name,
                 command=[
                     "python3",
                     "scripts/ci_submit_pipeline.py",
@@ -431,9 +407,10 @@ def build_lane_plan(
             )
         )
     else:
+        submit_lane_name = "submit_dry_run"
         lanes.append(
             Lane(
-                name="submit_dry_run",
+                name=submit_lane_name,
                 command=[
                     "python3",
                     "scripts/ci_submit_pipeline.py",
@@ -449,6 +426,36 @@ def build_lane_plan(
                 depends_on=["queue_gate"],
             )
         )
+    lanes.extend(
+        [
+            Lane(
+                name="submission_artifact_audit",
+                command=[
+                    "python3",
+                    "scripts/audit_submission_artifacts.py",
+                    "--write",
+                    "--report",
+                    "applications/job_applications/submission_artifact_audit_report.json",
+                ],
+                depends_on=[submit_lane_name],
+            ),
+            Lane(
+                name="rag_build",
+                command=["python3", "rag/cli.py", "build"],
+                depends_on=["submission_artifact_audit"],
+            ),
+            Lane(
+                name="scrub_job_captures",
+                command=["python3", "scripts/scrub_job_captures.py"],
+                depends_on=["queue_gate"],
+            ),
+            Lane(
+                name="rag_status",
+                command=["python3", "rag/cli.py", "status"],
+                depends_on=["rag_build"],
+            ),
+        ]
+    )
     return lanes
 
 
