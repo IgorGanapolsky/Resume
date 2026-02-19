@@ -20,6 +20,7 @@ Copy-paste these answers when applying. All fields are ready to go.
 ## VISA STATUS (Same for All)
 
 - **Are you based in US/Canada?** Yes
+- **Are you legally authorized to work in the U.S.?** Yes
 - **Require visa sponsorship?** No
 
 ---
@@ -28,6 +29,8 @@ Copy-paste these answers when applying. All fields are ready to go.
 
 - **College / University:** Manhattan College
 - **Are you excited to work in-office five days per week?** Yes
+- **What interests you in this role?** ai-heavy, LLM-first project with an industry leader
+- **Voluntary EEO default:** Prefer not to say
 
 ---
 

@@ -700,3 +700,84 @@ def test_wait_for_confirmation_accepts_success_url():
     scope = _FakeScope(has_file=True, text="", url=page.url)
 
     assert adapter._wait_for_confirmation(page, scope) is True
+
+
+def test_load_answers_from_env_parses_required_fields(monkeypatch):
+    mod = _load_module()
+    key = "TEST_CI_SUBMIT_ANSWERS_JSON"
+    monkeypatch.setenv(
+        key,
+        json.dumps(
+            {
+                "work_authorization_us": "yes",
+                "require_sponsorship": "no",
+                "role_interest": "AI-heavy, LLM-first project with an industry leader.",
+                "eeo_default": "Prefer not to say",
+            }
+        ),
+    )
+    answers = mod._load_answers_from_env(key)
+    assert answers is not None
+    assert answers.work_authorization_us is True
+    assert answers.require_sponsorship is False
+    assert "industry leader" in answers.role_interest
+
+
+def test_execute_requires_answers_secret(tmp_path, monkeypatch):
+    mod = _load_module()
+    monkeypatch.setattr(mod, "ROOT", tmp_path)
+
+    tracker = tmp_path / "application_tracker.csv"
+    report = tmp_path / "report.json"
+    _write_tracker(
+        tracker,
+        [
+            {
+                "Company": "Example",
+                "Role": "Software Engineer",
+                "Location": "Remote",
+                "Salary Range": "",
+                "Status": "ReadyToSubmit",
+                "Date Applied": "",
+                "Follow Up Date": "",
+                "Response": "",
+                "Interview Stage": "Initial",
+                "Days To Response": "",
+                "Response Type": "",
+                "Cover Letter Used": "",
+                "What Worked": "",
+                "Tags": "ai;software",
+                "Notes": "",
+                "Career Page URL": "https://jobs.ashbyhq.com/example/abc123",
+            }
+        ],
+    )
+
+    monkeypatch.delenv("TEST_PROFILE", raising=False)
+    monkeypatch.delenv("TEST_AUTH", raising=False)
+    monkeypatch.delenv("TEST_ANSWERS", raising=False)
+    monkeypatch.setenv(
+        "TEST_PROFILE",
+        json.dumps(
+            {
+                "first_name": "Igor",
+                "last_name": "Ganapolsky",
+                "email": "iganapolsky@gmail.com",
+                "phone": "(201) 639-1534",
+            }
+        ),
+    )
+    monkeypatch.setenv("TEST_AUTH", json.dumps({"ashby": {}}))
+
+    rc = mod.run_pipeline(
+        tracker_csv=tracker,
+        report_path=report,
+        dry_run=False,
+        queue_only=False,
+        max_jobs=1,
+        fail_on_error=False,
+        profile_env="TEST_PROFILE",
+        auth_env="TEST_AUTH",
+        answers_env="TEST_ANSWERS",
+    )
+    assert rc == 2

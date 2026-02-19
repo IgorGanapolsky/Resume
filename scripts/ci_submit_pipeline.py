@@ -4,6 +4,7 @@
 Design:
 - Queue source: tracker rows with Status=ReadyToSubmit (or equivalent spelling).
 - Secret-backed auth/profile: submit execution requires environment secrets.
+- Secret-backed screener answers: required form answers come from env JSON.
 - Site adapters: Ashby, Greenhouse, Lever (Playwright-based).
 - Mandatory confirmation evidence: submission is counted only with screenshot.
 - Tracker mutation rule: set Status=Applied only on verified success.
@@ -149,6 +150,14 @@ class AdapterAuth:
 
 
 @dataclass
+class SubmitAnswers:
+    work_authorization_us: bool
+    require_sponsorship: bool
+    role_interest: str
+    eeo_default: str
+
+
+@dataclass
 class SubmitTask:
     row_index: int
     company: str
@@ -189,7 +198,11 @@ class SiteAdapter:
         raise NotImplementedError
 
     def submit(
-        self, task: SubmitTask, profile: Profile, auth: AdapterAuth
+        self,
+        task: SubmitTask,
+        profile: Profile,
+        auth: AdapterAuth,
+        answers: SubmitAnswers,
     ) -> SubmitResult:
         raise NotImplementedError
 
@@ -205,7 +218,11 @@ class PlaywrightFormAdapter(SiteAdapter):
         return any(p.search(host) for p in self.host_patterns)
 
     def submit(
-        self, task: SubmitTask, profile: Profile, auth: AdapterAuth
+        self,
+        task: SubmitTask,
+        profile: Profile,
+        auth: AdapterAuth,
+        answers: SubmitAnswers,
     ) -> SubmitResult:
         try:
             from playwright.sync_api import TimeoutError as PlaywrightTimeoutError  # type: ignore
@@ -262,6 +279,21 @@ class PlaywrightFormAdapter(SiteAdapter):
                 if profile.website:
                     self._fill_text(form_scope, "Website", profile.website)
 
+                missing_answers = self._apply_required_answers(
+                    form_scope, page, answers
+                )
+                if missing_answers:
+                    browser.close()
+                    return SubmitResult(
+                        adapter=self.name,
+                        verified=False,
+                        screenshot=None,
+                        details=(
+                            "missing_required_answers:"
+                            + ",".join(sorted(set(missing_answers)))
+                        ),
+                    )
+
                 # Resume upload is mandatory for this pipeline.
                 file_input = form_scope.locator("input[type='file']").first
                 file_input.set_input_files(str(task.resume_path))
@@ -304,6 +336,11 @@ class PlaywrightFormAdapter(SiteAdapter):
                 screenshot=None,
                 details=f"exception: {e}",
             )
+
+    def _apply_required_answers(
+        self, scope: Any, page: Any, answers: SubmitAnswers
+    ) -> List[str]:
+        return []
 
     def _resolve_form_scope(self, page: Any) -> Optional[Any]:
         try:
@@ -406,6 +443,238 @@ class AshbyAdapter(PlaywrightFormAdapter):
         r"confirmation",
         r"application.*complete",
     )
+
+    def _apply_required_answers(
+        self, scope: Any, page: Any, answers: SubmitAnswers
+    ) -> List[str]:
+        missing: List[str] = []
+        auth_markers = (
+            "legally authorized to work",
+            "authorized to work in the united states",
+            "authorized to work in the country",
+        )
+        sponsorship_markers = (
+            "require visa sponsorship",
+            "require sponsorship",
+            "employment visa sponsorship",
+            "now or in the future require",
+        )
+        interest_markers = (
+            "what interests you in this role",
+            "why this role",
+            "why are you interested in this role",
+            "why do you want this role",
+        )
+
+        if self._question_present(scope, page, auth_markers) and not self._set_yes_no(
+            scope,
+            page,
+            question_markers=auth_markers,
+            answer_yes=answers.work_authorization_us,
+            name_hints=("authoriz", "workauth"),
+        ):
+            missing.append("work_authorization_us")
+
+        if self._question_present(
+            scope, page, sponsorship_markers
+        ) and not self._set_yes_no(
+            scope,
+            page,
+            question_markers=sponsorship_markers,
+            answer_yes=answers.require_sponsorship,
+            name_hints=("sponsor", "visa"),
+        ):
+            missing.append("require_sponsorship")
+
+        if self._question_present(scope, page, interest_markers):
+            filled = False
+            for prompt in (
+                "What interests you in this role",
+                "Why this role",
+                "Why are you interested in this role",
+            ):
+                before = self._snapshot_text_field(scope, prompt)
+                self._fill_text(scope, prompt, answers.role_interest)
+                after = self._snapshot_text_field(scope, prompt)
+                if after and after != before:
+                    filled = True
+                    break
+            if not filled and self._set_textarea_by_name(
+                scope, answers.role_interest, ("interest", "motivation", "why")
+            ):
+                filled = True
+            if not filled:
+                missing.append("role_interest")
+
+        # Voluntary EEO answers are best-effort but deterministic.
+        self._set_prefer_not_to_say_defaults(scope, page, answers.eeo_default)
+        return missing
+
+    def _question_present(
+        self, scope: Any, page: Any, markers: Sequence[str]
+    ) -> bool:
+        texts: List[str] = []
+        for target in (scope, page):
+            try:
+                text = target.inner_text("body")
+            except Exception:
+                continue
+            if text:
+                texts.append(str(text).lower())
+        if not texts:
+            return False
+        return any(marker.lower() in blob for blob in texts for marker in markers)
+
+    def _locate_question_container(
+        self, target: Any, markers: Sequence[str]
+    ) -> Optional[Any]:
+        for marker in markers:
+            try:
+                text_node = target.get_by_text(re.compile(re.escape(marker), re.I)).first
+                if text_node.count() < 1:
+                    continue
+            except Exception:
+                continue
+            for xpath in (
+                "xpath=ancestor::fieldset[1]",
+                "xpath=ancestor::*[@role='group'][1]",
+                "xpath=ancestor::div[1]",
+            ):
+                try:
+                    container = text_node.locator(xpath).first
+                    if container.count() > 0:
+                        return container
+                except Exception:
+                    continue
+        return None
+
+    def _set_yes_no(
+        self,
+        scope: Any,
+        page: Any,
+        *,
+        question_markers: Sequence[str],
+        answer_yes: bool,
+        name_hints: Sequence[str],
+    ) -> bool:
+        choice = "yes" if answer_yes else "no"
+        choice_patterns = (
+            re.compile(rf"^{choice}$", re.I),
+            re.compile(rf"\\b{choice}\\b", re.I),
+        )
+        for target in (scope, page):
+            container = self._locate_question_container(target, question_markers)
+            if container is None:
+                continue
+            if self._click_choice_in_container(container, choice_patterns):
+                return True
+
+        value_hints = ("yes", "true", "1") if answer_yes else ("no", "false", "0")
+        for hint in name_hints:
+            for value_hint in value_hints:
+                selector = (
+                    "input[type='radio']"
+                    f"[name*='{hint}'][value*='{value_hint}']"
+                )
+                try:
+                    radio = scope.locator(selector).first
+                    if radio.count() > 0:
+                        radio.check(timeout=1500)
+                        return True
+                except Exception:
+                    continue
+        return False
+
+    def _click_choice_in_container(
+        self, container: Any, choice_patterns: Sequence[re.Pattern[str]]
+    ) -> bool:
+        for choice_pattern in choice_patterns:
+            for probe in (
+                lambda: container.get_by_label(choice_pattern).first,
+                lambda: container.get_by_role("radio", name=choice_pattern).first,
+            ):
+                try:
+                    control = probe()
+                    if control.count() > 0:
+                        try:
+                            control.check(timeout=1500)
+                        except Exception:
+                            control.click(timeout=1500)
+                        return True
+                except Exception:
+                    continue
+        return False
+
+    def _snapshot_text_field(self, scope: Any, prompt: str) -> str:
+        try:
+            field = scope.get_by_label(prompt, exact=False).first
+            if field.count() > 0:
+                value = field.input_value(timeout=1500)
+                return str(value or "")
+        except Exception:
+            pass
+        return ""
+
+    def _set_textarea_by_name(
+        self, scope: Any, value: str, name_hints: Sequence[str]
+    ) -> bool:
+        for hint in name_hints:
+            selector = f"textarea[name*='{hint}'],input[name*='{hint}']"
+            try:
+                field = scope.locator(selector).first
+                if field.count() > 0:
+                    field.fill(value, timeout=1500)
+                    return True
+            except Exception:
+                continue
+        return False
+
+    def _set_prefer_not_to_say_defaults(
+        self, scope: Any, page: Any, default_text: str
+    ) -> None:
+        if not (default_text or "").strip():
+            return
+        preferred_patterns = (
+            re.compile(r"prefer not", re.I),
+            re.compile(r"decline to", re.I),
+            re.compile(r"do not wish", re.I),
+            re.compile(r"choose not to", re.I),
+        )
+        for target in (scope, page):
+            try:
+                select_count = target.locator("select").count()
+            except Exception:
+                continue
+            for idx in range(select_count):
+                try:
+                    select = target.locator("select").nth(idx)
+                    option_count = select.locator("option").count()
+                    selected = False
+                    for opt_idx in range(option_count):
+                        option = select.locator("option").nth(opt_idx)
+                        option_text = str(option.inner_text(timeout=500) or "").strip()
+                        if any(p.search(option_text) for p in preferred_patterns):
+                            select.select_option(label=option_text, timeout=1500)
+                            selected = True
+                            break
+                    if selected:
+                        continue
+                except Exception:
+                    continue
+
+        eeo_sections = (
+            "gender",
+            "hispanic",
+            "race",
+            "veteran",
+            "disability",
+        )
+        for target in (scope, page):
+            for marker in eeo_sections:
+                container = self._locate_question_container(target, (marker,))
+                if container is None:
+                    continue
+                self._click_choice_in_container(container, preferred_patterns)
 
     def _resolve_form_scope(self, page: Any) -> Optional[Any]:
         scope = super()._resolve_form_scope(page)
@@ -839,6 +1108,52 @@ def _load_profile_from_env(env_name: str) -> Optional[Profile]:
     )
 
 
+def _parse_yes_no(value: Any) -> Optional[bool]:
+    key = _norm_key(str(value))
+    if key in {"yes", "y", "true", "1"}:
+        return True
+    if key in {"no", "n", "false", "0"}:
+        return False
+    return None
+
+
+def _load_answers_from_env(env_name: str) -> Optional[SubmitAnswers]:
+    raw = os.getenv(env_name, "").strip()
+    if not raw:
+        return None
+    try:
+        payload = json.loads(raw)
+    except Exception:
+        return None
+    if not isinstance(payload, dict):
+        return None
+
+    auth_yes_no = _parse_yes_no(
+        payload.get("work_authorization_us", payload.get("authorized_to_work_us", ""))
+    )
+    sponsor_yes_no = _parse_yes_no(
+        payload.get("require_sponsorship", payload.get("visa_sponsorship_required", ""))
+    )
+    role_interest = str(
+        payload.get("role_interest", payload.get("why_this_role", ""))
+    ).strip()
+    eeo_default = str(payload.get("eeo_default", "")).strip()
+
+    if auth_yes_no is None or sponsor_yes_no is None:
+        return None
+    if not role_interest:
+        return None
+    if not eeo_default:
+        return None
+
+    return SubmitAnswers(
+        work_authorization_us=auth_yes_no,
+        require_sponsorship=sponsor_yes_no,
+        role_interest=role_interest,
+        eeo_default=eeo_default,
+    )
+
+
 def _load_auth_by_adapter(env_name: str) -> Dict[str, AdapterAuth]:
     raw = os.getenv(env_name, "").strip()
     if not raw:
@@ -908,6 +1223,7 @@ def run_pipeline(
     auto_promote_ready: bool = True,
     profile_env: str = "CI_SUBMIT_PROFILE_JSON",
     auth_env: str = "CI_SUBMIT_AUTH_JSON",
+    answers_env: str = "CI_SUBMIT_ANSWERS_JSON",
     adapters: Optional[Sequence[SiteAdapter]] = None,
 ) -> int:
     fields, rows = _read_tracker(tracker_csv)
@@ -916,6 +1232,7 @@ def run_pipeline(
 
     profile = _load_profile_from_env(profile_env)
     auth_map = _load_auth_by_adapter(auth_env)
+    answers = _load_answers_from_env(answers_env)
 
     if not dry_run and not queue_only and require_secret_auth:
         if profile is None:
@@ -924,6 +1241,9 @@ def run_pipeline(
         if not auth_map:
             print(f"ERROR: missing/invalid secret auth map in ${auth_env}.")
             return 2
+        if answers is None:
+            print(f"ERROR: missing/invalid secret answers in ${answers_env}.")
+            return 2
     elif profile is None:
         # Dry-run may proceed without secrets, but keep a sane placeholder profile.
         profile = Profile(
@@ -931,6 +1251,13 @@ def run_pipeline(
             last_name="Run",
             email="dry.run@example.com",
             phone="0000000000",
+        )
+    if answers is None:
+        answers = SubmitAnswers(
+            work_authorization_us=True,
+            require_sponsorship=False,
+            role_interest="AI-heavy, integration-first role focused on production impact.",
+            eeo_default="Prefer not to say",
         )
 
     can_mutate_tracker = (not dry_run) or queue_only
@@ -1138,7 +1465,7 @@ def run_pipeline(
             failed_count += 1
             continue
 
-        result = adapter.submit(task, profile, auth)
+        result = adapter.submit(task, profile, auth, answers)
         row_result["adapter_details"] = result.details
         row_result["verified"] = result.verified
         row_result["screenshot"] = str(result.screenshot) if result.screenshot else None
@@ -1164,10 +1491,12 @@ def run_pipeline(
             applied_count += 1
         else:
             row_result["result"] = "failed"
-            row_result["errors"] = [
-                "verification_failed",
-                "missing_or_empty_confirmation_screenshot" if not screenshot_ok else "",
-            ]
+            row_errors = ["verification_failed"]
+            if result.details.startswith("missing_required_answers:"):
+                row_errors.append(result.details)
+            if not screenshot_ok:
+                row_errors.append("missing_or_empty_confirmation_screenshot")
+            row_result["errors"] = row_errors
             failed_count += 1
 
         report["results"].append(row_result)
@@ -1291,6 +1620,11 @@ def main() -> int:
         default="CI_SUBMIT_AUTH_JSON",
         help="Env var containing per-adapter auth JSON.",
     )
+    ap.add_argument(
+        "--answers-env",
+        default="CI_SUBMIT_ANSWERS_JSON",
+        help="Env var containing required screener answers JSON.",
+    )
     args = ap.parse_args()
     if args.execute and args.queue_only:
         print("ERROR: --execute and --queue-only are mutually exclusive.")
@@ -1310,6 +1644,7 @@ def main() -> int:
             require_secret_auth=True,
             profile_env=args.profile_env,
             auth_env=args.auth_env,
+            answers_env=args.answers_env,
         )
     except Exception:
         traceback.print_exc()
