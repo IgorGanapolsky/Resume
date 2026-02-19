@@ -1122,6 +1122,35 @@ def run_pipeline(
         f"ready={len(ready_indices)} applied={applied_count} "
         f"failed={failed_count} skipped={skipped_count} dry_run={dry_run}"
     )
+    if failed_count > 0 or skipped_count > 0:
+        print("Queue result details (up to 10 rows):")
+        emitted = 0
+        for item in report["results"]:
+            outcome = str(item.get("result", "")).strip()
+            if outcome not in {"failed", "skipped"}:
+                continue
+            company = str(item.get("company", "")).strip()
+            role = str(item.get("role", "")).strip()
+            detail_parts: List[str] = []
+            errors = item.get("errors")
+            if isinstance(errors, list) and errors:
+                detail_parts.append(
+                    "errors=" + ",".join(str(err).strip() for err in errors if err)
+                )
+            adapter_details = str(item.get("adapter_details", "")).strip()
+            if adapter_details:
+                detail_parts.append(f"adapter_details={adapter_details}")
+            verified = item.get("verified")
+            if isinstance(verified, bool):
+                detail_parts.append(f"verified={verified}")
+            screenshot = str(item.get("screenshot", "")).strip()
+            if screenshot:
+                detail_parts.append(f"screenshot={screenshot}")
+            joined = " | ".join(detail_parts) if detail_parts else "no_details"
+            print(f"- {outcome}: {company} | {role} | {joined}")
+            emitted += 1
+            if emitted >= 10:
+                break
     print(f"Report: {report_path}")
 
     if fail_on_error and failed_count > 0:
