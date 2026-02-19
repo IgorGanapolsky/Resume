@@ -577,6 +577,8 @@ class AshbyAdapter(PlaywrightFormAdapter):
                 return True
             if self._select_choice_in_container(container, answer_yes):
                 return True
+            if self._fill_yes_no_text_in_container(container, answer_yes):
+                return True
 
         value_hints = ("yes", "true", "1") if answer_yes else ("no", "false", "0")
         for hint in name_hints:
@@ -601,6 +603,8 @@ class AshbyAdapter(PlaywrightFormAdapter):
                     return True
             except Exception:
                 continue
+            if self._fill_yes_no_by_hint(scope, hint, answer_yes):
+                return True
         return False
 
     def _click_choice_in_container(
@@ -659,6 +663,45 @@ class AshbyAdapter(PlaywrightFormAdapter):
                     return True
                 except Exception:
                     continue
+        return False
+
+    def _fill_yes_no_text_in_container(self, container: Any, answer_yes: bool) -> bool:
+        value = "Yes" if answer_yes else "No"
+        try:
+            field = container.locator("input[type='text'],textarea").first
+            if field.count() > 0:
+                field.fill(value, timeout=1500)
+                return True
+        except Exception:
+            pass
+        for role in ("textbox", "combobox"):
+            try:
+                control = container.get_by_role(role).first
+                if control.count() > 0:
+                    control.fill(value, timeout=1500)
+                    return True
+            except Exception:
+                continue
+        return False
+
+    def _fill_yes_no_by_hint(self, scope: Any, hint: str, answer_yes: bool) -> bool:
+        value = "Yes" if answer_yes else "No"
+        selectors = (
+            f"input[type='text'][name*='{hint}']",
+            f"textarea[name*='{hint}']",
+            f"input[type='text'][id*='{hint}']",
+            f"textarea[id*='{hint}']",
+            f"input[aria-label*='{hint}']",
+            f"textarea[aria-label*='{hint}']",
+        )
+        for selector in selectors:
+            try:
+                field = scope.locator(selector).first
+                if field.count() > 0:
+                    field.fill(value, timeout=1500)
+                    return True
+            except Exception:
+                continue
         return False
 
     def _snapshot_text_field(self, scope: Any, prompt: str) -> str:

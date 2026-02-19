@@ -613,9 +613,10 @@ def test_dry_run_skipped_rows_can_be_treated_as_failures(tmp_path, monkeypatch):
 
 
 class _FakeLocator:
-    def __init__(self, count_fn, on_click=None):
+    def __init__(self, count_fn, on_click=None, on_fill=None):
         self._count_fn = count_fn
         self._on_click = on_click
+        self._on_fill = on_fill
 
     @property
     def first(self):
@@ -627,6 +628,10 @@ class _FakeLocator:
     def click(self, timeout=None):
         if self._on_click is not None:
             self._on_click()
+
+    def fill(self, value: str, timeout=None):
+        if self._on_fill is not None:
+            self._on_fill(value)
 
 
 class _FakeOptionNode:
@@ -660,6 +665,22 @@ class _FakeSelect:
 
     def select_option(self, label: str, timeout=None):
         self.selected_label = label
+
+
+class _FakeContainerWithTextField:
+    def __init__(self):
+        self.filled = None
+
+    def locator(self, selector: str):
+        if selector == "input[type='text'],textarea":
+            return _FakeLocator(lambda: 1, on_fill=self._set)
+        return _FakeLocator(lambda: 0)
+
+    def get_by_role(self, role: str):
+        return _FakeLocator(lambda: 0)
+
+    def _set(self, value: str):
+        self.filled = value
 
 
 class _FakeScope:
@@ -832,3 +853,13 @@ def test_select_yes_no_on_select_handles_no_with_long_label():
     ok = adapter._select_yes_no_on_select(select, False)
     assert ok is True
     assert select.selected_label == "No, I do not require sponsorship"
+
+
+def test_fill_yes_no_text_in_container_uses_text_field():
+    mod = _load_module()
+    adapter = mod.AshbyAdapter()
+    container = _FakeContainerWithTextField()
+
+    ok = adapter._fill_yes_no_text_in_container(container, False)
+    assert ok is True
+    assert container.filled == "No"
