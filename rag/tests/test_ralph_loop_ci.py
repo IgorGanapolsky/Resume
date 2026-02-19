@@ -63,6 +63,21 @@ def test_classify_role_filters_non_technical_roles(loop_mod):
     assert profile.is_relevant is False
 
 
+def test_classify_role_filters_content_manager_false_positive(loop_mod):
+    job = {
+        "company": "NMI",
+        "title": "Content Manager",
+        "location": "Remote, US",
+        "job_type": "Full time",
+        "tags": "embedded;technical;writer;support;api",
+        "description": "Own content operations and support documentation.",
+        "url": "https://example.com/jobs/content-manager",
+    }
+    profile = loop_mod.classify_role(job)
+    assert profile.is_relevant is False
+    assert profile.track in {"general", "fde"}
+
+
 def test_tailor_resume_html_for_fde_profile(loop_mod):
     base_resume_path = (
         Path(__file__).resolve().parents[2]

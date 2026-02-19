@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import os
 import sys
 import time
 from pathlib import Path
@@ -119,6 +120,13 @@ def test_run_supervisor_fail_fast_marks_pending_skipped(tmp_path):
     assert lane_map["discover"]["returncode"] == 0
     assert lane_map["queue_gate"]["returncode"] == 1
     assert lane_map["scrub"]["skipped"] is True
+    assert lane_map["discover"]["status"] == "succeeded"
+    assert lane_map["queue_gate"]["status"] == "failed"
+    assert lane_map["scrub"]["status"] == "skipped"
+    assert "stdout_preview" in lane_map["discover"]
+    assert "stderr_preview" in lane_map["discover"]
+    assert Path(lane_map["discover"]["stdout_log_path"]).exists()
+    assert Path(lane_map["discover"]["stderr_log_path"]).exists()
 
 
 def test_build_lane_runner_ollama_delegates_selected_lanes():
@@ -241,3 +249,56 @@ def test_run_lane_with_ollama_assist_fallback_to_local_when_not_strict():
     assert result.returncode == 0
     assert "fallback_to_local" in result.stdout
     assert "local execution ok" in result.stdout
+
+
+def test_resolve_agent_runtime_auto_prefers_ollama_when_ready():
+    mod = _load_module()
+    orig = mod._ollama_model_ready
+    mod._ollama_model_ready = lambda model, timeout_s=8: (True, "ollama_model_ready")
+    try:
+        resolved, reason = mod.resolve_agent_runtime(
+            requested_runtime="auto",
+            ollama_model="qwen2.5-coder:14b",
+            ollama_timeout_s=20,
+        )
+    finally:
+        mod._ollama_model_ready = orig
+    assert resolved == "ollama"
+    assert reason == "auto_detected_ollama_ready"
+
+
+def test_resolve_agent_runtime_auto_falls_back_to_local_when_unavailable():
+    mod = _load_module()
+    orig = mod._ollama_model_ready
+    mod._ollama_model_ready = lambda model, timeout_s=8: (
+        False,
+        "ollama_not_installed",
+    )
+    try:
+        resolved, reason = mod.resolve_agent_runtime(
+            requested_runtime="auto",
+            ollama_model="qwen2.5-coder:14b",
+            ollama_timeout_s=20,
+        )
+    finally:
+        mod._ollama_model_ready = orig
+    assert resolved == "local"
+    assert reason.startswith("auto_fallback_to_local:")
+
+
+def test_resolve_agent_runtime_forced_env_override():
+    mod = _load_module()
+    orig = mod._ollama_model_ready
+    os.environ["AUTONOMOUS_AGENT_RUNTIME"] = "local"
+    mod._ollama_model_ready = lambda model, timeout_s=8: (True, "ollama_model_ready")
+    try:
+        resolved, reason = mod.resolve_agent_runtime(
+            requested_runtime="auto",
+            ollama_model="qwen2.5-coder:14b",
+            ollama_timeout_s=20,
+        )
+    finally:
+        os.environ.pop("AUTONOMOUS_AGENT_RUNTIME", None)
+        mod._ollama_model_ready = orig
+    assert resolved == "local"
+    assert reason == "forced_by_env"

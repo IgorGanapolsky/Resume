@@ -6,8 +6,22 @@
 __pycache__/
 *.pyc
 *.pyo
+.venv311/
 .pytest_cache/
 .cache/
+.coverage
+rag/.coverage
+rag/coverage.xml
+
+# Local assistant runtime artifacts
+.omx/
+rag/data/tracker_feedback_seen.json
+rag/logs/autonomous.log
+applications/job_applications/autonomous_supervisor_report*.json
+applications/job_applications/*supervisor*_snapshot*.json
+applications/job_applications/autonomous_supervisor_logs/
+applications/job_applications/ci_ready_queue_report.json
+applications/job_applications/ci_submit_*_report.json
 
 # RAG vector store (large binary; rebuilt locally via `python3 rag/cli.py build`)
 rag/lancedb/

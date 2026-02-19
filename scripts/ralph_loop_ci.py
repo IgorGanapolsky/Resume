@@ -32,6 +32,11 @@ ROLE_RE = re.compile(
     r"devops|site reliability|sre|distributed systems|agent)",
     re.IGNORECASE,
 )
+TECH_TITLE_RE = re.compile(
+    r"(engineer|developer|devops|sre|site reliability|architect|ml|ai|data engineer|"
+    r"backend|frontend|full[- ]?stack|platform|infrastructure|ios|android|qa)",
+    re.IGNORECASE,
+)
 FDE_TITLE_RE = re.compile(
     r"(forward[- ]?deployed|solutions engineer|customer engineer|implementation engineer|"
     r"technical consultant|partner engineer)",
@@ -46,7 +51,9 @@ VOICE_SIGNAL_RE = re.compile(
     r"(voice|audio|speech|tts|asr|call center|ivr)", re.IGNORECASE
 )
 NON_TECH_RE = re.compile(
-    r"(account executive|sales|recruiter|attorney|counsel|office assistant|marketing)",
+    r"(account executive|sales|recruiter|attorney|counsel|office assistant|marketing|"
+    r"content manager|revenue operations|client support|customer support specialist|"
+    r"operations manager|community manager)",
     re.IGNORECASE,
 )
 LOCATION_RE = re.compile(
@@ -101,7 +108,7 @@ def classify_role(job: Dict[str, str]) -> RoleProfile:
             job.get("description", ""),
         ]
     )
-    role_match = bool(ROLE_RE.search(hay))
+    role_match = bool(TECH_TITLE_RE.search(title) or ROLE_RE.search(hay))
     location_match = bool(LOCATION_RE.search(hay))
     non_tech = bool(NON_TECH_RE.search(title))
 

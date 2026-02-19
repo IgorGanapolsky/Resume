@@ -22,6 +22,9 @@ jobs:
   iterate:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    env:
+      AUTONOMOUS_AGENT_RUNTIME: ${{ vars.AUTONOMOUS_AGENT_RUNTIME }}
+      AUTONOMOUS_DISABLE_OLLAMA: ${{ vars.AUTONOMOUS_DISABLE_OLLAMA }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -41,6 +44,7 @@ jobs:
           if [ -z "$MAX_NEW" ]; then MAX_NEW=10; fi
           python3 scripts/autonomous_supervisor.py \
             --max-new-jobs "$MAX_NEW" \
+            --agent-runtime auto \
             --fit-threshold 70 \
             --max-submit-jobs 5 \
             --max-parallel 3 \

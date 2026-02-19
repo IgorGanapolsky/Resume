@@ -8,6 +8,7 @@ lanes with dependency-aware parallel execution.
 from __future__ import annotations
 
 import argparse
+import datetime as dt
 import json
 import os
 import subprocess
@@ -21,6 +22,9 @@ from typing import Callable, Dict, List, Optional, Sequence, Set, Tuple
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_REPORT = (
     ROOT / "applications" / "job_applications" / "autonomous_supervisor_report.json"
+)
+DEFAULT_LOGS_DIR = (
+    ROOT / "applications" / "job_applications" / "autonomous_supervisor_logs"
 )
 DEFAULT_OLLAMA_MODEL = "qwen2.5-coder:14b"
 DEFAULT_OLLAMA_TIMEOUT_S = 120
@@ -55,19 +59,50 @@ class LaneResult:
     def duration_s(self) -> float:
         return max(0.0, self.ended_at - self.started_at)
 
-    def to_json(self) -> Dict[str, object]:
-        return {
+    def to_json(
+        self,
+        *,
+        include_full_output: bool = False,
+        stdout_preview_chars: int = 600,
+        stderr_preview_chars: int = 400,
+        stdout_log_path: str = "",
+        stderr_log_path: str = "",
+    ) -> Dict[str, object]:
+        status = (
+            "skipped"
+            if self.skipped
+            else ("succeeded" if self.returncode == 0 else "failed")
+        )
+        payload: Dict[str, object] = {
             "name": self.name,
+            "status": status,
+            "command_text": " ".join(self.command),
             "command": self.command,
             "returncode": self.returncode,
+            "started_at_iso": dt.datetime.fromtimestamp(
+                self.started_at, dt.timezone.utc
+            ).isoformat(),
+            "ended_at_iso": dt.datetime.fromtimestamp(
+                self.ended_at, dt.timezone.utc
+            ).isoformat(),
             "started_at_epoch": self.started_at,
             "ended_at_epoch": self.ended_at,
             "duration_s": round(self.duration_s, 3),
             "skipped": self.skipped,
             "skip_reason": self.skip_reason,
-            "stdout": self.stdout,
-            "stderr": self.stderr,
+            "stdout_preview": self.stdout[: max(0, stdout_preview_chars)],
+            "stderr_preview": self.stderr[: max(0, stderr_preview_chars)],
+            "stdout_chars": len(self.stdout),
+            "stderr_chars": len(self.stderr),
+            "stdout_truncated": len(self.stdout) > max(0, stdout_preview_chars),
+            "stderr_truncated": len(self.stderr) > max(0, stderr_preview_chars),
+            "stdout_log_path": stdout_log_path,
+            "stderr_log_path": stderr_log_path,
         }
+        if include_full_output:
+            payload["stdout"] = self.stdout
+            payload["stderr"] = self.stderr
+        return payload
 
 
 Runner = Callable[[Lane], LaneResult]
@@ -98,6 +133,10 @@ def _parse_csv_set(raw: str) -> Set[str]:
     return {item.strip() for item in (raw or "").split(",") if item.strip()}
 
 
+def _is_truthy(raw: str) -> bool:
+    return (raw or "").strip().lower() in {"1", "true", "yes", "on"}
+
+
 def _build_ollama_prompt(lane: Lane) -> str:
     command_text = " ".join(lane.command)
     dep_text = ", ".join(lane.depends_on) if lane.depends_on else "none"
@@ -123,6 +162,86 @@ def _invoke_ollama_subagent(
         timeout=max(1, timeout_s),
     )
     return proc.returncode, proc.stdout, proc.stderr
+
+
+def _ollama_model_ready(model: str, timeout_s: int = 8) -> Tuple[bool, str]:
+    try:
+        version = subprocess.run(
+            ["ollama", "--version"],
+            cwd=str(ROOT),
+            capture_output=True,
+            text=True,
+            env=os.environ.copy(),
+            timeout=max(1, timeout_s),
+        )
+    except FileNotFoundError:
+        return False, "ollama_not_installed"
+    except Exception as exc:
+        return False, f"ollama_version_check_error:{exc}"
+
+    if version.returncode != 0:
+        return False, "ollama_version_check_failed"
+
+    try:
+        listing = subprocess.run(
+            ["ollama", "list"],
+            cwd=str(ROOT),
+            capture_output=True,
+            text=True,
+            env=os.environ.copy(),
+            timeout=max(1, timeout_s),
+        )
+    except Exception as exc:
+        return False, f"ollama_list_error:{exc}"
+
+    if listing.returncode != 0:
+        return False, "ollama_list_failed"
+
+    target = model.strip()
+    lines = [line.strip() for line in listing.stdout.splitlines() if line.strip()]
+    models = []
+    for line in lines:
+        head = line.split()[0]
+        if head.lower() == "name":
+            continue
+        models.append(head)
+    if target in models:
+        return True, "ollama_model_ready"
+    return False, f"ollama_model_missing:{target}"
+
+
+def resolve_agent_runtime(
+    *,
+    requested_runtime: str,
+    ollama_model: str,
+    ollama_timeout_s: int,
+) -> Tuple[str, str]:
+    req = (requested_runtime or "auto").strip().lower()
+    if req not in {"auto", "local", "ollama"}:
+        raise ValueError(f"Unsupported agent runtime: {requested_runtime}")
+
+    forced = os.getenv("AUTONOMOUS_AGENT_RUNTIME", "").strip().lower()
+    if forced in {"local", "ollama"}:
+        if forced == "local":
+            return "local", "forced_by_env"
+        ready, reason = _ollama_model_ready(ollama_model, timeout_s=ollama_timeout_s)
+        if ready:
+            return "ollama", "forced_by_env"
+        return "local", f"forced_ollama_unavailable:{reason}"
+
+    if req == "local":
+        return "local", "requested_local"
+
+    if req == "ollama":
+        return "ollama", "requested_ollama"
+
+    if _is_truthy(os.getenv("AUTONOMOUS_DISABLE_OLLAMA", "")):
+        return "local", "ollama_disabled_by_env"
+
+    ready, reason = _ollama_model_ready(ollama_model, timeout_s=ollama_timeout_s)
+    if ready:
+        return "ollama", "auto_detected_ollama_ready"
+    return "local", f"auto_fallback_to_local:{reason}"
 
 
 def _run_lane_with_ollama_assist(
@@ -317,7 +436,6 @@ def _ready_lanes(
 
 def _mark_skipped_dependents(
     *,
-    failed_lane_name: str,
     pending: Dict[str, Lane],
     completed: Dict[str, LaneResult],
 ) -> None:
@@ -353,17 +471,39 @@ def _mark_skipped_dependents(
             changed = True
 
 
+def _lane_log_paths(base_dir: Path, lane_name: str) -> Tuple[Path, Path]:
+    safe = lane_name.replace("/", "_")
+    return base_dir / f"{safe}.stdout.log", base_dir / f"{safe}.stderr.log"
+
+
+def _write_lane_logs(
+    results: Sequence[LaneResult], logs_dir: Path
+) -> Dict[str, Tuple[str, str]]:
+    logs_dir.mkdir(parents=True, exist_ok=True)
+    out: Dict[str, Tuple[str, str]] = {}
+    for result in results:
+        stdout_path, stderr_path = _lane_log_paths(logs_dir, result.name)
+        stdout_path.write_text(result.stdout, encoding="utf-8")
+        stderr_path.write_text(result.stderr, encoding="utf-8")
+        out[result.name] = (str(stdout_path), str(stderr_path))
+    return out
+
+
 def run_supervisor(
     *,
     lanes: List[Lane],
     max_parallel: int,
     fail_fast: bool,
     report_path: Path,
-    agent_runtime: str = "local",
+    agent_runtime: str = "auto",
     ollama_model: str = DEFAULT_OLLAMA_MODEL,
     ollama_delegate_lanes: Optional[Sequence[str]] = None,
     ollama_timeout_s: int = DEFAULT_OLLAMA_TIMEOUT_S,
     ollama_strict: bool = False,
+    logs_dir: Path = DEFAULT_LOGS_DIR,
+    include_full_output: bool = False,
+    stdout_preview_chars: int = 600,
+    stderr_preview_chars: int = 400,
     runner: Optional[Runner] = None,
 ) -> int:
     lane_by_name = {lane.name: lane for lane in lanes}
@@ -379,8 +519,13 @@ def run_supervisor(
     completed: Dict[str, LaneResult] = {}
     running: Dict[str, Future] = {}
     lock = threading.Lock()
+    resolved_runtime, runtime_resolution_reason = resolve_agent_runtime(
+        requested_runtime=agent_runtime,
+        ollama_model=ollama_model,
+        ollama_timeout_s=ollama_timeout_s,
+    )
     runner_fn = runner or build_lane_runner(
-        agent_runtime=agent_runtime,
+        agent_runtime=resolved_runtime,
         ollama_model=ollama_model,
         ollama_delegate_lanes=(
             list(ollama_delegate_lanes)
@@ -394,7 +539,6 @@ def run_supervisor(
     with ThreadPoolExecutor(max_workers=max_parallel) as pool:
         while pending or running:
             _mark_skipped_dependents(
-                failed_lane_name="",
                 pending=pending,
                 completed=completed,
             )
@@ -464,21 +608,28 @@ def run_supervisor(
         [r for r in ordered_results if not r.skipped and r.returncode == 0]
     )
     overall_rc = 1 if failures else 0
+    lane_log_map = _write_lane_logs(ordered_results, logs_dir=logs_dir)
 
     report = {
+        "generated_at_iso": dt.datetime.fromtimestamp(
+            ended, dt.timezone.utc
+        ).isoformat(),
         "generated_at_epoch": ended,
         "duration_s": round(max(0.0, ended - started), 3),
         "max_parallel": max_parallel,
         "fail_fast": fail_fast,
-        "agent_runtime": agent_runtime,
-        "ollama_model": ollama_model if agent_runtime == "ollama" else "",
+        "requested_agent_runtime": agent_runtime,
+        "resolved_agent_runtime": resolved_runtime,
+        "runtime_resolution_reason": runtime_resolution_reason,
+        "agent_runtime": resolved_runtime,
+        "ollama_model": ollama_model if resolved_runtime == "ollama" else "",
         "ollama_delegate_lanes": (
             sorted(set(ollama_delegate_lanes))
-            if ollama_delegate_lanes is not None and agent_runtime == "ollama"
+            if ollama_delegate_lanes is not None and resolved_runtime == "ollama"
             else []
         ),
-        "ollama_timeout_s": ollama_timeout_s if agent_runtime == "ollama" else 0,
-        "ollama_strict": bool(ollama_strict) if agent_runtime == "ollama" else False,
+        "ollama_timeout_s": ollama_timeout_s if resolved_runtime == "ollama" else 0,
+        "ollama_strict": bool(ollama_strict) if resolved_runtime == "ollama" else False,
         "overall_returncode": overall_rc,
         "summary": {
             "total_lanes": len(lanes),
@@ -486,11 +637,21 @@ def run_supervisor(
             "failed": len(failures),
             "skipped": len(skipped),
         },
-        "lanes": [result.to_json() for result in ordered_results],
+        "logs_dir": str(logs_dir),
+        "lanes": [
+            result.to_json(
+                include_full_output=include_full_output,
+                stdout_preview_chars=stdout_preview_chars,
+                stderr_preview_chars=stderr_preview_chars,
+                stdout_log_path=lane_log_map.get(result.name, ("", ""))[0],
+                stderr_log_path=lane_log_map.get(result.name, ("", ""))[1],
+            )
+            for result in ordered_results
+        ],
     }
     report_path.parent.mkdir(parents=True, exist_ok=True)
     report_path.write_text(
-        json.dumps(report, ensure_ascii=True, indent=2), encoding="utf-8"
+        json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8"
     )
 
     print(
@@ -509,13 +670,36 @@ def main() -> int:
     parser.add_argument("--max-parallel", type=int, default=3)
     parser.add_argument("--report", default=str(DEFAULT_REPORT))
     parser.add_argument(
+        "--logs-dir",
+        default=str(DEFAULT_LOGS_DIR),
+        help="Directory for per-lane stdout/stderr logs.",
+    )
+    parser.add_argument(
+        "--include-full-output",
+        action="store_true",
+        help="Include full stdout/stderr in report JSON (default keeps previews only).",
+    )
+    parser.add_argument(
+        "--stdout-preview-chars",
+        type=int,
+        default=600,
+        help="Max stdout preview characters per lane in report JSON.",
+    )
+    parser.add_argument(
+        "--stderr-preview-chars",
+        type=int,
+        default=400,
+        help="Max stderr preview characters per lane in report JSON.",
+    )
+    parser.add_argument(
         "--agent-runtime",
-        choices=["local", "ollama"],
-        default="local",
+        choices=["auto", "local", "ollama"],
+        default="auto",
         help=(
-            "Execution backend: local runs all lanes directly. "
-            "ollama delegates selected lanes to Ollama-backed subagent assist "
-            "before deterministic local execution."
+            "Execution backend: auto prefers Ollama when model is available and "
+            "falls back to local. local runs all lanes directly. ollama delegates "
+            "selected lanes to Ollama-backed subagent assist before deterministic "
+            "local execution."
         ),
     )
     parser.add_argument(
@@ -570,6 +754,10 @@ def main() -> int:
         ollama_delegate_lanes=sorted(_parse_csv_set(args.ollama_delegate_lanes)),
         ollama_timeout_s=max(1, args.ollama_timeout_s),
         ollama_strict=args.ollama_strict,
+        logs_dir=Path(args.logs_dir),
+        include_full_output=args.include_full_output,
+        stdout_preview_chars=max(0, args.stdout_preview_chars),
+        stderr_preview_chars=max(0, args.stderr_preview_chars),
     )
 
 
