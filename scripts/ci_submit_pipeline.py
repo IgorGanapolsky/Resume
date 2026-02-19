@@ -230,31 +230,8 @@ class PlaywrightFormAdapter(SiteAdapter):
                 context = browser.new_context(**context_kwargs)
                 page = context.new_page()
                 page.goto(task.url, wait_until="domcontentloaded", timeout=60000)
-
-                # Best-effort generic fill by common labels/placeholders.
-                self._fill_text(page, "First Name", profile.first_name)
-                self._fill_text(page, "Last Name", profile.last_name)
-                self._fill_text(
-                    page, "Full Name", f"{profile.first_name} {profile.last_name}"
-                )
-                self._fill_text(
-                    page, "Name", f"{profile.first_name} {profile.last_name}"
-                )
-                self._fill_text(page, "Email", profile.email)
-                self._fill_text(page, "Phone", profile.phone)
-                if profile.location:
-                    self._fill_text(page, "Location", profile.location)
-                    self._fill_text(page, "Current Location", profile.location)
-                if profile.linkedin:
-                    self._fill_text(page, "LinkedIn", profile.linkedin)
-                if profile.github:
-                    self._fill_text(page, "GitHub", profile.github)
-                if profile.website:
-                    self._fill_text(page, "Website", profile.website)
-
-                # Resume upload is mandatory for this pipeline.
-                file_input = page.locator("input[type='file']").first
-                if file_input.count() < 1:
+                form_scope = self._resolve_form_scope(page)
+                if form_scope is None:
                     browser.close()
                     return SubmitResult(
                         adapter=self.name,
@@ -262,9 +239,33 @@ class PlaywrightFormAdapter(SiteAdapter):
                         screenshot=None,
                         details="missing_file_input",
                     )
+
+                # Best-effort generic fill by common labels/placeholders.
+                self._fill_text(form_scope, "First Name", profile.first_name)
+                self._fill_text(form_scope, "Last Name", profile.last_name)
+                self._fill_text(
+                    form_scope, "Full Name", f"{profile.first_name} {profile.last_name}"
+                )
+                self._fill_text(
+                    form_scope, "Name", f"{profile.first_name} {profile.last_name}"
+                )
+                self._fill_text(form_scope, "Email", profile.email)
+                self._fill_text(form_scope, "Phone", profile.phone)
+                if profile.location:
+                    self._fill_text(form_scope, "Location", profile.location)
+                    self._fill_text(form_scope, "Current Location", profile.location)
+                if profile.linkedin:
+                    self._fill_text(form_scope, "LinkedIn", profile.linkedin)
+                if profile.github:
+                    self._fill_text(form_scope, "GitHub", profile.github)
+                if profile.website:
+                    self._fill_text(form_scope, "Website", profile.website)
+
+                # Resume upload is mandatory for this pipeline.
+                file_input = form_scope.locator("input[type='file']").first
                 file_input.set_input_files(str(task.resume_path))
 
-                if not self._click_submit(page):
+                if not self._click_submit(form_scope, page):
                     browser.close()
                     return SubmitResult(
                         adapter=self.name,
@@ -273,7 +274,7 @@ class PlaywrightFormAdapter(SiteAdapter):
                         details="submit_button_not_found",
                     )
 
-                confirmed = self._wait_for_confirmation(page)
+                confirmed = self._wait_for_confirmation(page, form_scope)
                 task.confirmation_path.parent.mkdir(parents=True, exist_ok=True)
                 page.screenshot(path=str(task.confirmation_path), full_page=True)
 
@@ -303,13 +304,27 @@ class PlaywrightFormAdapter(SiteAdapter):
                 details=f"exception: {e}",
             )
 
-    def _fill_text(self, page: Any, key: str, value: str) -> None:
+    def _resolve_form_scope(self, page: Any) -> Optional[Any]:
+        try:
+            if page.locator("input[type='file']").count() > 0:
+                return page
+        except Exception:
+            pass
+        for frame in getattr(page, "frames", []):
+            try:
+                if frame.locator("input[type='file']").count() > 0:
+                    return frame
+            except Exception:
+                continue
+        return None
+
+    def _fill_text(self, scope: Any, key: str, value: str) -> None:
         if not value:
             return
         attempts = [
-            lambda: page.get_by_label(key, exact=False).first.fill(value, timeout=1500),
-            lambda: page.get_by_placeholder(key).first.fill(value, timeout=1500),
-            lambda: page.locator(
+            lambda: scope.get_by_label(key, exact=False).first.fill(value, timeout=1500),
+            lambda: scope.get_by_placeholder(key).first.fill(value, timeout=1500),
+            lambda: scope.locator(
                 f"input[name*='{key.lower().replace(' ', '')}']"
             ).first.fill(value, timeout=1500),
         ]
@@ -320,31 +335,42 @@ class PlaywrightFormAdapter(SiteAdapter):
             except Exception:
                 continue
 
-    def _click_submit(self, page: Any) -> bool:
+    def _click_submit(self, scope: Any, page: Any) -> bool:
         for pattern in self.submit_button_patterns:
-            try:
-                btn = page.get_by_role("button", name=re.compile(pattern, re.I)).first
-                if btn.count() > 0:
-                    btn.click(timeout=3000)
-                    return True
-            except Exception:
-                continue
+            for target in (scope, page):
+                try:
+                    btn = target.get_by_role(
+                        "button", name=re.compile(pattern, re.I)
+                    ).first
+                    if btn.count() > 0:
+                        btn.click(timeout=3000)
+                        return True
+                except Exception:
+                    continue
         try:
-            submit_input = page.locator("input[type='submit']").first
-            if submit_input.count() > 0:
-                submit_input.click(timeout=3000)
-                return True
+            for target in (scope, page):
+                submit_input = target.locator("input[type='submit']").first
+                if submit_input.count() > 0:
+                    submit_input.click(timeout=3000)
+                    return True
         except Exception:
             pass
         return False
 
-    def _wait_for_confirmation(self, page: Any) -> bool:
+    def _wait_for_confirmation(self, page: Any, scope: Any) -> bool:
+        texts: List[str] = []
         try:
             page.wait_for_timeout(2000)
-            text = page.inner_text("body")
         except Exception:
-            return False
-        normalized = (text or "").lower()
+            pass
+        for target in (scope, page):
+            try:
+                text = target.inner_text("body")
+                if text:
+                    texts.append(text)
+            except Exception:
+                continue
+        normalized = "\n".join(texts).lower()
         return any(re.search(p, normalized, re.I) for p in self.success_text_patterns)
 
 
@@ -361,6 +387,37 @@ class AshbyAdapter(PlaywrightFormAdapter):
         r"application was successfully submitted",
         r"we'll be in touch",
     )
+
+    def _resolve_form_scope(self, page: Any) -> Optional[Any]:
+        scope = super()._resolve_form_scope(page)
+        if scope is not None:
+            return scope
+
+        open_patterns = (
+            r"apply for this job",
+            r"apply now",
+            r"start application",
+            r"apply",
+        )
+        for pattern in open_patterns:
+            for role in ("button", "link"):
+                try:
+                    control = page.get_by_role(
+                        role, name=re.compile(pattern, re.I)
+                    ).first
+                    if control.count() > 0:
+                        control.click(timeout=3000)
+                        break
+                except Exception:
+                    continue
+            try:
+                page.wait_for_timeout(500)
+            except Exception:
+                pass
+            scope = super()._resolve_form_scope(page)
+            if scope is not None:
+                return scope
+        return None
 
 
 class GreenhouseAdapter(PlaywrightFormAdapter):

@@ -610,3 +610,72 @@ def test_dry_run_skipped_rows_can_be_treated_as_failures(tmp_path, monkeypatch):
     payload = json.loads(report.read_text(encoding="utf-8"))
     assert payload["failed_count"] == 1
     assert payload["skipped_count"] == 1
+
+
+class _FakeLocator:
+    def __init__(self, count_fn, on_click=None):
+        self._count_fn = count_fn
+        self._on_click = on_click
+
+    @property
+    def first(self):
+        return self
+
+    def count(self):
+        return self._count_fn()
+
+    def click(self, timeout=None):
+        if self._on_click is not None:
+            self._on_click()
+
+
+class _FakeScope:
+    def __init__(self, has_file: bool = False):
+        self.has_file = has_file
+        self.frames = []
+
+    def locator(self, selector: str):
+        if selector == "input[type='file']":
+            return _FakeLocator(lambda: 1 if self.has_file else 0)
+        return _FakeLocator(lambda: 0)
+
+
+class _FakeAshbyPage(_FakeScope):
+    def __init__(self):
+        super().__init__(has_file=False)
+        self.apply_clicks = 0
+
+    def get_by_role(self, role: str, name=None):
+        text = "Apply for this job"
+        if role in {"button", "link"} and hasattr(name, "search") and name.search(text):
+            return _FakeLocator(lambda: 1, on_click=self._open_form)
+        return _FakeLocator(lambda: 0)
+
+    def _open_form(self):
+        self.apply_clicks += 1
+        self.has_file = True
+
+    def wait_for_timeout(self, ms: int):
+        return None
+
+
+def test_resolve_form_scope_finds_file_input_in_frame():
+    mod = _load_module()
+    adapter = mod.PlaywrightFormAdapter()
+    page = _FakeScope(has_file=False)
+    frame = _FakeScope(has_file=True)
+    page.frames = [frame]
+
+    scope = adapter._resolve_form_scope(page)
+    assert scope is frame
+
+
+def test_ashby_resolve_form_scope_clicks_apply_when_form_hidden():
+    mod = _load_module()
+    adapter = mod.AshbyAdapter()
+    page = _FakeAshbyPage()
+
+    scope = adapter._resolve_form_scope(page)
+    assert scope is page
+    assert page.has_file is True
+    assert page.apply_clicks >= 1
