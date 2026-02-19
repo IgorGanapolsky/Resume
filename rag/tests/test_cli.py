@@ -105,6 +105,25 @@ class TestBuild:
         ]
         assert len(records) == 1
 
+    def test_empty_tracker_creates_empty_lancedb_table(self, isolated_cli, tmp_path):
+        path = tmp_path / "empty_tracker.csv"
+        fieldnames = list(SAMPLE_ROWS[0].keys())
+        with path.open("w", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            writer.writeheader()
+
+        isolated_cli.TRACKER_CSV = path
+        isolated_cli.build()
+
+        apps_path = isolated_cli.DATA_DIR / "applications.jsonl"
+        assert apps_path.exists()
+        assert apps_path.read_text().strip() == ""
+
+        if isolated_cli.lancedb is not None:
+            db = isolated_cli.lancedb.connect(str(isolated_cli.LANCEDB_DIR))
+            table = db.open_table("applications")
+            assert table.count_rows() == 0
+
     def test_bootstraps_thompson_model(self, isolated_cli):
         isolated_cli.build()
         arms_path = isolated_cli.ARMS_JSON

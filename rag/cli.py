@@ -213,6 +213,39 @@ def _record_embedding(rec: Dict, *, dims: int = 1536) -> np.ndarray:
     return _hashing_embedding(" ".join(parts), dims=dims)
 
 
+def _applications_table_schema():
+    """Explicit schema for empty LanceDB table initialization."""
+    import pyarrow as pa  # type: ignore
+
+    return pa.schema(
+        [
+            pa.field("app_id", pa.string()),
+            pa.field("company", pa.string()),
+            pa.field("role", pa.string()),
+            pa.field("status", pa.string()),
+            pa.field("date_applied", pa.string()),
+            pa.field("url", pa.string()),
+            pa.field("application_method", pa.string()),
+            pa.field("tags", pa.list_(pa.string())),
+            pa.field("notes", pa.string()),
+            pa.field(
+                "artifacts",
+                pa.struct(
+                    [
+                        pa.field("resumes", pa.list_(pa.string())),
+                        pa.field("cover_letters", pa.list_(pa.string())),
+                        pa.field("cover_letter_used", pa.string()),
+                        pa.field("evidence", pa.list_(pa.string())),
+                    ]
+                ),
+            ),
+            pa.field("text", pa.string()),
+            pa.field("vector", pa.list_(pa.float32(), 1536)),
+            pa.field("updated_at", pa.string()),
+        ]
+    )
+
+
 # ---------------------------------------------------------------------------
 # Commands
 # ---------------------------------------------------------------------------
@@ -280,7 +313,15 @@ def build() -> None:
             }
         )
 
-    db.create_table("applications", data=items, mode="overwrite")
+    if items:
+        db.create_table("applications", data=items, mode="overwrite")
+    else:
+        db.create_table(
+            "applications",
+            data=[],
+            schema=_applications_table_schema(),
+            mode="overwrite",
+        )
     _append_event(None, "build_ok", f"Indexed {len(items)} applications")
     print(f"✅ Built {len(items)} applications (JSONL + LanceDB)")
 

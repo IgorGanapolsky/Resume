@@ -72,10 +72,18 @@ async def _cdp_capture(
             return msg_id
 
         async def recv_until(*, want_id: int, timeout_s: int) -> dict:
-            start = time.time()
+            deadline = time.monotonic() + timeout_s
             while True:
-                remaining = max(0.5, timeout_s - int(time.time() - start))
-                raw = await asyncio.wait_for(ws.recv(), timeout=remaining)
+                remaining = deadline - time.monotonic()
+                if remaining <= 0:
+                    raise asyncio.TimeoutError(
+                        f"Timed out waiting for CDP response id={want_id}"
+                    )
+                try:
+                    raw = await asyncio.wait_for(ws.recv(), timeout=min(0.5, remaining))
+                except asyncio.TimeoutError:
+                    # Keep polling in short slices until the overall deadline expires.
+                    continue
                 msg = json.loads(raw)
                 if msg.get("id") == want_id:
                     return msg
