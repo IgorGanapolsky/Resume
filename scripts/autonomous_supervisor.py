@@ -336,6 +336,7 @@ def build_lane_plan(
     *,
     max_new_jobs: int,
     fit_threshold: int,
+    remote_min_score: int,
     max_submit_jobs: int,
     execute_submissions: bool,
 ) -> List[Lane]:
@@ -357,6 +358,8 @@ def build_lane_plan(
                 "--queue-only",
                 "--fit-threshold",
                 str(fit_threshold),
+                "--remote-min-score",
+                str(remote_min_score),
                 "--report",
                 "applications/job_applications/ci_ready_queue_report.json",
             ],
@@ -390,6 +393,8 @@ def build_lane_plan(
                     str(max_submit_jobs),
                     "--fit-threshold",
                     str(fit_threshold),
+                    "--remote-min-score",
+                    str(remote_min_score),
                     "--report",
                     "applications/job_applications/ci_submit_execute_report.json",
                     "--fail-on-error",
@@ -408,6 +413,8 @@ def build_lane_plan(
                     str(max_submit_jobs),
                     "--fit-threshold",
                     str(fit_threshold),
+                    "--remote-min-score",
+                    str(remote_min_score),
                     "--report",
                     "applications/job_applications/ci_submit_dry_run_report.json",
                 ],
@@ -666,6 +673,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--max-new-jobs", type=int, default=10)
     parser.add_argument("--fit-threshold", type=int, default=70)
+    parser.add_argument("--remote-min-score", type=int, default=50)
     parser.add_argument("--max-submit-jobs", type=int, default=5)
     parser.add_argument("--max-parallel", type=int, default=3)
     parser.add_argument("--report", default=str(DEFAULT_REPORT))
@@ -741,6 +749,7 @@ def main() -> int:
     lanes = build_lane_plan(
         max_new_jobs=args.max_new_jobs,
         fit_threshold=args.fit_threshold,
+        remote_min_score=max(0, min(100, args.remote_min_score)),
         max_submit_jobs=args.max_submit_jobs,
         execute_submissions=args.execute_submissions,
     )

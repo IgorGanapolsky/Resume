@@ -6,6 +6,7 @@ import csv
 import importlib.util
 import json
 import sys
+import zipfile
 from pathlib import Path
 
 
@@ -59,6 +60,27 @@ def _seed_fde_artifacts(root: Path, role_slug: str, html_content: str) -> None:
     jobs_dir.mkdir(parents=True, exist_ok=True)
 
     (resume_dir / f"2026-02-19_{company_slug}_{role_slug}.docx").write_bytes(b"docx")
+    (resume_dir / f"2026-02-19_{company_slug}_{role_slug}.html").write_text(
+        html_content, encoding="utf-8"
+    )
+    (cover_dir / f"2026-02-19_{company_slug}_{role_slug}.md").write_text(
+        "Cover letter", encoding="utf-8"
+    )
+    (jobs_dir / f"2026-02-19_{company_slug}_{role_slug}_abcd1234.md").write_text(
+        "Requirements: customer integrations, Python, APIs.",
+        encoding="utf-8",
+    )
+
+
+def _seed_fde_artifacts_html_only(root: Path, role_slug: str, html_content: str) -> None:
+    company_slug = "elevenlabs"
+    resume_dir = root / "applications" / company_slug / "tailored_resumes"
+    cover_dir = root / "applications" / company_slug / "cover_letters"
+    jobs_dir = root / "applications" / company_slug / "jobs"
+    resume_dir.mkdir(parents=True, exist_ok=True)
+    cover_dir.mkdir(parents=True, exist_ok=True)
+    jobs_dir.mkdir(parents=True, exist_ok=True)
+
     (resume_dir / f"2026-02-19_{company_slug}_{role_slug}.html").write_text(
         html_content, encoding="utf-8"
     )
@@ -129,6 +151,9 @@ def test_queue_only_promotes_high_fit_draft(tmp_path, monkeypatch):
     with tracker.open(newline="", encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
     assert rows[0]["Status"] == "ReadyToSubmit"
+    assert rows[0]["Submission Lane"] == "ci_auto:ashby"
+    assert rows[0]["Remote Policy"] in {"remote", "hybrid", "unknown"}
+    assert rows[0]["Remote Likelihood Score"]
 
     payload = json.loads(report.read_text(encoding="utf-8"))
     assert payload["queue_promoted_count"] == 1
@@ -241,3 +266,256 @@ def test_queue_only_demotes_ready_row_when_fit_drops(tmp_path, monkeypatch):
 
     payload = json.loads(report.read_text(encoding="utf-8"))
     assert payload["queue_demoted_count"] == 1
+
+
+def test_queue_only_autogenerates_docx_from_html(tmp_path, monkeypatch):
+    mod = _load_module()
+    monkeypatch.setattr(mod, "ROOT", tmp_path)
+
+    role = "Forward Deployed Engineer - Software Engineer"
+    role_slug = mod._slug(role)[:64]
+    _seed_fde_artifacts_html_only(
+        tmp_path,
+        role_slug,
+        (
+            "Forward-Deployed AI/Software Engineer "
+            "FORWARD-DEPLOYED COMPETENCIES "
+            "customer-facing delivery "
+            "integration engineering "
+            "<strong>35%</strong>"
+        ),
+    )
+
+    tracker = tmp_path / "application_tracker.csv"
+    report = tmp_path / "report.json"
+    _write_tracker(
+        tracker,
+        [
+            {
+                "Company": "ElevenLabs",
+                "Role": role,
+                "Location": "Remote",
+                "Salary Range": "",
+                "Status": "Draft",
+                "Date Applied": "",
+                "Follow Up Date": "",
+                "Response": "",
+                "Interview Stage": "Initial",
+                "Days To Response": "",
+                "Response Type": "",
+                "Cover Letter Used": "",
+                "What Worked": "",
+                "Tags": "ai;integration",
+                "Notes": "customer integrations",
+                "Career Page URL": "https://jobs.ashbyhq.com/elevenlabs/abc123",
+            }
+        ],
+    )
+
+    rc = mod.run_pipeline(
+        tracker_csv=tracker,
+        report_path=report,
+        dry_run=True,
+        queue_only=True,
+        max_jobs=5,
+        fail_on_error=False,
+        fit_threshold=70,
+    )
+    assert rc == 0
+
+    with tracker.open(newline="", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+    assert rows[0]["Status"] == "ReadyToSubmit"
+
+    generated_docx = (
+        tmp_path
+        / "applications"
+        / "elevenlabs"
+        / "tailored_resumes"
+        / f"2026-02-19_elevenlabs_{role_slug}.docx"
+    )
+    assert generated_docx.exists()
+    with zipfile.ZipFile(generated_docx) as zf:
+        assert "word/document.xml" in zf.namelist()
+
+
+def test_queue_only_blocks_non_technical_role(tmp_path, monkeypatch):
+    mod = _load_module()
+    monkeypatch.setattr(mod, "ROOT", tmp_path)
+
+    role = "Office Assistant"
+    role_slug = mod._slug(role)[:64]
+    _seed_fde_artifacts(
+        tmp_path,
+        role_slug,
+        "summary professional experience",
+    )
+
+    tracker = tmp_path / "application_tracker.csv"
+    report = tmp_path / "report.json"
+    _write_tracker(
+        tracker,
+        [
+            {
+                "Company": "Coalition Technologies",
+                "Role": role,
+                "Location": "Remote",
+                "Salary Range": "",
+                "Status": "Draft",
+                "Date Applied": "",
+                "Follow Up Date": "",
+                "Response": "",
+                "Interview Stage": "Initial",
+                "Days To Response": "",
+                "Response Type": "",
+                "Cover Letter Used": "",
+                "What Worked": "",
+                "Tags": "operations;admin",
+                "Notes": "",
+                "Career Page URL": "https://example.com/jobs/office-assistant",
+            }
+        ],
+    )
+
+    rc = mod.run_pipeline(
+        tracker_csv=tracker,
+        report_path=report,
+        dry_run=True,
+        queue_only=True,
+        max_jobs=5,
+        fail_on_error=False,
+        fit_threshold=70,
+    )
+    assert rc == 0
+    with tracker.open(newline="", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+    assert rows[0]["Status"] == "Draft"
+    payload = json.loads(report.read_text(encoding="utf-8"))
+    reasons = payload["queue_audit"][0]["reasons"]
+    assert "non_technical_role" in reasons
+
+
+def test_queue_only_blocks_unsupported_site_even_with_high_fit(tmp_path, monkeypatch):
+    mod = _load_module()
+    monkeypatch.setattr(mod, "ROOT", tmp_path)
+
+    role = "Forward Deployed Engineer - Software Engineer"
+    role_slug = mod._slug(role)[:64]
+    _seed_fde_artifacts(
+        tmp_path,
+        role_slug,
+        (
+            "Forward-Deployed AI/Software Engineer "
+            "FORWARD-DEPLOYED COMPETENCIES "
+            "customer-facing delivery "
+            "integration engineering "
+            "<strong>35%</strong>"
+        ),
+    )
+
+    tracker = tmp_path / "application_tracker.csv"
+    report = tmp_path / "report.json"
+    _write_tracker(
+        tracker,
+        [
+            {
+                "Company": "ElevenLabs",
+                "Role": role,
+                "Location": "Remote",
+                "Salary Range": "",
+                "Status": "Draft",
+                "Date Applied": "",
+                "Follow Up Date": "",
+                "Response": "",
+                "Interview Stage": "Initial",
+                "Days To Response": "",
+                "Response Type": "",
+                "Cover Letter Used": "",
+                "What Worked": "",
+                "Tags": "ai;integration",
+                "Notes": "customer integrations",
+                "Career Page URL": "https://remotive.com/remote-jobs/software-development/some-role-123",
+            }
+        ],
+    )
+
+    rc = mod.run_pipeline(
+        tracker_csv=tracker,
+        report_path=report,
+        dry_run=True,
+        queue_only=True,
+        max_jobs=5,
+        fail_on_error=False,
+        fit_threshold=70,
+    )
+    assert rc == 0
+    with tracker.open(newline="", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+    assert rows[0]["Status"] == "Draft"
+    assert rows[0]["Submission Lane"] == "manual"
+    payload = json.loads(report.read_text(encoding="utf-8"))
+    reasons = payload["queue_audit"][0]["reasons"]
+    assert "unsupported_site_for_ci_submit" in reasons
+
+
+def test_queue_only_blocks_low_remote_likelihood(tmp_path, monkeypatch):
+    mod = _load_module()
+    monkeypatch.setattr(mod, "ROOT", tmp_path)
+
+    role = "Forward Deployed Engineer - Software Engineer"
+    role_slug = mod._slug(role)[:64]
+    _seed_fde_artifacts(
+        tmp_path,
+        role_slug,
+        (
+            "Forward-Deployed AI/Software Engineer "
+            "FORWARD-DEPLOYED COMPETENCIES "
+            "customer-facing delivery "
+            "integration engineering "
+            "<strong>35%</strong>"
+        ),
+    )
+
+    tracker = tmp_path / "application_tracker.csv"
+    report = tmp_path / "report.json"
+    _write_tracker(
+        tracker,
+        [
+            {
+                "Company": "ElevenLabs",
+                "Role": role,
+                "Location": "Onsite - New York",
+                "Salary Range": "",
+                "Status": "Draft",
+                "Date Applied": "",
+                "Follow Up Date": "",
+                "Response": "",
+                "Interview Stage": "Initial",
+                "Days To Response": "",
+                "Response Type": "",
+                "Cover Letter Used": "",
+                "What Worked": "",
+                "Tags": "ai;integration",
+                "Notes": "",
+                "Career Page URL": "https://jobs.ashbyhq.com/elevenlabs/abc123",
+            }
+        ],
+    )
+
+    rc = mod.run_pipeline(
+        tracker_csv=tracker,
+        report_path=report,
+        dry_run=True,
+        queue_only=True,
+        max_jobs=5,
+        fail_on_error=False,
+        fit_threshold=70,
+        remote_min_score=50,
+    )
+    assert rc == 0
+    with tracker.open(newline="", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+    assert rows[0]["Status"] == "Draft"
+    payload = json.loads(report.read_text(encoding="utf-8"))
+    reasons = payload["queue_audit"][0]["reasons"]
+    assert any(r.startswith("remote_likelihood_below_threshold:") for r in reasons)

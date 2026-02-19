@@ -30,6 +30,7 @@ def test_build_lane_plan_contains_queue_gate_and_parallel_lanes():
     lanes = mod.build_lane_plan(
         max_new_jobs=9,
         fit_threshold=72,
+        remote_min_score=55,
         max_submit_jobs=4,
         execute_submissions=False,
     )

@@ -9,6 +9,14 @@ on:
         description: "Max new draft jobs to add this run"
         required: false
         default: "10"
+      max_submit_jobs:
+        description: "Max queued jobs to submit this run"
+        required: false
+        default: "5"
+      execute_submissions:
+        description: "Execute live submissions (requires CI submit secrets)"
+        required: false
+        default: "false"
 
 permissions:
   contents: write
@@ -25,6 +33,8 @@ jobs:
     env:
       AUTONOMOUS_AGENT_RUNTIME: ${{ vars.AUTONOMOUS_AGENT_RUNTIME }}
       AUTONOMOUS_DISABLE_OLLAMA: ${{ vars.AUTONOMOUS_DISABLE_OLLAMA }}
+      CI_SUBMIT_PROFILE_JSON: ${{ secrets.CI_SUBMIT_PROFILE_JSON }}
+      CI_SUBMIT_AUTH_JSON: ${{ secrets.CI_SUBMIT_AUTH_JSON }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -41,14 +51,24 @@ jobs:
       - name: Discover and prepare draft jobs
         run: |
           MAX_NEW="${{ github.event.inputs.max_new_jobs }}"
+          MAX_SUBMIT="${{ github.event.inputs.max_submit_jobs }}"
+          EXECUTE_SUBMISSIONS="${{ github.event.inputs.execute_submissions }}"
           if [ -z "$MAX_NEW" ]; then MAX_NEW=10; fi
+          if [ -z "$MAX_SUBMIT" ]; then MAX_SUBMIT=5; fi
+          if [ -z "$EXECUTE_SUBMISSIONS" ]; then EXECUTE_SUBMISSIONS="${{ vars.AUTONOMOUS_EXECUTE_SUBMISSIONS }}"; fi
+          EXTRA_ARGS=""
+          if [ "$EXECUTE_SUBMISSIONS" = "true" ]; then
+            EXTRA_ARGS="--execute-submissions"
+          fi
           python3 scripts/autonomous_supervisor.py \
             --max-new-jobs "$MAX_NEW" \
             --agent-runtime auto \
             --fit-threshold 70 \
-            --max-submit-jobs 5 \
+            --remote-min-score 55 \
+            --max-submit-jobs "$MAX_SUBMIT" \
             --max-parallel 3 \
-            --report applications/job_applications/autonomous_supervisor_report.json
+            --report applications/job_applications/autonomous_supervisor_report.json \
+            $EXTRA_ARGS
 
       - name: Create Pull Request for loop updates
         uses: peter-evans/create-pull-request@v6

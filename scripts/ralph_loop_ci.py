@@ -18,9 +18,11 @@ import json
 import re
 import urllib.parse
 import urllib.request
+import zipfile
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, Iterable, List
+from xml.sax.saxutils import escape
 
 ROOT = Path(__file__).resolve().parents[1]
 TRACKER_CSV = ROOT / "applications" / "job_applications" / "application_tracker.csv"
@@ -60,6 +62,22 @@ LOCATION_RE = re.compile(
     r"(remote|hybrid|florida|south florida|miami|boca|fort lauderdale|west palm|united states|usa|us)",
     re.IGNORECASE,
 )
+REMOTE_POSITIVE_RE = re.compile(
+    r"(remote|work from home|wfh|distributed|anywhere|home[- ]?based)",
+    re.IGNORECASE,
+)
+REMOTE_HYBRID_RE = re.compile(r"\bhybrid\b", re.IGNORECASE)
+REMOTE_NEGATIVE_RE = re.compile(
+    r"(on[- ]?site|onsite|in[- ]?office|office[- ]?based|relocation required)",
+    re.IGNORECASE,
+)
+TRACKER_EXTRA_FIELDS = (
+    "Remote Policy",
+    "Remote Likelihood Score",
+    "Remote Evidence",
+    "Submission Lane",
+)
+AUTO_SUBMIT_METHODS = {"ashby", "greenhouse", "lever"}
 
 
 @dataclass(frozen=True)
@@ -94,6 +112,68 @@ def _replace_once(text: str, old: str, new: str) -> str:
     if old not in text:
         return text
     return text.replace(old, new, 1)
+
+
+def _html_to_text(value: str) -> str:
+    text = re.sub(r"(?is)<(script|style).*?>.*?</\\1>", " ", value or "")
+    text = re.sub(r"(?i)<br\\s*/?>", "\n", text)
+    text = re.sub(r"(?i)</p\\s*>", "\n\n", text)
+    text = re.sub(r"(?i)</li\\s*>", "\n", text)
+    text = re.sub(r"<[^>]+>", " ", text)
+    text = html.unescape(text)
+    lines = [re.sub(r"\\s+", " ", line).strip() for line in text.splitlines()]
+    compact = [line for line in lines if line]
+    return "\n".join(compact) + ("\n" if compact else "")
+
+
+def _write_simple_docx(text: str, out_path: Path) -> None:
+    lines = [line.strip() for line in text.splitlines() if line.strip()]
+    if not lines:
+        lines = ["Resume"]
+
+    body = "".join(
+        f'<w:p><w:r><w:t xml:space="preserve">{escape(line)}</w:t></w:r></w:p>'
+        for line in lines
+    )
+    document_xml = (
+        '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+        '<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'
+        f"<w:body>{body}"
+        '<w:sectPr><w:pgSz w:w="12240" w:h="15840"/>'
+        '<w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440" '
+        'w:header="720" w:footer="720" w:gutter="0"/></w:sectPr>'
+        "</w:body></w:document>"
+    )
+    content_types_xml = (
+        '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+        '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">'
+        '<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>'
+        '<Default Extension="xml" ContentType="application/xml"/>'
+        '<Override PartName="/word/document.xml" '
+        'ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/>'
+        "</Types>"
+    )
+    rels_xml = (
+        '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+        '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
+        '<Relationship Id="rId1" '
+        'Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" '
+        'Target="word/document.xml"/>'
+        "</Relationships>"
+    )
+
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    with zipfile.ZipFile(out_path, "w", compression=zipfile.ZIP_DEFLATED) as zf:
+        zf.writestr("[Content_Types].xml", content_types_xml)
+        zf.writestr("_rels/.rels", rels_xml)
+        zf.writestr("word/document.xml", document_xml)
+
+
+def _ensure_docx_from_html(html_path: Path, docx_path: Path) -> None:
+    if docx_path.exists() or not html_path.exists():
+        return
+    html_text = html_path.read_text(encoding="utf-8", errors="replace")
+    _write_simple_docx(_html_to_text(html_text), docx_path)
 
 
 def classify_role(job: Dict[str, str]) -> RoleProfile:
@@ -156,6 +236,57 @@ def _merge_tags(existing: str, additions: List[str]) -> str:
             tokens.append(token)
             token_set.add(token)
     return ";".join(tokens)
+
+
+def _ensure_tracker_fields(
+    fieldnames: List[str], rows: List[Dict[str, str]]
+) -> List[str]:
+    out = list(fieldnames)
+    missing = [name for name in TRACKER_EXTRA_FIELDS if name not in out]
+    if not missing:
+        return out
+    out.extend(missing)
+    for row in rows:
+        for name in missing:
+            row.setdefault(name, "")
+    return out
+
+
+def infer_remote_profile(job: Dict[str, str]) -> tuple[str, int, List[str]]:
+    hay = " ".join(
+        [
+            str(job.get("location", "") or ""),
+            str(job.get("job_type", "") or ""),
+            str(job.get("tags", "") or "").replace(";", " "),
+            str(job.get("description", "") or ""),
+        ]
+    ).lower()
+    host = (urllib.parse.urlsplit(str(job.get("url", "") or "")).hostname or "").lower()
+    evidence: List[str] = []
+    policy = "unknown"
+    score = 45
+
+    if REMOTE_NEGATIVE_RE.search(hay):
+        policy = "onsite"
+        score = 10
+        evidence.append("onsite_keyword")
+    elif REMOTE_HYBRID_RE.search(hay):
+        policy = "hybrid"
+        score = 65
+        evidence.append("hybrid_keyword")
+    elif REMOTE_POSITIVE_RE.search(hay):
+        policy = "remote"
+        score = 85
+        evidence.append("remote_keyword")
+
+    if host.endswith("remoteok.com") or host.endswith("remotive.com"):
+        evidence.append("remote_feed_source")
+        score = min(95, score + 5)
+
+    if policy == "onsite":
+        score = min(score, 25)
+
+    return policy, max(0, min(100, score)), sorted(set(evidence))
 
 
 def extract_key_requirements(job: Dict[str, str], profile: RoleProfile) -> List[str]:
@@ -440,6 +571,7 @@ def create_artifacts(
     job_md = jobs_dir / f"{today}_{company_slug}_{role_slug}_{job_id}.md"
     cover_md = covers_dir / f"{today}_{company_slug}_{role_slug}.md"
     resume_html = resumes_dir / f"{today}_{company_slug}_{role_slug}.html"
+    resume_docx = resumes_dir / f"{today}_{company_slug}_{role_slug}.docx"
 
     if not job_md.exists():
         requirements = extract_key_requirements(job, profile)
@@ -474,6 +606,7 @@ def create_artifacts(
             tailor_resume_html(BASE_RESUME.read_text(encoding="utf-8"), profile),
             encoding="utf-8",
         )
+    _ensure_docx_from_html(resume_html, resume_docx)
 
     return {
         "job_md": str(job_md.relative_to(ROOT)),
@@ -501,6 +634,10 @@ def infer_method(url: str) -> str:
     return "direct"
 
 
+def infer_submission_lane(method: str) -> str:
+    return "ci_auto" if method in AUTO_SUBMIT_METHODS else "manual"
+
+
 def _planned_cover_stem(company: str, role: str, today: str) -> str:
     return f"{today}_{_slug(company)}_{_slug(role)[:64]}"
 
@@ -513,6 +650,7 @@ def main() -> None:
 
     today = dt.date.today().isoformat()
     fieldnames, rows = read_tracker()
+    fieldnames = _ensure_tracker_fields(fieldnames, rows)
     existing_urls = {(_safe_text(r.get("Career Page URL", "")).lower()) for r in rows}
     existing_pairs = {
         (
@@ -551,6 +689,9 @@ def main() -> None:
             job.get("tags", "") or "ai;software", _profile_tags(profile)
         )
         signals = ",".join(profile.signals) if profile.signals else "none"
+        method = infer_method(job["url"])
+        submission_lane = infer_submission_lane(method)
+        remote_policy, remote_score, remote_evidence = infer_remote_profile(job)
         row = {
             "Company": job["company"],
             "Role": job["title"],
@@ -566,9 +707,13 @@ def main() -> None:
             "Cover Letter Used": artifacts["cover_stem"],
             "What Worked": "",
             "Tags": merged_tags,
+            "Remote Policy": remote_policy,
+            "Remote Likelihood Score": str(remote_score),
+            "Remote Evidence": ";".join(remote_evidence),
+            "Submission Lane": submission_lane,
             "Notes": (
                 f"Discovered by Ralph Loop CI on {today}; pending review and submission. "
-                f"Role track={profile.track}; signals={signals}. "
+                f"Role track={profile.track}; signals={signals}; method={method}; lane={submission_lane}. "
                 f"Job capture: {artifacts['job_md']}"
             ),
             "Career Page URL": job["url"],

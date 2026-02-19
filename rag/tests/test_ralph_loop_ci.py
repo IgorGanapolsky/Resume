@@ -5,6 +5,7 @@ from __future__ import annotations
 import csv
 import importlib.util
 import sys
+import zipfile
 from pathlib import Path
 
 import pytest
@@ -76,6 +77,28 @@ def test_classify_role_filters_content_manager_false_positive(loop_mod):
     profile = loop_mod.classify_role(job)
     assert profile.is_relevant is False
     assert profile.track in {"general", "fde"}
+
+
+def test_infer_remote_profile_remote_feed(loop_mod):
+    job = {
+        "company": "Exadel",
+        "title": "Senior Data Engineer",
+        "location": "Remote, US",
+        "job_type": "Full time",
+        "tags": "python;data",
+        "description": "Distributed team across US time zones.",
+        "url": "https://remoteOK.com/remote-jobs/remote-senior-data-engineer-exadel-1130396",
+    }
+    policy, score, evidence = loop_mod.infer_remote_profile(job)
+    assert policy == "remote"
+    assert score >= 85
+    assert "remote_feed_source" in evidence
+
+
+def test_infer_submission_lane(loop_mod):
+    assert loop_mod.infer_submission_lane("ashby") == "ci_auto"
+    assert loop_mod.infer_submission_lane("greenhouse") == "ci_auto"
+    assert loop_mod.infer_submission_lane("direct") == "manual"
 
 
 def test_tailor_resume_html_for_fde_profile(loop_mod):
@@ -157,6 +180,10 @@ def test_create_artifacts_writes_tailored_resume_and_requirements(
     assert resume_html.exists()
     resume_text = resume_html.read_text(encoding="utf-8")
     assert "Forward-Deployed AI/Software Engineer" in resume_text
+    resume_docx = resume_html.with_suffix(".docx")
+    assert resume_docx.exists()
+    with zipfile.ZipFile(resume_docx) as zf:
+        assert "word/document.xml" in zf.namelist()
 
     cover_path = (
         applications_dir

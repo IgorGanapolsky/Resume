@@ -14,14 +14,17 @@ from __future__ import annotations
 import argparse
 import csv
 import datetime as dt
+import html
 import json
 import os
 import re
 import traceback
 import urllib.parse
+import zipfile
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence
+from xml.sax.saxutils import escape
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -49,6 +52,36 @@ FDE_SIGNAL_RE = re.compile(
 )
 PYTHON_RE = re.compile(r"\bpython\b", re.IGNORECASE)
 VOICE_AUDIO_RE = re.compile(r"(voice|audio|speech|tts|asr|ivr)", re.IGNORECASE)
+NON_TECH_ROLE_RE = re.compile(
+    r"(account executive|sales|recruiter|attorney|counsel|office assistant|marketing|"
+    r"content manager|revenue operations|client support|customer support specialist|"
+    r"operations manager|community manager)",
+    re.IGNORECASE,
+)
+TECH_ROLE_RE = re.compile(
+    r"(engineer|developer|devops|sre|site reliability|architect|ml|ai|data engineer|"
+    r"backend|frontend|full[- ]?stack|platform|infrastructure|ios|android|qa)",
+    re.IGNORECASE,
+)
+REMOTE_POSITIVE_RE = re.compile(
+    r"(remote|work from home|wfh|distributed|anywhere|home[- ]?based)",
+    re.IGNORECASE,
+)
+REMOTE_HYBRID_RE = re.compile(r"\bhybrid\b", re.IGNORECASE)
+REMOTE_NEGATIVE_RE = re.compile(
+    r"(on[- ]?site|onsite|in[- ]?office|office[- ]?based|relocation required)",
+    re.IGNORECASE,
+)
+REMOTE_US_ONLY_RE = re.compile(
+    r"(us only|usa only|united states only|remote.*us)",
+    re.IGNORECASE,
+)
+TRACKER_REMOTE_FIELDS = (
+    "Remote Policy",
+    "Remote Likelihood Score",
+    "Remote Evidence",
+    "Submission Lane",
+)
 
 
 def _slug(text: str) -> str:
@@ -82,6 +115,20 @@ def _write_tracker(
         writer = csv.DictWriter(f, fieldnames=list(fields))
         writer.writeheader()
         writer.writerows(rows)
+
+
+def _ensure_tracker_fields(
+    fields: Sequence[str], rows: Sequence[Dict[str, str]], extras: Sequence[str]
+) -> List[str]:
+    out = list(fields)
+    missing = [name for name in extras if name not in out]
+    if not missing:
+        return out
+    out.extend(missing)
+    for row in rows:
+        for name in missing:
+            row.setdefault(name, "")
+    return out
 
 
 @dataclass
@@ -126,6 +173,10 @@ class QueueGateAssessment:
     reasons: List[str]
     role_track: str
     signals: List[str]
+    remote_policy: str
+    remote_score: int
+    remote_evidence: List[str]
+    submission_lane: str
     resume_path: Optional[Path]
     resume_html_path: Optional[Path]
     cover_path: Optional[Path]
@@ -357,6 +408,75 @@ def _resolve_resume(company: str, role: str) -> Optional[Path]:
     return None
 
 
+def _html_to_text(value: str) -> str:
+    text = re.sub(r"(?is)<(script|style).*?>.*?</\\1>", " ", value or "")
+    text = re.sub(r"(?i)<br\\s*/?>", "\n", text)
+    text = re.sub(r"(?i)</p\\s*>", "\n\n", text)
+    text = re.sub(r"(?i)</li\\s*>", "\n", text)
+    text = re.sub(r"<[^>]+>", " ", text)
+    text = html.unescape(text)
+    lines = [re.sub(r"\\s+", " ", line).strip() for line in text.splitlines()]
+    compact = [line for line in lines if line]
+    return "\n".join(compact) + ("\n" if compact else "")
+
+
+def _write_simple_docx(text: str, out_path: Path) -> None:
+    lines = [line.strip() for line in text.splitlines() if line.strip()]
+    if not lines:
+        lines = ["Resume"]
+
+    body = "".join(
+        f'<w:p><w:r><w:t xml:space="preserve">{escape(line)}</w:t></w:r></w:p>'
+        for line in lines
+    )
+    document_xml = (
+        '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+        '<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'
+        f"<w:body>{body}"
+        '<w:sectPr><w:pgSz w:w="12240" w:h="15840"/>'
+        '<w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440" '
+        'w:header="720" w:footer="720" w:gutter="0"/></w:sectPr>'
+        "</w:body></w:document>"
+    )
+    content_types_xml = (
+        '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+        '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">'
+        '<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>'
+        '<Default Extension="xml" ContentType="application/xml"/>'
+        '<Override PartName="/word/document.xml" '
+        'ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/>'
+        "</Types>"
+    )
+    rels_xml = (
+        '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+        '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
+        '<Relationship Id="rId1" '
+        'Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" '
+        'Target="word/document.xml"/>'
+        "</Relationships>"
+    )
+
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    with zipfile.ZipFile(out_path, "w", compression=zipfile.ZIP_DEFLATED) as zf:
+        zf.writestr("[Content_Types].xml", content_types_xml)
+        zf.writestr("_rels/.rels", rels_xml)
+        zf.writestr("word/document.xml", document_xml)
+
+
+def _create_docx_from_html(resume_html_path: Path) -> Optional[Path]:
+    if not resume_html_path.exists():
+        return None
+    docx_path = resume_html_path.with_suffix(".docx")
+    if docx_path.exists():
+        return docx_path
+    try:
+        html_text = resume_html_path.read_text(encoding="utf-8", errors="replace")
+        _write_simple_docx(_html_to_text(html_text), docx_path)
+    except Exception:
+        return None
+    return docx_path if docx_path.exists() else None
+
+
 def _select_best_artifact(paths: Sequence[Path], role_slug: str) -> Optional[Path]:
     if not paths:
         return None
@@ -425,18 +545,79 @@ def _role_track_and_signals(
     return track, sorted(set(signals))
 
 
-def _assess_queue_gate(row: Dict[str, str], fit_threshold: int) -> QueueGateAssessment:
+def _adapter_name_for_url(url: str, adapters: Sequence[SiteAdapter]) -> Optional[str]:
+    found = _find_adapter(url, adapters)
+    return found.name if found is not None else None
+
+
+def _infer_remote_profile(
+    row: Dict[str, str],
+    *,
+    job_text: str,
+) -> tuple[str, int, List[str]]:
+    location = str(row.get("Location", "") or "")
+    notes = str(row.get("Notes", "") or "")
+    tags = str(row.get("Tags", "") or "")
+    url = str(row.get("Career Page URL", "") or "")
+    host = (urllib.parse.urlsplit(url).hostname or "").lower()
+    hay = " ".join([location, tags, notes, job_text]).lower()
+
+    policy = "unknown"
+    score = 45
+    evidence: List[str] = []
+
+    if REMOTE_NEGATIVE_RE.search(hay):
+        policy = "onsite"
+        score = 10
+        evidence.append("onsite_keyword")
+    elif REMOTE_HYBRID_RE.search(hay):
+        policy = "hybrid"
+        score = 65
+        evidence.append("hybrid_keyword")
+    elif REMOTE_POSITIVE_RE.search(hay):
+        policy = "remote"
+        score = 85
+        evidence.append("remote_keyword")
+
+    if host.endswith("remoteok.com") or host.endswith("remotive.com"):
+        evidence.append("remote_feed_source")
+        score = min(95, score + 5)
+
+    if REMOTE_US_ONLY_RE.search(hay):
+        evidence.append("remote_us_scope")
+        score = min(100, score + 3)
+
+    if "hybrid_keyword" in evidence and "onsite_keyword" not in evidence:
+        score = max(55, min(score, 75))
+    if policy == "onsite":
+        score = min(score, 25)
+
+    score = max(0, min(100, int(score)))
+    return policy, score, sorted(set(evidence))
+
+
+def _assess_queue_gate(
+    row: Dict[str, str],
+    *,
+    fit_threshold: int,
+    remote_min_score: int,
+    adapters: Sequence[SiteAdapter],
+) -> QueueGateAssessment:
     company = str(row.get("Company", "")).strip()
     role = str(row.get("Role", "")).strip()
     tags = str(row.get("Tags", "")).strip()
     notes = str(row.get("Notes", "")).strip()
 
-    resume_path = _resolve_resume(company, role)
     resume_html_path = _resolve_resume_html(company, role)
+    resume_path = _resolve_resume(company, role)
+    if resume_path is None and resume_html_path is not None:
+        resume_path = _create_docx_from_html(resume_html_path)
     cover_path = _resolve_cover_letter(company, role)
     job_path = _resolve_job_capture(company, role)
 
     reasons: List[str] = []
+    if NON_TECH_ROLE_RE.search(role) and not TECH_ROLE_RE.search(role):
+        reasons.append("non_technical_role")
     if resume_path is None:
         reasons.append("missing_resume_docx_or_pdf")
     if resume_html_path is None:
@@ -447,6 +628,11 @@ def _assess_queue_gate(row: Dict[str, str], fit_threshold: int) -> QueueGateAsse
     job_text = _read_text(job_path)
     resume_html_text = _read_text(resume_html_path).lower()
     track, signals = _role_track_and_signals(role, tags, notes, job_text)
+    remote_policy, remote_score, remote_evidence = _infer_remote_profile(
+        row, job_text=job_text
+    )
+    adapter_name = _adapter_name_for_url(str(row.get("Career Page URL", "")), adapters)
+    submission_lane = f"ci_auto:{adapter_name}" if adapter_name else "manual"
 
     score = 0
     if track == "fde":
@@ -492,19 +678,28 @@ def _assess_queue_gate(row: Dict[str, str], fit_threshold: int) -> QueueGateAsse
     voice_required = "voice-audio" in signals
     if voice_required and VOICE_AUDIO_RE.search(resume_html_text):
         score += 5
+    score += max(0, (remote_score - 50) // 10)
 
     fit_ok = score >= fit_threshold
+    remote_ok = remote_score >= remote_min_score
     if not fit_ok:
         reasons.append(f"fit_score_below_threshold:{score}<{fit_threshold}")
+    if not remote_ok:
+        reasons.append(
+            f"remote_likelihood_below_threshold:{remote_score}<{remote_min_score}"
+        )
+    if adapter_name is None:
+        reasons.append("unsupported_site_for_ci_submit")
 
-    eligible = fit_ok and all(
-        reason
-        not in {
-            "missing_resume_docx_or_pdf",
-            "missing_tailored_resume_html",
-            "missing_cover_letter",
-        }
-        for reason in reasons
+    required_reasons = {
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "missing_cover_letter",
+        "non_technical_role",
+        "unsupported_site_for_ci_submit",
+    }
+    eligible = fit_ok and remote_ok and all(
+        reason not in required_reasons for reason in reasons
     )
     return QueueGateAssessment(
         eligible=eligible,
@@ -512,6 +707,10 @@ def _assess_queue_gate(row: Dict[str, str], fit_threshold: int) -> QueueGateAsse
         reasons=sorted(set(reasons)),
         role_track=track,
         signals=signals,
+        remote_policy=remote_policy,
+        remote_score=remote_score,
+        remote_evidence=remote_evidence,
+        submission_lane=submission_lane,
         resume_path=resume_path,
         resume_html_path=resume_html_path,
         cover_path=cover_path,
@@ -625,6 +824,7 @@ def run_pipeline(
     max_jobs: int,
     fail_on_error: bool,
     fit_threshold: int = 70,
+    remote_min_score: int = 50,
     require_secret_auth: bool = True,
     auto_promote_ready: bool = True,
     profile_env: str = "CI_SUBMIT_PROFILE_JSON",
@@ -633,6 +833,7 @@ def run_pipeline(
 ) -> int:
     fields, rows = _read_tracker(tracker_csv)
     adapters = list(adapters or [AshbyAdapter(), GreenhouseAdapter(), LeverAdapter()])
+    fields = _ensure_tracker_fields(fields, rows, TRACKER_REMOTE_FIELDS)
 
     profile = _load_profile_from_env(profile_env)
     auth_map = _load_auth_by_adapter(auth_env)
@@ -656,6 +857,7 @@ def run_pipeline(
     can_mutate_tracker = (not dry_run) or queue_only
     queue_promoted_count = 0
     queue_demoted_count = 0
+    queue_metadata_updates = 0
     queue_audit: List[Dict[str, Any]] = []
 
     if auto_promote_ready:
@@ -663,7 +865,12 @@ def run_pipeline(
             status_raw = str(row.get("Status", ""))
             if not (_is_draft_status(status_raw) or _is_ready_status(status_raw)):
                 continue
-            assessment = _assess_queue_gate(row, fit_threshold=fit_threshold)
+            assessment = _assess_queue_gate(
+                row,
+                fit_threshold=fit_threshold,
+                remote_min_score=remote_min_score,
+                adapters=adapters,
+            )
             audit_item = {
                 "row_index": idx,
                 "company": str(row.get("Company", "")).strip(),
@@ -672,9 +879,30 @@ def run_pipeline(
                 "role_track": assessment.role_track,
                 "signals": assessment.signals,
                 "fit_score": assessment.score,
+                "remote_policy": assessment.remote_policy,
+                "remote_score": assessment.remote_score,
+                "remote_evidence": assessment.remote_evidence,
+                "submission_lane": assessment.submission_lane,
                 "eligible_for_ready": assessment.eligible,
                 "reasons": assessment.reasons,
             }
+            if can_mutate_tracker:
+                remote_policy = assessment.remote_policy
+                remote_score = str(assessment.remote_score)
+                remote_evidence = ";".join(assessment.remote_evidence)
+                submission_lane = assessment.submission_lane
+                if str(row.get("Remote Policy", "")) != remote_policy:
+                    queue_metadata_updates += 1
+                if str(row.get("Remote Likelihood Score", "")) != remote_score:
+                    queue_metadata_updates += 1
+                if str(row.get("Remote Evidence", "")) != remote_evidence:
+                    queue_metadata_updates += 1
+                if str(row.get("Submission Lane", "")) != submission_lane:
+                    queue_metadata_updates += 1
+                row["Remote Policy"] = remote_policy
+                row["Remote Likelihood Score"] = remote_score
+                row["Remote Evidence"] = remote_evidence
+                row["Submission Lane"] = submission_lane
 
             if _is_draft_status(status_raw) and assessment.eligible:
                 queue_promoted_count += 1
@@ -684,7 +912,8 @@ def run_pipeline(
                         str(row.get("Notes", "")),
                         (
                             f"Queue gate passed on {_today_iso()} "
-                            f"(fit={assessment.score}/{fit_threshold}, track={assessment.role_track})."
+                            f"(fit={assessment.score}/{fit_threshold}, remote={assessment.remote_score}/{remote_min_score}, "
+                            f"track={assessment.role_track}, lane={assessment.submission_lane})."
                         ),
                     )
             elif _is_ready_status(status_raw) and not assessment.eligible:
@@ -695,7 +924,8 @@ def run_pipeline(
                         str(row.get("Notes", "")),
                         (
                             f"Queue gate demoted on {_today_iso()} "
-                            f"(fit={assessment.score}/{fit_threshold}; reasons={','.join(assessment.reasons)})."
+                            f"(fit={assessment.score}/{fit_threshold}, remote={assessment.remote_score}/{remote_min_score}; "
+                            f"reasons={','.join(assessment.reasons)})."
                         ),
                     )
             queue_audit.append(audit_item)
@@ -710,6 +940,7 @@ def run_pipeline(
         "queue_only": queue_only,
         "max_jobs": max_jobs,
         "fit_threshold": fit_threshold,
+        "remote_min_score": remote_min_score,
         "tracker_csv": str(tracker_csv),
         "queue_promoted_count": queue_promoted_count,
         "queue_demoted_count": queue_demoted_count,
@@ -725,7 +956,8 @@ def run_pipeline(
         report["applied_count"] = 0
         report["failed_count"] = 0
         report["changed"] = bool(
-            can_mutate_tracker and (queue_promoted_count or queue_demoted_count)
+            can_mutate_tracker
+            and (queue_promoted_count or queue_demoted_count or queue_metadata_updates)
         )
         report_path.parent.mkdir(parents=True, exist_ok=True)
         report_path.write_text(
@@ -754,11 +986,22 @@ def run_pipeline(
             "role": role,
             "url": url,
             "status_before": str(row.get("Status", "")).strip(),
+            "submission_lane": str(row.get("Submission Lane", "")).strip(),
             "mode": "dry_run" if dry_run else "execute",
         }
 
         row_errors = _validate_row(row)
-        assessment = _assess_queue_gate(row, fit_threshold=fit_threshold)
+        assessment = _assess_queue_gate(
+            row,
+            fit_threshold=fit_threshold,
+            remote_min_score=remote_min_score,
+            adapters=adapters,
+        )
+        if can_mutate_tracker:
+            row["Remote Policy"] = assessment.remote_policy
+            row["Remote Likelihood Score"] = str(assessment.remote_score)
+            row["Remote Evidence"] = ";".join(assessment.remote_evidence)
+            row["Submission Lane"] = assessment.submission_lane
         resume_path = assessment.resume_path
         if not assessment.eligible:
             row_errors.extend(assessment.reasons)
@@ -768,7 +1011,8 @@ def run_pipeline(
                     str(row.get("Notes", "")),
                     (
                         f"Submission blocked by queue gate on {_today_iso()} "
-                        f"(fit={assessment.score}/{fit_threshold}; reasons={','.join(assessment.reasons)})."
+                        f"(fit={assessment.score}/{fit_threshold}, remote={assessment.remote_score}/{remote_min_score}; "
+                        f"reasons={','.join(assessment.reasons)})."
                     ),
                 )
 
@@ -849,7 +1093,12 @@ def run_pipeline(
     report["failed_count"] = failed_count
     report["changed"] = bool(
         can_mutate_tracker
-        and (applied_count or queue_promoted_count or queue_demoted_count)
+        and (
+            applied_count
+            or queue_promoted_count
+            or queue_demoted_count
+            or queue_metadata_updates
+        )
     )
 
     report_path.parent.mkdir(parents=True, exist_ok=True)
@@ -904,6 +1153,12 @@ def main() -> int:
         help="Minimum fit score required to enter/remain in ReadyToSubmit queue.",
     )
     ap.add_argument(
+        "--remote-min-score",
+        type=int,
+        default=50,
+        help="Minimum remote-likelihood score required for CI auto-submit lane.",
+    )
+    ap.add_argument(
         "--profile-env",
         default="CI_SUBMIT_PROFILE_JSON",
         help="Env var containing submit profile JSON.",
@@ -927,6 +1182,7 @@ def main() -> int:
             max_jobs=args.max_jobs,
             fail_on_error=args.fail_on_error,
             fit_threshold=args.fit_threshold,
+            remote_min_score=max(0, min(100, args.remote_min_score)),
             require_secret_auth=True,
             profile_env=args.profile_env,
             auth_env=args.auth_env,
