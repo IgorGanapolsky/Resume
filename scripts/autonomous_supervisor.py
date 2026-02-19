@@ -683,6 +683,16 @@ def run_supervisor(
         f"succeeded={success_count} failed={len(failures)} skipped={len(skipped)} "
         f"report={report_path}"
     )
+    if failures:
+        print("Failed lane details:")
+        for failure in failures:
+            stdout_preview = failure.stdout[:1200].strip()
+            stderr_preview = failure.stderr[:1200].strip()
+            print(f"- lane={failure.name} rc={failure.returncode}")
+            if stdout_preview:
+                print(f"  stdout: {stdout_preview}")
+            if stderr_preview:
+                print(f"  stderr: {stderr_preview}")
     return overall_rc
 
 
