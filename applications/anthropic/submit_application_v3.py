@@ -8,10 +8,12 @@ from playwright.async_api import async_playwright
 
 RESUME_DOCX = "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/anthropic/tailored_resumes/2026-02-17_anthropic_autonomous-agent-infrastructure_resume.docx"
 COVER_LETTER_TXT = "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/anthropic/cover_letters/2026-02-17_anthropic_autonomous-agent-infrastructure.txt"
-SCREENSHOT_DIR = "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/anthropic/submissions"
+SCREENSHOT_DIR = (
+    "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/anthropic/submissions"
+)
 FINAL_SCREENSHOT = f"{SCREENSHOT_DIR}/2026-02-18_anthropic_submission.png"
 
-with open(COVER_LETTER_TXT, 'r') as f:
+with open(COVER_LETTER_TXT, "r") as f:
     COVER_LETTER_TEXT = f.read()
 
 WHY_ANTHROPIC = (
@@ -46,7 +48,9 @@ async def select_option_in_greenhouse_dropdown(page, field_id, option_text_or_co
 
     if await control.count() == 0:
         # Try finding the control near the input
-        control = page.locator(f"#{field_id}").locator("xpath=following-sibling::*[1]").first
+        control = (
+            page.locator(f"#{field_id}").locator("xpath=following-sibling::*[1]").first
+        )
 
     if await control.count() == 0:
         print(f"  WARNING: No dropdown control found for #{field_id}")
@@ -59,12 +63,16 @@ async def select_option_in_greenhouse_dropdown(page, field_id, option_text_or_co
     await page.wait_for_timeout(700)
 
     # Find the option in the open menu
-    option_loc = page.locator("[class*='select__option']").filter(has_text=option_text_or_contains)
+    option_loc = page.locator("[class*='select__option']").filter(
+        has_text=option_text_or_contains
+    )
     opt_count = await option_loc.count()
 
     if opt_count == 0:
         # Try exact match via role=option
-        option_loc = page.locator("[role='option']").filter(has_text=option_text_or_contains)
+        option_loc = page.locator("[role='option']").filter(
+            has_text=option_text_or_contains
+        )
         opt_count = await option_loc.count()
 
     if opt_count > 0:
@@ -75,7 +83,9 @@ async def select_option_in_greenhouse_dropdown(page, field_id, option_text_or_co
     else:
         # Print available options for debugging
         all_opts = await page.locator("[class*='select__option']").all_text_contents()
-        print(f"  WARNING: Option '{option_text_or_contains}' not found for #{field_id}. Available: {all_opts}")
+        print(
+            f"  WARNING: Option '{option_text_or_contains}' not found for #{field_id}. Available: {all_opts}"
+        )
         await page.keyboard.press("Escape")
         return False
 
@@ -105,11 +115,16 @@ async def fill_application():
 
         # ---- NAVIGATE ----
         print("Navigating to job page...")
-        await page.goto("https://job-boards.greenhouse.io/anthropic/jobs/5065894008", wait_until="networkidle")
+        await page.goto(
+            "https://job-boards.greenhouse.io/anthropic/jobs/5065894008",
+            wait_until="networkidle",
+        )
         await screenshot(page, "10_job_page")
 
         # ---- CLICK APPLY ----
-        apply_btn = page.locator("button:has-text('Apply'), a:has-text('Apply for this Job'), a:has-text('Apply')")
+        apply_btn = page.locator(
+            "button:has-text('Apply'), a:has-text('Apply for this Job'), a:has-text('Apply')"
+        )
         if await apply_btn.count() > 0:
             await apply_btn.first.click()
             await page.wait_for_load_state("networkidle")
@@ -162,15 +177,21 @@ async def fill_application():
         print("\nFilling custom question fields...")
 
         # Website/GitHub
-        await page.locator("#question_14439953008").fill("https://github.com/IgorGanapolsky")
+        await page.locator("#question_14439953008").fill(
+            "https://github.com/IgorGanapolsky"
+        )
         print("  Filled Website/GitHub")
 
         # LinkedIn Profile
-        await page.locator("#question_14439962008").fill("https://www.linkedin.com/in/igor-ganapolsky-859317343/")
+        await page.locator("#question_14439962008").fill(
+            "https://www.linkedin.com/in/igor-ganapolsky-859317343/"
+        )
         print("  Filled LinkedIn")
 
         # Working address
-        await page.locator("#question_14439964008").fill("11909 Glenmore Dr, Coral Springs, FL 33071")
+        await page.locator("#question_14439964008").fill(
+            "11909 Glenmore Dr, Coral Springs, FL 33071"
+        )
         print("  Filled working address")
 
         # When earliest to start
@@ -207,13 +228,19 @@ async def fill_application():
         # "AI Policy for Application" - REQUIRED
         # This is likely a Yes/No or agreement field
         ai_policy_options = []
-        ai_ctrl = page.locator("#question_14439957008").locator("xpath=ancestor::div[contains(@class,'field')]").last
+        ai_ctrl = (
+            page.locator("#question_14439957008")
+            .locator("xpath=ancestor::div[contains(@class,'field')]")
+            .last
+        )
         ai_control_btn = ai_ctrl.locator("[class*='select__control']").first
         if await ai_control_btn.count() > 0:
             await ai_control_btn.scroll_into_view_if_needed()
             await ai_control_btn.click()
             await page.wait_for_timeout(500)
-            ai_policy_options = await page.locator("[class*='select__option']").all_text_contents()
+            ai_policy_options = await page.locator(
+                "[class*='select__option']"
+            ).all_text_contents()
             print(f"  AI Policy options: {ai_policy_options}")
             if ai_policy_options:
                 # Select the first meaningful option (usually "I confirm" or "Yes")
@@ -254,9 +281,15 @@ async def fill_application():
         }""")
 
         for fv in field_values:
-            required = '*' in fv['label']
-            status = "OK" if fv['value'] else ("REQUIRED but EMPTY" if required else "optional/empty")
-            print(f"  {fv['id']}: {status} | label='{fv['label'][:60]}' | value='{str(fv['value'])[:50]}'")
+            required = "*" in fv["label"]
+            status = (
+                "OK"
+                if fv["value"]
+                else ("REQUIRED but EMPTY" if required else "optional/empty")
+            )
+            print(
+                f"  {fv['id']}: {status} | label='{fv['label'][:60]}' | value='{str(fv['value'])[:50]}'"
+            )
 
         # ---- SUBMIT ----
         print("\nAttempting to submit...")
@@ -264,7 +297,9 @@ async def fill_application():
             has_text=lambda t: True  # get all
         )
         # More targeted
-        submit_btn = page.locator("input[type='submit'][value*='Submit'], button:has-text('Submit application')")
+        submit_btn = page.locator(
+            "input[type='submit'][value*='Submit'], button:has-text('Submit application')"
+        )
 
         sub_count = await submit_btn.count()
         print(f"  Submit button count: {sub_count}")
@@ -296,8 +331,18 @@ async def fill_application():
         await check_errors(page)
 
         body_text = await page.inner_text("body")
-        success_kws = ["thank you for applying", "application has been received", "application submitted", "confirmation"]
-        error_kws = ["can't be blank", "is required", "please fill", "This field is required"]
+        success_kws = [
+            "thank you for applying",
+            "application has been received",
+            "application submitted",
+            "confirmation",
+        ]
+        error_kws = [
+            "can't be blank",
+            "is required",
+            "please fill",
+            "This field is required",
+        ]
 
         success = any(kw.lower() in body_text.lower() for kw in success_kws)
         has_errors = any(kw.lower() in body_text.lower() for kw in error_kws)
@@ -308,7 +353,7 @@ async def fill_application():
         if has_errors:
             # Find error messages
             error_text_snippet = ""
-            for line in body_text.split('\n'):
+            for line in body_text.split("\n"):
                 if any(kw.lower() in line.lower() for kw in error_kws):
                     error_text_snippet += line.strip() + "\n"
             print(f"\n  ERRORS FOUND:\n{error_text_snippet[:500]}")

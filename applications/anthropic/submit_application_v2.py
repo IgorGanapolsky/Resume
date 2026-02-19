@@ -10,10 +10,12 @@ from playwright.async_api import async_playwright
 
 RESUME_DOCX = "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/anthropic/tailored_resumes/2026-02-17_anthropic_autonomous-agent-infrastructure_resume.docx"
 COVER_LETTER_TXT = "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/anthropic/cover_letters/2026-02-17_anthropic_autonomous-agent-infrastructure.txt"
-SCREENSHOT_DIR = "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/anthropic/submissions"
+SCREENSHOT_DIR = (
+    "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/anthropic/submissions"
+)
 FINAL_SCREENSHOT = f"{SCREENSHOT_DIR}/2026-02-18_anthropic_submission.png"
 
-with open(COVER_LETTER_TXT, 'r') as f:
+with open(COVER_LETTER_TXT, "r") as f:
     COVER_LETTER_TEXT = f.read()
 
 WHY_ANTHROPIC = (
@@ -51,7 +53,9 @@ async def inspect_form(page):
     }""")
 
     for i, inp in enumerate(inputs):
-        print(f"  [{i}] {inp['tag']} type={inp['type']} id={inp['id']} name={inp['name']} placeholder={inp['placeholder'][:40]} labels={inp['labels']}")
+        print(
+            f"  [{i}] {inp['tag']} type={inp['type']} id={inp['id']} name={inp['name']} placeholder={inp['placeholder'][:40]} labels={inp['labels']}"
+        )
 
     # Custom dropdowns
     print("\n  Custom dropdowns:")
@@ -80,7 +84,9 @@ async def select_react_dropdown(page, label_text, option_text, timeout=5000):
             field_group = page.locator(f"div:has(span:has-text('{label_text}'))").last
 
         # Click the dropdown control within this group
-        control = field_group.locator("[class*='select__control'], [class*='Select-control']").first
+        control = field_group.locator(
+            "[class*='select__control'], [class*='Select-control']"
+        ).first
         if await control.count() > 0:
             await control.click()
             await page.wait_for_timeout(500)
@@ -90,7 +96,9 @@ async def select_react_dropdown(page, label_text, option_text, timeout=5000):
             await page.wait_for_timeout(500)
 
         # Look for the option in the dropdown menu
-        option = page.locator(f"[class*='select__option']:has-text('{option_text}')").first
+        option = page.locator(
+            f"[class*='select__option']:has-text('{option_text}')"
+        ).first
         if await option.count() > 0:
             await option.click(timeout=timeout)
             print(f"  Selected '{option_text}'")
@@ -116,7 +124,10 @@ async def fill_application():
         page = await context.new_page()
 
         print("Step 1: Navigate to job page")
-        await page.goto("https://job-boards.greenhouse.io/anthropic/jobs/5065894008", wait_until="networkidle")
+        await page.goto(
+            "https://job-boards.greenhouse.io/anthropic/jobs/5065894008",
+            wait_until="networkidle",
+        )
         await take_screenshot(page, "01_job_page")
 
         print("Step 2: Click Apply button")
@@ -208,13 +219,19 @@ async def fill_application():
         await inspect_form(page)
 
         # LinkedIn field
-        linkedin_inputs = page.locator("input[id*='linkedin'], input[name*='linkedin'], input[placeholder*='linkedin' i]")
+        linkedin_inputs = page.locator(
+            "input[id*='linkedin'], input[name*='linkedin'], input[placeholder*='linkedin' i]"
+        )
         if await linkedin_inputs.count() > 0:
-            await linkedin_inputs.first.fill("https://www.linkedin.com/in/igor-ganapolsky-859317343/")
+            await linkedin_inputs.first.fill(
+                "https://www.linkedin.com/in/igor-ganapolsky-859317343/"
+            )
             print("  Filled LinkedIn")
 
         # Website/Github field
-        website_inputs = page.locator("input[id*='website'], input[name*='website'], input[placeholder*='website' i], input[placeholder*='github' i]")
+        website_inputs = page.locator(
+            "input[id*='website'], input[name*='website'], input[placeholder*='website' i], input[placeholder*='github' i]"
+        )
         if await website_inputs.count() > 0:
             await website_inputs.first.fill("https://github.com/IgorGanapolsky")
             print("  Filled Website/GitHub")
@@ -237,9 +254,21 @@ async def fill_application():
                 ta_id = await ta.get_attribute("id") or ""
                 ta_name = await ta.get_attribute("name") or ""
                 ta_placeholder = await ta.get_attribute("placeholder") or ""
-                print(f"  Found empty textarea: id={ta_id} name={ta_name} placeholder={ta_placeholder[:50]}")
-                if any(kw in (ta_id + ta_name + ta_placeholder).lower()
-                       for kw in ["why", "reason", "tell", "additional", "info", "message", "note"]):
+                print(
+                    f"  Found empty textarea: id={ta_id} name={ta_name} placeholder={ta_placeholder[:50]}"
+                )
+                if any(
+                    kw in (ta_id + ta_name + ta_placeholder).lower()
+                    for kw in [
+                        "why",
+                        "reason",
+                        "tell",
+                        "additional",
+                        "info",
+                        "message",
+                        "note",
+                    ]
+                ):
                     await ta.fill(WHY_ANTHROPIC)
                     print("  Filled textarea with WHY_ANTHROPIC text")
 
@@ -257,7 +286,9 @@ async def fill_application():
         print("  Questions/labels found:", questions[:30])
 
         # Handle relocation question
-        relocation_q = page.locator("div.field:has(label:has-text('relocation')), div.field:has(span:has-text('relocation'))")
+        relocation_q = page.locator(
+            "div.field:has(label:has-text('relocation')), div.field:has(span:has-text('relocation'))"
+        )
         if await relocation_q.count() > 0:
             print("  Found relocation question div")
             reloc_control = relocation_q.locator("[class*='select__control']").first
@@ -265,7 +296,9 @@ async def fill_application():
                 await reloc_control.click()
                 await page.wait_for_timeout(500)
                 # Look for options
-                options = await page.locator("[class*='select__option']").all_text_contents()
+                options = await page.locator(
+                    "[class*='select__option']"
+                ).all_text_contents()
                 print(f"  Relocation options: {options}")
                 no_opt = page.locator("[class*='select__option']").filter(has_text="No")
                 if await no_opt.count() > 0:
@@ -275,7 +308,9 @@ async def fill_application():
                     await page.keyboard.press("Escape")
 
         # Handle "Have you interviewed at Anthropic" question
-        anthropic_q = page.locator("div.field:has(label:has-text('interviewed at Anthropic')), div.field:has(span:has-text('interviewed at Anthropic'))")
+        anthropic_q = page.locator(
+            "div.field:has(label:has-text('interviewed at Anthropic')), div.field:has(span:has-text('interviewed at Anthropic'))"
+        )
         if await anthropic_q.count() > 0:
             print("  Found interviewed-at-Anthropic question")
             anth_control = anthropic_q.locator("[class*='select__control']").first
@@ -285,7 +320,11 @@ async def fill_application():
                 if "No" not in (anth_val or ""):
                     await anth_control.click()
                     await page.wait_for_timeout(500)
-                    no_opt = page.locator("[class*='select__option']").filter(has_text="No").first
+                    no_opt = (
+                        page.locator("[class*='select__option']")
+                        .filter(has_text="No")
+                        .first
+                    )
                     if await no_opt.count() > 0:
                         await no_opt.click()
                         print("  Selected 'No' for Anthropic interview question")
@@ -293,9 +332,13 @@ async def fill_application():
                         await page.keyboard.press("Escape")
 
         # Handle "working address" question
-        work_addr_field = page.locator("input[placeholder*='relocating'], textarea[placeholder*='relocating']")
+        work_addr_field = page.locator(
+            "input[placeholder*='relocating'], textarea[placeholder*='relocating']"
+        )
         if await work_addr_field.count() > 0:
-            await work_addr_field.first.fill("11909 Glenmore Dr, Coral Springs, FL 33071")
+            await work_addr_field.first.fill(
+                "11909 Glenmore Dr, Coral Springs, FL 33071"
+            )
             print("  Filled working address")
 
         await take_screenshot(page, "05_dropdowns_handled")
@@ -317,27 +360,47 @@ async def fill_application():
 
         # Handle native selects
         for sel_info in hear_selects:
-            sel_id = sel_info['id']
-            sel_name = sel_info['name']
-            options = sel_info['options']
+            sel_id = sel_info["id"]
+            sel_name = sel_info["name"]
+            options = sel_info["options"]
 
-            if any(kw in (sel_id + sel_name).lower() for kw in ["hear", "source", "referral"]):
-                sel_el = page.locator(f"select#{sel_id}") if sel_id else page.locator(f"select[name='{sel_name}']")
+            if any(
+                kw in (sel_id + sel_name).lower()
+                for kw in ["hear", "source", "referral"]
+            ):
+                sel_el = (
+                    page.locator(f"select#{sel_id}")
+                    if sel_id
+                    else page.locator(f"select[name='{sel_name}']")
+                )
                 if "LinkedIn" in options:
                     await sel_el.select_option(label="LinkedIn")
                     print(f"  Set {sel_id or sel_name} to LinkedIn")
                 elif len(options) > 1:
                     await sel_el.select_option(index=1)
-                    print(f"  Set {sel_id or sel_name} to first available option: {options[1]}")
+                    print(
+                        f"  Set {sel_id or sel_name} to first available option: {options[1]}"
+                    )
 
-            if any(kw in (sel_id + sel_name).lower() for kw in ["authorized", "work_auth", "legal"]):
-                sel_el = page.locator(f"select#{sel_id}") if sel_id else page.locator(f"select[name='{sel_name}']")
+            if any(
+                kw in (sel_id + sel_name).lower()
+                for kw in ["authorized", "work_auth", "legal"]
+            ):
+                sel_el = (
+                    page.locator(f"select#{sel_id}")
+                    if sel_id
+                    else page.locator(f"select[name='{sel_name}']")
+                )
                 if "Yes" in options:
                     await sel_el.select_option(label="Yes")
                     print("  Set work authorization to Yes")
 
             if any(kw in (sel_id + sel_name).lower() for kw in ["visa", "sponsor"]):
-                sel_el = page.locator(f"select#{sel_id}") if sel_id else page.locator(f"select[name='{sel_name}']")
+                sel_el = (
+                    page.locator(f"select#{sel_id}")
+                    if sel_id
+                    else page.locator(f"select[name='{sel_name}']")
+                )
                 if "No" in options:
                     await sel_el.select_option(label="No")
                     print("  Set visa sponsorship to No")
@@ -361,7 +424,10 @@ async def fill_application():
         print(f"  Found {submit_count} submit button(s)")
 
         if submit_count > 0:
-            btn_text = await submit_btn.first.text_content() or await submit_btn.first.get_attribute("value")
+            btn_text = (
+                await submit_btn.first.text_content()
+                or await submit_btn.first.get_attribute("value")
+            )
             print(f"  Submit button text: {btn_text}")
 
             # Scroll to submit button
@@ -393,7 +459,9 @@ async def fill_application():
             print(f"  All submit buttons via JS: {all_btns}")
 
             if all_btns:
-                await page.evaluate("document.querySelector('input[type=submit], button[type=submit]').click()")
+                await page.evaluate(
+                    "document.querySelector('input[type=submit], button[type=submit]').click()"
+                )
                 await page.wait_for_timeout(5000)
                 print("  Clicked submit via JS")
 
@@ -410,7 +478,13 @@ async def fill_application():
         print(f"  Body text (first 500 chars): {body_text[:500]}")
 
         # Check for success indicators
-        success_keywords = ["thank you", "application received", "submitted", "confirmation", "success"]
+        success_keywords = [
+            "thank you",
+            "application received",
+            "submitted",
+            "confirmation",
+            "success",
+        ]
         is_success = any(kw.lower() in body_text.lower() for kw in success_keywords)
         print(f"\n  SUCCESS INDICATORS FOUND: {is_success}")
 

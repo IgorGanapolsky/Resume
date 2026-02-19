@@ -11,10 +11,12 @@ from playwright.async_api import async_playwright
 
 RESUME_DOCX = "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/anthropic/tailored_resumes/2026-02-17_anthropic_autonomous-agent-infrastructure_resume.docx"
 COVER_LETTER_TXT = "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/anthropic/cover_letters/2026-02-17_anthropic_autonomous-agent-infrastructure.txt"
-SCREENSHOT_DIR = "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/anthropic/submissions"
+SCREENSHOT_DIR = (
+    "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/anthropic/submissions"
+)
 FINAL_SCREENSHOT = f"{SCREENSHOT_DIR}/2026-02-18_anthropic_submission.png"
 
-with open(COVER_LETTER_TXT, 'r') as f:
+with open(COVER_LETTER_TXT, "r") as f:
     COVER_LETTER_TEXT = f.read()
 
 WHY_ANTHROPIC = (
@@ -70,7 +72,7 @@ async def greenhouse_select(page, field_id, option_text):
         print(f"  ERROR: Could not find select__control for #{field_id}")
         return False
 
-    if coords['y'] < 0 or coords['y'] > 900:
+    if coords["y"] < 0 or coords["y"] > 900:
         print(f"  Control not in viewport (y={coords['y']}), scrolling more...")
         await page.evaluate(f"window.scrollBy(0, {coords['y'] - 400})")
         await page.wait_for_timeout(500)
@@ -94,7 +96,7 @@ async def greenhouse_select(page, field_id, option_text):
         }}""")
 
     print(f"  Clicking control at ({coords['x']:.0f}, {coords['y']:.0f})")
-    await page.mouse.click(coords['x'], coords['y'])
+    await page.mouse.click(coords["x"], coords["y"])
     await page.wait_for_timeout(800)
 
     # Check for open options
@@ -105,7 +107,7 @@ async def greenhouse_select(page, field_id, option_text):
 
     if not all_opts:
         print("  WARNING: No options appeared. Trying again...")
-        await page.mouse.click(coords['x'], coords['y'])
+        await page.mouse.click(coords["x"], coords["y"])
         await page.wait_for_timeout(1000)
         all_opts = await page.locator("[class*='select__option']").all_text_contents()
         print(f"  Second attempt options: {all_opts}")
@@ -123,7 +125,11 @@ async def greenhouse_select(page, field_id, option_text):
         # Fallback: click first matching or first option
         matching = [o for o in all_opts if option_text.lower() in o.lower()]
         if matching:
-            await page.locator("[class*='select__option']").filter(has_text=matching[0]).first.click()
+            await (
+                page.locator("[class*='select__option']")
+                .filter(has_text=matching[0])
+                .first.click()
+            )
             print(f"  Clicked fuzzy match: '{matching[0]}'")
         else:
             await page.locator("[class*='select__option']").first.click()
@@ -162,7 +168,10 @@ async def fill_application():
         page = await context.new_page()
 
         print("Navigating to Anthropic job...")
-        await page.goto("https://job-boards.greenhouse.io/anthropic/jobs/5065894008", wait_until="networkidle")
+        await page.goto(
+            "https://job-boards.greenhouse.io/anthropic/jobs/5065894008",
+            wait_until="networkidle",
+        )
         await ss(page, "40_start")
 
         # Click Apply
@@ -197,7 +206,9 @@ async def fill_application():
 
         # ---- SCROLL AND FILL TEXT FIELDS ----
         print("\n--- Filling text fields ---")
-        await page.locator("#question_14439953008").fill("https://github.com/IgorGanapolsky")
+        await page.locator("#question_14439953008").fill(
+            "https://github.com/IgorGanapolsky"
+        )
         print("  Website filled")
         await page.locator("#question_14439955008").fill("Immediately")
         print("  Start date filled")
@@ -210,9 +221,13 @@ async def fill_application():
             "Active GitHub: https://github.com/IgorGanapolsky"
         )
         print("  Additional info filled")
-        await page.locator("#question_14439962008").fill("https://www.linkedin.com/in/igor-ganapolsky-859317343/")
+        await page.locator("#question_14439962008").fill(
+            "https://www.linkedin.com/in/igor-ganapolsky-859317343/"
+        )
         print("  LinkedIn filled")
-        await page.locator("#question_14439964008").fill("11909 Glenmore Dr, Coral Springs, FL 33071")
+        await page.locator("#question_14439964008").fill(
+            "11909 Glenmore Dr, Coral Springs, FL 33071"
+        )
         print("  Working address filled")
         await ss(page, "43_texts_filled")
 
@@ -276,11 +291,15 @@ async def fill_application():
                 missing_dropdowns.append((fid, name))
 
         if missing_dropdowns:
-            print(f"\n  RETRYING missing dropdowns: {[n for _, n in missing_dropdowns]}")
+            print(
+                f"\n  RETRYING missing dropdowns: {[n for _, n in missing_dropdowns]}"
+            )
             for fid, name in missing_dropdowns:
                 print(f"\n  Retrying {name} (#{fid})...")
                 # Try clicking directly on the select control using Playwright's locator
-                await page.evaluate(f"document.getElementById('{fid}').scrollIntoView({{block:'center'}})")
+                await page.evaluate(
+                    f"document.getElementById('{fid}').scrollIntoView({{block:'center'}})"
+                )
                 await page.wait_for_timeout(500)
 
                 # Get all select-shell containers in order
@@ -302,7 +321,11 @@ async def fill_application():
                     # Click the control in this specific shell
                     f"[class*='select-shell']:nth-of-type({shell_idx + 1}) [class*='select__control']"
                     # Use nth locator
-                    ctrl = page.locator("[class*='select-shell']").nth(shell_idx).locator("[class*='select__control']")
+                    ctrl = (
+                        page.locator("[class*='select-shell']")
+                        .nth(shell_idx)
+                        .locator("[class*='select__control']")
+                    )
                     ctrl_count = await ctrl.count()
                     print(f"  Control count in shell {shell_idx}: {ctrl_count}")
 
@@ -310,9 +333,13 @@ async def fill_application():
                         await ctrl.first.scroll_into_view_if_needed()
                         await ctrl.first.click()
                         await page.wait_for_timeout(800)
-                        opts = await page.locator("[class*='select__option']").all_text_contents()
+                        opts = await page.locator(
+                            "[class*='select__option']"
+                        ).all_text_contents()
                         print(f"  Options: {opts}")
-                        no_opt = page.locator("[class*='select__option']").filter(has_text="No")
+                        no_opt = page.locator("[class*='select__option']").filter(
+                            has_text="No"
+                        )
                         if await no_opt.count() > 0:
                             await no_opt.first.click()
                         elif opts:
@@ -354,11 +381,17 @@ async def fill_application():
         print(f"Title: {title}")
         print(f"Body preview: {body[:600]}")
 
-        success = any(k in body.lower() for k in [
-            "thank you for applying", "application received",
-            "your application", "we've received", "successfully submitted",
-            "application has been"
-        ])
+        success = any(
+            k in body.lower()
+            for k in [
+                "thank you for applying",
+                "application received",
+                "your application",
+                "we've received",
+                "successfully submitted",
+                "application has been",
+            ]
+        )
         errors_found = any(k in body.lower() for k in ["can't be blank", "is required"])
 
         print(f"\nSuccess: {success}, Errors: {errors_found}")

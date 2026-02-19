@@ -6,9 +6,11 @@ from playwright.async_api import async_playwright
 
 RESUME_DOCX = "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/anthropic/tailored_resumes/2026-02-17_anthropic_autonomous-agent-infrastructure_resume.docx"
 COVER_LETTER_TXT = "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/anthropic/cover_letters/2026-02-17_anthropic_autonomous-agent-infrastructure.txt"
-SCREENSHOT_DIR = "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/anthropic/submissions"
+SCREENSHOT_DIR = (
+    "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/anthropic/submissions"
+)
 
-with open(COVER_LETTER_TXT, 'r') as f:
+with open(COVER_LETTER_TXT, "r") as f:
     COVER_LETTER_TEXT = f.read()
 
 WHY_ANTHROPIC = (
@@ -20,7 +22,9 @@ WHY_ANTHROPIC = (
 
 
 async def greenhouse_select(page, field_id, option_text):
-    await page.evaluate(f"document.getElementById('{field_id}').scrollIntoView({{block: 'center'}})")
+    await page.evaluate(
+        f"document.getElementById('{field_id}').scrollIntoView({{block: 'center'}})"
+    )
     await page.wait_for_timeout(500)
 
     coords = await page.evaluate(f"""() => {{
@@ -45,7 +49,7 @@ async def greenhouse_select(page, field_id, option_text):
         print(f"  ERROR: no control for #{field_id}")
         return
 
-    await page.mouse.click(coords['x'], coords['y'])
+    await page.mouse.click(coords["x"], coords["y"])
     await page.wait_for_timeout(800)
     opts = await page.locator("[class*='select__option']").all_text_contents()
     print(f"  #{field_id} options: {opts}")
@@ -81,7 +85,10 @@ async def run():
         context = await browser.new_context(viewport={"width": 1280, "height": 900})
         page = await context.new_page()
 
-        await page.goto("https://job-boards.greenhouse.io/anthropic/jobs/5065894008", wait_until="networkidle")
+        await page.goto(
+            "https://job-boards.greenhouse.io/anthropic/jobs/5065894008",
+            wait_until="networkidle",
+        )
         apply = page.locator("button:has-text('Apply')")
         if await apply.count() > 0:
             await apply.first.click()
@@ -99,15 +106,21 @@ async def run():
         await page.wait_for_timeout(3000)
 
         # Text fields
-        await page.locator("#question_14439953008").fill("https://github.com/IgorGanapolsky")
+        await page.locator("#question_14439953008").fill(
+            "https://github.com/IgorGanapolsky"
+        )
         await page.locator("#question_14439955008").fill("Immediately")
         await page.locator("#question_14439956008").fill("No specific deadline")
         await page.locator("#question_14439958008").fill(WHY_ANTHROPIC)
         await page.locator("#question_14439961008").fill(
             "Open to SF, NYC, or Seattle. GitHub: https://github.com/IgorGanapolsky"
         )
-        await page.locator("#question_14439962008").fill("https://www.linkedin.com/in/igor-ganapolsky-859317343/")
-        await page.locator("#question_14439964008").fill("11909 Glenmore Dr, Coral Springs, FL 33071")
+        await page.locator("#question_14439962008").fill(
+            "https://www.linkedin.com/in/igor-ganapolsky-859317343/"
+        )
+        await page.locator("#question_14439964008").fill(
+            "11909 Glenmore Dr, Coral Springs, FL 33071"
+        )
 
         # Dropdowns
         await greenhouse_select(page, "question_14439954008", "Yes")
@@ -119,8 +132,14 @@ async def run():
 
         # Verify all
         print("\nDropdown values:")
-        for fid in ["question_14439954008", "question_14439957008", "question_14439959008",
-                    "question_14439960008", "question_14439963008", "question_14439965008"]:
+        for fid in [
+            "question_14439954008",
+            "question_14439957008",
+            "question_14439959008",
+            "question_14439960008",
+            "question_14439963008",
+            "question_14439965008",
+        ]:
             val = await check_selected(page, fid)
             print(f"  #{fid} = '{val}'")
 
@@ -155,9 +174,10 @@ async def run():
 
         # Intercept the submission
         responses = []
+
         async def handle_response(response):
-            if 'greenhouse' in response.url or 'application' in response.url:
-                responses.append({'url': response.url, 'status': response.status})
+            if "greenhouse" in response.url or "application" in response.url:
+                responses.append({"url": response.url, "status": response.status})
 
         page.on("response", handle_response)
 
@@ -196,7 +216,9 @@ async def run():
         print(f"\nreCAPTCHA info: {recaptcha_info}")
 
         # Take screenshot of page after attempt
-        await page.screenshot(path=f"{SCREENSHOT_DIR}/2026-02-18_DEBUG_after_submit.png", full_page=True)
+        await page.screenshot(
+            path=f"{SCREENSHOT_DIR}/2026-02-18_DEBUG_after_submit.png", full_page=True
+        )
         print("After-submit screenshot taken")
 
         # Get the full page text around the form

@@ -8,7 +8,9 @@ import asyncio
 from playwright.async_api import async_playwright
 
 RESUME_DOCX = "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/anthropic/tailored_resumes/2026-02-17_anthropic_autonomous-agent-infrastructure_resume.docx"
-SCREENSHOT_DIR = "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/anthropic/submissions"
+SCREENSHOT_DIR = (
+    "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/anthropic/submissions"
+)
 FINAL_SCREENSHOT = f"{SCREENSHOT_DIR}/2026-02-18_anthropic_submission.png"
 
 WHY_ANTHROPIC = (
@@ -30,7 +32,9 @@ async def ss(page, name, clip=None):
 
 async def select_gh(page, field_id, option_text):
     """Click Greenhouse React Select and pick an option."""
-    await page.evaluate(f"document.getElementById('{field_id}').scrollIntoView({{block:'center'}})")
+    await page.evaluate(
+        f"document.getElementById('{field_id}').scrollIntoView({{block:'center'}})"
+    )
     await page.wait_for_timeout(400)
 
     coords = await page.evaluate(f"""() => {{
@@ -55,7 +59,7 @@ async def select_gh(page, field_id, option_text):
         print(f"  SKIP (no coords): #{field_id}")
         return
 
-    await page.mouse.click(coords['x'], coords['y'])
+    await page.mouse.click(coords["x"], coords["y"])
     await page.wait_for_timeout(700)
 
     opts = await page.locator("[class*='select__option']").all_text_contents()
@@ -66,7 +70,11 @@ async def select_gh(page, field_id, option_text):
     elif opts:
         matching = [o for o in opts if option_text.lower() in o.lower()]
         if matching:
-            await page.locator("[class*='select__option']").filter(has_text=matching[0]).first.click()
+            await (
+                page.locator("[class*='select__option']")
+                .filter(has_text=matching[0])
+                .first.click()
+            )
             print(f"  Selected (fuzzy) '{matching[0]}' for #{field_id}")
         else:
             await page.locator("[class*='select__option']").first.click()
@@ -111,7 +119,7 @@ async def select_country(page):
     print(f"  Country control coords: {coords}")
 
     if coords:
-        await page.mouse.click(coords['x'], coords['y'])
+        await page.mouse.click(coords["x"], coords["y"])
         await page.wait_for_timeout(800)
 
         opts = await page.locator("[class*='select__option']").all_text_contents()
@@ -121,7 +129,9 @@ async def select_country(page):
         await page.keyboard.type("United States", delay=50)
         await page.wait_for_timeout(500)
 
-        us_option = page.locator("[class*='select__option']").filter(has_text="United States")
+        us_option = page.locator("[class*='select__option']").filter(
+            has_text="United States"
+        )
         if await us_option.count() > 0:
             await us_option.first.click()
             print("  Selected United States")
@@ -144,7 +154,9 @@ async def select_country(page):
             await page.wait_for_timeout(800)
             await page.keyboard.type("United States")
             await page.wait_for_timeout(500)
-            us = page.locator("[class*='select__option']").filter(has_text="United States")
+            us = page.locator("[class*='select__option']").filter(
+                has_text="United States"
+            )
             if await us.count() > 0:
                 await us.first.click()
             else:
@@ -160,7 +172,10 @@ async def fill_and_submit():
         page = await context.new_page()
 
         print("Loading application...")
-        await page.goto("https://job-boards.greenhouse.io/anthropic/jobs/5065894008", wait_until="networkidle")
+        await page.goto(
+            "https://job-boards.greenhouse.io/anthropic/jobs/5065894008",
+            wait_until="networkidle",
+        )
 
         apply = page.locator("button:has-text('Apply')")
         if await apply.count() > 0:
@@ -177,7 +192,9 @@ async def fill_and_submit():
         print("Filled: first_name, last_name, email, phone")
 
         # COUNTRY - select United States
-        await page.evaluate("document.getElementById('country').scrollIntoView({block:'center'})")
+        await page.evaluate(
+            "document.getElementById('country').scrollIntoView({block:'center'})"
+        )
         await page.wait_for_timeout(300)
         await select_country(page)
 
@@ -188,26 +205,32 @@ async def fill_and_submit():
         await ss(page, "FINAL_02_basics")
 
         # Text question fields
-        await page.locator("#question_14439953008").fill("https://github.com/IgorGanapolsky")
+        await page.locator("#question_14439953008").fill(
+            "https://github.com/IgorGanapolsky"
+        )
         await page.locator("#question_14439955008").fill("Immediately")
         await page.locator("#question_14439956008").fill("No specific deadline")
         await page.locator("#question_14439958008").fill(WHY_ANTHROPIC)
         await page.locator("#question_14439961008").fill(
             "Open to SF, NYC, or Seattle. GitHub: https://github.com/IgorGanapolsky"
         )
-        await page.locator("#question_14439962008").fill("https://www.linkedin.com/in/igor-ganapolsky-859317343/")
-        await page.locator("#question_14439964008").fill("11909 Glenmore Dr, Coral Springs, FL 33071")
+        await page.locator("#question_14439962008").fill(
+            "https://www.linkedin.com/in/igor-ganapolsky-859317343/"
+        )
+        await page.locator("#question_14439964008").fill(
+            "11909 Glenmore Dr, Coral Springs, FL 33071"
+        )
         print("Filled all text fields")
         await ss(page, "FINAL_03_texts")
 
         # Dropdown fields
         print("Filling dropdowns...")
-        await select_gh(page, "question_14439954008", "Yes")   # In-person 25%
-        await select_gh(page, "question_14439957008", "Yes")   # AI Policy
-        await select_gh(page, "question_14439959008", "No")    # Visa sponsorship
-        await select_gh(page, "question_14439960008", "No")    # Future visa
-        await select_gh(page, "question_14439963008", "No")    # Relocation
-        await select_gh(page, "question_14439965008", "No")    # Interviewed at Anthropic
+        await select_gh(page, "question_14439954008", "Yes")  # In-person 25%
+        await select_gh(page, "question_14439957008", "Yes")  # AI Policy
+        await select_gh(page, "question_14439959008", "No")  # Visa sponsorship
+        await select_gh(page, "question_14439960008", "No")  # Future visa
+        await select_gh(page, "question_14439963008", "No")  # Relocation
+        await select_gh(page, "question_14439965008", "No")  # Interviewed at Anthropic
         await ss(page, "FINAL_04_dropdowns")
 
         # Verify country
@@ -272,10 +295,15 @@ async def fill_and_submit():
         }""")
         print(f"\nDOM errors: {dom_errors}")
 
-        success = any(k in body.lower() for k in [
-            "thank you for applying", "application received",
-            "your application", "successfully submitted"
-        ])
+        success = any(
+            k in body.lower()
+            for k in [
+                "thank you for applying",
+                "application received",
+                "your application",
+                "successfully submitted",
+            ]
+        )
         print(f"\nSuccess: {success}")
 
         await ss(page, "FINAL_07_result")

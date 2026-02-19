@@ -9,10 +9,12 @@ from playwright.async_api import async_playwright
 
 RESUME_DOCX = "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/anthropic/tailored_resumes/2026-02-17_anthropic_autonomous-agent-infrastructure_resume.docx"
 COVER_LETTER_TXT = "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/anthropic/cover_letters/2026-02-17_anthropic_autonomous-agent-infrastructure.txt"
-SCREENSHOT_DIR = "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/anthropic/submissions"
+SCREENSHOT_DIR = (
+    "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/anthropic/submissions"
+)
 FINAL_SCREENSHOT = f"{SCREENSHOT_DIR}/2026-02-18_anthropic_submission.png"
 
-with open(COVER_LETTER_TXT, 'r') as f:
+with open(COVER_LETTER_TXT, "r") as f:
     COVER_LETTER_TEXT = f.read()
 
 WHY_ANTHROPIC = (
@@ -64,12 +66,12 @@ async def greenhouse_select(page, field_id, option_text, timeout_ms=10000):
         return null;
     }}""")
 
-    if not box or not box.get('found'):
+    if not box or not box.get("found"):
         print(f"  WARNING: Could not locate select__control for #{field_id}")
         return False
 
     # Click at the calculated position
-    await page.mouse.click(box['x'], box['y'])
+    await page.mouse.click(box["x"], box["y"])
     await page.wait_for_timeout(1000)
 
     # Now the menu should be open - find the option
@@ -96,7 +98,9 @@ async def greenhouse_select(page, field_id, option_text, timeout_ms=10000):
             # Find matching option
             matching = [o for o in all_opts if option_text.lower() in o.lower()]
             if matching:
-                opt_el = page.locator("[class*='select__option']").filter(has_text=matching[0])
+                opt_el = page.locator("[class*='select__option']").filter(
+                    has_text=matching[0]
+                )
                 await opt_el.first.click()
                 print(f"  Selected (fuzzy): '{matching[0]}'")
                 return True
@@ -118,7 +122,10 @@ async def fill_application():
         page = await context.new_page()
 
         print("Navigating...")
-        await page.goto("https://job-boards.greenhouse.io/anthropic/jobs/5065894008", wait_until="networkidle")
+        await page.goto(
+            "https://job-boards.greenhouse.io/anthropic/jobs/5065894008",
+            wait_until="networkidle",
+        )
         await ss(page, "30_start")
 
         # Click Apply
@@ -147,15 +154,21 @@ async def fill_application():
         await ss(page, "32_resume")
 
         # ---- TEXT FIELDS ----
-        await page.locator("#question_14439953008").fill("https://github.com/IgorGanapolsky")
+        await page.locator("#question_14439953008").fill(
+            "https://github.com/IgorGanapolsky"
+        )
         await page.locator("#question_14439955008").fill("Immediately")
         await page.locator("#question_14439956008").fill("No specific deadline")
         await page.locator("#question_14439958008").fill(WHY_ANTHROPIC)
         await page.locator("#question_14439961008").fill(
             "Open to SF, NYC, or Seattle. LinkedIn: https://www.linkedin.com/in/igor-ganapolsky-859317343/"
         )
-        await page.locator("#question_14439962008").fill("https://www.linkedin.com/in/igor-ganapolsky-859317343/")
-        await page.locator("#question_14439964008").fill("11909 Glenmore Dr, Coral Springs, FL 33071")
+        await page.locator("#question_14439962008").fill(
+            "https://www.linkedin.com/in/igor-ganapolsky-859317343/"
+        )
+        await page.locator("#question_14439964008").fill(
+            "11909 Glenmore Dr, Coral Springs, FL 33071"
+        )
         print("Filled all text fields")
         await ss(page, "33_texts")
 
@@ -200,10 +213,10 @@ async def fill_application():
 
         missing = []
         for f in check:
-            status = "OK" if f['val'] else "MISSING"
+            status = "OK" if f["val"] else "MISSING"
             print(f"  {status}: #{f['id']} [{f['lbl']}] = '{f['val'][:40]}'")
-            if not f['val']:
-                missing.append(f['id'])
+            if not f["val"]:
+                missing.append(f["id"])
 
         print(f"\n  Missing required fields: {missing}")
 
@@ -238,11 +251,19 @@ async def fill_application():
         print(f"Title: {title}")
         print(f"Body (500): {body[:500]}")
 
-        success = any(k in body.lower() for k in [
-            "thank you for applying", "application received", "your application",
-            "we've received", "successfully submitted"
-        ])
-        errors = any(k in body.lower() for k in ["can't be blank", "is required", "please fill"])
+        success = any(
+            k in body.lower()
+            for k in [
+                "thank you for applying",
+                "application received",
+                "your application",
+                "we've received",
+                "successfully submitted",
+            ]
+        )
+        errors = any(
+            k in body.lower() for k in ["can't be blank", "is required", "please fill"]
+        )
 
         print(f"\nSuccess: {success}, Errors: {errors}")
 

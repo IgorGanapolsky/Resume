@@ -9,10 +9,12 @@ from playwright.async_api import async_playwright
 
 RESUME_DOCX = "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/anthropic/tailored_resumes/2026-02-17_anthropic_autonomous-agent-infrastructure_resume.docx"
 COVER_LETTER_TXT = "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/anthropic/cover_letters/2026-02-17_anthropic_autonomous-agent-infrastructure.txt"
-SCREENSHOT_DIR = "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/anthropic/submissions"
+SCREENSHOT_DIR = (
+    "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/anthropic/submissions"
+)
 FINAL_SCREENSHOT = f"{SCREENSHOT_DIR}/2026-02-18_anthropic_submission.png"
 
-with open(COVER_LETTER_TXT, 'r') as f:
+with open(COVER_LETTER_TXT, "r") as f:
     COVER_LETTER_TEXT = f.read()
 
 WHY_ANTHROPIC = (
@@ -154,11 +156,16 @@ async def fill_application():
         page = await context.new_page()
 
         print("Navigating to job page...")
-        await page.goto("https://job-boards.greenhouse.io/anthropic/jobs/5065894008", wait_until="networkidle")
+        await page.goto(
+            "https://job-boards.greenhouse.io/anthropic/jobs/5065894008",
+            wait_until="networkidle",
+        )
         await ss(page, "20_start")
 
         # Click Apply
-        await page.locator("button:has-text('Apply'), a:has-text('Apply for this Job')").first.click()
+        await page.locator(
+            "button:has-text('Apply'), a:has-text('Apply for this Job')"
+        ).first.click()
         await page.wait_for_load_state("networkidle")
         await page.wait_for_timeout(2000)
         print("On application form")
@@ -185,17 +192,25 @@ async def fill_application():
         for field_id in ["question_14439954008", "question_14439957008"]:
             struct = await inspect_dropdown_structure(page, field_id)
             print(f"\n  Structure for #{field_id}:")
-            if 'levels' in struct:
-                for i, level in enumerate(struct['levels']):
-                    print(f"    Level {i+1}: <{level['tag']} class='{level['className']}'> children: {[c['className'][:40] for c in level['children']]}")
+            if "levels" in struct:
+                for i, level in enumerate(struct["levels"]):
+                    print(
+                        f"    Level {i + 1}: <{level['tag']} class='{level['className']}'> children: {[c['className'][:40] for c in level['children']]}"
+                    )
 
         # ---- TEXT FIELDS ----
         print("\nFilling text fields...")
-        await page.locator("#question_14439953008").fill("https://github.com/IgorGanapolsky")
+        await page.locator("#question_14439953008").fill(
+            "https://github.com/IgorGanapolsky"
+        )
         await page.locator("#question_14439955008").fill("Immediately / 2 weeks notice")
         await page.locator("#question_14439956008").fill("No specific deadline")
-        await page.locator("#question_14439962008").fill("https://www.linkedin.com/in/igor-ganapolsky-859317343/")
-        await page.locator("#question_14439964008").fill("11909 Glenmore Dr, Coral Springs, FL 33071")
+        await page.locator("#question_14439962008").fill(
+            "https://www.linkedin.com/in/igor-ganapolsky-859317343/"
+        )
+        await page.locator("#question_14439964008").fill(
+            "11909 Glenmore Dr, Coral Springs, FL 33071"
+        )
 
         # Textareas
         await page.locator("#question_14439958008").fill(WHY_ANTHROPIC)
@@ -264,10 +279,10 @@ async def fill_application():
 
         all_ok = True
         for f in field_check:
-            if f['required'] and not f['value']:
+            if f["required"] and not f["value"]:
                 print(f"  MISSING: #{f['id']} | {f['label']}")
                 all_ok = False
-            elif f['value']:
+            elif f["value"]:
                 print(f"  OK: #{f['id']} = '{f['value'][:40]}'")
 
         print(f"\n  All required fields filled: {all_ok}")
@@ -309,10 +324,15 @@ async def fill_application():
         print(f"Final title: {final_title}")
         print(f"Body (first 600 chars):\n{body[:600]}")
 
-        success = any(kw in body.lower() for kw in [
-            "thank you for applying", "application received",
-            "your application has been", "we've received your application"
-        ])
+        success = any(
+            kw in body.lower()
+            for kw in [
+                "thank you for applying",
+                "application received",
+                "your application has been",
+                "we've received your application",
+            ]
+        )
         has_errs = any(kw in body.lower() for kw in ["can't be blank", "is required"])
 
         print(f"\nSuccess: {success}, Has errors: {has_errs}")

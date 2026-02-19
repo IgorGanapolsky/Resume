@@ -10,7 +10,9 @@ from playwright.async_api import async_playwright
 
 RESUME_DOCX = "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/anthropic/tailored_resumes/2026-02-17_anthropic_autonomous-agent-infrastructure_resume.docx"
 COVER_LETTER_TXT = "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/anthropic/cover_letters/2026-02-17_anthropic_autonomous-agent-infrastructure.txt"
-SCREENSHOT_DIR = "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/anthropic/submissions"
+SCREENSHOT_DIR = (
+    "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/anthropic/submissions"
+)
 FINAL_SCREENSHOT = f"{SCREENSHOT_DIR}/2026-02-18_anthropic_submission.png"
 
 PERSONAL_INFO = {
@@ -50,12 +52,17 @@ async def fill_application():
         page = await context.new_page()
 
         print("Navigating to job application page...")
-        await page.goto("https://job-boards.greenhouse.io/anthropic/jobs/5065894008", wait_until="networkidle")
+        await page.goto(
+            "https://job-boards.greenhouse.io/anthropic/jobs/5065894008",
+            wait_until="networkidle",
+        )
         await take_screenshot(page, "01_job_page")
 
         # Click Apply button
         print("Looking for Apply button...")
-        apply_btn = page.locator("a:has-text('Apply'), button:has-text('Apply'), a:has-text('Apply for this Job')")
+        apply_btn = page.locator(
+            "a:has-text('Apply'), button:has-text('Apply'), a:has-text('Apply for this Job')"
+        )
         if await apply_btn.count() > 0:
             await apply_btn.first.click()
             await page.wait_for_load_state("networkidle")
@@ -69,25 +76,33 @@ async def fill_application():
         print("Filling personal information...")
 
         # First name
-        first_name_field = page.locator("input#first_name, input[name='job_application[first_name]'], input[placeholder*='First']")
+        first_name_field = page.locator(
+            "input#first_name, input[name='job_application[first_name]'], input[placeholder*='First']"
+        )
         if await first_name_field.count() > 0:
             await first_name_field.first.fill(PERSONAL_INFO["first_name"])
             print("Filled first name")
 
         # Last name
-        last_name_field = page.locator("input#last_name, input[name='job_application[last_name]'], input[placeholder*='Last']")
+        last_name_field = page.locator(
+            "input#last_name, input[name='job_application[last_name]'], input[placeholder*='Last']"
+        )
         if await last_name_field.count() > 0:
             await last_name_field.first.fill(PERSONAL_INFO["last_name"])
             print("Filled last name")
 
         # Email
-        email_field = page.locator("input#email, input[name='job_application[email]'], input[type='email']")
+        email_field = page.locator(
+            "input#email, input[name='job_application[email]'], input[type='email']"
+        )
         if await email_field.count() > 0:
             await email_field.first.fill(PERSONAL_INFO["email"])
             print("Filled email")
 
         # Phone
-        phone_field = page.locator("input#phone, input[name='job_application[phone]'], input[type='tel']")
+        phone_field = page.locator(
+            "input#phone, input[name='job_application[phone]'], input[type='tel']"
+        )
         if await phone_field.count() > 0:
             await phone_field.first.fill(PERSONAL_INFO["phone"])
             print("Filled phone")
@@ -111,15 +126,19 @@ async def fill_application():
             await page.wait_for_timeout(2000)
 
         # Cover letter textarea
-        cover_letter_textarea = page.locator("textarea[name*='cover'], textarea[id*='cover']")
+        cover_letter_textarea = page.locator(
+            "textarea[name*='cover'], textarea[id*='cover']"
+        )
         if await cover_letter_textarea.count() > 0:
-            with open(COVER_LETTER_TXT, 'r') as f:
+            with open(COVER_LETTER_TXT, "r") as f:
                 cover_text = f.read()
             await cover_letter_textarea.first.fill(cover_text)
             print("Filled cover letter textarea")
 
         # ---- LOCATION ----
-        location_field = page.locator("input#job_application_location, input[id*='location'], input[name*='location']")
+        location_field = page.locator(
+            "input#job_application_location, input[id*='location'], input[name*='location']"
+        )
         if await location_field.count() > 0:
             await location_field.first.fill(PERSONAL_INFO["location"])
             print("Filled location")
@@ -131,13 +150,17 @@ async def fill_application():
             print("Filled LinkedIn")
 
         # ---- CURRENT COMPANY ----
-        company_field = page.locator("input#company, input[name*='company'], input[id*='company']")
+        company_field = page.locator(
+            "input#company, input[name*='company'], input[id*='company']"
+        )
         if await company_field.count() > 0:
             await company_field.first.fill(PERSONAL_INFO["current_company"])
             print("Filled current company")
 
         # ---- WEBSITE/GITHUB ----
-        website_field = page.locator("input#website, input[name*='website'], input[id*='website']")
+        website_field = page.locator(
+            "input#website, input[name*='website'], input[id*='website']"
+        )
         if await website_field.count() > 0:
             await website_field.first.fill(PERSONAL_INFO["github"])
             print("Filled website/GitHub")
@@ -163,17 +186,29 @@ async def fill_application():
             print(f"Select {i}: id='{sel_id}', name='{sel_name}'")
 
             # Work authorization
-            if "authorized" in sel_id.lower() or "authorized" in sel_name.lower() or "work" in sel_id.lower():
+            if (
+                "authorized" in sel_id.lower()
+                or "authorized" in sel_name.lower()
+                or "work" in sel_id.lower()
+            ):
                 await sel.select_option(label="Yes")
                 print("Set work authorization to Yes")
 
             # Visa sponsorship
-            if "visa" in sel_id.lower() or "visa" in sel_name.lower() or "sponsor" in sel_id.lower():
+            if (
+                "visa" in sel_id.lower()
+                or "visa" in sel_name.lower()
+                or "sponsor" in sel_id.lower()
+            ):
                 await sel.select_option(label="No")
                 print("Set visa sponsorship to No")
 
             # How did you hear
-            if "hear" in sel_id.lower() or "source" in sel_id.lower() or "hear" in sel_name.lower():
+            if (
+                "hear" in sel_id.lower()
+                or "source" in sel_id.lower()
+                or "hear" in sel_name.lower()
+            ):
                 try:
                     await sel.select_option(label="LinkedIn")
                     print("Set referral source to LinkedIn")
@@ -190,24 +225,34 @@ async def fill_application():
         print("Looking for custom dropdown components...")
 
         # "Are you open to relocation" dropdown
-        page.locator("div:has-text('Are you open to relocation')").locator("..").locator("[class*='select'], [class*='dropdown']")
+        page.locator("div:has-text('Are you open to relocation')").locator(
+            ".."
+        ).locator("[class*='select'], [class*='dropdown']")
         page.locator("div[class*='select']").filter(has_text="Select...")
 
         # Try to find all custom select dropdowns
-        all_custom_selects = page.locator("[class*='select__control'], .Select-control, [data-testid*='select']")
+        all_custom_selects = page.locator(
+            "[class*='select__control'], .Select-control, [data-testid*='select']"
+        )
         custom_count = await all_custom_selects.count()
         print(f"Found {custom_count} custom select controls")
 
         # Look for the relocation question specifically
-        relocation_label = page.locator("label:has-text('relocation'), span:has-text('relocation')")
+        relocation_label = page.locator(
+            "label:has-text('relocation'), span:has-text('relocation')"
+        )
         if await relocation_label.count() > 0:
             print("Found relocation question")
             # Click the associated dropdown
-            relocation_area = page.locator("div:has-text('Are you open to relocation')").last
+            relocation_area = page.locator(
+                "div:has-text('Are you open to relocation')"
+            ).last
             await relocation_area.click()
             await page.wait_for_timeout(500)
             # Select "No" or "Yes" option
-            no_option = page.locator("[class*='option']:has-text('No'), [role='option']:has-text('No')")
+            no_option = page.locator(
+                "[class*='option']:has-text('No'), [role='option']:has-text('No')"
+            )
             if await no_option.count() > 0:
                 await no_option.first.click()
                 print("Selected 'No' for relocation")
@@ -221,13 +266,19 @@ async def fill_application():
         await take_screenshot(page, "04_mid_form")
 
         # ---- HANDLE WORKING ADDRESS FIELD ----
-        working_address_inputs = page.locator("input[placeholder*='relocating'], textarea[placeholder*='relocating']")
+        working_address_inputs = page.locator(
+            "input[placeholder*='relocating'], textarea[placeholder*='relocating']"
+        )
         if await working_address_inputs.count() > 0:
-            await working_address_inputs.first.fill("11909 Glenmore Dr, Coral Springs, FL 33071")
+            await working_address_inputs.first.fill(
+                "11909 Glenmore Dr, Coral Springs, FL 33071"
+            )
             print("Filled working address")
 
         # More text inputs check for address field
-        address_field = page.locator("input[name*='address'], textarea[name*='address']")
+        address_field = page.locator(
+            "input[name*='address'], textarea[name*='address']"
+        )
         if await address_field.count() > 0:
             await address_field.first.fill("11909 Glenmore Dr, Coral Springs, FL 33071")
             print("Filled address field")
@@ -244,24 +295,32 @@ async def fill_application():
             ta_placeholder = await ta.get_attribute("placeholder") or ""
             current_val = await ta.input_value()
 
-            print(f"Textarea {i}: id='{ta_id}', name='{ta_name}', placeholder='{ta_placeholder[:50]}'")
+            print(
+                f"Textarea {i}: id='{ta_id}', name='{ta_name}', placeholder='{ta_placeholder[:50]}'"
+            )
 
             if current_val:
                 continue  # Already filled
 
             if "cover" in ta_id.lower() or "cover" in ta_name.lower():
-                with open(COVER_LETTER_TXT, 'r') as f:
+                with open(COVER_LETTER_TXT, "r") as f:
                     cover_text = f.read()
                 await ta.fill(cover_text)
                 print(f"Filled cover letter textarea {i}")
-            elif any(kw in ta_id.lower() or kw in ta_name.lower() or kw in ta_placeholder.lower()
-                     for kw in ["why", "reason", "motivation", "additional", "message"]):
+            elif any(
+                kw in ta_id.lower()
+                or kw in ta_name.lower()
+                or kw in ta_placeholder.lower()
+                for kw in ["why", "reason", "motivation", "additional", "message"]
+            ):
                 await ta.fill(WHY_ANTHROPIC)
                 print(f"Filled 'why' textarea {i}")
 
         # ---- HANDLE "Have you ever interviewed at Anthropic" ----
         # Already appears to be set to "No" from previous screenshot
-        page.locator("div:has-text('Have you ever interviewed at Anthropic')").locator("..").locator("[class*='select'], [class*='dropdown']")
+        page.locator("div:has-text('Have you ever interviewed at Anthropic')").locator(
+            ".."
+        ).locator("[class*='select'], [class*='dropdown']")
 
         await page.wait_for_timeout(1000)
         await page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
