@@ -119,3 +119,125 @@ def test_run_supervisor_fail_fast_marks_pending_skipped(tmp_path):
     assert lane_map["discover"]["returncode"] == 0
     assert lane_map["queue_gate"]["returncode"] == 1
     assert lane_map["scrub"]["skipped"] is True
+
+
+def test_build_lane_runner_ollama_delegates_selected_lanes():
+    mod = _load_module()
+    calls = {"assist": 0, "local": 0}
+
+    def fake_assist(lane, *, model, timeout_s, strict):
+        calls["assist"] += 1
+        now = time.time()
+        return mod.LaneResult(
+            name=lane.name,
+            command=lane.command,
+            returncode=0,
+            started_at=now,
+            ended_at=now,
+            stdout=f"assisted:{lane.name}:{model}:{timeout_s}:{strict}",
+            stderr="",
+        )
+
+    def fake_local(lane):
+        calls["local"] += 1
+        now = time.time()
+        return mod.LaneResult(
+            name=lane.name,
+            command=lane.command,
+            returncode=0,
+            started_at=now,
+            ended_at=now,
+            stdout=f"local:{lane.name}",
+            stderr="",
+        )
+
+    orig_assist = mod._run_lane_with_ollama_assist
+    orig_local = mod._run_lane_subprocess
+    mod._run_lane_with_ollama_assist = fake_assist
+    mod._run_lane_subprocess = fake_local
+    try:
+        runner = mod.build_lane_runner(
+            agent_runtime="ollama",
+            ollama_model="qwen-test",
+            ollama_delegate_lanes=["discover"],
+            ollama_timeout_s=12,
+            ollama_strict=True,
+        )
+        delegated = runner(mod.Lane(name="discover", command=["discover"]))
+        local_only = runner(mod.Lane(name="rag_build", command=["rag"]))
+    finally:
+        mod._run_lane_with_ollama_assist = orig_assist
+        mod._run_lane_subprocess = orig_local
+
+    assert calls["assist"] == 1
+    assert calls["local"] == 1
+    assert "assisted:discover" in delegated.stdout
+    assert "local:rag_build" in local_only.stdout
+
+
+def test_run_lane_with_ollama_assist_strict_failure_blocks_lane():
+    mod = _load_module()
+    lane = mod.Lane(name="discover", command=["discover"])
+
+    def fake_invoke(*, model, prompt, timeout_s):
+        return (1, "", "ollama unavailable")
+
+    def forbidden_local(_lane):
+        raise AssertionError("local subprocess should not run in strict failure mode")
+
+    orig_invoke = mod._invoke_ollama_subagent
+    orig_local = mod._run_lane_subprocess
+    mod._invoke_ollama_subagent = fake_invoke
+    mod._run_lane_subprocess = forbidden_local
+    try:
+        result = mod._run_lane_with_ollama_assist(
+            lane,
+            model="qwen-test",
+            timeout_s=30,
+            strict=True,
+        )
+    finally:
+        mod._invoke_ollama_subagent = orig_invoke
+        mod._run_lane_subprocess = orig_local
+
+    assert result.returncode == 1
+    assert "ollama_subagent_failed_strict_mode" in result.stderr
+
+
+def test_run_lane_with_ollama_assist_fallback_to_local_when_not_strict():
+    mod = _load_module()
+    lane = mod.Lane(name="discover", command=["discover"])
+
+    def fake_invoke(*, model, prompt, timeout_s):
+        return (1, "", "ollama unavailable")
+
+    def fake_local(run_lane):
+        now = time.time()
+        return mod.LaneResult(
+            name=run_lane.name,
+            command=run_lane.command,
+            returncode=0,
+            started_at=now,
+            ended_at=now,
+            stdout="local execution ok",
+            stderr="",
+        )
+
+    orig_invoke = mod._invoke_ollama_subagent
+    orig_local = mod._run_lane_subprocess
+    mod._invoke_ollama_subagent = fake_invoke
+    mod._run_lane_subprocess = fake_local
+    try:
+        result = mod._run_lane_with_ollama_assist(
+            lane,
+            model="qwen-test",
+            timeout_s=30,
+            strict=False,
+        )
+    finally:
+        mod._invoke_ollama_subagent = orig_invoke
+        mod._run_lane_subprocess = orig_local
+
+    assert result.returncode == 0
+    assert "fallback_to_local" in result.stdout
+    assert "local execution ok" in result.stdout

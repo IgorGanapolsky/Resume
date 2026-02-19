@@ -16,12 +16,20 @@ import time
 from concurrent.futures import Future, ThreadPoolExecutor, wait
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Callable, Dict, List, Optional
+from typing import Callable, Dict, List, Optional, Sequence, Set, Tuple
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_REPORT = (
     ROOT / "applications" / "job_applications" / "autonomous_supervisor_report.json"
 )
+DEFAULT_OLLAMA_MODEL = "qwen2.5-coder:14b"
+DEFAULT_OLLAMA_TIMEOUT_S = 120
+DEFAULT_OLLAMA_DELEGATE_LANES = {
+    "discover",
+    "queue_gate",
+    "submit_dry_run",
+    "submit_execute",
+}
 
 
 @dataclass(frozen=True)
@@ -84,6 +92,125 @@ def _run_lane_subprocess(lane: Lane) -> LaneResult:
         stdout=proc.stdout,
         stderr=proc.stderr,
     )
+
+
+def _parse_csv_set(raw: str) -> Set[str]:
+    return {item.strip() for item in (raw or "").split(",") if item.strip()}
+
+
+def _build_ollama_prompt(lane: Lane) -> str:
+    command_text = " ".join(lane.command)
+    dep_text = ", ".join(lane.depends_on) if lane.depends_on else "none"
+    return (
+        "You are a workflow subagent for Resume CI automation.\n"
+        f"Lane: {lane.name}\n"
+        f"Dependencies: {dep_text}\n"
+        f"Command: {command_text}\n"
+        "Task: Briefly validate this lane plan in 2-4 bullet points with risk checks, "
+        "then return one line starting with READY:. Keep under 120 words."
+    )
+
+
+def _invoke_ollama_subagent(
+    *, model: str, prompt: str, timeout_s: int
+) -> Tuple[int, str, str]:
+    proc = subprocess.run(
+        ["ollama", "run", model, prompt],
+        cwd=str(ROOT),
+        capture_output=True,
+        text=True,
+        env=os.environ.copy(),
+        timeout=max(1, timeout_s),
+    )
+    return proc.returncode, proc.stdout, proc.stderr
+
+
+def _run_lane_with_ollama_assist(
+    lane: Lane,
+    *,
+    model: str,
+    timeout_s: int,
+    strict: bool,
+) -> LaneResult:
+    started = time.time()
+    prompt = _build_ollama_prompt(lane)
+    try:
+        ollama_rc, ollama_stdout, ollama_stderr = _invoke_ollama_subagent(
+            model=model,
+            prompt=prompt,
+            timeout_s=timeout_s,
+        )
+    except Exception as exc:
+        ollama_rc = 1
+        ollama_stdout = ""
+        ollama_stderr = str(exc)
+
+    if ollama_rc != 0 and strict:
+        ended = time.time()
+        return LaneResult(
+            name=lane.name,
+            command=lane.command,
+            returncode=1,
+            started_at=started,
+            ended_at=ended,
+            stdout="",
+            stderr=(
+                "ollama_subagent_failed_strict_mode\n"
+                f"model={model}\n"
+                f"error={ollama_stderr.strip()}"
+            ),
+        )
+
+    local_result = _run_lane_subprocess(lane)
+    assist_header = f"[ollama model={model} rc={ollama_rc}] " + (
+        "fallback_to_local" if ollama_rc != 0 else "assisted"
+    )
+    assist_body = (
+        ollama_stdout.strip() if ollama_stdout.strip() else ollama_stderr.strip()
+    )
+    combined_stdout = f"{assist_header}\n{assist_body}\n\n{local_result.stdout}".strip()
+    combined_stderr = local_result.stderr
+    if ollama_rc != 0 and ollama_stderr.strip():
+        combined_stderr = f"{local_result.stderr}\n{ollama_stderr}".strip()
+
+    return LaneResult(
+        name=local_result.name,
+        command=local_result.command,
+        returncode=local_result.returncode,
+        started_at=started,
+        ended_at=time.time(),
+        stdout=combined_stdout,
+        stderr=combined_stderr,
+    )
+
+
+def build_lane_runner(
+    *,
+    agent_runtime: str,
+    ollama_model: str,
+    ollama_delegate_lanes: Sequence[str],
+    ollama_timeout_s: int,
+    ollama_strict: bool,
+) -> Runner:
+    runtime = (agent_runtime or "local").strip().lower()
+    delegated = set(ollama_delegate_lanes)
+    if runtime not in {"local", "ollama"}:
+        raise ValueError(f"Unsupported agent runtime: {agent_runtime}")
+
+    if runtime == "local":
+        return _run_lane_subprocess
+
+    def _runner(lane: Lane) -> LaneResult:
+        if lane.name not in delegated:
+            return _run_lane_subprocess(lane)
+        return _run_lane_with_ollama_assist(
+            lane,
+            model=ollama_model,
+            timeout_s=ollama_timeout_s,
+            strict=ollama_strict,
+        )
+
+    return _runner
 
 
 def build_lane_plan(
@@ -232,6 +359,11 @@ def run_supervisor(
     max_parallel: int,
     fail_fast: bool,
     report_path: Path,
+    agent_runtime: str = "local",
+    ollama_model: str = DEFAULT_OLLAMA_MODEL,
+    ollama_delegate_lanes: Optional[Sequence[str]] = None,
+    ollama_timeout_s: int = DEFAULT_OLLAMA_TIMEOUT_S,
+    ollama_strict: bool = False,
     runner: Optional[Runner] = None,
 ) -> int:
     lane_by_name = {lane.name: lane for lane in lanes}
@@ -247,7 +379,17 @@ def run_supervisor(
     completed: Dict[str, LaneResult] = {}
     running: Dict[str, Future] = {}
     lock = threading.Lock()
-    runner_fn = runner or _run_lane_subprocess
+    runner_fn = runner or build_lane_runner(
+        agent_runtime=agent_runtime,
+        ollama_model=ollama_model,
+        ollama_delegate_lanes=(
+            list(ollama_delegate_lanes)
+            if ollama_delegate_lanes is not None
+            else sorted(DEFAULT_OLLAMA_DELEGATE_LANES)
+        ),
+        ollama_timeout_s=ollama_timeout_s,
+        ollama_strict=ollama_strict,
+    )
 
     with ThreadPoolExecutor(max_workers=max_parallel) as pool:
         while pending or running:
@@ -328,6 +470,15 @@ def run_supervisor(
         "duration_s": round(max(0.0, ended - started), 3),
         "max_parallel": max_parallel,
         "fail_fast": fail_fast,
+        "agent_runtime": agent_runtime,
+        "ollama_model": ollama_model if agent_runtime == "ollama" else "",
+        "ollama_delegate_lanes": (
+            sorted(set(ollama_delegate_lanes))
+            if ollama_delegate_lanes is not None and agent_runtime == "ollama"
+            else []
+        ),
+        "ollama_timeout_s": ollama_timeout_s if agent_runtime == "ollama" else 0,
+        "ollama_strict": bool(ollama_strict) if agent_runtime == "ollama" else False,
         "overall_returncode": overall_rc,
         "summary": {
             "total_lanes": len(lanes),
@@ -358,6 +509,40 @@ def main() -> int:
     parser.add_argument("--max-parallel", type=int, default=3)
     parser.add_argument("--report", default=str(DEFAULT_REPORT))
     parser.add_argument(
+        "--agent-runtime",
+        choices=["local", "ollama"],
+        default="local",
+        help=(
+            "Execution backend: local runs all lanes directly. "
+            "ollama delegates selected lanes to Ollama-backed subagent assist "
+            "before deterministic local execution."
+        ),
+    )
+    parser.add_argument(
+        "--ollama-model",
+        default=DEFAULT_OLLAMA_MODEL,
+        help="Ollama model used when --agent-runtime ollama.",
+    )
+    parser.add_argument(
+        "--ollama-delegate-lanes",
+        default=",".join(sorted(DEFAULT_OLLAMA_DELEGATE_LANES)),
+        help="Comma-separated lane names to delegate when --agent-runtime ollama.",
+    )
+    parser.add_argument(
+        "--ollama-timeout-s",
+        type=int,
+        default=DEFAULT_OLLAMA_TIMEOUT_S,
+        help="Timeout for each Ollama subagent call in seconds.",
+    )
+    parser.add_argument(
+        "--ollama-strict",
+        action="store_true",
+        help=(
+            "Fail delegated lane if Ollama assist call fails. "
+            "Default behavior is fallback to local execution."
+        ),
+    )
+    parser.add_argument(
         "--execute-submissions",
         action="store_true",
         help="Run real submission lane after queue gating (requires CI secrets).",
@@ -380,6 +565,11 @@ def main() -> int:
         max_parallel=max(1, args.max_parallel),
         fail_fast=args.fail_fast,
         report_path=Path(args.report),
+        agent_runtime=args.agent_runtime,
+        ollama_model=args.ollama_model,
+        ollama_delegate_lanes=sorted(_parse_csv_set(args.ollama_delegate_lanes)),
+        ollama_timeout_s=max(1, args.ollama_timeout_s),
+        ollama_strict=args.ollama_strict,
     )
 
 
