@@ -46,7 +46,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install numpy lancedb
+          pip install numpy lancedb playwright
+          python -m playwright install --with-deps chromium
 
       - name: Discover and prepare draft jobs
         run: |
