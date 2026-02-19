@@ -825,6 +825,7 @@ def run_pipeline(
     queue_only: bool,
     max_jobs: int,
     fail_on_error: bool,
+    count_skipped_as_failures: bool = False,
     fit_threshold: int = 70,
     remote_min_score: int = 50,
     require_secret_auth: bool = True,
@@ -953,10 +954,12 @@ def run_pipeline(
 
     applied_count = 0
     failed_count = 0
+    skipped_count = 0
 
     if queue_only:
         report["applied_count"] = 0
         report["failed_count"] = 0
+        report["skipped_count"] = 0
         report["changed"] = bool(
             can_mutate_tracker
             and (queue_promoted_count or queue_demoted_count or queue_metadata_updates)
@@ -1026,7 +1029,9 @@ def run_pipeline(
             row_result["result"] = "skipped"
             row_result["errors"] = row_errors
             report["results"].append(row_result)
-            failed_count += 1
+            skipped_count += 1
+            if count_skipped_as_failures:
+                failed_count += 1
             continue
 
         assert resume_path is not None
@@ -1093,6 +1098,7 @@ def run_pipeline(
 
     report["applied_count"] = applied_count
     report["failed_count"] = failed_count
+    report["skipped_count"] = skipped_count
     report["changed"] = bool(
         can_mutate_tracker
         and (
@@ -1112,7 +1118,9 @@ def run_pipeline(
         _write_tracker(tracker_csv, fields, rows)
 
     print(
-        f"Queue processed: ready={len(ready_indices)} applied={applied_count} failed={failed_count} dry_run={dry_run}"
+        "Queue processed: "
+        f"ready={len(ready_indices)} applied={applied_count} "
+        f"failed={failed_count} skipped={skipped_count} dry_run={dry_run}"
     )
     print(f"Report: {report_path}")
 
@@ -1146,7 +1154,15 @@ def main() -> int:
     ap.add_argument(
         "--fail-on-error",
         action="store_true",
-        help="Return non-zero if any queue item fails/skips gates.",
+        help="Return non-zero when any submission attempt fails.",
+    )
+    ap.add_argument(
+        "--count-skipped-as-failures",
+        action="store_true",
+        help=(
+            "Treat gate-blocked/skipped rows as failures when combined with "
+            "--fail-on-error."
+        ),
     )
     ap.add_argument(
         "--fit-threshold",
@@ -1183,6 +1199,7 @@ def main() -> int:
             queue_only=args.queue_only,
             max_jobs=args.max_jobs,
             fail_on_error=args.fail_on_error,
+            count_skipped_as_failures=args.count_skipped_as_failures,
             fit_threshold=args.fit_threshold,
             remote_min_score=max(0, min(100, args.remote_min_score)),
             require_secret_auth=True,

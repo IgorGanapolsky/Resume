@@ -30,6 +30,7 @@ DEFAULT_OLLAMA_MODEL = "qwen2.5-coder:14b"
 DEFAULT_OLLAMA_TIMEOUT_S = 120
 DEFAULT_OLLAMA_DELEGATE_LANES = {
     "discover",
+    "prepare_submit_artifacts",
     "queue_gate",
     "submit_dry_run",
     "submit_execute",
@@ -351,6 +352,22 @@ def build_lane_plan(
             ],
         ),
         Lane(
+            name="prepare_submit_artifacts",
+            command=[
+                "python3",
+                "scripts/prepare_ci_ready_artifacts.py",
+                "--fit-threshold",
+                str(fit_threshold),
+                "--remote-min-score",
+                str(remote_min_score),
+                "--max-jobs",
+                str(max_submit_jobs * 3),
+                "--report",
+                "applications/job_applications/ci_prepare_artifacts_report.json",
+            ],
+            depends_on=["discover"],
+        ),
+        Lane(
             name="queue_gate",
             command=[
                 "python3",
@@ -363,7 +380,7 @@ def build_lane_plan(
                 "--report",
                 "applications/job_applications/ci_ready_queue_report.json",
             ],
-            depends_on=["discover"],
+            depends_on=["discover", "prepare_submit_artifacts"],
         ),
         Lane(
             name="rag_build",

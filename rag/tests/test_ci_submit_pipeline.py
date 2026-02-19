@@ -521,3 +521,92 @@ def test_queue_only_blocks_low_remote_likelihood(tmp_path, monkeypatch):
     payload = json.loads(report.read_text(encoding="utf-8"))
     reasons = payload["queue_audit"][0]["reasons"]
     assert any(r.startswith("remote_likelihood_below_threshold:") for r in reasons)
+
+
+def test_dry_run_skipped_rows_do_not_fail_by_default(tmp_path, monkeypatch):
+    mod = _load_module()
+    monkeypatch.setattr(mod, "ROOT", tmp_path)
+
+    tracker = tmp_path / "application_tracker.csv"
+    report = tmp_path / "report.json"
+    _write_tracker(
+        tracker,
+        [
+            {
+                "Company": "Example",
+                "Role": "Software Engineer",
+                "Location": "Remote",
+                "Salary Range": "",
+                "Status": "ReadyToSubmit",
+                "Date Applied": "",
+                "Follow Up Date": "",
+                "Response": "",
+                "Interview Stage": "Initial",
+                "Days To Response": "",
+                "Response Type": "",
+                "Cover Letter Used": "",
+                "What Worked": "",
+                "Tags": "ai;software",
+                "Notes": "",
+                "Career Page URL": "https://example.com/jobs/software-engineer",
+            }
+        ],
+    )
+
+    rc = mod.run_pipeline(
+        tracker_csv=tracker,
+        report_path=report,
+        dry_run=True,
+        queue_only=False,
+        max_jobs=5,
+        fail_on_error=True,
+    )
+    assert rc == 0
+    payload = json.loads(report.read_text(encoding="utf-8"))
+    assert payload["failed_count"] == 0
+    assert payload["skipped_count"] == 1
+
+
+def test_dry_run_skipped_rows_can_be_treated_as_failures(tmp_path, monkeypatch):
+    mod = _load_module()
+    monkeypatch.setattr(mod, "ROOT", tmp_path)
+
+    tracker = tmp_path / "application_tracker.csv"
+    report = tmp_path / "report.json"
+    _write_tracker(
+        tracker,
+        [
+            {
+                "Company": "Example",
+                "Role": "Software Engineer",
+                "Location": "Remote",
+                "Salary Range": "",
+                "Status": "ReadyToSubmit",
+                "Date Applied": "",
+                "Follow Up Date": "",
+                "Response": "",
+                "Interview Stage": "Initial",
+                "Days To Response": "",
+                "Response Type": "",
+                "Cover Letter Used": "",
+                "What Worked": "",
+                "Tags": "ai;software",
+                "Notes": "",
+                "Career Page URL": "https://example.com/jobs/software-engineer",
+            }
+        ],
+    )
+
+    rc = mod.run_pipeline(
+        tracker_csv=tracker,
+        report_path=report,
+        dry_run=True,
+        queue_only=False,
+        max_jobs=5,
+        fail_on_error=True,
+        count_skipped_as_failures=True,
+    )
+    assert rc == 1
+    payload = json.loads(report.read_text(encoding="utf-8"))
+    assert payload["failed_count"] == 1
+    assert payload["skipped_count"] == 1
