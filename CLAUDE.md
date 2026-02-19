@@ -50,3 +50,13 @@ The application index lives in `Resume/rag/` and is refreshed via:
 python3 Resume/rag/cli.py scan
 python3 Resume/rag/cli.py build
 ```
+
+## Reliability Standards (2026-02-19)
+
+- CI workflow PR automation:
+  - Keep repository Actions workflow permissions at `write`.
+  - Keep `Allow GitHub Actions to create and approve pull requests` enabled.
+  - In `ralph-loop.yml`, prefer `secrets.GH_PAT` with fallback to `github.token` for PR creation.
+- LanceDB empty-build safety:
+  - `rag/cli.py build` must initialize `applications` table with explicit schema when zero records are produced.
+  - Any refactor of `build` must preserve this zero-row behavior and keep related regression coverage in `rag/tests/test_cli.py`.
