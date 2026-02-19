@@ -319,8 +319,11 @@ class PlaywrightFormAdapter(SiteAdapter):
                         details="submit_button_not_found",
                     )
 
-                self._post_submit_retry(form_scope, page, profile, answers)
                 confirmed = self._wait_for_confirmation(page, form_scope)
+                if not confirmed and self._post_submit_retry(
+                    form_scope, page, profile, answers
+                ):
+                    confirmed = self._wait_for_confirmation(page, form_scope)
                 failure_details = self._extract_failure_details(page, form_scope)
                 task.confirmation_path.parent.mkdir(parents=True, exist_ok=True)
                 page.screenshot(path=str(task.confirmation_path), full_page=True)
@@ -927,6 +930,10 @@ class AshbyAdapter(PlaywrightFormAdapter):
     def _post_submit_retry(
         self, scope: Any, page: Any, profile: Profile, answers: SubmitAnswers
     ) -> bool:
+        try:
+            page.wait_for_timeout(1000)
+        except Exception:
+            pass
         if not self._has_required_question_error(scope, page):
             return False
         self._set_prefer_not_to_say_defaults(scope, page, answers.eeo_default)
@@ -955,10 +962,22 @@ class AshbyAdapter(PlaywrightFormAdapter):
         )
         texts: List[str] = []
         for target in (scope, page):
+            text = ""
             try:
                 text = target.inner_text("body")
             except Exception:
-                continue
+                text = ""
+            if not text:
+                try:
+                    text = str(
+                        target.evaluate(
+                            "() => (document.body && document.body.innerText) || "
+                            "(document.documentElement && document.documentElement.innerText) || ''"
+                        )
+                        or ""
+                    )
+                except Exception:
+                    text = ""
             if text:
                 texts.append(str(text))
         blob = "\n".join(texts)
