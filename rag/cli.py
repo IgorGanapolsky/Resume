@@ -266,7 +266,9 @@ def _ensure_lancedb_indexes(table, *, has_data: bool) -> None:
 
     if has_data:
         try:
-            table.create_index(metric="cosine", vector_column_name="vector", replace=True)
+            table.create_index(
+                metric="cosine", vector_column_name="vector", replace=True
+            )
         except Exception as e:
             _append_event(None, "index_warn", f"Vector index skipped: {e}")
 
@@ -324,17 +326,23 @@ def _native_hybrid_query(table, q: str, *, candidate_k: int) -> List[Dict]:
         return []
 
 
-def _manual_hybrid_query(table, q: str, q_vec: np.ndarray, *, candidate_k: int) -> List[Dict]:
+def _manual_hybrid_query(
+    table, q: str, q_vec: np.ndarray, *, candidate_k: int
+) -> List[Dict]:
     """Fallback hybrid retrieval for custom-vector tables: dense + FTS + RRF."""
     vector_rows = table.search(q_vec, query_type="vector").limit(candidate_k).to_list()
 
     lexical_rows: List[Dict] = []
     try:
-        lexical_rows = table.search(
-            q.strip(),
-            query_type="fts",
-            fts_columns=["text", "company", "role", "notes"],
-        ).limit(candidate_k).to_list()
+        lexical_rows = (
+            table.search(
+                q.strip(),
+                query_type="fts",
+                fts_columns=["text", "company", "role", "notes"],
+            )
+            .limit(candidate_k)
+            .to_list()
+        )
     except Exception:
         lexical_rows = []
 
