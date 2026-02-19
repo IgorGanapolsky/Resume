@@ -572,6 +572,10 @@ class AshbyAdapter(PlaywrightFormAdapter):
                 "xpath=ancestor::fieldset[1]",
                 "xpath=ancestor::*[@role='group'][1]",
                 "xpath=ancestor::div[1]",
+                "xpath=ancestor::div[2]",
+                "xpath=ancestor::div[3]",
+                "xpath=ancestor::section[1]",
+                "xpath=ancestor::form[1]",
             ):
                 try:
                     container = text_node.locator(xpath).first
