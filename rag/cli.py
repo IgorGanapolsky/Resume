@@ -29,8 +29,17 @@ try:
 except Exception:  # pragma: no cover
     lancedb = None  # type: ignore
 
-from memalign import normalize_row, slug
-from shieldcortex import assert_no_high_risk_pii, redact
+from memalign import (
+    append_jsonl,
+    build_long_memory_entry,
+    build_short_memory_entry,
+    load_jsonl,
+    long_memory_scores,
+    normalize_row,
+    recency_scores,
+    slug,
+)
+from shieldcortex import assert_no_high_risk_pii, gate_text
 from rlhf import ThompsonModel, VALID_OUTCOMES
 
 
@@ -43,6 +52,8 @@ LANCEDB_DIR = RAG_DIR / "lancedb"
 TRACKER_CSV = ROOT / "applications" / "job_applications" / "application_tracker.csv"
 APPLICATIONS_DIR = ROOT / "applications"
 ARMS_JSON = DATA_DIR / "arms.json"
+SHORT_MEMORY_JSONL = DATA_DIR / "memory_short.jsonl"
+LONG_MEMORY_JSONL = DATA_DIR / "memory_long.jsonl"
 
 
 # ---------------------------------------------------------------------------
@@ -65,6 +76,11 @@ def _read_text_file(path: Path, *, max_bytes: int = 300_000) -> str:
         return data.decode("utf-8", errors="replace")
     except Exception:
         return ""
+
+
+def _gate_or_raise(text: str, *, context: str) -> str:
+    result = gate_text(text, context=context)
+    return result.text
 
 
 def _collect_company_artifacts(company: str) -> List[Path]:
@@ -115,13 +131,11 @@ def _build_rag_text(n: Dict, company: str, role: str, artifacts: List[Path]) -> 
         txt = _read_text_file(p)
         if not txt.strip():
             continue
-        txt = redact(txt)
-        assert_no_high_risk_pii(txt, context=rel)
+        txt = _gate_or_raise(txt, context=rel)
         parts.append(f"\n---\nFILE: {rel}\n{txt}")
 
     combined = "\n".join(parts)
-    combined = redact(combined)
-    assert_no_high_risk_pii(combined, context=f"{company} / {role}")
+    combined = _gate_or_raise(combined, context=f"{company} / {role}")
     return combined
 
 
@@ -361,6 +375,71 @@ def _display_score(row: Dict) -> float:
     return 0.0
 
 
+def _normalize_base_score(raw: float) -> float:
+    if raw <= 0.0:
+        return 0.0
+    if raw <= 1.0:
+        return raw
+    return raw / (1.0 + raw)
+
+
+def _rlhf_prior_for_row(row: Dict, model: ThompsonModel) -> float:
+    priors: List[float] = []
+    method = str(row.get("application_method", "") or "")
+    method_arm = model.arms.get(f"method:{method}")
+    if method_arm is not None:
+        priors.append(method_arm.mean_reward)
+    tags = row.get("tags", [])
+    if isinstance(tags, list):
+        for tag in tags:
+            arm = model.arms.get(f"cat:{tag}")
+            if arm is not None:
+                priors.append(arm.mean_reward)
+    if not priors:
+        return 0.5
+    return float(sum(priors) / len(priors))
+
+
+def _fuse_hybrid_rlhf_memory_scores(
+    rows: List[Dict],
+    *,
+    model: ThompsonModel,
+    short_scores: Dict[str, float],
+    long_scores: Dict[str, float],
+) -> List[Dict]:
+    out: List[Dict] = []
+    for row in rows:
+        app_id = str(row.get("app_id", "") or "")
+        base = _normalize_base_score(_display_score(row))
+        rlhf = _rlhf_prior_for_row(row, model)
+        mem_short = short_scores.get(app_id, 0.0)
+        mem_long = long_scores.get(app_id, 0.0)
+        final = 0.62 * base + 0.25 * rlhf + 0.08 * mem_short + 0.05 * mem_long
+        boosted = dict(row)
+        boosted["_base_score"] = base
+        boosted["_rlhf_score"] = rlhf
+        boosted["_memory_short"] = mem_short
+        boosted["_memory_long"] = mem_long
+        boosted["_final_score"] = final
+        out.append(boosted)
+
+    out.sort(key=lambda r: float(r.get("_final_score", 0.0)), reverse=True)
+    return out
+
+
+def _rebuild_long_memory(records: List[Dict]) -> None:
+    LONG_MEMORY_JSONL.parent.mkdir(parents=True, exist_ok=True)
+    ts = _utc_now()
+    with LONG_MEMORY_JSONL.open("w", encoding="utf-8") as out:
+        for rec in records:
+            entry = build_long_memory_entry(rec, ts=ts)
+            entry["summary"] = _gate_or_raise(
+                str(entry.get("summary", "")),
+                context=f"memory_long:{entry.get('app_id', 'unknown')}",
+            )
+            out.write(json.dumps(entry, ensure_ascii=True) + "\n")
+
+
 # ---------------------------------------------------------------------------
 # Commands
 # ---------------------------------------------------------------------------
@@ -396,6 +475,9 @@ def build() -> None:
     with apps_path.open("w", encoding="utf-8") as out:
         for rec in records:
             out.write(json.dumps(rec, ensure_ascii=True) + "\n")
+    _rebuild_long_memory(records)
+    SHORT_MEMORY_JSONL.parent.mkdir(parents=True, exist_ok=True)
+    SHORT_MEMORY_JSONL.touch(exist_ok=True)
 
     # Bootstrap Thompson model from existing records if arms.json is empty/absent
     model = ThompsonModel(ARMS_JSON)
@@ -459,6 +541,18 @@ def query(q: str, *, k: int = 8) -> None:
     results = _native_hybrid_query(table, q, candidate_k=candidate_k)
     if not results:
         results = _manual_hybrid_query(table, q, q_vec, candidate_k=candidate_k)
+
+    model = ThompsonModel(ARMS_JSON)
+    short_rows = load_jsonl(SHORT_MEMORY_JSONL)
+    long_rows = load_jsonl(LONG_MEMORY_JSONL)
+    short_boost = recency_scores(short_rows, now_ts=_utc_now())
+    long_boost = long_memory_scores(long_rows)
+    results = _fuse_hybrid_rlhf_memory_scores(
+        results,
+        model=model,
+        short_scores=short_boost,
+        long_scores=long_boost,
+    )
     results = results[:k]
 
     if not results:
@@ -467,7 +561,7 @@ def query(q: str, *, k: int = 8) -> None:
     for r in results:
         method = r.get("application_method", "?")
         tags = ";".join(r.get("tags", []))
-        score = _display_score(r)
+        score = float(r.get("_final_score", 0.0))
         print(
             f"- {r.get('app_id')} | {r.get('company'):<22} | "
             f"{r.get('role'):<45} | {r.get('status'):<8} | "
@@ -588,6 +682,7 @@ def feedback(app_id: str, outcome: str) -> None:
         app_id,
         "outcome",
         f"outcome={outcome} tags={tags} method={method}",
+        outcome=outcome,
     )
     print(f"✅ Recorded outcome={outcome!r} for {rec['company']} / {rec['role']}")
 
@@ -614,17 +709,31 @@ def recommend(*, k: int = 8) -> None:
     print()
 
 
-def _append_event(app_id: Optional[str], event_type: str, msg: str) -> None:
+def _append_event(
+    app_id: Optional[str], event_type: str, msg: str, *, outcome: Optional[str] = None
+) -> None:
     LOG_DIR.mkdir(parents=True, exist_ok=True)
+    safe_msg = _gate_or_raise(msg, context="events.jsonl")
     payload = {
         "ts": _utc_now(),
         "app_id": app_id,
         "type": event_type,
-        "msg": redact(msg),
+        "msg": safe_msg,
     }
-    assert_no_high_risk_pii(payload["msg"], context="events.jsonl")
     with (LOG_DIR / "events.jsonl").open("a", encoding="utf-8") as f:
         f.write(json.dumps(payload, ensure_ascii=True) + "\n")
+
+    short_entry = build_short_memory_entry(
+        app_id=app_id,
+        event_type=event_type,
+        msg=safe_msg,
+        ts=payload["ts"],
+        outcome=outcome,
+    )
+    short_entry["text"] = _gate_or_raise(
+        str(short_entry.get("text", "")), context="memory_short.jsonl"
+    )
+    append_jsonl(SHORT_MEMORY_JSONL, short_entry)
 
 
 def log_event(app_id: str, event_type: str, msg: str) -> None:

@@ -1,11 +1,19 @@
 """Tests for memalign.py — normalization and embedding helpers."""
 
+from pathlib import Path
+
 import pytest
 from memalign import (
+    append_jsonl,
+    build_long_memory_entry,
+    build_short_memory_entry,
     infer_application_method,
+    load_jsonl,
+    long_memory_scores,
     normalize_row,
     normalize_status,
     parse_tags,
+    recency_scores,
     slug,
     stable_id,
 )
@@ -167,3 +175,62 @@ class TestNormalizeRow:
         r1 = normalize_row(row)
         r2 = normalize_row(row)
         assert r1["app_id"] == r2["app_id"]
+
+
+class TestMemoryHelpers:
+    def test_append_and_load_jsonl(self, tmp_path: Path):
+        path = tmp_path / "memory_short.jsonl"
+        append_jsonl(path, {"app_id": "a", "ts": "2026-02-19T00:00:00+00:00"})
+        rows = load_jsonl(path)
+        assert len(rows) == 1
+        assert rows[0]["app_id"] == "a"
+
+    def test_build_short_memory_entry(self):
+        row = build_short_memory_entry(
+            app_id="app_1",
+            event_type="outcome",
+            msg="outcome=interview",
+            ts="2026-02-19T00:00:00+00:00",
+            outcome="interview",
+        )
+        assert row["kind"] == "episodic"
+        assert row["score_hint"] > 0.8
+
+    def test_build_long_memory_entry(self):
+        rec = {
+            "app_id": "a1",
+            "company": "Acme",
+            "role": "Engineer",
+            "status": "Applied",
+            "application_method": "ashby",
+            "tags": ["ai", "remote"],
+            "notes": "Strong fit",
+        }
+        row = build_long_memory_entry(rec, ts="2026-02-19T00:00:00+00:00")
+        assert row["kind"] == "semantic"
+        assert row["priority"] >= 0.8
+        assert "Acme" in row["summary"]
+
+    def test_recency_scores_prefers_newer(self):
+        rows = [
+            {
+                "app_id": "a",
+                "ts": "2026-02-19T00:00:00+00:00",
+                "score_hint": 1.0,
+            },
+            {
+                "app_id": "b",
+                "ts": "2026-01-19T00:00:00+00:00",
+                "score_hint": 1.0,
+            },
+        ]
+        scores = recency_scores(rows, now_ts="2026-02-19T00:00:00+00:00")
+        assert scores["a"] > scores["b"]
+
+    def test_long_memory_scores_uses_priority(self):
+        rows = [
+            {"app_id": "a", "priority": 0.9},
+            {"app_id": "b", "priority": 0.2},
+        ]
+        scores = long_memory_scores(rows)
+        assert scores["a"] > scores["b"]

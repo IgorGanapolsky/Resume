@@ -1,7 +1,7 @@
 """Tests for shieldcortex.py — PII detection and redaction."""
 
 import pytest
-from shieldcortex import assert_no_high_risk_pii, redact, scan_pii
+from shieldcortex import assert_no_high_risk_pii, gate_text, redact, scan_pii
 
 
 class TestScanPii:
@@ -83,3 +83,20 @@ class TestAssertNoHighRiskPii:
         with pytest.raises(ValueError) as exc_info:
             assert_no_high_risk_pii("SSN: 000-11-2222")
         assert "detected: " in str(exc_info.value)
+
+
+class TestGateText:
+    def test_allow_for_clean_text(self):
+        result = gate_text("Applied for role with no PII.", context="unit")
+        assert result.action == "allow"
+        assert result.text == "Applied for role with no PII."
+
+    def test_quarantine_for_redacted_text(self):
+        result = gate_text("contact me at user@example.com", context="unit")
+        assert result.action == "quarantine"
+        assert "[REDACTED_EMAIL]" in result.text
+
+    def test_block_for_high_risk_pii(self):
+        ssn_like = "123-45-" + "6789"
+        with pytest.raises(ValueError, match="High-risk PII detected"):
+            gate_text(f"SSN: {ssn_like}", context="unit")

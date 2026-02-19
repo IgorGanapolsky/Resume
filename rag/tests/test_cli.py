@@ -138,6 +138,17 @@ class TestBuild:
         log_path = isolated_cli.LOG_DIR / "events.jsonl"
         assert log_path.exists()
 
+    def test_creates_memory_files_on_build(self, isolated_cli):
+        isolated_cli.build()
+        assert isolated_cli.SHORT_MEMORY_JSONL.exists()
+        assert isolated_cli.LONG_MEMORY_JSONL.exists()
+        long_rows = [
+            json.loads(line)
+            for line in isolated_cli.LONG_MEMORY_JSONL.read_text().splitlines()
+            if line.strip()
+        ]
+        assert len(long_rows) >= 1
+
 
 class TestStatus:
     def test_shows_counts(self, isolated_cli, capsys):
@@ -181,6 +192,32 @@ class TestQuery:
         ranked = isolated_cli._rrf_fuse(vector_rows, lexical_rows, rrf_k=10)
         assert ranked[0]["app_id"] == "b"
         assert ranked[0]["_hybrid_score"] > ranked[1]["_hybrid_score"]
+
+    def test_hybrid_rlhf_memory_fusion_boosts_memory_hits(self, isolated_cli):
+        rows = [
+            {
+                "app_id": "a",
+                "application_method": "ashby",
+                "tags": ["ai"],
+                "_hybrid_score": 0.2,
+            },
+            {
+                "app_id": "b",
+                "application_method": "lever",
+                "tags": ["mobile"],
+                "_hybrid_score": 0.2,
+            },
+        ]
+        model = isolated_cli.ThompsonModel(isolated_cli.ARMS_JSON)
+        model.record_outcome(["ai"], "ashby", "offer")
+        scored = isolated_cli._fuse_hybrid_rlhf_memory_scores(
+            rows,
+            model=model,
+            short_scores={"a": 0.9, "b": 0.0},
+            long_scores={"a": 0.8, "b": 0.0},
+        )
+        assert scored[0]["app_id"] == "a"
+        assert scored[0]["_final_score"] > scored[1]["_final_score"]
 
 
 class TestLogEvent:

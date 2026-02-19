@@ -98,5 +98,11 @@ def isolated_cli(tmp_path: Path, tracker_csv: Path, monkeypatch):
     monkeypatch.setattr(cli_mod, "TRACKER_CSV", tracker_csv)
     monkeypatch.setattr(cli_mod, "APPLICATIONS_DIR", app_dir)
     monkeypatch.setattr(cli_mod, "ARMS_JSON", tmp_path / "rag" / "data" / "arms.json")
+    monkeypatch.setattr(
+        cli_mod, "SHORT_MEMORY_JSONL", tmp_path / "rag" / "data" / "memory_short.jsonl"
+    )
+    monkeypatch.setattr(
+        cli_mod, "LONG_MEMORY_JSONL", tmp_path / "rag" / "data" / "memory_long.jsonl"
+    )
 
     return cli_mod
