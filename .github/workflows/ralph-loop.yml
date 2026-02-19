@@ -39,23 +39,12 @@ jobs:
         run: |
           MAX_NEW="${{ github.event.inputs.max_new_jobs }}"
           if [ -z "$MAX_NEW" ]; then MAX_NEW=10; fi
-          python3 scripts/ralph_loop_ci.py --max-new-jobs "$MAX_NEW"
-
-      - name: Promote high-fit drafts to ready queue
-        run: |
-          python3 scripts/ci_submit_pipeline.py \
-            --queue-only \
+          python3 scripts/autonomous_supervisor.py \
+            --max-new-jobs "$MAX_NEW" \
             --fit-threshold 70 \
-            --report applications/job_applications/ci_ready_queue_report.json
-
-      - name: Rebuild RAG index
-        run: |
-          python3 rag/cli.py build
-          python3 rag/cli.py status
-
-      - name: Scrub job captures
-        run: |
-          python3 scripts/scrub_job_captures.py
+            --max-submit-jobs 5 \
+            --max-parallel 3 \
+            --report applications/job_applications/autonomous_supervisor_report.json
 
       - name: Create Pull Request for loop updates
         uses: peter-evans/create-pull-request@v6
