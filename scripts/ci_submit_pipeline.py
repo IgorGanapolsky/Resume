@@ -455,6 +455,7 @@ class AshbyAdapter(PlaywrightFormAdapter):
         self, scope: Any, page: Any, answers: SubmitAnswers
     ) -> List[str]:
         missing: List[str] = []
+        diagnostics: List[str] = []
         auth_markers = (
             "legally authorized to work",
             "authorized to work in the united states",
@@ -505,6 +506,12 @@ class AshbyAdapter(PlaywrightFormAdapter):
                     filled = True
                     break
             if not filled:
+                diagnostics.append(
+                    "sponsorship:"
+                    + self._diagnose_question_controls(
+                        scope, page, sponsorship_markers
+                    )
+                )
                 missing.append("require_sponsorship")
 
         if self._question_present(scope, page, interest_markers):
@@ -529,6 +536,8 @@ class AshbyAdapter(PlaywrightFormAdapter):
 
         # Voluntary EEO answers are best-effort but deterministic.
         self._set_prefer_not_to_say_defaults(scope, page, answers.eeo_default)
+        if diagnostics:
+            missing.extend(diagnostics)
         return missing
 
     def _question_present(
@@ -594,6 +603,8 @@ class AshbyAdapter(PlaywrightFormAdapter):
                 return True
             if self._select_choice_in_container(container, answer_yes):
                 return True
+            if self._set_yes_no_custom_combobox(container, page, answer_yes):
+                return True
             if self._fill_yes_no_text_in_container(container, answer_yes):
                 return True
 
@@ -622,6 +633,39 @@ class AshbyAdapter(PlaywrightFormAdapter):
                 continue
             if self._fill_yes_no_by_hint(scope, hint, answer_yes):
                 return True
+        return False
+
+    def _set_yes_no_custom_combobox(
+        self, container: Any, page: Any, answer_yes: bool
+    ) -> bool:
+        value = "Yes" if answer_yes else "No"
+        for trigger in (
+            lambda: container.get_by_role("combobox").first,
+            lambda: container.get_by_role("button").first,
+            lambda: container.locator("[aria-haspopup='listbox']").first,
+        ):
+            try:
+                control = trigger()
+                if control.count() < 1:
+                    continue
+                control.click(timeout=1500)
+                try:
+                    control.fill(value, timeout=1000)
+                    control.press("Enter", timeout=1000)
+                    return True
+                except Exception:
+                    pass
+                try:
+                    option = page.get_by_role(
+                        "option", name=re.compile(rf"\b{value}\b", re.I)
+                    ).first
+                    if option.count() > 0:
+                        option.click(timeout=1500)
+                        return True
+                except Exception:
+                    pass
+            except Exception:
+                continue
         return False
 
     def _click_choice_in_container(
@@ -797,6 +841,37 @@ class AshbyAdapter(PlaywrightFormAdapter):
                 if container is None:
                     continue
                 self._click_choice_in_container(container, preferred_patterns)
+
+    def _diagnose_question_controls(
+        self, scope: Any, page: Any, markers: Sequence[str]
+    ) -> str:
+        for target in (scope, page):
+            container = self._locate_question_container(target, markers)
+            if container is None:
+                continue
+            try:
+                radios = container.locator("input[type='radio']").count()
+            except Exception:
+                radios = -1
+            try:
+                selects = container.locator("select").count()
+            except Exception:
+                selects = -1
+            try:
+                text_inputs = container.locator(
+                    "input:not([type]),input[type='text'],input[type='search'],textarea"
+                ).count()
+            except Exception:
+                text_inputs = -1
+            try:
+                combos = container.get_by_role("combobox").count()
+            except Exception:
+                combos = -1
+            return (
+                f"container=found,radios={radios},selects={selects},"
+                f"text_inputs={text_inputs},comboboxes={combos}"
+            )
+        return "container=missing"
 
     def _resolve_form_scope(self, page: Any) -> Optional[Any]:
         scope = super()._resolve_form_scope(page)
