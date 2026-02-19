@@ -6,6 +6,17 @@ This `AGENTS.md` governs the `Resume/` subtree.
 
 Help with job search and applications by producing high-quality, role-tailored materials and keeping application artifacts organized and auditable.
 
+## Calendar Guardrails (Non-Negotiable)
+
+1. Source of truth for current date/time is runtime environment only.
+2. For any date-sensitive request (`today`, `yesterday`, `tomorrow`, `latest`, `current`, deadlines, age), the assistant must:
+   - state the resolved absolute date in ISO format (`YYYY-MM-DD`)
+   - include weekday and timezone when relevant
+3. Relative dates must always be converted to absolute dates in responses.
+4. If a user-provided date is malformed or ambiguous (example: `2026--02-19`), pause and ask for clarification before proceeding.
+5. If date evidence is missing, respond with `UNVERIFIED_DATE_CLAIM` and do not assert.
+6. Never report "submitted today" or equivalent without timestamped evidence (file path plus timestamp).
+
 ## Non-Negotiables (Safety/Policy)
 
 - Do not fabricate credentials, employers, dates, degrees, titles, or metrics.
