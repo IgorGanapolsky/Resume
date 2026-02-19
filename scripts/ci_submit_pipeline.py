@@ -491,7 +491,21 @@ class AshbyAdapter(PlaywrightFormAdapter):
             answer_yes=answers.require_sponsorship,
             name_hints=("sponsor", "visa"),
         ):
-            missing.append("require_sponsorship")
+            sponsorship_value = "Yes" if answers.require_sponsorship else "No"
+            filled = False
+            for prompt in (
+                "Will you now or will you in the future require employment visa sponsorship",
+                "Do you require sponsorship",
+                "Require sponsorship",
+            ):
+                before = self._snapshot_text_field(scope, prompt)
+                self._fill_text(scope, prompt, sponsorship_value)
+                after = self._snapshot_text_field(scope, prompt)
+                if after and after != before:
+                    filled = True
+                    break
+            if not filled:
+                missing.append("require_sponsorship")
 
         if self._question_present(scope, page, interest_markers):
             filled = False
@@ -536,8 +550,11 @@ class AshbyAdapter(PlaywrightFormAdapter):
         self, target: Any, markers: Sequence[str]
     ) -> Optional[Any]:
         for marker in markers:
+            marker_pattern = re.compile(
+                r"\s+".join(re.escape(part) for part in marker.split()), re.I
+            )
             try:
-                text_node = target.get_by_text(re.compile(re.escape(marker), re.I)).first
+                text_node = target.get_by_text(marker_pattern).first
                 if text_node.count() < 1:
                     continue
             except Exception:
@@ -668,7 +685,9 @@ class AshbyAdapter(PlaywrightFormAdapter):
     def _fill_yes_no_text_in_container(self, container: Any, answer_yes: bool) -> bool:
         value = "Yes" if answer_yes else "No"
         try:
-            field = container.locator("input[type='text'],textarea").first
+            field = container.locator(
+                "input:not([type]),input[type='text'],input[type='search'],textarea"
+            ).first
             if field.count() > 0:
                 field.fill(value, timeout=1500)
                 return True
@@ -687,10 +706,14 @@ class AshbyAdapter(PlaywrightFormAdapter):
     def _fill_yes_no_by_hint(self, scope: Any, hint: str, answer_yes: bool) -> bool:
         value = "Yes" if answer_yes else "No"
         selectors = (
+            f"input:not([type])[name*='{hint}']",
             f"input[type='text'][name*='{hint}']",
             f"textarea[name*='{hint}']",
+            f"input[type='search'][name*='{hint}']",
+            f"input:not([type])[id*='{hint}']",
             f"input[type='text'][id*='{hint}']",
             f"textarea[id*='{hint}']",
+            f"input[type='search'][id*='{hint}']",
             f"input[aria-label*='{hint}']",
             f"textarea[aria-label*='{hint}']",
         )

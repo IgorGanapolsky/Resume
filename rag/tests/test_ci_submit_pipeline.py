@@ -672,7 +672,7 @@ class _FakeContainerWithTextField:
         self.filled = None
 
     def locator(self, selector: str):
-        if selector == "input[type='text'],textarea":
+        if "textarea" in selector or "input" in selector:
             return _FakeLocator(lambda: 1, on_fill=self._set)
         return _FakeLocator(lambda: 0)
 
