@@ -981,8 +981,14 @@ def test_execute_recaptcha_block_counts_as_skipped_not_failed(tmp_path, monkeypa
     assert payload["applied_count"] == 0
     assert payload["failed_count"] == 0
     assert payload["skipped_count"] == 1
+    assert payload["changed"] is True
     assert payload["results"][0]["result"] == "skipped"
     assert "antibot_blocked_requires_manual_submit" in payload["results"][0]["errors"]
+
+    with tracker.open(newline="", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+    assert rows[0]["Status"] == "ReadyToSubmit"
+    assert "Manual browser submit required." in rows[0]["Notes"]
 
 
 def test_select_yes_no_on_select_handles_yes():

@@ -2083,6 +2083,7 @@ def run_pipeline(
                     f"Reason={result.details}. Manual browser submit required."
                 ),
             )
+            queue_metadata_updates += 1
             skipped_count += 1
             if count_skipped_as_failures:
                 failed_count += 1
