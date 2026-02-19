@@ -897,11 +897,7 @@ def retrieve(
     payload = []
     for row in ranked:
         artifacts = row.get("artifacts", {})
-        evidence = (
-            artifacts.get("evidence", [])
-            if isinstance(artifacts, dict)
-            else []
-        )
+        evidence = artifacts.get("evidence", []) if isinstance(artifacts, dict) else []
         payload.append(
             {
                 "app_id": str(row.get("app_id", "") or ""),
@@ -914,7 +910,9 @@ def retrieve(
                 else [],
                 "score": round(float(row.get("_final_score", 0.0)), 4),
                 "context": str(row.get("context_bundle_text", "") or "")[:320],
-                "evidence": [str(e) for e in evidence] if isinstance(evidence, list) else [],
+                "evidence": [str(e) for e in evidence]
+                if isinstance(evidence, list)
+                else [],
             }
         )
 

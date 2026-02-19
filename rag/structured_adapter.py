@@ -16,13 +16,11 @@ class StructuredAdapter(Protocol):
 
     def normalize_retrieve_request(
         self, *, query: str, k: int, status: Optional[str], method: Optional[str]
-    ) -> Dict[str, Any]:
-        ...
+    ) -> Dict[str, Any]: ...
 
     def validate_retrieve_results(
         self, results: List[Dict[str, Any]]
-    ) -> List[Dict[str, Any]]:
-        ...
+    ) -> List[Dict[str, Any]]: ...
 
     def render_retrieve_json(
         self,
@@ -30,8 +28,7 @@ class StructuredAdapter(Protocol):
         request: Dict[str, Any],
         results: List[Dict[str, Any]],
         envelope: bool,
-    ) -> str:
-        ...
+    ) -> str: ...
 
 
 @dataclass(frozen=True)
