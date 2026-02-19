@@ -104,5 +104,10 @@ def isolated_cli(tmp_path: Path, tracker_csv: Path, monkeypatch):
     monkeypatch.setattr(
         cli_mod, "LONG_MEMORY_JSONL", tmp_path / "rag" / "data" / "memory_long.jsonl"
     )
+    monkeypatch.setattr(
+        cli_mod,
+        "FEEDBACK_BATCH_LEDGER",
+        tmp_path / "rag" / "data" / "feedback_batch_seen.json",
+    )
 
     return cli_mod

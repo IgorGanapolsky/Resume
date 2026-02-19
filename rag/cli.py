@@ -3,10 +3,13 @@
 
 Commands:
   build      Rebuild JSONL + LanceDB index from tracker CSV.
+  feedback-batch  Replay outcome events from JSONL into RLHF model.
   query      Semantic search over indexed applications.
+  retrieve   Smart retrieval endpoint for automation/agents.
   status     Dashboard: counts by status, pending drafts.
   watch      Auto-rebuild when tracker CSV changes (polling).
   feedback   Record an outcome for an application; updates Thompson model.
+  thumb      Quick vote alias for feedback (up/down -> outcome mapping).
   recommend  Suggest best targeting arms via Thompson Sampling.
   log        Append a manual event note.
   scan       Scan text artifacts for high-risk PII patterns.
@@ -40,7 +43,8 @@ from memalign import (
     slug,
 )
 from shieldcortex import assert_no_high_risk_pii, gate_text
-from rlhf import ThompsonModel, VALID_OUTCOMES
+from rlhf import OUTCOME_REWARDS, ThompsonModel, VALID_OUTCOMES
+from distributed import create_runtime
 
 
 ROOT = Path(__file__).resolve().parents[1]  # Resume/
@@ -54,6 +58,7 @@ APPLICATIONS_DIR = ROOT / "applications"
 ARMS_JSON = DATA_DIR / "arms.json"
 SHORT_MEMORY_JSONL = DATA_DIR / "memory_short.jsonl"
 LONG_MEMORY_JSONL = DATA_DIR / "memory_long.jsonl"
+FEEDBACK_BATCH_LEDGER = DATA_DIR / "feedback_batch_seen.json"
 
 
 # ---------------------------------------------------------------------------
@@ -167,6 +172,21 @@ def _build_application_record(row: Dict[str, str]) -> Dict:
     )
 
     rag_text = _build_rag_text(n, company, role, artifacts)
+    context_bundle_text = " | ".join(
+        [
+            f"company={company}",
+            f"role={role}",
+            f"status={n.get('Status', '')}",
+            f"method={n.get('application_method', '')}",
+            f"tags={' '.join(str(t) for t in n.get('Tags', []))}",
+            f"location={n.get('Location', '')}",
+            f"salary={n.get('Salary Range', '')}",
+            f"signals={str(n.get('What Worked', '') or '')[:160]}",
+        ]
+    ).strip()
+    context_bundle_text = _gate_or_raise(
+        context_bundle_text, context=f"context_bundle:{company}/{role}"
+    )
 
     return {
         "app_id": n["app_id"],
@@ -185,6 +205,7 @@ def _build_application_record(row: Dict[str, str]) -> Dict:
             "cover_letter_used": cover_letter_path,
             "evidence": evidence,
         },
+        "context_bundle_text": context_bundle_text,
         "rag_text": rag_text,
         "source_tracker_row": {k: v for k, v in n.items() if k not in ("rag_text",)},
         "updated_at": _utc_now(),
@@ -223,6 +244,7 @@ def _record_embedding(rec: Dict, *, dims: int = 1536) -> np.ndarray:
     parts += [rec.get("application_method", "")] * 2
     parts += [rec.get("status", "")]
     parts += [rec.get("notes", "")]
+    parts += [rec.get("context_bundle_text", "")] * 2
     parts += [rec.get("rag_text", "")]
     return _hashing_embedding(" ".join(parts), dims=dims)
 
@@ -253,6 +275,7 @@ def _applications_table_schema():
                     ]
                 ),
             ),
+            pa.field("context_bundle_text", pa.string()),
             pa.field("text", pa.string()),
             pa.field("vector", pa.list_(pa.float32(), 1536)),
             pa.field("updated_at", pa.string()),
@@ -264,7 +287,7 @@ def _ensure_lancedb_indexes(table, *, has_data: bool) -> None:
     """Create retrieval indexes; log and continue on index creation failures."""
     try:
         table.create_fts_index(
-            ["text", "company", "role", "notes"],
+            ["text", "context_bundle_text", "company", "role", "notes"],
             stem=True,
             remove_stop_words=True,
             replace=True,
@@ -332,7 +355,7 @@ def _native_hybrid_query(table, q: str, *, candidate_k: int) -> List[Dict]:
         query = table.search(
             q.strip(),
             query_type="hybrid",
-            fts_columns=["text", "company", "role", "notes"],
+            fts_columns=["text", "context_bundle_text", "company", "role", "notes"],
         )
         query = query.rerank(RRFReranker())
         return query.limit(candidate_k).to_list()
@@ -352,7 +375,7 @@ def _manual_hybrid_query(
             table.search(
                 q.strip(),
                 query_type="fts",
-                fts_columns=["text", "company", "role", "notes"],
+                fts_columns=["text", "context_bundle_text", "company", "role", "notes"],
             )
             .limit(candidate_k)
             .to_list()
@@ -373,6 +396,26 @@ def _display_score(row: Dict) -> float:
     if "_distance" in row:
         return 1.0 / (1.0 + max(0.0, float(row["_distance"])))
     return 0.0
+
+
+def _lexical_overlap_score(query: str, row: Dict) -> float:
+    q_terms = {t for t in query.lower().split() if t}
+    if not q_terms:
+        return 0.0
+    tags = row.get("tags", [])
+    tags_text = " ".join(str(t) for t in tags) if isinstance(tags, list) else ""
+    text = " ".join(
+        [
+            str(row.get("company", "") or ""),
+            str(row.get("role", "") or ""),
+            str(row.get("application_method", "") or ""),
+            tags_text,
+            str(row.get("context_bundle_text", "") or ""),
+            str(row.get("notes", "") or ""),
+        ]
+    ).lower()
+    hit = sum(1 for t in q_terms if t in text)
+    return min(1.0, hit / max(1, len(q_terms)))
 
 
 def _normalize_base_score(raw: float) -> float:
@@ -403,6 +446,7 @@ def _rlhf_prior_for_row(row: Dict, model: ThompsonModel) -> float:
 def _fuse_hybrid_rlhf_memory_scores(
     rows: List[Dict],
     *,
+    query: str,
     model: ThompsonModel,
     short_scores: Dict[str, float],
     long_scores: Dict[str, float],
@@ -411,12 +455,20 @@ def _fuse_hybrid_rlhf_memory_scores(
     for row in rows:
         app_id = str(row.get("app_id", "") or "")
         base = _normalize_base_score(_display_score(row))
+        lexical = _lexical_overlap_score(query, row)
         rlhf = _rlhf_prior_for_row(row, model)
         mem_short = short_scores.get(app_id, 0.0)
         mem_long = long_scores.get(app_id, 0.0)
-        final = 0.62 * base + 0.25 * rlhf + 0.08 * mem_short + 0.05 * mem_long
+        final = (
+            0.48 * base
+            + 0.22 * lexical
+            + 0.20 * rlhf
+            + 0.06 * mem_short
+            + 0.04 * mem_long
+        )
         boosted = dict(row)
         boosted["_base_score"] = base
+        boosted["_lexical_score"] = lexical
         boosted["_rlhf_score"] = rlhf
         boosted["_memory_short"] = mem_short
         boosted["_memory_long"] = mem_long
@@ -440,37 +492,61 @@ def _rebuild_long_memory(records: List[Dict]) -> None:
             out.write(json.dumps(entry, ensure_ascii=True) + "\n")
 
 
-# ---------------------------------------------------------------------------
-# Commands
-# ---------------------------------------------------------------------------
-
-
-def build() -> None:
-    """Rebuild JSONL + LanceDB index from tracker CSV."""
-    DATA_DIR.mkdir(parents=True, exist_ok=True)
-    LOG_DIR.mkdir(parents=True, exist_ok=True)
-    LANCEDB_DIR.mkdir(parents=True, exist_ok=True)
-
+def _load_tracker_rows() -> List[Dict[str, str]]:
     with TRACKER_CSV.open("r", newline="", encoding="utf-8") as f:
-        rows = [r for r in csv.DictReader(f) if any(v.strip() for v in r.values())]
+        return [r for r in csv.DictReader(f) if any(v.strip() for v in r.values())]
 
+
+def _stable_shard_for_app(app_id: str, *, world_size: int) -> int:
+    digest = hashlib.blake2b(app_id.encode("utf-8"), digest_size=4).digest()
+    return int.from_bytes(digest, "little") % max(1, world_size)
+
+
+def _build_records_from_rows(
+    rows: List[Dict[str, str]], *, shard_rank: int = 0, shard_world_size: int = 1
+) -> Tuple[List[Dict], List[str]]:
     records: List[Dict] = []
+    errors: List[str] = []
     seen_ids: set = set()
-    for r in rows:
+
+    for row in rows:
         try:
-            rec = _build_application_record(r)
+            if shard_world_size > 1:
+                n = normalize_row(row)
+                app_id = str(n.get("app_id", ""))
+                if (
+                    _stable_shard_for_app(app_id, world_size=shard_world_size)
+                    != shard_rank
+                ):
+                    continue
+            rec = _build_application_record(row)
         except Exception as e:
-            _append_event(
-                None,
-                "ingest_error",
-                f"Failed to ingest {r.get('Company', '')} / {r.get('Role', '')}: {e}",
+            errors.append(
+                f"Failed to ingest {row.get('Company', '')} / {row.get('Role', '')}: {e}"
             )
             continue
+
         if rec["app_id"] in seen_ids:
-            continue  # Deduplicate on stable app_id
+            continue
         seen_ids.add(rec["app_id"])
         records.append(rec)
 
+    return records, errors
+
+
+def _dedupe_records(records: List[Dict]) -> List[Dict]:
+    out: List[Dict] = []
+    seen: set = set()
+    for rec in records:
+        app_id = rec.get("app_id")
+        if not app_id or app_id in seen:
+            continue
+        seen.add(app_id)
+        out.append(rec)
+    return out
+
+
+def _write_records_to_jsonl(records: List[Dict]) -> None:
     apps_path = DATA_DIR / "applications.jsonl"
     with apps_path.open("w", encoding="utf-8") as out:
         for rec in records:
@@ -479,15 +555,12 @@ def build() -> None:
     SHORT_MEMORY_JSONL.parent.mkdir(parents=True, exist_ok=True)
     SHORT_MEMORY_JSONL.touch(exist_ok=True)
 
-    # Bootstrap Thompson model from existing records if arms.json is empty/absent
-    model = ThompsonModel(ARMS_JSON)
-    if not model.arms:
-        model.bootstrap_from_records(records)
 
+def _index_records_in_lancedb(records: List[Dict]) -> int:
     if lancedb is None:
         _append_event(None, "build_skipped", "lancedb import failed; wrote JSONL only")
         print(f"Built {len(records)} records (JSONL only; lancedb unavailable)")
-        return
+        return 0
 
     db = lancedb.connect(str(LANCEDB_DIR))
     items = []
@@ -504,6 +577,7 @@ def build() -> None:
                 "tags": rec["tags"],
                 "notes": rec["notes"],
                 "artifacts": rec["artifacts"],
+                "context_bundle_text": rec.get("context_bundle_text", ""),
                 "text": rec["rag_text"],
                 "vector": _record_embedding(rec),
                 "updated_at": rec["updated_at"],
@@ -522,6 +596,190 @@ def build() -> None:
     _ensure_lancedb_indexes(table, has_data=bool(items))
     _append_event(None, "build_ok", f"Indexed {len(items)} applications")
     print(f"✅ Built {len(items)} applications (JSONL + LanceDB)")
+    return len(items)
+
+
+def _load_app_lookup() -> Dict[str, Dict[str, object]]:
+    apps_path = DATA_DIR / "applications.jsonl"
+    if not apps_path.exists():
+        return {}
+    out: Dict[str, Dict[str, object]] = {}
+    with apps_path.open(encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            rec = json.loads(line)
+            app_id = str(rec.get("app_id", ""))
+            if app_id:
+                out[app_id] = rec
+    return out
+
+
+def _parse_outcome_from_row(row: Dict) -> Optional[str]:
+    outcome = str(row.get("outcome", "") or "").strip().lower()
+    if outcome in VALID_OUTCOMES:
+        return outcome
+    if str(row.get("type", "") or "").strip() == "outcome":
+        msg = str(row.get("msg", "") or "")
+        for token in msg.split():
+            if token.startswith("outcome="):
+                candidate = token.split("=", 1)[1].strip().lower()
+                if candidate in VALID_OUTCOMES:
+                    return candidate
+    return None
+
+
+def _load_feedback_seen_keys() -> set:
+    if not FEEDBACK_BATCH_LEDGER.exists():
+        return set()
+    try:
+        payload = json.loads(FEEDBACK_BATCH_LEDGER.read_text(encoding="utf-8"))
+    except Exception:
+        return set()
+    if not isinstance(payload, list):
+        return set()
+    return {str(x) for x in payload if isinstance(x, str)}
+
+
+def _save_feedback_seen_keys(keys: set) -> None:
+    FEEDBACK_BATCH_LEDGER.parent.mkdir(parents=True, exist_ok=True)
+    FEEDBACK_BATCH_LEDGER.write_text(
+        json.dumps(sorted(keys), ensure_ascii=True, indent=2),
+        encoding="utf-8",
+    )
+
+
+def _compute_feedback_deltas(
+    rows: List[Dict],
+    app_lookup: Dict[str, Dict[str, object]],
+    *,
+    seen_keys: Optional[set] = None,
+) -> Tuple[Dict[str, Dict[str, float]], int, int, set]:
+    deltas: Dict[str, Dict[str, float]] = {}
+    seen: set = set()
+    already_seen = seen_keys if seen_keys is not None else set()
+    new_seen: set = set()
+    processed = 0
+    skipped = 0
+
+    def _bump(name: str, reward: float) -> None:
+        item = deltas.setdefault(
+            name, {"alpha": 0.0, "beta": 0.0, "pulls": 0.0, "total_reward": 0.0}
+        )
+        item["alpha"] += reward
+        item["beta"] += 1.0 - reward
+        item["pulls"] += 1.0
+        item["total_reward"] += reward
+
+    for row in rows:
+        app_id = str(row.get("app_id", "") or "")
+        outcome = _parse_outcome_from_row(row)
+        ts = str(row.get("ts", "") or "")
+        if not app_id or outcome is None:
+            skipped += 1
+            continue
+        key = f"{app_id}|{outcome}|{ts}"
+        if key in seen or key in already_seen:
+            skipped += 1
+            continue
+        seen.add(key)
+        new_seen.add(key)
+
+        app = app_lookup.get(app_id)
+        if app is None:
+            skipped += 1
+            continue
+
+        tags = app.get("tags", [])
+        method = str(app.get("application_method", "direct") or "direct")
+        reward = OUTCOME_REWARDS[outcome]
+        if isinstance(tags, list):
+            for tag in tags:
+                _bump(f"cat:{tag}", reward)
+        _bump(f"method:{method}", reward)
+        processed += 1
+
+    return deltas, processed, skipped, new_seen
+
+
+def _merge_feedback_deltas(
+    chunks: List[Dict[str, Dict[str, float]]],
+) -> Dict[str, Dict[str, float]]:
+    merged: Dict[str, Dict[str, float]] = {}
+    for chunk in chunks:
+        for arm_name, d in chunk.items():
+            out = merged.setdefault(
+                arm_name, {"alpha": 0.0, "beta": 0.0, "pulls": 0.0, "total_reward": 0.0}
+            )
+            out["alpha"] += float(d.get("alpha", 0.0))
+            out["beta"] += float(d.get("beta", 0.0))
+            out["pulls"] += float(d.get("pulls", 0.0))
+            out["total_reward"] += float(d.get("total_reward", 0.0))
+    return merged
+
+
+def _apply_feedback_deltas(
+    model: ThompsonModel, merged: Dict[str, Dict[str, float]]
+) -> None:
+    for arm_name, d in merged.items():
+        arm = model._get_or_create(
+            arm_name
+        )  # intentionally reuse existing arm lifecycle
+        arm.alpha += float(d.get("alpha", 0.0))
+        arm.beta += float(d.get("beta", 0.0))
+        arm.pulls += int(round(float(d.get("pulls", 0.0))))
+        arm.total_reward += float(d.get("total_reward", 0.0))
+
+
+# ---------------------------------------------------------------------------
+# Commands
+# ---------------------------------------------------------------------------
+
+
+def build(
+    *,
+    dist_mode: str = "auto",
+    dist_backend: str = "auto",
+    world_size: Optional[int] = None,
+) -> None:
+    """Rebuild JSONL + LanceDB index from tracker CSV."""
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    LOG_DIR.mkdir(parents=True, exist_ok=True)
+    LANCEDB_DIR.mkdir(parents=True, exist_ok=True)
+
+    runtime = create_runtime(
+        mode=dist_mode, backend=dist_backend, requested_world_size=world_size
+    )
+    try:
+        rows = _load_tracker_rows()
+
+        if runtime.enabled:
+            local_records, local_errors = _build_records_from_rows(
+                rows, shard_rank=runtime.rank, shard_world_size=runtime.world_size
+            )
+            gathered_records = runtime.gather_objects(local_records)
+            gathered_errors = runtime.gather_objects(local_errors)
+            if not runtime.is_leader:
+                return
+            records = [r for chunk in (gathered_records or []) for r in (chunk or [])]
+            errors = [e for chunk in (gathered_errors or []) for e in (chunk or [])]
+        else:
+            records, errors = _build_records_from_rows(rows)
+
+        records = _dedupe_records(records)
+        for err in errors:
+            _append_event(None, "ingest_error", err)
+
+        _write_records_to_jsonl(records)
+
+        model = ThompsonModel(ARMS_JSON)
+        if not model.arms:
+            model.bootstrap_from_records(records)
+
+        _index_records_in_lancedb(records)
+    finally:
+        runtime.finalize()
 
 
 def query(q: str, *, k: int = 8) -> None:
@@ -549,6 +807,7 @@ def query(q: str, *, k: int = 8) -> None:
     long_boost = long_memory_scores(long_rows)
     results = _fuse_hybrid_rlhf_memory_scores(
         results,
+        query=q,
         model=model,
         short_scores=short_boost,
         long_scores=long_boost,
@@ -567,6 +826,85 @@ def query(q: str, *, k: int = 8) -> None:
             f"{r.get('role'):<45} | {r.get('status'):<8} | "
             f"score={score:0.4f} | {method:<12} | {tags}"
         )
+
+
+def retrieve(
+    q: str,
+    *,
+    k: int = 5,
+    status: Optional[str] = None,
+    method: Optional[str] = None,
+    json_output: bool = False,
+) -> None:
+    """Single smart retrieval endpoint for agents/automation."""
+    if lancedb is None:
+        raise SystemExit(
+            "lancedb unavailable; run build to generate JSONL, or install lancedb."
+        )
+
+    db = lancedb.connect(str(LANCEDB_DIR))
+    table = db.open_table("applications")
+    q_vec = _hashing_embedding(q.strip())
+    candidate_k = max(k * 12, 60)
+
+    results = _native_hybrid_query(table, q, candidate_k=candidate_k)
+    if not results:
+        results = _manual_hybrid_query(table, q, q_vec, candidate_k=candidate_k)
+
+    if status:
+        want = status.strip().lower()
+        results = [r for r in results if str(r.get("status", "")).lower() == want]
+    if method:
+        want = method.strip().lower()
+        results = [
+            r for r in results if str(r.get("application_method", "")).lower() == want
+        ]
+
+    model = ThompsonModel(ARMS_JSON)
+    short_rows = load_jsonl(SHORT_MEMORY_JSONL)
+    long_rows = load_jsonl(LONG_MEMORY_JSONL)
+    short_boost = recency_scores(short_rows, now_ts=_utc_now())
+    long_boost = long_memory_scores(long_rows)
+    ranked = _fuse_hybrid_rlhf_memory_scores(
+        results,
+        query=q,
+        model=model,
+        short_scores=short_boost,
+        long_scores=long_boost,
+    )[:k]
+
+    payload = []
+    for row in ranked:
+        payload.append(
+            {
+                "app_id": row.get("app_id"),
+                "company": row.get("company"),
+                "role": row.get("role"),
+                "status": row.get("status"),
+                "method": row.get("application_method"),
+                "tags": row.get("tags", []),
+                "score": round(float(row.get("_final_score", 0.0)), 4),
+                "context": str(row.get("context_bundle_text", "") or "")[:320],
+                "evidence": row.get("artifacts", {}).get("evidence", [])
+                if isinstance(row.get("artifacts"), dict)
+                else [],
+            }
+        )
+
+    if json_output:
+        print(json.dumps(payload, ensure_ascii=True, indent=2))
+        return
+
+    if not payload:
+        print("No results.")
+        return
+    for item in payload:
+        tags = ";".join(item["tags"]) if isinstance(item.get("tags"), list) else ""
+        print(
+            f"- {item['app_id']} | {item['company']:<22} | {item['role']:<45} | "
+            f"{item['status']:<8} | score={item['score']:.4f} | {item['method']:<12} | {tags}"
+        )
+        print(f"  context: {item['context']}")
 
 
 def status() -> None:
@@ -687,6 +1025,114 @@ def feedback(app_id: str, outcome: str) -> None:
     print(f"✅ Recorded outcome={outcome!r} for {rec['company']} / {rec['role']}")
 
 
+def _outcome_from_thumb(vote: str) -> str:
+    s = (vote or "").strip().lower()
+    mapping = {
+        "up": "response",
+        "thumbs_up": "response",
+        "+1": "response",
+        "👍": "response",
+        "down": "no_response",
+        "thumbs_down": "no_response",
+        "-1": "no_response",
+        "👎": "no_response",
+    }
+    outcome = mapping.get(s)
+    if outcome is None:
+        raise SystemExit(
+            "Unknown thumb vote. Use one of: up, down, thumbs_up, thumbs_down, 👍, 👎, +1, -1."
+        )
+    return outcome
+
+
+def thumb_feedback(app_id: str, vote: str) -> None:
+    outcome = _outcome_from_thumb(vote)
+    feedback(app_id, outcome)
+
+
+def feedback_batch(
+    *,
+    source: str = "memory_short",
+    dist_mode: str = "auto",
+    dist_backend: str = "auto",
+    world_size: Optional[int] = None,
+) -> None:
+    """Replay outcome events from JSONL into RLHF arms in batch."""
+    app_lookup = _load_app_lookup()
+    if not app_lookup:
+        raise SystemExit("Index not built. Run: python3 cli.py build")
+
+    if source == "events":
+        rows = load_jsonl(LOG_DIR / "events.jsonl")
+    else:
+        rows = load_jsonl(SHORT_MEMORY_JSONL)
+    seen_keys = _load_feedback_seen_keys()
+
+    runtime = create_runtime(
+        mode=dist_mode, backend=dist_backend, requested_world_size=world_size
+    )
+    try:
+        if runtime.enabled:
+            local_rows = [
+                row
+                for idx, row in enumerate(rows)
+                if idx % runtime.world_size == runtime.rank
+            ]
+        else:
+            local_rows = rows
+
+        local_deltas, local_processed, local_skipped, local_seen = (
+            _compute_feedback_deltas(local_rows, app_lookup, seen_keys=seen_keys)
+        )
+
+        if runtime.enabled:
+            gathered_deltas = runtime.gather_objects(local_deltas)
+            gathered_counts = runtime.gather_objects(
+                {"processed": local_processed, "skipped": local_skipped}
+            )
+            gathered_seen = runtime.gather_objects(sorted(local_seen))
+            if not runtime.is_leader:
+                return
+            merged = _merge_feedback_deltas(gathered_deltas or [])
+            total_processed = sum(
+                int(c.get("processed", 0)) for c in (gathered_counts or [])
+            )
+            total_skipped = sum(
+                int(c.get("skipped", 0)) for c in (gathered_counts or [])
+            )
+            new_seen = {
+                str(x)
+                for chunk in (gathered_seen or [])
+                for x in (chunk or [])
+                if isinstance(x, str)
+            }
+        else:
+            merged = local_deltas
+            total_processed = local_processed
+            total_skipped = local_skipped
+            new_seen = local_seen
+
+        model = ThompsonModel(ARMS_JSON)
+        _apply_feedback_deltas(model, merged)
+        model.save()
+        if new_seen:
+            _save_feedback_seen_keys(seen_keys.union(new_seen))
+        _append_event(
+            None,
+            "feedback_batch",
+            (
+                f"source={source} processed={total_processed} skipped={total_skipped} "
+                f"arms_touched={len(merged)} dist={runtime.enabled} new_seen={len(new_seen)}"
+            ),
+        )
+        print(
+            "✅ Replayed feedback batch: "
+            f"processed={total_processed} skipped={total_skipped} arms={len(merged)}"
+        )
+    finally:
+        runtime.finalize()
+
+
 def recommend(*, k: int = 8) -> None:
     """Show top-k recommended targeting arms via Thompson Sampling."""
     model = ThompsonModel(ARMS_JSON)
@@ -778,11 +1224,39 @@ def main() -> None:
     )
     sub = ap.add_subparsers(dest="cmd", required=True)
 
-    sub.add_parser("build", help="Rebuild JSONL + LanceDB index")
+    bp = sub.add_parser("build", help="Rebuild JSONL + LanceDB index")
+    bp.add_argument(
+        "--dist-mode",
+        choices=["off", "auto", "on"],
+        default="auto",
+        help="Distributed mode for build (default: auto)",
+    )
+    bp.add_argument(
+        "--dist-backend",
+        default="auto",
+        help="Distributed backend: auto|gloo|nccl (default: auto)",
+    )
+    bp.add_argument(
+        "--world-size",
+        type=int,
+        default=None,
+        help="Expected world size when distributed is enabled",
+    )
 
     qp = sub.add_parser("query", help="Semantic search")
     qp.add_argument("q", help="Query text")
     qp.add_argument("-k", type=int, default=8, help="Max results (default 8)")
+
+    rp2 = sub.add_parser("retrieve", help="Smart retrieval endpoint for automation")
+    rp2.add_argument("q", help="Query text")
+    rp2.add_argument("-k", type=int, default=5, help="Max results (default 5)")
+    rp2.add_argument("--status", default=None, help="Optional status filter")
+    rp2.add_argument("--method", default=None, help="Optional method filter")
+    rp2.add_argument(
+        "--json",
+        action="store_true",
+        help="Emit JSON payload (best for agents/tooling)",
+    )
 
     sub.add_parser("status", help="Status dashboard")
 
@@ -798,6 +1272,41 @@ def main() -> None:
         help="Outcome signal",
     )
 
+    fbp = sub.add_parser(
+        "feedback-batch", help="Replay outcome events from JSONL into RLHF model"
+    )
+    fbp.add_argument(
+        "--source",
+        choices=["memory_short", "events"],
+        default="memory_short",
+        help="Source stream to replay (default: memory_short)",
+    )
+    fbp.add_argument(
+        "--dist-mode",
+        choices=["off", "auto", "on"],
+        default="auto",
+        help="Distributed mode for batch replay (default: auto)",
+    )
+    fbp.add_argument(
+        "--dist-backend",
+        default="auto",
+        help="Distributed backend: auto|gloo|nccl (default: auto)",
+    )
+    fbp.add_argument(
+        "--world-size",
+        type=int,
+        default=None,
+        help="Expected world size when distributed is enabled",
+    )
+
+    tp = sub.add_parser("thumb", help="Quick thumb vote alias for feedback")
+    tp.add_argument("--app-id", required=True, help="Application ID from query output")
+    tp.add_argument(
+        "--vote",
+        required=True,
+        help="up/down vote (supports: up, down, thumbs_up, thumbs_down, 👍, 👎, +1, -1)",
+    )
+
     rp = sub.add_parser("recommend", help="Thompson Sampling arm recommendations")
     rp.add_argument("-k", type=int, default=8, help="Top-k arms to show")
 
@@ -811,15 +1320,36 @@ def main() -> None:
     args = ap.parse_args()
 
     if args.cmd == "build":
-        build()
+        build(
+            dist_mode=args.dist_mode,
+            dist_backend=args.dist_backend,
+            world_size=args.world_size,
+        )
     elif args.cmd == "query":
         query(args.q, k=args.k)
+    elif args.cmd == "retrieve":
+        retrieve(
+            args.q,
+            k=args.k,
+            status=args.status,
+            method=args.method,
+            json_output=args.json,
+        )
     elif args.cmd == "status":
         status()
     elif args.cmd == "watch":
         watch(args.interval)
     elif args.cmd == "feedback":
         feedback(args.app_id, args.outcome)
+    elif args.cmd == "feedback-batch":
+        feedback_batch(
+            source=args.source,
+            dist_mode=args.dist_mode,
+            dist_backend=args.dist_backend,
+            world_size=args.world_size,
+        )
+    elif args.cmd == "thumb":
+        thumb_feedback(args.app_id, args.vote)
     elif args.cmd == "recommend":
         recommend(k=args.k)
     elif args.cmd == "log":

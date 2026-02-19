@@ -35,6 +35,7 @@ class TestBuild:
                 "application_method",
                 "tags",
                 "artifacts",
+                "context_bundle_text",
                 "updated_at",
             ]:
                 assert field in rec, f"Missing field {field!r} in {rec.get('company')}"
@@ -138,6 +139,11 @@ class TestBuild:
         log_path = isolated_cli.LOG_DIR / "events.jsonl"
         assert log_path.exists()
 
+    def test_build_dist_off_mode(self, isolated_cli):
+        isolated_cli.build(dist_mode="off")
+        apps_path = isolated_cli.DATA_DIR / "applications.jsonl"
+        assert apps_path.exists()
+
     def test_creates_memory_files_on_build(self, isolated_cli):
         isolated_cli.build()
         assert isolated_cli.SHORT_MEMORY_JSONL.exists()
@@ -212,12 +218,39 @@ class TestQuery:
         model.record_outcome(["ai"], "ashby", "offer")
         scored = isolated_cli._fuse_hybrid_rlhf_memory_scores(
             rows,
+            query="ai remote",
             model=model,
             short_scores={"a": 0.9, "b": 0.0},
             long_scores={"a": 0.8, "b": 0.0},
         )
         assert scored[0]["app_id"] == "a"
         assert scored[0]["_final_score"] > scored[1]["_final_score"]
+
+    def test_lexical_overlap_score(self, isolated_cli):
+        row = {
+            "company": "Acme AI",
+            "role": "Senior ML Engineer",
+            "application_method": "ashby",
+            "tags": ["ai", "ml"],
+            "context_bundle_text": "company=Acme role=Senior ML Engineer",
+            "notes": "Strong ML fit",
+        }
+        s1 = isolated_cli._lexical_overlap_score("acme ml", row)
+        s2 = isolated_cli._lexical_overlap_score("unrelated terms", row)
+        assert s1 > s2
+
+    def test_retrieve_json_output(self, isolated_cli, capsys):
+        if isolated_cli.lancedb is None:
+            pytest.skip("lancedb not installed")
+        isolated_cli.build()
+        capsys.readouterr()
+        isolated_cli.retrieve("ml engineer", k=2, json_output=True)
+        out = capsys.readouterr().out
+        payload = json.loads(out)
+        assert isinstance(payload, list)
+        assert payload
+        assert "context" in payload[0]
+        assert "score" in payload[0]
 
 
 class TestLogEvent:
@@ -290,6 +323,92 @@ class TestFeedback:
     def test_no_index_raises(self, isolated_cli):
         with pytest.raises(SystemExit, match="build"):
             isolated_cli.feedback("any_id", "response")
+
+
+class TestThumbFeedback:
+    def _get_app_id(self, isolated_cli) -> str:
+        apps_path = isolated_cli.DATA_DIR / "applications.jsonl"
+        records = [
+            json.loads(line)
+            for line in apps_path.read_text().splitlines()
+            if line.strip()
+        ]
+        return records[0]["app_id"]
+
+    def test_thumb_up_maps_to_response(self, isolated_cli):
+        isolated_cli.build()
+        app_id = self._get_app_id(isolated_cli)
+        isolated_cli.thumb_feedback(app_id, "up")
+
+        log_path = isolated_cli.LOG_DIR / "events.jsonl"
+        events = [
+            json.loads(line)
+            for line in log_path.read_text().splitlines()
+            if line.strip()
+        ]
+        assert any(
+            e["type"] == "outcome" and "outcome=response" in e["msg"] for e in events
+        )
+
+    def test_thumb_down_maps_to_no_response(self, isolated_cli):
+        isolated_cli.build()
+        app_id = self._get_app_id(isolated_cli)
+        isolated_cli.thumb_feedback(app_id, "down")
+
+        log_path = isolated_cli.LOG_DIR / "events.jsonl"
+        events = [
+            json.loads(line)
+            for line in log_path.read_text().splitlines()
+            if line.strip()
+        ]
+        assert any(
+            e["type"] == "outcome" and "outcome=no_response" in e["msg"] for e in events
+        )
+
+    def test_thumb_emoji_aliases(self, isolated_cli):
+        assert isolated_cli._outcome_from_thumb("👍") == "response"
+        assert isolated_cli._outcome_from_thumb("👎") == "no_response"
+
+    def test_thumb_invalid_vote_raises(self, isolated_cli):
+        with pytest.raises(SystemExit, match="Unknown thumb vote"):
+            isolated_cli._outcome_from_thumb("sideways")
+
+
+class TestFeedbackBatch:
+    def _get_app_id(self, isolated_cli) -> str:
+        apps_path = isolated_cli.DATA_DIR / "applications.jsonl"
+        records = [
+            json.loads(line)
+            for line in apps_path.read_text().splitlines()
+            if line.strip()
+        ]
+        return records[0]["app_id"]
+
+    def test_feedback_batch_replays_memory_short(self, isolated_cli):
+        isolated_cli.build()
+        app_id = self._get_app_id(isolated_cli)
+        # Write one outcome event to memory_short via normal feedback path.
+        isolated_cli.feedback(app_id, "response")
+        before = isolated_cli.ThompsonModel(isolated_cli.ARMS_JSON)
+        pulls_before = sum(a.pulls for a in before.arms.values())
+
+        isolated_cli.feedback_batch(source="memory_short", dist_mode="off")
+        after = isolated_cli.ThompsonModel(isolated_cli.ARMS_JSON)
+        pulls_after = sum(a.pulls for a in after.arms.values())
+        assert pulls_after > pulls_before
+
+    def test_feedback_batch_is_idempotent_with_ledger(self, isolated_cli):
+        isolated_cli.build()
+        app_id = self._get_app_id(isolated_cli)
+        isolated_cli.feedback(app_id, "response")
+        isolated_cli.feedback_batch(source="memory_short", dist_mode="off")
+        first = isolated_cli.ThompsonModel(isolated_cli.ARMS_JSON)
+        pulls_first = sum(a.pulls for a in first.arms.values())
+
+        isolated_cli.feedback_batch(source="memory_short", dist_mode="off")
+        second = isolated_cli.ThompsonModel(isolated_cli.ARMS_JSON)
+        pulls_second = sum(a.pulls for a in second.arms.values())
+        assert pulls_second == pulls_first
 
 
 class TestRecommend:

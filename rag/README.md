@@ -27,6 +27,8 @@ Build or refresh the dataset + index:
 
 ```bash
 python Resume/rag/cli.py build
+# Optional distributed mode (safe fallback in auto mode):
+python Resume/rag/cli.py build --dist-mode auto --dist-backend auto
 ```
 
 Query by text:
@@ -36,10 +38,31 @@ python Resume/rag/cli.py query "mercor trajectory submitted"
 python Resume/rag/cli.py query "agent routing Tetrate"
 ```
 
+Smart retrieval endpoint (single interface for agents):
+
+```bash
+python Resume/rag/cli.py retrieve "python backend remote" -k 5 --json
+python Resume/rag/cli.py retrieve "sre ashby" --status Applied --method ashby
+```
+
 Record explicit outcome feedback (updates RLHF model and short-term memory):
 
 ```bash
 python Resume/rag/cli.py feedback --app-id "<app_id>" --outcome interview
+```
+
+Quick thumbs alias (maps `up -> response`, `down -> no_response`):
+
+```bash
+python Resume/rag/cli.py thumb --app-id "<app_id>" --vote up
+python Resume/rag/cli.py thumb --app-id "<app_id>" --vote "👎"
+```
+
+Replay feedback from JSONL streams into RLHF arms (idempotent via ledger):
+
+```bash
+python Resume/rag/cli.py feedback-batch --source memory_short
+python Resume/rag/cli.py feedback-batch --source events --dist-mode auto
 ```
 
 Append a manual note (logged to JSONL, redacted):
