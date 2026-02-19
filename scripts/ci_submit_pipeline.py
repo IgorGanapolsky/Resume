@@ -283,11 +283,18 @@ class PlaywrightFormAdapter(SiteAdapter):
                     form_scope, page, answers
                 )
                 if missing_answers:
+                    task.confirmation_path.parent.mkdir(parents=True, exist_ok=True)
+                    try:
+                        page.screenshot(path=str(task.confirmation_path), full_page=True)
+                    except Exception:
+                        pass
                     browser.close()
                     return SubmitResult(
                         adapter=self.name,
                         verified=False,
-                        screenshot=None,
+                        screenshot=task.confirmation_path
+                        if task.confirmation_path.exists()
+                        else None,
                         details=(
                             "missing_required_answers:"
                             + ",".join(sorted(set(missing_answers)))
@@ -560,13 +567,15 @@ class AshbyAdapter(PlaywrightFormAdapter):
         choice = "yes" if answer_yes else "no"
         choice_patterns = (
             re.compile(rf"^{choice}$", re.I),
-            re.compile(rf"\\b{choice}\\b", re.I),
+            re.compile(rf"\b{choice}\b", re.I),
         )
         for target in (scope, page):
             container = self._locate_question_container(target, question_markers)
             if container is None:
                 continue
             if self._click_choice_in_container(container, choice_patterns):
+                return True
+            if self._select_choice_in_container(container, answer_yes):
                 return True
 
         value_hints = ("yes", "true", "1") if answer_yes else ("no", "false", "0")
@@ -583,6 +592,15 @@ class AshbyAdapter(PlaywrightFormAdapter):
                         return True
                 except Exception:
                     continue
+            select_selector = f"select[name*='{hint}']"
+            try:
+                select = scope.locator(select_selector).first
+                if select.count() > 0 and self._select_yes_no_on_select(
+                    select, answer_yes
+                ):
+                    return True
+            except Exception:
+                continue
         return False
 
     def _click_choice_in_container(
@@ -601,6 +619,44 @@ class AshbyAdapter(PlaywrightFormAdapter):
                         except Exception:
                             control.click(timeout=1500)
                         return True
+                except Exception:
+                    continue
+        return False
+
+    def _select_choice_in_container(self, container: Any, answer_yes: bool) -> bool:
+        try:
+            select_count = container.locator("select").count()
+        except Exception:
+            return False
+        for idx in range(select_count):
+            try:
+                select = container.locator("select").nth(idx)
+            except Exception:
+                continue
+            if self._select_yes_no_on_select(select, answer_yes):
+                return True
+        return False
+
+    def _select_yes_no_on_select(self, select: Any, answer_yes: bool) -> bool:
+        match = "yes" if answer_yes else "no"
+        try:
+            option_count = select.locator("option").count()
+        except Exception:
+            return False
+        for opt_idx in range(option_count):
+            try:
+                option = select.locator("option").nth(opt_idx)
+                option_text = str(option.inner_text(timeout=500) or "").strip()
+            except Exception:
+                continue
+            if not option_text:
+                continue
+            if re.fullmatch(match, option_text, re.I) or re.search(
+                rf"\b{match}\b", option_text, re.I
+            ):
+                try:
+                    select.select_option(label=option_text, timeout=1500)
+                    return True
                 except Exception:
                     continue
         return False

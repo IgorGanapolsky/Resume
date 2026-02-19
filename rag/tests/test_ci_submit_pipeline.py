@@ -629,6 +629,39 @@ class _FakeLocator:
             self._on_click()
 
 
+class _FakeOptionNode:
+    def __init__(self, text: str):
+        self._text = text
+
+    def inner_text(self, timeout=None):
+        return self._text
+
+
+class _FakeOptionList:
+    def __init__(self, options: list[str]):
+        self._options = options
+
+    def count(self):
+        return len(self._options)
+
+    def nth(self, idx: int):
+        return _FakeOptionNode(self._options[idx])
+
+
+class _FakeSelect:
+    def __init__(self, options: list[str]):
+        self._options = options
+        self.selected_label = None
+
+    def locator(self, selector: str):
+        if selector == "option":
+            return _FakeOptionList(self._options)
+        return _FakeLocator(lambda: 0)
+
+    def select_option(self, label: str, timeout=None):
+        self.selected_label = label
+
+
 class _FakeScope:
     def __init__(self, has_file: bool = False, text: str = "", url: str = ""):
         self.has_file = has_file
@@ -781,3 +814,21 @@ def test_execute_requires_answers_secret(tmp_path, monkeypatch):
         answers_env="TEST_ANSWERS",
     )
     assert rc == 2
+
+
+def test_select_yes_no_on_select_handles_yes():
+    mod = _load_module()
+    adapter = mod.AshbyAdapter()
+    select = _FakeSelect(["Select...", "Yes", "No"])
+    ok = adapter._select_yes_no_on_select(select, True)
+    assert ok is True
+    assert select.selected_label == "Yes"
+
+
+def test_select_yes_no_on_select_handles_no_with_long_label():
+    mod = _load_module()
+    adapter = mod.AshbyAdapter()
+    select = _FakeSelect(["Select...", "No, I do not require sponsorship"])
+    ok = adapter._select_yes_no_on_select(select, False)
+    assert ok is True
+    assert select.selected_label == "No, I do not require sponsorship"
