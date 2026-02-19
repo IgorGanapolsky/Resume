@@ -45,6 +45,7 @@ from memalign import (
 from shieldcortex import assert_no_high_risk_pii, gate_text
 from rlhf import OUTCOME_REWARDS, ThompsonModel, VALID_OUTCOMES
 from distributed import create_runtime
+from structured_adapter import get_structured_adapter
 
 
 ROOT = Path(__file__).resolve().parents[1]  # Resume/
@@ -835,8 +836,28 @@ def retrieve(
     status: Optional[str] = None,
     method: Optional[str] = None,
     json_output: bool = False,
+    envelope: bool = False,
+    provider: str = "local",
 ) -> None:
     """Single smart retrieval endpoint for agents/automation."""
+    if envelope and not json_output:
+        raise SystemExit("--envelope requires --json")
+    try:
+        adapter = get_structured_adapter(provider)
+        request_payload = adapter.normalize_retrieve_request(
+            query=q,
+            k=k,
+            status=status,
+            method=method,
+        )
+    except ValueError as e:
+        raise SystemExit(str(e))
+
+    q = str(request_payload.get("query", ""))
+    k = int(request_payload.get("k", k))
+    status = request_payload.get("status")
+    method = request_payload.get("method")
+
     if lancedb is None:
         raise SystemExit(
             "lancedb unavailable; run build to generate JSONL, or install lancedb."
@@ -875,24 +896,38 @@ def retrieve(
 
     payload = []
     for row in ranked:
+        artifacts = row.get("artifacts", {})
+        evidence = (
+            artifacts.get("evidence", [])
+            if isinstance(artifacts, dict)
+            else []
+        )
         payload.append(
             {
-                "app_id": row.get("app_id"),
-                "company": row.get("company"),
-                "role": row.get("role"),
-                "status": row.get("status"),
-                "method": row.get("application_method"),
-                "tags": row.get("tags", []),
+                "app_id": str(row.get("app_id", "") or ""),
+                "company": str(row.get("company", "") or ""),
+                "role": str(row.get("role", "") or ""),
+                "status": str(row.get("status", "") or ""),
+                "method": str(row.get("application_method", "") or ""),
+                "tags": [str(t) for t in row.get("tags", [])]
+                if isinstance(row.get("tags"), list)
+                else [],
                 "score": round(float(row.get("_final_score", 0.0)), 4),
                 "context": str(row.get("context_bundle_text", "") or "")[:320],
-                "evidence": row.get("artifacts", {}).get("evidence", [])
-                if isinstance(row.get("artifacts"), dict)
-                else [],
+                "evidence": [str(e) for e in evidence] if isinstance(evidence, list) else [],
             }
         )
 
+    payload = adapter.validate_retrieve_results(payload)
+
     if json_output:
-        print(json.dumps(payload, ensure_ascii=True, indent=2))
+        print(
+            adapter.render_retrieve_json(
+                request=request_payload,
+                results=payload,
+                envelope=envelope,
+            )
+        )
         return
 
     if not payload:
@@ -1253,9 +1288,19 @@ def main() -> None:
     rp2.add_argument("--status", default=None, help="Optional status filter")
     rp2.add_argument("--method", default=None, help="Optional method filter")
     rp2.add_argument(
+        "--provider",
+        default="local",
+        help="Structured response adapter: local|default|local_fusion (default: local)",
+    )
+    rp2.add_argument(
         "--json",
         action="store_true",
         help="Emit JSON payload (best for agents/tooling)",
+    )
+    rp2.add_argument(
+        "--envelope",
+        action="store_true",
+        help="Emit contract envelope (requires --json)",
     )
 
     sub.add_parser("status", help="Status dashboard")
@@ -1334,6 +1379,8 @@ def main() -> None:
             status=args.status,
             method=args.method,
             json_output=args.json,
+            envelope=args.envelope,
+            provider=args.provider,
         )
     elif args.cmd == "status":
         status()

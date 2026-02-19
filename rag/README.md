@@ -43,7 +43,12 @@ Smart retrieval endpoint (single interface for agents):
 ```bash
 python Resume/rag/cli.py retrieve "python backend remote" -k 5 --json
 python Resume/rag/cli.py retrieve "sre ashby" --status Applied --method ashby
+python Resume/rag/cli.py retrieve "infra remote" --json --envelope --provider local
 ```
+
+`--json` keeps backward-compatible list output.
+`--json --envelope` emits a strict contract envelope (`rag.retrieve.v1`) with
+request metadata, provider id, timestamp, and validated result records.
 
 Record explicit outcome feedback (updates RLHF model and short-term memory):
 

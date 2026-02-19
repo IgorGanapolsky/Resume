@@ -252,6 +252,29 @@ class TestQuery:
         assert "context" in payload[0]
         assert "score" in payload[0]
 
+    def test_retrieve_json_envelope_output(self, isolated_cli, capsys):
+        if isolated_cli.lancedb is None:
+            pytest.skip("lancedb not installed")
+        isolated_cli.build()
+        capsys.readouterr()
+        isolated_cli.retrieve(
+            "ml engineer",
+            k=2,
+            json_output=True,
+            envelope=True,
+            provider="local",
+        )
+        out = capsys.readouterr().out
+        payload = json.loads(out)
+        assert payload["contract"] == "rag.retrieve.v1"
+        assert payload["provider"] == "local_fusion_v1"
+        assert isinstance(payload["results"], list)
+        assert payload["results"]
+
+    def test_retrieve_envelope_requires_json(self, isolated_cli):
+        with pytest.raises(SystemExit, match="requires --json"):
+            isolated_cli.retrieve("ml engineer", envelope=True)
+
 
 class TestLogEvent:
     def test_appends_to_events_jsonl(self, isolated_cli):
