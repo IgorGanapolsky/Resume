@@ -698,8 +698,10 @@ def _assess_queue_gate(
         "non_technical_role",
         "unsupported_site_for_ci_submit",
     }
-    eligible = fit_ok and remote_ok and all(
-        reason not in required_reasons for reason in reasons
+    eligible = (
+        fit_ok
+        and remote_ok
+        and all(reason not in required_reasons for reason in reasons)
     )
     return QueueGateAssessment(
         eligible=eligible,

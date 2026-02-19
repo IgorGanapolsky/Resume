@@ -72,7 +72,9 @@ def _seed_fde_artifacts(root: Path, role_slug: str, html_content: str) -> None:
     )
 
 
-def _seed_fde_artifacts_html_only(root: Path, role_slug: str, html_content: str) -> None:
+def _seed_fde_artifacts_html_only(
+    root: Path, role_slug: str, html_content: str
+) -> None:
     company_slug = "elevenlabs"
     resume_dir = root / "applications" / company_slug / "tailored_resumes"
     cover_dir = root / "applications" / company_slug / "cover_letters"
