@@ -70,6 +70,17 @@ python Resume/rag/cli.py feedback-batch --source memory_short
 python Resume/rag/cli.py feedback-batch --source events --dist-mode auto
 ```
 
+Autonomous tracker-to-RLHF sync (no manual app-id entry):
+
+```bash
+python Resume/rag/cli.py sync-feedback
+python Resume/rag/cli.py autonomous --interval 30
+```
+
+`sync-feedback` infers explicit outcomes from tracker fields and records them
+idempotently into RLHF arms.
+`autonomous` continuously runs `build + sync-feedback` whenever the tracker CSV changes.
+
 Append a manual note (logged to JSONL, redacted):
 
 ```bash

@@ -8,6 +8,8 @@ Commands:
   retrieve   Smart retrieval endpoint for automation/agents.
   status     Dashboard: counts by status, pending drafts.
   watch      Auto-rebuild when tracker CSV changes (polling).
+  sync-feedback  Infer explicit outcomes from tracker fields and update RLHF.
+  autonomous Continuous loop: build + sync-feedback on tracker changes.
   feedback   Record an outcome for an application; updates Thompson model.
   thumb      Quick vote alias for feedback (up/down -> outcome mapping).
   recommend  Suggest best targeting arms via Thompson Sampling.
@@ -60,6 +62,8 @@ ARMS_JSON = DATA_DIR / "arms.json"
 SHORT_MEMORY_JSONL = DATA_DIR / "memory_short.jsonl"
 LONG_MEMORY_JSONL = DATA_DIR / "memory_long.jsonl"
 FEEDBACK_BATCH_LEDGER = DATA_DIR / "feedback_batch_seen.json"
+SESSION_STATE_JSON = DATA_DIR / "session_state.json"
+TRACKER_FEEDBACK_LEDGER = DATA_DIR / "tracker_feedback_seen.json"
 
 
 # ---------------------------------------------------------------------------
@@ -82,6 +86,85 @@ def _read_text_file(path: Path, *, max_bytes: int = 300_000) -> str:
         return data.decode("utf-8", errors="replace")
     except Exception:
         return ""
+
+
+def _load_session_state() -> Dict:
+    if not SESSION_STATE_JSON.exists():
+        return {}
+    try:
+        data = json.loads(SESSION_STATE_JSON.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    return data if isinstance(data, dict) else {}
+
+
+def _save_session_state(payload: Dict) -> None:
+    SESSION_STATE_JSON.parent.mkdir(parents=True, exist_ok=True)
+    SESSION_STATE_JSON.write_text(
+        json.dumps(payload, ensure_ascii=True, indent=2),
+        encoding="utf-8",
+    )
+
+
+def _remember_recent_results(*, source: str, query: str, app_ids: List[str]) -> None:
+    state = _load_session_state()
+    state["last_results"] = {
+        "source": source,
+        "query": query,
+        "app_ids": [str(x) for x in app_ids if str(x)],
+        "ts": _utc_now(),
+    }
+    _save_session_state(state)
+
+
+def _latest_app_id_from_index() -> Optional[str]:
+    apps_path = DATA_DIR / "applications.jsonl"
+    if not apps_path.exists():
+        return None
+
+    best_app_id: Optional[str] = None
+    best_key: Tuple[str, str, str] = ("", "", "")
+    with apps_path.open(encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            rec = json.loads(line)
+            app_id = str(rec.get("app_id", "") or "")
+            if not app_id:
+                continue
+            key = (
+                str(rec.get("date_applied", "") or ""),
+                str(rec.get("updated_at", "") or ""),
+                app_id,
+            )
+            if key > best_key:
+                best_key = key
+                best_app_id = app_id
+    return best_app_id
+
+
+def _resolve_thumb_app_id(app_id: Optional[str]) -> str:
+    if app_id:
+        return app_id
+
+    state = _load_session_state()
+    last = state.get("last_results", {})
+    if isinstance(last, dict):
+        app_ids = last.get("app_ids", [])
+        if isinstance(app_ids, list):
+            for candidate in app_ids:
+                cid = str(candidate or "")
+                if cid:
+                    return cid
+
+    fallback = _latest_app_id_from_index()
+    if fallback:
+        return fallback
+
+    raise SystemExit(
+        "Cannot infer app_id for thumb feedback. Run query/retrieve first or pass --app-id."
+    )
 
 
 def _gate_or_raise(text: str, *, context: str) -> str:
@@ -651,6 +734,138 @@ def _save_feedback_seen_keys(keys: set) -> None:
     )
 
 
+def _load_seen_key_file(path: Path) -> set:
+    if not path.exists():
+        return set()
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return set()
+    if not isinstance(payload, list):
+        return set()
+    return {str(x) for x in payload if isinstance(x, str)}
+
+
+def _save_seen_key_file(path: Path, keys: set) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        json.dumps(sorted(keys), ensure_ascii=True, indent=2),
+        encoding="utf-8",
+    )
+
+
+def _infer_tracker_outcome(row: Dict[str, str]) -> Optional[str]:
+    n = normalize_row(row)
+    status = str(n.get("Status", "") or "")
+
+    response = str(row.get("Response", "") or "").strip().lower()
+    stage = str(row.get("Interview Stage", "") or "").strip().lower()
+    response_type = str(row.get("Response Type", "") or "").strip().lower()
+    combined = " | ".join([response, stage, response_type])
+
+    if status == "Offer" or "offer" in combined:
+        return "offer"
+    if status == "Rejected" or "reject" in combined:
+        return "rejected"
+    if (
+        status == "Blocked"
+        or "blocked" in combined
+        or "captcha" in combined
+        or "recaptcha" in combined
+    ):
+        return "blocked"
+
+    if status != "Applied":
+        return None
+
+    interview_markers = (
+        "interview",
+        "phone screen",
+        "screening",
+        "onsite",
+        "final round",
+    )
+    if any(m in combined for m in interview_markers):
+        return "interview"
+
+    response_markers = (
+        "recruiter",
+        "reached out",
+        "reply",
+        "responded",
+        "response",
+    )
+    if any(m in combined for m in response_markers):
+        return "response"
+    return None
+
+
+def sync_tracker_feedback() -> Tuple[int, int]:
+    """Autonomously sync explicit tracker outcomes into RLHF arms (idempotent)."""
+    rows = _load_tracker_rows()
+    app_lookup = _load_app_lookup()
+    seen_keys = _load_seen_key_file(TRACKER_FEEDBACK_LEDGER)
+    model = ThompsonModel(ARMS_JSON)
+
+    processed = 0
+    skipped = 0
+
+    for row in rows:
+        n = normalize_row(row)
+        app_id = str(n.get("app_id", "") or "")
+        if not app_id:
+            skipped += 1
+            continue
+
+        outcome = _infer_tracker_outcome(row)
+        if outcome is None:
+            skipped += 1
+            continue
+
+        status = str(n.get("Status", "") or "")
+        response = str(row.get("Response", "") or "").strip()
+        stage = str(row.get("Interview Stage", "") or "").strip()
+        response_type = str(row.get("Response Type", "") or "").strip()
+        dedupe_key = "|".join(
+            [app_id, outcome, status, response, stage, response_type]
+        ).lower()
+        if dedupe_key in seen_keys:
+            skipped += 1
+            continue
+
+        app_rec = app_lookup.get(app_id, {})
+        tags = app_rec.get("tags", n.get("Tags", []))
+        if not isinstance(tags, list):
+            tags = []
+        method = str(
+            app_rec.get("application_method", n.get("application_method", "direct"))
+            or "direct"
+        )
+
+        model.record_outcome(tags, method, outcome, save=False)
+        _append_event(
+            app_id,
+            "tracker_outcome_sync",
+            (
+                f"outcome={outcome} status={status} method={method} "
+                f"tags={tags} response_type={response_type}"
+            ),
+            outcome=outcome,
+        )
+        seen_keys.add(dedupe_key)
+        processed += 1
+
+    model.save()
+    _save_seen_key_file(TRACKER_FEEDBACK_LEDGER, seen_keys)
+    _append_event(
+        None,
+        "tracker_feedback_sync",
+        f"processed={processed} skipped={skipped}",
+    )
+    print(f"✅ Synced tracker feedback: processed={processed} skipped={skipped}")
+    return processed, skipped
+
+
 def _compute_feedback_deltas(
     rows: List[Dict],
     app_lookup: Dict[str, Dict[str, object]],
@@ -817,7 +1032,13 @@ def query(q: str, *, k: int = 8) -> None:
 
     if not results:
         print("No results.")
+        _remember_recent_results(source="query", query=q, app_ids=[])
         return
+    _remember_recent_results(
+        source="query",
+        query=q,
+        app_ids=[str(r.get("app_id", "") or "") for r in results],
+    )
     for r in results:
         method = r.get("application_method", "?")
         tags = ";".join(r.get("tags", []))
@@ -917,6 +1138,11 @@ def retrieve(
         )
 
     payload = adapter.validate_retrieve_results(payload)
+    _remember_recent_results(
+        source="retrieve",
+        query=q,
+        app_ids=[str(item.get("app_id", "") or "") for item in payload],
+    )
 
     if json_output:
         print(
@@ -1014,6 +1240,30 @@ def watch(interval: int = 10) -> None:
         time.sleep(interval)
 
 
+def autonomous(interval: int = 30) -> None:
+    """Autonomous loop: rebuild index + sync tracker outcomes on tracker changes."""
+    last_mtime: Optional[float] = None
+    print(
+        f"Autonomous mode watching {TRACKER_CSV} every {interval}s. Ctrl-C to stop."
+    )
+    while True:
+        try:
+            mtime = TRACKER_CSV.stat().st_mtime
+            changed = last_mtime is None or mtime != last_mtime
+            if changed:
+                print(f"[{_utc_now()}] Change detected — build + sync-feedback...")
+                build()
+                sync_tracker_feedback()
+                last_mtime = mtime
+        except FileNotFoundError:
+            print(f"[{_utc_now()}] Tracker CSV not found: {TRACKER_CSV}")
+        except Exception as e:
+            err = f"autonomous loop error: {e}"
+            _append_event(None, "autonomous_error", err)
+            print(f"[{_utc_now()}] {err}")
+        time.sleep(interval)
+
+
 def feedback(app_id: str, outcome: str) -> None:
     """Record an outcome for an application and update the Thompson model.
 
@@ -1078,9 +1328,10 @@ def _outcome_from_thumb(vote: str) -> str:
     return outcome
 
 
-def thumb_feedback(app_id: str, vote: str) -> None:
+def thumb_feedback(app_id: Optional[str], vote: str) -> None:
     outcome = _outcome_from_thumb(vote)
-    feedback(app_id, outcome)
+    target_app_id = _resolve_thumb_app_id(app_id)
+    feedback(target_app_id, outcome)
 
 
 def feedback_batch(
@@ -1306,6 +1557,23 @@ def main() -> None:
     wp = sub.add_parser("watch", help="Auto-rebuild on CSV change")
     wp.add_argument("--interval", type=int, default=10, help="Poll interval in seconds")
 
+    sfp = sub.add_parser(
+        "sync-feedback",
+        help="Autonomously infer outcomes from tracker and sync RLHF",
+    )
+    sfp.set_defaults(cmd="sync-feedback")
+
+    ap_auto = sub.add_parser(
+        "autonomous",
+        help="Continuous autonomous tracking: build + sync-feedback on tracker changes",
+    )
+    ap_auto.add_argument(
+        "--interval",
+        type=int,
+        default=30,
+        help="Poll interval in seconds (default: 30)",
+    )
+
     fp = sub.add_parser("feedback", help="Record application outcome")
     fp.add_argument("--app-id", required=True, help="Application ID from query output")
     fp.add_argument(
@@ -1343,7 +1611,12 @@ def main() -> None:
     )
 
     tp = sub.add_parser("thumb", help="Quick thumb vote alias for feedback")
-    tp.add_argument("--app-id", required=True, help="Application ID from query output")
+    tp.add_argument(
+        "--app-id",
+        required=False,
+        default=None,
+        help="Optional application ID from query output (auto-inferred when omitted)",
+    )
     tp.add_argument(
         "--vote",
         required=True,
@@ -1384,6 +1657,10 @@ def main() -> None:
         status()
     elif args.cmd == "watch":
         watch(args.interval)
+    elif args.cmd == "sync-feedback":
+        sync_tracker_feedback()
+    elif args.cmd == "autonomous":
+        autonomous(args.interval)
     elif args.cmd == "feedback":
         feedback(args.app_id, args.outcome)
     elif args.cmd == "feedback-batch":

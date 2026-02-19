@@ -109,5 +109,15 @@ def isolated_cli(tmp_path: Path, tracker_csv: Path, monkeypatch):
         "FEEDBACK_BATCH_LEDGER",
         tmp_path / "rag" / "data" / "feedback_batch_seen.json",
     )
+    monkeypatch.setattr(
+        cli_mod,
+        "SESSION_STATE_JSON",
+        tmp_path / "rag" / "data" / "session_state.json",
+    )
+    monkeypatch.setattr(
+        cli_mod,
+        "TRACKER_FEEDBACK_LEDGER",
+        tmp_path / "rag" / "data" / "tracker_feedback_seen.json",
+    )
 
     return cli_mod

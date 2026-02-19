@@ -396,6 +396,50 @@ class TestThumbFeedback:
         with pytest.raises(SystemExit, match="Unknown thumb vote"):
             isolated_cli._outcome_from_thumb("sideways")
 
+    def test_thumb_without_app_id_uses_session_results(self, isolated_cli):
+        isolated_cli.build()
+        app_id = self._get_app_id(isolated_cli)
+        isolated_cli._remember_recent_results(
+            source="retrieve",
+            query="ml engineer",
+            app_ids=[app_id],
+        )
+        isolated_cli.thumb_feedback(None, "up")
+
+        log_path = isolated_cli.LOG_DIR / "events.jsonl"
+        events = [
+            json.loads(line)
+            for line in log_path.read_text().splitlines()
+            if line.strip()
+        ]
+        assert any(
+            e["type"] == "outcome"
+            and e["app_id"] == app_id
+            and "outcome=response" in e["msg"]
+            for e in events
+        )
+
+    def test_thumb_without_app_id_falls_back_to_latest(self, isolated_cli):
+        isolated_cli.build()
+        if isolated_cli.SESSION_STATE_JSON.exists():
+            isolated_cli.SESSION_STATE_JSON.unlink()
+        latest = isolated_cli._latest_app_id_from_index()
+        assert latest
+
+        isolated_cli.thumb_feedback(None, "down")
+        log_path = isolated_cli.LOG_DIR / "events.jsonl"
+        events = [
+            json.loads(line)
+            for line in log_path.read_text().splitlines()
+            if line.strip()
+        ]
+        assert any(
+            e["type"] == "outcome"
+            and e["app_id"] == latest
+            and "outcome=no_response" in e["msg"]
+            for e in events
+        )
+
 
 class TestFeedbackBatch:
     def _get_app_id(self, isolated_cli) -> str:
@@ -432,6 +476,38 @@ class TestFeedbackBatch:
         second = isolated_cli.ThompsonModel(isolated_cli.ARMS_JSON)
         pulls_second = sum(a.pulls for a in second.arms.values())
         assert pulls_second == pulls_first
+
+
+class TestTrackerSync:
+    def test_sync_tracker_feedback_idempotent(self, isolated_cli, tmp_path):
+        row = SAMPLE_ROWS[0].copy()
+        row["Status"] = "Applied"
+        row["Response"] = "Recruiter reached out"
+        row["Interview Stage"] = "Phone Screen"
+        tracker = tmp_path / "tracker_sync.csv"
+        with tracker.open("w", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(f, fieldnames=list(row.keys()))
+            writer.writeheader()
+            writer.writerow(row)
+
+        isolated_cli.TRACKER_CSV = tracker
+        isolated_cli.build()
+        before = isolated_cli.ThompsonModel(isolated_cli.ARMS_JSON)
+        pulls_before = sum(a.pulls for a in before.arms.values())
+
+        processed_1, skipped_1 = isolated_cli.sync_tracker_feedback()
+        mid = isolated_cli.ThompsonModel(isolated_cli.ARMS_JSON)
+        pulls_mid = sum(a.pulls for a in mid.arms.values())
+        assert processed_1 == 1
+        assert skipped_1 >= 0
+        assert pulls_mid > pulls_before
+
+        processed_2, skipped_2 = isolated_cli.sync_tracker_feedback()
+        after = isolated_cli.ThompsonModel(isolated_cli.ARMS_JSON)
+        pulls_after = sum(a.pulls for a in after.arms.values())
+        assert processed_2 == 0
+        assert skipped_2 >= 1
+        assert pulls_after == pulls_mid
 
 
 class TestRecommend:
