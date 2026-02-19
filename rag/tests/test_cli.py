@@ -160,6 +160,29 @@ class TestStatus:
         assert "build" in out.lower()
 
 
+class TestQuery:
+    def test_query_prints_app_id_and_score(self, isolated_cli, capsys):
+        if isolated_cli.lancedb is None:
+            pytest.skip("lancedb not installed")
+
+        isolated_cli.build()
+        apps_path = isolated_cli.DATA_DIR / "applications.jsonl"
+        first_app_id = json.loads(apps_path.read_text().splitlines()[0])["app_id"]
+
+        isolated_cli.query("senior ml engineer", k=3)
+        out = capsys.readouterr().out
+        assert first_app_id in out
+        assert "score=" in out
+
+    def test_rrf_fuse_promotes_consensus_results(self, isolated_cli):
+        vector_rows = [{"app_id": "a"}, {"app_id": "b"}]
+        lexical_rows = [{"app_id": "b"}, {"app_id": "c"}]
+
+        ranked = isolated_cli._rrf_fuse(vector_rows, lexical_rows, rrf_k=10)
+        assert ranked[0]["app_id"] == "b"
+        assert ranked[0]["_hybrid_score"] > ranked[1]["_hybrid_score"]
+
+
 class TestLogEvent:
     def test_appends_to_events_jsonl(self, isolated_cli):
         isolated_cli.build()

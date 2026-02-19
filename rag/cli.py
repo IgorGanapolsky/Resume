@@ -20,7 +20,7 @@ import time
 from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Dict, Iterable, List, Optional
+from typing import Dict, Iterable, List, Optional, Tuple
 
 import numpy as np
 
@@ -246,6 +246,113 @@ def _applications_table_schema():
     )
 
 
+def _ensure_lancedb_indexes(table, *, has_data: bool) -> None:
+    """Create retrieval indexes; log and continue on index creation failures."""
+    try:
+        table.create_fts_index(
+            ["text", "company", "role", "notes"],
+            stem=True,
+            remove_stop_words=True,
+            replace=True,
+        )
+    except Exception as e:
+        _append_event(None, "index_warn", f"FTS index skipped: {e}")
+
+    for col in ("status", "application_method", "date_applied"):
+        try:
+            table.create_scalar_index(col, replace=True)
+        except Exception as e:
+            _append_event(None, "index_warn", f"Scalar index skipped for {col}: {e}")
+
+    if has_data:
+        try:
+            table.create_index(metric="cosine", vector_column_name="vector", replace=True)
+        except Exception as e:
+            _append_event(None, "index_warn", f"Vector index skipped: {e}")
+
+        try:
+            table.optimize()
+        except Exception as e:
+            _append_event(None, "index_warn", f"Optimize skipped: {e}")
+
+
+def _rrf_fuse(
+    vector_rows: List[Dict], lexical_rows: List[Dict], *, rrf_k: int = 60
+) -> List[Dict]:
+    """Reciprocal rank fusion over dense and lexical candidate lists."""
+    fused: Dict[str, Tuple[float, Dict]] = {}
+
+    def _add(rows: List[Dict], label: str) -> None:
+        for rank, row in enumerate(rows, start=1):
+            app_id = str(row.get("app_id", ""))
+            if not app_id:
+                continue
+            score = 1.0 / (rrf_k + rank)
+            prior_score, prior_row = fused.get(app_id, (0.0, row))
+            merged_row = dict(prior_row)
+            merged_row.update(row)
+            merged_row[f"_rank_{label}"] = rank
+            fused[app_id] = (prior_score + score, merged_row)
+
+    _add(vector_rows, "vec")
+    _add(lexical_rows, "fts")
+
+    ranked: List[Dict] = []
+    for app_id, (score, row) in fused.items():
+        out = dict(row)
+        out["app_id"] = app_id
+        out["_hybrid_score"] = score
+        ranked.append(out)
+
+    ranked.sort(key=lambda r: float(r.get("_hybrid_score", 0.0)), reverse=True)
+    return ranked
+
+
+def _native_hybrid_query(table, q: str, *, candidate_k: int) -> List[Dict]:
+    """Try LanceDB native hybrid+rerank. Returns [] when unavailable."""
+    try:
+        from lancedb.rerankers import RRFReranker  # type: ignore
+
+        query = table.search(
+            q.strip(),
+            query_type="hybrid",
+            fts_columns=["text", "company", "role", "notes"],
+        )
+        query = query.rerank(RRFReranker())
+        return query.limit(candidate_k).to_list()
+    except Exception:
+        return []
+
+
+def _manual_hybrid_query(table, q: str, q_vec: np.ndarray, *, candidate_k: int) -> List[Dict]:
+    """Fallback hybrid retrieval for custom-vector tables: dense + FTS + RRF."""
+    vector_rows = table.search(q_vec, query_type="vector").limit(candidate_k).to_list()
+
+    lexical_rows: List[Dict] = []
+    try:
+        lexical_rows = table.search(
+            q.strip(),
+            query_type="fts",
+            fts_columns=["text", "company", "role", "notes"],
+        ).limit(candidate_k).to_list()
+    except Exception:
+        lexical_rows = []
+
+    if lexical_rows:
+        return _rrf_fuse(vector_rows, lexical_rows)
+    return vector_rows
+
+
+def _display_score(row: Dict) -> float:
+    if "_hybrid_score" in row:
+        return float(row["_hybrid_score"])
+    if "_score" in row:
+        return float(row["_score"])
+    if "_distance" in row:
+        return 1.0 / (1.0 + max(0.0, float(row["_distance"])))
+    return 0.0
+
+
 # ---------------------------------------------------------------------------
 # Commands
 # ---------------------------------------------------------------------------
@@ -314,14 +421,15 @@ def build() -> None:
         )
 
     if items:
-        db.create_table("applications", data=items, mode="overwrite")
+        table = db.create_table("applications", data=items, mode="overwrite")
     else:
-        db.create_table(
+        table = db.create_table(
             "applications",
             data=[],
             schema=_applications_table_schema(),
             mode="overwrite",
         )
+    _ensure_lancedb_indexes(table, has_data=bool(items))
     _append_event(None, "build_ok", f"Indexed {len(items)} applications")
     print(f"✅ Built {len(items)} applications (JSONL + LanceDB)")
 
@@ -336,17 +444,26 @@ def query(q: str, *, k: int = 8) -> None:
     db = lancedb.connect(str(LANCEDB_DIR))
     table = db.open_table("applications")
     q_vec = _hashing_embedding(q.strip())
+    candidate_k = max(k * 8, 40)
 
-    results = table.search(q_vec).limit(k).to_list()
+    # First try native LanceDB hybrid+rerank. If the table lacks an embedding
+    # function (custom vector ingestion), fall back to manual dense+lexical RRF.
+    results = _native_hybrid_query(table, q, candidate_k=candidate_k)
+    if not results:
+        results = _manual_hybrid_query(table, q, q_vec, candidate_k=candidate_k)
+    results = results[:k]
+
     if not results:
         print("No results.")
         return
     for r in results:
         method = r.get("application_method", "?")
         tags = ";".join(r.get("tags", []))
+        score = _display_score(r)
         print(
-            f"- {r.get('company'):<22} | {r.get('role'):<45} | "
-            f"{r.get('status'):<8} | {method:<12} | {tags}"
+            f"- {r.get('app_id')} | {r.get('company'):<22} | "
+            f"{r.get('role'):<45} | {r.get('status'):<8} | "
+            f"score={score:0.4f} | {method:<12} | {tags}"
         )
 
 
