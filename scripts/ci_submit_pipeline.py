@@ -505,6 +505,10 @@ class AshbyAdapter(PlaywrightFormAdapter):
                 if after and after != before:
                     filled = True
                     break
+            if not filled and self._set_yes_no_following_question(
+                scope, page, sponsorship_markers, answers.require_sponsorship
+            ):
+                filled = True
             if not filled:
                 diagnostics.append(
                     "sponsorship:"
@@ -773,6 +777,62 @@ class AshbyAdapter(PlaywrightFormAdapter):
                     return True
             except Exception:
                 continue
+        return False
+
+    def _set_yes_no_following_question(
+        self, scope: Any, page: Any, markers: Sequence[str], answer_yes: bool
+    ) -> bool:
+        value = "Yes" if answer_yes else "No"
+        for target in (scope, page):
+            for marker in markers:
+                marker_pattern = re.compile(
+                    r"\s+".join(re.escape(part) for part in marker.split()), re.I
+                )
+                try:
+                    text_node = target.get_by_text(marker_pattern).first
+                    if text_node.count() < 1:
+                        continue
+                except Exception:
+                    continue
+
+                for xpath in (
+                    "xpath=following::input[not(@type) or @type='text' or @type='search'][1]",
+                    "xpath=following::textarea[1]",
+                ):
+                    try:
+                        field = text_node.locator(xpath).first
+                        if field.count() > 0:
+                            field.fill(value, timeout=1500)
+                            return True
+                    except Exception:
+                        continue
+
+                for xpath in (
+                    "xpath=following::*[@role='combobox'][1]",
+                    "xpath=following::*[@aria-haspopup='listbox'][1]",
+                ):
+                    try:
+                        control = text_node.locator(xpath).first
+                        if control.count() < 1:
+                            continue
+                        control.click(timeout=1500)
+                        try:
+                            control.fill(value, timeout=1000)
+                            control.press("Enter", timeout=1000)
+                            return True
+                        except Exception:
+                            pass
+                        try:
+                            option = page.get_by_role(
+                                "option", name=re.compile(rf"\b{value}\b", re.I)
+                            ).first
+                            if option.count() > 0:
+                                option.click(timeout=1500)
+                                return True
+                        except Exception:
+                            continue
+                    except Exception:
+                        continue
         return False
 
     def _snapshot_text_field(self, scope: Any, prompt: str) -> str:
