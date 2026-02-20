@@ -6,6 +6,7 @@ import csv
 import importlib.util
 import json
 import sys
+import urllib.parse
 import zipfile
 from pathlib import Path
 
@@ -826,7 +827,9 @@ def test_ashby_extract_submit_error_detail_handles_recaptcha_spam():
         },
     )
     detail = adapter._extract_submit_error_detail(response)
-    assert detail == "recaptcha_score_below_threshold:95f30271-233d-4058-8604-0d986c85da54"
+    assert (
+        detail == "recaptcha_score_below_threshold:95f30271-233d-4058-8604-0d986c85da54"
+    )
 
 
 def test_execute_requires_answers_secret(tmp_path, monkeypatch):
@@ -954,7 +957,8 @@ def test_execute_recaptcha_block_counts_as_skipped_not_failed(tmp_path, monkeypa
         name = "ashby"
 
         def matches(self, url: str) -> bool:
-            return "ashbyhq.com" in url
+            host = (urllib.parse.urlsplit(url).hostname or "").lower()
+            return host == "ashbyhq.com" or host.endswith(".ashbyhq.com")
 
         def submit(self, task, profile, auth, answers):
             screenshot = submissions_dir / "confirm.png"
@@ -1051,7 +1055,9 @@ def test_ashby_post_submit_retry_runs_fallbacks_and_retries(monkeypatch):
         adapter, "_fill_unanswered_selects", lambda s, p: calls.append("selects")
     )
     monkeypatch.setattr(
-        adapter, "_apply_required_answers", lambda s, p, answers: calls.append("answers")
+        adapter,
+        "_apply_required_answers",
+        lambda s, p, answers: calls.append("answers"),
     )
     monkeypatch.setattr(
         adapter, "_click_submit", lambda s, p: calls.append("submit") or True

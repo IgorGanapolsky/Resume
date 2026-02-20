@@ -120,7 +120,9 @@ def _infer_evidence_path(company: str, date_applied: str, notes: str) -> Path | 
         patterns.extend([f"{date_prefix}_*.png", f"{date_prefix}_*.pdf"])
     patterns.extend(["*_confirmation*.png", "*_submitted*.png", "*.png", "*.pdf"])
     for pattern in patterns:
-        files = sorted(sub_dir.glob(pattern), key=lambda p: p.stat().st_mtime, reverse=True)
+        files = sorted(
+            sub_dir.glob(pattern), key=lambda p: p.stat().st_mtime, reverse=True
+        )
         if files:
             return files[0]
     return None
@@ -166,7 +168,9 @@ def run_audit(
         if write and evidence_path is None:
             inferred_evidence = _infer_evidence_path(company, date_applied, notes)
             if inferred_evidence is not None:
-                row["Submission Evidence Path"] = str(inferred_evidence.relative_to(ROOT))
+                row["Submission Evidence Path"] = str(
+                    inferred_evidence.relative_to(ROOT)
+                )
                 evidence_path = inferred_evidence
                 row_fixed = True
         if write and row_fixed and not verified_raw:
@@ -205,7 +209,9 @@ def run_audit(
         "write": write,
     }
     report_path.parent.mkdir(parents=True, exist_ok=True)
-    report_path.write_text(json.dumps(report, ensure_ascii=True, indent=2), encoding="utf-8")
+    report_path.write_text(
+        json.dumps(report, ensure_ascii=True, indent=2), encoding="utf-8"
+    )
 
     print(
         f"Submission artifact audit: applied={applied_total} "
@@ -219,7 +225,9 @@ def run_audit(
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--tracker", default=str(TRACKER_CSV), help="Tracker CSV path")
-    ap.add_argument("--report", default=str(DEFAULT_REPORT), help="Audit JSON report path")
+    ap.add_argument(
+        "--report", default=str(DEFAULT_REPORT), help="Audit JSON report path"
+    )
     ap.add_argument(
         "--write",
         action="store_true",
@@ -241,4 +249,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

@@ -264,12 +264,20 @@ def run_prepare(
     fit_threshold: int,
     remote_min_score: int,
 ) -> int:
-    ci_mod = _load_script_module("ci_submit_pipeline_prepare_mod", ROOT / "scripts" / "ci_submit_pipeline.py")
-    ralph_mod = _load_script_module("ralph_loop_prepare_mod", ROOT / "scripts" / "ralph_loop_ci.py")
+    ci_mod = _load_script_module(
+        "ci_submit_pipeline_prepare_mod", ROOT / "scripts" / "ci_submit_pipeline.py"
+    )
+    ralph_mod = _load_script_module(
+        "ralph_loop_prepare_mod", ROOT / "scripts" / "ralph_loop_ci.py"
+    )
 
     fields, rows = _read_tracker(tracker_csv)
     fields = ci_mod._ensure_tracker_fields(fields, rows, ci_mod.TRACKER_REMOTE_FIELDS)
-    adapters = [ci_mod.AshbyAdapter(), ci_mod.GreenhouseAdapter(), ci_mod.LeverAdapter()]
+    adapters = [
+        ci_mod.AshbyAdapter(),
+        ci_mod.GreenhouseAdapter(),
+        ci_mod.LeverAdapter(),
+    ]
 
     processed = 0
     failures = 0
@@ -327,7 +335,9 @@ def run_prepare(
         "results": details,
     }
     report_path.parent.mkdir(parents=True, exist_ok=True)
-    report_path.write_text(json.dumps(report, ensure_ascii=True, indent=2), encoding="utf-8")
+    report_path.write_text(
+        json.dumps(report, ensure_ascii=True, indent=2), encoding="utf-8"
+    )
 
     print(
         "Prepare CI artifacts complete: "
