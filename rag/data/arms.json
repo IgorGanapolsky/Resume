@@ -9,8 +9,8 @@
   "cat:ai": {
     "name": "cat:ai",
     "alpha": 2.000000000000001,
-    "beta": 23.999999999999993,
-    "pulls": 24,
+    "beta": 24.999999999999993,
+    "pulls": 25,
     "total_reward": 1.0000000000000002
   },
   "cat:react-native": {
@@ -177,36 +177,36 @@
   "cat:infra": {
     "name": "cat:infra",
     "alpha": 1.0,
-    "beta": 8.0,
-    "pulls": 7,
+    "beta": 9.0,
+    "pulls": 8,
     "total_reward": 0.0
   },
   "cat:kubernetes": {
     "name": "cat:kubernetes",
     "alpha": 1.0,
-    "beta": 3.0,
-    "pulls": 2,
+    "beta": 4.0,
+    "pulls": 3,
     "total_reward": 0.0
   },
   "cat:inference": {
     "name": "cat:inference",
     "alpha": 1.0,
-    "beta": 4.0,
-    "pulls": 3,
+    "beta": 5.0,
+    "pulls": 4,
     "total_reward": 0.0
   },
   "cat:gateway": {
     "name": "cat:gateway",
     "alpha": 1.0,
-    "beta": 3.0,
-    "pulls": 2,
+    "beta": 4.0,
+    "pulls": 3,
     "total_reward": 0.0
   },
   "method:ashby": {
     "name": "method:ashby",
     "alpha": 1.0,
-    "beta": 7.0,
-    "pulls": 6,
+    "beta": 8.0,
+    "pulls": 7,
     "total_reward": 0.0
   },
   "cat:backend": {
