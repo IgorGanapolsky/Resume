@@ -252,6 +252,10 @@ def _ensure_tracker_fields(
     return out
 
 
+def _host_matches_domain(host: str, domain: str) -> bool:
+    return host == domain or host.endswith(f".{domain}")
+
+
 def infer_remote_profile(job: Dict[str, str]) -> tuple[str, int, List[str]]:
     hay = " ".join(
         [
@@ -279,7 +283,9 @@ def infer_remote_profile(job: Dict[str, str]) -> tuple[str, int, List[str]]:
         score = 85
         evidence.append("remote_keyword")
 
-    if host.endswith("remoteok.com") or host.endswith("remotive.com"):
+    if _host_matches_domain(host, "remoteok.com") or _host_matches_domain(
+        host, "remotive.com"
+    ):
         evidence.append("remote_feed_source")
         score = min(95, score + 5)
 

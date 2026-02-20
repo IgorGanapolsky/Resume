@@ -318,7 +318,9 @@ class PlaywrightFormAdapter(SiteAdapter):
                 if missing_answers:
                     task.confirmation_path.parent.mkdir(parents=True, exist_ok=True)
                     try:
-                        page.screenshot(path=str(task.confirmation_path), full_page=True)
+                        page.screenshot(
+                            path=str(task.confirmation_path), full_page=True
+                        )
                     except Exception:
                         pass
                     browser.close()
@@ -573,9 +575,7 @@ class AshbyAdapter(PlaywrightFormAdapter):
             if not filled:
                 diagnostics.append(
                     "sponsorship:"
-                    + self._diagnose_question_controls(
-                        scope, page, sponsorship_markers
-                    )
+                    + self._diagnose_question_controls(scope, page, sponsorship_markers)
                 )
                 missing.append("require_sponsorship")
 
@@ -605,9 +605,7 @@ class AshbyAdapter(PlaywrightFormAdapter):
             missing.extend(diagnostics)
         return missing
 
-    def _question_present(
-        self, scope: Any, page: Any, markers: Sequence[str]
-    ) -> bool:
+    def _question_present(self, scope: Any, page: Any, markers: Sequence[str]) -> bool:
         texts: List[str] = []
         for target in (scope, page):
             try:
@@ -680,10 +678,7 @@ class AshbyAdapter(PlaywrightFormAdapter):
         value_hints = ("yes", "true", "1") if answer_yes else ("no", "false", "0")
         for hint in name_hints:
             for value_hint in value_hints:
-                selector = (
-                    "input[type='radio']"
-                    f"[name*='{hint}'][value*='{value_hint}']"
-                )
+                selector = f"input[type='radio'][name*='{hint}'][value*='{value_hint}']"
                 try:
                     radio = scope.locator(selector).first
                     if radio.count() > 0:
@@ -1020,7 +1015,8 @@ class AshbyAdapter(PlaywrightFormAdapter):
                 error_id = str(extensions.get("ashbyErrorId", "")).strip()
             message = str(entry.get("message", "")).strip().lower()
             if error_type == "RECAPTCHA_SCORE_BELOW_THRESHOLD" or (
-                "possible spam" in message and "submit your application again" in message
+                "possible spam" in message
+                and "submit your application again" in message
             ):
                 suffix = f":{error_id}" if error_id else ""
                 return f"recaptcha_score_below_threshold{suffix}"
@@ -1459,6 +1455,10 @@ def _adapter_name_for_url(url: str, adapters: Sequence[SiteAdapter]) -> Optional
     return found.name if found is not None else None
 
 
+def _host_matches_domain(host: str, domain: str) -> bool:
+    return host == domain or host.endswith(f".{domain}")
+
+
 def _infer_remote_profile(
     row: Dict[str, str],
     *,
@@ -1488,7 +1488,9 @@ def _infer_remote_profile(
         score = 85
         evidence.append("remote_keyword")
 
-    if host.endswith("remoteok.com") or host.endswith("remotive.com"):
+    if _host_matches_domain(host, "remoteok.com") or _host_matches_domain(
+        host, "remotive.com"
+    ):
         evidence.append("remote_feed_source")
         score = min(95, score + 5)
 
@@ -2052,9 +2054,7 @@ def run_pipeline(
                 row["Follow Up Date"] = _next_follow_up(7)
             row["Submitted Resume Path"] = str(resume_path)
             row["Submission Evidence Path"] = str(result.screenshot)
-            row["Submission Verified At"] = dt.datetime.now(
-                dt.timezone.utc
-            ).isoformat()
+            row["Submission Verified At"] = dt.datetime.now(dt.timezone.utc).isoformat()
             row["Notes"] = _append_note(
                 str(row.get("Notes", "")),
                 (

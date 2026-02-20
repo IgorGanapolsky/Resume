@@ -1,0 +1,357 @@
+{
+  "generated_at": "2026-02-20T20:12:30.884293+00:00",
+  "tracker_csv": "/home/runner/work/Resume/Resume/applications/job_applications/application_tracker.csv",
+  "applied_total": 36,
+  "fixed_count": 0,
+  "missing_count": 36,
+  "missing_rows": [
+    {
+      "row_index": 0,
+      "company": "Owner.com",
+      "role": "Software Engineer Mobile",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 1,
+      "company": "Automattic",
+      "role": "Mobile Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 2,
+      "company": "GitLab",
+      "role": "Senior Software Engineer Mobile",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 3,
+      "company": "DockYard",
+      "role": "React Native Developer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 4,
+      "company": "Deepgram",
+      "role": "Software Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 5,
+      "company": "D-Wave Quantum",
+      "role": "Software Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 6,
+      "company": "Numiro",
+      "role": "AI Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 7,
+      "company": "Modernizing Medicine",
+      "role": "Software Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 8,
+      "company": "Kalmus Labs",
+      "role": "AI Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 9,
+      "company": "Safari AI",
+      "role": "Software Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 10,
+      "company": "PostHog",
+      "role": "Software Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 11,
+      "company": "Statsig",
+      "role": "Software Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 12,
+      "company": "Buffer",
+      "role": "Mobile Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 13,
+      "company": "Hugging Face",
+      "role": "Mobile Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 14,
+      "company": "Replicate",
+      "role": "Software Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 15,
+      "company": "Jumpspeak",
+      "role": "Mobile Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 16,
+      "company": "AppZen",
+      "role": "Software Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 17,
+      "company": "Globant",
+      "role": "React Native Developer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 18,
+      "company": "CrowdStrike",
+      "role": "Mobile Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 19,
+      "company": "Together AI",
+      "role": "Software Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 20,
+      "company": "EliseAI",
+      "role": "Software Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 21,
+      "company": "Cohere Health",
+      "role": "Software Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 22,
+      "company": "Collectly",
+      "role": "Software Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 23,
+      "company": "Artera",
+      "role": "Software Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 24,
+      "company": "Coinbase",
+      "role": "Senior Mobile Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 25,
+      "company": "Metallicus",
+      "role": "React Native Developer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 26,
+      "company": "BitGo",
+      "role": "Mobile Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 27,
+      "company": "Apex Fintech",
+      "role": "Software Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 28,
+      "company": "GRAIL",
+      "role": "Software Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 30,
+      "company": "Anthropic",
+      "role": "Senior / Staff+ Software Engineer - Autonomous Agent Infrastructure",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 32,
+      "company": "OpenEvidence",
+      "role": "Software Engineer - Site Reliability Engineering",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 34,
+      "company": "ElevenLabs",
+      "role": "Forward Deployed Engineer - Software Engineer",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 36,
+      "company": "Mercor",
+      "role": "Software Engineer (Trajectory)",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 37,
+      "company": "Mercor",
+      "role": "Software Engineer III",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 38,
+      "company": "Mercor",
+      "role": "Software Expert (Office Suite)",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 39,
+      "company": "Simile",
+      "role": "Careers contact form (general inquiry)",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path"
+      ]
+    }
+  ],
+  "write": true
+}
