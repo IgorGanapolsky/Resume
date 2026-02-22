@@ -94,3 +94,6 @@
 {"ts": "2026-02-20T20:12:32.913715+00:00", "app_id": null, "type": "index_warn", "msg": "FTS index skipped: field_names must be a string when use_tantivy=False"}
 {"ts": "2026-02-20T20:12:32.926362+00:00", "app_id": null, "type": "index_warn", "msg": "Vector index skipped: lance error: Unprocessable: Not enough rows to train PQ. Requires 256 rows but only 80 available, /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/lance-index-2.0.0/src/vector/pq/builder.rs:179:27"}
 {"ts": "2026-02-20T20:12:32.933166+00:00", "app_id": null, "type": "build_ok", "msg": "Indexed 80 applications"}
+{"ts": "2026-02-22T21:41:34.681794+00:00", "app_id": null, "type": "index_warn", "msg": "FTS index skipped: field_names must be a string when use_tantivy=False"}
+{"ts": "2026-02-22T21:41:34.695237+00:00", "app_id": null, "type": "index_warn", "msg": "Vector index skipped: lance error: Unprocessable: Not enough rows to train PQ. Requires 256 rows but only 90 available, /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/lance-index-2.0.0/src/vector/pq/builder.rs:179:27"}
+{"ts": "2026-02-22T21:41:34.702516+00:00", "app_id": null, "type": "build_ok", "msg": "Indexed 90 applications"}
