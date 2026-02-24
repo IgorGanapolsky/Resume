@@ -2087,9 +2087,8 @@ def run_pipeline(
             skipped_count += 1
             if count_skipped_as_failures:
                 failed_count += 1
-        elif (
-            result.details == "missing_file_input"
-            or result.details.startswith("required_fields_unanswered_after_retry")
+        elif result.details == "missing_file_input" or result.details.startswith(
+            "required_fields_unanswered_after_retry"
         ):
             row_result["result"] = "skipped"
             row_errors = [
