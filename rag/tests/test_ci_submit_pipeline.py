@@ -897,7 +897,7 @@ def test_execute_recaptcha_block_counts_as_skipped_not_failed(tmp_path, monkeypa
     monkeypatch.setattr(mod, "ROOT", tmp_path)
 
     company = "Baseten"
-    role = "Senior Software Engineer - Infrastructure"
+    role = "Forward Deployed Engineer - Infrastructure"
     company_slug = mod._slug(company)
     role_slug = mod._slug(role)[:64]
     resume_dir = tmp_path / "applications" / company_slug / "tailored_resumes"
@@ -1002,7 +1002,7 @@ def test_execute_missing_file_input_quarantines_and_does_not_fail_run(
     monkeypatch.setattr(mod, "ROOT", tmp_path)
 
     company = "Baseten"
-    role = "Senior Software Engineer - Infrastructure"
+    role = "Forward Deployed Engineer - Infrastructure"
     company_slug = mod._slug(company)
     role_slug = mod._slug(role)[:64]
     resume_dir = tmp_path / "applications" / company_slug / "tailored_resumes"
@@ -1093,6 +1093,18 @@ def test_execute_missing_file_input_quarantines_and_does_not_fail_run(
     assert rows[0]["Status"] == "Quarantined"
     assert rows[0]["Submission Lane"] == "manual:quarantined"
     assert "missing_file_input" in rows[0]["Notes"]
+
+
+def test_role_track_requires_explicit_fde_title_not_only_customer_signal():
+    mod = _load_module()
+    track, signals = mod._role_track_and_signals(
+        "Senior Software Engineer - Infrastructure",
+        "python;backend",
+        "Customer-facing delivery and API integration across enterprise deployments.",
+        "Work directly with customers on integration-heavy platform rollouts.",
+    )
+    assert "customer-integration" in signals
+    assert track == "general"
 
 
 def test_select_yes_no_on_select_handles_yes():
