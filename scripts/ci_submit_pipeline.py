@@ -1442,11 +1442,9 @@ def _role_track_and_signals(
         signals.append("python")
     if VOICE_AUDIO_RE.search(hay):
         signals.append("voice-audio")
-    track = (
-        "fde"
-        if ("fde-role" in signals or "customer-integration" in signals)
-        else "general"
-    )
+    # Only explicit FDE titles should trigger strict FDE scoring requirements.
+    # Customer/integration language can appear in many non-FDE technical roles.
+    track = "fde" if "fde-role" in signals else "general"
     return track, sorted(set(signals))
 
 
