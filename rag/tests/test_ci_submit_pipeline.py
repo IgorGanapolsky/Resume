@@ -995,6 +995,106 @@ def test_execute_recaptcha_block_counts_as_skipped_not_failed(tmp_path, monkeypa
     assert "Manual browser submit required." in rows[0]["Notes"]
 
 
+def test_execute_missing_file_input_quarantines_and_does_not_fail_run(
+    tmp_path, monkeypatch
+):
+    mod = _load_module()
+    monkeypatch.setattr(mod, "ROOT", tmp_path)
+
+    company = "Baseten"
+    role = "Senior Software Engineer - Infrastructure"
+    company_slug = mod._slug(company)
+    role_slug = mod._slug(role)[:64]
+    resume_dir = tmp_path / "applications" / company_slug / "tailored_resumes"
+    cover_dir = tmp_path / "applications" / company_slug / "cover_letters"
+    jobs_dir = tmp_path / "applications" / company_slug / "jobs"
+    resume_dir.mkdir(parents=True, exist_ok=True)
+    cover_dir.mkdir(parents=True, exist_ok=True)
+    jobs_dir.mkdir(parents=True, exist_ok=True)
+    (resume_dir / f"2026-02-19_{company_slug}_{role_slug}.docx").write_bytes(b"docx")
+    (resume_dir / f"2026-02-19_{company_slug}_{role_slug}.html").write_text(
+        (
+            "Forward-Deployed AI/Software Engineer "
+            "FORWARD-DEPLOYED COMPETENCIES "
+            "customer-facing delivery "
+            "integration engineering "
+            "Python APIs"
+        ),
+        encoding="utf-8",
+    )
+    (cover_dir / f"2026-02-19_{company_slug}_{role_slug}.md").write_text(
+        "Cover letter", encoding="utf-8"
+    )
+    (jobs_dir / f"2026-02-19_{company_slug}_{role_slug}_abc123.md").write_text(
+        "Remote. Requirements: customer integrations and Python.",
+        encoding="utf-8",
+    )
+
+    tracker = tmp_path / "application_tracker.csv"
+    report = tmp_path / "report.json"
+    _write_tracker(
+        tracker,
+        [
+            {
+                "Company": company,
+                "Role": role,
+                "Location": "Remote",
+                "Salary Range": "",
+                "Status": "ReadyToSubmit",
+                "Date Applied": "",
+                "Follow Up Date": "",
+                "Response": "",
+                "Interview Stage": "Initial",
+                "Days To Response": "",
+                "Response Type": "",
+                "Cover Letter Used": "",
+                "What Worked": "",
+                "Tags": "ai;infra;python",
+                "Notes": "",
+                "Career Page URL": "https://jobs.ashbyhq.com/baseten/abc123",
+            }
+        ],
+    )
+
+    class _MissingFileAdapter(mod.SiteAdapter):
+        name = "ashby"
+
+        def matches(self, url: str) -> bool:
+            host = (urllib.parse.urlsplit(url).hostname or "").lower()
+            return host == "ashbyhq.com" or host.endswith(".ashbyhq.com")
+
+        def submit(self, task, profile, auth, answers):
+            return mod.SubmitResult(
+                adapter=self.name,
+                verified=False,
+                screenshot=None,
+                details="missing_file_input",
+            )
+
+    rc = mod.run_pipeline(
+        tracker_csv=tracker,
+        report_path=report,
+        dry_run=False,
+        queue_only=False,
+        max_jobs=1,
+        fail_on_error=True,
+        require_secret_auth=False,
+        adapters=[_MissingFileAdapter()],
+    )
+    assert rc == 0
+    payload = json.loads(report.read_text(encoding="utf-8"))
+    assert payload["failed_count"] == 0
+    assert payload["skipped_count"] == 1
+    assert payload["results"][0]["result"] == "skipped"
+    assert "quarantinable_submit_blocker" in payload["results"][0]["errors"]
+
+    with tracker.open(newline="", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+    assert rows[0]["Status"] == "Quarantined"
+    assert rows[0]["Submission Lane"] == "manual:quarantined"
+    assert "missing_file_input" in rows[0]["Notes"]
+
+
 def test_select_yes_no_on_select_handles_yes():
     mod = _load_module()
     adapter = mod.AshbyAdapter()

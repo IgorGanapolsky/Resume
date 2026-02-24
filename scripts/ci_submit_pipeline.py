@@ -2087,6 +2087,34 @@ def run_pipeline(
             skipped_count += 1
             if count_skipped_as_failures:
                 failed_count += 1
+        elif (
+            result.details == "missing_file_input"
+            or result.details.startswith("required_fields_unanswered_after_retry")
+        ):
+            row_result["result"] = "skipped"
+            row_errors = [
+                "manual_submit_required",
+                "quarantinable_submit_blocker",
+                result.details,
+            ]
+            if not resume_exists:
+                row_errors.append("missing_or_invalid_submitted_resume_path")
+            if not screenshot_ok:
+                row_errors.append("missing_or_empty_confirmation_screenshot")
+            row_result["errors"] = row_errors
+            row["Status"] = "Quarantined"
+            row["Submission Lane"] = "manual:quarantined"
+            row["Notes"] = _append_note(
+                str(row.get("Notes", "")),
+                (
+                    f"Auto-quarantined on {_today_iso()} after submit blocker "
+                    f"via {adapter.name}: {result.details}"
+                ),
+            )
+            queue_metadata_updates += 1
+            skipped_count += 1
+            if count_skipped_as_failures:
+                failed_count += 1
         else:
             row_result["result"] = "failed"
             row_errors = ["verification_failed"]
