@@ -275,7 +275,9 @@ class PlaywrightFormAdapter(SiteAdapter):
                 if form_scope is None:
                     task.confirmation_path.parent.mkdir(parents=True, exist_ok=True)
                     try:
-                        page.screenshot(path=str(task.confirmation_path), full_page=True)
+                        page.screenshot(
+                            path=str(task.confirmation_path), full_page=True
+                        )
                     except Exception:
                         pass
                     detail = self._missing_form_scope_detail(page)
@@ -351,7 +353,9 @@ class PlaywrightFormAdapter(SiteAdapter):
                 if not upload_ok:
                     task.confirmation_path.parent.mkdir(parents=True, exist_ok=True)
                     try:
-                        page.screenshot(path=str(task.confirmation_path), full_page=True)
+                        page.screenshot(
+                            path=str(task.confirmation_path), full_page=True
+                        )
                     except Exception:
                         pass
                     browser.close()
@@ -442,7 +446,9 @@ class PlaywrightFormAdapter(SiteAdapter):
             return None
         return None
 
-    def _upload_resume(self, scope: Any, page: Any, resume_path: Path) -> tuple[bool, str]:
+    def _upload_resume(
+        self, scope: Any, page: Any, resume_path: Path
+    ) -> tuple[bool, str]:
         file_input = self._find_resume_file_input(scope, page)
         if file_input is None:
             return False, self._missing_form_scope_detail(page)
@@ -1347,7 +1353,9 @@ class AshbyAdapter(PlaywrightFormAdapter):
                     return scope
 
         try:
-            direct_url = str(getattr(page, "url", "") or "").rstrip("/") + "/application"
+            direct_url = (
+                str(getattr(page, "url", "") or "").rstrip("/") + "/application"
+            )
             page.goto(direct_url, wait_until="domcontentloaded", timeout=20000)
             page.wait_for_timeout(1000)
             scope = super()._resolve_form_scope(page)
@@ -2209,7 +2217,8 @@ def run_pipeline(
                     details.startswith("missing_required_answers:")
                     or details.startswith("required_fields_unanswered_after_retry:")
                     or details == "required_questions_unanswered_after_retry"
-                    or details in {
+                    or details
+                    in {
                         "ashby_job_not_found",
                         "ashby_antibot_challenge",
                         "ashby_application_not_loaded",

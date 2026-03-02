@@ -1340,7 +1340,9 @@ def test_quarantine_status_persists_when_only_change(tmp_path, monkeypatch):
     assert rows[0]["Status"] == "Quarantined"
 
 
-def test_confirmation_not_detected_with_screenshot_is_quarantined(tmp_path, monkeypatch):
+def test_confirmation_not_detected_with_screenshot_is_quarantined(
+    tmp_path, monkeypatch
+):
     mod = _load_module()
     monkeypatch.setattr(mod, "ROOT", tmp_path)
 
@@ -1476,7 +1478,9 @@ def test_execute_target_applied_cycles_past_quarantined_blockers(tmp_path, monke
         ],
     )
 
-    resume_path = tmp_path / "applications" / "winnerco" / "tailored_resumes" / "resume.docx"
+    resume_path = (
+        tmp_path / "applications" / "winnerco" / "tailored_resumes" / "resume.docx"
+    )
     resume_path.parent.mkdir(parents=True, exist_ok=True)
     resume_path.write_bytes(b"docx")
     resume_html = resume_path.with_suffix(".html")
