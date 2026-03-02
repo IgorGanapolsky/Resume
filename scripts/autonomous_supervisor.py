@@ -28,13 +28,20 @@ DEFAULT_LOGS_DIR = (
 )
 DEFAULT_OLLAMA_MODEL = "qwen2.5-coder:14b"
 DEFAULT_OLLAMA_TIMEOUT_S = 120
+DEFAULT_LANE_TIMEOUT_S = 300
 DEFAULT_OLLAMA_DELEGATE_LANES = {
     "discover",
     "prepare_submit_artifacts",
     "queue_gate",
     "submit_dry_run",
     "submit_execute",
+    "thought_leadership",
 }
+QUARANTINABLE_SUBMIT_FAILURE_DETAILS = {"missing_file_input"}
+QUARANTINABLE_SUBMIT_FAILURE_PREFIXES = (
+    "required_fields_unanswered_after_retry",
+    "verification_code_required",
+)
 
 
 @dataclass(frozen=True)
@@ -109,24 +116,35 @@ class LaneResult:
 Runner = Callable[[Lane], LaneResult]
 
 
-def _run_lane_subprocess(lane: Lane) -> LaneResult:
+def _run_lane_subprocess(
+    lane: Lane, *, timeout_s: int = DEFAULT_LANE_TIMEOUT_S
+) -> LaneResult:
     started = time.time()
-    proc = subprocess.run(
-        lane.command,
-        cwd=str(ROOT),
-        capture_output=True,
-        text=True,
-        env=os.environ.copy(),
-    )
+    try:
+        proc = subprocess.run(
+            lane.command,
+            cwd=str(ROOT),
+            capture_output=True,
+            text=True,
+            env=os.environ.copy(),
+            timeout=max(1, timeout_s),
+        )
+        returncode = proc.returncode
+        stdout = proc.stdout
+        stderr = proc.stderr
+    except subprocess.TimeoutExpired as exc:
+        returncode = 124
+        stdout = exc.stdout or ""
+        stderr = (exc.stderr or "") + f"\nlane_timeout_s={max(1, timeout_s)}"
     ended = time.time()
     return LaneResult(
         name=lane.name,
         command=lane.command,
-        returncode=proc.returncode,
+        returncode=returncode,
         started_at=started,
         ended_at=ended,
-        stdout=proc.stdout,
-        stderr=proc.stderr,
+        stdout=stdout,
+        stderr=stderr,
     )
 
 
@@ -251,6 +269,7 @@ def _run_lane_with_ollama_assist(
     model: str,
     timeout_s: int,
     strict: bool,
+    local_timeout_s: int,
 ) -> LaneResult:
     started = time.time()
     prompt = _build_ollama_prompt(lane)
@@ -281,7 +300,7 @@ def _run_lane_with_ollama_assist(
             ),
         )
 
-    local_result = _run_lane_subprocess(lane)
+    local_result = _run_lane_subprocess(lane, timeout_s=local_timeout_s)
     assist_header = f"[ollama model={model} rc={ollama_rc}] " + (
         "fallback_to_local" if ollama_rc != 0 else "assisted"
     )
@@ -311,6 +330,7 @@ def build_lane_runner(
     ollama_delegate_lanes: Sequence[str],
     ollama_timeout_s: int,
     ollama_strict: bool,
+    lane_timeout_s: int = DEFAULT_LANE_TIMEOUT_S,
 ) -> Runner:
     runtime = (agent_runtime or "local").strip().lower()
     delegated = set(ollama_delegate_lanes)
@@ -318,16 +338,17 @@ def build_lane_runner(
         raise ValueError(f"Unsupported agent runtime: {agent_runtime}")
 
     if runtime == "local":
-        return _run_lane_subprocess
+        return lambda lane: _run_lane_subprocess(lane, timeout_s=max(1, lane_timeout_s))
 
     def _runner(lane: Lane) -> LaneResult:
         if lane.name not in delegated:
-            return _run_lane_subprocess(lane)
+            return _run_lane_subprocess(lane, timeout_s=max(1, lane_timeout_s))
         return _run_lane_with_ollama_assist(
             lane,
             model=ollama_model,
             timeout_s=ollama_timeout_s,
             strict=ollama_strict,
+            local_timeout_s=max(1, lane_timeout_s),
         )
 
     return _runner
@@ -340,6 +361,13 @@ def build_lane_plan(
     remote_min_score: int,
     max_submit_jobs: int,
     execute_submissions: bool,
+    target_applied: int = 0,
+    submit_max_cycles: int = 1,
+    auto_source_replacements: bool = False,
+    replacement_max_new_jobs: int = 25,
+    replacement_max_board_discovery: int = 150,
+    replacement_board_discovery_timeout_s: int = 45,
+    replacement_include_aggregator_feeds: bool = True,
 ) -> List[Lane]:
     lanes = [
         Lane(
@@ -349,6 +377,17 @@ def build_lane_plan(
                 "scripts/ralph_loop_ci.py",
                 "--max-new-jobs",
                 str(max_new_jobs),
+                "--direct-only",
+                "--max-board-discovery",
+                "20",
+                "--board-discovery-timeout-s",
+                "8",
+                "--greenhouse-seeds",
+                "",
+                "--lever-seeds",
+                "",
+                "--ashby-seeds",
+                "",
             ],
         ),
         Lane(
@@ -377,6 +416,7 @@ def build_lane_plan(
                 str(fit_threshold),
                 "--remote-min-score",
                 str(remote_min_score),
+                "--quarantine-blocked",
                 "--report",
                 "applications/job_applications/ci_ready_queue_report.json",
             ],
@@ -399,6 +439,7 @@ def build_lane_plan(
                     str(fit_threshold),
                     "--remote-min-score",
                     str(remote_min_score),
+                    "--quarantine-blocked",
                     "--report",
                     "applications/job_applications/ci_submit_execute_report.json",
                     "--fail-on-error",
@@ -406,6 +447,29 @@ def build_lane_plan(
                 depends_on=["queue_gate"],
             )
         )
+        if target_applied > 0:
+            lanes[-1].command.extend(
+                [
+                    "--target-applied",
+                    str(max(1, target_applied)),
+                    "--max-cycles",
+                    str(max(1, submit_max_cycles)),
+                ]
+            )
+            if auto_source_replacements:
+                lanes[-1].command.extend(
+                    [
+                        "--auto-source-replacements",
+                        "--replacement-max-new-jobs",
+                        str(max(1, replacement_max_new_jobs)),
+                        "--replacement-max-board-discovery",
+                        str(max(1, replacement_max_board_discovery)),
+                        "--replacement-board-discovery-timeout-s",
+                        str(max(1, replacement_board_discovery_timeout_s)),
+                    ]
+                )
+                if replacement_include_aggregator_feeds:
+                    lanes[-1].command.append("--replacement-include-aggregator-feeds")
     else:
         submit_lane_name = "submit_dry_run"
         lanes.append(
@@ -420,6 +484,7 @@ def build_lane_plan(
                     str(fit_threshold),
                     "--remote-min-score",
                     str(remote_min_score),
+                    "--quarantine-blocked",
                     "--report",
                     "applications/job_applications/ci_submit_dry_run_report.json",
                 ],
@@ -437,6 +502,11 @@ def build_lane_plan(
                     "--report",
                     "applications/job_applications/submission_artifact_audit_report.json",
                 ],
+                depends_on=[submit_lane_name],
+            ),
+            Lane(
+                name="thought_leadership",
+                command=["python3", "scripts/thought_leadership_lane.py"],
                 depends_on=[submit_lane_name],
             ),
             Lane(
@@ -531,6 +601,114 @@ def _write_lane_logs(
     return out
 
 
+def _extract_report_path(command: Sequence[str]) -> Optional[Path]:
+    for idx, token in enumerate(command):
+        if token != "--report":
+            continue
+        if idx + 1 >= len(command):
+            return None
+        raw = command[idx + 1].strip()
+        if not raw:
+            return None
+        path = Path(raw)
+        return path if path.is_absolute() else ROOT / path
+    return None
+
+
+def _is_quarantinable_submit_failure(result_item: object) -> bool:
+    if not isinstance(result_item, dict):
+        return False
+    if str(result_item.get("result", "")).strip().lower() != "failed":
+        return False
+
+    adapter_details = str(result_item.get("adapter_details", "")).strip()
+    if adapter_details in QUARANTINABLE_SUBMIT_FAILURE_DETAILS:
+        return True
+    if any(
+        adapter_details.startswith(prefix)
+        for prefix in QUARANTINABLE_SUBMIT_FAILURE_PREFIXES
+    ):
+        return True
+
+    errors = result_item.get("errors")
+    if isinstance(errors, list):
+        for err in errors:
+            err_text = str(err).strip()
+            if not err_text:
+                continue
+            if err_text in QUARANTINABLE_SUBMIT_FAILURE_DETAILS:
+                return True
+            if any(
+                err_text.startswith(prefix)
+                for prefix in QUARANTINABLE_SUBMIT_FAILURE_PREFIXES
+            ):
+                return True
+    return False
+
+
+def _maybe_downgrade_quarantinable_submit_lane_failure(
+    lane_result: LaneResult,
+) -> Tuple[LaneResult, str]:
+    if lane_result.returncode == 0:
+        return lane_result, ""
+    command = lane_result.command
+    if "scripts/ci_submit_pipeline.py" not in command:
+        return lane_result, ""
+    if "--fail-on-error" not in command or "--quarantine-blocked" not in command:
+        return lane_result, ""
+
+    report_path = _extract_report_path(command)
+    if report_path is None or not report_path.exists():
+        return lane_result, ""
+
+    try:
+        payload = json.loads(report_path.read_text(encoding="utf-8"))
+    except Exception:
+        return lane_result, ""
+    if not isinstance(payload, dict):
+        return lane_result, ""
+
+    failed_count = int(payload.get("failed_count", 0) or 0)
+    if failed_count <= 0:
+        return lane_result, ""
+
+    results = payload.get("results")
+    if not isinstance(results, list):
+        return lane_result, ""
+
+    failed_results = [
+        item
+        for item in results
+        if isinstance(item, dict)
+        and str(item.get("result", "")).strip().lower() == "failed"
+    ]
+    if len(failed_results) != failed_count:
+        return lane_result, ""
+    if not failed_results:
+        return lane_result, ""
+    if not all(_is_quarantinable_submit_failure(item) for item in failed_results):
+        return lane_result, ""
+
+    reason = (
+        "downgraded_quarantinable_submit_blockers:"
+        f"failed_count={failed_count}:report={report_path}"
+    )
+    return (
+        LaneResult(
+            name=lane_result.name,
+            command=lane_result.command,
+            returncode=0,
+            started_at=lane_result.started_at,
+            ended_at=lane_result.ended_at,
+            stdout=f"{lane_result.stdout}\n[{reason}]".strip(),
+            stderr=lane_result.stderr,
+            skipped=lane_result.skipped,
+            skip_reason=lane_result.skip_reason,
+        ),
+        reason,
+    )
+
+
 def run_supervisor(
     *,
     lanes: List[Lane],
@@ -542,10 +720,12 @@ def run_supervisor(
     ollama_delegate_lanes: Optional[Sequence[str]] = None,
     ollama_timeout_s: int = DEFAULT_OLLAMA_TIMEOUT_S,
     ollama_strict: bool = False,
+    lane_timeout_s: int = DEFAULT_LANE_TIMEOUT_S,
     logs_dir: Path = DEFAULT_LOGS_DIR,
     include_full_output: bool = False,
     stdout_preview_chars: int = 600,
     stderr_preview_chars: int = 400,
+    tolerate_quarantinable_submit_blockers: bool = False,
     runner: Optional[Runner] = None,
 ) -> int:
     lane_by_name = {lane.name: lane for lane in lanes}
@@ -559,6 +739,7 @@ def run_supervisor(
     started = time.time()
     pending: Dict[str, Lane] = dict(lane_by_name)
     completed: Dict[str, LaneResult] = {}
+    downgraded_lanes: Dict[str, str] = {}
     running: Dict[str, Future] = {}
     lock = threading.Lock()
     resolved_runtime, runtime_resolution_reason = resolve_agent_runtime(
@@ -576,6 +757,7 @@ def run_supervisor(
         ),
         ollama_timeout_s=ollama_timeout_s,
         ollama_strict=ollama_strict,
+        lane_timeout_s=max(1, lane_timeout_s),
     )
 
     with ThreadPoolExecutor(max_workers=max_parallel) as pool:
@@ -639,7 +821,16 @@ def run_supervisor(
                     name for name, value in list(running.items()) if value is fut
                 )
                 with lock:
-                    completed[lane_name] = fut.result()
+                    lane_result = fut.result()
+                    if tolerate_quarantinable_submit_blockers:
+                        lane_result, downgrade_reason = (
+                            _maybe_downgrade_quarantinable_submit_lane_failure(
+                                lane_result
+                            )
+                        )
+                        if downgrade_reason:
+                            downgraded_lanes[lane_name] = downgrade_reason
+                    completed[lane_name] = lane_result
                     running.pop(lane_name, None)
 
     ended = time.time()
@@ -672,6 +863,11 @@ def run_supervisor(
         ),
         "ollama_timeout_s": ollama_timeout_s if resolved_runtime == "ollama" else 0,
         "ollama_strict": bool(ollama_strict) if resolved_runtime == "ollama" else False,
+        "tolerate_quarantinable_submit_blockers": tolerate_quarantinable_submit_blockers,
+        "downgraded_lanes": [
+            {"lane": name, "reason": reason}
+            for name, reason in sorted(downgraded_lanes.items())
+        ],
         "overall_returncode": overall_rc,
         "summary": {
             "total_lanes": len(lanes),
@@ -714,11 +910,33 @@ def run_supervisor(
     return overall_rc
 
 
+def _notify_telegram(message: str) -> None:
+    """Send a push notification via Telegram Bot API."""
+    token = os.getenv("TELEGRAM_BOT_TOKEN")
+    chat_id = os.getenv("TELEGRAM_CHAT_ID")
+    if not token or not chat_id:
+        return
+    import urllib.parse
+    import urllib.request
+
+    try:
+        url = f"https://api.telegram.org/bot{token}/sendMessage"
+        data = urllib.parse.urlencode(
+            {"chat_id": chat_id, "text": message, "parse_mode": "Markdown"}
+        ).encode("utf-8")
+        req = urllib.request.Request(url, data=data, method="POST")
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            if resp.status != 200:
+                print(f"[Telegram] Failed: {resp.status}")
+    except Exception as e:
+        print(f"[Telegram] Error: {e}")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--max-new-jobs", type=int, default=10)
-    parser.add_argument("--fit-threshold", type=int, default=70)
-    parser.add_argument("--remote-min-score", type=int, default=50)
+    parser.add_argument("--fit-threshold", type=int, default=60)
+    parser.add_argument("--remote-min-score", type=int, default=45)
     parser.add_argument("--max-submit-jobs", type=int, default=5)
     parser.add_argument("--max-parallel", type=int, default=3)
     parser.add_argument("--report", default=str(DEFAULT_REPORT))
@@ -743,6 +961,12 @@ def main() -> int:
         type=int,
         default=400,
         help="Max stderr preview characters per lane in report JSON.",
+    )
+    parser.add_argument(
+        "--lane-timeout-s",
+        type=int,
+        default=DEFAULT_LANE_TIMEOUT_S,
+        help="Hard timeout in seconds for each lane subprocess.",
     )
     parser.add_argument(
         "--agent-runtime",
@@ -785,9 +1009,63 @@ def main() -> int:
         help="Run real submission lane after queue gating (requires CI secrets).",
     )
     parser.add_argument(
+        "--target-applied",
+        type=int,
+        default=0,
+        help=(
+            "When executing submissions, require this many verified Applied outcomes "
+            "before submit lane exits successfully."
+        ),
+    )
+    parser.add_argument(
+        "--submit-max-cycles",
+        type=int,
+        default=1,
+        help="Max submit cycles when --target-applied is enabled.",
+    )
+    parser.add_argument(
+        "--auto-source-replacements",
+        action="store_true",
+        help=(
+            "Enable replacement sourcing between submit cycles when target "
+            "Applied count has not been reached."
+        ),
+    )
+    parser.add_argument(
+        "--replacement-max-new-jobs",
+        type=int,
+        default=25,
+        help="Max jobs discovered per replacement cycle.",
+    )
+    parser.add_argument(
+        "--replacement-max-board-discovery",
+        type=int,
+        default=150,
+        help="Max board tokens scanned per replacement cycle.",
+    )
+    parser.add_argument(
+        "--replacement-board-discovery-timeout-s",
+        type=int,
+        default=45,
+        help="Time budget in seconds for each replacement discovery cycle.",
+    )
+    parser.add_argument(
+        "--replacement-disable-aggregator-feeds",
+        action="store_true",
+        help="Disable remotive/remoteok fallback in replacement cycles.",
+    )
+    parser.add_argument(
         "--fail-fast",
         action="store_true",
         help="Stop scheduling additional lanes after first failure.",
+    )
+    parser.add_argument(
+        "--tolerate-quarantinable-submit-blockers",
+        action="store_true",
+        help=(
+            "Treat ci_submit_pipeline fail-on-error lane as successful when every "
+            "failed row is a known quarantinable blocker."
+        ),
     )
     args = parser.parse_args()
 
@@ -797,8 +1075,17 @@ def main() -> int:
         remote_min_score=max(0, min(100, args.remote_min_score)),
         max_submit_jobs=args.max_submit_jobs,
         execute_submissions=args.execute_submissions,
+        target_applied=max(0, args.target_applied),
+        submit_max_cycles=max(1, args.submit_max_cycles),
+        auto_source_replacements=args.auto_source_replacements,
+        replacement_max_new_jobs=max(1, args.replacement_max_new_jobs),
+        replacement_max_board_discovery=max(1, args.replacement_max_board_discovery),
+        replacement_board_discovery_timeout_s=max(
+            1, args.replacement_board_discovery_timeout_s
+        ),
+        replacement_include_aggregator_feeds=not args.replacement_disable_aggregator_feeds,
     )
-    return run_supervisor(
+    rc = run_supervisor(
         lanes=lanes,
         max_parallel=max(1, args.max_parallel),
         fail_fast=args.fail_fast,
@@ -808,11 +1095,20 @@ def main() -> int:
         ollama_delegate_lanes=sorted(_parse_csv_set(args.ollama_delegate_lanes)),
         ollama_timeout_s=max(1, args.ollama_timeout_s),
         ollama_strict=args.ollama_strict,
+        lane_timeout_s=max(1, args.lane_timeout_s),
         logs_dir=Path(args.logs_dir),
         include_full_output=args.include_full_output,
         stdout_preview_chars=max(0, args.stdout_preview_chars),
         stderr_preview_chars=max(0, args.stderr_preview_chars),
+        tolerate_quarantinable_submit_blockers=args.tolerate_quarantinable_submit_blockers,
     )
+
+    # Notify completion
+    status_emoji = "✅" if rc == 0 else "❌"
+    _notify_telegram(
+        f"{status_emoji} *Resume CI Complete*\nExit Code: {rc}\nReport: `{args.report}`"
+    )
+    return rc
 
 
 if __name__ == "__main__":
