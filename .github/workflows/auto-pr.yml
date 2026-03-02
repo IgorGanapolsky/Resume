@@ -29,24 +29,27 @@ jobs:
           if [ -z "$EXISTING" ]; then
             COMMIT_MSG=$(git log -1 --format=%s)
             CHANGES=$(git log origin/main..HEAD --oneline | head -10)
-            cat > /tmp/pr_body.md <<EOF
-            ## Summary
-            Auto-generated PR from \`${{ github.ref_name }}\`
-
-            ## Changes
-            $CHANGES
-
-            ## Checklist
-            - [ ] Tests pass
-            - [ ] No secrets committed
-            - [ ] Job files scrubbed
-            - [ ] RAG index rebuilt if tracker changed
-            EOF
-            gh pr create \
+            {
+              echo "## Summary"
+              echo "Auto-generated PR from \`${{ github.ref_name }}\`"
+              echo
+              echo "## Changes"
+              echo "$CHANGES"
+              echo
+              echo "## Checklist"
+              echo "- [ ] Tests pass"
+              echo "- [ ] No secrets committed"
+              echo "- [ ] Job files scrubbed"
+              echo "- [ ] RAG index rebuilt if tracker changed"
+            } > /tmp/pr_body.md
+            if gh pr create \
               --title "$COMMIT_MSG" \
               --body-file /tmp/pr_body.md \
-              --base main
-            echo "✅ PR created"
+              --base main; then
+              echo "✅ PR created"
+            else
+              echo "ℹ️ PR create skipped (likely already exists or no diff)"
+            fi
           else
             echo "PR #$EXISTING already exists"
           fi
