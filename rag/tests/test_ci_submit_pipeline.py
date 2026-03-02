@@ -991,6 +991,133 @@ def test_execute_recaptcha_block_counts_as_skipped_not_failed(tmp_path, monkeypa
     assert "Manual browser submit required." in rows[0]["Notes"]
 
 
+def test_execute_target_applied_cycles_past_quarantined_blockers(tmp_path, monkeypatch):
+    mod = _load_module()
+    monkeypatch.setattr(mod, "ROOT", tmp_path)
+
+    tracker = tmp_path / "application_tracker.csv"
+    report = tmp_path / "report.json"
+    _write_tracker(
+        tracker,
+        [
+            {
+                "Company": "BlockerCo",
+                "Role": "Software Engineer",
+                "Location": "Remote",
+                "Salary Range": "",
+                "Status": "ReadyToSubmit",
+                "Date Applied": "",
+                "Follow Up Date": "",
+                "Response": "",
+                "Interview Stage": "Initial",
+                "Days To Response": "",
+                "Response Type": "",
+                "Cover Letter Used": "",
+                "What Worked": "",
+                "Tags": "ai;software",
+                "Notes": "",
+                "Career Page URL": "https://jobs.ashbyhq.com/blocker/abc123",
+            },
+            {
+                "Company": "WinnerCo",
+                "Role": "Software Engineer",
+                "Location": "Remote",
+                "Salary Range": "",
+                "Status": "ReadyToSubmit",
+                "Date Applied": "",
+                "Follow Up Date": "",
+                "Response": "",
+                "Interview Stage": "Initial",
+                "Days To Response": "",
+                "Response Type": "",
+                "Cover Letter Used": "",
+                "What Worked": "",
+                "Tags": "ai;software",
+                "Notes": "",
+                "Career Page URL": "https://jobs.ashbyhq.com/winner/def456",
+            },
+        ],
+    )
+
+    resume_path = tmp_path / "applications" / "winnerco" / "tailored_resumes" / "resume.docx"
+    resume_path.parent.mkdir(parents=True, exist_ok=True)
+    resume_path.write_bytes(b"docx")
+    resume_html = resume_path.with_suffix(".html")
+    resume_html.write_text("summary professional experience", encoding="utf-8")
+    cover = tmp_path / "applications" / "winnerco" / "cover_letters" / "cover.md"
+    cover.parent.mkdir(parents=True, exist_ok=True)
+    cover.write_text("cover", encoding="utf-8")
+
+    def _fake_assess(row, **kwargs):
+        return mod.QueueGateAssessment(
+            eligible=True,
+            score=90,
+            reasons=[],
+            role_track="general",
+            signals=[],
+            remote_policy="remote",
+            remote_score=90,
+            remote_evidence=["remote_keyword"],
+            submission_lane="ci_auto:ashby",
+            resume_path=resume_path,
+            resume_html_path=resume_html,
+            cover_path=cover,
+        )
+
+    monkeypatch.setattr(mod, "_assess_queue_gate", _fake_assess)
+
+    class _CyclingAdapter(mod.SiteAdapter):
+        name = "ashby"
+
+        def matches(self, url: str) -> bool:
+            return "ashbyhq.com" in url
+
+        def submit(self, task, profile, auth, answers):
+            task.confirmation_path.parent.mkdir(parents=True, exist_ok=True)
+            task.confirmation_path.write_bytes(b"png")
+            if task.company == "BlockerCo":
+                return mod.SubmitResult(
+                    adapter=self.name,
+                    verified=False,
+                    screenshot=task.confirmation_path,
+                    details="missing_required_answers:security_clearance",
+                )
+            return mod.SubmitResult(
+                adapter=self.name,
+                verified=True,
+                screenshot=task.confirmation_path,
+                details="confirmed",
+            )
+
+    rc = mod.run_pipeline(
+        tracker_csv=tracker,
+        report_path=report,
+        dry_run=False,
+        queue_only=False,
+        max_jobs=1,
+        fail_on_error=True,
+        require_secret_auth=False,
+        adapters=[_CyclingAdapter()],
+        quarantine_blocked=True,
+        target_applied=1,
+        max_cycles=3,
+    )
+    assert rc == 0
+
+    payload = json.loads(report.read_text(encoding="utf-8"))
+    assert payload["cycles_run"] == 2
+    assert payload["applied_count"] == 1
+    assert payload["failed_count"] == 0
+    assert payload["skipped_count"] == 1
+
+    with tracker.open(newline="", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+    assert rows[0]["Status"] == "Quarantined"
+    assert "quarantined" in rows[0]["Notes"].lower()
+    assert rows[1]["Status"] == "Applied"
+    assert rows[1]["Date Applied"]
+
+
 def test_select_yes_no_on_select_handles_yes():
     mod = _load_module()
     adapter = mod.AshbyAdapter()

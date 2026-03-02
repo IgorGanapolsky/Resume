@@ -1786,6 +1786,9 @@ def run_pipeline(
     count_skipped_as_failures: bool = False,
     fit_threshold: int = 70,
     remote_min_score: int = 50,
+    quarantine_blocked: bool = False,
+    target_applied: int = 0,
+    max_cycles: int = 1,
     require_secret_auth: bool = True,
     auto_promote_ready: bool = True,
     profile_env: str = "CI_SUBMIT_PROFILE_JSON",
@@ -1905,6 +1908,8 @@ def run_pipeline(
                     )
             queue_audit.append(audit_item)
 
+    target_applied = max(0, int(target_applied))
+    max_cycles = max(1, int(max_cycles))
     ready_indices = [
         i for i, row in enumerate(rows) if _is_ready_status(str(row.get("Status", "")))
     ][: max(0, max_jobs)]
@@ -1921,6 +1926,9 @@ def run_pipeline(
         "queue_demoted_count": queue_demoted_count,
         "queue_audit": queue_audit,
         "ready_rows_total": len(ready_indices),
+        "target_applied": target_applied,
+        "max_cycles": max_cycles,
+        "quarantine_blocked": bool(quarantine_blocked),
         "results": [],
     }
 
@@ -1952,158 +1960,223 @@ def run_pipeline(
             return 1
         return 0
 
-    for row_idx in ready_indices:
-        row = rows[row_idx]
-        company = str(row.get("Company", "")).strip()
-        role = str(row.get("Role", "")).strip()
-        url = str(row.get("Career Page URL", "")).strip()
-        row_result: Dict[str, Any] = {
-            "row_index": row_idx,
-            "company": company,
-            "role": role,
-            "url": url,
-            "status_before": str(row.get("Status", "")).strip(),
-            "submission_lane": str(row.get("Submission Lane", "")).strip(),
-            "mode": "dry_run" if dry_run else "execute",
-        }
+    cycles_run = 0
+    while True:
+        if cycles_run >= max_cycles:
+            break
+        ready_indices = [
+            i
+            for i, row in enumerate(rows)
+            if _is_ready_status(str(row.get("Status", "")))
+        ][: max(0, max_jobs)]
+        if not ready_indices:
+            break
+        cycles_run += 1
+        cycle_applied = 0
 
-        row_errors = _validate_row(row)
-        assessment = _assess_queue_gate(
-            row,
-            fit_threshold=fit_threshold,
-            remote_min_score=remote_min_score,
-            adapters=adapters,
-        )
-        if can_mutate_tracker:
-            row["Remote Policy"] = assessment.remote_policy
-            row["Remote Likelihood Score"] = str(assessment.remote_score)
-            row["Remote Evidence"] = ";".join(assessment.remote_evidence)
-            row["Submission Lane"] = assessment.submission_lane
-        resume_path = assessment.resume_path
-        if not assessment.eligible:
-            row_errors.extend(assessment.reasons)
+        for row_idx in ready_indices:
+            row = rows[row_idx]
+            company = str(row.get("Company", "")).strip()
+            role = str(row.get("Role", "")).strip()
+            url = str(row.get("Career Page URL", "")).strip()
+            row_result: Dict[str, Any] = {
+                "cycle": cycles_run,
+                "row_index": row_idx,
+                "company": company,
+                "role": role,
+                "url": url,
+                "status_before": str(row.get("Status", "")).strip(),
+                "submission_lane": str(row.get("Submission Lane", "")).strip(),
+                "mode": "dry_run" if dry_run else "execute",
+            }
+
+            row_errors = _validate_row(row)
+            assessment = _assess_queue_gate(
+                row,
+                fit_threshold=fit_threshold,
+                remote_min_score=remote_min_score,
+                adapters=adapters,
+            )
             if can_mutate_tracker:
-                row["Status"] = "Draft"
+                row["Remote Policy"] = assessment.remote_policy
+                row["Remote Likelihood Score"] = str(assessment.remote_score)
+                row["Remote Evidence"] = ";".join(assessment.remote_evidence)
+                row["Submission Lane"] = assessment.submission_lane
+            resume_path = assessment.resume_path
+            if not assessment.eligible:
+                row_errors.extend(assessment.reasons)
+                if can_mutate_tracker:
+                    row["Status"] = "Draft"
+                    row["Notes"] = _append_note(
+                        str(row.get("Notes", "")),
+                        (
+                            f"Submission blocked by queue gate on {_today_iso()} "
+                            f"(fit={assessment.score}/{fit_threshold}, remote={assessment.remote_score}/{remote_min_score}; "
+                            f"reasons={','.join(assessment.reasons)})."
+                        ),
+                    )
+
+            adapter = _find_adapter(url, adapters)
+            if adapter is None:
+                row_errors.append("unsupported_site")
+
+            if row_errors:
+                row_result["result"] = "skipped"
+                row_result["errors"] = row_errors
+                report["results"].append(row_result)
+                skipped_count += 1
+                if count_skipped_as_failures:
+                    failed_count += 1
+                continue
+
+            assert resume_path is not None
+            assert adapter is not None
+            confirmation_path = _build_confirmation_path(company, role)
+            task = SubmitTask(
+                row_index=row_idx,
+                company=company,
+                role=role,
+                url=url,
+                resume_path=resume_path,
+                confirmation_path=confirmation_path,
+            )
+            row_result["adapter"] = adapter.name
+            row_result["resume_path"] = str(resume_path)
+            row_result["confirmation_path"] = str(confirmation_path)
+
+            if dry_run:
+                row_result["result"] = "would_submit"
+                report["results"].append(row_result)
+                continue
+
+            auth = auth_map.get(adapter.name, AdapterAuth())
+            if require_secret_auth and adapter.name not in auth_map:
+                row_result["result"] = "failed"
+                row_result["errors"] = [f"missing_auth_for_adapter:{adapter.name}"]
+                report["results"].append(row_result)
+                failed_count += 1
+                continue
+
+            result = adapter.submit(task, profile, auth, answers)
+            row_result["adapter_details"] = result.details
+            row_result["verified"] = result.verified
+            row_result["screenshot"] = (
+                str(result.screenshot) if result.screenshot else None
+            )
+
+            resume_exists = resume_path.exists()
+            screenshot_ok = (
+                result.screenshot is not None
+                and result.screenshot.exists()
+                and result.screenshot.stat().st_size > 0
+            )
+            if result.verified and screenshot_ok and resume_exists:
+                row["Status"] = "Applied"
+                row["Date Applied"] = _today_iso()
+                if not str(row.get("Follow Up Date", "")).strip():
+                    row["Follow Up Date"] = _next_follow_up(7)
+                row["Submitted Resume Path"] = str(resume_path)
+                row["Submission Evidence Path"] = str(result.screenshot)
+                row["Submission Verified At"] = dt.datetime.now(
+                    dt.timezone.utc
+                ).isoformat()
                 row["Notes"] = _append_note(
                     str(row.get("Notes", "")),
                     (
-                        f"Submission blocked by queue gate on {_today_iso()} "
-                        f"(fit={assessment.score}/{fit_threshold}, remote={assessment.remote_score}/{remote_min_score}; "
-                        f"reasons={','.join(assessment.reasons)})."
+                        f"CI submit verified on {_today_iso()} via {adapter.name}. "
+                        f"Confirmation: {result.screenshot}"
                     ),
                 )
+                row_result["result"] = "applied"
+                applied_count += 1
+                cycle_applied += 1
+            elif result.details.startswith("recaptcha_score_below_threshold"):
+                row_result["result"] = "skipped"
+                row_errors = [
+                    "antibot_blocked_requires_manual_submit",
+                    result.details,
+                ]
+                if not resume_exists:
+                    row_errors.append("missing_or_invalid_submitted_resume_path")
+                if not screenshot_ok:
+                    row_errors.append("missing_or_empty_confirmation_screenshot")
+                row_result["errors"] = row_errors
+                row["Status"] = DEFAULT_READY_STATUS
+                row["Notes"] = _append_note(
+                    str(row.get("Notes", "")),
+                    (
+                        f"CI submit blocked by anti-bot on {_today_iso()} via {adapter.name}. "
+                        f"Reason={result.details}. Manual browser submit required."
+                    ),
+                )
+                queue_metadata_updates += 1
+                skipped_count += 1
+                if count_skipped_as_failures:
+                    failed_count += 1
+            else:
+                details = (result.details or "").strip()
+                quarantinable = (
+                    details.startswith("missing_required_answers:")
+                    or details.startswith("required_fields_unanswered_after_retry:")
+                    or details == "required_questions_unanswered_after_retry"
+                )
+                if quarantine_blocked and quarantinable:
+                    row_result["result"] = "skipped"
+                    row_errors = [
+                        "manual_submit_required",
+                        "quarantinable_submit_blocker",
+                        details or "required_fields_blocked",
+                    ]
+                    if not resume_exists:
+                        row_errors.append("missing_or_invalid_submitted_resume_path")
+                    if not screenshot_ok:
+                        row_errors.append("missing_or_empty_confirmation_screenshot")
+                    row_result["errors"] = row_errors
+                    row["Status"] = "Quarantined"
+                    row["Notes"] = _append_note(
+                        str(row.get("Notes", "")),
+                        (
+                            f"CI submit quarantined on {_today_iso()} via {adapter.name}. "
+                            f"Reason={details or 'required_fields_blocked'}. "
+                            "Needs manual completion."
+                        ),
+                    )
+                    skipped_count += 1
+                    if count_skipped_as_failures:
+                        failed_count += 1
+                else:
+                    row_result["result"] = "failed"
+                    row_errors = ["verification_failed"]
+                    if details:
+                        row_errors.append(details)
+                    if not resume_exists:
+                        row_errors.append("missing_or_invalid_submitted_resume_path")
+                    if not screenshot_ok:
+                        row_errors.append("missing_or_empty_confirmation_screenshot")
+                    row_result["errors"] = row_errors
+                    failed_count += 1
 
-        adapter = _find_adapter(url, adapters)
-        if adapter is None:
-            row_errors.append("unsupported_site")
-
-        if row_errors:
-            row_result["result"] = "skipped"
-            row_result["errors"] = row_errors
             report["results"].append(row_result)
-            skipped_count += 1
-            if count_skipped_as_failures:
-                failed_count += 1
-            continue
-
-        assert resume_path is not None
-        assert adapter is not None
-        confirmation_path = _build_confirmation_path(company, role)
-        task = SubmitTask(
-            row_index=row_idx,
-            company=company,
-            role=role,
-            url=url,
-            resume_path=resume_path,
-            confirmation_path=confirmation_path,
-        )
-        row_result["adapter"] = adapter.name
-        row_result["resume_path"] = str(resume_path)
-        row_result["confirmation_path"] = str(confirmation_path)
 
         if dry_run:
-            row_result["result"] = "would_submit"
-            report["results"].append(row_result)
-            continue
-
-        auth = auth_map.get(adapter.name, AdapterAuth())
-        if require_secret_auth and adapter.name not in auth_map:
-            row_result["result"] = "failed"
-            row_result["errors"] = [f"missing_auth_for_adapter:{adapter.name}"]
-            report["results"].append(row_result)
-            failed_count += 1
-            continue
-
-        result = adapter.submit(task, profile, auth, answers)
-        row_result["adapter_details"] = result.details
-        row_result["verified"] = result.verified
-        row_result["screenshot"] = str(result.screenshot) if result.screenshot else None
-
-        resume_exists = resume_path.exists()
-        screenshot_ok = (
-            result.screenshot is not None
-            and result.screenshot.exists()
-            and result.screenshot.stat().st_size > 0
-        )
-        if result.verified and screenshot_ok and resume_exists:
-            row["Status"] = "Applied"
-            row["Date Applied"] = _today_iso()
-            if not str(row.get("Follow Up Date", "")).strip():
-                row["Follow Up Date"] = _next_follow_up(7)
-            row["Submitted Resume Path"] = str(resume_path)
-            row["Submission Evidence Path"] = str(result.screenshot)
-            row["Submission Verified At"] = dt.datetime.now(
-                dt.timezone.utc
-            ).isoformat()
-            row["Notes"] = _append_note(
-                str(row.get("Notes", "")),
-                (
-                    f"CI submit verified on {_today_iso()} via {adapter.name}. "
-                    f"Confirmation: {result.screenshot}"
-                ),
-            )
-            row_result["result"] = "applied"
-            applied_count += 1
-        elif result.details.startswith("recaptcha_score_below_threshold"):
-            row_result["result"] = "skipped"
-            row_errors = [
-                "antibot_blocked_requires_manual_submit",
-                result.details,
-            ]
-            if not resume_exists:
-                row_errors.append("missing_or_invalid_submitted_resume_path")
-            if not screenshot_ok:
-                row_errors.append("missing_or_empty_confirmation_screenshot")
-            row_result["errors"] = row_errors
-            row["Status"] = DEFAULT_READY_STATUS
-            row["Notes"] = _append_note(
-                str(row.get("Notes", "")),
-                (
-                    f"CI submit blocked by anti-bot on {_today_iso()} via {adapter.name}. "
-                    f"Reason={result.details}. Manual browser submit required."
-                ),
-            )
-            queue_metadata_updates += 1
-            skipped_count += 1
-            if count_skipped_as_failures:
-                failed_count += 1
-        else:
-            row_result["result"] = "failed"
-            row_errors = ["verification_failed"]
-            if result.details.startswith("missing_required_answers:"):
-                row_errors.append(result.details)
-            if not resume_exists:
-                row_errors.append("missing_or_invalid_submitted_resume_path")
-            if not screenshot_ok:
-                row_errors.append("missing_or_empty_confirmation_screenshot")
-            row_result["errors"] = row_errors
-            failed_count += 1
-
-        report["results"].append(row_result)
+            break
+        if target_applied > 0 and applied_count >= target_applied:
+            break
+        next_ready_indices = [
+            i
+            for i, next_row in enumerate(rows)
+            if _is_ready_status(str(next_row.get("Status", "")))
+        ][: max(0, max_jobs)]
+        if not next_ready_indices:
+            break
+        # Prevent no-progress loops when the same rows remain ready between cycles.
+        if cycle_applied == 0 and next_ready_indices == ready_indices:
+            break
 
     report["applied_count"] = applied_count
     report["failed_count"] = failed_count
     report["skipped_count"] = skipped_count
+    report["cycles_run"] = cycles_run
     report["changed"] = bool(
         can_mutate_tracker
         and (
@@ -2225,6 +2298,26 @@ def main() -> int:
         default="CI_SUBMIT_ANSWERS_JSON",
         help="Env var containing required screener answers JSON.",
     )
+    ap.add_argument(
+        "--quarantine-blocked",
+        action="store_true",
+        help="Auto-quarantine rows blocked by required fields that need manual submit.",
+    )
+    ap.add_argument(
+        "--target-applied",
+        type=int,
+        default=0,
+        help=(
+            "When executing submissions, keep cycling until at least this many "
+            "verified Applied outcomes are reached."
+        ),
+    )
+    ap.add_argument(
+        "--max-cycles",
+        type=int,
+        default=1,
+        help="Max execute cycles when --target-applied is used.",
+    )
     args = ap.parse_args()
     if args.execute and args.queue_only:
         print("ERROR: --execute and --queue-only are mutually exclusive.")
@@ -2241,6 +2334,9 @@ def main() -> int:
             count_skipped_as_failures=args.count_skipped_as_failures,
             fit_threshold=args.fit_threshold,
             remote_min_score=max(0, min(100, args.remote_min_score)),
+            quarantine_blocked=args.quarantine_blocked,
+            target_applied=max(0, int(args.target_applied)),
+            max_cycles=max(1, int(args.max_cycles)),
             require_secret_auth=True,
             profile_env=args.profile_env,
             auth_env=args.auth_env,
