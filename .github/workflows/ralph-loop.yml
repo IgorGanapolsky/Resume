@@ -68,6 +68,7 @@ jobs:
             --fit-threshold 70 \
             --remote-min-score 55 \
             --max-submit-jobs "$MAX_SUBMIT" \
+            --quarantine-blocked \
             --max-parallel 3 \
             --report applications/job_applications/autonomous_supervisor_report.json \
             $EXTRA_ARGS

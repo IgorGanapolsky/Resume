@@ -109,15 +109,29 @@ class LaneResult:
 Runner = Callable[[Lane], LaneResult]
 
 
-def _run_lane_subprocess(lane: Lane) -> LaneResult:
+def _run_lane_subprocess(lane: Lane, *, timeout_s: Optional[int] = None) -> LaneResult:
     started = time.time()
-    proc = subprocess.run(
-        lane.command,
-        cwd=str(ROOT),
-        capture_output=True,
-        text=True,
-        env=os.environ.copy(),
-    )
+    try:
+        proc = subprocess.run(
+            lane.command,
+            cwd=str(ROOT),
+            capture_output=True,
+            text=True,
+            env=os.environ.copy(),
+            timeout=max(1, timeout_s) if timeout_s else None,
+        )
+    except subprocess.TimeoutExpired as exc:
+        ended = time.time()
+        stderr_parts = [str(exc.stderr or "").strip(), f"lane_timeout_s={timeout_s}"]
+        return LaneResult(
+            name=lane.name,
+            command=lane.command,
+            returncode=124,
+            started_at=started,
+            ended_at=ended,
+            stdout=str(exc.stdout or ""),
+            stderr="\n".join(part for part in stderr_parts if part),
+        )
     ended = time.time()
     return LaneResult(
         name=lane.name,
@@ -250,6 +264,7 @@ def _run_lane_with_ollama_assist(
     *,
     model: str,
     timeout_s: int,
+    lane_timeout_s: Optional[int],
     strict: bool,
 ) -> LaneResult:
     started = time.time()
@@ -281,7 +296,7 @@ def _run_lane_with_ollama_assist(
             ),
         )
 
-    local_result = _run_lane_subprocess(lane)
+    local_result = _run_lane_subprocess(lane, timeout_s=lane_timeout_s)
     assist_header = f"[ollama model={model} rc={ollama_rc}] " + (
         "fallback_to_local" if ollama_rc != 0 else "assisted"
     )
@@ -310,6 +325,7 @@ def build_lane_runner(
     ollama_model: str,
     ollama_delegate_lanes: Sequence[str],
     ollama_timeout_s: int,
+    subprocess_timeout_s: Optional[int],
     ollama_strict: bool,
 ) -> Runner:
     runtime = (agent_runtime or "local").strip().lower()
@@ -317,16 +333,20 @@ def build_lane_runner(
     if runtime not in {"local", "ollama"}:
         raise ValueError(f"Unsupported agent runtime: {agent_runtime}")
 
+    def _run_local_lane(lane: Lane) -> LaneResult:
+        return _run_lane_subprocess(lane, timeout_s=subprocess_timeout_s)
+
     if runtime == "local":
-        return _run_lane_subprocess
+        return _run_local_lane
 
     def _runner(lane: Lane) -> LaneResult:
         if lane.name not in delegated:
-            return _run_lane_subprocess(lane)
+            return _run_local_lane(lane)
         return _run_lane_with_ollama_assist(
             lane,
             model=ollama_model,
             timeout_s=ollama_timeout_s,
+            lane_timeout_s=subprocess_timeout_s,
             strict=ollama_strict,
         )
 
@@ -340,6 +360,9 @@ def build_lane_plan(
     remote_min_score: int,
     max_submit_jobs: int,
     execute_submissions: bool,
+    target_applied: int = 0,
+    submit_max_cycles: int = 1,
+    quarantine_blocked: bool = True,
 ) -> List[Lane]:
     lanes = [
         Lane(
@@ -386,23 +409,29 @@ def build_lane_plan(
     submit_lane_name: str
     if execute_submissions:
         submit_lane_name = "submit_execute"
+        submit_command = [
+            "python3",
+            "scripts/ci_submit_pipeline.py",
+            "--execute",
+            "--max-jobs",
+            str(max_submit_jobs),
+            "--fit-threshold",
+            str(fit_threshold),
+            "--remote-min-score",
+            str(remote_min_score),
+            "--report",
+            "applications/job_applications/ci_submit_execute_report.json",
+            "--fail-on-error",
+        ]
+        if quarantine_blocked:
+            submit_command.append("--quarantine-blocked")
+        if target_applied > 0:
+            submit_command.extend(["--target-applied", str(target_applied)])
+            submit_command.extend(["--max-cycles", str(max(1, submit_max_cycles))])
         lanes.append(
             Lane(
                 name=submit_lane_name,
-                command=[
-                    "python3",
-                    "scripts/ci_submit_pipeline.py",
-                    "--execute",
-                    "--max-jobs",
-                    str(max_submit_jobs),
-                    "--fit-threshold",
-                    str(fit_threshold),
-                    "--remote-min-score",
-                    str(remote_min_score),
-                    "--report",
-                    "applications/job_applications/ci_submit_execute_report.json",
-                    "--fail-on-error",
-                ],
+                command=submit_command,
                 depends_on=["queue_gate"],
             )
         )
@@ -546,6 +575,7 @@ def run_supervisor(
     include_full_output: bool = False,
     stdout_preview_chars: int = 600,
     stderr_preview_chars: int = 400,
+    lane_timeout_s: int = 1800,
     runner: Optional[Runner] = None,
 ) -> int:
     lane_by_name = {lane.name: lane for lane in lanes}
@@ -575,6 +605,7 @@ def run_supervisor(
             else sorted(DEFAULT_OLLAMA_DELEGATE_LANES)
         ),
         ollama_timeout_s=ollama_timeout_s,
+        subprocess_timeout_s=max(1, lane_timeout_s),
         ollama_strict=ollama_strict,
     )
 
@@ -745,6 +776,12 @@ def main() -> int:
         help="Max stderr preview characters per lane in report JSON.",
     )
     parser.add_argument(
+        "--lane-timeout-s",
+        type=int,
+        default=1800,
+        help="Hard timeout in seconds for each lane subprocess.",
+    )
+    parser.add_argument(
         "--agent-runtime",
         choices=["auto", "local", "ollama"],
         default="auto",
@@ -785,6 +822,26 @@ def main() -> int:
         help="Run real submission lane after queue gating (requires CI secrets).",
     )
     parser.add_argument(
+        "--target-applied",
+        type=int,
+        default=0,
+        help=(
+            "When executing submissions, require this many verified Applied outcomes "
+            "before submit lane exits successfully."
+        ),
+    )
+    parser.add_argument(
+        "--submit-max-cycles",
+        type=int,
+        default=1,
+        help="Max submit cycles when --target-applied is enabled.",
+    )
+    parser.add_argument(
+        "--quarantine-blocked",
+        action="store_true",
+        help="Quarantine rows blocked by required-field screeners during submit lane.",
+    )
+    parser.add_argument(
         "--fail-fast",
         action="store_true",
         help="Stop scheduling additional lanes after first failure.",
@@ -797,6 +854,9 @@ def main() -> int:
         remote_min_score=max(0, min(100, args.remote_min_score)),
         max_submit_jobs=args.max_submit_jobs,
         execute_submissions=args.execute_submissions,
+        target_applied=max(0, args.target_applied),
+        submit_max_cycles=max(1, args.submit_max_cycles),
+        quarantine_blocked=args.quarantine_blocked,
     )
     return run_supervisor(
         lanes=lanes,
@@ -812,6 +872,7 @@ def main() -> int:
         include_full_output=args.include_full_output,
         stdout_preview_chars=max(0, args.stdout_preview_chars),
         stderr_preview_chars=max(0, args.stderr_preview_chars),
+        lane_timeout_s=max(1, args.lane_timeout_s),
     )
 
 

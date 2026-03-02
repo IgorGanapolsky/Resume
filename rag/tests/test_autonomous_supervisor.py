@@ -54,6 +54,27 @@ def test_build_lane_plan_contains_queue_gate_and_parallel_lanes():
     assert "--fit-threshold" in lane_map["queue_gate"].command
 
 
+def test_build_lane_plan_execute_includes_submit_cycle_flags():
+    mod = _load_module()
+    lanes = mod.build_lane_plan(
+        max_new_jobs=0,
+        fit_threshold=60,
+        remote_min_score=45,
+        max_submit_jobs=3,
+        execute_submissions=True,
+        target_applied=2,
+        submit_max_cycles=4,
+        quarantine_blocked=True,
+    )
+    lane_map = {lane.name: lane for lane in lanes}
+    submit = lane_map["submit_execute"].command
+    assert "--quarantine-blocked" in submit
+    assert "--target-applied" in submit
+    assert "2" in submit
+    assert "--max-cycles" in submit
+    assert "4" in submit
+
+
 def test_run_supervisor_skips_dependents_after_failure(tmp_path):
     mod = _load_module()
     lanes = [
@@ -135,11 +156,35 @@ def test_run_supervisor_fail_fast_marks_pending_skipped(tmp_path):
     assert Path(lane_map["discover"]["stderr_log_path"]).exists()
 
 
+def test_run_supervisor_enforces_lane_timeout(tmp_path):
+    mod = _load_module()
+    lanes = [
+        mod.Lane(
+            name="slow",
+            command=["python3", "-c", "import time; time.sleep(2)"],
+        )
+    ]
+    report = tmp_path / "report_timeout.json"
+    rc = mod.run_supervisor(
+        lanes=lanes,
+        max_parallel=1,
+        fail_fast=False,
+        report_path=report,
+        lane_timeout_s=1,
+    )
+    assert rc == 1
+    payload = json.loads(report.read_text(encoding="utf-8"))
+    lane = payload["lanes"][0]
+    assert lane["name"] == "slow"
+    assert lane["returncode"] == 124
+    assert "lane_timeout_s=1" in lane["stderr_preview"]
+
+
 def test_build_lane_runner_ollama_delegates_selected_lanes():
     mod = _load_module()
     calls = {"assist": 0, "local": 0}
 
-    def fake_assist(lane, *, model, timeout_s, strict):
+    def fake_assist(lane, *, model, timeout_s, lane_timeout_s, strict):
         calls["assist"] += 1
         now = time.time()
         return mod.LaneResult(
@@ -148,11 +193,13 @@ def test_build_lane_runner_ollama_delegates_selected_lanes():
             returncode=0,
             started_at=now,
             ended_at=now,
-            stdout=f"assisted:{lane.name}:{model}:{timeout_s}:{strict}",
+            stdout=(
+                f"assisted:{lane.name}:{model}:{timeout_s}:{lane_timeout_s}:{strict}"
+            ),
             stderr="",
         )
 
-    def fake_local(lane):
+    def fake_local(lane, timeout_s=None):
         calls["local"] += 1
         now = time.time()
         return mod.LaneResult(
@@ -175,6 +222,7 @@ def test_build_lane_runner_ollama_delegates_selected_lanes():
             ollama_model="qwen-test",
             ollama_delegate_lanes=["discover"],
             ollama_timeout_s=12,
+            subprocess_timeout_s=34,
             ollama_strict=True,
         )
         delegated = runner(mod.Lane(name="discover", command=["discover"]))
@@ -196,7 +244,7 @@ def test_run_lane_with_ollama_assist_strict_failure_blocks_lane():
     def fake_invoke(*, model, prompt, timeout_s):
         return (1, "", "ollama unavailable")
 
-    def forbidden_local(_lane):
+    def forbidden_local(_lane, timeout_s=None):
         raise AssertionError("local subprocess should not run in strict failure mode")
 
     orig_invoke = mod._invoke_ollama_subagent
@@ -208,6 +256,7 @@ def test_run_lane_with_ollama_assist_strict_failure_blocks_lane():
             lane,
             model="qwen-test",
             timeout_s=30,
+            lane_timeout_s=10,
             strict=True,
         )
     finally:
@@ -225,7 +274,7 @@ def test_run_lane_with_ollama_assist_fallback_to_local_when_not_strict():
     def fake_invoke(*, model, prompt, timeout_s):
         return (1, "", "ollama unavailable")
 
-    def fake_local(run_lane):
+    def fake_local(run_lane, timeout_s=None):
         now = time.time()
         return mod.LaneResult(
             name=run_lane.name,
@@ -246,6 +295,7 @@ def test_run_lane_with_ollama_assist_fallback_to_local_when_not_strict():
             lane,
             model="qwen-test",
             timeout_s=30,
+            lane_timeout_s=10,
             strict=False,
         )
     finally:
