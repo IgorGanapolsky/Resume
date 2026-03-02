@@ -2216,6 +2216,7 @@ def run_pipeline(
                         "ashby_resume_input_missing",
                         "missing_file_input",
                     }
+                    or (details == "confirmation_text_not_detected" and screenshot_ok)
                 )
                 if quarantine_blocked and quarantinable:
                     row_result["result"] = "skipped"
