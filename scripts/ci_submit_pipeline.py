@@ -273,12 +273,20 @@ class PlaywrightFormAdapter(SiteAdapter):
                 page.goto(task.url, wait_until="domcontentloaded", timeout=60000)
                 form_scope = self._resolve_form_scope(page)
                 if form_scope is None:
+                    task.confirmation_path.parent.mkdir(parents=True, exist_ok=True)
+                    try:
+                        page.screenshot(path=str(task.confirmation_path), full_page=True)
+                    except Exception:
+                        pass
+                    detail = self._missing_form_scope_detail(page)
                     browser.close()
                     return SubmitResult(
                         adapter=self.name,
                         verified=False,
-                        screenshot=None,
-                        details="missing_file_input",
+                        screenshot=task.confirmation_path
+                        if task.confirmation_path.exists()
+                        else None,
+                        details=detail,
                     )
 
                 # Best-effort generic fill by common labels/placeholders.
@@ -335,8 +343,24 @@ class PlaywrightFormAdapter(SiteAdapter):
                     )
 
                 # Resume upload is mandatory for this pipeline.
-                file_input = form_scope.locator("input[type='file']").first
-                file_input.set_input_files(str(task.resume_path))
+                upload_ok, upload_details = self._upload_resume(
+                    form_scope, page, task.resume_path
+                )
+                if not upload_ok:
+                    task.confirmation_path.parent.mkdir(parents=True, exist_ok=True)
+                    try:
+                        page.screenshot(path=str(task.confirmation_path), full_page=True)
+                    except Exception:
+                        pass
+                    browser.close()
+                    return SubmitResult(
+                        adapter=self.name,
+                        verified=False,
+                        screenshot=task.confirmation_path
+                        if task.confirmation_path.exists()
+                        else None,
+                        details=upload_details,
+                    )
                 self._after_resume_upload(form_scope, page)
 
                 if not self._click_submit(form_scope, page):
@@ -403,6 +427,28 @@ class PlaywrightFormAdapter(SiteAdapter):
 
     def _after_resume_upload(self, scope: Any, page: Any) -> None:
         return None
+
+    def _missing_form_scope_detail(self, page: Any) -> str:
+        return "missing_file_input"
+
+    def _find_resume_file_input(self, scope: Any, page: Any) -> Optional[Any]:
+        try:
+            file_input = scope.locator("input[type='file']").first
+            if file_input.count() > 0:
+                return file_input
+        except Exception:
+            return None
+        return None
+
+    def _upload_resume(self, scope: Any, page: Any, resume_path: Path) -> tuple[bool, str]:
+        file_input = self._find_resume_file_input(scope, page)
+        if file_input is None:
+            return False, self._missing_form_scope_detail(page)
+        try:
+            file_input.set_input_files(str(resume_path))
+            return True, "resume_uploaded"
+        except Exception as exc:
+            return False, f"resume_upload_failed:{exc}"
 
     def _resolve_form_scope(self, page: Any) -> Optional[Any]:
         try:
@@ -511,6 +557,37 @@ class AshbyAdapter(PlaywrightFormAdapter):
         r"confirmation",
         r"application.*complete",
     )
+
+    def _missing_form_scope_detail(self, page: Any) -> str:
+        text = ""
+        try:
+            text = str(page.inner_text("body") or "")
+        except Exception:
+            text = ""
+        blob = text.lower()
+        if "job not found" in blob or "job you requested was not found" in blob:
+            return "ashby_job_not_found"
+        if "verify you are human" in blob or "captcha" in blob or "cloudflare" in blob:
+            return "ashby_antibot_challenge"
+        if "apply for this job" in blob or "apply now" in blob:
+            return "ashby_application_not_loaded"
+        return "ashby_resume_input_missing"
+
+    def _find_resume_file_input(self, scope: Any, page: Any) -> Optional[Any]:
+        selectors = (
+            "input#_systemfield_resume",
+            "input[type='file'][id*='resume' i]",
+            "input[type='file'][name*='resume' i]",
+            "input[type='file']",
+        )
+        for selector in selectors:
+            try:
+                control = scope.locator(selector).first
+                if control.count() > 0:
+                    return control
+            except Exception:
+                continue
+        return None
 
     def _apply_required_answers(
         self, scope: Any, page: Any, answers: SubmitAnswers
@@ -1252,6 +1329,7 @@ class AshbyAdapter(PlaywrightFormAdapter):
             r"apply",
         )
         for pattern in open_patterns:
+            clicked = False
             for role in ("button", "link"):
                 try:
                     control = page.get_by_role(
@@ -1259,16 +1337,28 @@ class AshbyAdapter(PlaywrightFormAdapter):
                     ).first
                     if control.count() > 0:
                         control.click(timeout=3000)
+                        clicked = True
                         break
                 except Exception:
                     continue
-            try:
-                page.wait_for_timeout(500)
-            except Exception:
-                pass
+            if clicked:
+                try:
+                    page.wait_for_timeout(1000)
+                except Exception:
+                    pass
+                scope = super()._resolve_form_scope(page)
+                if scope is not None:
+                    return scope
+
+        try:
+            direct_url = str(getattr(page, "url", "") or "").rstrip("/") + "/application"
+            page.goto(direct_url, wait_until="domcontentloaded", timeout=20000)
+            page.wait_for_timeout(1000)
             scope = super()._resolve_form_scope(page)
             if scope is not None:
                 return scope
+        except Exception:
+            pass
         return None
 
 
@@ -2119,6 +2209,13 @@ def run_pipeline(
                     details.startswith("missing_required_answers:")
                     or details.startswith("required_fields_unanswered_after_retry:")
                     or details == "required_questions_unanswered_after_retry"
+                    or details in {
+                        "ashby_job_not_found",
+                        "ashby_antibot_challenge",
+                        "ashby_application_not_loaded",
+                        "ashby_resume_input_missing",
+                        "missing_file_input",
+                    }
                 )
                 if quarantine_blocked and quarantinable:
                     row_result["result"] = "skipped"
@@ -2132,15 +2229,22 @@ def run_pipeline(
                     if not screenshot_ok:
                         row_errors.append("missing_or_empty_confirmation_screenshot")
                     row_result["errors"] = row_errors
-                    row["Status"] = "Quarantined"
+                    row["Status"] = (
+                        "Closed" if details == "ashby_job_not_found" else "Quarantined"
+                    )
                     row["Notes"] = _append_note(
                         str(row.get("Notes", "")),
                         (
-                            f"CI submit quarantined on {_today_iso()} via {adapter.name}. "
+                            f"CI submit blocked on {_today_iso()} via {adapter.name}. "
                             f"Reason={details or 'required_fields_blocked'}. "
-                            "Needs manual completion."
+                            + (
+                                "Posting appears closed/not found."
+                                if details == "ashby_job_not_found"
+                                else "Needs manual completion."
+                            )
                         ),
                     )
+                    queue_metadata_updates += 1
                     skipped_count += 1
                     if count_skipped_as_failures:
                         failed_count += 1

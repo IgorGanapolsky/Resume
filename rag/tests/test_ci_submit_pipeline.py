@@ -691,7 +691,7 @@ class _FakeScope:
         self.frames = []
 
     def locator(self, selector: str):
-        if selector == "input[type='file']":
+        if "input[type='file']" in selector or selector == "input#_systemfield_resume":
             return _FakeLocator(lambda: 1 if self.has_file else 0)
         return _FakeLocator(lambda: 0)
 
@@ -730,6 +730,28 @@ class _FakeAshbyPage(_FakeScope):
         return None
 
 
+class _FakeBrokenFrame:
+    def locator(self, selector: str):
+        raise RuntimeError("frame detached")
+
+
+class _FakeAshbyLinkToFramePage(_FakeScope):
+    def __init__(self):
+        super().__init__(has_file=False)
+        self.apply_clicks = 0
+
+    def get_by_role(self, role: str, name=None):
+        text = "Apply for this job"
+        if role == "link" and hasattr(name, "search") and name.search(text):
+            return _FakeLocator(lambda: 1, on_click=self._open_form_in_frame)
+        return _FakeLocator(lambda: 0)
+
+    def _open_form_in_frame(self):
+        self.apply_clicks += 1
+        frame = _FakeScope(has_file=True)
+        self.frames = [_FakeBrokenFrame(), frame]
+
+
 def test_resolve_form_scope_finds_file_input_in_frame():
     mod = _load_module()
     adapter = mod.PlaywrightFormAdapter()
@@ -749,6 +771,26 @@ def test_ashby_resolve_form_scope_clicks_apply_when_form_hidden():
     scope = adapter._resolve_form_scope(page)
     assert scope is page
     assert page.has_file is True
+    assert page.apply_clicks >= 1
+
+
+def test_resolve_form_scope_skips_broken_frame_and_finds_next_file_input():
+    mod = _load_module()
+    adapter = mod.PlaywrightFormAdapter()
+    page = _FakeScope(has_file=False)
+    page.frames = [_FakeBrokenFrame(), _FakeScope(has_file=True)]
+
+    scope = adapter._resolve_form_scope(page)
+    assert scope is page.frames[1]
+
+
+def test_ashby_resolve_form_scope_uses_link_fallback_and_returns_iframe_scope():
+    mod = _load_module()
+    adapter = mod.AshbyAdapter()
+    page = _FakeAshbyLinkToFramePage()
+
+    scope = adapter._resolve_form_scope(page)
+    assert scope is page.frames[1]
     assert page.apply_clicks >= 1
 
 
@@ -827,6 +869,16 @@ def test_ashby_extract_submit_error_detail_handles_recaptcha_spam():
     )
     detail = adapter._extract_submit_error_detail(response)
     assert detail == "recaptcha_score_below_threshold:95f30271-233d-4058-8604-0d986c85da54"
+
+
+def test_ashby_missing_form_scope_detail_job_not_found():
+    mod = _load_module()
+    adapter = mod.AshbyAdapter()
+    page = _FakeScope(
+        text="Job not found. The job you requested was not found.",
+    )
+    detail = adapter._missing_form_scope_detail(page)
+    assert detail == "ashby_job_not_found"
 
 
 def test_execute_requires_answers_secret(tmp_path, monkeypatch):
@@ -991,6 +1043,187 @@ def test_execute_recaptcha_block_counts_as_skipped_not_failed(tmp_path, monkeypa
     assert "Manual browser submit required." in rows[0]["Notes"]
 
 
+def test_execute_job_not_found_block_is_closed_when_quarantined(tmp_path, monkeypatch):
+    mod = _load_module()
+    monkeypatch.setattr(mod, "ROOT", tmp_path)
+
+    company = "Baseten"
+    role = "Senior Software Engineer - Infrastructure"
+    company_slug = mod._slug(company)
+    role_slug = mod._slug(role)[:64]
+    resume_dir = tmp_path / "applications" / company_slug / "tailored_resumes"
+    cover_dir = tmp_path / "applications" / company_slug / "cover_letters"
+    jobs_dir = tmp_path / "applications" / company_slug / "jobs"
+    submissions_dir = tmp_path / "applications" / company_slug / "submissions"
+    resume_dir.mkdir(parents=True, exist_ok=True)
+    cover_dir.mkdir(parents=True, exist_ok=True)
+    jobs_dir.mkdir(parents=True, exist_ok=True)
+    submissions_dir.mkdir(parents=True, exist_ok=True)
+    (resume_dir / f"2026-02-19_{company_slug}_{role_slug}.docx").write_bytes(b"docx")
+    (resume_dir / f"2026-02-19_{company_slug}_{role_slug}.html").write_text(
+        "summary professional experience", encoding="utf-8"
+    )
+    (cover_dir / f"2026-02-19_{company_slug}_{role_slug}.md").write_text(
+        "Cover letter", encoding="utf-8"
+    )
+    (jobs_dir / f"2026-02-19_{company_slug}_{role_slug}_abc123.md").write_text(
+        "Remote role.", encoding="utf-8"
+    )
+
+    tracker = tmp_path / "application_tracker.csv"
+    report = tmp_path / "report.json"
+    _write_tracker(
+        tracker,
+        [
+            {
+                "Company": company,
+                "Role": role,
+                "Location": "Remote",
+                "Salary Range": "",
+                "Status": "ReadyToSubmit",
+                "Date Applied": "",
+                "Follow Up Date": "",
+                "Response": "",
+                "Interview Stage": "Initial",
+                "Days To Response": "",
+                "Response Type": "",
+                "Cover Letter Used": "",
+                "What Worked": "",
+                "Tags": "ai;infra;python",
+                "Notes": "",
+                "Career Page URL": "https://jobs.ashbyhq.com/baseten/abc123",
+            }
+        ],
+    )
+
+    class _JobNotFoundAdapter(mod.SiteAdapter):
+        name = "ashby"
+
+        def matches(self, url: str) -> bool:
+            return "ashbyhq.com" in url
+
+        def submit(self, task, profile, auth, answers):
+            screenshot = submissions_dir / "confirm.png"
+            screenshot.write_bytes(b"png")
+            return mod.SubmitResult(
+                adapter=self.name,
+                verified=False,
+                screenshot=screenshot,
+                details="ashby_job_not_found",
+            )
+
+    rc = mod.run_pipeline(
+        tracker_csv=tracker,
+        report_path=report,
+        dry_run=False,
+        queue_only=False,
+        max_jobs=1,
+        fail_on_error=True,
+        require_secret_auth=False,
+        adapters=[_JobNotFoundAdapter()],
+        quarantine_blocked=True,
+    )
+    assert rc == 0
+    payload = json.loads(report.read_text(encoding="utf-8"))
+    assert payload["failed_count"] == 0
+    assert payload["skipped_count"] == 1
+
+    with tracker.open(newline="", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+    assert rows[0]["Status"] == "Closed"
+    assert "Posting appears closed/not found." in rows[0]["Notes"]
+
+
+def test_quarantine_status_persists_when_only_change(tmp_path, monkeypatch):
+    mod = _load_module()
+    monkeypatch.setattr(mod, "ROOT", tmp_path)
+
+    company = "Acme"
+    role = "Software Engineer"
+    company_slug = mod._slug(company)
+    role_slug = mod._slug(role)[:64]
+    resume_dir = tmp_path / "applications" / company_slug / "tailored_resumes"
+    cover_dir = tmp_path / "applications" / company_slug / "cover_letters"
+    jobs_dir = tmp_path / "applications" / company_slug / "jobs"
+    submissions_dir = tmp_path / "applications" / company_slug / "submissions"
+    resume_dir.mkdir(parents=True, exist_ok=True)
+    cover_dir.mkdir(parents=True, exist_ok=True)
+    jobs_dir.mkdir(parents=True, exist_ok=True)
+    submissions_dir.mkdir(parents=True, exist_ok=True)
+    (resume_dir / f"2026-02-19_{company_slug}_{role_slug}.docx").write_bytes(b"docx")
+    (resume_dir / f"2026-02-19_{company_slug}_{role_slug}.html").write_text(
+        "summary professional experience", encoding="utf-8"
+    )
+    (cover_dir / f"2026-02-19_{company_slug}_{role_slug}.md").write_text(
+        "Cover letter", encoding="utf-8"
+    )
+    (jobs_dir / f"2026-02-19_{company_slug}_{role_slug}_abc123.md").write_text(
+        "Remote role.", encoding="utf-8"
+    )
+
+    tracker = tmp_path / "application_tracker.csv"
+    report = tmp_path / "report.json"
+    _write_tracker(
+        tracker,
+        [
+            {
+                "Company": company,
+                "Role": role,
+                "Location": "Remote",
+                "Salary Range": "",
+                "Status": "ReadyToSubmit",
+                "Date Applied": "",
+                "Follow Up Date": "",
+                "Response": "",
+                "Interview Stage": "Initial",
+                "Days To Response": "",
+                "Response Type": "",
+                "Cover Letter Used": "",
+                "What Worked": "",
+                "Tags": "ai;infra;python",
+                "Notes": "",
+                "Career Page URL": "https://jobs.ashbyhq.com/acme/abc123",
+            }
+        ],
+    )
+
+    class _BlockedAdapter(mod.SiteAdapter):
+        name = "ashby"
+
+        def matches(self, url: str) -> bool:
+            return "ashbyhq.com" in url
+
+        def submit(self, task, profile, auth, answers):
+            screenshot = submissions_dir / "confirm.png"
+            screenshot.write_bytes(b"png")
+            return mod.SubmitResult(
+                adapter=self.name,
+                verified=False,
+                screenshot=screenshot,
+                details="missing_required_answers:test_question",
+            )
+
+    rc = mod.run_pipeline(
+        tracker_csv=tracker,
+        report_path=report,
+        dry_run=False,
+        queue_only=False,
+        max_jobs=1,
+        fail_on_error=False,
+        require_secret_auth=False,
+        adapters=[_BlockedAdapter()],
+        quarantine_blocked=True,
+        auto_promote_ready=False,
+    )
+    assert rc == 0
+    payload = json.loads(report.read_text(encoding="utf-8"))
+    assert payload["changed"] is True
+
+    with tracker.open(newline="", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+    assert rows[0]["Status"] == "Quarantined"
+
+
 def test_execute_target_applied_cycles_past_quarantined_blockers(tmp_path, monkeypatch):
     mod = _load_module()
     monkeypatch.setattr(mod, "ROOT", tmp_path)
@@ -1113,7 +1346,7 @@ def test_execute_target_applied_cycles_past_quarantined_blockers(tmp_path, monke
     with tracker.open(newline="", encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
     assert rows[0]["Status"] == "Quarantined"
-    assert "quarantined" in rows[0]["Notes"].lower()
+    assert "needs manual completion" in rows[0]["Notes"].lower()
     assert rows[1]["Status"] == "Applied"
     assert rows[1]["Date Applied"]
 
