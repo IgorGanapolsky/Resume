@@ -1216,7 +1216,8 @@ def test_execute_job_not_found_block_is_closed_when_quarantined(tmp_path, monkey
         name = "ashby"
 
         def matches(self, url: str) -> bool:
-            return "ashbyhq.com" in url
+            host = (urllib.parse.urlsplit(url).hostname or "").lower()
+            return host == "ashbyhq.com" or host.endswith(".ashbyhq.com")
 
         def submit(self, task, profile, auth, answers):
             screenshot = submissions_dir / "confirm.png"
@@ -1307,7 +1308,8 @@ def test_quarantine_status_persists_when_only_change(tmp_path, monkeypatch):
         name = "ashby"
 
         def matches(self, url: str) -> bool:
-            return "ashbyhq.com" in url
+            host = (urllib.parse.urlsplit(url).hostname or "").lower()
+            return host == "ashbyhq.com" or host.endswith(".ashbyhq.com")
 
         def submit(self, task, profile, auth, answers):
             screenshot = submissions_dir / "confirm.png"
@@ -1399,7 +1401,8 @@ def test_confirmation_not_detected_with_screenshot_is_quarantined(
         name = "greenhouse"
 
         def matches(self, url: str) -> bool:
-            return "greenhouse.io" in url
+            host = (urllib.parse.urlsplit(url).hostname or "").lower()
+            return host == "greenhouse.io" or host.endswith(".greenhouse.io")
 
         def submit(self, task, profile, auth, answers):
             screenshot = submissions_dir / "confirm.png"
@@ -1511,7 +1514,8 @@ def test_execute_target_applied_cycles_past_quarantined_blockers(tmp_path, monke
         name = "ashby"
 
         def matches(self, url: str) -> bool:
-            return "ashbyhq.com" in url
+            host = (urllib.parse.urlsplit(url).hostname or "").lower()
+            return host == "ashbyhq.com" or host.endswith(".ashbyhq.com")
 
         def submit(self, task, profile, auth, answers):
             task.confirmation_path.parent.mkdir(parents=True, exist_ok=True)
