@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-24T21:50:23.924622+00:00",
+  "generated_at": "2026-03-02T12:49:50.657417+00:00",
   "tracker_csv": "/home/runner/work/Resume/Resume/applications/job_applications/application_tracker.csv",
   "max_jobs": 15,
   "fit_threshold": 70,
@@ -9,24 +9,6 @@
   "became_gate_eligible": 0,
   "failures": 0,
   "results": [
-    {
-      "company": "Baseten",
-      "role": "Senior Software Engineer - Infrastructure",
-      "url": "https://jobs.ashbyhq.com/baseten/1b9ba599-ee9f-4034-83c7-3b4569ef4335",
-      "status_before": "ReadyToSubmit",
-      "prepared": false,
-      "candidate": true,
-      "assessment_before": {
-        "eligible": true,
-        "score": 103,
-        "reasons": [],
-        "submission_lane": "ci_auto:ashby",
-        "remote_score": 88
-      },
-      "assessment_after": {},
-      "artifact_updates": [],
-      "skip_reason": "already_gate_eligible"
-    },
     {
       "company": "OpenEvidence",
       "role": "Software Engineer - Backend and Infrastructure",
@@ -187,6 +169,18 @@
       "company": "BNSF Railway",
       "role": "Product, Platform & Enterprise Full Stack Sr/Staff Software Engineer",
       "url": "https://remotive.com/remote-jobs/software-development/product-platform-enterprise-full-stack-sr-staff-software-engineer-2088612",
+      "status_before": "Draft",
+      "prepared": false,
+      "candidate": false,
+      "assessment_before": {},
+      "assessment_after": {},
+      "artifact_updates": [],
+      "skip_reason": "unsupported_site_for_ci_submit"
+    },
+    {
+      "company": "BNSF Railway",
+      "role": "Product, Platform & Enterprise Front End Sr/Staff Software Engineer",
+      "url": "https://remotive.com/remote-jobs/software-development/product-platform-enterprise-front-end-sr-staff-software-engineer-2088611",
       "status_before": "Draft",
       "prepared": false,
       "candidate": false,
