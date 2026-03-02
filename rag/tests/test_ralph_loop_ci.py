@@ -179,7 +179,7 @@ def test_create_artifacts_writes_tailored_resume_and_requirements(
     )
     assert resume_html.exists()
     resume_text = resume_html.read_text(encoding="utf-8")
-    assert "Forward-Deployed AI/Software Engineer" in resume_text
+    assert "Forward Deployed Engineer" in resume_text
     resume_docx = resume_html.with_suffix(".docx")
     assert resume_docx.exists()
     with zipfile.ZipFile(resume_docx) as zf:

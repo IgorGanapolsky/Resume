@@ -835,7 +835,8 @@ def test_ashby_extract_submit_error_detail_handles_recaptcha_spam():
 def test_execute_requires_answers_secret(tmp_path, monkeypatch):
     mod = _load_module()
     monkeypatch.setattr(mod, "ROOT", tmp_path)
-
+    monkeypatch.setattr(mod, "DEFAULT_ANSWERS_MD", tmp_path / "does_not_exist.md")
+    
     tracker = tmp_path / "application_tracker.csv"
     report = tmp_path / "report.json"
     _write_tracker(
@@ -843,7 +844,7 @@ def test_execute_requires_answers_secret(tmp_path, monkeypatch):
         [
             {
                 "Company": "Example",
-                "Role": "Software Engineer",
+                "Role": "Forward Deployed Engineer",
                 "Location": "Remote",
                 "Salary Range": "",
                 "Status": "ReadyToSubmit",
@@ -861,6 +862,23 @@ def test_execute_requires_answers_secret(tmp_path, monkeypatch):
             }
         ],
     )
+    # Ensure artifacts exist so quality gate passes
+    company_slug = mod._slug("Example")
+    role_slug = mod._slug("Forward Deployed Engineer")[:64]
+    res_dir = tmp_path / "applications" / company_slug / "tailored_resumes"
+    jobs_dir = tmp_path / "applications" / company_slug / "jobs"
+    cov_dir = tmp_path / "applications" / company_slug / "cover_letters"
+    res_dir.mkdir(parents=True, exist_ok=True)
+    jobs_dir.mkdir(parents=True, exist_ok=True)
+    cov_dir.mkdir(parents=True, exist_ok=True)
+    
+    (res_dir / f"2026-02-19_{company_slug}_{role_slug}.html").write_text(
+        "Forward Deployed Engineer customer-facing delivery integration engineering Python APIs",
+        encoding="utf-8"
+    )
+    (res_dir / f"2026-02-19_{company_slug}_{role_slug}.docx").write_bytes(b"docx")
+    (jobs_dir / f"2026-02-19_{company_slug}_{role_slug}_abc123.md").write_text("Job requirements", encoding="utf-8")
+    (cov_dir / f"2026-02-19_{company_slug}_{role_slug}.md").write_text("Cover letter", encoding="utf-8")
 
     monkeypatch.delenv("TEST_PROFILE", raising=False)
     monkeypatch.delenv("TEST_AUTH", raising=False)
@@ -915,6 +933,7 @@ def test_execute_recaptcha_block_counts_as_skipped_not_failed(tmp_path, monkeypa
             "FORWARD-DEPLOYED COMPETENCIES "
             "customer-facing delivery "
             "integration engineering "
+            "infrastructure automation "
             "Python APIs"
         ),
         encoding="utf-8",
@@ -926,7 +945,6 @@ def test_execute_recaptcha_block_counts_as_skipped_not_failed(tmp_path, monkeypa
         "Remote. Requirements: customer integrations and Python.",
         encoding="utf-8",
     )
-
     tracker = tmp_path / "application_tracker.csv"
     report = tmp_path / "report.json"
     _write_tracker(
@@ -1018,6 +1036,7 @@ def test_execute_missing_file_input_quarantines_and_does_not_fail_run(
             "FORWARD-DEPLOYED COMPETENCIES "
             "customer-facing delivery "
             "integration engineering "
+            "infrastructure automation "
             "Python APIs"
         ),
         encoding="utf-8",
@@ -1029,7 +1048,6 @@ def test_execute_missing_file_input_quarantines_and_does_not_fail_run(
         "Remote. Requirements: customer integrations and Python.",
         encoding="utf-8",
     )
-
     tracker = tmp_path / "application_tracker.csv"
     report = tmp_path / "report.json"
     _write_tracker(

@@ -139,20 +139,20 @@ def test_build_lane_runner_ollama_delegates_selected_lanes():
     mod = _load_module()
     calls = {"assist": 0, "local": 0}
 
-    def fake_assist(lane, *, model, timeout_s, strict):
+    def fake_assist(lane, *, model, timeout_s, strict, local_timeout_s):
         calls["assist"] += 1
-        now = time.time()
+        now = int(time.time())
         return mod.LaneResult(
             name=lane.name,
             command=lane.command,
             returncode=0,
             started_at=now,
             ended_at=now,
-            stdout=f"assisted:{lane.name}:{model}:{timeout_s}:{strict}",
+            stdout=f"assisted:{lane.name}",
             stderr="",
         )
 
-    def fake_local(lane):
+    def fake_local(lane, *, timeout_s=None):
         calls["local"] += 1
         now = time.time()
         return mod.LaneResult(
@@ -209,6 +209,7 @@ def test_run_lane_with_ollama_assist_strict_failure_blocks_lane():
             model="qwen-test",
             timeout_s=30,
             strict=True,
+            local_timeout_s=60,
         )
     finally:
         mod._invoke_ollama_subagent = orig_invoke
@@ -225,7 +226,7 @@ def test_run_lane_with_ollama_assist_fallback_to_local_when_not_strict():
     def fake_invoke(*, model, prompt, timeout_s):
         return (1, "", "ollama unavailable")
 
-    def fake_local(run_lane):
+    def fake_local(run_lane, *, timeout_s=None):
         now = time.time()
         return mod.LaneResult(
             name=run_lane.name,
@@ -247,6 +248,7 @@ def test_run_lane_with_ollama_assist_fallback_to_local_when_not_strict():
             model="qwen-test",
             timeout_s=30,
             strict=False,
+            local_timeout_s=60,
         )
     finally:
         mod._invoke_ollama_subagent = orig_invoke

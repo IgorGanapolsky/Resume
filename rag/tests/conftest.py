@@ -8,8 +8,11 @@ import pytest
 
 # Ensure the rag/ package is importable from any working directory
 RAG_DIR = Path(__file__).resolve().parents[1]
+SCRIPTS_DIR = RAG_DIR.parent / "scripts"
 if str(RAG_DIR) not in sys.path:
     sys.path.insert(0, str(RAG_DIR))
+if str(SCRIPTS_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPTS_DIR))
 
 
 SAMPLE_ROWS = [
