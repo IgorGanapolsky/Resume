@@ -24,7 +24,7 @@ import urllib.parse
 import zipfile
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Sequence
+from typing import Any, Dict, List, Optional, Sequence, Tuple
 from xml.sax.saxutils import escape
 
 
@@ -1873,6 +1873,54 @@ def _validate_row(row: Dict[str, str]) -> List[str]:
     return errs
 
 
+def _submission_proof_missing_reasons(row: Dict[str, str]) -> List[str]:
+    reasons: List[str] = []
+    if not str(row.get("Date Applied", "")).strip():
+        reasons.append("missing_date_applied")
+    if not str(row.get("Submission Evidence Path", "")).strip():
+        reasons.append("missing_submission_evidence_path")
+    if not str(row.get("Submission Verified At", "")).strip():
+        reasons.append("missing_submission_verified_at")
+    return reasons
+
+
+def _reconcile_applied_integrity(
+    rows: Sequence[Dict[str, str]], *, mutate: bool
+) -> Tuple[int, List[Dict[str, Any]]]:
+    """Enforce: Status=Applied only when submission proof fields are present."""
+    demoted = 0
+    issues: List[Dict[str, Any]] = []
+    for idx, row in enumerate(rows):
+        status_raw = str(row.get("Status", "")).strip()
+        if _norm_key(status_raw) != "applied":
+            continue
+        missing = _submission_proof_missing_reasons(row)
+        if not missing:
+            continue
+        issue = {
+            "row_index": idx,
+            "company": str(row.get("Company", "")).strip(),
+            "role": str(row.get("Role", "")).strip(),
+            "status_before": status_raw,
+            "missing": missing,
+        }
+        issues.append(issue)
+        if not mutate:
+            continue
+        row["Status"] = "Draft"
+        row["Date Applied"] = ""
+        row["Follow Up Date"] = ""
+        row["Notes"] = _append_note(
+            str(row.get("Notes", "")),
+            (
+                f"Auto-demoted invalid Applied status on {_today_iso()} "
+                f"(missing={','.join(missing)})."
+            ),
+        )
+        demoted += 1
+    return demoted, issues
+
+
 def run_pipeline(
     *,
     tracker_csv: Path,
@@ -1931,6 +1979,9 @@ def run_pipeline(
         )
 
     can_mutate_tracker = (not dry_run) or queue_only
+    applied_integrity_demoted_count, applied_integrity_issues = _reconcile_applied_integrity(
+        rows, mutate=can_mutate_tracker
+    )
     queue_promoted_count = 0
     queue_demoted_count = 0
     queue_metadata_updates = 0
@@ -2020,6 +2071,8 @@ def run_pipeline(
         "fit_threshold": fit_threshold,
         "remote_min_score": remote_min_score,
         "tracker_csv": str(tracker_csv),
+        "applied_integrity_demoted_count": applied_integrity_demoted_count,
+        "applied_integrity_issues": applied_integrity_issues,
         "queue_promoted_count": queue_promoted_count,
         "queue_demoted_count": queue_demoted_count,
         "queue_audit": queue_audit,
@@ -2040,7 +2093,12 @@ def run_pipeline(
         report["skipped_count"] = 0
         report["changed"] = bool(
             can_mutate_tracker
-            and (queue_promoted_count or queue_demoted_count or queue_metadata_updates)
+            and (
+                applied_integrity_demoted_count
+                or queue_promoted_count
+                or queue_demoted_count
+                or queue_metadata_updates
+            )
         )
         report_path.parent.mkdir(parents=True, exist_ok=True)
         report_path.write_text(
@@ -2050,6 +2108,7 @@ def run_pipeline(
             _write_tracker(tracker_csv, fields, rows)
         print(
             "Queue gate processed: "
+            f"applied_demoted={applied_integrity_demoted_count} "
             f"promoted={queue_promoted_count} demoted={queue_demoted_count} "
             f"ready_now={len(ready_indices)}"
         )
@@ -2294,6 +2353,8 @@ def run_pipeline(
     report["changed"] = bool(
         can_mutate_tracker
         and (
+            applied_integrity_demoted_count
+            or
             applied_count
             or queue_promoted_count
             or queue_demoted_count
