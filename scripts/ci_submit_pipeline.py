@@ -1979,8 +1979,8 @@ def run_pipeline(
         )
 
     can_mutate_tracker = (not dry_run) or queue_only
-    applied_integrity_demoted_count, applied_integrity_issues = _reconcile_applied_integrity(
-        rows, mutate=can_mutate_tracker
+    applied_integrity_demoted_count, applied_integrity_issues = (
+        _reconcile_applied_integrity(rows, mutate=can_mutate_tracker)
     )
     queue_promoted_count = 0
     queue_demoted_count = 0
@@ -2354,8 +2354,7 @@ def run_pipeline(
         can_mutate_tracker
         and (
             applied_integrity_demoted_count
-            or
-            applied_count
+            or applied_count
             or queue_promoted_count
             or queue_demoted_count
             or queue_metadata_updates
