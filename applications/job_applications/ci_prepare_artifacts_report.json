@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-02T12:49:50.657417+00:00",
+  "generated_at": "2026-03-06T22:09:45.966829+00:00",
   "tracker_csv": "/home/runner/work/Resume/Resume/applications/job_applications/application_tracker.csv",
   "max_jobs": 15,
   "fit_threshold": 70,
@@ -20,18 +20,6 @@
       "assessment_after": {},
       "artifact_updates": [],
       "skip_reason": "remote_likelihood_below_threshold:13<55"
-    },
-    {
-      "company": "Runway",
-      "role": "Member of Technical Staff - Inference",
-      "url": "https://job-boards.greenhouse.io/runwayml/jobs/4650230005",
-      "status_before": "Draft",
-      "prepared": false,
-      "candidate": false,
-      "assessment_before": {},
-      "assessment_after": {},
-      "artifact_updates": [],
-      "skip_reason": "non_technical_role"
     },
     {
       "company": "Decagon",
@@ -181,6 +169,18 @@
       "company": "BNSF Railway",
       "role": "Product, Platform & Enterprise Front End Sr/Staff Software Engineer",
       "url": "https://remotive.com/remote-jobs/software-development/product-platform-enterprise-front-end-sr-staff-software-engineer-2088611",
+      "status_before": "Draft",
+      "prepared": false,
+      "candidate": false,
+      "assessment_before": {},
+      "assessment_after": {},
+      "artifact_updates": [],
+      "skip_reason": "unsupported_site_for_ci_submit"
+    },
+    {
+      "company": "BNSF Railway",
+      "role": "Sr/Staff AI Engineer",
+      "url": "https://remotive.com/remote-jobs/ai-ml/sr-staff-ai-engineer-2088613",
       "status_before": "Draft",
       "prepared": false,
       "candidate": false,
