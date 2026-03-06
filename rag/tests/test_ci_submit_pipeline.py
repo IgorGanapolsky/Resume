@@ -44,6 +44,14 @@ def _write_tracker(path: Path, rows: list[dict[str, str]]) -> None:
         "Tags",
         "Notes",
         "Career Page URL",
+        "Application Link",
+        "Remote Policy",
+        "Remote Likelihood Score",
+        "Remote Evidence",
+        "Submission Lane",
+        "Submitted Resume Path",
+        "Submission Evidence Path",
+        "Submission Verified At",
     ]
     with path.open("w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
@@ -1673,3 +1681,60 @@ def test_ashby_post_submit_retry_no_error_banner_no_retry(monkeypatch):
 
     ok = adapter._post_submit_retry(scope, page, profile, answers)
     assert ok is False
+
+
+def test_queue_only_demotes_unverified_applied(tmp_path, monkeypatch):
+    mod = _load_module()
+    monkeypatch.setattr(mod, "ROOT", tmp_path)
+
+    tracker = tmp_path / "application_tracker.csv"
+    report = tmp_path / "report.json"
+    _write_tracker(
+        tracker,
+        [
+            {
+                "Company": "OpenAI",
+                "Role": "Administrative Business Partner",
+                "Location": "San Francisco",
+                "Salary Range": "",
+                "Status": "Applied",
+                "Date Applied": "2026-03-02",
+                "Follow Up Date": "2026-03-09",
+                "Response": "",
+                "Interview Stage": "Initial",
+                "Days To Response": "",
+                "Response Type": "",
+                "Cover Letter Used": "",
+                "What Worked": "",
+                "Tags": "operations",
+                "Notes": "Pending review and submission.",
+                "Career Page URL": "https://careers.example.com/openai/abp",
+                "Application Link": "",
+                "Submission Evidence Path": "",
+                "Submission Verified At": "",
+            }
+        ],
+    )
+
+    rc = mod.run_pipeline(
+        tracker_csv=tracker,
+        report_path=report,
+        dry_run=True,
+        queue_only=True,
+        max_jobs=0,
+        fail_on_error=False,
+        auto_promote_ready=False,
+    )
+    assert rc == 0
+
+    with tracker.open(newline="", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+
+    assert rows[0]["Status"] == "Draft"
+    assert rows[0]["Date Applied"] == ""
+    assert rows[0]["Follow Up Date"] == ""
+    assert "Auto-demoted invalid Applied status" in rows[0]["Notes"]
+
+    payload = json.loads(report.read_text(encoding="utf-8"))
+    assert payload["applied_integrity_demoted_count"] == 1
+    assert payload["changed"] is True
