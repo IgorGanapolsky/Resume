@@ -2019,7 +2019,9 @@ def run_pipeline(
                 adapters=adapters,
             )
             blocked_by_integrity_demotion = idx in applied_demoted_rows
-            eligible_for_ready = assessment.eligible and not blocked_by_integrity_demotion
+            eligible_for_ready = (
+                assessment.eligible and not blocked_by_integrity_demotion
+            )
             audit_reasons = list(assessment.reasons)
             if blocked_by_integrity_demotion:
                 audit_reasons.append("integrity_demotion_same_run")

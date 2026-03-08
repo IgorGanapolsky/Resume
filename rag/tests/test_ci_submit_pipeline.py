@@ -1794,9 +1794,10 @@ def test_queue_only_demotes_applied_when_evidence_file_missing(tmp_path, monkeyp
 
     payload = json.loads(report.read_text(encoding="utf-8"))
     assert payload["applied_integrity_demoted_count"] == 1
-    assert "missing_submission_evidence_file" in payload["applied_integrity_issues"][0][
-        "missing"
-    ]
+    assert (
+        "missing_submission_evidence_file"
+        in payload["applied_integrity_issues"][0]["missing"]
+    )
 
 
 def test_queue_only_keeps_applied_when_proof_files_exist(tmp_path, monkeypatch):
