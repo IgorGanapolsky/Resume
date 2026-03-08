@@ -1,66 +1,51 @@
 {
-  "generated_at": "2026-03-08T17:40:25.035561+00:00",
+  "generated_at": "2026-03-08T18:11:06.721056+00:00",
   "tracker_csv": "/home/runner/work/Resume/Resume/applications/job_applications/application_tracker.csv",
   "max_jobs": 15,
   "fit_threshold": 70,
   "remote_min_score": 55,
   "processed_rows": 15,
-  "artifact_updates": 0,
-  "became_gate_eligible": 0,
+  "artifact_updates": 3,
+  "became_gate_eligible": 1,
   "failures": 0,
   "results": [
     {
-      "company": "OpenEvidence",
-      "role": "Software Engineer - Backend and Infrastructure",
-      "url": "https://jobs.ashbyhq.com/openevidence/4ca13c92-2a6f-4847-8bcd-22aa8b29cde8",
+      "company": "Owner.com",
+      "role": "Software Engineer Mobile",
+      "url": "https://jobs.lever.co/owner/727a8b34-49d7-428f-8d27-5a326bcc716d",
       "status_before": "Draft",
-      "prepared": false,
-      "candidate": false,
-      "assessment_before": {},
-      "assessment_after": {},
-      "artifact_updates": [],
-      "skip_reason": "remote_likelihood_below_threshold:13<55"
+      "prepared": true,
+      "candidate": true,
+      "assessment_before": {
+        "eligible": false,
+        "score": 3,
+        "reasons": [
+          "fit_score_below_threshold:3<70",
+          "missing_cover_letter",
+          "missing_resume_docx_or_pdf",
+          "missing_tailored_resume_html"
+        ],
+        "submission_lane": "ci_auto:lever",
+        "remote_score": 88
+      },
+      "assessment_after": {
+        "eligible": true,
+        "score": 73,
+        "reasons": [],
+        "submission_lane": "ci_auto:lever",
+        "remote_score": 88
+      },
+      "artifact_updates": [
+        "resume_html:/home/runner/work/Resume/Resume/applications/owner-com/tailored_resumes/2026-03-08_owner-com_software-engineer-mobile.html",
+        "resume_docx:/home/runner/work/Resume/Resume/applications/owner-com/tailored_resumes/2026-03-08_owner-com_software-engineer-mobile.docx",
+        "cover_letter:/home/runner/work/Resume/Resume/applications/owner-com/cover_letters/2026-03-08_owner-com_software-engineer-mobile.md"
+      ],
+      "skip_reason": ""
     },
     {
-      "company": "Decagon",
-      "role": "Senior Software Engineer, Infrastructure",
-      "url": "https://jobs.ashbyhq.com/decagon/7a22482c-e2d4-45b6-b364-89b63189a4ae",
-      "status_before": "Draft",
-      "prepared": false,
-      "candidate": false,
-      "assessment_before": {},
-      "assessment_after": {},
-      "artifact_updates": [],
-      "skip_reason": "remote_likelihood_below_threshold:13<55"
-    },
-    {
-      "company": "Inferact",
-      "role": "Member of Technical Staff, Exceptional Generalist (Remote)",
-      "url": "https://jobs.ashbyhq.com/inferact/f0d2619d-28e0-4b25-8d30-3ac555071abb",
-      "status_before": "Draft",
-      "prepared": false,
-      "candidate": false,
-      "assessment_before": {},
-      "assessment_after": {},
-      "artifact_updates": [],
-      "skip_reason": "non_technical_role"
-    },
-    {
-      "company": "PaleBlueDot AI",
-      "role": "AI Infrastructure Engineer (target; no posting found)",
-      "url": "https://palebluedot.ai/",
-      "status_before": "Draft",
-      "prepared": false,
-      "candidate": false,
-      "assessment_before": {},
-      "assessment_after": {},
-      "artifact_updates": [],
-      "skip_reason": "unsupported_site_for_ci_submit"
-    },
-    {
-      "company": "Flapping Airplanes",
-      "role": "General inquiry (contact email)",
-      "url": "https://flappingairplanes.com/",
+      "company": "Automattic",
+      "role": "Mobile Engineer",
+      "url": "https://automattic.com/work-with-us/",
       "status_before": "Draft",
       "prepared": false,
       "candidate": false,
@@ -70,9 +55,9 @@
       "skip_reason": "unsupported_site_for_ci_submit"
     },
     {
-      "company": "Coalition Technologies",
-      "role": "Office Assistant",
-      "url": "https://remotive.com/remote-jobs/marketing/office-assistant-1680495",
+      "company": "GitLab",
+      "role": "Senior Software Engineer Mobile",
+      "url": "https://about.gitlab.com/jobs/",
       "status_before": "Draft",
       "prepared": false,
       "candidate": false,
@@ -82,9 +67,9 @@
       "skip_reason": "unsupported_site_for_ci_submit"
     },
     {
-      "company": "Mitre Media",
-      "role": "Tech Lead Databricks Data Engineer",
-      "url": "https://remotive.com/remote-jobs/software-development/tech-lead-databricks-data-engineer-2069747",
+      "company": "DockYard",
+      "role": "React Native Developer",
+      "url": "https://dockyard.com/careers",
       "status_before": "Draft",
       "prepared": false,
       "candidate": false,
@@ -94,9 +79,9 @@
       "skip_reason": "unsupported_site_for_ci_submit"
     },
     {
-      "company": "Mitre Media",
-      "role": "Tech Lead Full-Stack Rails Engineer",
-      "url": "https://remotive.com/remote-jobs/software-development/tech-lead-full-stack-rails-engineer-2069746",
+      "company": "Deepgram",
+      "role": "Software Engineer",
+      "url": "https://deepgram.com/careers",
       "status_before": "Draft",
       "prepared": false,
       "candidate": false,
@@ -106,9 +91,9 @@
       "skip_reason": "unsupported_site_for_ci_submit"
     },
     {
-      "company": "nooro",
-      "role": "iOS Developer",
-      "url": "https://remotive.com/remote-jobs/software-development/ios-developer-1956455",
+      "company": "D-Wave Quantum",
+      "role": "Software Engineer",
+      "url": "https://www.dwavesys.com/careers/",
       "status_before": "Draft",
       "prepared": false,
       "candidate": false,
@@ -118,9 +103,9 @@
       "skip_reason": "unsupported_site_for_ci_submit"
     },
     {
-      "company": "SKYCATCHFIRE",
-      "role": "Senior Python Backend Developer",
-      "url": "https://remotive.com/remote-jobs/software-development/senior-python-backend-developer-2088624",
+      "company": "Numiro",
+      "role": "AI Engineer",
+      "url": "https://wellfound.com/company/numiro",
       "status_before": "Draft",
       "prepared": false,
       "candidate": false,
@@ -130,9 +115,9 @@
       "skip_reason": "unsupported_site_for_ci_submit"
     },
     {
-      "company": "TELUS Digital",
-      "role": "Content Reviewer",
-      "url": "https://remotive.com/remote-jobs/all-others/content-reviewer-2088622",
+      "company": "Modernizing Medicine",
+      "role": "Software Engineer",
+      "url": "https://www.modmed.com/careers/",
       "status_before": "Draft",
       "prepared": false,
       "candidate": false,
@@ -142,9 +127,9 @@
       "skip_reason": "unsupported_site_for_ci_submit"
     },
     {
-      "company": "Welo Data",
-      "role": "AI Internet Rater",
-      "url": "https://remotive.com/remote-jobs/ai-ml/ai-internet-rater-2088618",
+      "company": "Kalmus Labs",
+      "role": "AI Engineer",
+      "url": "https://wellfound.com/company/kalmus-labs",
       "status_before": "Draft",
       "prepared": false,
       "candidate": false,
@@ -154,9 +139,9 @@
       "skip_reason": "unsupported_site_for_ci_submit"
     },
     {
-      "company": "BNSF Railway",
-      "role": "Product, Platform & Enterprise Full Stack Sr/Staff Software Engineer",
-      "url": "https://remotive.com/remote-jobs/software-development/product-platform-enterprise-full-stack-sr-staff-software-engineer-2088612",
+      "company": "Safari AI",
+      "role": "Software Engineer",
+      "url": "https://wellfound.com/company/safari-ai",
       "status_before": "Draft",
       "prepared": false,
       "candidate": false,
@@ -166,9 +151,9 @@
       "skip_reason": "unsupported_site_for_ci_submit"
     },
     {
-      "company": "BNSF Railway",
-      "role": "Product, Platform & Enterprise Front End Sr/Staff Software Engineer",
-      "url": "https://remotive.com/remote-jobs/software-development/product-platform-enterprise-front-end-sr-staff-software-engineer-2088611",
+      "company": "PostHog",
+      "role": "Software Engineer",
+      "url": "https://posthog.com/careers",
       "status_before": "Draft",
       "prepared": false,
       "candidate": false,
@@ -178,9 +163,45 @@
       "skip_reason": "unsupported_site_for_ci_submit"
     },
     {
-      "company": "BNSF Railway",
-      "role": "Sr/Staff AI Engineer",
-      "url": "https://remotive.com/remote-jobs/ai-ml/sr-staff-ai-engineer-2088613",
+      "company": "Statsig",
+      "role": "Software Engineer",
+      "url": "https://statsig.com/careers",
+      "status_before": "Draft",
+      "prepared": false,
+      "candidate": false,
+      "assessment_before": {},
+      "assessment_after": {},
+      "artifact_updates": [],
+      "skip_reason": "unsupported_site_for_ci_submit"
+    },
+    {
+      "company": "Buffer",
+      "role": "Mobile Engineer",
+      "url": "https://buffer.com/journey",
+      "status_before": "Draft",
+      "prepared": false,
+      "candidate": false,
+      "assessment_before": {},
+      "assessment_after": {},
+      "artifact_updates": [],
+      "skip_reason": "unsupported_site_for_ci_submit"
+    },
+    {
+      "company": "Hugging Face",
+      "role": "Mobile Engineer",
+      "url": "https://huggingface.co/jobs",
+      "status_before": "Draft",
+      "prepared": false,
+      "candidate": false,
+      "assessment_before": {},
+      "assessment_after": {},
+      "artifact_updates": [],
+      "skip_reason": "unsupported_site_for_ci_submit"
+    },
+    {
+      "company": "Replicate",
+      "role": "Software Engineer",
+      "url": "https://replicate.com/about",
       "status_before": "Draft",
       "prepared": false,
       "candidate": false,
