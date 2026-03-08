@@ -1877,8 +1877,26 @@ def _submission_proof_missing_reasons(row: Dict[str, str]) -> List[str]:
     reasons: List[str] = []
     if not str(row.get("Date Applied", "")).strip():
         reasons.append("missing_date_applied")
-    if not str(row.get("Submission Evidence Path", "")).strip():
+    submitted_resume_raw = str(row.get("Submitted Resume Path", "")).strip()
+    if not submitted_resume_raw:
+        reasons.append("missing_submitted_resume_path")
+    else:
+        submitted_resume_path = Path(submitted_resume_raw)
+        if not submitted_resume_path.is_absolute():
+            submitted_resume_path = ROOT / submitted_resume_path
+        if not submitted_resume_path.exists():
+            reasons.append("missing_submitted_resume_file")
+
+    submission_evidence_raw = str(row.get("Submission Evidence Path", "")).strip()
+    if not submission_evidence_raw:
         reasons.append("missing_submission_evidence_path")
+    else:
+        submission_evidence_path = Path(submission_evidence_raw)
+        if not submission_evidence_path.is_absolute():
+            submission_evidence_path = ROOT / submission_evidence_path
+        if not submission_evidence_path.exists():
+            reasons.append("missing_submission_evidence_file")
+
     if not str(row.get("Submission Verified At", "")).strip():
         reasons.append("missing_submission_verified_at")
     return reasons
@@ -1886,10 +1904,11 @@ def _submission_proof_missing_reasons(row: Dict[str, str]) -> List[str]:
 
 def _reconcile_applied_integrity(
     rows: Sequence[Dict[str, str]], *, mutate: bool
-) -> Tuple[int, List[Dict[str, Any]]]:
+) -> Tuple[int, List[Dict[str, Any]], set[int]]:
     """Enforce: Status=Applied only when submission proof fields are present."""
     demoted = 0
     issues: List[Dict[str, Any]] = []
+    demoted_rows: set[int] = set()
     for idx, row in enumerate(rows):
         status_raw = str(row.get("Status", "")).strip()
         if _norm_key(status_raw) != "applied":
@@ -1918,7 +1937,8 @@ def _reconcile_applied_integrity(
             ),
         )
         demoted += 1
-    return demoted, issues
+        demoted_rows.add(idx)
+    return demoted, issues, demoted_rows
 
 
 def run_pipeline(
@@ -1979,7 +1999,7 @@ def run_pipeline(
         )
 
     can_mutate_tracker = (not dry_run) or queue_only
-    applied_integrity_demoted_count, applied_integrity_issues = (
+    applied_integrity_demoted_count, applied_integrity_issues, applied_demoted_rows = (
         _reconcile_applied_integrity(rows, mutate=can_mutate_tracker)
     )
     queue_promoted_count = 0
@@ -1998,6 +2018,11 @@ def run_pipeline(
                 remote_min_score=remote_min_score,
                 adapters=adapters,
             )
+            blocked_by_integrity_demotion = idx in applied_demoted_rows
+            eligible_for_ready = assessment.eligible and not blocked_by_integrity_demotion
+            audit_reasons = list(assessment.reasons)
+            if blocked_by_integrity_demotion:
+                audit_reasons.append("integrity_demotion_same_run")
             audit_item = {
                 "row_index": idx,
                 "company": str(row.get("Company", "")).strip(),
@@ -2010,8 +2035,8 @@ def run_pipeline(
                 "remote_score": assessment.remote_score,
                 "remote_evidence": assessment.remote_evidence,
                 "submission_lane": assessment.submission_lane,
-                "eligible_for_ready": assessment.eligible,
-                "reasons": assessment.reasons,
+                "eligible_for_ready": eligible_for_ready,
+                "reasons": audit_reasons,
             }
             if can_mutate_tracker:
                 remote_policy = assessment.remote_policy
@@ -2031,7 +2056,7 @@ def run_pipeline(
                 row["Remote Evidence"] = remote_evidence
                 row["Submission Lane"] = submission_lane
 
-            if _is_draft_status(status_raw) and assessment.eligible:
+            if _is_draft_status(status_raw) and eligible_for_ready:
                 queue_promoted_count += 1
                 if can_mutate_tracker:
                     row["Status"] = DEFAULT_READY_STATUS
@@ -2043,6 +2068,18 @@ def run_pipeline(
                             f"track={assessment.role_track}, lane={assessment.submission_lane})."
                         ),
                     )
+            elif (
+                _is_draft_status(status_raw)
+                and blocked_by_integrity_demotion
+                and can_mutate_tracker
+            ):
+                row["Notes"] = _append_note(
+                    str(row.get("Notes", "")),
+                    (
+                        f"Queue auto-promotion skipped on {_today_iso()} "
+                        "(reason=integrity_demotion_same_run)."
+                    ),
+                )
             elif _is_ready_status(status_raw) and not assessment.eligible:
                 queue_demoted_count += 1
                 if can_mutate_tracker:

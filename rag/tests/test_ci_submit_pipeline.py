@@ -1738,3 +1738,194 @@ def test_queue_only_demotes_unverified_applied(tmp_path, monkeypatch):
     payload = json.loads(report.read_text(encoding="utf-8"))
     assert payload["applied_integrity_demoted_count"] == 1
     assert payload["changed"] is True
+
+
+def test_queue_only_demotes_applied_when_evidence_file_missing(tmp_path, monkeypatch):
+    mod = _load_module()
+    monkeypatch.setattr(mod, "ROOT", tmp_path)
+
+    tracker = tmp_path / "application_tracker.csv"
+    report = tmp_path / "report.json"
+    resume_file = tmp_path / "resume.docx"
+    resume_file.write_bytes(b"docx")
+
+    _write_tracker(
+        tracker,
+        [
+            {
+                "Company": "OpenAI",
+                "Role": "Software Engineer",
+                "Location": "San Francisco",
+                "Salary Range": "",
+                "Status": "Applied",
+                "Date Applied": "2026-03-02",
+                "Follow Up Date": "2026-03-09",
+                "Response": "",
+                "Interview Stage": "Initial",
+                "Days To Response": "",
+                "Response Type": "",
+                "Cover Letter Used": "",
+                "What Worked": "",
+                "Tags": "engineering",
+                "Notes": "Has text paths only.",
+                "Career Page URL": "https://careers.example.com/openai/se",
+                "Application Link": "",
+                "Submitted Resume Path": "resume.docx",
+                "Submission Evidence Path": "missing-confirmation.png",
+                "Submission Verified At": "2026-03-02T12:00:00+00:00",
+            }
+        ],
+    )
+
+    rc = mod.run_pipeline(
+        tracker_csv=tracker,
+        report_path=report,
+        dry_run=True,
+        queue_only=True,
+        max_jobs=0,
+        fail_on_error=False,
+        auto_promote_ready=False,
+    )
+    assert rc == 0
+
+    with tracker.open(newline="", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+    assert rows[0]["Status"] == "Draft"
+
+    payload = json.loads(report.read_text(encoding="utf-8"))
+    assert payload["applied_integrity_demoted_count"] == 1
+    assert "missing_submission_evidence_file" in payload["applied_integrity_issues"][0][
+        "missing"
+    ]
+
+
+def test_queue_only_keeps_applied_when_proof_files_exist(tmp_path, monkeypatch):
+    mod = _load_module()
+    monkeypatch.setattr(mod, "ROOT", tmp_path)
+
+    tracker = tmp_path / "application_tracker.csv"
+    report = tmp_path / "report.json"
+    resume_file = tmp_path / "resume.docx"
+    evidence_file = tmp_path / "confirmation.png"
+    resume_file.write_bytes(b"docx")
+    evidence_file.write_bytes(b"png")
+
+    _write_tracker(
+        tracker,
+        [
+            {
+                "Company": "OpenAI",
+                "Role": "Software Engineer",
+                "Location": "San Francisco",
+                "Salary Range": "",
+                "Status": "Applied",
+                "Date Applied": "2026-03-02",
+                "Follow Up Date": "2026-03-09",
+                "Response": "",
+                "Interview Stage": "Initial",
+                "Days To Response": "",
+                "Response Type": "",
+                "Cover Letter Used": "",
+                "What Worked": "",
+                "Tags": "engineering",
+                "Notes": "Has all evidence.",
+                "Career Page URL": "https://careers.example.com/openai/se",
+                "Application Link": "",
+                "Submitted Resume Path": "resume.docx",
+                "Submission Evidence Path": "confirmation.png",
+                "Submission Verified At": "2026-03-02T12:00:00+00:00",
+            }
+        ],
+    )
+
+    rc = mod.run_pipeline(
+        tracker_csv=tracker,
+        report_path=report,
+        dry_run=True,
+        queue_only=True,
+        max_jobs=0,
+        fail_on_error=False,
+        auto_promote_ready=False,
+    )
+    assert rc == 0
+
+    with tracker.open(newline="", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+    assert rows[0]["Status"] == "Applied"
+
+    payload = json.loads(report.read_text(encoding="utf-8"))
+    assert payload["applied_integrity_demoted_count"] == 0
+
+
+def test_queue_only_does_not_repromote_same_run_integrity_demotion(
+    tmp_path, monkeypatch
+):
+    mod = _load_module()
+    monkeypatch.setattr(mod, "ROOT", tmp_path)
+
+    role = "Forward Deployed Engineer - Software Engineer"
+    role_slug = mod._slug(role)[:64]
+    _seed_fde_artifacts(
+        tmp_path,
+        role_slug,
+        (
+            "Forward-Deployed AI/Software Engineer "
+            "FORWARD-DEPLOYED COMPETENCIES "
+            "customer-facing delivery "
+            "integration engineering "
+            "<strong>35%</strong>"
+        ),
+    )
+
+    tracker = tmp_path / "application_tracker.csv"
+    report = tmp_path / "report.json"
+    _write_tracker(
+        tracker,
+        [
+            {
+                "Company": "ElevenLabs",
+                "Role": role,
+                "Location": "Remote",
+                "Salary Range": "",
+                "Status": "Applied",
+                "Date Applied": "2026-03-02",
+                "Follow Up Date": "2026-03-09",
+                "Response": "",
+                "Interview Stage": "Initial",
+                "Days To Response": "",
+                "Response Type": "",
+                "Cover Letter Used": "",
+                "What Worked": "",
+                "Tags": "ai;integration",
+                "Notes": "",
+                "Career Page URL": "https://jobs.ashbyhq.com/elevenlabs/abc123",
+                "Application Link": "",
+                "Submitted Resume Path": f"applications/elevenlabs/tailored_resumes/2026-02-19_elevenlabs_{role_slug}.docx",
+                "Submission Evidence Path": "applications/elevenlabs/submissions/missing.png",
+                "Submission Verified At": "2026-03-02T12:00:00+00:00",
+            }
+        ],
+    )
+
+    rc = mod.run_pipeline(
+        tracker_csv=tracker,
+        report_path=report,
+        dry_run=True,
+        queue_only=True,
+        max_jobs=5,
+        fail_on_error=False,
+        fit_threshold=70,
+        auto_promote_ready=True,
+    )
+    assert rc == 0
+
+    with tracker.open(newline="", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+    assert rows[0]["Status"] == "Draft"
+    assert "Queue auto-promotion skipped" in rows[0]["Notes"]
+
+    payload = json.loads(report.read_text(encoding="utf-8"))
+    assert payload["applied_integrity_demoted_count"] == 1
+    assert payload["queue_promoted_count"] == 0
+    assert payload["queue_audit"][0]["eligible_for_ready"] is False
+    assert "integrity_demotion_same_run" in payload["queue_audit"][0]["reasons"]
