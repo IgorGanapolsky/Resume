@@ -2650,7 +2650,7 @@ def main() -> int:
 
     try:
         if args.validate_secrets_only:
-            ok, errors = validate_secret_payloads(
+            ok, _errors = validate_secret_payloads(
                 profile_env=args.profile_env,
                 auth_env=args.auth_env,
                 answers_env=args.answers_env,
@@ -2658,7 +2658,7 @@ def main() -> int:
             if ok:
                 print("Secret payload validation passed.")
                 return 0
-            print("Secret payload validation failed: " + ", ".join(errors))
+            print("Secret payload validation failed.")
             return 2
         return run_pipeline(
             tracker_csv=Path(args.tracker),

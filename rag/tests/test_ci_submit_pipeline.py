@@ -1934,6 +1934,45 @@ def test_validate_secret_payloads_passes_for_valid_secret_bundle(monkeypatch):
     assert errors == []
 
 
+def test_validate_secrets_only_cli_hides_secret_diagnostics(monkeypatch, capsys):
+    mod = _load_module()
+    monkeypatch.setenv(
+        "CI_SUBMIT_PROFILE_JSON",
+        json.dumps(
+            {
+                "first_name": "Igor",
+                "last_name": "Ganapolsky",
+                "email": "igor@example.com",
+                "phone": "5555555555",
+            }
+        ),
+    )
+    monkeypatch.setenv(
+        "CI_SUBMIT_ANSWERS_JSON",
+        json.dumps(
+            {
+                "work_authorization_us": True,
+                "require_sponsorship": False,
+                "role_interest": "AI systems and integrations.",
+                "eeo_default": "Prefer not to say",
+            }
+        ),
+    )
+    monkeypatch.setenv("CI_SUBMIT_AUTH_JSON", json.dumps(["bad-payload"]))
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        ["ci_submit_pipeline.py", "--validate-secrets-only"],
+    )
+
+    rc = mod.main()
+    captured = capsys.readouterr()
+
+    assert rc == 2
+    assert "Secret payload validation failed." in captured.out
+    assert "invalid_auth:CI_SUBMIT_AUTH_JSON" not in captured.out
+
+
 def test_queue_only_does_not_repromote_same_run_integrity_demotion(
     tmp_path, monkeypatch
 ):
