@@ -470,6 +470,13 @@ class PlaywrightFormAdapter(SiteAdapter):
                     return frame
             except Exception:
                 continue
+        # Wait for lazy-loaded file inputs (some ATS forms render async)
+        try:
+            page.wait_for_selector("input[type='file']", timeout=4000)
+            if page.locator("input[type='file']").count() > 0:
+                return page
+        except Exception:
+            pass
         return None
 
     def _fill_text(
@@ -518,26 +525,29 @@ class PlaywrightFormAdapter(SiteAdapter):
         return False
 
     def _wait_for_confirmation(self, page: Any, scope: Any) -> bool:
-        texts: List[str] = []
-        try:
-            page.wait_for_timeout(2000)
-        except Exception:
-            pass
-        for target in (scope, page):
+        # Progressive checks: wait up to 5s total (some ATS redirects are slow)
+        for wait_ms in (2000, 1500, 1500):
             try:
-                text = target.inner_text("body")
-                if text:
-                    texts.append(text)
+                page.wait_for_timeout(wait_ms)
             except Exception:
-                continue
-        normalized = "\n".join(texts).lower()
-        if any(re.search(p, normalized, re.I) for p in self.success_text_patterns):
-            return True
-        page_url = str(getattr(page, "url", "") or "").lower()
-        return bool(
-            page_url
-            and any(re.search(p, page_url, re.I) for p in self.success_url_patterns)
-        )
+                pass
+            texts: List[str] = []
+            for target in (scope, page):
+                try:
+                    text = target.inner_text("body")
+                    if text:
+                        texts.append(text)
+                except Exception:
+                    continue
+            normalized = "\n".join(texts).lower()
+            if any(re.search(p, normalized, re.I) for p in self.success_text_patterns):
+                return True
+            page_url = str(getattr(page, "url", "") or "").lower()
+            if page_url and any(
+                re.search(p, page_url, re.I) for p in self.success_url_patterns
+            ):
+                return True
+        return False
 
 
 class AshbyAdapter(PlaywrightFormAdapter):
@@ -1373,7 +1383,22 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
     success_text_patterns = (
         r"thank you for applying",
         r"application has been received",
+        r"your application has been submitted",
+        r"your application has been received",
+        r"thank you for your interest",
+        r"application submitted",
+        r"thanks for applying",
+        r"we have received your application",
+        r"we.ll review your application",
+        r"application.+successfully",
         r"your application",
+    )
+    success_url_patterns = (
+        r"thank[-_]?you",
+        r"submitted",
+        r"confirmation",
+        r"application.*complete",
+        r"/thankyou",
     )
 
 
@@ -1383,9 +1408,54 @@ class LeverAdapter(PlaywrightFormAdapter):
     submit_button_patterns = (r"submit application", r"apply", r"submit")
     success_text_patterns = (
         r"thank you",
+        r"thanks for applying",
         r"application has been submitted",
+        r"application submitted",
+        r"application received",
         r"we'll be in touch",
+        r"we have received your application",
+        r"your application was submitted",
     )
+    success_url_patterns = (
+        r"thank[-_]?you",
+        r"submitted",
+        r"confirmation",
+    )
+
+    def _resolve_form_scope(self, page: Any) -> Optional[Any]:
+        """Lever jobs show a description page first; navigate to /apply if needed."""
+        scope = super()._resolve_form_scope(page)
+        if scope is not None:
+            return scope
+
+        current_url = str(getattr(page, "url", "") or "")
+        if "/apply" not in current_url.lower():
+            apply_url = current_url.rstrip("/") + "/apply"
+            try:
+                page.goto(apply_url, wait_until="domcontentloaded", timeout=15000)
+                page.wait_for_timeout(2500)
+                scope = super()._resolve_form_scope(page)
+                if scope is not None:
+                    return scope
+            except Exception:
+                pass
+
+        # Click apply controls as fallback
+        for marker in (r"apply for this job", r"apply now", r"apply"):
+            for role in ("link", "button"):
+                try:
+                    control = page.get_by_role(
+                        role, name=re.compile(marker, re.I)
+                    ).first
+                    if control.count() > 0:
+                        control.click(timeout=3000)
+                        page.wait_for_timeout(2500)
+                        scope = super()._resolve_form_scope(page)
+                        if scope is not None:
+                            return scope
+                except Exception:
+                    continue
+        return None
 
 
 def _resolve_resume(company: str, role: str) -> Optional[Path]:
@@ -2357,8 +2427,10 @@ def run_pipeline(
                     if count_skipped_as_failures:
                         failed_count += 1
                 else:
-                    row_result["result"] = "failed"
-                    row_errors = ["verification_failed"]
+                    # Soft failures: keep in queue for retry on next CI run
+                    # instead of permanently marking as failed.
+                    row_result["result"] = "skipped"
+                    row_errors = ["verification_failed_will_retry"]
                     if details:
                         row_errors.append(details)
                     if not resume_exists:
@@ -2366,7 +2438,17 @@ def run_pipeline(
                     if not screenshot_ok:
                         row_errors.append("missing_or_empty_confirmation_screenshot")
                     row_result["errors"] = row_errors
-                    failed_count += 1
+                    if can_mutate_tracker:
+                        row["Status"] = DEFAULT_READY_STATUS
+                        row["Notes"] = _append_note(
+                            str(row.get("Notes", "")),
+                            (
+                                f"CI submit unconfirmed on {_today_iso()} via {adapter.name}. "
+                                f"Reason={details}. Will retry next run."
+                            ),
+                        )
+                        queue_metadata_updates += 1
+                    skipped_count += 1
 
             report["results"].append(row_result)
 
