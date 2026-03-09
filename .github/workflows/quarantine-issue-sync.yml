@@ -1,0 +1,46 @@
+name: Quarantine Issue Sync
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+    inputs:
+      close_resolved:
+        description: "Close open quarantine issues whose tracker rows are no longer quarantined"
+        required: false
+        default: "true"
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GH_PAT || github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Sync quarantined tracker rows into GitHub issues
+        run: |
+          CLOSE_RESOLVED="${{ github.event.inputs.close_resolved }}"
+          if [ -z "$CLOSE_RESOLVED" ]; then CLOSE_RESOLVED=true; fi
+          EXTRA_ARGS=""
+          if [ "$CLOSE_RESOLVED" = "true" ]; then
+            EXTRA_ARGS="--close-resolved"
+          fi
+          python3 scripts/sync_quarantined_issues.py \
+            --repo "${{ github.repository }}" \
+            --apply \
+            --report applications/job_applications/quarantine_issue_sync_report.json \
+            $EXTRA_ARGS
+      - name: Upload sync report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: quarantine-issue-sync-${{ github.run_id }}
+          if-no-files-found: warn
+          path: applications/job_applications/quarantine_issue_sync_report.json

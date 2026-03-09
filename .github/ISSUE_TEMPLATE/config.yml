@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Resume agent workflow contract
+    url: https://github.com/IgorGanapolsky/Resume/blob/main/workflow.md
+    about: Read the repo-level workflow contract before opening an automation task.

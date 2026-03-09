@@ -52,8 +52,19 @@ python3 rag/cli.py scan
 ## Tests
 
 ```bash
-cd rag && python3 -m pytest tests/ -v
+python3 -m pytest rag/tests -v
 ```
+
+## Agent Workflow Contract
+
+Repository-level agent behavior now lives in [`workflow.md`](workflow.md). It defines:
+
+- allowed and prohibited change scope
+- exact proof-of-work commands
+- task intake requirements for automation-friendly issues
+- done criteria for tracker, RAG, and submission changes
+
+This file is versioned and validated by tests so agent instructions do not silently drift.
 
 ## Ralph Loop (GitHub CI)
 
@@ -72,6 +83,18 @@ Manual run:
 1. Open **Actions** -> **Ralph Loop**
 2. Click **Run workflow**
 3. Optionally set `max_new_jobs`
+
+## Quarantine Triage Sync
+
+Blocked applications should not remain stranded in the tracker. Use the quarantined-issue sync to mirror `Quarantined` rows into GitHub issues:
+
+```bash
+python3 scripts/sync_quarantined_issues.py \
+  --repo IgorGanapolsky/Resume \
+  --report applications/job_applications/quarantine_issue_sync_report.json
+```
+
+There is also a GitHub Actions workflow at `.github/workflows/quarantine-issue-sync.yml` that can run on demand or every 6 hours.
 
 ## Principles
 

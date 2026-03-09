@@ -1,0 +1,52 @@
+name: Quarantined application triage
+description: Follow-up task for an application blocked by anti-bot, missing fields, or manual review.
+title: "Quarantine triage: "
+body:
+  - type: input
+    id: company
+    attributes:
+      label: Company
+      placeholder: Baseten
+    validations:
+      required: true
+  - type: input
+    id: role
+    attributes:
+      label: Role
+      placeholder: Senior Software Engineer - Infrastructure
+    validations:
+      required: true
+  - type: input
+    id: app_id
+    attributes:
+      label: Application ID
+      description: Stable app id from the RAG index or tracker sync.
+      placeholder: baseten__senior-software-engineer-infrastructure__205502b2b8
+    validations:
+      required: true
+  - type: textarea
+    id: blocker
+    attributes:
+      label: Blocker details
+      description: Paste the exact anti-bot/manual blocker details.
+      placeholder: recaptcha_score_below_threshold, missing_file_input, submit blocked, etc.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence paths
+      description: Screenshot paths, tracker paths, or report paths.
+      placeholder: |
+        applications/baseten/submissions/2026-02-18_baseten_application_submitted.png
+        applications/job_applications/ci_submit_execute_report.json
+    validations:
+      required: true
+  - type: textarea
+    id: next_step
+    attributes:
+      label: Required next step
+      description: State the manual or adapter follow-up.
+      placeholder: Retry from a trusted browser session and capture a fresh confirmation screenshot.
+    validations:
+      required: true
