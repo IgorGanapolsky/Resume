@@ -11,9 +11,7 @@ from pathlib import Path
 
 def _load_module():
     script_path = (
-        Path(__file__).resolve().parents[2]
-        / "scripts"
-        / "sync_quarantined_issues.py"
+        Path(__file__).resolve().parents[2] / "scripts" / "sync_quarantined_issues.py"
     )
     spec = importlib.util.spec_from_file_location(
         "sync_quarantined_issues_test_mod", script_path
@@ -24,6 +22,22 @@ def _load_module():
     sys.modules[spec.name] = module
     spec.loader.exec_module(module)  # type: ignore[attr-defined]
     return module
+
+
+def test_module_loads_without_repo_root_already_on_sys_path(monkeypatch):
+    root = Path(__file__).resolve().parents[2]
+    removed = [
+        entry for entry in list(sys.path) if Path(entry or ".").resolve() == root
+    ]
+    for entry in removed:
+        sys.path.remove(entry)
+    try:
+        mod = _load_module()
+    finally:
+        for entry in reversed(removed):
+            sys.path.insert(0, entry)
+
+    assert mod.ROOT == root
 
 
 def _write_tracker(path: Path, rows: list[dict[str, str]]) -> None:

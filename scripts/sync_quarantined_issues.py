@@ -5,16 +5,21 @@ from __future__ import annotations
 
 import argparse
 import csv
+import importlib
 import json
 import subprocess
+import sys
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence
 
-from rag.memalign import normalize_row
-
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+normalize_row = importlib.import_module("rag.memalign").normalize_row
+
+
 TRACKER_CSV = ROOT / "applications" / "job_applications" / "application_tracker.csv"
 DEFAULT_REPORT = (
     ROOT / "applications" / "job_applications" / "quarantine_issue_sync_report.json"
@@ -164,7 +169,9 @@ def _run_gh_json(args: Sequence[str]) -> List[Dict[str, Any]]:
         check=False,
     )
     if proc.returncode != 0:
-        raise RuntimeError(proc.stderr.strip() or proc.stdout.strip() or "gh command failed")
+        raise RuntimeError(
+            proc.stderr.strip() or proc.stdout.strip() or "gh command failed"
+        )
     payload = json.loads(proc.stdout or "[]")
     return payload if isinstance(payload, list) else []
 
@@ -282,7 +289,9 @@ def _run_gh_write(args: Sequence[str]) -> None:
         check=False,
     )
     if proc.returncode != 0:
-        raise RuntimeError(proc.stderr.strip() or proc.stdout.strip() or "gh command failed")
+        raise RuntimeError(
+            proc.stderr.strip() or proc.stdout.strip() or "gh command failed"
+        )
 
 
 def apply_sync_plan(plan: Sequence[SyncAction], repo: str) -> None:
@@ -375,7 +384,9 @@ def run_sync(
     existing_issues: Optional[Dict[str, ExistingIssue]] = None,
 ) -> int:
     apps = load_quarantined_applications(tracker_csv)
-    existing = existing_issues if existing_issues is not None else load_existing_issues(repo)
+    existing = (
+        existing_issues if existing_issues is not None else load_existing_issues(repo)
+    )
     plan = build_sync_plan(apps, existing, close_resolved=close_resolved)
 
     if apply:

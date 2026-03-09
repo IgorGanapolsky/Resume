@@ -46,4 +46,6 @@ def test_workflow_contract_references_real_commands_and_templates():
         assert path.exists()
 
     assert (ROOT / ".github" / "ISSUE_TEMPLATE" / "agent-ready.yml").exists()
-    assert (ROOT / ".github" / "ISSUE_TEMPLATE" / "quarantined-application.yml").exists()
+    assert (
+        ROOT / ".github" / "ISSUE_TEMPLATE" / "quarantined-application.yml"
+    ).exists()
