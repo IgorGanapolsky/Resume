@@ -391,6 +391,18 @@ def build_lane_plan(
             ],
         ),
         Lane(
+            name="tracker_integrity",
+            command=[
+                "python3",
+                "scripts/audit_submission_artifacts.py",
+                "--write",
+                "--normalize-unverified-applied",
+                "--report",
+                "applications/job_applications/tracker_integrity_report.json",
+            ],
+            depends_on=["discover"],
+        ),
+        Lane(
             name="prepare_submit_artifacts",
             command=[
                 "python3",
@@ -404,7 +416,7 @@ def build_lane_plan(
                 "--report",
                 "applications/job_applications/ci_prepare_artifacts_report.json",
             ],
-            depends_on=["discover"],
+            depends_on=["discover", "tracker_integrity"],
         ),
         Lane(
             name="queue_gate",
@@ -420,7 +432,7 @@ def build_lane_plan(
                 "--report",
                 "applications/job_applications/ci_ready_queue_report.json",
             ],
-            depends_on=["discover", "prepare_submit_artifacts"],
+            depends_on=["discover", "prepare_submit_artifacts", "tracker_integrity"],
         ),
     ]
     submit_lane_name: str

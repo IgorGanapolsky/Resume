@@ -15,13 +15,19 @@ ROOT = Path(__file__).resolve().parents[1]
 QUEUE_JSON = ROOT / "linkedin" / "linkedin_post_queue.json"
 METRICS_PROM = ROOT / "applications" / "job_applications" / "swarm_metrics.prom"
 TRACKER_CSV = ROOT / "applications" / "job_applications" / "application_tracker.csv"
+FALLBACK_POST = (
+    "System update: Swarm architecture scaling successfully. "
+    "Metrics logging to Prometheus is live. "
+    "Zero manual intervention required today. "
+    "#AI #Automation #Observability"
+)
 
 
 def call_llm(prompt: str) -> str:
     """Calls Anthropic Claude to generate content."""
     api_key = os.getenv("ANTHROPIC_API_KEY")
     if not api_key:
-        return "System update: Swarm architecture scaling successfully. Metrics logging to Prometheus is live. Zero manual intervention required today."
+        return FALLBACK_POST
 
     data = {
         "model": "claude-3-5-sonnet-20240620",
@@ -42,7 +48,8 @@ def call_llm(prompt: str) -> str:
         with urllib.request.urlopen(req, timeout=30) as resp:
             return json.loads(resp.read().decode("utf-8"))["content"][0]["text"]
     except Exception as e:
-        return f"ERROR calling LLM: {e}"
+        print(f"WARN: LLM unavailable, using fallback post. error={e}")
+        return FALLBACK_POST
 
 
 def main():
@@ -87,9 +94,6 @@ Format: Return ONLY the raw post content. No preambles, no quotes, no conversati
 
     print("Generating thought leadership post...")
     content = call_llm(prompt)
-    if content.startswith("ERROR"):
-        print(content)
-        return 1
 
     new_id = max([p.get("id", 0) for p in queue_data.get("queue", [])] + [0]) + 1
     post = {

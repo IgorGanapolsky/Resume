@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Audit/backfill submitted resume and evidence paths in tracker rows."""
+"""Audit, backfill, and normalize submission artifacts in tracker rows."""
 
 from __future__ import annotations
 
@@ -22,6 +22,35 @@ SUBMISSION_FIELDS = (
     "Submission Evidence Path",
     "Submission Verified At",
 )
+RESET_ON_NORMALIZE_FIELDS = (
+    "Date Applied",
+    "Follow Up Date",
+    "Submitted Resume Path",
+    "Submission Evidence Path",
+    "Submission Verified At",
+)
+NORMALIZE_NOTES_MARKERS = (
+    "pending review and submission",
+    "retry needed",
+    "manual browser submit required",
+    "manual submit required",
+    "possible spam",
+    "submit blocked",
+    "auto-quarantined",
+    "antibot",
+    "captcha",
+)
+PROOF_NOTES_MARKERS = (
+    "submitted ",
+    "submitted.",
+    "submitted via",
+    "confirmation:",
+    "confirmation screenshot",
+    "application has been received",
+    "application was successfully submitted",
+    "thank you for applying",
+    "we'll contact you",
+)
 
 
 def _slug(text: str) -> str:
@@ -34,6 +63,10 @@ def _norm_key(text: str) -> str:
 
 def _is_applied(status: str) -> bool:
     return _norm_key(status) == "applied"
+
+
+def _today_iso() -> str:
+    return dt.date.today().isoformat()
 
 
 def _read_tracker(path: Path) -> Tuple[List[str], List[Dict[str, str]]]:
@@ -128,24 +161,74 @@ def _infer_evidence_path(company: str, date_applied: str, notes: str) -> Path | 
     return None
 
 
+def _append_note(notes: str, extra: str) -> str:
+    base = (notes or "").strip()
+    addition = (extra or "").strip()
+    if not addition:
+        return base
+    if addition in base:
+        return base
+    if not base:
+        return addition
+    return f"{base}\n{addition}"
+
+
+def _normalize_unverified_applied_row(
+    row: Dict[str, str], *, missing: Sequence[str]
+) -> None:
+    for field in RESET_ON_NORMALIZE_FIELDS:
+        row[field] = ""
+    row["Status"] = "Draft"
+    row["Notes"] = _append_note(
+        str(row.get("Notes", "")),
+        (
+            f"Tracker normalized on {_today_iso()}: downgraded unverified Applied row "
+            f"back to Draft (missing {','.join(missing)})."
+        ),
+    )
+
+
+def _should_normalize_unverified_applied(
+    row: Dict[str, str], *, missing: Sequence[str]
+) -> bool:
+    notes = str(row.get("Notes", "")).strip().lower()
+    raw_resume = str(row.get("Submitted Resume Path", "")).strip()
+    raw_evidence = str(row.get("Submission Evidence Path", "")).strip()
+    raw_verified = str(row.get("Submission Verified At", "")).strip()
+
+    if any(marker in notes for marker in NORMALIZE_NOTES_MARKERS):
+        return True
+
+    has_submission_claim = any(marker in notes for marker in PROOF_NOTES_MARKERS)
+    has_submission_fields = bool(raw_resume or raw_evidence or raw_verified)
+    if has_submission_claim or has_submission_fields:
+        return False
+
+    return bool(missing)
+
+
 def run_audit(
     *,
     tracker_csv: Path,
     report_path: Path,
     write: bool,
     fail_on_missing: bool,
+    normalize_unverified_applied: bool,
 ) -> int:
     fields, rows = _read_tracker(tracker_csv)
     fields = _ensure_fields(fields, rows, SUBMISSION_FIELDS)
 
-    applied_total = 0
+    applied_total_before = 0
+    applied_total_after = 0
     missing_rows: List[Dict[str, object]] = []
-    fixed_count = 0
+    normalized_rows: List[Dict[str, object]] = []
+    backfilled_count = 0
+    normalized_count = 0
 
     for idx, row in enumerate(rows):
         if not _is_applied(str(row.get("Status", ""))):
             continue
-        applied_total += 1
+        applied_total_before += 1
         company = str(row.get("Company", "")).strip()
         role = str(row.get("Role", "")).strip()
         notes = str(row.get("Notes", "")).strip()
@@ -173,8 +256,9 @@ def run_audit(
                 )
                 evidence_path = inferred_evidence
                 row_fixed = True
-        if write and row_fixed and not verified_raw:
+        if write and not verified_raw and resume_path is not None and evidence_path is not None:
             row["Submission Verified At"] = dt.datetime.now(dt.timezone.utc).isoformat()
+            row_fixed = True
 
         missing: List[str] = []
         if resume_path is None:
@@ -185,7 +269,25 @@ def run_audit(
             missing.append("submission_verified_at")
 
         if row_fixed:
-            fixed_count += 1
+            backfilled_count += 1
+        if (
+            missing
+            and write
+            and normalize_unverified_applied
+            and _should_normalize_unverified_applied(row, missing=missing)
+        ):
+            _normalize_unverified_applied_row(row, missing=missing)
+            normalized_rows.append(
+                {
+                    "row_index": idx,
+                    "company": company,
+                    "role": role,
+                    "missing": missing,
+                }
+            )
+            normalized_count += 1
+            continue
+        applied_total_after += 1
         if missing:
             missing_rows.append(
                 {
@@ -202,10 +304,16 @@ def run_audit(
     report = {
         "generated_at": dt.datetime.now(dt.timezone.utc).isoformat(),
         "tracker_csv": str(tracker_csv),
-        "applied_total": applied_total,
-        "fixed_count": fixed_count,
+        "applied_total": applied_total_after,
+        "applied_total_before": applied_total_before,
+        "applied_total_after": applied_total_after,
+        "fixed_count": backfilled_count + normalized_count,
+        "backfilled_count": backfilled_count,
+        "normalized_count": normalized_count,
         "missing_count": len(missing_rows),
         "missing_rows": missing_rows,
+        "normalized_rows": normalized_rows,
+        "normalize_unverified_applied": normalize_unverified_applied,
         "write": write,
     }
     report_path.parent.mkdir(parents=True, exist_ok=True)
@@ -214,8 +322,11 @@ def run_audit(
     )
 
     print(
-        f"Submission artifact audit: applied={applied_total} "
-        f"fixed={fixed_count} missing={len(missing_rows)} report={report_path}"
+        f"Submission artifact audit: applied_before={applied_total_before} "
+        f"applied_after={applied_total_after} "
+        f"fixed={backfilled_count + normalized_count} "
+        f"normalized={normalized_count} missing={len(missing_rows)} "
+        f"report={report_path}"
     )
     if fail_on_missing and missing_rows:
         return 1
@@ -238,12 +349,21 @@ def main() -> int:
         action="store_true",
         help="Return non-zero when any Applied row is still missing required fields.",
     )
+    ap.add_argument(
+        "--normalize-unverified-applied",
+        action="store_true",
+        help=(
+            "Downgrade Applied rows back to Draft when the audit still cannot "
+            "verify submission evidence."
+        ),
+    )
     args = ap.parse_args()
     return run_audit(
         tracker_csv=Path(args.tracker),
         report_path=Path(args.report),
         write=args.write,
         fail_on_missing=args.fail_on_missing,
+        normalize_unverified_applied=args.normalize_unverified_applied,
     )
 
 

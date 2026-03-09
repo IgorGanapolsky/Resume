@@ -14,9 +14,9 @@ on:
         required: false
         default: "5"
       execute_submissions:
-        description: "Execute live submissions (requires CI submit secrets)"
+        description: "Execute live submissions: true | false | inherit"
         required: false
-        default: "false"
+        default: "inherit"
 
 permissions:
   contents: write
@@ -33,6 +33,7 @@ jobs:
     env:
       AUTONOMOUS_AGENT_RUNTIME: ${{ vars.AUTONOMOUS_AGENT_RUNTIME }}
       AUTONOMOUS_DISABLE_OLLAMA: ${{ vars.AUTONOMOUS_DISABLE_OLLAMA }}
+      AUTONOMOUS_EXECUTE_SUBMISSIONS: ${{ vars.AUTONOMOUS_EXECUTE_SUBMISSIONS }}
       CI_SUBMIT_PROFILE_JSON: ${{ secrets.CI_SUBMIT_PROFILE_JSON }}
       CI_SUBMIT_AUTH_JSON: ${{ secrets.CI_SUBMIT_AUTH_JSON }}
       CI_SUBMIT_ANSWERS_JSON: ${{ secrets.CI_SUBMIT_ANSWERS_JSON }}
@@ -57,7 +58,14 @@ jobs:
           EXECUTE_SUBMISSIONS="${{ github.event.inputs.execute_submissions }}"
           if [ -z "$MAX_NEW" ]; then MAX_NEW=10; fi
           if [ -z "$MAX_SUBMIT" ]; then MAX_SUBMIT=5; fi
-          if [ -z "$EXECUTE_SUBMISSIONS" ]; then EXECUTE_SUBMISSIONS="${{ vars.AUTONOMOUS_EXECUTE_SUBMISSIONS }}"; fi
+          if [ -z "$EXECUTE_SUBMISSIONS" ] || [ "$EXECUTE_SUBMISSIONS" = "inherit" ]; then
+            EXECUTE_SUBMISSIONS="${AUTONOMOUS_EXECUTE_SUBMISSIONS}"
+          fi
+          if [ -z "$EXECUTE_SUBMISSIONS" ]; then EXECUTE_SUBMISSIONS=false; fi
+          if [ "$EXECUTE_SUBMISSIONS" = "true" ] && { [ -z "$CI_SUBMIT_PROFILE_JSON" ] || [ -z "$CI_SUBMIT_AUTH_JSON" ] || [ -z "$CI_SUBMIT_ANSWERS_JSON" ]; }; then
+            echo "CI submit secrets incomplete; falling back to dry run."
+            EXECUTE_SUBMISSIONS=false
+          fi
           EXTRA_ARGS=""
           if [ "$EXECUTE_SUBMISSIONS" = "true" ]; then
             EXTRA_ARGS="--execute-submissions"
