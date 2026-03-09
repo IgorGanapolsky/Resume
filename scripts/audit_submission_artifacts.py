@@ -256,7 +256,12 @@ def run_audit(
                 )
                 evidence_path = inferred_evidence
                 row_fixed = True
-        if write and not verified_raw and resume_path is not None and evidence_path is not None:
+        if (
+            write
+            and not verified_raw
+            and resume_path is not None
+            and evidence_path is not None
+        ):
             row["Submission Verified At"] = dt.datetime.now(dt.timezone.utc).isoformat()
             row_fixed = True
 

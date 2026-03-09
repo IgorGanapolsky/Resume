@@ -1912,6 +1912,22 @@ def _load_auth_by_adapter(env_name: str) -> Dict[str, AdapterAuth]:
     return out
 
 
+def validate_secret_payloads(
+    *,
+    profile_env: str = "CI_SUBMIT_PROFILE_JSON",
+    auth_env: str = "CI_SUBMIT_AUTH_JSON",
+    answers_env: str = "CI_SUBMIT_ANSWERS_JSON",
+) -> Tuple[bool, List[str]]:
+    errors: List[str] = []
+    if _load_profile_from_env(profile_env) is None:
+        errors.append(f"invalid_profile:{profile_env}")
+    if not _load_auth_by_adapter(auth_env):
+        errors.append(f"invalid_auth:{auth_env}")
+    if _load_answers_from_env(answers_env) is None:
+        errors.append(f"invalid_answers:{answers_env}")
+    return (not errors, errors)
+
+
 def _append_note(existing: str, note: str) -> str:
     base = (existing or "").strip()
     if note in base:
@@ -2613,12 +2629,37 @@ def main() -> int:
         default=1,
         help="Max execute cycles when --target-applied is used.",
     )
+    ap.add_argument(
+        "--validate-secrets-only",
+        action="store_true",
+        help=(
+            "Validate submit secret payloads and exit without reading the tracker "
+            "or attempting queue/submission work."
+        ),
+    )
     args = ap.parse_args()
     if args.execute and args.queue_only:
         print("ERROR: --execute and --queue-only are mutually exclusive.")
         return 2
+    if args.validate_secrets_only and (args.execute or args.queue_only):
+        print(
+            "ERROR: --validate-secrets-only cannot be combined with "
+            "--execute or --queue-only."
+        )
+        return 2
 
     try:
+        if args.validate_secrets_only:
+            ok, errors = validate_secret_payloads(
+                profile_env=args.profile_env,
+                auth_env=args.auth_env,
+                answers_env=args.answers_env,
+            )
+            if ok:
+                print("Secret payload validation passed.")
+                return 0
+            print("Secret payload validation failed: " + ", ".join(errors))
+            return 2
         return run_pipeline(
             tracker_csv=Path(args.tracker),
             report_path=Path(args.report),

@@ -10,9 +10,7 @@ from pathlib import Path
 
 def _load_module():
     script_path = (
-        Path(__file__).resolve().parents[2]
-        / "scripts"
-        / "thought_leadership_lane.py"
+        Path(__file__).resolve().parents[2] / "scripts" / "thought_leadership_lane.py"
     )
     spec = importlib.util.spec_from_file_location(
         "thought_leadership_lane_test_mod", script_path
@@ -32,7 +30,9 @@ def test_main_uses_fallback_post_when_llm_is_unauthorized(tmp_path, monkeypatch)
     queue_json.parent.mkdir(parents=True, exist_ok=True)
     queue_json.write_text(json.dumps({"queue": []}), encoding="utf-8")
 
-    tracker_csv = tmp_path / "applications" / "job_applications" / "application_tracker.csv"
+    tracker_csv = (
+        tmp_path / "applications" / "job_applications" / "application_tracker.csv"
+    )
     tracker_csv.parent.mkdir(parents=True, exist_ok=True)
     tracker_csv.write_text(
         "Company,Role,Status,Submission Verified At\n",

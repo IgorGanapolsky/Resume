@@ -114,7 +114,9 @@ def test_run_audit_normalizes_unverified_applied_rows(tmp_path, monkeypatch):
     assert payload["missing_count"] == 0
 
 
-def test_run_audit_backfills_verified_artifacts_and_keeps_applied(tmp_path, monkeypatch):
+def test_run_audit_backfills_verified_artifacts_and_keeps_applied(
+    tmp_path, monkeypatch
+):
     mod = _load_module()
     monkeypatch.setattr(mod, "ROOT", tmp_path)
 

@@ -62,9 +62,18 @@ jobs:
             EXECUTE_SUBMISSIONS="${AUTONOMOUS_EXECUTE_SUBMISSIONS}"
           fi
           if [ -z "$EXECUTE_SUBMISSIONS" ]; then EXECUTE_SUBMISSIONS=false; fi
-          if [ "$EXECUTE_SUBMISSIONS" = "true" ] && { [ -z "$CI_SUBMIT_PROFILE_JSON" ] || [ -z "$CI_SUBMIT_AUTH_JSON" ] || [ -z "$CI_SUBMIT_ANSWERS_JSON" ]; }; then
-            echo "CI submit secrets incomplete; falling back to dry run."
-            EXECUTE_SUBMISSIONS=false
+          if [ "$EXECUTE_SUBMISSIONS" = "true" ]; then
+            if [ -z "$CI_SUBMIT_PROFILE_JSON" ] || [ -z "$CI_SUBMIT_AUTH_JSON" ] || [ -z "$CI_SUBMIT_ANSWERS_JSON" ]; then
+              echo "CI submit secrets incomplete; falling back to dry run."
+              EXECUTE_SUBMISSIONS=false
+            elif ! python3 scripts/ci_submit_pipeline.py \
+              --validate-secrets-only \
+              --profile-env CI_SUBMIT_PROFILE_JSON \
+              --auth-env CI_SUBMIT_AUTH_JSON \
+              --answers-env CI_SUBMIT_ANSWERS_JSON; then
+              echo "CI submit secrets invalid; falling back to dry run."
+              EXECUTE_SUBMISSIONS=false
+            fi
           fi
           EXTRA_ARGS=""
           if [ "$EXECUTE_SUBMISSIONS" = "true" ]; then
