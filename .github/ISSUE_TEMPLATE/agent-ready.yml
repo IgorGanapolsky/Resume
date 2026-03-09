@@ -1,0 +1,44 @@
+name: Agent-ready task
+description: Bounded work that can safely be picked up by an automation agent.
+title: "Agent-ready: "
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: State the concrete outcome to deliver.
+      placeholder: Fix the queue-gate regression for Lever applications without changing tracker semantics.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Allowed scope
+      description: List the files or directories the agent may change.
+      placeholder: scripts/ci_submit_pipeline.py, rag/tests/test_ci_submit_pipeline.py
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: Define what counts as done.
+      placeholder: Queue-only mode promotes eligible Lever rows and tests pass.
+    validations:
+      required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation commands
+      description: Exact commands the agent must run as proof of work.
+      placeholder: |
+        python3 -m pytest rag/tests/test_ci_submit_pipeline.py -v
+        python3 scripts/scrub_job_captures.py --dry-run
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context and evidence
+      description: Link logs, PRs, artifacts, or issue references the agent needs.
+      placeholder: applications/job_applications/ci_submit_execute_report.json
