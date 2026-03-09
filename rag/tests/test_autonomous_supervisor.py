@@ -36,6 +36,7 @@ def test_build_lane_plan_contains_queue_gate_and_parallel_lanes():
     )
     names = [lane.name for lane in lanes]
     assert "discover" in names
+    assert "tracker_integrity" in names
     assert "prepare_submit_artifacts" in names
     assert "queue_gate" in names
     assert "submission_artifact_audit" in names
@@ -44,8 +45,16 @@ def test_build_lane_plan_contains_queue_gate_and_parallel_lanes():
     assert "submit_dry_run" in names
 
     lane_map = {lane.name: lane for lane in lanes}
-    assert lane_map["prepare_submit_artifacts"].depends_on == ["discover"]
-    assert lane_map["queue_gate"].depends_on == ["discover", "prepare_submit_artifacts"]
+    assert lane_map["tracker_integrity"].depends_on == ["discover"]
+    assert lane_map["prepare_submit_artifacts"].depends_on == [
+        "discover",
+        "tracker_integrity",
+    ]
+    assert lane_map["queue_gate"].depends_on == [
+        "discover",
+        "prepare_submit_artifacts",
+        "tracker_integrity",
+    ]
     assert lane_map["submit_dry_run"].depends_on == ["queue_gate"]
     assert lane_map["submission_artifact_audit"].depends_on == ["submit_dry_run"]
     assert lane_map["rag_build"].depends_on == ["submission_artifact_audit"]
