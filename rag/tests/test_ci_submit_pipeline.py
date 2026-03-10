@@ -1885,7 +1885,7 @@ def test_queue_only_keeps_applied_when_notes_contain_confirmation_text(
                 "What Worked": "",
                 "Tags": "engineering",
                 "Notes": (
-                    'Submitted 2026-03-02 via Greenhouse. Confirmation: '
+                    "Submitted 2026-03-02 via Greenhouse. Confirmation: "
                     '"Thank you for applying! Your application has been received."'
                 ),
                 "Career Page URL": "https://careers.example.com/anthropic/se",
@@ -1917,9 +1917,7 @@ def test_queue_only_keeps_applied_when_notes_contain_confirmation_text(
     assert payload["applied_integrity_issues"] == []
 
 
-def test_queue_only_demotes_applied_when_notes_show_retry_needed(
-    tmp_path, monkeypatch
-):
+def test_queue_only_demotes_applied_when_notes_show_retry_needed(tmp_path, monkeypatch):
     mod = _load_module()
     monkeypatch.setattr(mod, "ROOT", tmp_path)
 
@@ -1973,7 +1971,10 @@ def test_queue_only_demotes_applied_when_notes_show_retry_needed(
 
     payload = json.loads(report.read_text(encoding="utf-8"))
     assert payload["applied_integrity_demoted_count"] == 1
-    assert "missing_submission_evidence_path" not in payload["applied_integrity_issues"][0]["missing"]
+    assert (
+        "missing_submission_evidence_path"
+        not in payload["applied_integrity_issues"][0]["missing"]
+    )
 
 
 def test_validate_secret_payloads_detects_invalid_auth_secret(monkeypatch):
