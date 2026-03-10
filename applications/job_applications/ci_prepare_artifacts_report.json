@@ -1,46 +1,31 @@
 {
-  "generated_at": "2026-03-09T17:48:49.624486+00:00",
+  "generated_at": "2026-03-10T13:33:00.921416+00:00",
   "tracker_csv": "/home/runner/work/Resume/Resume/applications/job_applications/application_tracker.csv",
   "max_jobs": 15,
   "fit_threshold": 70,
   "remote_min_score": 55,
   "processed_rows": 15,
-  "artifact_updates": 3,
-  "became_gate_eligible": 1,
+  "artifact_updates": 0,
+  "became_gate_eligible": 0,
   "failures": 0,
   "results": [
     {
       "company": "Owner.com",
       "role": "Software Engineer Mobile",
       "url": "https://jobs.lever.co/owner/727a8b34-49d7-428f-8d27-5a326bcc716d",
-      "status_before": "Draft",
-      "prepared": true,
+      "status_before": "ReadyToSubmit",
+      "prepared": false,
       "candidate": true,
       "assessment_before": {
-        "eligible": false,
-        "score": 3,
-        "reasons": [
-          "fit_score_below_threshold:3<70",
-          "missing_cover_letter",
-          "missing_resume_docx_or_pdf",
-          "missing_tailored_resume_html"
-        ],
-        "submission_lane": "ci_auto:lever",
-        "remote_score": 88
-      },
-      "assessment_after": {
         "eligible": true,
         "score": 73,
         "reasons": [],
         "submission_lane": "ci_auto:lever",
         "remote_score": 88
       },
-      "artifact_updates": [
-        "resume_html:/home/runner/work/Resume/Resume/applications/owner-com/tailored_resumes/2026-03-09_owner-com_software-engineer-mobile.html",
-        "resume_docx:/home/runner/work/Resume/Resume/applications/owner-com/tailored_resumes/2026-03-09_owner-com_software-engineer-mobile.docx",
-        "cover_letter:/home/runner/work/Resume/Resume/applications/owner-com/cover_letters/2026-03-09_owner-com_software-engineer-mobile.md"
-      ],
-      "skip_reason": ""
+      "assessment_after": {},
+      "artifact_updates": [],
+      "skip_reason": "already_gate_eligible"
     },
     {
       "company": "Automattic",

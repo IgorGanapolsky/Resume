@@ -1,9 +1,15 @@
 {
-  "generated_at": "2026-03-09T17:50:19.089707+00:00",
+  "generated_at": "2026-03-10T13:33:01.391254+00:00",
   "tracker_csv": "/home/runner/work/Resume/Resume/applications/job_applications/application_tracker.csv",
   "applied_total": 0,
+  "applied_total_before": 0,
+  "applied_total_after": 0,
   "fixed_count": 0,
+  "backfilled_count": 0,
+  "normalized_count": 0,
   "missing_count": 0,
   "missing_rows": [],
+  "normalized_rows": [],
+  "normalize_unverified_applied": false,
   "write": true
 }
