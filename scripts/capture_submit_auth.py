@@ -205,7 +205,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     if args.sync_secret:
         repo = resolve_repo(args.repo)
         set_secret(repo, args.secret_name, payload_json)
-        print(f"Updated GitHub Actions secret {args.secret_name} in {repo}")
+        print(f"Updated GitHub Actions secret in {repo}")
 
     return 0
 
