@@ -33,7 +33,9 @@ def parse_capture_target(value: str) -> CaptureTarget:
             "Unsupported adapter. Use one of: " + ", ".join(SUPPORTED_ADAPTERS)
         )
     if not (url.startswith("http://") or url.startswith("https://")):
-        raise argparse.ArgumentTypeError("Capture URL must start with http:// or https://")
+        raise argparse.ArgumentTypeError(
+            "Capture URL must start with http:// or https://"
+        )
     return CaptureTarget(adapter=adapter, url=url)
 
 
@@ -49,7 +51,9 @@ def load_auth_payload(path: Path) -> Dict[str, Dict[str, object]]:
     return normalize_auth_payload(payload)
 
 
-def normalize_auth_payload(payload: Mapping[str, object]) -> Dict[str, Dict[str, object]]:
+def normalize_auth_payload(
+    payload: Mapping[str, object],
+) -> Dict[str, Dict[str, object]]:
     normalized: Dict[str, Dict[str, object]] = {}
     for adapter, item in payload.items():
         if not isinstance(adapter, str) or adapter not in SUPPORTED_ADAPTERS:
@@ -98,10 +102,14 @@ def set_secret(repo: str, secret_name: str, value: str) -> None:
     )
 
 
-def capture_storage_state(target: CaptureTarget, *, headless: bool) -> Dict[str, object]:
+def capture_storage_state(
+    target: CaptureTarget, *, headless: bool
+) -> Dict[str, object]:
     try:
         from playwright.sync_api import sync_playwright  # type: ignore
-    except Exception as exc:  # pragma: no cover - exercised only when Playwright missing
+    except (
+        Exception
+    ) as exc:  # pragma: no cover - exercised only when Playwright missing
         raise RuntimeError(
             "Playwright is required. Install it with `pip install playwright` and "
             "`python -m playwright install chromium`."

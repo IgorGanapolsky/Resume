@@ -14,7 +14,9 @@ def _load_module():
     script_path = (
         Path(__file__).resolve().parents[2] / "scripts" / "capture_submit_auth.py"
     )
-    spec = importlib.util.spec_from_file_location("capture_submit_auth_test_mod", script_path)
+    spec = importlib.util.spec_from_file_location(
+        "capture_submit_auth_test_mod", script_path
+    )
     if spec is None or spec.loader is None:
         raise RuntimeError(f"Failed to load module from {script_path}")
     module = importlib.util.module_from_spec(spec)
@@ -82,9 +84,7 @@ def test_load_auth_payload_normalizes_existing_file(tmp_path):
 
     payload = mod.load_auth_payload(payload_path)
 
-    assert payload == {
-        "greenhouse": {"storage_state": {"cookies": [], "origins": []}}
-    }
+    assert payload == {"greenhouse": {"storage_state": {"cookies": [], "origins": []}}}
 
 
 def test_load_auth_payload_returns_empty_for_missing_file(tmp_path):

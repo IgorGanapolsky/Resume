@@ -16,8 +16,7 @@ def test_live_submit_requires_profile_and_answers_but_not_auth():
     )
     assert (
         '[ -z "$CI_SUBMIT_PROFILE_JSON" ] || [ -z "$CI_SUBMIT_AUTH_JSON" ] || '
-        '[ -z "$CI_SUBMIT_ANSWERS_JSON" ]'
-        not in text
+        '[ -z "$CI_SUBMIT_ANSWERS_JSON" ]' not in text
     )
     assert (
         "CI submit auth secret absent; proceeding without browser storage state."
