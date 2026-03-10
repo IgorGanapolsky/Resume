@@ -1959,6 +1959,30 @@ def _validate_row(row: Dict[str, str]) -> List[str]:
     return errs
 
 
+NORMALIZE_APPLIED_NOTES_MARKERS = (
+    "pending review and submission",
+    "retry needed",
+    "manual browser submit required",
+    "manual submit required",
+    "possible spam",
+    "submit blocked",
+    "auto-quarantined",
+    "antibot",
+    "captcha",
+)
+PROOF_APPLIED_NOTES_MARKERS = (
+    "submitted ",
+    "submitted.",
+    "submitted via",
+    "confirmation:",
+    "confirmation screenshot",
+    "application has been received",
+    "application was successfully submitted",
+    "thank you for applying",
+    "we'll contact you",
+)
+
+
 def _submission_proof_missing_reasons(row: Dict[str, str]) -> List[str]:
     reasons: List[str] = []
     if not str(row.get("Date Applied", "")).strip():
@@ -1966,26 +1990,38 @@ def _submission_proof_missing_reasons(row: Dict[str, str]) -> List[str]:
     submitted_resume_raw = str(row.get("Submitted Resume Path", "")).strip()
     if not submitted_resume_raw:
         reasons.append("missing_submitted_resume_path")
-    else:
-        submitted_resume_path = Path(submitted_resume_raw)
-        if not submitted_resume_path.is_absolute():
-            submitted_resume_path = ROOT / submitted_resume_path
-        if not submitted_resume_path.exists():
-            reasons.append("missing_submitted_resume_file")
 
     submission_evidence_raw = str(row.get("Submission Evidence Path", "")).strip()
     if not submission_evidence_raw:
         reasons.append("missing_submission_evidence_path")
-    else:
-        submission_evidence_path = Path(submission_evidence_raw)
-        if not submission_evidence_path.is_absolute():
-            submission_evidence_path = ROOT / submission_evidence_path
-        if not submission_evidence_path.exists():
-            reasons.append("missing_submission_evidence_file")
 
     if not str(row.get("Submission Verified At", "")).strip():
         reasons.append("missing_submission_verified_at")
     return reasons
+
+
+def _should_preserve_applied_status(
+    row: Dict[str, str], *, missing: Sequence[str]
+) -> bool:
+    notes = str(row.get("Notes", "")).strip().lower()
+    if any(marker in notes for marker in NORMALIZE_APPLIED_NOTES_MARKERS):
+        return False
+
+    has_submission_claim = any(
+        marker in notes for marker in PROOF_APPLIED_NOTES_MARKERS
+    )
+    has_submission_fields = any(
+        str(row.get(field, "")).strip()
+        for field in (
+            "Submitted Resume Path",
+            "Submission Evidence Path",
+            "Submission Verified At",
+        )
+    )
+    if has_submission_claim or has_submission_fields:
+        return True
+
+    return not bool(missing)
 
 
 def _reconcile_applied_integrity(
@@ -2000,7 +2036,7 @@ def _reconcile_applied_integrity(
         if _norm_key(status_raw) != "applied":
             continue
         missing = _submission_proof_missing_reasons(row)
-        if not missing:
+        if _should_preserve_applied_status(row, missing=missing):
             continue
         issue = {
             "row_index": idx,

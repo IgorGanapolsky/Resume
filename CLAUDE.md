@@ -60,3 +60,12 @@ python3 Resume/rag/cli.py build
 - LanceDB empty-build safety:
   - `rag/cli.py build` must initialize `applications` table with explicit schema when zero records are produced.
   - Any refactor of `build` must preserve this zero-row behavior and keep related regression coverage in `rag/tests/test_cli.py`.
+
+## PR Management & System Hygiene
+
+- For branch or PR maintenance, work from a dedicated git worktree rather than the primary checkout.
+- At session start, read the active repo directives, query `python3 rag/cli.py query "<topic>"` for relevant lessons, inspect open PRs and branches, and verify current CI state before changing anything.
+- Merge only PRs that are actually review-ready: green checks are necessary but not sufficient if unresolved review findings, scope drift, or unsafe artifacts remain.
+- Close stale or unsafe PRs with a short evidence-based reason instead of forcing them through.
+- Prune only branches and worktrees that are proven merged, obsolete, or safely duplicated. Do not disturb a dirty active checkout.
+- Before claiming completion, re-check CI on `main`, run a local dry-run of the operational pipeline, and report concrete evidence.
