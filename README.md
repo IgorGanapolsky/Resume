@@ -84,6 +84,26 @@ Manual run:
 2. Click **Run workflow**
 3. Optionally set `max_new_jobs`
 
+### Live Submit Prerequisites
+
+- `CI_SUBMIT_PROFILE_JSON`: required
+- `CI_SUBMIT_ANSWERS_JSON`: required
+- `CI_SUBMIT_AUTH_JSON`: optional adapter-keyed Playwright storage state used to improve ATS reliability
+
+When `CI_SUBMIT_AUTH_JSON` is absent, the submit pipeline now proceeds with fresh browser contexts instead of forcing dry run. When anti-bot or login pressure makes stored state useful, capture and sync it with:
+
+```bash
+python3 scripts/capture_submit_auth.py \
+  --capture ashby=https://jobs.ashbyhq.com/company/role \
+  --capture greenhouse=https://boards.greenhouse.io/company/jobs/123 \
+  --capture lever=https://jobs.lever.co/company/role \
+  --output ~/tmp/resume-ci-auth.json \
+  --sync-secret \
+  --repo IgorGanapolsky/Resume
+```
+
+Do not commit the resulting JSON file.
+
 ## Quarantine Triage Sync
 
 Blocked applications should not remain stranded in the tracker. Use the quarantined-issue sync to mirror `Quarantined` rows into GitHub issues:

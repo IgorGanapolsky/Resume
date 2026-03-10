@@ -35,6 +35,21 @@ python3 scripts/check_calendar_guardrails.py
 python3 scripts/scrub_job_captures.py --dry-run
 ```
 
+## Live Submit Auth
+
+- `CI_SUBMIT_PROFILE_JSON` and `CI_SUBMIT_ANSWERS_JSON` are required for live CI submit.
+- `CI_SUBMIT_AUTH_JSON` is optional. When present, it must be an adapter-keyed Playwright storage-state object:
+
+```json
+{
+  "ashby": { "storage_state": { "cookies": [], "origins": [] } },
+  "greenhouse": { "storage_state": { "cookies": [], "origins": [] } },
+  "lever": { "storage_state": { "cookies": [], "origins": [] } }
+}
+```
+
+- Use `python3 scripts/capture_submit_auth.py` to refresh this optional secret instead of committing raw browser storage state.
+
 ## Test Commands
 
 Use these exact commands unless the task says otherwise.
