@@ -1390,6 +1390,39 @@ def test_greenhouse_extract_failure_details_reports_verification_code_recipient(
     assert detail == "verification_code_required:iganapolsky@gmail.com"
 
 
+def test_greenhouse_post_submit_retry_skips_retry_on_verification_code(monkeypatch):
+    mod = _load_module()
+    adapter = mod.GreenhouseAdapter()
+    scope = _FakeScope(text="")
+    page = _FakeScope(text="Enter the 8-character security code.")
+
+    monkeypatch.setattr(
+        adapter,
+        "_extract_failure_details",
+        lambda p, s: "verification_code_required:iganapolsky@gmail.com",
+    )
+    monkeypatch.setattr(
+        adapter,
+        "_click_submit",
+        lambda s, p: (_ for _ in ()).throw(AssertionError("retry should not click submit")),
+    )
+
+    profile = mod.Profile(
+        first_name="Igor",
+        last_name="Ganapolsky",
+        email="iganapolsky@gmail.com",
+        phone="(201) 639-1534",
+    )
+    answers = mod.SubmitAnswers(
+        work_authorization_us=True,
+        require_sponsorship=False,
+        role_interest="AI-heavy, LLM-first project with an industry leader",
+        eeo_default="prefer not to say",
+    )
+
+    assert adapter._post_submit_retry(scope, page, profile, answers) is False
+
+
 def test_ashby_post_submit_retry_runs_fallbacks_and_retries(monkeypatch):
     mod = _load_module()
     adapter = mod.AshbyAdapter()

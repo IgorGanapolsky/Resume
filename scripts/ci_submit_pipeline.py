@@ -1439,6 +1439,12 @@ class AshbyAdapter(PlaywrightFormAdapter):
             re.compile(r"please complete all required fields", re.I),
             re.compile(r"required question", re.I),
         )
+        verification_markers = (
+            "verification code was sent",
+            "security code",
+            "8-character code",
+            "confirm you're a human",
+        )
         texts: List[str] = []
         for target in (scope, page):
             text = ""
@@ -1460,6 +1466,9 @@ class AshbyAdapter(PlaywrightFormAdapter):
             if text:
                 texts.append(str(text))
         blob = "\n".join(texts)
+        normalized = blob.lower()
+        if any(marker in normalized for marker in verification_markers):
+            return False
         return any(pattern.search(blob) for pattern in patterns)
 
     def _fill_unanswered_radio_groups(self, scope: Any, page: Any) -> int:
@@ -2760,6 +2769,9 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
         self, scope: Any, page: Any, profile: Profile, answers: SubmitAnswers
     ) -> bool:
         # Greenhouse often reports inline required-field errors after first submit.
+        current_failure = self._extract_failure_details(page, scope)
+        if current_failure and current_failure.startswith("verification_code_required"):
+            return False
         self._apply_anthropic_field_map(page, profile, answers)
         self._apply_xapo_field_map(page, profile, answers)
         self._apply_wikimedia_field_map(page, profile, answers)

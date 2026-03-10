@@ -46,11 +46,21 @@ async def apply():
         
         print("Interacting with terms checkbox...")
         try:
-            # Force check via JS
-            await page.evaluate("document.getElementById('legal-disclaimer-checkbox').checked = true")
-            await page.evaluate("document.getElementById('legal-disclaimer-checkbox').dispatchEvent(new Event('change'))")
-            # Also click it to trigger any internal Oracle handlers
-            await page.evaluate("document.getElementById('legal-disclaimer-checkbox').click()")
+            # Oracle hidden checkbox hack: click the label which is actually visible
+            label = page.locator("label[for='legal-disclaimer-checkbox']")
+            await label.scroll_into_view_if_needed()
+            box = await label.bounding_box()
+            if box:
+                # Click center of label
+                await page.mouse.click(box['x'] + box['width']/2, box['y'] + box['height']/2)
+            else:
+                # Fallback to direct JS check and click
+                await page.evaluate('''
+                    const cb = document.getElementById('legal-disclaimer-checkbox');
+                    cb.checked = true;
+                    cb.dispatchEvent(new Event('change', { bubbles: true }));
+                    cb.dispatchEvent(new Event('click', { bubbles: true }));
+                ''')
         except Exception as e:
             print(f"Checkbox interaction failed: {e}")
             
@@ -80,14 +90,51 @@ async def apply():
             print("Network idle timed out, proceeding anyway...")
             
         await asyncio.sleep(5)
-        await page.screenshot(path="applications/oracle/submissions/stealth_v2_step2.png")
         
-        # If it asks for code, we are stuck without manual intervention
+        # Check if terms modal is open
         content = await page.content()
-        if "Verification Code" in content:
-            print("FAILURE: Manual verification code required.")
-        else:
-            print("SUCCESS: Proceeded past email gate. Check screenshots for further steps.")
+        if "Terms and Conditions" in content:
+            print("Terms modal detected. Deep searching for Accept button...")
+            try:
+                # Deep JS search for the button, even in shadow DOMs
+                await page.evaluate('''
+                    function findAndClickAccept() {
+                        const allElements = document.querySelectorAll('*');
+                        for (let el of allElements) {
+                            if (el.shadowRoot) {
+                                const btn = el.shadowRoot.querySelector('button');
+                                if (btn && btn.textContent.includes('Accept')) {
+                                    btn.click();
+                                    return true;
+                                }
+                            }
+                            if (el.tagName === 'BUTTON' && el.textContent.includes('Accept')) {
+                                el.click();
+                                return true;
+                            }
+                        }
+                        // Also try common Oracle Recruiting classes/ids
+                        const oracleAccept = document.querySelector('button[title*="Accept"], .oj-button-button');
+                        if (oracleAccept && oracleAccept.textContent.includes('Accept')) {
+                            oracleAccept.click();
+                            return true;
+                        }
+                        return false;
+                    }
+                    findAndClickAccept();
+                ''')
+                await asyncio.sleep(5)
+            except Exception as e:
+                print(f"Deep Accept click failed: {e}")
+
+        print("Final form state reached. Taking snapshot...")
+        await page.screenshot(path="applications/oracle/submissions/stealth_v2_final_form.png")
+        
+        # Output current page text to help identify fields
+        body_text = await page.inner_text("body")
+        print("--- BODY TEXT START ---")
+        print(body_text[:2000])
+        print("--- BODY TEXT END ---")
             
         await browser.close()
 
