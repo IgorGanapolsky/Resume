@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-03-10T18:10:14.252105+00:00",
+  "generated_at": "2026-03-10T18:09:07.770318+00:00",
   "tracker_csv": "/home/runner/work/Resume/Resume/applications/job_applications/application_tracker.csv",
   "applied_total": 14,
   "applied_total_before": 14,
   "applied_total_after": 14,
-  "fixed_count": 0,
-  "backfilled_count": 0,
+  "fixed_count": 1,
+  "backfilled_count": 1,
   "normalized_count": 0,
   "missing_count": 14,
   "missing_rows": [
@@ -130,6 +130,6 @@
     }
   ],
   "normalized_rows": [],
-  "normalize_unverified_applied": false,
+  "normalize_unverified_applied": true,
   "write": true
 }
