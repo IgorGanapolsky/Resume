@@ -2053,6 +2053,38 @@ def test_validate_secret_payloads_passes_for_valid_secret_bundle(monkeypatch):
     assert errors == []
 
 
+def test_validate_secret_payloads_allows_empty_auth_map(monkeypatch):
+    mod = _load_module()
+    monkeypatch.setenv(
+        "CI_SUBMIT_PROFILE_JSON",
+        json.dumps(
+            {
+                "first_name": "Igor",
+                "last_name": "Ganapolsky",
+                "email": "igor@example.com",
+                "phone": "5555555555",
+            }
+        ),
+    )
+    monkeypatch.setenv(
+        "CI_SUBMIT_ANSWERS_JSON",
+        json.dumps(
+            {
+                "work_authorization_us": True,
+                "require_sponsorship": False,
+                "role_interest": "AI systems and integrations.",
+                "eeo_default": "Prefer not to say",
+            }
+        ),
+    )
+    monkeypatch.setenv("CI_SUBMIT_AUTH_JSON", "{}")
+
+    ok, errors = mod.validate_secret_payloads()
+
+    assert ok is True
+    assert errors == []
+
+
 def test_validate_secrets_only_cli_hides_secret_diagnostics(monkeypatch, capsys):
     mod = _load_module()
     monkeypatch.setenv(

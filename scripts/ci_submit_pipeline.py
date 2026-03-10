@@ -2157,8 +2157,15 @@ def validate_secret_payloads(
     errors: List[str] = []
     if _load_profile_from_env(profile_env) is None:
         errors.append(f"invalid_profile:{profile_env}")
-    if not _load_auth_by_adapter(auth_env):
-        errors.append(f"invalid_auth:{auth_env}")
+    raw_auth = os.getenv(auth_env, "").strip()
+    if raw_auth:
+        try:
+            payload = json.loads(raw_auth)
+        except Exception:
+            errors.append(f"invalid_auth:{auth_env}")
+        else:
+            if not isinstance(payload, dict):
+                errors.append(f"invalid_auth:{auth_env}")
     if _load_answers_from_env(answers_env) is None:
         errors.append(f"invalid_answers:{answers_env}")
     return (not errors, errors)
