@@ -101,3 +101,14 @@ Update tracker CSV `Response` and `Interview Stage` columns to match.
 - Prefer `agent-browser` sessions per target site to reduce ref churn.
 - Always `snapshot -i` after any click that could change the DOM.
 - When a site requires login/2FA, proceed up to the prompt, then stop and ask the user to complete the authentication step.
+
+## PR Management & System Hygiene
+
+1. Start every PR or branch maintenance session from a dedicated git worktree.
+2. Before acting, read scoped directives, query `python3 Resume/rag/cli.py query "<topic>"`, inspect open PRs and branches, and check CI on `main`.
+3. Treat merge readiness as checks plus review quality:
+   - do not merge PRs with unresolved substantive review findings
+   - do not merge PRs with obvious scope drift or unsafe/non-technical artifacts
+4. Close stale or unsafe PRs with a short evidence-based reason instead of forcing a merge.
+5. Delete only branches and worktrees that are proven merged, obsolete, or duplicated. Preserve dirty active worktrees.
+6. Before claiming completion, verify `main` CI and run a local dry-run of the operational pipeline.
