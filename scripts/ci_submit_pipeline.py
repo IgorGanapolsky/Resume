@@ -160,10 +160,19 @@ def _next_follow_up(days: int = 7) -> str:
     return (dt.date.today() + dt.timedelta(days=days)).isoformat()
 
 
+def _sanitize_tracker_row(row: Dict[str, Any]) -> Dict[str, str]:
+    cleaned: Dict[str, str] = {}
+    for key, value in row.items():
+        if key is None:
+            continue
+        cleaned[str(key)] = "" if value is None else str(value)
+    return cleaned
+
+
 def _read_tracker(path: Path) -> tuple[List[str], List[Dict[str, str]]]:
     with path.open(newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
-        rows = list(reader)
+        rows = [_sanitize_tracker_row(row) for row in reader]
         fields = list(reader.fieldnames or [])
     return fields, rows
 
@@ -172,9 +181,12 @@ def _write_tracker(
     path: Path, fields: Sequence[str], rows: Sequence[Dict[str, str]]
 ) -> None:
     with path.open("w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=list(fields))
+        writer = csv.DictWriter(
+            f, fieldnames=list(fields), extrasaction="ignore", restval=""
+        )
         writer.writeheader()
-        writer.writerows(rows)
+        for row in rows:
+            writer.writerow(_sanitize_tracker_row(row))
 
 
 def _ensure_tracker_fields(
@@ -1640,6 +1652,55 @@ class AshbyAdapter(PlaywrightFormAdapter):
 
 class GreenhouseAdapter(PlaywrightFormAdapter):
     name = "greenhouse"
+
+    def _fill_custom(self, scope: Any, page: Any, profile: Profile, answers: SubmitAnswers) -> None:
+        # Anthropic-specific: Why Anthropic?
+        why_anthropic = (
+            "As the core maintainer of 'igor'—an open-source RLHF stack for AI coding assistants—I've spent the last year "
+            "obsessed with the same problems Anthropic is solving: reliability, agentic memory, and safe tool execution. "
+            "My work on Thompson Sampling-based feedback loops and Hive-based self-healing guardrails aligns directly "
+            "with your mission of building steerable, reliable AI. I've shipped production AI to millions at Subway and "
+            "Google, but I'm most excited about the frontier infrastructure of autonomy."
+        )
+        self._fill_text(scope, "Why Anthropic", why_anthropic)
+        self._fill_text(scope, "Why are you interested", why_anthropic)
+
+        # Keep this legacy hook aligned with the submit path helpers.
+        self._set_yes_no_question_by_markers(
+            page,
+            ("open to working in-person", "offices 25% of the time", "in office 25%"),
+            True,
+        )
+        self._set_yes_no_question_by_markers(
+            page,
+            ("ai policy for application", "ai policy", "confirm your understanding"),
+            True,
+        )
+        self._set_yes_no_question_by_markers(
+            page,
+            ("do you require visa sponsorship", "require visa sponsorship"),
+            answers.require_sponsorship,
+        )
+        self._set_yes_no_question_by_markers(
+            page,
+            (
+                "will you now or will you in the future require employment visa sponsorship",
+                "future require employment visa sponsorship",
+                "future visa sponsorship",
+            ),
+            answers.require_sponsorship,
+        )
+        self._set_yes_no_question_by_markers(
+            page,
+            ("have you ever interviewed at anthropic before",),
+            False,
+        )
+        self._set_yes_no_question_by_markers(
+            page,
+            ("open to relocation", "willing to relocate"),
+            False,
+        )
+
     host_patterns = (re.compile(r"greenhouse\.io"),)
     submit_button_patterns = (r"submit application", r"apply", r"submit")
     success_text_patterns = (
@@ -1842,7 +1903,7 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
         ({markers}) => {
           const normalize = (v) => (v || '').toLowerCase().replace(/\\s+/g, ' ').trim();
           const markerSet = markers.map((m) => normalize(m));
-          const nodes = Array.from(document.querySelectorAll('label, legend, p, span, div, h3, h4'));
+          const nodes = Array.from(document.querySelectorAll('label, legend, p, h3, h4'));
           const textMatches = (text) => {
             const t = normalize(text);
             return markerSet.some((m) => t.includes(m));
@@ -1850,7 +1911,7 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
           for (const node of nodes) {
             if (!textMatches(node.textContent || '')) continue;
             const container = node.closest(
-              'fieldset, .application-question, .question, .field, .multi_value'
+              'fieldset, .field-wrapper, .select__container, .text-input-wrapper, .input-wrapper, .application-question, .question, .field, .multi_value'
             ) || node.parentElement;
             if (!container) continue;
             // Look for React Select control within this container
@@ -1933,42 +1994,61 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
         if "job-boards.greenhouse.io/anthropic/" not in page_url:
             return
 
-        self._fill_by_id(page, "first_name", profile.first_name)
-        self._fill_by_id(page, "last_name", profile.last_name)
-        self._fill_by_id(page, "email", profile.email)
-        self._fill_by_id(page, "phone", profile.phone)
-        self._fill_by_id(
-            page, "question_14439953008", profile.github or profile.website
+        anthropic_why = (
+            "I want to help build safe, reliable AI systems at production scale. "
+            "I have experience shipping LLM-enabled systems with strong reliability, "
+            "observability, and practical delivery discipline."
         )
-        self._fill_by_id(
-            page,
-            "question_14439958008",
-            (
-                "I want to help build safe, reliable AI systems at production scale. "
-                "I have experience shipping LLM-enabled systems with strong reliability, "
-                "observability, and practical delivery discipline."
-            ),
-        )
-        self._fill_by_id(page, "question_14439962008", profile.linkedin)
-        self._fill_by_id(page, "question_14439964008", profile.location)
+
+        # Use Playwright's native fill path for Greenhouse text inputs so React
+        # form state is updated instead of only mutating DOM values.
+        self._fill_by_locator(page, "first_name", profile.first_name)
+        self._fill_by_locator(page, "last_name", profile.last_name)
+        self._fill_by_locator(page, "email", profile.email)
+        self._fill_by_locator(page, "phone", profile.phone)
+        if profile.website or profile.github:
+            self._fill_text(page, "Website", profile.website or profile.github or "")
+        if profile.linkedin:
+            self._fill_text(page, "LinkedIn Profile", profile.linkedin)
+        self._fill_text(page, "Why Anthropic", anthropic_why)
 
         self._select_react_option_by_id(
             page, "country", answers.country or "United States"
         )
-        self._select_react_option_by_id(page, "question_14439954008", "Yes")
-        self._select_react_option_by_id(page, "question_14439957008", "Yes")
-        self._select_react_option_by_id(
+        self._set_yes_no_question_by_markers(
             page,
-            "question_14439959008",
-            "Yes" if answers.require_sponsorship else "No",
+            ("open to working in-person", "offices 25% of the time", "in office 25%"),
+            True,
         )
-        self._select_react_option_by_id(
+        self._set_yes_no_question_by_markers(
             page,
-            "question_14439960008",
-            "Yes" if answers.require_sponsorship else "No",
+            ("ai policy for application", "ai policy"),
+            True,
         )
-        self._select_react_option_by_id(page, "question_14439963008", "No")
-        self._select_react_option_by_id(page, "question_14439965008", "No")
+        self._set_yes_no_question_by_markers(
+            page,
+            ("do you require visa sponsorship", "require visa sponsorship"),
+            answers.require_sponsorship,
+        )
+        self._set_yes_no_question_by_markers(
+            page,
+            (
+                "will you now or will you in the future require employment visa sponsorship",
+                "future require employment visa sponsorship",
+                "future visa sponsorship",
+            ),
+            answers.require_sponsorship,
+        )
+        self._set_yes_no_question_by_markers(
+            page,
+            ("open to relocation", "willing to relocate"),
+            False,
+        )
+        self._set_yes_no_question_by_markers(
+            page,
+            ("have you ever interviewed at anthropic before",),
+            False,
+        )
 
     def _apply_xapo_field_map(
         self, page: Any, profile: Profile, answers: SubmitAnswers
@@ -2081,10 +2161,10 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
     ) -> None:
         """Generic fallback for common Greenhouse screener fields across all companies."""
         # Standard ID-based fields
-        self._fill_by_id(page, "last_name", profile.last_name)
-        self._fill_by_id(page, "first_name", profile.first_name)
-        self._fill_by_id(page, "email", profile.email)
-        self._fill_by_id(page, "phone", profile.phone)
+        self._fill_by_locator(page, "last_name", profile.last_name)
+        self._fill_by_locator(page, "first_name", profile.first_name)
+        self._fill_by_locator(page, "email", profile.email)
+        self._fill_by_locator(page, "phone", profile.phone)
 
         # Country (select dropdown)
         self._select_react_option_by_id(
@@ -2514,7 +2594,7 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
           const normalize = (value) => (value || '').toLowerCase().replace(/\\s+/g, ' ').trim();
           const markerSet = markers.map((m) => normalize(m));
           const desired = answerYes ? 'yes' : 'no';
-          const nodes = Array.from(document.querySelectorAll('label, legend, p, span, div, h3, h4'));
+          const nodes = Array.from(document.querySelectorAll('label, legend, p, h3, h4'));
           const textMatches = (text) => {
             const t = normalize(text);
             return markerSet.some((m) => t.includes(m));
@@ -2531,7 +2611,7 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
           };
           for (const node of nodes) {
             if (!textMatches(node.textContent || '')) continue;
-            const container = node.closest('fieldset, .application-question, .question, .field') || node.parentElement;
+            const container = node.closest('fieldset, .field-wrapper, .select__container, .text-input-wrapper, .input-wrapper, .application-question, .question, .field') || node.parentElement;
             if (!container) continue;
             const radios = Array.from(container.querySelectorAll('input[type="radio"]'));
             for (const radio of radios) {
@@ -2576,14 +2656,14 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
         ({markers, answerYes}) => {
           const normalize = (v) => (v || '').toLowerCase().replace(/\\s+/g, ' ').trim();
           const markerSet = markers.map((m) => normalize(m));
-          const nodes = Array.from(document.querySelectorAll('label, legend, p, span, div, h3, h4'));
+          const nodes = Array.from(document.querySelectorAll('label, legend, p, h3, h4'));
           const textMatches = (text) => {
             const t = normalize(text);
             return markerSet.some((m) => t.includes(m));
           };
           for (const node of nodes) {
             if (!textMatches(node.textContent || '')) continue;
-            const container = node.closest('fieldset, .application-question, .question, .field') || node.parentElement;
+            const container = node.closest('fieldset, .field-wrapper, .select__container, .text-input-wrapper, .input-wrapper, .application-question, .question, .field') || node.parentElement;
             if (!container) continue;
             // Skip React Select containers (handled above)
             if (container.querySelector('[class*="select__control"]')) continue;
@@ -2629,14 +2709,14 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
         ({markers, value}) => {
           const normalize = (v) => (v || '').toLowerCase().replace(/\\s+/g, ' ').trim();
           const markerSet = markers.map((m) => normalize(m));
-          const nodes = Array.from(document.querySelectorAll('label, legend, p, span, div, h3, h4'));
+          const nodes = Array.from(document.querySelectorAll('label, legend, p, h3, h4'));
           const textMatches = (text) => {
             const t = normalize(text);
             return markerSet.some((m) => t.includes(m));
           };
           for (const node of nodes) {
             if (!textMatches(node.textContent || '')) continue;
-            const container = node.closest('fieldset, .application-question, .question, .field, .multi_value') || node.parentElement;
+            const container = node.closest('fieldset, .field-wrapper, .select__container, .text-input-wrapper, .input-wrapper, .application-question, .question, .field, .multi_value') || node.parentElement;
             if (!container) continue;
             // Skip containers that have React Select (already tried above)
             if (container.querySelector('[class*="select__control"]')) continue;
@@ -4500,6 +4580,11 @@ def _infer_remote_profile(
     *,
     job_text: str,
 ) -> tuple[str, int, List[str]]:
+    csv_score = str(row.get("Remote Likelihood Score", "")).strip()
+    csv_policy = str(row.get("Remote Policy", "")).strip().lower()
+    if (csv_score and csv_score.isdigit() and int(csv_score) >= 100) or csv_policy == "override":
+        return "override", 100, ["csv_override"]
+
     location = str(row.get("Location", "") or "")
     notes = str(row.get("Notes", "") or "")
     tags = str(row.get("Tags", "") or "")
@@ -4932,6 +5017,15 @@ def _append_note(existing: str, note: str) -> str:
     return f"{base}\n{note}"
 
 
+def _is_manual_submit_blocker(details: str) -> bool:
+    value = str(details or "")
+    return (
+        value == "missing_file_input"
+        or value.startswith("required_fields_unanswered_after_retry")
+        or value.startswith("verification_code_required")
+    )
+
+
 def _is_ready_status(status: str) -> bool:
     return _norm_key(status) in READY_STATUS_KEYS
 
@@ -5172,6 +5266,7 @@ def run_pipeline(
             "antibot_blocked_requires_manual_submit" in notes_text
             or "recaptcha_score_below_threshold" in notes_text
             or "required_fields_unanswered_after_retry" in notes_text
+            or "verification_code_required" in notes_text
         )
         try:
             remote_score = int(
@@ -5394,9 +5489,7 @@ def run_pipeline(
             skipped_count += 1
             if count_skipped_as_failures:
                 failed_count += 1
-        elif result.details == "missing_file_input" or result.details.startswith(
-            "required_fields_unanswered_after_retry"
-        ):
+        elif _is_manual_submit_blocker(result.details):
             row_result["result"] = "skipped"
             row_errors = [
                 "manual_submit_required",
@@ -5424,11 +5517,7 @@ def run_pipeline(
         else:
             # Known non-actionable UI blockers should not fail the whole run:
             # they require manual handling and are optionally quarantined.
-            is_manual_blocker = (
-                result.details == "missing_file_input"
-                or result.details.startswith("required_fields_unanswered_after_retry")
-                or result.details.startswith("verification_code_required")
-            )
+            is_manual_blocker = _is_manual_submit_blocker(result.details)
             if is_manual_blocker:
                 row_result["result"] = "skipped"
                 row_errors = [
@@ -5738,10 +5827,7 @@ def _submit_single_row(
         row_result["_outcome"] = "skipped"
         _write_tracker_row_atomic(tracker_csv, fields, row_idx, row)
     else:
-        is_manual_blocker = (
-            result.details == "missing_file_input"
-            or result.details.startswith("required_fields_unanswered_after_retry")
-        )
+        is_manual_blocker = _is_manual_submit_blocker(result.details)
         if is_manual_blocker:
             row_result["result"] = "skipped"
             row_errs = [
@@ -6006,6 +6092,7 @@ def run_pipeline_parallel(
             "antibot_blocked_requires_manual_submit" in _notes_text
             or "recaptcha_score_below_threshold" in _notes_text
             or "required_fields_unanswered_after_retry" in _notes_text
+            or "verification_code_required" in _notes_text
         )
         try:
             _remote_score = int(

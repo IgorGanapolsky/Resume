@@ -1,0 +1,22 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Igor Ganapolsky",
+  "jobTitle": "general",
+  "description": "",
+  "knowsAbout": [
+    "integration-heavy",
+    "voice-audio"
+  ],
+  "url": "https://linkedin.com/in/iganapolsky",
+  "sameAs": [
+    "https://github.com/IgorGanapolsky"
+  ],
+  "date_generated": "2026-03-09",
+  "agent_signature": {
+    "@type": "AgentSignature",
+    "value": "fe333c46464b29d627d2ba458a5102c93bd68dfcd0d1a5d2e1cf1b6052521b04",
+    "algorithm": "HMAC-SHA256",
+    "issuance_date": "2026-03-09"
+  }
+}

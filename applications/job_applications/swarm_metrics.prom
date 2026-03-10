@@ -1,0 +1,9 @@
+# HELP swarm_llm_latency_seconds Swarm LLM provider latency in seconds
+# TYPE swarm_llm_latency_seconds gauge
+# HELP swarm_consensus_rate Rate of model agreement (0-1)
+# TYPE swarm_consensus_rate gauge
+# HELP swarm_average_score Average resume quality score
+# TYPE swarm_average_score gauge
+# HELP swarm_cost_usd Swarm run cost in USD
+# TYPE swarm_cost_usd gauge
+swarm_cost_usd 0.000000

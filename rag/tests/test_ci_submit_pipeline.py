@@ -1113,6 +1113,219 @@ def test_execute_missing_file_input_quarantines_and_does_not_fail_run(
     assert "missing_file_input" in rows[0]["Notes"]
 
 
+def test_execute_verification_code_required_is_manual_blocker(
+    tmp_path, monkeypatch
+):
+    mod = _load_module()
+    monkeypatch.setattr(mod, "ROOT", tmp_path)
+
+    company = "Anthropic"
+    role = "Applied AI Engineer"
+    company_slug = mod._slug(company)
+    role_slug = mod._slug(role)[:64]
+    resume_dir = tmp_path / "applications" / company_slug / "tailored_resumes"
+    cover_dir = tmp_path / "applications" / company_slug / "cover_letters"
+    jobs_dir = tmp_path / "applications" / company_slug / "jobs"
+    submissions_dir = tmp_path / "applications" / company_slug / "submissions"
+    resume_dir.mkdir(parents=True, exist_ok=True)
+    cover_dir.mkdir(parents=True, exist_ok=True)
+    jobs_dir.mkdir(parents=True, exist_ok=True)
+    submissions_dir.mkdir(parents=True, exist_ok=True)
+    (resume_dir / f"2026-02-19_{company_slug}_{role_slug}.docx").write_bytes(b"docx")
+    (resume_dir / f"2026-02-19_{company_slug}_{role_slug}.html").write_text(
+        (
+            "Forward-Deployed AI/Software Engineer "
+            "FORWARD-DEPLOYED COMPETENCIES "
+            "customer-facing delivery "
+            "integration engineering "
+            "Python APIs"
+        ),
+        encoding="utf-8",
+    )
+    (cover_dir / f"2026-02-19_{company_slug}_{role_slug}.md").write_text(
+        "Cover letter", encoding="utf-8"
+    )
+    (jobs_dir / f"2026-02-19_{company_slug}_{role_slug}_abc123.md").write_text(
+        "Remote. Requirements: customer integrations and Python.",
+        encoding="utf-8",
+    )
+    tracker = tmp_path / "application_tracker.csv"
+    report = tmp_path / "report.json"
+    _write_tracker(
+        tracker,
+        [
+            {
+                "Company": company,
+                "Role": role,
+                "Location": "Remote",
+                "Salary Range": "",
+                "Status": "ReadyToSubmit",
+                "Date Applied": "",
+                "Follow Up Date": "",
+                "Response": "",
+                "Interview Stage": "Initial",
+                "Days To Response": "",
+                "Response Type": "",
+                "Cover Letter Used": "",
+                "What Worked": "",
+                "Tags": "ai;python",
+                "Notes": "",
+                "Career Page URL": "https://job-boards.greenhouse.io/anthropic/jobs/123",
+            }
+        ],
+    )
+
+    class _VerificationCodeAdapter(mod.SiteAdapter):
+        name = "greenhouse"
+
+        def matches(self, url: str) -> bool:
+            host = (urllib.parse.urlsplit(url).hostname or "").lower()
+            return host == "job-boards.greenhouse.io" or host.endswith("greenhouse.io")
+
+        def submit(self, task, profile, auth, answers):
+            screenshot = submissions_dir / "confirm.png"
+            screenshot.write_bytes(b"png")
+            return mod.SubmitResult(
+                adapter=self.name,
+                verified=False,
+                screenshot=screenshot,
+                details="verification_code_required:iganapolsky@gmail.com",
+            )
+
+    rc = mod.run_pipeline(
+        tracker_csv=tracker,
+        report_path=report,
+        dry_run=False,
+        queue_only=False,
+        max_jobs=1,
+        fail_on_error=True,
+        fit_threshold=0,
+        remote_min_score=0,
+        require_secret_auth=False,
+        quarantine_blocked=True,
+        adapters=[_VerificationCodeAdapter()],
+    )
+    assert rc == 0
+    payload = json.loads(report.read_text(encoding="utf-8"))
+    assert payload["failed_count"] == 0
+    assert payload["skipped_count"] == 1
+    assert payload["results"][0]["result"] == "skipped"
+    assert "verification_code_required:iganapolsky@gmail.com" in payload["results"][0]["errors"]
+
+    with tracker.open(newline="", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+    assert rows[0]["Status"] == "Quarantined"
+    assert rows[0]["Submission Lane"] == "manual:quarantined"
+    assert "verification_code_required:iganapolsky@gmail.com" in rows[0]["Notes"]
+
+
+def test_parallel_execute_verification_code_required_is_manual_blocker(
+    tmp_path, monkeypatch
+):
+    mod = _load_module()
+    monkeypatch.setattr(mod, "ROOT", tmp_path)
+
+    company = "Anthropic"
+    role = "Applied AI Engineer"
+    company_slug = mod._slug(company)
+    role_slug = mod._slug(role)[:64]
+    resume_dir = tmp_path / "applications" / company_slug / "tailored_resumes"
+    cover_dir = tmp_path / "applications" / company_slug / "cover_letters"
+    jobs_dir = tmp_path / "applications" / company_slug / "jobs"
+    submissions_dir = tmp_path / "applications" / company_slug / "submissions"
+    resume_dir.mkdir(parents=True, exist_ok=True)
+    cover_dir.mkdir(parents=True, exist_ok=True)
+    jobs_dir.mkdir(parents=True, exist_ok=True)
+    submissions_dir.mkdir(parents=True, exist_ok=True)
+    (resume_dir / f"2026-02-19_{company_slug}_{role_slug}.docx").write_bytes(b"docx")
+    (resume_dir / f"2026-02-19_{company_slug}_{role_slug}.html").write_text(
+        (
+            "Forward-Deployed AI/Software Engineer "
+            "FORWARD-DEPLOYED COMPETENCIES "
+            "customer-facing delivery "
+            "integration engineering "
+            "Python APIs"
+        ),
+        encoding="utf-8",
+    )
+    (cover_dir / f"2026-02-19_{company_slug}_{role_slug}.md").write_text(
+        "Cover letter", encoding="utf-8"
+    )
+    (jobs_dir / f"2026-02-19_{company_slug}_{role_slug}_abc123.md").write_text(
+        "Remote. Requirements: customer integrations and Python.",
+        encoding="utf-8",
+    )
+    tracker = tmp_path / "application_tracker.csv"
+    report = tmp_path / "report.json"
+    _write_tracker(
+        tracker,
+        [
+            {
+                "Company": company,
+                "Role": role,
+                "Location": "Remote",
+                "Salary Range": "",
+                "Status": "ReadyToSubmit",
+                "Date Applied": "",
+                "Follow Up Date": "",
+                "Response": "",
+                "Interview Stage": "Initial",
+                "Days To Response": "",
+                "Response Type": "",
+                "Cover Letter Used": "",
+                "What Worked": "",
+                "Tags": "ai;python",
+                "Notes": "",
+                "Career Page URL": "https://job-boards.greenhouse.io/anthropic/jobs/123",
+            }
+        ],
+    )
+
+    class _VerificationCodeAdapter(mod.SiteAdapter):
+        name = "greenhouse"
+
+        def matches(self, url: str) -> bool:
+            host = (urllib.parse.urlsplit(url).hostname or "").lower()
+            return host == "job-boards.greenhouse.io" or host.endswith("greenhouse.io")
+
+        def submit(self, task, profile, auth, answers):
+            screenshot = submissions_dir / "confirm.png"
+            screenshot.write_bytes(b"png")
+            return mod.SubmitResult(
+                adapter=self.name,
+                verified=False,
+                screenshot=screenshot,
+                details="verification_code_required:iganapolsky@gmail.com",
+            )
+
+    rc = mod.run_pipeline_parallel(
+        tracker_csv=tracker,
+        report_path=report,
+        dry_run=False,
+        queue_only=False,
+        max_jobs=1,
+        fail_on_error=True,
+        fit_threshold=0,
+        remote_min_score=0,
+        require_secret_auth=False,
+        quarantine_blocked=True,
+        adapters=[_VerificationCodeAdapter()],
+        max_workers=1,
+    )
+    assert rc == 0
+    payload = json.loads(report.read_text(encoding="utf-8"))
+    assert payload["failed_count"] == 0
+    assert payload["skipped_count"] == 1
+    assert payload["results"][0]["result"] == "skipped"
+    assert "verification_code_required:iganapolsky@gmail.com" in payload["results"][0]["errors"]
+
+    with tracker.open(newline="", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+    assert rows[0]["Status"] == "Quarantined"
+    assert rows[0]["Submission Lane"] == "manual:quarantined"
+    assert "verification_code_required:iganapolsky@gmail.com" in rows[0]["Notes"]
+
+
 def test_role_track_requires_explicit_fde_title_not_only_customer_signal():
     mod = _load_module()
     track, signals = mod._role_track_and_signals(
@@ -1163,6 +1376,18 @@ def test_ashby_extract_failure_details_reports_required_questions():
 
     detail = adapter._extract_failure_details(page, scope)
     assert detail == "required_questions_unanswered_after_retry"
+
+
+def test_greenhouse_extract_failure_details_reports_verification_code_recipient():
+    mod = _load_module()
+    adapter = mod.GreenhouseAdapter()
+    scope = _FakeScope(text="")
+    page = _FakeScope(
+        text="A verification code was sent to iganapolsky@gmail.com. Enter the 8-character code."
+    )
+
+    detail = adapter._extract_failure_details(page, scope)
+    assert detail == "verification_code_required:iganapolsky@gmail.com"
 
 
 def test_ashby_post_submit_retry_runs_fallbacks_and_retries(monkeypatch):
@@ -1235,3 +1460,133 @@ def test_ashby_post_submit_retry_no_error_banner_no_retry(monkeypatch):
 
     ok = adapter._post_submit_retry(scope, page, profile, answers)
     assert ok is False
+
+
+def test_greenhouse_anthropic_field_map_uses_label_driven_helpers():
+    mod = _load_module()
+
+    class _RecordingGreenhouseAdapter(mod.GreenhouseAdapter):
+        def __init__(self):
+            self.fill_calls = []
+            self.text_calls = []
+            self.yes_no_marker_calls = []
+
+        def _fill_by_locator(self, page, field_id: str, value: str) -> bool:
+            self.fill_calls.append((field_id, value))
+            return True
+
+        def _set_yes_no_question_by_markers(
+            self, page, markers, answer_yes: bool
+        ) -> bool:
+            self.yes_no_marker_calls.append((tuple(markers), answer_yes))
+            return True
+
+        def _fill_text(self, scope, label: str, value: str, exact_label: bool = False) -> bool:
+            self.text_calls.append((label, value, exact_label))
+            return True
+
+        def _select_react_option_by_id(
+            self, page, field_id: str, option_text: str
+        ) -> bool:
+            self.fill_calls.append((field_id, option_text))
+            return True
+
+    adapter = _RecordingGreenhouseAdapter()
+    page = _FakeScope(url="https://job-boards.greenhouse.io/anthropic/jobs/5121563008")
+    profile = mod.Profile(
+        first_name="Igor",
+        last_name="Ganapolsky",
+        email="igor@example.com",
+        phone="5551112222",
+        linkedin="https://linkedin.example/igor",
+        github="https://github.com/IgorGanapolsky",
+        website="https://igor.example",
+    )
+    answers = mod.SubmitAnswers(
+        work_authorization_us=True,
+        require_sponsorship=False,
+        role_interest="AI infrastructure with production impact.",
+        eeo_default="Prefer not to say",
+        country="United States",
+    )
+
+    adapter._apply_anthropic_field_map(page, profile, answers)
+
+    assert ("first_name", "Igor") in adapter.fill_calls
+    assert ("last_name", "Ganapolsky") in adapter.fill_calls
+    assert ("email", "igor@example.com") in adapter.fill_calls
+    assert ("phone", "5551112222") in adapter.fill_calls
+    assert ("country", "United States") in adapter.fill_calls
+
+    assert ("Website", "https://igor.example", False) in adapter.text_calls
+    assert ("LinkedIn Profile", "https://linkedin.example/igor", False) in adapter.text_calls
+    why_call = next(
+        value
+        for label, value, _ in adapter.text_calls
+        if label == "Why Anthropic"
+    )
+    assert "safe, reliable AI systems" in why_call
+
+    assert (
+        ("open to working in-person", "offices 25% of the time", "in office 25%"),
+        True,
+    ) in adapter.yes_no_marker_calls
+    assert (("ai policy for application", "ai policy"), True) in adapter.yes_no_marker_calls
+    assert (
+        ("do you require visa sponsorship", "require visa sponsorship"),
+        False,
+    ) in adapter.yes_no_marker_calls
+    assert (
+        (
+            "will you now or will you in the future require employment visa sponsorship",
+            "future require employment visa sponsorship",
+            "future visa sponsorship",
+        ),
+        False,
+    ) in adapter.yes_no_marker_calls
+    assert (("open to relocation", "willing to relocate"), False) in adapter.yes_no_marker_calls
+    assert (("have you ever interviewed at anthropic before",), False) in adapter.yes_no_marker_calls
+
+
+def test_greenhouse_generic_screener_uses_locator_fill_for_core_fields():
+    mod = _load_module()
+
+    class _RecordingGreenhouseAdapter(mod.GreenhouseAdapter):
+        def __init__(self):
+            self.fill_calls = []
+
+        def _fill_by_locator(self, page, field_id: str, value: str) -> bool:
+            self.fill_calls.append((field_id, value))
+            return True
+
+        def _select_react_option_by_id(self, page, field_id: str, option_text: str) -> bool:
+            return True
+
+        def _set_value_question_by_markers(self, page, markers, value: str) -> bool:
+            return True
+
+        def _set_yes_no_question_by_markers(self, page, markers, answer_yes: bool) -> bool:
+            return True
+
+    adapter = _RecordingGreenhouseAdapter()
+    page = _FakeScope(url="https://job-boards.greenhouse.io/example/jobs/123")
+    profile = mod.Profile(
+        first_name="Igor",
+        last_name="Ganapolsky",
+        email="igor@example.com",
+        phone="5551112222",
+    )
+    answers = mod.SubmitAnswers(
+        work_authorization_us=True,
+        require_sponsorship=False,
+        role_interest="AI infrastructure with production impact.",
+        eeo_default="Prefer not to say",
+        country="United States",
+    )
+
+    adapter._apply_generic_greenhouse_screener(page, profile, answers)
+
+    assert ("first_name", "Igor") in adapter.fill_calls
+    assert ("last_name", "Ganapolsky") in adapter.fill_calls
+    assert ("email", "igor@example.com") in adapter.fill_calls
+    assert ("phone", "5551112222") in adapter.fill_calls

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Igor Ganapolsky - Open Source Maintainer & AI Systems Engineer</title>
+<style>
+  body { font-family: Arial, sans-serif; line-height: 1.4; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; }
+  h1 { margin-bottom: 5px; color: #000; }
+  h2 { border-bottom: 2px solid #333; padding-bottom: 5px; margin-top: 20px; color: #000; text-transform: uppercase; font-size: 1.1em; }
+  .contact-info { margin-bottom: 20px; font-size: 0.9em; }
+  .job-title { font-weight: bold; margin-top: 15px; }
+  .company-info { font-style: italic; display: flex; justify-content: space-between; margin-bottom: 5px; }
+  ul { margin-top: 5px; padding-left: 20px; }
+  li { margin-bottom: 3px; }
+  .project-title { font-weight: bold; margin-top: 10px; }
+  .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  strong { color: #000; }
+</style>
+</head>
+<body>
+
+<h1>IGOR GANAPOLSKY</h1>
+<div class="contact-info">
+  Senior AI Systems Engineer & Open Source Maintainer (RLHF, Agents, Infrastructure)<br>
+  📍 Coral Springs, FL • 📧 iganapolsky@gmail.com • 📱 (201) 639-1534<br>
+  GitHub: <a href="https://github.com/IgorGanapolsky">github.com/IgorGanapolsky</a> • LinkedIn: <a href="https://www.linkedin.com/in/igor-ganapolsky-859317343/">linkedin.com/in/igor-ganapolsky</a>
+</div>
+
+<h2>Summary</h2>
+<p>
+  Senior AI Systems Engineer and Open Source Maintainer with 15+ years of professional experience. Core maintainer of <strong>igor</strong>, an open-source RLHF stack for AI coding assistants. Expert in designing and delivering production-grade agentic infrastructure, including multi-model gateways, sandboxed tool execution, and self-improving evaluation loops. Proven track record at <strong>Google</strong> and <strong>Subway</strong> building scalable, secure AI systems serving millions of users. Specialized in bridging the gap between frontier research trajectories and production-grade reliability.
+</p>
+
+<h2>Open Source Leadership</h2>
+<div class="project-title">igor (RLHF & Agentic Memory Stack)</div>
+<div class="company-info"><span>Core Maintainer</span> <span>github.com/IgorGanapolsky/igor</span></div>
+<ul>
+  <li><strong>RLHF Pipeline:</strong> Architected a Bayesian feedback loop using Thompson Sampling to track agent action reliability, enabling real-time behavior adaptation without retraining.</li>
+  <li><strong>Hive Evolution:</strong> Implemented a self-healing guardrail system (Hive architecture) that automatically generates prevention rules from failed trajectories.</li>
+  <li><strong>Semantic Memory:</strong> Developed a local RAG system using LanceDB for cross-session learning and mistake-avoidance, achieving a <strong>76% positive feedback rate</strong> (up from 50%).</li>
+</ul>
+
+<div class="project-title">Ralphex (Autonomous Agent Orchestration)</div>
+<ul>
+  <li><strong>Review Pipeline:</strong> Built a parallel 5-agent critique and synthesis pipeline to ensure high-fidelity outcomes for complex, multi-file code transformations.</li>
+  <li><strong>State Management:</strong> Implemented multi-session context preservation to prevent model degradation during long-running agentic tasks.</li>
+</ul>
+
+<h2>Technical Skills</h2>
+<div class="skills-grid">
+  <div>
+    <strong>AI/LLM Infrastructure:</strong> RLHF pipelines, RAG (LanceDB, Chroma), vLLM inference, LLM gateways (TARS), prompt engineering, evaluation guardrails.
+  </div>
+  <div>
+    <strong>Cloud & Distributed Systems:</strong> GCP (Vertex AI, Cloud Build), AWS (Bedrock, Lambda), Kubernetes, Microservices, CI/CD (GitHub Actions).
+  </div>
+  <div>
+    <strong>Languages & Frameworks:</strong> Python (PyTorch), Node.js, React Native (New Architecture), Kotlin, Swift, Java, SQL.
+  </div>
+  <div>
+    <strong>Observability & Safety:</strong> OpenTelemetry, distributed debugging, cost/latency tuning, malware triage ML, HIPAA compliance.
+  </div>
+</div>
+
+<h2>Professional Experience</h2>
+
+<div class="job-title">Team Lead Mobile Engineer / AI-ML Tech Lead</div>
+<div class="company-info"><span>Subway Corporate — Miami, FL</span> <span>Jan 2024 – Present</span></div>
+<ul>
+  <li>Led design and delivery of end-to-end AI features, including LLM-backed search and a conversational assistant serving millions of monthly users.</li>
+  <li>Architected Dialogflow CX agents integrated with Vertex AI, reducing customer service load by <strong>35%</strong> through dynamic response generation.</li>
+  <li>Designed reference architectures for AI-enabled microservices (auth, rate limiting, logging) and mentored teams on <strong>Windsurf</strong>, <strong>Cursor</strong>, and <strong>Claude Code</strong>.</li>
+  <li>Migrated core apps to React Native New Architecture, achieving <strong>40% faster startup</strong> and native-level UI performance.</li>
+</ul>
+
+<div class="job-title">Mobile Engineer / AI Developer</div>
+<div class="company-info"><span>CNH Industrial — Remote</span> <span>Dec 2022 – Jan 2024</span></div>
+<ul>
+  <li>Built a Gemini-powered GenAI chatbot for field support, integrating telemetry retrieval to significantly reduce human triage requests.</li>
+  <li>Implemented crop analytics interfaces using custom fulfillment webhooks connecting to BigQuery for real-time data processing.</li>
+</ul>
+
+<div class="job-title">Mobile Security Engineer (Contract)</div>
+<div class="company-info"><span>Google — Remote</span> <span>Feb 2021 – Nov 2022</span></div>
+<ul>
+  <li>Developed LLM-assisted malware triage workflows on Vertex AI, improving detection speed at Play Store scale.</li>
+  <li>Built automated GCP pipelines for continuous model evaluation and performance monitoring across thousands of applications.</li>
+</ul>
+
+<div class="job-title">Lead Android Engineer</div>
+<div class="company-info"><span>Abbott Laboratories — Alameda, CA</span> <span>Feb 2020 – Jan 2021</span></div>
+<ul>
+  <li>Led Android development for FreeStyle Libre (millions of users), maintaining strict HIPAA compliance and integrating BLE + MLKit for glucose prediction.</li>
+</ul>
+
+<h2>Selected Achievements</h2>
+<ul>
+  <li><strong>Open Source Impact:</strong> Maintenance of `igor` stack leading to significant improvements in AI agent reliability and developer productivity.</li>
+  <li><strong>Scale:</strong> Shipped production AI features to millions of users at Subway and Google.</li>
+  <li><strong>Security:</strong> Contributed to the removal of 100+ malicious apps from the Google Play Store using ML-based detection.</li>
+</ul>
+
+</body>
+</html>

@@ -45,10 +45,19 @@ def _today_iso() -> str:
     return dt.date.today().isoformat()
 
 
+def _sanitize_tracker_row(row: Dict[str, Any]) -> Dict[str, str]:
+    cleaned: Dict[str, str] = {}
+    for key, value in row.items():
+        if key is None:
+            continue
+        cleaned[str(key)] = "" if value is None else str(value)
+    return cleaned
+
+
 def _read_tracker(path: Path) -> Tuple[List[str], List[Dict[str, str]]]:
     with path.open(newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
-        rows = list(reader)
+        rows = [_sanitize_tracker_row(row) for row in reader]
         fields = list(reader.fieldnames or [])
     return fields, rows
 
@@ -57,9 +66,12 @@ def _write_tracker(
     path: Path, fields: Sequence[str], rows: Sequence[Dict[str, str]]
 ) -> None:
     with path.open("w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=list(fields))
+        writer = csv.DictWriter(
+            f, fieldnames=list(fields), extrasaction="ignore", restval=""
+        )
         writer.writeheader()
-        writer.writerows(rows)
+        for row in rows:
+            writer.writerow(_sanitize_tracker_row(row))
 
 
 def _is_technical(role: str, ci_mod: Any) -> bool:
