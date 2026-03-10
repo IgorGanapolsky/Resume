@@ -13,3 +13,4 @@ def test_ralph_loop_workflow_exposes_anchor_browser_env():
     assert "ANCHOR_BROWSER_PROFILE_NAME: ${{ vars.ANCHOR_BROWSER_PROFILE_NAME }}" in workflow
     assert "ANCHOR_BROWSER_PROXY_ACTIVE: ${{ vars.ANCHOR_BROWSER_PROXY_ACTIVE }}" in workflow
     assert "ANCHOR_BROWSER_EXTRA_STEALTH_ACTIVE: ${{ vars.ANCHOR_BROWSER_EXTRA_STEALTH_ACTIVE }}" in workflow
+    assert '[ -z "$CI_SUBMIT_AUTH_JSON" ]' not in workflow
