@@ -77,12 +77,26 @@ Continuous loop runs in GitHub Actions via `.github/workflows/ralph-loop.yml`:
   - generate per-company artifacts under `applications/<company>/`
   - rebuild RAG index
   - open/update a PR with changes
+- Live submit runtime:
+  - defaults to local Playwright when no Anchor secret is configured
+  - uses Anchor Browser when `ANCHOR_BROWSER_API_KEY` is present in repo secrets
+  - supports Anchor profile persistence and US proxy-backed extra stealth through repo variables
+  - still requires verified confirmation evidence before any tracker row becomes `Applied`
 
 Manual run:
 
 1. Open **Actions** -> **Ralph Loop**
 2. Click **Run workflow**
 3. Optionally set `max_new_jobs`
+
+Recommended Anchor variables for autonomous submits:
+
+- `ANCHOR_BROWSER_PROFILE_NAME=resume-ci`
+- `ANCHOR_BROWSER_PROFILE_PERSIST=true`
+- `ANCHOR_BROWSER_PROXY_ACTIVE=true`
+- `ANCHOR_BROWSER_PROXY_COUNTRY_CODE=us`
+- `ANCHOR_BROWSER_EXTRA_STEALTH_ACTIVE=true`
+- `ANCHOR_BROWSER_STRICT=false`
 
 ## Quarantine Triage Sync
 
