@@ -153,7 +153,7 @@ async def apply():
             print("MFA code required. Please enter it in the browser or provide it.")
             # In a real automated flow, this would wait for an external signal
             # For now we pause to allow manual entry if running headful
-            await asyncio.sleep(60) 
+            await asyncio.sleep(60)
 
         print("Taking final confirmation snapshot...")
         await page.screenshot(

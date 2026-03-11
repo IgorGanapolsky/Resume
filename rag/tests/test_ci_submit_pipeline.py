@@ -2257,7 +2257,9 @@ def test_open_browser_runtime_uses_anchor_and_applies_storage_state(monkeypatch)
             self.chromium = _FakeChromium()
 
     storage_state = {
-        "cookies": [{"name": "session", "value": "abc", "domain": ".example.com", "path": "/"}],
+        "cookies": [
+            {"name": "session", "value": "abc", "domain": ".example.com", "path": "/"}
+        ],
         "origins": [
             {
                 "origin": "https://example.com",
