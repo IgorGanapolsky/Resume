@@ -1,49 +1,26 @@
 {
-  "generated_at": "2026-03-11T15:01:04.902892+00:00",
+  "generated_at": "2026-03-11T16:02:19.154985+00:00",
   "tracker_csv": "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/job_applications/application_tracker.csv",
   "max_jobs": 500,
   "fit_threshold": 70,
   "remote_min_score": 50,
   "processed_rows": 2,
   "artifact_updates": 3,
-  "became_gate_eligible": 0,
+  "became_gate_eligible": 1,
   "failures": 0,
   "results": [
-    {
-      "company": "AMI",
-      "role": "AMI Engineer",
-      "url": "https://jobs.ashbyhq.com/ami/d8d6e7a5-d048-4381-b494-88acef00b237",
-      "status_before": "ReadyToSubmit",
-      "prepared": false,
-      "candidate": true,
-      "assessment_before": {
-        "eligible": true,
-        "score": 98,
-        "reasons": [],
-        "submission_lane": "ci_auto:ashby",
-        "remote_score": 100
-      },
-      "assessment_after": {},
-      "artifact_updates": [],
-      "skip_reason": "already_gate_eligible"
-    },
     {
       "company": "Oracle",
       "role": "Sr Principal AI Software Engineer - ML & AI Innovation",
       "url": "https://eeho.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/jobsearch/job/324362/",
       "status_before": "ReadyToSubmit",
-      "prepared": true,
+      "prepared": false,
       "candidate": true,
       "assessment_before": {
         "eligible": false,
-        "score": 5,
+        "score": 101,
         "reasons": [
-          "fit_score_below_threshold:5<70",
-          "missing_cover_letter",
-          "missing_resume_docx_or_pdf",
-          "missing_tailored_resume_html",
-          "python_requested_not_explicit_in_resume",
-          "role_keyword_alignment_too_low:0/3"
+          "role_keyword_alignment_too_low:2/3"
         ],
         "submission_lane": "ci_auto:oracle",
         "remote_score": 100
@@ -57,10 +34,41 @@
         "submission_lane": "ci_auto:oracle",
         "remote_score": 100
       },
+      "artifact_updates": [],
+      "skip_reason": "no_artifact_changes_required"
+    },
+    {
+      "company": "Perplexity",
+      "role": "AI Software Engineer - Agents",
+      "url": "https://jobs.ashbyhq.com/perplexity/bc1a6878-8de9-48c2-a791-95b2f8f27261",
+      "status_before": "ReadyToSubmit",
+      "prepared": true,
+      "candidate": true,
+      "assessment_before": {
+        "eligible": false,
+        "score": 5,
+        "reasons": [
+          "fit_score_below_threshold:5<70",
+          "missing_cover_letter",
+          "missing_resume_docx_or_pdf",
+          "missing_tailored_resume_html",
+          "python_requested_not_explicit_in_resume",
+          "role_keyword_alignment_too_low:0/1"
+        ],
+        "submission_lane": "ci_auto:ashby",
+        "remote_score": 100
+      },
+      "assessment_after": {
+        "eligible": true,
+        "score": 101,
+        "reasons": [],
+        "submission_lane": "ci_auto:ashby",
+        "remote_score": 100
+      },
       "artifact_updates": [
-        "resume_html:/Users/ganapolsky_i/workspace/git/igor/Resume/applications/oracle/tailored_resumes/2026-03-11_oracle_sr-principal-ai-software-engineer-ml-ai-innovation.html",
-        "resume_docx:/Users/ganapolsky_i/workspace/git/igor/Resume/applications/oracle/tailored_resumes/2026-03-11_oracle_sr-principal-ai-software-engineer-ml-ai-innovation.docx",
-        "cover_letter:/Users/ganapolsky_i/workspace/git/igor/Resume/applications/oracle/cover_letters/2026-03-11_oracle_sr-principal-ai-software-engineer-ml-ai-innovation.md"
+        "resume_html:/Users/ganapolsky_i/workspace/git/igor/Resume/applications/perplexity/tailored_resumes/2026-03-11_perplexity_ai-software-engineer-agents.html",
+        "resume_docx:/Users/ganapolsky_i/workspace/git/igor/Resume/applications/perplexity/tailored_resumes/2026-03-11_perplexity_ai-software-engineer-agents.docx",
+        "cover_letter:/Users/ganapolsky_i/workspace/git/igor/Resume/applications/perplexity/cover_letters/2026-03-11_perplexity_ai-software-engineer-agents.md"
       ],
       "skip_reason": ""
     }
