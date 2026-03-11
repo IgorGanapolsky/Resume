@@ -1,9 +1,1126 @@
 {
-  "generated_at": "2026-03-09T18:16:33.783631+00:00",
-  "tracker_csv": "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/job_applications/application_tracker.csv",
-  "applied_total": 0,
-  "fixed_count": 0,
-  "missing_count": 0,
-  "missing_rows": [],
+  "generated_at": "2026-03-11T15:22:12.154374+00:00",
+  "tracker_csv": "/home/runner/work/Resume/Resume/applications/job_applications/application_tracker.csv",
+  "applied_total": 129,
+  "fixed_count": 81,
+  "missing_count": 129,
+  "missing_rows": [
+    {
+      "row_index": 0,
+      "company": "Owner.com",
+      "role": "Software Engineer Mobile",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 1,
+      "company": "Automattic",
+      "role": "Mobile Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 2,
+      "company": "GitLab",
+      "role": "Senior Software Engineer Mobile",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 3,
+      "company": "DockYard",
+      "role": "React Native Developer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 4,
+      "company": "Deepgram",
+      "role": "Software Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 5,
+      "company": "D-Wave Quantum",
+      "role": "Software Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 6,
+      "company": "Numiro",
+      "role": "AI Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 7,
+      "company": "Modernizing Medicine",
+      "role": "Software Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 8,
+      "company": "Kalmus Labs",
+      "role": "AI Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 9,
+      "company": "Safari AI",
+      "role": "Software Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 10,
+      "company": "PostHog",
+      "role": "Software Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 11,
+      "company": "Statsig",
+      "role": "Software Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 12,
+      "company": "Buffer",
+      "role": "Mobile Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 13,
+      "company": "Hugging Face",
+      "role": "Mobile Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 14,
+      "company": "Replicate",
+      "role": "Software Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 15,
+      "company": "Jumpspeak",
+      "role": "Mobile Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 16,
+      "company": "AppZen",
+      "role": "Software Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 17,
+      "company": "Globant",
+      "role": "React Native Developer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 18,
+      "company": "CrowdStrike",
+      "role": "Mobile Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 19,
+      "company": "Together AI",
+      "role": "Software Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 20,
+      "company": "EliseAI",
+      "role": "Software Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 21,
+      "company": "Cohere Health",
+      "role": "Software Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 22,
+      "company": "Collectly",
+      "role": "Software Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 23,
+      "company": "Artera",
+      "role": "Software Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 24,
+      "company": "Coinbase",
+      "role": "Senior Mobile Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 25,
+      "company": "Metallicus",
+      "role": "React Native Developer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 26,
+      "company": "BitGo",
+      "role": "Mobile Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 27,
+      "company": "Apex Fintech",
+      "role": "Software Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 28,
+      "company": "GRAIL",
+      "role": "Software Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 30,
+      "company": "Anthropic",
+      "role": "Senior / Staff+ Software Engineer - Autonomous Agent Infrastructure",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 31,
+      "company": "OpenEvidence",
+      "role": "Software Engineer - Backend and Infrastructure",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 32,
+      "company": "OpenEvidence",
+      "role": "Software Engineer - Site Reliability Engineering",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 33,
+      "company": "Runway",
+      "role": "Member of Technical Staff - Inference",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 34,
+      "company": "ElevenLabs",
+      "role": "Forward Deployed Engineer - Software Engineer",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 36,
+      "company": "Mercor",
+      "role": "Software Engineer (Trajectory)",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 37,
+      "company": "Mercor",
+      "role": "Software Engineer III",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 38,
+      "company": "Mercor",
+      "role": "Software Expert (Office Suite)",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 39,
+      "company": "Simile",
+      "role": "Careers contact form (general inquiry)",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 40,
+      "company": "Decagon",
+      "role": "Senior Software Engineer, Infrastructure",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 41,
+      "company": "Inferact",
+      "role": "Member of Technical Staff, Exceptional Generalist (Remote)",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 42,
+      "company": "PaleBlueDot AI",
+      "role": "AI Infrastructure Engineer (target; no posting found)",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 43,
+      "company": "Flapping Airplanes",
+      "role": "General inquiry (contact email)",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 44,
+      "company": "Coalition Technologies",
+      "role": "Office Assistant",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 45,
+      "company": "Mitre Media",
+      "role": "Tech Lead Databricks Data Engineer",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 46,
+      "company": "Mitre Media",
+      "role": "Tech Lead Full-Stack Rails Engineer",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 47,
+      "company": "nooro",
+      "role": "iOS Developer",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 48,
+      "company": "SKYCATCHFIRE",
+      "role": "Senior Python Backend Developer",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 49,
+      "company": "TELUS Digital",
+      "role": "Content Reviewer",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 50,
+      "company": "Welo Data",
+      "role": "AI Internet Rater",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 51,
+      "company": "BNSF Railway",
+      "role": "Product, Platform & Enterprise Full Stack Sr/Staff Software Engineer",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 52,
+      "company": "BNSF Railway",
+      "role": "Product, Platform & Enterprise Front End Sr/Staff Software Engineer",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 53,
+      "company": "BNSF Railway",
+      "role": "Sr/Staff AI Engineer",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 54,
+      "company": "Ping Identity",
+      "role": "Senior Manager Site Reliability Engineer",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 55,
+      "company": "Ping Identity",
+      "role": "Senior Site Reliability Engineer",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 56,
+      "company": "Bounteous",
+      "role": "Associate Director Adobe Target",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 57,
+      "company": "FireMon",
+      "role": "Enterprise Account Executive Pacific NW",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 58,
+      "company": "Unison Infrastructure",
+      "role": "Real Estate Counsel",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 59,
+      "company": "Clipboard Health",
+      "role": "Client Support Specialist",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 60,
+      "company": "Mex Digital FZE",
+      "role": "QA Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 61,
+      "company": "EasyLlama",
+      "role": "Revenue Operations Manager",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 62,
+      "company": "NMI",
+      "role": "Content Manager",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 63,
+      "company": "3Pillar",
+      "role": "Senior Software Engineer Angular .net",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 64,
+      "company": "BlastPoint",
+      "role": "Technical Project Manager",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 65,
+      "company": "Smartbug Media",
+      "role": "HubSpot Solutions Architect",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 66,
+      "company": "Oowlish Technology",
+      "role": "Senior Data Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 67,
+      "company": "StarCompliance",
+      "role": "Principal Data Operations &amp; Migration Lead",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 68,
+      "company": "Marketerx",
+      "role": "Senior DevOps Engineer",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 70,
+      "company": "FormativGroup",
+      "role": "Senior Technical Consultant Charles River Everywhere",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 71,
+      "company": "Magic Media",
+      "role": "C++ Developer",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 72,
+      "company": "InfStones",
+      "role": "DevOps Engineer",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 73,
+      "company": "CI&amp;T",
+      "role": "Job 27573 Mid Data Developer Brasil",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 74,
+      "company": "CI&amp;T",
+      "role": "Job 27611 MidSenior Data Developer Brasil",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 75,
+      "company": "Ubiminds",
+      "role": "Mid Level DevOps Engineer CI CD Optimization",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 76,
+      "company": "ARC&#39;TERYX",
+      "role": "Director Asset Protection NAM Retail",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 77,
+      "company": "Coupa Software, Inc.",
+      "role": "Coupa Pay Customer Success Manager 11184",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 78,
+      "company": "Swayable",
+      "role": "Research Data Scientist",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 79,
+      "company": "Exaware",
+      "role": "Operations and Order Management Manager",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 80,
+      "company": "Relativity Space",
+      "role": "Senior IT Systems Engineer Storage and Infrastructure",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 81,
+      "company": "Okta, Inc.",
+      "role": "Senior Solutions Engineer North East",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 82,
+      "company": "ComputerCare",
+      "role": "Data Analyst II",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 83,
+      "company": "Solera Health",
+      "role": "Vice President of Engagement Transformation",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 84,
+      "company": "Solera Health",
+      "role": "Data Scientist",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 85,
+      "company": "MoonPay",
+      "role": "Partner Success Manager",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 86,
+      "company": "OpenAI",
+      "role": "Administrative Business Partner",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 87,
+      "company": "Lavendo",
+      "role": "Technical Product Manager",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 88,
+      "company": "shopware AG",
+      "role": "AI-Native Cloud Infrastructure Generalist (m/f/d)",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 89,
+      "company": "Fluence International, Inc.",
+      "role": "Full-Stack Developer (6 months, extendable)",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 90,
+      "company": "A.Team",
+      "role": "Senior Independent AI Engineer / Architect",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 91,
+      "company": "A.Team",
+      "role": "Senior Independent Software Developer",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 92,
+      "company": "Coalition Technologies",
+      "role": "Copywriter",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 93,
+      "company": "GNO Partners",
+      "role": "Senior Amazon Brand Manager",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 94,
+      "company": "Vox Media, LLC",
+      "role": "Deputy Editor Future Perfect",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 95,
+      "company": "Yassir",
+      "role": "Senior Mobile iOS Engineer",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 96,
+      "company": "Brave",
+      "role": "Software Engineer UI",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 97,
+      "company": "Wild Alaskan Company",
+      "role": "Executive Assistant",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 98,
+      "company": "Unlock Health",
+      "role": "Senior Media Director Performance Media",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 99,
+      "company": "Agoda",
+      "role": "Connectivity Manager",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 100,
+      "company": "Sociallyin",
+      "role": "Social Media Strategist",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 101,
+      "company": "ARRISE",
+      "role": "Strategic Live Casino Manager",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 102,
+      "company": "Nest Veterinary",
+      "role": "Implementation Specialist",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 103,
+      "company": "PointClickCare",
+      "role": "PointClickCare Associate Data Scientist",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 104,
+      "company": "RYZ Labs",
+      "role": "Product Manager Customer Care",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 105,
+      "company": "vCluster Labs",
+      "role": "Talent Acquisition Partner",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 106,
+      "company": "Lantern",
+      "role": "Director AI Engineering",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 107,
+      "company": "SciLeads",
+      "role": "Senior Product Manager Platform Life Sciences",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 108,
+      "company": "GoodTime",
+      "role": "Customer Success Manager",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 109,
+      "company": "Geotab",
+      "role": "Business Development Manager Vocational",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 110,
+      "company": "Galileo Financial Technologies",
+      "role": "Software Engineer",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 111,
+      "company": "Parloa",
+      "role": "Senior Partnerships Manager Spain Italy",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 112,
+      "company": "Exadel",
+      "role": "3D Designer",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 113,
+      "company": "Juul Labs",
+      "role": "Division Manager KY WV",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 114,
+      "company": "New Era Technology",
+      "role": "SAP WalkMe Development Senior Consultant",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 115,
+      "company": "Sharebite",
+      "role": "Engineering Manager",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 116,
+      "company": "Anypear",
+      "role": "Technical Architect AUS Company",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 117,
+      "company": "Judi Health",
+      "role": "Senior Full Stack Software Developer",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 118,
+      "company": "OpenSea",
+      "role": "Social Media Lead",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 119,
+      "company": "Coderio",
+      "role": "SaaS Configuration Analyst",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 120,
+      "company": "Arcadia",
+      "role": "Sr Director Data Engineering & Analytics",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 121,
+      "company": "Too Good To Go",
+      "role": "CX Specialist",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 122,
+      "company": "Mentis AI",
+      "role": "Real Estate Investor \u00e2\u0080\u0094 Expert AI Trainer",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 123,
+      "company": "Nearform",
+      "role": "Technical Lead DevOps",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 124,
+      "company": "You.com",
+      "role": "Senior Security Engineer",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 125,
+      "company": "CI&amp;T",
+      "role": "Job 27602 Mid level Developer NodeJS Brazil",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 126,
+      "company": "Workleap",
+      "role": "Sp\u00c3\u00a9cialiste en acquisition de talents Pipeline & Sourcing",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 127,
+      "company": "Power Digital",
+      "role": "Social Commerce Strategist",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 128,
+      "company": "Xsolla",
+      "role": "HR Project Coordinator",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 129,
+      "company": "Mechanical Orchard",
+      "role": "Engineering Manager Delivery",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 130,
+      "company": "AMI",
+      "role": "AMI Engineer",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 132,
+      "company": "OPM",
+      "role": "US Tech Force Talent Network",
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    }
+  ],
   "write": true
 }

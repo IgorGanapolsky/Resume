@@ -1,0 +1,24 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Igor Ganapolsky",
+  "jobTitle": "fde",
+  "description": "",
+  "knowsAbout": [
+    "customer-integration",
+    "fde-title",
+    "integration-heavy",
+    "voice-audio"
+  ],
+  "url": "https://linkedin.com/in/iganapolsky",
+  "sameAs": [
+    "https://github.com/IgorGanapolsky"
+  ],
+  "date_generated": "2026-03-11",
+  "agent_signature": {
+    "@type": "AgentSignature",
+    "value": "f630d6781b947fd70cf5a0931e7b49bf4658de46115c00577a6aaea3999ed02f",
+    "algorithm": "HMAC-SHA256",
+    "issuance_date": "2026-03-11"
+  }
+}
