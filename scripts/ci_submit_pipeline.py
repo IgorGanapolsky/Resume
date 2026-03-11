@@ -841,6 +841,20 @@ class PlaywrightFormAdapter(SiteAdapter):
         )
 
 
+class OracleAdapter(SiteAdapter):
+    name = "oracle"
+    host_patterns = (re.compile(r"oraclecloud\.com"),)
+
+    def matches(self, url: str) -> bool:
+        return any(p.search(url) for p in self.host_patterns)
+
+    def submit(self, task: SubmitTask, profile: Profile, answers: SubmitAnswers) -> SubmitResult:
+        return SubmitResult(
+            success=False,
+            message="Manual submission required for Oracle",
+            status_after="Quarantined"
+        )
+
 class AshbyAdapter(PlaywrightFormAdapter):
     name = "ashby"
     host_patterns = (re.compile(r"ashbyhq\.com"),)

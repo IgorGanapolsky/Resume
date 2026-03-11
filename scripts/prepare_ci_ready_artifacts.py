@@ -289,6 +289,7 @@ def run_prepare(
         ci_mod.AshbyAdapter(),
         ci_mod.GreenhouseAdapter(),
         ci_mod.LeverAdapter(),
+        ci_mod.OracleAdapter(),
     ]
 
     processed = 0
