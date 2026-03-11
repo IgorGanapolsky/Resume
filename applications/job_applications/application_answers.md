@@ -262,6 +262,32 @@ This system currently automates complex developer workflows with 13 autonomous a
 
 ---
 
+## PERPLEXITY - AI Software Engineer, Agents
+
+**Apply URL:** https://jobs.ashbyhq.com/perplexity/bc1a6878-8de9-48c2-a791-95b2f8f27261/application
+
+### What are the most interesting aspects of Perplexity that you're excited to work on?
+
+```
+I'm excited about the Comet ecosystem and Perplexity Computer—building generalized frontier intelligence that faithfully actualizes user intent. The challenge of training action/decision models that navigate the digital world based on multimodal states is exactly where I want to be. I'm particularly interested in designing optimal data representations for agent-environment interaction and scaling these capabilities for millions of users while maintaining a high craft bar.
+```
+
+### How do you use AI in your day-to-day work? What are some of the underappreciated benefits and/or pain points of your favorite AI tools?
+
+```
+I use AI (Claude, Windsurf, Cursor) for everything from architecting multi-agent systems to automating high-volume job submissions.
+Underappreciated benefit: "Rubber-ducking" complex system designs where the AI can simulate edge cases I haven't considered. 
+Pain point: Context drift in long-running autonomous sessions and the "wall" of advanced bot detection (like Ashby/Cloudflare) which requires sophisticated stealth bypasses—ironically, the very thing I'm building right now.
+```
+
+### Shared URL
+
+```
+https://www.perplexity.ai/search/explain-why-igor-ganapolsky-is-a-strong-candidate-for-perplexity-ai-agents-team-vBVSJMaRSxacql0MB11BWg
+```
+
+---
+
 ## QUICK COPY-PASTE SUMMARY
 
 For all applications, use these consistent talking points:
