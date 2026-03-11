@@ -3,7 +3,7 @@ import os
 
 
 def final_submit():
-    anchor_key = "sk-e6ad0b592b4b89a083a593ad9923b5d8"
+    anchor_key = os.environ.get("ANCHOR_BROWSER_API_KEY", "")
     url = "https://job-boards.greenhouse.io/anthropic/jobs/5065894008"
     resume_path = os.path.abspath(
         "applications/anthropic/tailored_resumes/Igor_Ganapolsky_Open_Source_Maintainer_AI.pdf"

@@ -1,8 +1,9 @@
+import os
 from playwright.sync_api import sync_playwright
 
 
 def capture_debug():
-    anchor_key = "sk-e6ad0b592b4b89a083a593ad9923b5d8"
+    anchor_key = os.environ.get("ANCHOR_BROWSER_API_KEY", "")
     url = "https://job-boards.greenhouse.io/anthropic/jobs/5065894008"
 
     with sync_playwright() as p:

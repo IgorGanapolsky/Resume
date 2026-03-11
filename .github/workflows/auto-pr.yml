@@ -30,18 +30,18 @@ jobs:
             COMMIT_MSG=$(git log -1 --format=%s)
             CHANGES=$(git log origin/main..HEAD --oneline | head -10)
             cat > /tmp/pr_body.md <<EOF
-            ## Summary
-            Auto-generated PR from \`${{ github.ref_name }}\`
+          ## Summary
+          Auto-generated PR from \`${{ github.ref_name }}\`
 
-            ## Changes
-            $CHANGES
+          ## Changes
+          $CHANGES
 
-            ## Checklist
-            - [ ] Tests pass
-            - [ ] No secrets committed
-            - [ ] Job files scrubbed
-            - [ ] RAG index rebuilt if tracker changed
-            EOF
+          ## Checklist
+          - [ ] Tests pass
+          - [ ] No secrets committed
+          - [ ] Job files scrubbed
+          - [ ] RAG index rebuilt if tracker changed
+          EOF
             gh pr create \
               --title "$COMMIT_MSG" \
               --body-file /tmp/pr_body.md \
