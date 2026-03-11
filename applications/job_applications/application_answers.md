@@ -241,6 +241,53 @@ Edge AI is the future of computer vision, and I'm excited to contribute.
 
 ---
 
+## AMI - AMI Engineer
+
+**Apply URL:** https://jobs.ashbyhq.com/ami/d8d6e7a5-d048-4381-b494-88acef00b237/application
+
+### Why do you want to work at AMI?
+
+```
+I'm fascinated by AMI's focus on world model-based AI and the belief that video is the key to teaching models how the physical world works. Having built production AI systems with RLHF (26 Claude skills) and RAG pipelines at scale, I've seen the limitations of current LLMs and believe your approach to persistent memory, reasoning, and controllable world models is the right path to frontier intelligence. I'm excited about bringing my PyTorch expertise and experience scaling distributed systems (Subway, Fortune 500) to help build this new breed of AI.
+```
+
+### Describe your most significant accomplishment
+
+```
+I built a production RLHF (Reinforcement Learning from Human Feedback) system orchestrating 26 autonomous AI skills. 
+The core challenge was ensuring continuous learning from user feedback without catastrophic forgetting. I implemented a Thompson Sampling model to balance exploration of new prompts with exploitation of high-performing ones, achieving a 76.6% positive feedback rate. 
+I also optimized the RAG pipeline using LanceDB hybrid search (BM25 + vector similarity) and implemented prompt caching that reduced API costs by 40-50%. 
+This system currently automates complex developer workflows with 13 autonomous agents, proving that frontier models can be made controllable and highly efficient in real-world production environments.
+```
+
+---
+
+## PERPLEXITY - AI Software Engineer, Agents
+
+**Apply URL:** https://jobs.ashbyhq.com/perplexity/bc1a6878-8de9-48c2-a791-95b2f8f27261/application
+
+### What are the most interesting aspects of Perplexity that you're excited to work on?
+
+```
+I'm excited about the Comet ecosystem and Perplexity Computer—building generalized frontier intelligence that faithfully actualizes user intent. The challenge of training action/decision models that navigate the digital world based on multimodal states is exactly where I want to be. I'm particularly interested in designing optimal data representations for agent-environment interaction and scaling these capabilities for millions of users while maintaining a high craft bar.
+```
+
+### How do you use AI in your day-to-day work? What are some of the underappreciated benefits and/or pain points of your favorite AI tools?
+
+```
+I use AI (Claude, Windsurf, Cursor) for everything from architecting multi-agent systems to automating high-volume job submissions.
+Underappreciated benefit: "Rubber-ducking" complex system designs where the AI can simulate edge cases I haven't considered. 
+Pain point: Context drift in long-running autonomous sessions and the "wall" of advanced bot detection (like Ashby/Cloudflare) which requires sophisticated stealth bypasses—ironically, the very thing I'm building right now.
+```
+
+### Shared URL
+
+```
+https://www.perplexity.ai/search/explain-why-igor-ganapolsky-is-a-strong-candidate-for-perplexity-ai-agents-team-vBVSJMaRSxacql0MB11BWg
+```
+
+---
+
 ## QUICK COPY-PASTE SUMMARY
 
 For all applications, use these consistent talking points:
