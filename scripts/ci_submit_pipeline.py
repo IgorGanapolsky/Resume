@@ -2148,6 +2148,25 @@ def _load_auth_by_adapter(env_name: str) -> Dict[str, AdapterAuth]:
     return out
 
 
+def _auth_env_is_malformed(env_name: str) -> bool:
+    raw = os.getenv(env_name, "").strip()
+    if not raw:
+        return False
+    try:
+        payload = json.loads(raw)
+    except Exception:
+        return True
+    if not isinstance(payload, dict):
+        return True
+    for name, item in payload.items():
+        if not isinstance(name, str) or not isinstance(item, dict):
+            return True
+        storage = item.get("storage_state")
+        if storage is not None and not isinstance(storage, dict):
+            return True
+    return False
+
+
 def validate_secret_payloads(
     *,
     profile_env: str = "CI_SUBMIT_PROFILE_JSON",
@@ -2157,15 +2176,8 @@ def validate_secret_payloads(
     errors: List[str] = []
     if _load_profile_from_env(profile_env) is None:
         errors.append(f"invalid_profile:{profile_env}")
-    raw_auth = os.getenv(auth_env, "").strip()
-    if raw_auth:
-        try:
-            payload = json.loads(raw_auth)
-        except Exception:
-            errors.append(f"invalid_auth:{auth_env}")
-        else:
-            if not isinstance(payload, dict):
-                errors.append(f"invalid_auth:{auth_env}")
+    if _auth_env_is_malformed(auth_env):
+        errors.append(f"invalid_auth:{auth_env}")
     if _load_answers_from_env(answers_env) is None:
         errors.append(f"invalid_answers:{answers_env}")
     return (not errors, errors)
@@ -2334,6 +2346,8 @@ def run_pipeline(
     )
 
     profile = _load_profile_from_env(profile_env)
+    auth_env_configured = bool(os.getenv(auth_env, "").strip())
+    auth_env_malformed = _auth_env_is_malformed(auth_env)
     auth_map = _load_auth_by_adapter(auth_env)
     answers = _load_answers_from_env(answers_env)
 
@@ -2341,8 +2355,8 @@ def run_pipeline(
         if profile is None:
             print(f"ERROR: missing/invalid secret profile in ${profile_env}.")
             return 2
-        if not auth_map:
-            print(f"ERROR: missing/invalid secret auth map in ${auth_env}.")
+        if auth_env_malformed:
+            print(f"ERROR: malformed secret auth map in ${auth_env}.")
             return 2
         if answers is None:
             print(f"ERROR: missing/invalid secret answers in ${answers_env}.")
@@ -2475,6 +2489,10 @@ def run_pipeline(
         "fit_threshold": fit_threshold,
         "remote_min_score": remote_min_score,
         "tracker_csv": str(tracker_csv),
+        "auth_env_configured": auth_env_configured,
+        "auth_adapters_available": sorted(
+            name for name, auth in auth_map.items() if auth.storage_state is not None
+        ),
         "applied_integrity_demoted_count": applied_integrity_demoted_count,
         "applied_integrity_issues": applied_integrity_issues,
         "queue_promoted_count": queue_promoted_count,
@@ -2490,6 +2508,18 @@ def run_pipeline(
     applied_count = 0
     failed_count = 0
     skipped_count = 0
+
+    if not dry_run and not queue_only:
+        configured = sorted(
+            name for name, auth in auth_map.items() if auth.storage_state is not None
+        )
+        if configured:
+            print("Adapter auth state loaded for: " + ", ".join(configured))
+        else:
+            print(
+                f"WARN: ${auth_env} is empty or has no usable storage state; "
+                "proceeding with fresh browser contexts."
+            )
 
     if queue_only:
         report["applied_count"] = 0
@@ -2611,12 +2641,9 @@ def run_pipeline(
                 continue
 
             auth = auth_map.get(adapter.name, AdapterAuth())
-            if require_secret_auth and adapter.name not in auth_map:
-                row_result["result"] = "failed"
-                row_result["errors"] = [f"missing_auth_for_adapter:{adapter.name}"]
-                report["results"].append(row_result)
-                failed_count += 1
-                continue
+            row_result["auth_mode"] = (
+                "storage_state" if auth.storage_state is not None else "fresh_context"
+            )
 
             result = adapter.submit(task, profile, auth, answers)
             row_result["adapter_details"] = result.details
@@ -2884,7 +2911,7 @@ def main() -> int:
     ap.add_argument(
         "--auth-env",
         default="CI_SUBMIT_AUTH_JSON",
-        help="Env var containing per-adapter auth JSON.",
+        help="Optional env var containing per-adapter auth JSON.",
     )
     ap.add_argument(
         "--answers-env",

@@ -79,6 +79,8 @@ jobs:
               --answers-env CI_SUBMIT_ANSWERS_JSON; then
               echo "CI submit secrets invalid; falling back to dry run."
               EXECUTE_SUBMISSIONS=false
+            elif [ -z "$CI_SUBMIT_AUTH_JSON" ]; then
+              echo "CI submit auth secret absent; proceeding without browser storage state."
             fi
           fi
           EXTRA_ARGS=""

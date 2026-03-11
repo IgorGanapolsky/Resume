@@ -15,6 +15,7 @@ def test_workflow_contract_exists_and_has_required_sections():
         "## Scope",
         "## Prohibited Changes",
         "## Setup",
+        "## Live Submit Auth",
         "## Test Commands",
         "## Proof of Work",
         "## Task Intake",
@@ -40,6 +41,9 @@ def test_workflow_contract_references_real_commands_and_templates():
         "python3 scripts/sync_quarantined_issues.py --report applications/job_applications/quarantine_issue_sync_report.json": ROOT
         / "scripts"
         / "sync_quarantined_issues.py",
+        "python3 scripts/capture_submit_auth.py": ROOT
+        / "scripts"
+        / "capture_submit_auth.py",
     }
     for command, path in required_commands.items():
         assert command in text
