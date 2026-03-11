@@ -1,7 +1,5 @@
 import asyncio
 import random
-import time
-from pathlib import Path
 from playwright.async_api import async_playwright
 from playwright_stealth import Stealth
 
@@ -88,7 +86,7 @@ async def apply():
         print("Checking consent checkbox...")
         try:
             await page.click("text=I agree", timeout=5000)
-        except:
+        except Exception:
             await page.click('div:has-text("I agree")', force=True)
         
         print("Taking pre-submit screenshot...")
