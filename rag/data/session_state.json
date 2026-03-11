@@ -1,17 +1,17 @@
 {
   "last_results": {
     "source": "query",
-    "query": "PR management branch cleanup CI hygiene lessons",
+    "query": "cleanup branches PR hygiene",
     "app_ids": [
+      "mercor__software-expert-office-suite__b101f80357",
+      "mercor__software-engineer-iii__a2783979bd",
+      "mercor__software-engineer-trajectory__34d4a66d52",
       "lavendo__technical-product-manager__e9c498f249",
-      "firemon__enterprise-account-executive-pacific-nw__390d0a3b2f",
+      "runway__member-of-technical-staff-inference__b8b99e0a70",
+      "bnsf-railway__product-platform-enterprise-front-end-sr-staff-software-engineer__8184a47b13",
       "nava__program-manager__a6dbf30968",
-      "tether-operations-limited__ai-product-manager__9cb68ce59d",
-      "gno-partners__senior-amazon-brand-manager__8201dcc068",
-      "wealthsimple-technologies__intern-procurement__0399da3a35",
-      "investorflow__associate-product-manager__e397a8cb00",
-      "nansen-ai__senior-security-engineer__1a29645a77"
+      "alpaca__senior-software-engineer-prime__a3e9fa217b"
     ],
-    "ts": "2026-03-10T13:17:20.767058+00:00"
+    "ts": "2026-03-11T15:21:04.531832+00:00"
   }
 }

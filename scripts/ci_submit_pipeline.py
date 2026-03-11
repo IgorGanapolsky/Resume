@@ -848,12 +848,15 @@ class OracleAdapter(SiteAdapter):
     def matches(self, url: str) -> bool:
         return any(p.search(url) for p in self.host_patterns)
 
-    def submit(self, task: SubmitTask, profile: Profile, answers: SubmitAnswers) -> SubmitResult:
+    def submit(
+        self, task: SubmitTask, profile: Profile, answers: SubmitAnswers
+    ) -> SubmitResult:
         return SubmitResult(
             success=False,
             message="Manual submission required for Oracle",
-            status_after="Quarantined"
+            status_after="Quarantined",
         )
+
 
 class AshbyAdapter(PlaywrightFormAdapter):
     name = "ashby"
@@ -1676,7 +1679,9 @@ class AshbyAdapter(PlaywrightFormAdapter):
 class GreenhouseAdapter(PlaywrightFormAdapter):
     name = "greenhouse"
 
-    def _fill_custom(self, scope: Any, page: Any, profile: Profile, answers: SubmitAnswers) -> None:
+    def _fill_custom(
+        self, scope: Any, page: Any, profile: Profile, answers: SubmitAnswers
+    ) -> None:
         # Anthropic-specific: Why Anthropic?
         why_anthropic = (
             "As the core maintainer of 'igor'—an open-source RLHF stack for AI coding assistants—I've spent the last year "
@@ -4608,7 +4613,9 @@ def _infer_remote_profile(
 ) -> tuple[str, int, List[str]]:
     csv_score = str(row.get("Remote Likelihood Score", "")).strip()
     csv_policy = str(row.get("Remote Policy", "")).strip().lower()
-    if (csv_score and csv_score.isdigit() and int(csv_score) >= 100) or csv_policy == "override":
+    if (
+        csv_score and csv_score.isdigit() and int(csv_score) >= 100
+    ) or csv_policy == "override":
         return "override", 100, ["csv_override"]
 
     location = str(row.get("Location", "") or "")
@@ -5152,7 +5159,7 @@ def run_pipeline(
                 f"and no fallback in {DEFAULT_ANSWERS_MD}."
             )
             return 2
-    
+
     # Apply placeholders only for dry-runs or queue-only when secrets are missing
     if profile is None:
         profile = Profile(

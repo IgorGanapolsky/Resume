@@ -836,7 +836,7 @@ def test_execute_requires_answers_secret(tmp_path, monkeypatch):
     mod = _load_module()
     monkeypatch.setattr(mod, "ROOT", tmp_path)
     monkeypatch.setattr(mod, "DEFAULT_ANSWERS_MD", tmp_path / "does_not_exist.md")
-    
+
     tracker = tmp_path / "application_tracker.csv"
     report = tmp_path / "report.json"
     _write_tracker(
@@ -871,14 +871,18 @@ def test_execute_requires_answers_secret(tmp_path, monkeypatch):
     res_dir.mkdir(parents=True, exist_ok=True)
     jobs_dir.mkdir(parents=True, exist_ok=True)
     cov_dir.mkdir(parents=True, exist_ok=True)
-    
+
     (res_dir / f"2026-02-19_{company_slug}_{role_slug}.html").write_text(
         "Forward Deployed Engineer customer-facing delivery integration engineering Python APIs",
-        encoding="utf-8"
+        encoding="utf-8",
     )
     (res_dir / f"2026-02-19_{company_slug}_{role_slug}.docx").write_bytes(b"docx")
-    (jobs_dir / f"2026-02-19_{company_slug}_{role_slug}_abc123.md").write_text("Job requirements", encoding="utf-8")
-    (cov_dir / f"2026-02-19_{company_slug}_{role_slug}.md").write_text("Cover letter", encoding="utf-8")
+    (jobs_dir / f"2026-02-19_{company_slug}_{role_slug}_abc123.md").write_text(
+        "Job requirements", encoding="utf-8"
+    )
+    (cov_dir / f"2026-02-19_{company_slug}_{role_slug}.md").write_text(
+        "Cover letter", encoding="utf-8"
+    )
 
     monkeypatch.delenv("TEST_PROFILE", raising=False)
     monkeypatch.delenv("TEST_AUTH", raising=False)
@@ -1113,9 +1117,7 @@ def test_execute_missing_file_input_quarantines_and_does_not_fail_run(
     assert "missing_file_input" in rows[0]["Notes"]
 
 
-def test_execute_verification_code_required_is_manual_blocker(
-    tmp_path, monkeypatch
-):
+def test_execute_verification_code_required_is_manual_blocker(tmp_path, monkeypatch):
     mod = _load_module()
     monkeypatch.setattr(mod, "ROOT", tmp_path)
 
@@ -1210,7 +1212,10 @@ def test_execute_verification_code_required_is_manual_blocker(
     assert payload["failed_count"] == 0
     assert payload["skipped_count"] == 1
     assert payload["results"][0]["result"] == "skipped"
-    assert "verification_code_required:iganapolsky@gmail.com" in payload["results"][0]["errors"]
+    assert (
+        "verification_code_required:iganapolsky@gmail.com"
+        in payload["results"][0]["errors"]
+    )
 
     with tracker.open(newline="", encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
@@ -1317,7 +1322,10 @@ def test_parallel_execute_verification_code_required_is_manual_blocker(
     assert payload["failed_count"] == 0
     assert payload["skipped_count"] == 1
     assert payload["results"][0]["result"] == "skipped"
-    assert "verification_code_required:iganapolsky@gmail.com" in payload["results"][0]["errors"]
+    assert (
+        "verification_code_required:iganapolsky@gmail.com"
+        in payload["results"][0]["errors"]
+    )
 
     with tracker.open(newline="", encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
@@ -1404,7 +1412,9 @@ def test_greenhouse_post_submit_retry_skips_retry_on_verification_code(monkeypat
     monkeypatch.setattr(
         adapter,
         "_click_submit",
-        lambda s, p: (_ for _ in ()).throw(AssertionError("retry should not click submit")),
+        lambda s, p: (_ for _ in ()).throw(
+            AssertionError("retry should not click submit")
+        ),
     )
 
     profile = mod.Profile(
@@ -1514,7 +1524,9 @@ def test_greenhouse_anthropic_field_map_uses_label_driven_helpers():
             self.yes_no_marker_calls.append((tuple(markers), answer_yes))
             return True
 
-        def _fill_text(self, scope, label: str, value: str, exact_label: bool = False) -> bool:
+        def _fill_text(
+            self, scope, label: str, value: str, exact_label: bool = False
+        ) -> bool:
             self.text_calls.append((label, value, exact_label))
             return True
 
@@ -1552,11 +1564,13 @@ def test_greenhouse_anthropic_field_map_uses_label_driven_helpers():
     assert ("country", "United States") in adapter.fill_calls
 
     assert ("Website", "https://igor.example", False) in adapter.text_calls
-    assert ("LinkedIn Profile", "https://linkedin.example/igor", False) in adapter.text_calls
+    assert (
+        "LinkedIn Profile",
+        "https://linkedin.example/igor",
+        False,
+    ) in adapter.text_calls
     why_call = next(
-        value
-        for label, value, _ in adapter.text_calls
-        if label == "Why Anthropic"
+        value for label, value, _ in adapter.text_calls if label == "Why Anthropic"
     )
     assert "safe, reliable AI systems" in why_call
 
@@ -1564,7 +1578,10 @@ def test_greenhouse_anthropic_field_map_uses_label_driven_helpers():
         ("open to working in-person", "offices 25% of the time", "in office 25%"),
         True,
     ) in adapter.yes_no_marker_calls
-    assert (("ai policy for application", "ai policy"), True) in adapter.yes_no_marker_calls
+    assert (
+        ("ai policy for application", "ai policy"),
+        True,
+    ) in adapter.yes_no_marker_calls
     assert (
         ("do you require visa sponsorship", "require visa sponsorship"),
         False,
@@ -1577,8 +1594,14 @@ def test_greenhouse_anthropic_field_map_uses_label_driven_helpers():
         ),
         False,
     ) in adapter.yes_no_marker_calls
-    assert (("open to relocation", "willing to relocate"), False) in adapter.yes_no_marker_calls
-    assert (("have you ever interviewed at anthropic before",), False) in adapter.yes_no_marker_calls
+    assert (
+        ("open to relocation", "willing to relocate"),
+        False,
+    ) in adapter.yes_no_marker_calls
+    assert (
+        ("have you ever interviewed at anthropic before",),
+        False,
+    ) in adapter.yes_no_marker_calls
 
 
 def test_greenhouse_generic_screener_uses_locator_fill_for_core_fields():
@@ -1592,13 +1615,17 @@ def test_greenhouse_generic_screener_uses_locator_fill_for_core_fields():
             self.fill_calls.append((field_id, value))
             return True
 
-        def _select_react_option_by_id(self, page, field_id: str, option_text: str) -> bool:
+        def _select_react_option_by_id(
+            self, page, field_id: str, option_text: str
+        ) -> bool:
             return True
 
         def _set_value_question_by_markers(self, page, markers, value: str) -> bool:
             return True
 
-        def _set_yes_no_question_by_markers(self, page, markers, answer_yes: bool) -> bool:
+        def _set_yes_no_question_by_markers(
+            self, page, markers, answer_yes: bool
+        ) -> bool:
             return True
 
     adapter = _RecordingGreenhouseAdapter()
