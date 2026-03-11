@@ -35,3 +35,4 @@ applications/*/submissions/*.jpg
 research/*.png
 research/*.pdf
 research/*.jpg
+\n# Credentials and Agent Identity\n.env\n.claude/
