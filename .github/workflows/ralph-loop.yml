@@ -34,6 +34,15 @@ jobs:
       AUTONOMOUS_AGENT_RUNTIME: ${{ vars.AUTONOMOUS_AGENT_RUNTIME }}
       AUTONOMOUS_DISABLE_OLLAMA: ${{ vars.AUTONOMOUS_DISABLE_OLLAMA }}
       AUTONOMOUS_EXECUTE_SUBMISSIONS: ${{ vars.AUTONOMOUS_EXECUTE_SUBMISSIONS }}
+      ANCHOR_BROWSER_API_KEY: ${{ secrets.ANCHOR_BROWSER_API_KEY }}
+      ANCHOR_BROWSER_PROFILE_NAME: ${{ vars.ANCHOR_BROWSER_PROFILE_NAME }}
+      ANCHOR_BROWSER_PROFILE_PERSIST: ${{ vars.ANCHOR_BROWSER_PROFILE_PERSIST }}
+      ANCHOR_BROWSER_PROXY_ACTIVE: ${{ vars.ANCHOR_BROWSER_PROXY_ACTIVE }}
+      ANCHOR_BROWSER_PROXY_COUNTRY_CODE: ${{ vars.ANCHOR_BROWSER_PROXY_COUNTRY_CODE }}
+      ANCHOR_BROWSER_PROXY_REGION: ${{ vars.ANCHOR_BROWSER_PROXY_REGION }}
+      ANCHOR_BROWSER_PROXY_CITY: ${{ vars.ANCHOR_BROWSER_PROXY_CITY }}
+      ANCHOR_BROWSER_EXTRA_STEALTH_ACTIVE: ${{ vars.ANCHOR_BROWSER_EXTRA_STEALTH_ACTIVE }}
+      ANCHOR_BROWSER_STRICT: ${{ vars.ANCHOR_BROWSER_STRICT }}
       CI_SUBMIT_PROFILE_JSON: ${{ secrets.CI_SUBMIT_PROFILE_JSON }}
       CI_SUBMIT_AUTH_JSON: ${{ secrets.CI_SUBMIT_AUTH_JSON }}
       CI_SUBMIT_ANSWERS_JSON: ${{ secrets.CI_SUBMIT_ANSWERS_JSON }}
@@ -63,10 +72,7 @@ jobs:
           fi
           if [ -z "$EXECUTE_SUBMISSIONS" ]; then EXECUTE_SUBMISSIONS=false; fi
           if [ "$EXECUTE_SUBMISSIONS" = "true" ]; then
-            if [ -z "$CI_SUBMIT_PROFILE_JSON" ] || [ -z "$CI_SUBMIT_ANSWERS_JSON" ]; then
-              echo "CI submit secrets incomplete; falling back to dry run."
-              EXECUTE_SUBMISSIONS=false
-            elif ! python3 scripts/ci_submit_pipeline.py \
+            if ! python3 scripts/ci_submit_pipeline.py \
               --validate-secrets-only \
               --profile-env CI_SUBMIT_PROFILE_JSON \
               --auth-env CI_SUBMIT_AUTH_JSON \

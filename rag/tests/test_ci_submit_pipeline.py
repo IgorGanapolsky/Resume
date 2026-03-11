@@ -2085,6 +2085,38 @@ def test_validate_secret_payloads_passes_for_valid_secret_bundle(monkeypatch):
     assert errors == []
 
 
+def test_validate_secret_payloads_allows_empty_auth_map(monkeypatch):
+    mod = _load_module()
+    monkeypatch.setenv(
+        "CI_SUBMIT_PROFILE_JSON",
+        json.dumps(
+            {
+                "first_name": "Igor",
+                "last_name": "Ganapolsky",
+                "email": "igor@example.com",
+                "phone": "5555555555",
+            }
+        ),
+    )
+    monkeypatch.setenv(
+        "CI_SUBMIT_ANSWERS_JSON",
+        json.dumps(
+            {
+                "work_authorization_us": True,
+                "require_sponsorship": False,
+                "role_interest": "AI systems and integrations.",
+                "eeo_default": "Prefer not to say",
+            }
+        ),
+    )
+    monkeypatch.setenv("CI_SUBMIT_AUTH_JSON", "{}")
+
+    ok, errors = mod.validate_secret_payloads()
+
+    assert ok is True
+    assert errors == []
+
+
 def test_validate_secrets_only_cli_hides_secret_diagnostics(monkeypatch, capsys):
     mod = _load_module()
     monkeypatch.setenv(
@@ -2122,6 +2154,181 @@ def test_validate_secrets_only_cli_hides_secret_diagnostics(monkeypatch, capsys)
     assert rc == 2
     assert "Secret payload validation failed." in captured.out
     assert "invalid_auth:CI_SUBMIT_AUTH_JSON" not in captured.out
+
+
+def test_build_anchor_session_payload_uses_proxy_and_profile_defaults(monkeypatch):
+    mod = _load_module()
+    monkeypatch.setenv("ANCHOR_BROWSER_PROXY_COUNTRY_CODE", "us")
+    monkeypatch.setenv("ANCHOR_BROWSER_PROFILE_NAME", "resume-submit")
+    monkeypatch.setenv("ANCHOR_BROWSER_PROFILE_PERSIST", "true")
+    monkeypatch.delenv("ANCHOR_BROWSER_EXTRA_STEALTH_ACTIVE", raising=False)
+
+    payload = mod._build_anchor_session_payload()
+
+    assert payload["proxy"]["active"] is True
+    assert payload["proxy"]["type"] == "anchor_proxy"
+    assert payload["proxy"]["country_code"] == "us"
+    assert payload["extra_stealth"]["active"] is True
+    assert payload["profile"] == {"name": "resume-submit", "persist": True}
+
+
+def test_create_anchor_session_parses_response(monkeypatch):
+    mod = _load_module()
+
+    def _fake_anchor_request(method, path, payload=None):
+        assert method == "POST"
+        assert path == "/v1/sessions"
+        assert isinstance(payload, dict)
+        return {
+            "data": {
+                "session_id": "sess_123",
+                "cdp_url": "wss://cdp.anchorbrowser.example/session",
+                "live_view_url": "https://app.anchorbrowser.example/live/sess_123",
+            }
+        }
+
+    monkeypatch.setattr(mod, "_anchor_request", _fake_anchor_request)
+
+    session_id, cdp_url, live_view_url = mod._create_anchor_session()
+
+    assert session_id == "sess_123"
+    assert cdp_url == "wss://cdp.anchorbrowser.example/session"
+    assert live_view_url.endswith("/sess_123")
+
+
+def test_open_browser_runtime_uses_anchor_and_applies_storage_state(monkeypatch):
+    mod = _load_module()
+    monkeypatch.setenv("ANCHOR_BROWSER_API_KEY", "anchor_test_key")
+    monkeypatch.setenv("ANCHOR_BROWSER_STRICT", "true")
+    monkeypatch.setattr(
+        mod,
+        "_create_anchor_session",
+        lambda: (
+            "sess_123",
+            "wss://cdp.anchorbrowser.example/session",
+            "https://app.anchorbrowser.example/live/sess_123",
+        ),
+    )
+
+    class _FakePage:
+        def __init__(self):
+            self.gotos = []
+            self.evals = []
+
+        def goto(self, url, wait_until=None, timeout=None):
+            self.gotos.append(url)
+
+        def evaluate(self, script, arg):
+            self.evals.append((script, arg))
+
+    class _FakeContext:
+        def __init__(self):
+            self.cookies = None
+            self.page = _FakePage()
+
+        def add_cookies(self, cookies):
+            self.cookies = cookies
+
+        def new_page(self):
+            return self.page
+
+    class _FakeBrowser:
+        def __init__(self):
+            self.contexts = [_FakeContext()]
+            self.closed = False
+
+        def close(self):
+            self.closed = True
+
+    class _FakeChromium:
+        def __init__(self):
+            self.connected = []
+            self.browser = _FakeBrowser()
+
+        def connect_over_cdp(self, cdp_url):
+            self.connected.append(cdp_url)
+            return self.browser
+
+        def launch(self, **kwargs):
+            raise AssertionError("launch() should not be used when Anchor succeeds")
+
+    class _FakePlaywright:
+        def __init__(self):
+            self.chromium = _FakeChromium()
+
+    storage_state = {
+        "cookies": [{"name": "session", "value": "abc", "domain": ".example.com", "path": "/"}],
+        "origins": [
+            {
+                "origin": "https://example.com",
+                "localStorage": [{"name": "token", "value": "xyz"}],
+            }
+        ],
+    }
+    pw = _FakePlaywright()
+
+    runtime = mod._open_browser_runtime(pw, storage_state)
+
+    assert runtime.backend == "anchor_browser"
+    assert runtime.session_id == "sess_123"
+    assert pw.chromium.connected == ["wss://cdp.anchorbrowser.example/session"]
+    assert runtime.context.cookies == storage_state["cookies"]
+    assert runtime.page.gotos == ["https://example.com"]
+    assert runtime.page.evals[0][1] == storage_state["origins"][0]["localStorage"]
+
+
+def test_open_browser_runtime_falls_back_to_local_when_anchor_fails(monkeypatch):
+    mod = _load_module()
+    monkeypatch.setenv("ANCHOR_BROWSER_API_KEY", "anchor_test_key")
+    monkeypatch.delenv("ANCHOR_BROWSER_STRICT", raising=False)
+    monkeypatch.setattr(
+        mod,
+        "_create_anchor_session",
+        lambda: (_ for _ in ()).throw(RuntimeError("anchor unavailable")),
+    )
+
+    class _FakeContext:
+        def __init__(self):
+            self.kwargs = None
+
+        def new_page(self):
+            return object()
+
+    class _FakeBrowser:
+        def __init__(self):
+            self.context = _FakeContext()
+
+        def new_context(self, **kwargs):
+            self.context.kwargs = kwargs
+            return self.context
+
+        def close(self):
+            return None
+
+    class _FakeChromium:
+        def __init__(self):
+            self.launch_calls = []
+
+        def connect_over_cdp(self, cdp_url):
+            raise AssertionError("connect_over_cdp should not run after create fails")
+
+        def launch(self, **kwargs):
+            self.launch_calls.append(kwargs)
+            return _FakeBrowser()
+
+    class _FakePlaywright:
+        def __init__(self):
+            self.chromium = _FakeChromium()
+
+    pw = _FakePlaywright()
+    storage_state = {"cookies": [], "origins": []}
+
+    runtime = mod._open_browser_runtime(pw, storage_state)
+
+    assert runtime.backend == "local_playwright"
+    assert runtime.note.startswith("anchor_fallback_local:")
+    assert pw.chromium.launch_calls == [{"headless": True}]
+    assert runtime.context.kwargs == {"storage_state": storage_state}
 
 
 def test_execute_without_auth_secret_uses_fresh_context(tmp_path, monkeypatch):

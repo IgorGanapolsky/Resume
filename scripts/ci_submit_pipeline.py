@@ -20,7 +20,9 @@ import json
 import os
 import re
 import traceback
+import urllib.error
 import urllib.parse
+import urllib.request
 import zipfile
 from dataclasses import dataclass
 from pathlib import Path
@@ -156,6 +158,17 @@ class AdapterAuth:
 
 
 @dataclass
+class BrowserRuntime:
+    browser: Any
+    context: Any
+    page: Any
+    backend: str
+    session_id: str = ""
+    live_view_url: str = ""
+    note: str = ""
+
+
+@dataclass
 class SubmitAnswers:
     work_authorization_us: bool
     require_sponsorship: bool
@@ -179,6 +192,8 @@ class SubmitResult:
     verified: bool
     screenshot: Optional[Path]
     details: str
+    browser_backend: str = "local_playwright"
+    browser_note: str = ""
 
 
 @dataclass
@@ -195,6 +210,216 @@ class QueueGateAssessment:
     resume_path: Optional[Path]
     resume_html_path: Optional[Path]
     cover_path: Optional[Path]
+
+
+def _env_flag(name: str, default: bool = False) -> bool:
+    raw = str(os.getenv(name, "")).strip().lower()
+    if not raw:
+        return default
+    return raw in {"1", "true", "yes", "on"}
+
+
+def _anchor_api_base() -> str:
+    return str(
+        os.getenv("ANCHOR_BROWSER_API_BASE", "https://api.anchorbrowser.io")
+    ).rstrip("/")
+
+
+def _anchor_request(method: str, path: str, payload: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+    api_key = str(os.getenv("ANCHOR_BROWSER_API_KEY", "")).strip()
+    if not api_key:
+        raise RuntimeError("anchor_api_key_missing")
+    url = _anchor_api_base() + path
+    body = None
+    if payload is not None:
+        body = json.dumps(payload).encode("utf-8")
+    req = urllib.request.Request(url, data=body, method=method.upper())
+    req.add_header("anchor-api-key", api_key)
+    req.add_header("content-type", "application/json")
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            raw = resp.read().decode("utf-8", errors="ignore")
+            if not raw.strip():
+                return {}
+            parsed = json.loads(raw)
+            if isinstance(parsed, dict):
+                return parsed
+            raise RuntimeError("anchor_non_dict_response")
+    except urllib.error.HTTPError as exc:
+        detail = exc.read().decode("utf-8", errors="ignore").strip()
+        raise RuntimeError(f"anchor_http_{exc.code}:{detail[:400]}") from exc
+    except urllib.error.URLError as exc:
+        raise RuntimeError(f"anchor_network_error:{exc.reason}") from exc
+
+
+def _build_anchor_session_payload() -> Dict[str, Any]:
+    proxy_active = _env_flag("ANCHOR_BROWSER_PROXY_ACTIVE", default=True)
+    proxy_country = str(os.getenv("ANCHOR_BROWSER_PROXY_COUNTRY_CODE", "us")).strip().lower()
+    proxy_region = str(os.getenv("ANCHOR_BROWSER_PROXY_REGION", "")).strip().lower()
+    proxy_city = str(os.getenv("ANCHOR_BROWSER_PROXY_CITY", "")).strip()
+    profile_name = str(os.getenv("ANCHOR_BROWSER_PROFILE_NAME", "")).strip()
+    persist_profile = _env_flag(
+        "ANCHOR_BROWSER_PROFILE_PERSIST", default=bool(profile_name)
+    )
+    extra_stealth_active = _env_flag(
+        "ANCHOR_BROWSER_EXTRA_STEALTH_ACTIVE", default=proxy_active
+    )
+    max_duration = max(
+        60, int(str(os.getenv("ANCHOR_BROWSER_MAX_DURATION_SECONDS", "1800")).strip() or "1800")
+    )
+    idle_timeout = max(
+        30, int(str(os.getenv("ANCHOR_BROWSER_IDLE_TIMEOUT_SECONDS", "300")).strip() or "300")
+    )
+
+    payload: Dict[str, Any] = {
+        "timeout": {
+            "max_duration": max_duration,
+            "idle_timeout": idle_timeout,
+        },
+        "headless": {"active": True},
+        "popup_blocker": {"active": _env_flag("ANCHOR_BROWSER_POPUP_BLOCKER", default=True)},
+        "adblock": {"active": _env_flag("ANCHOR_BROWSER_ADBLOCK", default=False)},
+    }
+    if proxy_active:
+        proxy: Dict[str, Any] = {
+            "active": True,
+            "type": "anchor_proxy",
+        }
+        if proxy_country:
+            proxy["country_code"] = proxy_country
+        if proxy_region:
+            proxy["region"] = proxy_region
+        if proxy_city:
+            proxy["city"] = proxy_city
+        payload["proxy"] = proxy
+    if extra_stealth_active and proxy_active:
+        payload["extra_stealth"] = {"active": True}
+    if profile_name:
+        payload["profile"] = {"name": profile_name, "persist": persist_profile}
+    if _env_flag("ANCHOR_BROWSER_TRACING_ACTIVE", default=False):
+        payload["tracing"] = {"active": True, "snapshots": True, "sources": True}
+    return payload
+
+
+def _create_anchor_session() -> tuple[str, str, str]:
+    response = _anchor_request("POST", "/v1/sessions", _build_anchor_session_payload())
+    data = response.get("data") if isinstance(response.get("data"), dict) else response
+    if not isinstance(data, dict):
+        raise RuntimeError("anchor_missing_data")
+    cdp_url = str(data.get("cdp_url", "")).strip()
+    session_id = str(
+        data.get("session_id")
+        or data.get("id")
+        or data.get("browser_session_id")
+        or ""
+    ).strip()
+    live_view_url = str(data.get("live_view_url", "")).strip()
+    if not cdp_url:
+        raise RuntimeError("anchor_missing_cdp_url")
+    if not session_id:
+        raise RuntimeError("anchor_missing_session_id")
+    return session_id, cdp_url, live_view_url
+
+
+def _end_anchor_session(session_id: str) -> None:
+    if not session_id:
+        return
+    try:
+        _anchor_request(
+            "DELETE",
+            f"/v1/sessions/{urllib.parse.quote(session_id, safe='')}",
+        )
+    except Exception:
+        return
+
+
+def _apply_storage_state_to_context(context: Any, page: Any, storage_state: Any) -> None:
+    if not isinstance(storage_state, dict):
+        return
+    cookies = storage_state.get("cookies")
+    if isinstance(cookies, list) and cookies:
+        try:
+            context.add_cookies(cookies)
+        except Exception:
+            pass
+    origins = storage_state.get("origins")
+    if not isinstance(origins, list):
+        return
+    for origin_entry in origins:
+        if not isinstance(origin_entry, dict):
+            continue
+        origin = str(origin_entry.get("origin", "")).strip()
+        local_storage = origin_entry.get("localStorage")
+        if not origin or not isinstance(local_storage, list) or not local_storage:
+            continue
+        try:
+            page.goto(origin, wait_until="domcontentloaded", timeout=20000)
+            page.evaluate(
+                """(entries) => {
+                    for (const entry of entries) {
+                        if (!entry || typeof entry.name !== "string") {
+                            continue;
+                        }
+                        window.localStorage.setItem(entry.name, entry.value ?? "");
+                    }
+                }""",
+                local_storage,
+            )
+        except Exception:
+            continue
+
+
+def _open_browser_runtime(pw: Any, storage_state: Optional[Any]) -> BrowserRuntime:
+    strict_anchor = _env_flag("ANCHOR_BROWSER_STRICT", default=False)
+    anchor_api_key = str(os.getenv("ANCHOR_BROWSER_API_KEY", "")).strip()
+    if anchor_api_key:
+        try:
+            session_id, cdp_url, live_view_url = _create_anchor_session()
+            browser = pw.chromium.connect_over_cdp(cdp_url)
+            context = browser.contexts[0] if getattr(browser, "contexts", None) else browser.new_context()
+            page = context.new_page()
+            if storage_state is not None:
+                _apply_storage_state_to_context(context, page, storage_state)
+            return BrowserRuntime(
+                browser=browser,
+                context=context,
+                page=page,
+                backend="anchor_browser",
+                session_id=session_id,
+                live_view_url=live_view_url,
+            )
+        except Exception as exc:
+            if strict_anchor:
+                raise
+            note = f"anchor_fallback_local:{exc}"
+        else:
+            note = ""
+    else:
+        note = ""
+    context_kwargs: Dict[str, Any] = {}
+    if storage_state is not None:
+        context_kwargs["storage_state"] = storage_state
+    browser = pw.chromium.launch(headless=True)
+    context = browser.new_context(**context_kwargs)
+    page = context.new_page()
+    return BrowserRuntime(
+        browser=browser,
+        context=context,
+        page=page,
+        backend="local_playwright",
+        note=note,
+    )
+
+
+def _close_browser_runtime(runtime: Optional[BrowserRuntime]) -> None:
+    if runtime is None:
+        return
+    try:
+        runtime.browser.close()
+    except Exception:
+        pass
+    if runtime.session_id:
+        _end_anchor_session(runtime.session_id)
 
 
 class SiteAdapter:
@@ -247,159 +472,170 @@ class PlaywrightFormAdapter(SiteAdapter):
 
         try:
             with sync_playwright() as pw:
-                browser = pw.chromium.launch(headless=True)
-                context_kwargs: Dict[str, Any] = {}
-                if storage_state_arg is not None:
-                    context_kwargs["storage_state"] = storage_state_arg
-                context = browser.new_context(**context_kwargs)
-                page = context.new_page()
-                submit_error_detail: Optional[str] = None
-
-                def _capture_submit_error(response: Any) -> None:
-                    nonlocal submit_error_detail
-                    if submit_error_detail:
-                        return
-                    try:
-                        detail = self._extract_submit_error_detail(response)
-                    except Exception:
-                        detail = None
-                    if detail:
-                        submit_error_detail = detail
-
+                runtime: Optional[BrowserRuntime] = None
                 try:
-                    page.on("response", _capture_submit_error)
-                except Exception:
-                    pass
-                page.goto(task.url, wait_until="domcontentloaded", timeout=60000)
-                form_scope = self._resolve_form_scope(page)
-                if form_scope is None:
-                    task.confirmation_path.parent.mkdir(parents=True, exist_ok=True)
+                    runtime = _open_browser_runtime(pw, storage_state_arg)
+                    page = runtime.page
+                    submit_error_detail: Optional[str] = None
+
+                    def _capture_submit_error(response: Any) -> None:
+                        nonlocal submit_error_detail
+                        if submit_error_detail:
+                            return
+                        try:
+                            detail = self._extract_submit_error_detail(response)
+                        except Exception:
+                            detail = None
+                        if detail:
+                            submit_error_detail = detail
+
                     try:
-                        page.screenshot(
-                            path=str(task.confirmation_path), full_page=True
-                        )
+                        page.on("response", _capture_submit_error)
                     except Exception:
                         pass
-                    detail = self._missing_form_scope_detail(page)
-                    browser.close()
-                    return SubmitResult(
-                        adapter=self.name,
-                        verified=False,
-                        screenshot=task.confirmation_path
-                        if task.confirmation_path.exists()
-                        else None,
-                        details=detail,
-                    )
+                    page.goto(task.url, wait_until="domcontentloaded", timeout=60000)
+                    form_scope = self._resolve_form_scope(page)
+                    if form_scope is None:
+                        task.confirmation_path.parent.mkdir(parents=True, exist_ok=True)
+                        try:
+                            page.screenshot(
+                                path=str(task.confirmation_path), full_page=True
+                            )
+                        except Exception:
+                            pass
+                        detail = self._missing_form_scope_detail(page)
+                        return SubmitResult(
+                            adapter=self.name,
+                            verified=False,
+                            screenshot=task.confirmation_path
+                            if task.confirmation_path.exists()
+                            else None,
+                            details=detail,
+                            browser_backend=runtime.backend,
+                            browser_note=runtime.note,
+                        )
 
-                # Best-effort generic fill by common labels/placeholders.
-                self._fill_text(form_scope, "First Name", profile.first_name)
-                self._fill_text(form_scope, "Last Name", profile.last_name)
-                self._fill_text(
-                    form_scope, "Full Name", f"{profile.first_name} {profile.last_name}"
-                )
-                self._fill_text(
-                    form_scope,
-                    "Name",
-                    f"{profile.first_name} {profile.last_name}",
-                    exact_label=True,
-                )
-                self._fill_text(form_scope, "Email", profile.email)
-                self._fill_text(form_scope, "Phone", profile.phone)
-                if profile.location:
-                    self._fill_text(form_scope, "Location", profile.location)
-                    self._fill_text(form_scope, "Current Location", profile.location)
-                if profile.linkedin:
-                    self._fill_text(form_scope, "LinkedIn", profile.linkedin)
-                if profile.github:
-                    self._fill_text(form_scope, "GitHub", profile.github)
-                if profile.website:
-                    self._fill_text(form_scope, "Website", profile.website)
-                if profile.current_company:
+                    # Best-effort generic fill by common labels/placeholders.
+                    self._fill_text(form_scope, "First Name", profile.first_name)
+                    self._fill_text(form_scope, "Last Name", profile.last_name)
                     self._fill_text(
-                        form_scope, "Current Company", profile.current_company
+                        form_scope,
+                        "Full Name",
+                        f"{profile.first_name} {profile.last_name}",
                     )
                     self._fill_text(
-                        form_scope, "Current Employer", profile.current_company
+                        form_scope,
+                        "Name",
+                        f"{profile.first_name} {profile.last_name}",
+                        exact_label=True,
                     )
-
-                missing_answers = self._apply_required_answers(
-                    form_scope, page, answers
-                )
-                if missing_answers:
-                    task.confirmation_path.parent.mkdir(parents=True, exist_ok=True)
-                    try:
-                        page.screenshot(
-                            path=str(task.confirmation_path), full_page=True
+                    self._fill_text(form_scope, "Email", profile.email)
+                    self._fill_text(form_scope, "Phone", profile.phone)
+                    if profile.location:
+                        self._fill_text(form_scope, "Location", profile.location)
+                        self._fill_text(
+                            form_scope, "Current Location", profile.location
                         )
-                    except Exception:
-                        pass
-                    browser.close()
-                    return SubmitResult(
-                        adapter=self.name,
-                        verified=False,
-                        screenshot=task.confirmation_path
-                        if task.confirmation_path.exists()
-                        else None,
-                        details=(
-                            "missing_required_answers:"
-                            + ",".join(sorted(set(missing_answers)))
-                        ),
-                    )
-
-                # Resume upload is mandatory for this pipeline.
-                upload_ok, upload_details = self._upload_resume(
-                    form_scope, page, task.resume_path
-                )
-                if not upload_ok:
-                    task.confirmation_path.parent.mkdir(parents=True, exist_ok=True)
-                    try:
-                        page.screenshot(
-                            path=str(task.confirmation_path), full_page=True
+                    if profile.linkedin:
+                        self._fill_text(form_scope, "LinkedIn", profile.linkedin)
+                    if profile.github:
+                        self._fill_text(form_scope, "GitHub", profile.github)
+                    if profile.website:
+                        self._fill_text(form_scope, "Website", profile.website)
+                    if profile.current_company:
+                        self._fill_text(
+                            form_scope, "Current Company", profile.current_company
                         )
-                    except Exception:
-                        pass
-                    browser.close()
-                    return SubmitResult(
-                        adapter=self.name,
-                        verified=False,
-                        screenshot=task.confirmation_path
-                        if task.confirmation_path.exists()
-                        else None,
-                        details=upload_details,
-                    )
-                self._after_resume_upload(form_scope, page)
+                        self._fill_text(
+                            form_scope, "Current Employer", profile.current_company
+                        )
 
-                if not self._click_submit(form_scope, page):
-                    browser.close()
-                    return SubmitResult(
-                        adapter=self.name,
-                        verified=False,
-                        screenshot=None,
-                        details="submit_button_not_found",
+                    missing_answers = self._apply_required_answers(
+                        form_scope, page, answers
                     )
+                    if missing_answers:
+                        task.confirmation_path.parent.mkdir(parents=True, exist_ok=True)
+                        try:
+                            page.screenshot(
+                                path=str(task.confirmation_path), full_page=True
+                            )
+                        except Exception:
+                            pass
+                        return SubmitResult(
+                            adapter=self.name,
+                            verified=False,
+                            screenshot=task.confirmation_path
+                            if task.confirmation_path.exists()
+                            else None,
+                            details=(
+                                "missing_required_answers:"
+                                + ",".join(sorted(set(missing_answers)))
+                            ),
+                            browser_backend=runtime.backend,
+                            browser_note=runtime.note,
+                        )
 
-                confirmed = self._wait_for_confirmation(page, form_scope)
-                if not confirmed and self._post_submit_retry(
-                    form_scope, page, profile, answers
-                ):
+                    # Resume upload is mandatory for this pipeline.
+                    upload_ok, upload_details = self._upload_resume(
+                        form_scope, page, task.resume_path
+                    )
+                    if not upload_ok:
+                        task.confirmation_path.parent.mkdir(
+                            parents=True, exist_ok=True
+                        )
+                        try:
+                            page.screenshot(
+                                path=str(task.confirmation_path), full_page=True
+                            )
+                        except Exception:
+                            pass
+                        return SubmitResult(
+                            adapter=self.name,
+                            verified=False,
+                            screenshot=task.confirmation_path
+                            if task.confirmation_path.exists()
+                            else None,
+                            details=upload_details,
+                            browser_backend=runtime.backend,
+                            browser_note=runtime.note,
+                        )
+                    self._after_resume_upload(form_scope, page)
+
+                    if not self._click_submit(form_scope, page):
+                        return SubmitResult(
+                            adapter=self.name,
+                            verified=False,
+                            screenshot=None,
+                            details="submit_button_not_found",
+                            browser_backend=runtime.backend,
+                            browser_note=runtime.note,
+                        )
+
                     confirmed = self._wait_for_confirmation(page, form_scope)
-                failure_details = self._extract_failure_details(page, form_scope)
-                if not failure_details:
-                    failure_details = submit_error_detail
-                task.confirmation_path.parent.mkdir(parents=True, exist_ok=True)
-                page.screenshot(path=str(task.confirmation_path), full_page=True)
+                    if not confirmed and self._post_submit_retry(
+                        form_scope, page, profile, answers
+                    ):
+                        confirmed = self._wait_for_confirmation(page, form_scope)
+                    failure_details = self._extract_failure_details(page, form_scope)
+                    if not failure_details:
+                        failure_details = submit_error_detail
+                    task.confirmation_path.parent.mkdir(parents=True, exist_ok=True)
+                    page.screenshot(path=str(task.confirmation_path), full_page=True)
 
-                browser.close()
-                return SubmitResult(
-                    adapter=self.name,
-                    verified=confirmed and task.confirmation_path.exists(),
-                    screenshot=task.confirmation_path
-                    if task.confirmation_path.exists()
-                    else None,
-                    details="confirmed"
-                    if confirmed
-                    else (failure_details or "confirmation_text_not_detected"),
-                )
+                    return SubmitResult(
+                        adapter=self.name,
+                        verified=confirmed and task.confirmation_path.exists(),
+                        screenshot=task.confirmation_path
+                        if task.confirmation_path.exists()
+                        else None,
+                        details="confirmed"
+                        if confirmed
+                        else (failure_details or "confirmation_text_not_detected"),
+                        browser_backend=runtime.backend,
+                        browser_note=runtime.note,
+                    )
+                finally:
+                    _close_browser_runtime(runtime)
         except PlaywrightTimeoutError:
             return SubmitResult(
                 adapter=self.name,
@@ -2412,6 +2648,9 @@ def run_pipeline(
             result = adapter.submit(task, profile, auth, answers)
             row_result["adapter_details"] = result.details
             row_result["verified"] = result.verified
+            row_result["browser_backend"] = result.browser_backend
+            if result.browser_note:
+                row_result["browser_note"] = result.browser_note
             row_result["screenshot"] = (
                 str(result.screenshot) if result.screenshot else None
             )
