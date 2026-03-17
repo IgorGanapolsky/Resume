@@ -91,8 +91,10 @@ jobs:
             --max-new-jobs "$MAX_NEW" \
             --agent-runtime auto \
             --fit-threshold 70 \
-            --remote-min-score 55 \
+            --remote-min-score 50 \
             --max-submit-jobs "$MAX_SUBMIT" \
+            --execute-submissions \
+            --target-applied 5 \
             --quarantine-blocked \
             --max-parallel 3 \
             --report applications/job_applications/autonomous_supervisor_report.json \
