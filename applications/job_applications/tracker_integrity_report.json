@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-03-17T16:27:12.364152+00:00",
-  "tracker_csv": "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/job_applications/application_tracker.csv",
-  "applied_total": 17,
-  "applied_total_before": 17,
-  "applied_total_after": 17,
+  "generated_at": "2026-03-17T17:11:17.669771+00:00",
+  "tracker_csv": "/home/runner/work/Resume/Resume/applications/job_applications/application_tracker.csv",
+  "applied_total": 18,
+  "applied_total_before": 18,
+  "applied_total_after": 18,
   "fixed_count": 0,
   "backfilled_count": 0,
   "normalized_count": 0,
-  "missing_count": 9,
+  "missing_count": 18,
   "missing_rows": [
     {
       "row_index": 0,
@@ -16,6 +16,62 @@
       "missing": [
         "submission_evidence_path",
         "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 30,
+      "company": "Anthropic",
+      "role": "Senior / Staff+ Software Engineer - Autonomous Agent Infrastructure",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 32,
+      "company": "OpenEvidence",
+      "role": "Software Engineer - Site Reliability Engineering",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 34,
+      "company": "ElevenLabs",
+      "role": "Forward Deployed Engineer - Software Engineer",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 36,
+      "company": "Mercor",
+      "role": "Software Engineer (Trajectory)",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 37,
+      "company": "Mercor",
+      "role": "Software Engineer III",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 38,
+      "company": "Mercor",
+      "role": "Software Expert (Office Suite)",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 39,
+      "company": "Simile",
+      "role": "Careers contact form (general inquiry)",
+      "missing": [
+        "submission_evidence_path"
       ]
     },
     {
@@ -82,12 +138,29 @@
       ]
     },
     {
-      "row_index": 132,
+      "row_index": 130,
+      "company": "AMI",
+      "role": "AMI Engineer",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 136,
       "company": "OPM",
       "role": "US Tech Force Talent Network",
       "missing": [
         "submitted_resume_path",
+        "submission_evidence_path",
         "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 137,
+      "company": "Perplexity",
+      "role": "AI Software Engineer - Agents",
+      "missing": [
+        "submission_evidence_path"
       ]
     }
   ],

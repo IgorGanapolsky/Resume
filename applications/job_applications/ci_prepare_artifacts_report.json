@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-03-17T16:27:12.514573+00:00",
-  "tracker_csv": "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/job_applications/application_tracker.csv",
+  "generated_at": "2026-03-17T17:11:17.782271+00:00",
+  "tracker_csv": "/home/runner/work/Resume/Resume/applications/job_applications/application_tracker.csv",
   "max_jobs": 15,
   "fit_threshold": 70,
-  "remote_min_score": 50,
+  "remote_min_score": 55,
   "processed_rows": 15,
   "artifact_updates": 0,
   "became_gate_eligible": 0,
