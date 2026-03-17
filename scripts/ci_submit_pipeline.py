@@ -404,9 +404,12 @@ def _open_browser_runtime(
         note = ""
 
     if use_local_chrome:
-        user_data_dir = (
-            "/Users/ganapolsky_i/Library/Application Support/Google/Chrome/Default"
-        )
+        user_data_dir = os.path.expanduser("~/Library/Application Support/Google/Chrome/Default")
+        if not os.path.exists(user_data_dir):
+            # Fallback for Linux CI or if path is missing
+            user_data_dir = os.path.join(os.getcwd(), ".chrome_profile")
+            os.makedirs(user_data_dir, exist_ok=True)
+            
         browser = pw.chromium.launch_persistent_context(
             user_data_dir=user_data_dir,
             headless=True,
