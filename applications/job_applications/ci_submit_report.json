@@ -1,0 +1,2709 @@
+{
+  "generated_at": "2026-03-16T13:10:03.043526+00:00",
+  "dry_run": true,
+  "queue_only": false,
+  "max_jobs": 1,
+  "fit_threshold": 70,
+  "remote_min_score": 50,
+  "tracker_csv": "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/job_applications/application_tracker.csv",
+  "auth_env_configured": false,
+  "auth_adapters_available": [],
+  "applied_integrity_demoted_count": 0,
+  "applied_integrity_issues": [
+    {
+      "row_index": 31,
+      "company": "OpenEvidence",
+      "role": "Software Engineer - Backend and Infrastructure",
+      "status_before": "Applied",
+      "missing": []
+    },
+    {
+      "row_index": 33,
+      "company": "Runway",
+      "role": "Member of Technical Staff - Inference",
+      "status_before": "Applied",
+      "missing": []
+    },
+    {
+      "row_index": 130,
+      "company": "AMI",
+      "role": "AMI Engineer",
+      "status_before": "Applied",
+      "missing": []
+    }
+  ],
+  "queue_promoted_count": 0,
+  "queue_demoted_count": 0,
+  "queue_audit": [
+    {
+      "row_index": 1,
+      "company": "Automattic",
+      "role": "Mobile Engineer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [],
+      "fit_score": 3,
+      "remote_policy": "remote",
+      "remote_score": 85,
+      "remote_evidence": [
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:3<70",
+        "missing_cover_letter",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 2,
+      "company": "GitLab",
+      "role": "Senior Software Engineer Mobile",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [],
+      "fit_score": 3,
+      "remote_policy": "remote",
+      "remote_score": 88,
+      "remote_evidence": [
+        "remote_keyword",
+        "remote_us_scope"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:3<70",
+        "missing_cover_letter",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 3,
+      "company": "DockYard",
+      "role": "React Native Developer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [],
+      "fit_score": 3,
+      "remote_policy": "remote",
+      "remote_score": 85,
+      "remote_evidence": [
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:3<70",
+        "missing_cover_letter",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 4,
+      "company": "Deepgram",
+      "role": "Software Engineer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "voice-audio"
+      ],
+      "fit_score": 3,
+      "remote_policy": "remote",
+      "remote_score": 85,
+      "remote_evidence": [
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:3<70",
+        "missing_cover_letter",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 5,
+      "company": "D-Wave Quantum",
+      "role": "Software Engineer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [],
+      "fit_score": 0,
+      "remote_policy": "unknown",
+      "remote_score": 45,
+      "remote_evidence": [],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:0<70",
+        "missing_cover_letter",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "remote_likelihood_below_threshold:45<50",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 6,
+      "company": "Numiro",
+      "role": "AI Engineer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [],
+      "fit_score": 3,
+      "remote_policy": "remote",
+      "remote_score": 85,
+      "remote_evidence": [
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:3<70",
+        "missing_cover_letter",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 7,
+      "company": "Modernizing Medicine",
+      "role": "Software Engineer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [],
+      "fit_score": 0,
+      "remote_policy": "unknown",
+      "remote_score": 45,
+      "remote_evidence": [],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:0<70",
+        "missing_cover_letter",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "remote_likelihood_below_threshold:45<50",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 8,
+      "company": "Kalmus Labs",
+      "role": "AI Engineer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [],
+      "fit_score": 0,
+      "remote_policy": "unknown",
+      "remote_score": 45,
+      "remote_evidence": [],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:0<70",
+        "missing_cover_letter",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "remote_likelihood_below_threshold:45<50",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 9,
+      "company": "Safari AI",
+      "role": "Software Engineer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [],
+      "fit_score": 0,
+      "remote_policy": "unknown",
+      "remote_score": 45,
+      "remote_evidence": [],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:0<70",
+        "missing_cover_letter",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "remote_likelihood_below_threshold:45<50",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 10,
+      "company": "PostHog",
+      "role": "Software Engineer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [],
+      "fit_score": 3,
+      "remote_policy": "remote",
+      "remote_score": 85,
+      "remote_evidence": [
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:3<70",
+        "missing_cover_letter",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 11,
+      "company": "Statsig",
+      "role": "Software Engineer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [],
+      "fit_score": 3,
+      "remote_policy": "remote",
+      "remote_score": 85,
+      "remote_evidence": [
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:3<70",
+        "missing_cover_letter",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 12,
+      "company": "Buffer",
+      "role": "Mobile Engineer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [],
+      "fit_score": 3,
+      "remote_policy": "remote",
+      "remote_score": 85,
+      "remote_evidence": [
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:3<70",
+        "missing_cover_letter",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 13,
+      "company": "Hugging Face",
+      "role": "Mobile Engineer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [],
+      "fit_score": 3,
+      "remote_policy": "remote",
+      "remote_score": 85,
+      "remote_evidence": [
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:3<70",
+        "missing_cover_letter",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 14,
+      "company": "Replicate",
+      "role": "Software Engineer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 3,
+      "remote_policy": "remote",
+      "remote_score": 85,
+      "remote_evidence": [
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:3<70",
+        "missing_cover_letter",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 15,
+      "company": "Jumpspeak",
+      "role": "Mobile Engineer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [],
+      "fit_score": 0,
+      "remote_policy": "unknown",
+      "remote_score": 45,
+      "remote_evidence": [],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:0<70",
+        "missing_cover_letter",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "remote_likelihood_below_threshold:45<50",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 16,
+      "company": "AppZen",
+      "role": "Software Engineer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [],
+      "fit_score": 0,
+      "remote_policy": "unknown",
+      "remote_score": 45,
+      "remote_evidence": [],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:0<70",
+        "missing_cover_letter",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "remote_likelihood_below_threshold:45<50",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 17,
+      "company": "Globant",
+      "role": "React Native Developer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [],
+      "fit_score": 1,
+      "remote_policy": "hybrid",
+      "remote_score": 65,
+      "remote_evidence": [
+        "hybrid_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:1<70",
+        "missing_cover_letter",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 18,
+      "company": "CrowdStrike",
+      "role": "Mobile Engineer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [],
+      "fit_score": 0,
+      "remote_policy": "unknown",
+      "remote_score": 45,
+      "remote_evidence": [],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:0<70",
+        "missing_cover_letter",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "remote_likelihood_below_threshold:45<50",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 19,
+      "company": "Together AI",
+      "role": "Software Engineer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [],
+      "fit_score": 3,
+      "remote_policy": "remote",
+      "remote_score": 85,
+      "remote_evidence": [
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:3<70",
+        "missing_cover_letter",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 20,
+      "company": "EliseAI",
+      "role": "Software Engineer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [],
+      "fit_score": 3,
+      "remote_policy": "remote",
+      "remote_score": 85,
+      "remote_evidence": [
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:3<70",
+        "missing_cover_letter",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 21,
+      "company": "Cohere Health",
+      "role": "Software Engineer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [],
+      "fit_score": 3,
+      "remote_policy": "remote",
+      "remote_score": 85,
+      "remote_evidence": [
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:3<70",
+        "missing_cover_letter",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 22,
+      "company": "Collectly",
+      "role": "Software Engineer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [],
+      "fit_score": 3,
+      "remote_policy": "remote",
+      "remote_score": 85,
+      "remote_evidence": [
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:3<70",
+        "missing_cover_letter",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 23,
+      "company": "Artera",
+      "role": "Software Engineer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [],
+      "fit_score": 3,
+      "remote_policy": "remote",
+      "remote_score": 85,
+      "remote_evidence": [
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:3<70",
+        "missing_cover_letter",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 24,
+      "company": "Coinbase",
+      "role": "Senior Mobile Engineer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [],
+      "fit_score": 3,
+      "remote_policy": "remote",
+      "remote_score": 85,
+      "remote_evidence": [
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:3<70",
+        "missing_cover_letter",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 25,
+      "company": "Metallicus",
+      "role": "React Native Developer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [],
+      "fit_score": 3,
+      "remote_policy": "remote",
+      "remote_score": 85,
+      "remote_evidence": [
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:3<70",
+        "missing_cover_letter",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 26,
+      "company": "BitGo",
+      "role": "Mobile Engineer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [],
+      "fit_score": 3,
+      "remote_policy": "remote",
+      "remote_score": 88,
+      "remote_evidence": [
+        "remote_keyword",
+        "remote_us_scope"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:3<70",
+        "missing_cover_letter",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 27,
+      "company": "Apex Fintech",
+      "role": "Software Engineer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [],
+      "fit_score": 3,
+      "remote_policy": "remote",
+      "remote_score": 85,
+      "remote_evidence": [
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:3<70",
+        "missing_cover_letter",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 28,
+      "company": "GRAIL",
+      "role": "Software Engineer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [],
+      "fit_score": 3,
+      "remote_policy": "remote",
+      "remote_score": 85,
+      "remote_evidence": [
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:3<70",
+        "missing_cover_letter",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 40,
+      "company": "Decagon",
+      "role": "Senior Software Engineer, Infrastructure",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration",
+        "voice-audio"
+      ],
+      "fit_score": 0,
+      "remote_policy": "onsite",
+      "remote_score": 13,
+      "remote_evidence": [
+        "onsite_keyword",
+        "remote_us_scope"
+      ],
+      "submission_lane": "ci_auto:ashby",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:0<70",
+        "missing_cover_letter",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "remote_likelihood_below_threshold:13<50"
+      ]
+    },
+    {
+      "row_index": 41,
+      "company": "Inferact",
+      "role": "Member of Technical Staff, Exceptional Generalist (Remote)",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [],
+      "fit_score": 3,
+      "remote_policy": "remote",
+      "remote_score": 85,
+      "remote_evidence": [
+        "remote_keyword"
+      ],
+      "submission_lane": "ci_auto:ashby",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:3<70",
+        "missing_cover_letter",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html"
+      ]
+    },
+    {
+      "row_index": 49,
+      "company": "TELUS Digital",
+      "role": "Content Reviewer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 50,
+      "company": "Welo Data",
+      "role": "AI Internet Rater",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 51,
+      "company": "BNSF Railway",
+      "role": "Product, Platform & Enterprise Full Stack Sr/Staff Software Engineer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 52,
+      "company": "BNSF Railway",
+      "role": "Product, Platform & Enterprise Front End Sr/Staff Software Engineer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 53,
+      "company": "BNSF Railway",
+      "role": "Sr/Staff AI Engineer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "python"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "python_requested_not_explicit_in_resume",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 54,
+      "company": "Ping Identity",
+      "role": "Senior Manager Site Reliability Engineer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 55,
+      "company": "Ping Identity",
+      "role": "Senior Site Reliability Engineer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 56,
+      "company": "Bounteous",
+      "role": "Associate Director Adobe Target",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 93,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword",
+        "remote_us_scope"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 57,
+      "company": "FireMon",
+      "role": "Enterprise Account Executive Pacific NW",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "non_technical_role",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 58,
+      "company": "Unison Infrastructure",
+      "role": "Real Estate Counsel",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "non_technical_role",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 59,
+      "company": "Clipboard Health",
+      "role": "Client Support Specialist",
+      "status_before": "Draft",
+      "role_track": "fde",
+      "signals": [
+        "customer-integration",
+        "fde-role",
+        "voice-audio"
+      ],
+      "fit_score": 20,
+      "remote_policy": "unknown",
+      "remote_score": 50,
+      "remote_evidence": [
+        "remote_feed_source"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:20<70",
+        "missing_api_integration_signal",
+        "missing_cover_letter",
+        "missing_customer_facing_signal",
+        "missing_fde_competencies_block",
+        "missing_fde_headline",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "non_technical_role",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 60,
+      "company": "Mex Digital FZE",
+      "role": "QA Engineer",
+      "status_before": "Draft",
+      "role_track": "fde",
+      "signals": [
+        "customer-integration",
+        "fde-role",
+        "python"
+      ],
+      "fit_score": 24,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:24<70",
+        "missing_api_integration_signal",
+        "missing_cover_letter",
+        "missing_customer_facing_signal",
+        "missing_fde_competencies_block",
+        "missing_fde_headline",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "python_requested_not_explicit_in_resume",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 61,
+      "company": "EasyLlama",
+      "role": "Revenue Operations Manager",
+      "status_before": "Draft",
+      "role_track": "fde",
+      "signals": [
+        "customer-integration",
+        "fde-role",
+        "voice-audio"
+      ],
+      "fit_score": 20,
+      "remote_policy": "unknown",
+      "remote_score": 50,
+      "remote_evidence": [
+        "remote_feed_source"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:20<70",
+        "missing_api_integration_signal",
+        "missing_cover_letter",
+        "missing_customer_facing_signal",
+        "missing_fde_competencies_block",
+        "missing_fde_headline",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "non_technical_role",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 62,
+      "company": "NMI",
+      "role": "Content Manager",
+      "status_before": "Draft",
+      "role_track": "fde",
+      "signals": [
+        "customer-integration",
+        "fde-role",
+        "voice-audio"
+      ],
+      "fit_score": 24,
+      "remote_policy": "remote",
+      "remote_score": 93,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword",
+        "remote_us_scope"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:24<70",
+        "missing_api_integration_signal",
+        "missing_cover_letter",
+        "missing_customer_facing_signal",
+        "missing_fde_competencies_block",
+        "missing_fde_headline",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "non_technical_role",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 63,
+      "company": "3Pillar",
+      "role": "Senior Software Engineer Angular .net",
+      "status_before": "Draft",
+      "role_track": "fde",
+      "signals": [
+        "customer-integration",
+        "fde-role",
+        "python"
+      ],
+      "fit_score": 24,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:24<70",
+        "missing_api_integration_signal",
+        "missing_cover_letter",
+        "missing_customer_facing_signal",
+        "missing_fde_competencies_block",
+        "missing_fde_headline",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "python_requested_not_explicit_in_resume",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 64,
+      "company": "BlastPoint",
+      "role": "Technical Project Manager",
+      "status_before": "Draft",
+      "role_track": "fde",
+      "signals": [
+        "customer-integration",
+        "fde-role",
+        "voice-audio"
+      ],
+      "fit_score": 24,
+      "remote_policy": "remote",
+      "remote_score": 93,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword",
+        "remote_us_scope"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:24<70",
+        "missing_api_integration_signal",
+        "missing_cover_letter",
+        "missing_customer_facing_signal",
+        "missing_fde_competencies_block",
+        "missing_fde_headline",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 65,
+      "company": "Smartbug Media",
+      "role": "HubSpot Solutions Architect",
+      "status_before": "Draft",
+      "role_track": "fde",
+      "signals": [
+        "customer-integration",
+        "fde-role",
+        "python"
+      ],
+      "fit_score": 24,
+      "remote_policy": "remote",
+      "remote_score": 93,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword",
+        "remote_us_scope"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:24<70",
+        "missing_api_integration_signal",
+        "missing_cover_letter",
+        "missing_customer_facing_signal",
+        "missing_fde_competencies_block",
+        "missing_fde_headline",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "python_requested_not_explicit_in_resume",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 66,
+      "company": "Oowlish Technology",
+      "role": "Senior Data Engineer",
+      "status_before": "Draft",
+      "role_track": "fde",
+      "signals": [
+        "customer-integration",
+        "fde-role",
+        "python"
+      ],
+      "fit_score": 24,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:24<70",
+        "missing_api_integration_signal",
+        "missing_cover_letter",
+        "missing_customer_facing_signal",
+        "missing_fde_competencies_block",
+        "missing_fde_headline",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "python_requested_not_explicit_in_resume",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 67,
+      "company": "StarCompliance",
+      "role": "Principal Data Operations &amp; Migration Lead",
+      "status_before": "Draft",
+      "role_track": "fde",
+      "signals": [
+        "customer-integration",
+        "fde-role",
+        "python"
+      ],
+      "fit_score": 24,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:24<70",
+        "missing_api_integration_signal",
+        "missing_cover_letter",
+        "missing_customer_facing_signal",
+        "missing_fde_competencies_block",
+        "missing_fde_headline",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "python_requested_not_explicit_in_resume",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 68,
+      "company": "Marketerx",
+      "role": "Senior DevOps Engineer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 0,
+      "remote_policy": "unknown",
+      "remote_score": 50,
+      "remote_evidence": [
+        "remote_feed_source"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "fit_score_below_threshold:0<70",
+        "missing_cover_letter",
+        "missing_resume_docx_or_pdf",
+        "missing_tailored_resume_html",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 70,
+      "company": "FormativGroup",
+      "role": "Senior Technical Consultant Charles River Everywhere",
+      "status_before": "Draft",
+      "role_track": "fde",
+      "signals": [
+        "customer-integration",
+        "fde-role"
+      ],
+      "fit_score": 94,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 71,
+      "company": "Magic Media",
+      "role": "C++ Developer",
+      "status_before": "Draft",
+      "role_track": "fde",
+      "signals": [
+        "customer-integration",
+        "fde-role",
+        "python"
+      ],
+      "fit_score": 94,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "python_requested_not_explicit_in_resume",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 72,
+      "company": "InfStones",
+      "role": "DevOps Engineer",
+      "status_before": "Draft",
+      "role_track": "fde",
+      "signals": [
+        "customer-integration",
+        "fde-role",
+        "python"
+      ],
+      "fit_score": 94,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "python_requested_not_explicit_in_resume",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 73,
+      "company": "CI&amp;T",
+      "role": "Job 27573 Mid Data Developer Brasil",
+      "status_before": "Draft",
+      "role_track": "fde",
+      "signals": [
+        "customer-integration",
+        "fde-role",
+        "python"
+      ],
+      "fit_score": 94,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "python_requested_not_explicit_in_resume",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 74,
+      "company": "CI&amp;T",
+      "role": "Job 27611 MidSenior Data Developer Brasil",
+      "status_before": "Draft",
+      "role_track": "fde",
+      "signals": [
+        "customer-integration",
+        "fde-role",
+        "python"
+      ],
+      "fit_score": 94,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "python_requested_not_explicit_in_resume",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 75,
+      "company": "Ubiminds",
+      "role": "Mid Level DevOps Engineer CI CD Optimization",
+      "status_before": "Draft",
+      "role_track": "fde",
+      "signals": [
+        "customer-integration",
+        "fde-role",
+        "python"
+      ],
+      "fit_score": 94,
+      "remote_policy": "remote",
+      "remote_score": 93,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword",
+        "remote_us_scope"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "python_requested_not_explicit_in_resume",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 76,
+      "company": "ARC&#39;TERYX",
+      "role": "Director Asset Protection NAM Retail",
+      "status_before": "Draft",
+      "role_track": "fde",
+      "signals": [
+        "customer-integration",
+        "fde-role",
+        "voice-audio"
+      ],
+      "fit_score": 94,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 77,
+      "company": "Coupa Software, Inc.",
+      "role": "Coupa Pay Customer Success Manager 11184",
+      "status_before": "Draft",
+      "role_track": "fde",
+      "signals": [
+        "customer-integration",
+        "fde-role",
+        "voice-audio"
+      ],
+      "fit_score": 94,
+      "remote_policy": "remote",
+      "remote_score": 93,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword",
+        "remote_us_scope"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 78,
+      "company": "Swayable",
+      "role": "Research Data Scientist",
+      "status_before": "Draft",
+      "role_track": "fde",
+      "signals": [
+        "customer-integration",
+        "fde-role",
+        "python"
+      ],
+      "fit_score": 94,
+      "remote_policy": "remote",
+      "remote_score": 93,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword",
+        "remote_us_scope"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "python_requested_not_explicit_in_resume",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 79,
+      "company": "Exaware",
+      "role": "Operations and Order Management Manager",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 80,
+      "company": "Relativity Space",
+      "role": "Senior IT Systems Engineer Storage and Infrastructure",
+      "status_before": "Draft",
+      "role_track": "fde",
+      "signals": [
+        "customer-integration",
+        "fde-role",
+        "voice-audio"
+      ],
+      "fit_score": 94,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 81,
+      "company": "Okta, Inc.",
+      "role": "Senior Solutions Engineer North East",
+      "status_before": "Draft",
+      "role_track": "fde",
+      "signals": [
+        "customer-integration",
+        "fde-role"
+      ],
+      "fit_score": 94,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 82,
+      "company": "ComputerCare",
+      "role": "Data Analyst II",
+      "status_before": "Draft",
+      "role_track": "fde",
+      "signals": [
+        "customer-integration",
+        "fde-role",
+        "python"
+      ],
+      "fit_score": 94,
+      "remote_policy": "remote",
+      "remote_score": 93,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword",
+        "remote_us_scope"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "python_requested_not_explicit_in_resume",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 83,
+      "company": "Solera Health",
+      "role": "Vice President of Engagement Transformation",
+      "status_before": "Draft",
+      "role_track": "fde",
+      "signals": [
+        "customer-integration",
+        "fde-role",
+        "voice-audio"
+      ],
+      "fit_score": 94,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 84,
+      "company": "Solera Health",
+      "role": "Data Scientist",
+      "status_before": "Draft",
+      "role_track": "fde",
+      "signals": [
+        "customer-integration",
+        "fde-role",
+        "python"
+      ],
+      "fit_score": 94,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "python_requested_not_explicit_in_resume",
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 85,
+      "company": "MoonPay",
+      "role": "Partner Success Manager",
+      "status_before": "Draft",
+      "role_track": "fde",
+      "signals": [
+        "customer-integration",
+        "fde-role",
+        "voice-audio"
+      ],
+      "fit_score": 94,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 86,
+      "company": "OpenAI",
+      "role": "Administrative Business Partner",
+      "status_before": "Draft",
+      "role_track": "fde",
+      "signals": [
+        "customer-integration",
+        "fde-role",
+        "voice-audio"
+      ],
+      "fit_score": 94,
+      "remote_policy": "remote",
+      "remote_score": 93,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword",
+        "remote_us_scope"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 87,
+      "company": "Lavendo",
+      "role": "Technical Product Manager",
+      "status_before": "Draft",
+      "role_track": "fde",
+      "signals": [
+        "customer-integration",
+        "fde-role",
+        "voice-audio"
+      ],
+      "fit_score": 94,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 88,
+      "company": "shopware AG",
+      "role": "AI-Native Cloud Infrastructure Generalist (m/f/d)",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 89,
+      "company": "Fluence International, Inc.",
+      "role": "Full-Stack Developer (6 months, extendable)",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 90,
+      "company": "A.Team",
+      "role": "Senior Independent AI Engineer / Architect",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 91,
+      "company": "A.Team",
+      "role": "Senior Independent Software Developer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 92,
+      "company": "Coalition Technologies",
+      "role": "Copywriter",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 93,
+      "company": "GNO Partners",
+      "role": "Senior Amazon Brand Manager",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 94,
+      "company": "Vox Media, LLC",
+      "role": "Deputy Editor Future Perfect",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 95,
+      "company": "Yassir",
+      "role": "Senior Mobile iOS Engineer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 96,
+      "company": "Brave",
+      "role": "Software Engineer UI",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 97,
+      "company": "Wild Alaskan Company",
+      "role": "Executive Assistant",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 98,
+      "company": "Unlock Health",
+      "role": "Senior Media Director Performance Media",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 93,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword",
+        "remote_us_scope"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 99,
+      "company": "Agoda",
+      "role": "Connectivity Manager",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 100,
+      "company": "Sociallyin",
+      "role": "Social Media Strategist",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 101,
+      "company": "ARRISE",
+      "role": "Strategic Live Casino Manager",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 102,
+      "company": "Nest Veterinary",
+      "role": "Implementation Specialist",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 103,
+      "company": "PointClickCare",
+      "role": "PointClickCare Associate Data Scientist",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 104,
+      "company": "RYZ Labs",
+      "role": "Product Manager Customer Care",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 93,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword",
+        "remote_us_scope"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 105,
+      "company": "vCluster Labs",
+      "role": "Talent Acquisition Partner",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 93,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword",
+        "remote_us_scope"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 106,
+      "company": "Lantern",
+      "role": "Director AI Engineering",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 107,
+      "company": "SciLeads",
+      "role": "Senior Product Manager Platform Life Sciences",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 108,
+      "company": "GoodTime",
+      "role": "Customer Success Manager",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 93,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword",
+        "remote_us_scope"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 109,
+      "company": "Geotab",
+      "role": "Business Development Manager Vocational",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 93,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword",
+        "remote_us_scope"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 110,
+      "company": "Galileo Financial Technologies",
+      "role": "Software Engineer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 111,
+      "company": "Parloa",
+      "role": "Senior Partnerships Manager Spain Italy",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 112,
+      "company": "Exadel",
+      "role": "3D Designer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 113,
+      "company": "Juul Labs",
+      "role": "Division Manager KY WV",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 114,
+      "company": "New Era Technology",
+      "role": "SAP WalkMe Development Senior Consultant",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 115,
+      "company": "Sharebite",
+      "role": "Engineering Manager",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 93,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword",
+        "remote_us_scope"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 116,
+      "company": "Anypear",
+      "role": "Technical Architect AUS Company",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 93,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword",
+        "remote_us_scope"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 117,
+      "company": "Judi Health",
+      "role": "Senior Full Stack Software Developer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 118,
+      "company": "OpenSea",
+      "role": "Social Media Lead",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 119,
+      "company": "Coderio",
+      "role": "SaaS Configuration Analyst",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 120,
+      "company": "Arcadia",
+      "role": "Sr Director Data Engineering & Analytics",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 121,
+      "company": "Too Good To Go",
+      "role": "CX Specialist",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 122,
+      "company": "Mentis AI",
+      "role": "Real Estate Investor \u00e2\u0080\u0094 Expert AI Trainer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 123,
+      "company": "Nearform",
+      "role": "Technical Lead DevOps",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 124,
+      "company": "You.com",
+      "role": "Senior Security Engineer",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 125,
+      "company": "CI&amp;T",
+      "role": "Job 27602 Mid level Developer NodeJS Brazil",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 126,
+      "company": "Workleap",
+      "role": "Sp\u00c3\u00a9cialiste en acquisition de talents Pipeline & Sourcing",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 127,
+      "company": "Power Digital",
+      "role": "Social Commerce Strategist",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 128,
+      "company": "Xsolla",
+      "role": "HR Project Coordinator",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 129,
+      "company": "Mechanical Orchard",
+      "role": "Engineering Manager Delivery",
+      "status_before": "Draft",
+      "role_track": "general",
+      "signals": [
+        "customer-integration"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 93,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword",
+        "remote_us_scope"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "unsupported_site_for_ci_submit"
+      ]
+    },
+    {
+      "row_index": 131,
+      "company": "Oracle",
+      "role": "Sr Principal AI Software Engineer - ML & AI Innovation",
+      "status_before": "ReadyToSubmit",
+      "role_track": "general",
+      "signals": [
+        "customer-integration",
+        "python"
+      ],
+      "fit_score": 85,
+      "remote_policy": "override",
+      "remote_score": 100,
+      "remote_evidence": [
+        "csv_override"
+      ],
+      "submission_lane": "ci_auto:oracle",
+      "eligible_for_ready": true,
+      "reasons": []
+    },
+    {
+      "row_index": 134,
+      "company": "Palantir Technologies",
+      "role": "Software Engineer New Grad Production Infrastructure",
+      "status_before": "Draft",
+      "role_track": "fde",
+      "signals": [
+        "customer-integration",
+        "fde-role",
+        "python"
+      ],
+      "fit_score": 74,
+      "remote_policy": "remote",
+      "remote_score": 90,
+      "remote_evidence": [
+        "remote_feed_source",
+        "remote_keyword"
+      ],
+      "submission_lane": "manual",
+      "eligible_for_ready": false,
+      "reasons": [
+        "missing_customer_facing_signal",
+        "python_requested_not_explicit_in_resume",
+        "unsupported_site_for_ci_submit"
+      ]
+    }
+  ],
+  "ready_rows_total": 1,
+  "target_applied": 0,
+  "max_cycles": 1,
+  "quarantine_blocked": false,
+  "results": [
+    {
+      "cycle": 1,
+      "row_index": 131,
+      "company": "Oracle",
+      "role": "Sr Principal AI Software Engineer - ML & AI Innovation",
+      "url": "https://eeho.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/jobsearch/job/324362/",
+      "status_before": "ReadyToSubmit",
+      "submission_lane": "ci_auto:oracle",
+      "mode": "dry_run",
+      "adapter": "oracle",
+      "resume_path": "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/oracle/tailored_resumes/2026-03-11_oracle_sr-principal-ai-software-engineer-ml-ai-innovation.docx",
+      "confirmation_path": "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/oracle/submissions/2026-03-16_oracle_sr-principal-ai-software-engineer-ml-ai-innovation_ci_confirmation.png",
+      "result": "would_submit"
+    }
+  ],
+  "applied_count": 0,
+  "failed_count": 0,
+  "skipped_count": 0,
+  "cycles_run": 1,
+  "changed": false
+}

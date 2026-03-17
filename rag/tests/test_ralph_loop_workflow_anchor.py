@@ -19,4 +19,8 @@ def test_ralph_loop_workflow_exposes_anchor_browser_env():
         "ANCHOR_BROWSER_EXTRA_STEALTH_ACTIVE: ${{ vars.ANCHOR_BROWSER_EXTRA_STEALTH_ACTIVE }}"
         in workflow
     )
-    assert '[ -z "$CI_SUBMIT_AUTH_JSON" ]' not in workflow
+    assert 'elif [ -z "$CI_SUBMIT_AUTH_JSON" ]; then' in workflow
+    assert (
+        'echo "CI submit auth secret absent; proceeding without browser storage state."'
+        in workflow
+    )

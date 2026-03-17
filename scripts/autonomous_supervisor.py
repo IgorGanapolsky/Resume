@@ -363,7 +363,19 @@ def build_lane_plan(
     target_applied: int = 0,
     submit_max_cycles: int = 1,
     quarantine_blocked: bool = True,
+    use_local_chrome: bool = False,
 ) -> List[Lane]:
+    submit_base = [
+        "python3",
+        "scripts/ci_submit_pipeline.py",
+        "--fit-threshold",
+        str(fit_threshold),
+        "--remote-min-score",
+        str(remote_min_score),
+    ]
+    if use_local_chrome:
+        submit_base.append("--use-local-chrome")
+
     lanes = [
         Lane(
             name="discover",
@@ -404,14 +416,9 @@ def build_lane_plan(
         ),
         Lane(
             name="queue_gate",
-            command=[
-                "python3",
-                "scripts/ci_submit_pipeline.py",
+            command=submit_base
+            + [
                 "--queue-only",
-                "--fit-threshold",
-                str(fit_threshold),
-                "--remote-min-score",
-                str(remote_min_score),
                 "--report",
                 "applications/job_applications/ci_ready_queue_report.json",
             ],
@@ -421,20 +428,17 @@ def build_lane_plan(
     submit_lane_name: str
     if execute_submissions:
         submit_lane_name = "submit_execute"
-        submit_command = [
-            "python3",
-            "scripts/ci_submit_pipeline.py",
-            "--execute",
-            "--max-jobs",
-            str(max_submit_jobs),
-            "--fit-threshold",
-            str(fit_threshold),
-            "--remote-min-score",
-            str(remote_min_score),
-            "--report",
-            "applications/job_applications/ci_submit_execute_report.json",
-            "--fail-on-error",
-        ]
+        submit_command = (
+            submit_base
+            + [
+                "--execute",
+                "--max-jobs",
+                str(max_submit_jobs),
+                "--report",
+                "applications/job_applications/ci_submit_execute_report.json",
+                "--fail-on-error",
+            ]
+        )
         if quarantine_blocked:
             submit_command.append("--quarantine-blocked")
         if target_applied > 0:
@@ -452,15 +456,10 @@ def build_lane_plan(
         lanes.append(
             Lane(
                 name=submit_lane_name,
-                command=[
-                    "python3",
-                    "scripts/ci_submit_pipeline.py",
+                command=submit_base
+                + [
                     "--max-jobs",
                     str(max_submit_jobs),
-                    "--fit-threshold",
-                    str(fit_threshold),
-                    "--remote-min-score",
-                    str(remote_min_score),
                     "--report",
                     "applications/job_applications/ci_submit_dry_run_report.json",
                 ],
@@ -854,6 +853,11 @@ def main() -> int:
         help="Quarantine rows blocked by required-field screeners during submit lane.",
     )
     parser.add_argument(
+        "--use-local-chrome",
+        action="store_true",
+        help="Force use of local Chrome profile in submission lane.",
+    )
+    parser.add_argument(
         "--fail-fast",
         action="store_true",
         help="Stop scheduling additional lanes after first failure.",
@@ -869,6 +873,7 @@ def main() -> int:
         target_applied=max(0, args.target_applied),
         submit_max_cycles=max(1, args.submit_max_cycles),
         quarantine_blocked=args.quarantine_blocked,
+        use_local_chrome=args.use_local_chrome,
     )
     return run_supervisor(
         lanes=lanes,

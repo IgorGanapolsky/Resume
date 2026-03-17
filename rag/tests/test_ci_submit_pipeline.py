@@ -11,10 +11,23 @@ import zipfile
 from pathlib import Path
 
 
+import types
+
 def _load_module():
-    script_path = (
-        Path(__file__).resolve().parents[2] / "scripts" / "ci_submit_pipeline.py"
-    )
+    script_dir = Path(__file__).resolve().parents[2] / "scripts"
+    if str(script_dir) not in sys.path:
+        sys.path.insert(0, str(script_dir))
+    
+    # Mock agent_identity if it is not importable
+    try:
+        import agent_identity
+    except ImportError:
+        mock_identity = types.ModuleType("agent_identity")
+        mock_identity.sign_artifact = lambda x: "mock_sig"
+        mock_identity.verify_artifact = lambda x, y: True
+        sys.modules["agent_identity"] = mock_identity
+
+    script_path = script_dir / "ci_submit_pipeline.py"
     spec = importlib.util.spec_from_file_location(
         "ci_submit_pipeline_test_mod", script_path
     )

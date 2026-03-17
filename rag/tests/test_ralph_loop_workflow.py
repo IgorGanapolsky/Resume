@@ -11,8 +11,8 @@ def test_live_submit_requires_profile_and_answers_but_not_auth():
     text = WORKFLOW.read_text(encoding="utf-8")
 
     assert (
-        'if [ -z "$CI_SUBMIT_PROFILE_JSON" ] || [ -z "$CI_SUBMIT_ANSWERS_JSON" ]; then'
-        in text
+        "if ! python3 scripts/ci_submit_pipeline.py \\" in text
+        and "--validate-secrets-only \\" in text
     )
     assert (
         '[ -z "$CI_SUBMIT_PROFILE_JSON" ] || [ -z "$CI_SUBMIT_AUTH_JSON" ] || '

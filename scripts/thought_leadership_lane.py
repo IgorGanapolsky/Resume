@@ -82,15 +82,20 @@ def main():
                 ):
                     applied_count += 1
 
-    prompt = f"""You are a CTO automating your own job search via a parallel AI Swarm Architecture.
-Write a highly technical, concise LinkedIn post (max 150 words) about your latest metrics.
-Focus on hard empirical data, zero fluff. Highlight your multi-model consensus architecture.
+    prompt = f"""You are a CTO building an autonomous AI Swarm to manage your own engineering workflows.
+Instead of just sharing metrics, write a "Teachable" LinkedIn post (max 150 words) that shares a distinct PHILOSOPHY or FRAMEWORK.
 
-Recent Metrics context:
+Topic ideas based on recent work:
+- Why "consensus-based review" beats single-model agents.
+- The "Integration is a social problem" POV for Forward-Deployed roles.
+- Why prompt engineering is secondary to cost-predictability and reliability.
+
+Context for inspiration:
 Applied today: {applied_count}
 {metrics[:500]}
 
-Format: Return ONLY the raw post content. No preambles, no quotes, no conversational filler. Use 2-3 technical hashtags."""
+Vanessa's Advice: Stop gaming filters. Create a distinct, generous POV that forces a human review.
+Format: Return ONLY the raw post content. No preambles. Use 2-3 hashtags like #AISwarm #EngineeringPhilosophy #TeachableContent."""
 
     print("Generating thought leadership post...")
     content = call_llm(prompt)

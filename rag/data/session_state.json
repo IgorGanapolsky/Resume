@@ -1,0 +1,17 @@
+{
+  "last_results": {
+    "source": "query",
+    "query": "job applications today March 15 2026",
+    "app_ids": [
+      "mercor__software-expert-office-suite__b101f80357",
+      "bnsf-railway__product-platform-enterprise-full-stack-sr-staff-software-engineer__ba8ba46859",
+      "bnsf-railway__product-platform-enterprise-front-end-sr-staff-software-engineer__8184a47b13",
+      "mercor__software-engineer-iii__a2783979bd",
+      "a-team__senior-independent-software-developer__fb1953f6a2",
+      "ci-amp-t__job-27602-mid-level-developer-nodejs-brazil__988993e0d7",
+      "fluence-international-inc__full-stack-developer-6-months-extendable__8d91fcff62",
+      "mercor__software-engineer-trajectory__34d4a66d52"
+    ],
+    "ts": "2026-03-15T17:05:08.900310+00:00"
+  }
+}
