@@ -93,7 +93,6 @@ jobs:
             --fit-threshold 70 \
             --remote-min-score 50 \
             --max-submit-jobs "$MAX_SUBMIT" \
-            --execute-submissions \
             --target-applied 5 \
             --quarantine-blocked \
             --max-parallel 3 \

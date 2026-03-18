@@ -546,6 +546,154 @@ def test_queue_only_blocks_low_remote_likelihood(tmp_path, monkeypatch):
     assert any(r.startswith("remote_likelihood_below_threshold:") for r in reasons)
 
 
+def test_queue_only_marks_manual_only_adapter_as_non_promotable(tmp_path, monkeypatch):
+    mod = _load_module()
+    monkeypatch.setattr(mod, "ROOT", tmp_path)
+
+    company = "Oracle"
+    role = "Sr Principal AI Software Engineer - ML & AI Innovation"
+    company_slug = mod._slug(company)
+    role_slug = mod._slug(role)[:64]
+    resume_dir = tmp_path / "applications" / company_slug / "tailored_resumes"
+    cover_dir = tmp_path / "applications" / company_slug / "cover_letters"
+    jobs_dir = tmp_path / "applications" / company_slug / "jobs"
+    resume_dir.mkdir(parents=True, exist_ok=True)
+    cover_dir.mkdir(parents=True, exist_ok=True)
+    jobs_dir.mkdir(parents=True, exist_ok=True)
+    (resume_dir / f"2026-03-11_{company_slug}_{role_slug}.docx").write_bytes(b"docx")
+    (resume_dir / f"2026-03-11_{company_slug}_{role_slug}.html").write_text(
+        "summary professional experience python customer-facing delivery",
+        encoding="utf-8",
+    )
+    (cover_dir / f"2026-03-11_{company_slug}_{role_slug}.md").write_text(
+        "Cover letter", encoding="utf-8"
+    )
+    (jobs_dir / f"2026-03-11_{company_slug}_{role_slug}_abc123.md").write_text(
+        "Remote US only. Python and customer integrations required.",
+        encoding="utf-8",
+    )
+
+    tracker = tmp_path / "application_tracker.csv"
+    report = tmp_path / "report.json"
+    _write_tracker(
+        tracker,
+        [
+            {
+                "Company": company,
+                "Role": role,
+                "Location": "Remote",
+                "Salary Range": "",
+                "Status": "Draft",
+                "Date Applied": "",
+                "Follow Up Date": "",
+                "Response": "",
+                "Interview Stage": "Initial",
+                "Days To Response": "",
+                "Response Type": "",
+                "Cover Letter Used": "",
+                "What Worked": "",
+                "Tags": "ai;python;customer-facing",
+                "Notes": "",
+                "Career Page URL": "https://eeho.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/jobsearch/job/324362/",
+                "Remote Policy": "override",
+                "Remote Likelihood Score": "100",
+            }
+        ],
+    )
+
+    rc = mod.run_pipeline(
+        tracker_csv=tracker,
+        report_path=report,
+        dry_run=True,
+        queue_only=True,
+        max_jobs=5,
+        fail_on_error=False,
+        fit_threshold=70,
+    )
+    assert rc == 0
+
+    with tracker.open(newline="", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+    assert rows[0]["Status"] == "Draft"
+    assert rows[0]["Submission Lane"] == "manual:oracle"
+
+    payload = json.loads(report.read_text(encoding="utf-8"))
+    reasons = payload["queue_audit"][0]["reasons"]
+    assert "manual_submission_only" in reasons
+
+
+def test_queue_only_quarantines_ready_manual_only_adapter(tmp_path, monkeypatch):
+    mod = _load_module()
+    monkeypatch.setattr(mod, "ROOT", tmp_path)
+
+    company = "Oracle"
+    role = "Sr Principal AI Software Engineer - ML & AI Innovation"
+    company_slug = mod._slug(company)
+    role_slug = mod._slug(role)[:64]
+    resume_dir = tmp_path / "applications" / company_slug / "tailored_resumes"
+    cover_dir = tmp_path / "applications" / company_slug / "cover_letters"
+    jobs_dir = tmp_path / "applications" / company_slug / "jobs"
+    resume_dir.mkdir(parents=True, exist_ok=True)
+    cover_dir.mkdir(parents=True, exist_ok=True)
+    jobs_dir.mkdir(parents=True, exist_ok=True)
+    (resume_dir / f"2026-03-11_{company_slug}_{role_slug}.docx").write_bytes(b"docx")
+    (resume_dir / f"2026-03-11_{company_slug}_{role_slug}.html").write_text(
+        "summary professional experience python customer-facing delivery",
+        encoding="utf-8",
+    )
+    (cover_dir / f"2026-03-11_{company_slug}_{role_slug}.md").write_text(
+        "Cover letter", encoding="utf-8"
+    )
+    (jobs_dir / f"2026-03-11_{company_slug}_{role_slug}_abc123.md").write_text(
+        "Remote US only. Python and customer integrations required.",
+        encoding="utf-8",
+    )
+
+    tracker = tmp_path / "application_tracker.csv"
+    report = tmp_path / "report.json"
+    _write_tracker(
+        tracker,
+        [
+            {
+                "Company": company,
+                "Role": role,
+                "Location": "Remote",
+                "Salary Range": "",
+                "Status": "ReadyToSubmit",
+                "Date Applied": "",
+                "Follow Up Date": "",
+                "Response": "",
+                "Interview Stage": "Initial",
+                "Days To Response": "",
+                "Response Type": "",
+                "Cover Letter Used": "",
+                "What Worked": "",
+                "Tags": "ai;python;customer-facing",
+                "Notes": "",
+                "Career Page URL": "https://eeho.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/jobsearch/job/324362/",
+                "Remote Policy": "override",
+                "Remote Likelihood Score": "100",
+            }
+        ],
+    )
+
+    rc = mod.run_pipeline(
+        tracker_csv=tracker,
+        report_path=report,
+        dry_run=True,
+        queue_only=True,
+        max_jobs=5,
+        fail_on_error=False,
+        fit_threshold=70,
+    )
+    assert rc == 0
+
+    with tracker.open(newline="", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+    assert rows[0]["Status"] == "Quarantined"
+    assert "Needs manual completion." in rows[0]["Notes"]
+
+
 def test_dry_run_skipped_rows_do_not_fail_by_default(tmp_path, monkeypatch):
     mod = _load_module()
     monkeypatch.setattr(mod, "ROOT", tmp_path)
@@ -1453,6 +1601,108 @@ def test_confirmation_not_detected_with_screenshot_is_quarantined(
     with tracker.open(newline="", encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
     assert rows[0]["Status"] == "Quarantined"
+
+
+def test_execute_manual_submission_required_quarantines_and_does_not_fail_run(
+    tmp_path, monkeypatch
+):
+    mod = _load_module()
+    monkeypatch.setattr(mod, "ROOT", tmp_path)
+
+    company = "Oracle"
+    role = "Sr Principal AI Software Engineer - ML & AI Innovation"
+    company_slug = mod._slug(company)
+    role_slug = mod._slug(role)[:64]
+    resume_dir = tmp_path / "applications" / company_slug / "tailored_resumes"
+    cover_dir = tmp_path / "applications" / company_slug / "cover_letters"
+    jobs_dir = tmp_path / "applications" / company_slug / "jobs"
+    resume_dir.mkdir(parents=True, exist_ok=True)
+    cover_dir.mkdir(parents=True, exist_ok=True)
+    jobs_dir.mkdir(parents=True, exist_ok=True)
+    (resume_dir / f"2026-03-11_{company_slug}_{role_slug}.docx").write_bytes(b"docx")
+    (resume_dir / f"2026-03-11_{company_slug}_{role_slug}.html").write_text(
+        "summary professional experience python customer-facing delivery",
+        encoding="utf-8",
+    )
+    (cover_dir / f"2026-03-11_{company_slug}_{role_slug}.md").write_text(
+        "Cover letter", encoding="utf-8"
+    )
+    (jobs_dir / f"2026-03-11_{company_slug}_{role_slug}_abc123.md").write_text(
+        "Remote US only. Python and customer integrations required.",
+        encoding="utf-8",
+    )
+
+    tracker = tmp_path / "application_tracker.csv"
+    report = tmp_path / "report.json"
+    _write_tracker(
+        tracker,
+        [
+            {
+                "Company": company,
+                "Role": role,
+                "Location": "Remote",
+                "Salary Range": "",
+                "Status": "ReadyToSubmit",
+                "Date Applied": "",
+                "Follow Up Date": "",
+                "Response": "",
+                "Interview Stage": "Initial",
+                "Days To Response": "",
+                "Response Type": "",
+                "Cover Letter Used": "",
+                "What Worked": "",
+                "Tags": "ai;python;customer-facing",
+                "Notes": "",
+                "Career Page URL": "https://eeho.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/jobsearch/job/324362/",
+                "Remote Policy": "override",
+                "Remote Likelihood Score": "100",
+            }
+        ],
+    )
+
+    class _ManualDetailAdapter(mod.SiteAdapter):
+        name = "oracle"
+        auto_submit_supported = True
+
+        def matches(self, url: str) -> bool:
+            host = (urllib.parse.urlsplit(url).hostname or "").lower()
+            return "oraclecloud.com" in host
+
+        def submit(self, task, profile, auth, answers):
+            return mod.SubmitResult(
+                adapter=self.name,
+                verified=False,
+                screenshot=None,
+                details="Manual submission required for Oracle",
+            )
+
+    rc = mod.run_pipeline(
+        tracker_csv=tracker,
+        report_path=report,
+        dry_run=False,
+        queue_only=False,
+        max_jobs=1,
+        fail_on_error=False,
+        require_secret_auth=False,
+        adapters=[_ManualDetailAdapter()],
+        quarantine_blocked=True,
+        auto_promote_ready=False,
+    )
+    assert rc == 0
+
+    payload = json.loads(report.read_text(encoding="utf-8"))
+    assert payload["failed_count"] == 0
+    assert payload["skipped_count"] == 1
+    assert payload["results"][0]["result"] == "skipped"
+    assert (
+        payload["results"][0]["adapter_details"]
+        == "Manual submission required for Oracle"
+    )
+
+    with tracker.open(newline="", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+    assert rows[0]["Status"] == "Quarantined"
+    assert "Needs manual completion." in rows[0]["Notes"]
 
 
 def test_execute_target_applied_cycles_past_quarantined_blockers(tmp_path, monkeypatch):
