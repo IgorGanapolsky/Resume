@@ -18,7 +18,9 @@ import datetime as dt
 import html
 import json
 import os
+import random
 import re
+import time
 import traceback
 import urllib.error
 import urllib.parse
@@ -28,6 +30,11 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 from xml.sax.saxutils import escape
+
+try:
+    from playwright_stealth import stealth_sync  # type: ignore
+except ImportError:
+    stealth_sync = None
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -370,7 +377,10 @@ def _apply_storage_state_to_context(context: Any, page: Any, storage_state: Any)
 
 
 def _open_browser_runtime(
-    pw: Any, storage_state: Optional[Any], use_local_chrome: bool = False
+    pw: Any,
+    storage_state: Optional[Any],
+    use_local_chrome: bool = False,
+    visible: bool = False,
 ) -> BrowserRuntime:
     strict_anchor = _env_flag("ANCHOR_BROWSER_STRICT", default=False)
     anchor_api_key = str(os.getenv("ANCHOR_BROWSER_API_KEY", "")).strip()
@@ -412,7 +422,7 @@ def _open_browser_runtime(
             
         browser = pw.chromium.launch_persistent_context(
             user_data_dir=user_data_dir,
-            headless=True,
+            headless=not visible,
             args=["--disable-blink-features=AutomationControlled"],
         )
         context = browser
@@ -425,7 +435,7 @@ def _open_browser_runtime(
             note=f"local_chrome_profile:{note}",
         )
 
-    browser = pw.chromium.launch(headless=True)
+    browser = pw.chromium.launch(headless=not visible)
     context_kwargs: Dict[str, Any] = {}
     if storage_state is not None:
         context_kwargs["storage_state"] = storage_state
@@ -464,6 +474,7 @@ class SiteAdapter:
         auth: AdapterAuth,
         answers: SubmitAnswers,
         use_local_chrome: bool = False,
+        visible: bool = False,
     ) -> SubmitResult:
         raise NotImplementedError
 
@@ -478,6 +489,32 @@ class PlaywrightFormAdapter(SiteAdapter):
         host = (urllib.parse.urlsplit(url).hostname or "").lower()
         return any(p.search(host) for p in self.host_patterns)
 
+    def _type_human(self, locator: Any, text: str) -> None:
+        """Type text with randomized delays between 50ms and 150ms per character."""
+        if not text:
+            return
+        try:
+            locator.focus(timeout=2000)
+            for char in text:
+                locator.type(char, delay=random.randint(50, 150))
+                if random.random() < 0.1:  # 10% chance of an extra human-like delay
+                    time.sleep(random.uniform(0.1, 0.3))
+        except Exception:
+            # Fallback to instant fill if type/focus fails (some custom fields)
+            try:
+                locator.fill(text, timeout=2000)
+            except Exception:
+                pass
+
+    def _click_human(self, locator: Any) -> None:
+        """Introduce randomized delay before clicking."""
+        time.sleep(random.uniform(0.5, 1.5))
+        locator.click()
+
+    def _wait_human(self, min_s: float = 1.0, max_s: float = 3.0) -> None:
+        """Introduce randomized wait time."""
+        time.sleep(random.uniform(min_s, max_s))
+
     def submit(
         self,
         task: SubmitTask,
@@ -485,6 +522,7 @@ class PlaywrightFormAdapter(SiteAdapter):
         auth: AdapterAuth,
         answers: SubmitAnswers,
         use_local_chrome: bool = False,
+        visible: bool = False,
     ) -> SubmitResult:
         try:
             from playwright.sync_api import TimeoutError as PlaywrightTimeoutError  # type: ignore
@@ -506,9 +544,20 @@ class PlaywrightFormAdapter(SiteAdapter):
                 runtime: Optional[BrowserRuntime] = None
                 try:
                     runtime = _open_browser_runtime(
-                        pw, storage_state_arg, use_local_chrome=use_local_chrome
+                        pw,
+                        storage_state_arg,
+                        use_local_chrome=use_local_chrome,
+                        visible=visible,
                     )
                     page = runtime.page
+
+                    # Apply engine-level stealth if available
+                    if stealth_sync:
+                        try:
+                            stealth_sync(page)
+                        except Exception:
+                            pass
+
                     submit_error_detail: Optional[str] = None
 
                     def _capture_submit_error(response: Any) -> None:
@@ -754,24 +803,31 @@ class PlaywrightFormAdapter(SiteAdapter):
         if not value:
             return
         label_pattern = re.compile(rf"^\\s*{re.escape(key)}\\s*[:*]?\\s*$", re.I)
+        # Random jitter before filling
+        self._wait_human(0.2, 0.8)
+
         attempts = [
             lambda: scope.get_by_label(
                 label_pattern if exact_label else key,
                 exact=bool(exact_label),
-            ).first.fill(value, timeout=1500),
-            lambda: scope.get_by_placeholder(key).first.fill(value, timeout=1500),
+            ).first,
+            lambda: scope.get_by_placeholder(key).first,
             lambda: scope.locator(
                 f"input[name*='{key.lower().replace(' ', '')}']"
-            ).first.fill(value, timeout=1500),
+            ).first,
         ]
         for fn in attempts:
             try:
-                fn()
-                return
+                locator = fn()
+                if locator.count() > 0:
+                    self._type_human(locator, value)
+                    return
             except Exception:
                 continue
 
     def _click_submit(self, scope: Any, page: Any) -> bool:
+        # Simulate 'reading' the form before submission
+        self._wait_human(3.0, 7.0)
         for pattern in self.submit_button_patterns:
             for target in (scope, page):
                 try:
@@ -779,7 +835,7 @@ class PlaywrightFormAdapter(SiteAdapter):
                         "button", name=re.compile(pattern, re.I)
                     ).first
                     if btn.count() > 0:
-                        btn.click(timeout=3000)
+                        self._click_human(btn)
                         return True
                 except Exception:
                     continue
@@ -787,15 +843,15 @@ class PlaywrightFormAdapter(SiteAdapter):
             for target in (scope, page):
                 submit_input = target.locator("input[type='submit']").first
                 if submit_input.count() > 0:
-                    submit_input.click(timeout=3000)
+                    self._click_human(submit_input)
                     return True
         except Exception:
             pass
         return False
 
     def _wait_for_confirmation(self, page: Any, scope: Any) -> bool:
-        # Progressive checks: wait up to 5s total (some ATS redirects are slow)
-        for wait_ms in (2000, 1500, 1500):
+        # Progressive checks: wait up to 15s total (2026 redirects/confirmations are slower)
+        for wait_ms in (4000, 3000, 3000, 5000):
             try:
                 page.wait_for_timeout(wait_ms)
             except Exception:
@@ -833,6 +889,7 @@ class OracleAdapter(SiteAdapter):
         auth: AdapterAuth,
         answers: SubmitAnswers,
         use_local_chrome: bool = False,
+        visible: bool = False,
     ) -> SubmitResult:
         return SubmitResult(
             adapter=self.name,
@@ -1123,6 +1180,8 @@ class AshbyAdapter(PlaywrightFormAdapter):
             for probe in (
                 lambda: container.get_by_label(choice_pattern).first,
                 lambda: container.get_by_role("radio", name=choice_pattern).first,
+                lambda: container.get_by_role("button", name=choice_pattern).first,
+                lambda: container.get_by_text(choice_pattern).first,
             ):
                 try:
                     control = probe()
@@ -1353,11 +1412,33 @@ class AshbyAdapter(PlaywrightFormAdapter):
         self, scope: Any, page: Any, profile: Profile, answers: SubmitAnswers
     ) -> bool:
         try:
-            page.wait_for_timeout(1000)
+            page.wait_for_timeout(2000)
         except Exception:
             pass
+
+        # Check for reCAPTCHA or human verification blocks
+        blob = ""
+        try:
+            blob = str(page.inner_text("body") or "").lower()
+        except Exception:
+            pass
+
+        if "verify you are human" in blob or "captcha" in blob or "cloudflare" in blob:
+            # If in 'visible' mode or local, wait for manual resolution
+            # In CI, this will likely timeout, but gives a window for recovery if running locally
+            try:
+                # Wait up to 30s for the block to disappear
+                for _ in range(6):
+                    time.sleep(5)
+                    blob = str(page.inner_text("body") or "").lower()
+                    if "verify you are human" not in blob and "captcha" not in blob:
+                        break
+            except Exception:
+                pass
+
         if not self._has_required_question_error(scope, page):
             return False
+
         self._set_prefer_not_to_say_defaults(scope, page, answers.eeo_default)
         self._fill_unanswered_radio_groups(scope, page)
         self._fill_unanswered_selects(scope, page)
@@ -1365,7 +1446,7 @@ class AshbyAdapter(PlaywrightFormAdapter):
         if not self._click_submit(scope, page):
             return False
         try:
-            page.wait_for_timeout(1000)
+            page.wait_for_timeout(2000)
         except Exception:
             pass
         return True
@@ -2399,6 +2480,7 @@ def run_pipeline(
     answers_env: str = "CI_SUBMIT_ANSWERS_JSON",
     adapters: Optional[Sequence[SiteAdapter]] = None,
     use_local_chrome: bool = False,
+    visible: bool = False,
 ) -> int:
     fields, rows = _read_tracker(tracker_csv)
     adapters = list(adapters or [AshbyAdapter(), GreenhouseAdapter(), LeverAdapter(), OracleAdapter()])
@@ -2707,7 +2789,12 @@ def run_pipeline(
             )
 
             result = adapter.submit(
-                task, profile, auth, answers, use_local_chrome=use_local_chrome
+                task,
+                profile,
+                auth,
+                answers,
+                use_local_chrome=use_local_chrome,
+                visible=visible,
             )
             row_result["adapter_details"] = result.details
             row_result["verified"] = result.verified
@@ -3010,6 +3097,7 @@ def main() -> int:
         ),
     )
     ap.add_argument("--use-local-chrome", action="store_true", help="Force use of local Chrome profile")
+    ap.add_argument("--visible", action="store_true", help="Run browser in visible mode (non-headless)")
     args = ap.parse_args()
     if args.execute and args.queue_only:
         print("ERROR: --execute and --queue-only are mutually exclusive.")
@@ -3051,6 +3139,7 @@ def main() -> int:
             auth_env=args.auth_env,
             answers_env=args.answers_env,
             use_local_chrome=args.use_local_chrome,
+            visible=args.visible,
         )
     except Exception:
         traceback.print_exc()

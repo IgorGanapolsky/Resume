@@ -20,7 +20,7 @@ def _load_module():
     
     # Mock agent_identity if it is not importable
     try:
-        import agent_identity
+        importlib.util.find_spec("agent_identity")
     except ImportError:
         mock_identity = types.ModuleType("agent_identity")
         mock_identity.sign_artifact = lambda x: "mock_sig"
