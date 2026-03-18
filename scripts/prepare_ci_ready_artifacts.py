@@ -204,13 +204,13 @@ def _prepare_row(
         philosophy = "Integration is a social problem, not just a technical one; I build 'API-first' relationships, not just endpoints."
         distinctive = [
             "Architected a self-healing CI pipeline for multi-model LLM consensus that reduced manual debug time by 80%.",
-            "Pioneered a 'shipping small experiments weekly' approach for LLM features at Subway, beating the standard quarterly release cycle."
+            "Pioneered a 'shipping small experiments weekly' approach for LLM features at Subway, beating the standard quarterly release cycle.",
         ]
     else:
         philosophy = "Production AI is about reliability and cost-predictability, not just prompt engineering."
         distinctive = [
             "Built a semantic memory system using LanceDB that reduced context window 'forgetting' across 200+ autonomous agent turns.",
-            "Optimized LLM inference pipelines to maintain <200ms latency while reducing token spend by 40%."
+            "Optimized LLM inference pipelines to maintain <200ms latency while reducing token spend by 40%.",
         ]
 
     profile = ralph_mod.RoleProfile(
@@ -219,7 +219,7 @@ def _prepare_row(
         signals=signals,
         is_relevant=True,
         philosophy=philosophy,
-        distinctive_achievements=distinctive
+        distinctive_achievements=distinctive,
     )
     rendered_html = ralph_mod.tailor_resume_html(base_html, profile)
     if python_required:

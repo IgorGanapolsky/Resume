@@ -13,11 +13,12 @@ from pathlib import Path
 
 import types
 
+
 def _load_module():
     script_dir = Path(__file__).resolve().parents[2] / "scripts"
     if str(script_dir) not in sys.path:
         sys.path.insert(0, str(script_dir))
-    
+
     # Mock agent_identity if it is not importable
     try:
         importlib.util.find_spec("agent_identity")

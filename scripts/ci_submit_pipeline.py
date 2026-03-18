@@ -232,7 +232,9 @@ def _anchor_api_base() -> str:
     ).rstrip("/")
 
 
-def _anchor_request(method: str, path: str, payload: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+def _anchor_request(
+    method: str, path: str, payload: Optional[Dict[str, Any]] = None
+) -> Dict[str, Any]:
     api_key = str(os.getenv("ANCHOR_BROWSER_API_KEY", "")).strip()
     if not api_key:
         raise RuntimeError("anchor_api_key_missing")
@@ -261,7 +263,9 @@ def _anchor_request(method: str, path: str, payload: Optional[Dict[str, Any]] = 
 
 def _build_anchor_session_payload() -> Dict[str, Any]:
     proxy_active = _env_flag("ANCHOR_BROWSER_PROXY_ACTIVE", default=True)
-    proxy_country = str(os.getenv("ANCHOR_BROWSER_PROXY_COUNTRY_CODE", "us")).strip().lower()
+    proxy_country = (
+        str(os.getenv("ANCHOR_BROWSER_PROXY_COUNTRY_CODE", "us")).strip().lower()
+    )
     proxy_region = str(os.getenv("ANCHOR_BROWSER_PROXY_REGION", "")).strip().lower()
     proxy_city = str(os.getenv("ANCHOR_BROWSER_PROXY_CITY", "")).strip()
     profile_name = str(os.getenv("ANCHOR_BROWSER_PROFILE_NAME", "")).strip()
@@ -272,10 +276,18 @@ def _build_anchor_session_payload() -> Dict[str, Any]:
         "ANCHOR_BROWSER_EXTRA_STEALTH_ACTIVE", default=proxy_active
     )
     max_duration = max(
-        60, int(str(os.getenv("ANCHOR_BROWSER_MAX_DURATION_SECONDS", "1800")).strip() or "1800")
+        60,
+        int(
+            str(os.getenv("ANCHOR_BROWSER_MAX_DURATION_SECONDS", "1800")).strip()
+            or "1800"
+        ),
     )
     idle_timeout = max(
-        30, int(str(os.getenv("ANCHOR_BROWSER_IDLE_TIMEOUT_SECONDS", "300")).strip() or "300")
+        30,
+        int(
+            str(os.getenv("ANCHOR_BROWSER_IDLE_TIMEOUT_SECONDS", "300")).strip()
+            or "300"
+        ),
     )
 
     payload: Dict[str, Any] = {
@@ -284,7 +296,9 @@ def _build_anchor_session_payload() -> Dict[str, Any]:
             "idle_timeout": idle_timeout,
         },
         "headless": {"active": True},
-        "popup_blocker": {"active": _env_flag("ANCHOR_BROWSER_POPUP_BLOCKER", default=True)},
+        "popup_blocker": {
+            "active": _env_flag("ANCHOR_BROWSER_POPUP_BLOCKER", default=True)
+        },
         "adblock": {"active": _env_flag("ANCHOR_BROWSER_ADBLOCK", default=False)},
     }
     if proxy_active:
@@ -315,10 +329,7 @@ def _create_anchor_session() -> tuple[str, str, str]:
         raise RuntimeError("anchor_missing_data")
     cdp_url = str(data.get("cdp_url", "")).strip()
     session_id = str(
-        data.get("session_id")
-        or data.get("id")
-        or data.get("browser_session_id")
-        or ""
+        data.get("session_id") or data.get("id") or data.get("browser_session_id") or ""
     ).strip()
     live_view_url = str(data.get("live_view_url", "")).strip()
     if not cdp_url:
@@ -340,7 +351,9 @@ def _end_anchor_session(session_id: str) -> None:
         return
 
 
-def _apply_storage_state_to_context(context: Any, page: Any, storage_state: Any) -> None:
+def _apply_storage_state_to_context(
+    context: Any, page: Any, storage_state: Any
+) -> None:
     if not isinstance(storage_state, dict):
         return
     cookies = storage_state.get("cookies")
@@ -414,12 +427,14 @@ def _open_browser_runtime(
         note = ""
 
     if use_local_chrome:
-        user_data_dir = os.path.expanduser("~/Library/Application Support/Google/Chrome/Default")
+        user_data_dir = os.path.expanduser(
+            "~/Library/Application Support/Google/Chrome/Default"
+        )
         if not os.path.exists(user_data_dir):
             # Fallback for Linux CI or if path is missing
             user_data_dir = os.path.join(os.getcwd(), ".chrome_profile")
             os.makedirs(user_data_dir, exist_ok=True)
-            
+
         browser = pw.chromium.launch_persistent_context(
             user_data_dir=user_data_dir,
             headless=not visible,
@@ -662,9 +677,7 @@ class PlaywrightFormAdapter(SiteAdapter):
                         form_scope, page, task.resume_path
                     )
                     if not upload_ok:
-                        task.confirmation_path.parent.mkdir(
-                            parents=True, exist_ok=True
-                        )
+                        task.confirmation_path.parent.mkdir(parents=True, exist_ok=True)
                         try:
                             page.screenshot(
                                 path=str(task.confirmation_path), full_page=True
@@ -807,14 +820,16 @@ class PlaywrightFormAdapter(SiteAdapter):
         self._wait_human(0.2, 0.8)
 
         attempts = [
-            lambda: scope.get_by_label(
-                label_pattern if exact_label else key,
-                exact=bool(exact_label),
-            ).first,
+            lambda: (
+                scope.get_by_label(
+                    label_pattern if exact_label else key,
+                    exact=bool(exact_label),
+                ).first
+            ),
             lambda: scope.get_by_placeholder(key).first,
-            lambda: scope.locator(
-                f"input[name*='{key.lower().replace(' ', '')}']"
-            ).first,
+            lambda: (
+                scope.locator(f"input[name*='{key.lower().replace(' ', '')}']").first
+            ),
         ]
         for fn in attempts:
             try:
@@ -897,6 +912,7 @@ class OracleAdapter(SiteAdapter):
             screenshot=None,
             details="Manual submission required for Oracle",
         )
+
 
 class AshbyAdapter(PlaywrightFormAdapter):
     name = "ashby"
@@ -2004,7 +2020,9 @@ def _infer_remote_profile(
 ) -> tuple[str, int, List[str]]:
     csv_score = str(row.get("Remote Likelihood Score", "")).strip()
     csv_policy = str(row.get("Remote Policy", "")).strip().lower()
-    if (csv_score and csv_score.isdigit() and int(csv_score) >= 100) or csv_policy == "override":
+    if (
+        csv_score and csv_score.isdigit() and int(csv_score) >= 100
+    ) or csv_policy == "override":
         return "override", 100, ["csv_override"]
 
     location = str(row.get("Location", "") or "")
@@ -2483,7 +2501,10 @@ def run_pipeline(
     visible: bool = False,
 ) -> int:
     fields, rows = _read_tracker(tracker_csv)
-    adapters = list(adapters or [AshbyAdapter(), GreenhouseAdapter(), LeverAdapter(), OracleAdapter()])
+    adapters = list(
+        adapters
+        or [AshbyAdapter(), GreenhouseAdapter(), LeverAdapter(), OracleAdapter()]
+    )
     fields = _ensure_tracker_fields(
         fields, rows, TRACKER_REMOTE_FIELDS + TRACKER_SUBMISSION_FIELDS
     )
@@ -3096,8 +3117,16 @@ def main() -> int:
             "or attempting queue/submission work."
         ),
     )
-    ap.add_argument("--use-local-chrome", action="store_true", help="Force use of local Chrome profile")
-    ap.add_argument("--visible", action="store_true", help="Run browser in visible mode (non-headless)")
+    ap.add_argument(
+        "--use-local-chrome",
+        action="store_true",
+        help="Force use of local Chrome profile",
+    )
+    ap.add_argument(
+        "--visible",
+        action="store_true",
+        help="Run browser in visible mode (non-headless)",
+    )
     args = ap.parse_args()
     if args.execute and args.queue_only:
         print("ERROR: --execute and --queue-only are mutually exclusive.")
