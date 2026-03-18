@@ -112,3 +112,15 @@ Update tracker CSV `Response` and `Interview Stage` columns to match.
 4. Close stale or unsafe PRs with a short evidence-based reason instead of forcing a merge.
 5. Delete only branches and worktrees that are proven merged, obsolete, or duplicated. Preserve dirty active worktrees.
 6. Before claiming completion, verify `main` CI and run a local dry-run of the operational pipeline.
+
+## Enhanced Session Directives (2026-03-18)
+
+### PR & Branch Management
+- Follow the multi-step inspection and cleanup protocol for all PR sessions.
+- Document blockers and merge ready PRs with SHAs.
+- Maintain workspace hygiene by removing dormant code and old logs.
+
+### Agentic Standards
+- Act as a fully autonomous CTO.
+- Never ask for CEO manual steps if automatable.
+- Log all lessons and mistakes to RAG for continuous system improvement.

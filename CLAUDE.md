@@ -69,3 +69,18 @@ python3 Resume/rag/cli.py build
 - Close stale or unsafe PRs with a short evidence-based reason instead of forcing them through.
 - Prune only branches and worktrees that are proven merged, obsolete, or safely duplicated. Do not disturb a dirty active checkout.
 - Before claiming completion, re-check CI on `main`, run a local dry-run of the operational pipeline, and report concrete evidence.
+
+## Enhanced Session Directives (2026-03-18)
+
+### PR & Branch Management
+- List all open PRs and identify merge readiness/blockers.
+- Address orphan branches (merge, stale, or delete).
+- Delete stale branches and worktrees after merge.
+- Verify CI passes on main after all merges.
+- Run dry-run to confirm operational readiness.
+
+### Operational Mandates
+- Evidence-based communication: show proof (file counts, command output, CI status) for every claim.
+- No manual handoffs: execute all steps autonomously.
+- Honesty protocol: report failures or hallucinations immediately.
+- Continuous learning: query RAG at start, log lessons/mistakes to RAG at end.
