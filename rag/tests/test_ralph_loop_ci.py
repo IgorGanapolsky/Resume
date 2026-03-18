@@ -113,6 +113,11 @@ def test_tailor_resume_html_for_fde_profile(loop_mod):
         score=5,
         signals=["customer-integration", "python"],
         is_relevant=True,
+        philosophy="Integration is a social problem",
+        distinctive_achievements=[
+            "Architected a self-healing CI pipeline",
+            "shipping small experiments weekly",
+        ],
     )
 
     tailored = loop_mod.tailor_resume_html(base_html, profile)
