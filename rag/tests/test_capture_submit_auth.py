@@ -127,7 +127,10 @@ def test_main_writes_output_and_syncs_secret(tmp_path, monkeypatch):
     monkeypatch.setattr(
         mod,
         "capture_storage_state",
-        lambda target, headless: {"cookies": [{"name": target.adapter}], "origins": []},
+        lambda target, headless, **kwargs: {
+            "cookies": [{"name": target.adapter}],
+            "origins": [],
+        },
     )
     monkeypatch.setattr(mod, "resolve_repo", lambda repo: "IgorGanapolsky/Resume")
     monkeypatch.setattr(

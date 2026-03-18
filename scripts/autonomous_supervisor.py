@@ -428,17 +428,14 @@ def build_lane_plan(
     submit_lane_name: str
     if execute_submissions:
         submit_lane_name = "submit_execute"
-        submit_command = (
-            submit_base
-            + [
-                "--execute",
-                "--max-jobs",
-                str(max_submit_jobs),
-                "--report",
-                "applications/job_applications/ci_submit_execute_report.json",
-                "--fail-on-error",
-            ]
-        )
+        submit_command = submit_base + [
+            "--execute",
+            "--max-jobs",
+            str(max_submit_jobs),
+            "--report",
+            "applications/job_applications/ci_submit_execute_report.json",
+            "--fail-on-error",
+        ]
         if quarantine_blocked:
             submit_command.append("--quarantine-blocked")
         if target_applied > 0:

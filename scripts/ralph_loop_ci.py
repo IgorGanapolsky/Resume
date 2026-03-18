@@ -219,13 +219,13 @@ def classify_role(job: Dict[str, str]) -> RoleProfile:
         philosophy = "Integration is a social problem, not just a technical one; I build 'API-first' relationships, not just endpoints."
         distinctive = [
             "Architected a self-healing CI pipeline for multi-model LLM consensus that reduced manual debug time by 80%.",
-            "Pioneered a 'shipping small experiments weekly' approach for LLM features at Subway, beating the standard quarterly release cycle."
+            "Pioneered a 'shipping small experiments weekly' approach for LLM features at Subway, beating the standard quarterly release cycle.",
         ]
     else:
         philosophy = "Production AI is about reliability and cost-predictability, not just prompt engineering."
         distinctive = [
             "Built a semantic memory system using LanceDB that reduced context window 'forgetting' across 200+ autonomous agent turns.",
-            "Optimized LLM inference pipelines to maintain <200ms latency while reducing token spend by 40%."
+            "Optimized LLM inference pipelines to maintain <200ms latency while reducing token spend by 40%.",
         ]
 
     return RoleProfile(
@@ -234,7 +234,7 @@ def classify_role(job: Dict[str, str]) -> RoleProfile:
         signals=sorted(set(signals)),
         is_relevant=is_relevant,
         philosophy=philosophy,
-        distinctive_achievements=distinctive
+        distinctive_achievements=distinctive,
     )
 
 
@@ -341,7 +341,7 @@ def extract_key_requirements(job: Dict[str, str], profile: RoleProfile) -> List[
 def build_cover_letter(job: Dict[str, str], profile: RoleProfile) -> str:
     company = job["company"]
     role = job["title"]
-    
+
     # Vanessa-style POV intro
     intro = (
         f"I am interested in the {role} opportunity. "
@@ -352,9 +352,13 @@ def build_cover_letter(job: Dict[str, str], profile: RoleProfile) -> str:
     highlights = [f"- {ach}" for ach in profile.distinctive_achievements]
     # Add one core competence bullet
     if profile.track == "fde":
-        highlights.append("- Partnered with product/data stakeholders to define prompts, tools, and escalation rules.")
+        highlights.append(
+            "- Partnered with product/data stakeholders to define prompts, tools, and escalation rules."
+        )
     else:
-        highlights.append("- Delivered cloud-native services on GCP/AWS and integrated LLM features into existing stacks.")
+        highlights.append(
+            "- Delivered cloud-native services on GCP/AWS and integrated LLM features into existing stacks."
+        )
 
     lines = [
         f"Subject: Interest in {role}",
@@ -379,29 +383,30 @@ def build_cover_letter(job: Dict[str, str], profile: RoleProfile) -> str:
 
 def tailor_resume_html(base_html: str, profile: RoleProfile) -> str:
     out = base_html
-    
+
     # Vanessa POV Injection into Summary
     pov_summary = (
         f"<p>Senior AI and Full-Stack Engineer with 15+ years of experience. "
         f"<strong>Philosophy: {profile.philosophy}</strong> Builds and ships production AI systems "
         "end-to-end, from architecture and implementation through rollout and iteration.</p>"
     )
-    
+
     # Generic summary replacement (assuming standard base resume structure)
     out = re.sub(
         r"<p>Senior AI and Full-Stack Engineer with 15\+ years.*?</p>",
         pov_summary,
         out,
-        flags=re.DOTALL
+        flags=re.DOTALL,
     )
 
     # Inject Distinctive Achievements as "Featured Impact" bullets
-    featured_bullets = "".join([f"<li><p><strong>Featured Impact:</strong> {ach}</p></li>" for ach in profile.distinctive_achievements])
-    out = _replace_once(
-        out,
-        "<ul>",
-        f"<ul>\n{featured_bullets}"
+    featured_bullets = "".join(
+        [
+            f"<li><p><strong>Featured Impact:</strong> {ach}</p></li>"
+            for ach in profile.distinctive_achievements
+        ]
     )
+    out = _replace_once(out, "<ul>", f"<ul>\n{featured_bullets}")
 
     if profile.track == "fde":
         out = _replace_once(
@@ -414,7 +419,7 @@ def tailor_resume_html(base_html: str, profile: RoleProfile) -> str:
             "<p><strong>CORE COMPETENCIES</strong></p>",
             "<p><strong>FORWARD-DEPLOYED COMPETENCIES</strong></p>",
         )
-    
+
     # ... rest of specific replacements ...
     return out
 

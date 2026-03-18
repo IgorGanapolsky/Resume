@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-03-17T17:11:17.782271+00:00",
+  "generated_at": "2026-03-18T16:30:21.480553+00:00",
   "tracker_csv": "/home/runner/work/Resume/Resume/applications/job_applications/application_tracker.csv",
   "max_jobs": 15,
   "fit_threshold": 70,
-  "remote_min_score": 55,
+  "remote_min_score": 50,
   "processed_rows": 15,
   "artifact_updates": 0,
   "became_gate_eligible": 0,
