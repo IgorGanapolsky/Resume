@@ -137,6 +137,9 @@ def _prepare_row(
     if adapter is None:
         result["skip_reason"] = "unsupported_site_for_ci_submit"
         return result
+    if not getattr(adapter, "auto_submit_supported", True):
+        result["skip_reason"] = "manual_submission_only"
+        return result
 
     if not _is_technical(role, ci_mod):
         result["skip_reason"] = "non_technical_role"

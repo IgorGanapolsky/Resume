@@ -478,6 +478,7 @@ def _close_browser_runtime(runtime: Optional[BrowserRuntime]) -> None:
 
 class SiteAdapter:
     name = "base"
+    auto_submit_supported = True
 
     def matches(self, url: str) -> bool:
         raise NotImplementedError
@@ -892,6 +893,7 @@ class PlaywrightFormAdapter(SiteAdapter):
 
 class OracleAdapter(SiteAdapter):
     name = "oracle"
+    auto_submit_supported = False
     host_patterns = (re.compile(r"oraclecloud\.com"),)
 
     def matches(self, url: str) -> bool:
@@ -2009,6 +2011,60 @@ def _adapter_name_for_url(url: str, adapters: Sequence[SiteAdapter]) -> Optional
     return found.name if found is not None else None
 
 
+def _submission_lane_for_adapter(adapter: Optional[SiteAdapter]) -> str:
+    if adapter is None:
+        return "manual"
+    if not getattr(adapter, "auto_submit_supported", True):
+        return f"manual:{adapter.name}"
+    return f"ci_auto:{adapter.name}"
+
+
+def _is_manual_submission_only(reasons: Sequence[str]) -> bool:
+    return "manual_submission_only" in {
+        str(reason).strip().lower() for reason in reasons
+    }
+
+
+def _is_manual_submission_required_detail(detail: str) -> bool:
+    return "manual submission required" in (detail or "").strip().lower()
+
+
+def _submit_with_adapter(
+    adapter: SiteAdapter,
+    task: SubmitTask,
+    profile: Profile,
+    auth: AdapterAuth,
+    answers: SubmitAnswers,
+    *,
+    use_local_chrome: bool = False,
+    visible: bool = False,
+) -> SubmitResult:
+    try:
+        return adapter.submit(
+            task,
+            profile,
+            auth,
+            answers,
+            use_local_chrome=use_local_chrome,
+            visible=visible,
+        )
+    except TypeError as exc:
+        if "unexpected keyword argument" not in str(exc):
+            raise
+    try:
+        return adapter.submit(
+            task,
+            profile,
+            auth,
+            answers,
+            use_local_chrome=use_local_chrome,
+        )
+    except TypeError as exc:
+        if "unexpected keyword argument" not in str(exc):
+            raise
+    return adapter.submit(task, profile, auth, answers)
+
+
 def _host_matches_domain(host: str, domain: str) -> bool:
     return host == domain or host.endswith(f".{domain}")
 
@@ -2103,8 +2159,9 @@ def _assess_queue_gate(
     remote_policy, remote_score, remote_evidence = _infer_remote_profile(
         row, job_text=job_text
     )
-    adapter_name = _adapter_name_for_url(str(row.get("Career Page URL", "")), adapters)
-    submission_lane = f"ci_auto:{adapter_name}" if adapter_name else "manual"
+    adapter = _find_adapter(str(row.get("Career Page URL", "")), adapters)
+    adapter_name = adapter.name if adapter is not None else None
+    submission_lane = _submission_lane_for_adapter(adapter)
 
     score = 0
     if track == "fde":
@@ -2162,6 +2219,8 @@ def _assess_queue_gate(
         )
     if adapter_name is None:
         reasons.append("unsupported_site_for_ci_submit")
+    elif not getattr(adapter, "auto_submit_supported", True):
+        reasons.append("manual_submission_only")
 
     required_reasons = {
         "missing_resume_docx_or_pdf",
@@ -2169,6 +2228,7 @@ def _assess_queue_gate(
         "missing_cover_letter",
         "non_technical_role",
         "unsupported_site_for_ci_submit",
+        "manual_submission_only",
     }
     eligible = (
         fit_ok
@@ -2628,15 +2688,27 @@ def run_pipeline(
             elif _is_ready_status(status_raw) and not assessment.eligible:
                 queue_demoted_count += 1
                 if can_mutate_tracker:
-                    row["Status"] = "Draft"
-                    row["Notes"] = _append_note(
-                        str(row.get("Notes", "")),
-                        (
-                            f"Queue gate demoted on {_today_iso()} "
-                            f"(fit={assessment.score}/{fit_threshold}, remote={assessment.remote_score}/{remote_min_score}; "
-                            f"reasons={','.join(assessment.reasons)})."
-                        ),
-                    )
+                    if _is_manual_submission_only(assessment.reasons):
+                        row["Status"] = "Quarantined"
+                        row["Notes"] = _append_note(
+                            str(row.get("Notes", "")),
+                            (
+                                f"Queue gate quarantined on {_today_iso()} "
+                                f"(fit={assessment.score}/{fit_threshold}, remote={assessment.remote_score}/{remote_min_score}; "
+                                f"reasons={','.join(assessment.reasons)}). "
+                                "Needs manual completion."
+                            ),
+                        )
+                    else:
+                        row["Status"] = "Draft"
+                        row["Notes"] = _append_note(
+                            str(row.get("Notes", "")),
+                            (
+                                f"Queue gate demoted on {_today_iso()} "
+                                f"(fit={assessment.score}/{fit_threshold}, remote={assessment.remote_score}/{remote_min_score}; "
+                                f"reasons={','.join(assessment.reasons)})."
+                            ),
+                        )
             queue_audit.append(audit_item)
 
     target_applied = max(0, int(target_applied))
@@ -2761,15 +2833,27 @@ def run_pipeline(
             if not assessment.eligible:
                 row_errors.extend(assessment.reasons)
                 if can_mutate_tracker:
-                    row["Status"] = "Draft"
-                    row["Notes"] = _append_note(
-                        str(row.get("Notes", "")),
-                        (
-                            f"Submission blocked by queue gate on {_today_iso()} "
-                            f"(fit={assessment.score}/{fit_threshold}, remote={assessment.remote_score}/{remote_min_score}; "
-                            f"reasons={','.join(assessment.reasons)})."
-                        ),
-                    )
+                    if _is_manual_submission_only(assessment.reasons):
+                        row["Status"] = "Quarantined"
+                        row["Notes"] = _append_note(
+                            str(row.get("Notes", "")),
+                            (
+                                f"Submission quarantined by queue gate on {_today_iso()} "
+                                f"(fit={assessment.score}/{fit_threshold}, remote={assessment.remote_score}/{remote_min_score}; "
+                                f"reasons={','.join(assessment.reasons)}). "
+                                "Needs manual completion."
+                            ),
+                        )
+                    else:
+                        row["Status"] = "Draft"
+                        row["Notes"] = _append_note(
+                            str(row.get("Notes", "")),
+                            (
+                                f"Submission blocked by queue gate on {_today_iso()} "
+                                f"(fit={assessment.score}/{fit_threshold}, remote={assessment.remote_score}/{remote_min_score}; "
+                                f"reasons={','.join(assessment.reasons)})."
+                            ),
+                        )
 
             adapter = _find_adapter(url, adapters)
             if adapter is None:
@@ -2809,7 +2893,8 @@ def run_pipeline(
                 "storage_state" if auth.storage_state is not None else "fresh_context"
             )
 
-            result = adapter.submit(
+            result = _submit_with_adapter(
+                adapter,
                 task,
                 profile,
                 auth,
@@ -2881,6 +2966,7 @@ def run_pipeline(
                     details.startswith("missing_required_answers:")
                     or details.startswith("required_fields_unanswered_after_retry:")
                     or details == "required_questions_unanswered_after_retry"
+                    or _is_manual_submission_required_detail(details)
                     or details
                     in {
                         "ashby_job_not_found",

@@ -1,0 +1,78 @@
+{
+  "tracker_csv": "/Users/ganapolsky_i/workspace/git/igor/worktrees/resume-fix-autosubmit-proof-20260318/applications/job_applications/application_tracker.csv",
+  "repo": "IgorGanapolsky/Resume",
+  "apply": false,
+  "close_resolved": false,
+  "quarantined_count": 3,
+  "actions": [
+    {
+      "action": "noop",
+      "app_id": "baseten__senior-software-engineer-infrastructure__205502b2b8",
+      "title": "Quarantine triage: Baseten - Senior Software Engineer - Infrastructure",
+      "body": "<!-- resume-quarantine-app-id: baseten__senior-software-engineer-infrastructure__205502b2b8 -->\n## Summary\n- Company: Baseten\n- Role: Senior Software Engineer - Infrastructure\n- Tracker status: Quarantined\n- Submission lane: manual:quarantined\n- Interview stage: Initial\n- Response: Submit blocked\n- Remote profile: remote (88)\n- Career page: https://jobs.ashbyhq.com/baseten/1b9ba599-ee9f-4034-83c7-3b4569ef4335\n\n## Evidence\n- No evidence path recorded in tracker\n\n## Tracker Notes\nSubmit attempt flagged as possible spam (Ashby). Evidence: applications/baseten/submissions/2026-02-18_baseten_application_submitted.png. Retry later from non-automated browser/session.\r\nRetry queued on 2026-02-19 for CI submit pipeline.\r\nCI submit blocked by anti-bot on 2026-02-19 via ashby. Reason=recaptcha_score_below_threshold:3dd1b32c-47bd-4bfc-a6f8-2acb9565ea20. Manual browser submit required.\r\nCI submit blocked by anti-bot on 2026-02-20 via ashby. Reason=recaptcha_score_below_threshold:36acb47f-b8a2-4708-bc83-4370f24e93d7. Manual browser submit required.\r\nAuto-quarantined on 2026-02-24 after submit blocker via ashby: missing_file_input\n\n## Done When\n- [ ] A human or adapter retry path is chosen\n- [ ] Fresh submission evidence is captured or the application is explicitly closed\n- [ ] `applications/job_applications/application_tracker.csv` is updated with the outcome\n",
+      "issue_number": 24,
+      "issue_url": "https://github.com/IgorGanapolsky/Resume/issues/24"
+    },
+    {
+      "action": "noop",
+      "app_id": "runway__member-of-technical-staff-inference__b8b99e0a70",
+      "title": "Quarantine triage: Runway - Member of Technical Staff - Inference",
+      "body": "<!-- resume-quarantine-app-id: runway__member-of-technical-staff-inference__b8b99e0a70 -->\n## Summary\n- Company: Runway\n- Role: Member of Technical Staff - Inference\n- Tracker status: Quarantined\n- Submission lane: ci_auto:greenhouse\n- Interview stage: Initial\n- Response: HTTP 428 reCAPTCHA Enterprise\n- Remote profile: remote (88)\n- Career page: https://job-boards.greenhouse.io/runwayml/jobs/4650230005\n\n## Evidence\n- applications/runway/submissions/2026-02-20_runway_member-of-technical-staff-inference_ci_confirmation.png\n\n## Tracker Notes\nForm fully filled (patchright + Chrome visible + mouse simulation). POST boards.greenhouse.io\u2192HTTP 428 (reCAPTCHA Enterprise score below threshold). Retry: use Chrome user profile with existing cookies OR 2captcha Enterprise API. Screenshot: applications/runway/submissions/pr_02_filled.png.\r\nRetry queued on 2026-02-19 for CI submit pipeline.\r\nQueue gate demoted on 2026-02-19 (fit=38/70, remote=88/55; reasons=fit_score_below_threshold:38<70,missing_customer_facing_signal,missing_fde_competencies_block,missing_fde_headline,python_requested_not_explicit_in_resume).\r\nAuto-demoted invalid Applied status on 2026-03-17 (missing=).\r\nQueue auto-promotion skipped on 2026-03-17 (reason=integrity_demotion_same_run).\r\nQueue gate passed on 2026-03-17 (fit=73/70, remote=88/50, track=general, lane=ci_auto:greenhouse).\r\nCI submit unconfirmed on 2026-03-17 via greenhouse. Reason=confirmation_text_not_detected. Will retry next run.\r\nQueue gate demoted on 2026-03-17 (fit=73/80, remote=88/50; reasons=fit_score_below_threshold:73<80,python_requested_not_explicit_in_resume).\nCI submit blocked on 2026-03-17 via greenhouse. Reason=confirmation_text_not_detected. Needs manual completion.\n\n## Done When\n- [ ] A human or adapter retry path is chosen\n- [ ] Fresh submission evidence is captured or the application is explicitly closed\n- [ ] `applications/job_applications/application_tracker.csv` is updated with the outcome\n",
+      "issue_number": 32,
+      "issue_url": "https://github.com/IgorGanapolsky/Resume/issues/32"
+    },
+    {
+      "action": "create",
+      "app_id": "oracle__sr-principal-ai-software-engineer-ml-ai-innovation__47ce800a26",
+      "title": "Quarantine triage: Oracle - Sr Principal AI Software Engineer - ML & AI Innovation",
+      "body": "<!-- resume-quarantine-app-id: oracle__sr-principal-ai-software-engineer-ml-ai-innovation__47ce800a26 -->\n## Summary\n- Company: Oracle\n- Role: Sr Principal AI Software Engineer - ML & AI Innovation\n- Tracker status: Quarantined\n- Submission lane: manual:oracle\n- Interview stage: Initial\n- Response: Submit blocked\n- Remote profile: override (100)\n- Career page: https://eeho.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/jobsearch/job/324362/\n\n## Evidence\n- applications/oracle/jobs/2026-03-10_oracle_sr-principal-ai-software-engineer.md\n\n## Tracker Notes\nDiscovered by CTO on 2026-03-10. Bypassed initial gate. Job capture: applications/oracle/jobs/2026-03-10_oracle_sr-principal-ai-software-engineer.md\r\nCI submit unconfirmed on 2026-03-17 via oracle. Reason=Manual submission required for Oracle. Will retry next run.\nCI submit unconfirmed on 2026-03-18 via oracle. Reason=Manual submission required for Oracle. Will retry next run.\nQueue gate quarantined on 2026-03-18 (fit=85/70, remote=100/50; reasons=manual_submission_only). Needs manual completion.\n\n## Done When\n- [ ] A human or adapter retry path is chosen\n- [ ] Fresh submission evidence is captured or the application is explicitly closed\n- [ ] `applications/job_applications/application_tracker.csv` is updated with the outcome\n",
+      "issue_number": null,
+      "issue_url": ""
+    }
+  ],
+  "quarantined_apps": [
+    {
+      "app_id": "baseten__senior-software-engineer-infrastructure__205502b2b8",
+      "company": "Baseten",
+      "role": "Senior Software Engineer - Infrastructure",
+      "url": "https://jobs.ashbyhq.com/baseten/1b9ba599-ee9f-4034-83c7-3b4569ef4335",
+      "notes": "Submit attempt flagged as possible spam (Ashby). Evidence: applications/baseten/submissions/2026-02-18_baseten_application_submitted.png. Retry later from non-automated browser/session.\r\nRetry queued on 2026-02-19 for CI submit pipeline.\r\nCI submit blocked by anti-bot on 2026-02-19 via ashby. Reason=recaptcha_score_below_threshold:3dd1b32c-47bd-4bfc-a6f8-2acb9565ea20. Manual browser submit required.\r\nCI submit blocked by anti-bot on 2026-02-20 via ashby. Reason=recaptcha_score_below_threshold:36acb47f-b8a2-4708-bc83-4370f24e93d7. Manual browser submit required.\r\nAuto-quarantined on 2026-02-24 after submit blocker via ashby: missing_file_input",
+      "response": "Submit blocked",
+      "interview_stage": "Initial",
+      "submission_lane": "manual:quarantined",
+      "remote_policy": "remote",
+      "remote_score": "88",
+      "evidence_paths": []
+    },
+    {
+      "app_id": "runway__member-of-technical-staff-inference__b8b99e0a70",
+      "company": "Runway",
+      "role": "Member of Technical Staff - Inference",
+      "url": "https://job-boards.greenhouse.io/runwayml/jobs/4650230005",
+      "notes": "Form fully filled (patchright + Chrome visible + mouse simulation). POST boards.greenhouse.io\u2192HTTP 428 (reCAPTCHA Enterprise score below threshold). Retry: use Chrome user profile with existing cookies OR 2captcha Enterprise API. Screenshot: applications/runway/submissions/pr_02_filled.png.\r\nRetry queued on 2026-02-19 for CI submit pipeline.\r\nQueue gate demoted on 2026-02-19 (fit=38/70, remote=88/55; reasons=fit_score_below_threshold:38<70,missing_customer_facing_signal,missing_fde_competencies_block,missing_fde_headline,python_requested_not_explicit_in_resume).\r\nAuto-demoted invalid Applied status on 2026-03-17 (missing=).\r\nQueue auto-promotion skipped on 2026-03-17 (reason=integrity_demotion_same_run).\r\nQueue gate passed on 2026-03-17 (fit=73/70, remote=88/50, track=general, lane=ci_auto:greenhouse).\r\nCI submit unconfirmed on 2026-03-17 via greenhouse. Reason=confirmation_text_not_detected. Will retry next run.\r\nQueue gate demoted on 2026-03-17 (fit=73/80, remote=88/50; reasons=fit_score_below_threshold:73<80,python_requested_not_explicit_in_resume).\nCI submit blocked on 2026-03-17 via greenhouse. Reason=confirmation_text_not_detected. Needs manual completion.",
+      "response": "HTTP 428 reCAPTCHA Enterprise",
+      "interview_stage": "Initial",
+      "submission_lane": "ci_auto:greenhouse",
+      "remote_policy": "remote",
+      "remote_score": "88",
+      "evidence_paths": [
+        "applications/runway/submissions/2026-02-20_runway_member-of-technical-staff-inference_ci_confirmation.png"
+      ]
+    },
+    {
+      "app_id": "oracle__sr-principal-ai-software-engineer-ml-ai-innovation__47ce800a26",
+      "company": "Oracle",
+      "role": "Sr Principal AI Software Engineer - ML & AI Innovation",
+      "url": "https://eeho.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/jobsearch/job/324362/",
+      "notes": "Discovered by CTO on 2026-03-10. Bypassed initial gate. Job capture: applications/oracle/jobs/2026-03-10_oracle_sr-principal-ai-software-engineer.md\r\nCI submit unconfirmed on 2026-03-17 via oracle. Reason=Manual submission required for Oracle. Will retry next run.\nCI submit unconfirmed on 2026-03-18 via oracle. Reason=Manual submission required for Oracle. Will retry next run.\nQueue gate quarantined on 2026-03-18 (fit=85/70, remote=100/50; reasons=manual_submission_only). Needs manual completion.",
+      "response": "",
+      "interview_stage": "Initial",
+      "submission_lane": "manual:oracle",
+      "remote_policy": "override",
+      "remote_score": "100",
+      "evidence_paths": [
+        "applications/oracle/jobs/2026-03-10_oracle_sr-principal-ai-software-engineer.md"
+      ]
+    }
+  ]
+}

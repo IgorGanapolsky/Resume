@@ -353,7 +353,7 @@ def build_cover_letter(job: Dict[str, str], profile: RoleProfile) -> str:
     # Add one core competence bullet
     if profile.track == "fde":
         highlights.append(
-            "- Partnered with product/data stakeholders to define prompts, tools, and escalation rules."
+            "- Delivered customer-facing, integration-heavy delivery work with product/data stakeholders to define prompts, tools, and escalation rules."
         )
     else:
         highlights.append(
@@ -418,6 +418,14 @@ def tailor_resume_html(base_html: str, profile: RoleProfile) -> str:
             out,
             "<p><strong>CORE COMPETENCIES</strong></p>",
             "<p><strong>FORWARD-DEPLOYED COMPETENCIES</strong></p>",
+        )
+        out = out.replace(
+            "customer service load by 35%",
+            "customer service load by <strong>35%</strong>",
+        )
+        out = out.replace(
+            "reduced support volume 40%",
+            "reduced support volume <strong>40%</strong>",
         )
 
     # ... rest of specific replacements ...
