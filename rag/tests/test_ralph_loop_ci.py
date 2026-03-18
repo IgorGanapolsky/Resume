@@ -119,8 +119,8 @@ def test_tailor_resume_html_for_fde_profile(loop_mod):
 
     assert "Forward-Deployed AI/Software Engineer" in tailored
     assert "<strong>FORWARD-DEPLOYED COMPETENCIES</strong>" in tailored
-    assert "customer service load by <strong>35%</strong>" in tailored
-    assert "reduced support volume <strong>40%</strong>" in tailored
+    assert "Architected a self-healing CI pipeline" in tailored
+    assert "shipping small experiments weekly" in tailored
 
 
 def test_create_artifacts_writes_tailored_resume_and_requirements(
@@ -193,7 +193,7 @@ def test_create_artifacts_writes_tailored_resume_and_requirements(
     )
     assert cover_path.exists()
     cover_text = cover_path.read_text(encoding="utf-8")
-    assert "customer-facing, integration-heavy delivery work" in cover_text
+    assert "integration is a social problem" in cover_text
 
 
 def test_main_dry_run_does_not_create_artifacts(loop_mod, tmp_path, monkeypatch):

@@ -1033,7 +1033,7 @@ def test_execute_recaptcha_block_counts_as_skipped_not_failed(tmp_path, monkeypa
             host = (urllib.parse.urlsplit(url).hostname or "").lower()
             return host == "ashbyhq.com" or host.endswith(".ashbyhq.com")
 
-        def submit(self, task, profile, auth, answers):
+        def submit(self, task, profile, auth, answers, **kwargs):
             screenshot = submissions_dir / "confirm.png"
             screenshot.write_bytes(b"png")
             return mod.SubmitResult(
@@ -1136,7 +1136,7 @@ def test_execute_missing_file_input_quarantines_and_does_not_fail_run(
             host = (urllib.parse.urlsplit(url).hostname or "").lower()
             return host == "ashbyhq.com" or host.endswith(".ashbyhq.com")
 
-        def submit(self, task, profile, auth, answers):
+        def submit(self, task, profile, auth, answers, **kwargs):
             return mod.SubmitResult(
                 adapter=self.name,
                 verified=False,
@@ -1240,7 +1240,7 @@ def test_execute_job_not_found_block_is_closed_when_quarantined(tmp_path, monkey
             host = (urllib.parse.urlsplit(url).hostname or "").lower()
             return host == "ashbyhq.com" or host.endswith(".ashbyhq.com")
 
-        def submit(self, task, profile, auth, answers):
+        def submit(self, task, profile, auth, answers, **kwargs):
             screenshot = submissions_dir / "confirm.png"
             screenshot.write_bytes(b"png")
             return mod.SubmitResult(
@@ -1332,7 +1332,7 @@ def test_quarantine_status_persists_when_only_change(tmp_path, monkeypatch):
             host = (urllib.parse.urlsplit(url).hostname or "").lower()
             return host == "ashbyhq.com" or host.endswith(".ashbyhq.com")
 
-        def submit(self, task, profile, auth, answers):
+        def submit(self, task, profile, auth, answers, **kwargs):
             screenshot = submissions_dir / "confirm.png"
             screenshot.write_bytes(b"png")
             return mod.SubmitResult(
@@ -1425,7 +1425,7 @@ def test_confirmation_not_detected_with_screenshot_is_quarantined(
             host = (urllib.parse.urlsplit(url).hostname or "").lower()
             return host == "greenhouse.io" or host.endswith(".greenhouse.io")
 
-        def submit(self, task, profile, auth, answers):
+        def submit(self, task, profile, auth, answers, **kwargs):
             screenshot = submissions_dir / "confirm.png"
             screenshot.write_bytes(b"png")
             return mod.SubmitResult(
@@ -1538,7 +1538,7 @@ def test_execute_target_applied_cycles_past_quarantined_blockers(tmp_path, monke
             host = (urllib.parse.urlsplit(url).hostname or "").lower()
             return host == "ashbyhq.com" or host.endswith(".ashbyhq.com")
 
-        def submit(self, task, profile, auth, answers):
+        def submit(self, task, profile, auth, answers, **kwargs):
             task.confirmation_path.parent.mkdir(parents=True, exist_ok=True)
             task.confirmation_path.write_bytes(b"png")
             if task.company == "BlockerCo":
@@ -2438,7 +2438,7 @@ def test_execute_without_auth_secret_uses_fresh_context(tmp_path, monkeypatch):
             host = (urllib.parse.urlsplit(url).hostname or "").lower()
             return host == "ashbyhq.com" or host.endswith(".ashbyhq.com")
 
-        def submit(self, task, profile, auth, answers):
+        def submit(self, task, profile, auth, answers, **kwargs):
             assert auth.storage_state is None
             screenshot = submissions_dir / "confirm.png"
             screenshot.write_bytes(b"png")
