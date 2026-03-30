@@ -11,6 +11,10 @@ def test_live_submit_requires_profile_and_answers_but_not_auth():
     text = WORKFLOW.read_text(encoding="utf-8")
 
     assert (
+        "GitHub-hosted Ralph Loop runs are dry-run only. Use python3 "
+        "scripts/run_local_submit_lane.py for live submissions."
+    ) in text
+    assert (
         "if ! python3 scripts/ci_submit_pipeline.py \\" in text
         and "--validate-secrets-only \\" in text
     )
