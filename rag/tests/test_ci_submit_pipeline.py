@@ -1065,6 +1065,36 @@ def test_ashby_extract_submit_error_detail_handles_recaptcha_spam():
     )
 
 
+def test_ashby_extract_failure_details_handles_visible_spam_banner():
+    mod = _load_module()
+    adapter = mod.AshbyAdapter()
+    scope = _FakeScope(
+        text=(
+            "We couldn't submit your application. "
+            "Your application submission was flagged as possible spam. "
+            "If you believe this was a mistake, please submit your application again."
+        )
+    )
+    page = _FakeScope(text="")
+    detail = adapter._extract_failure_details(page, scope)
+    assert detail == "recaptcha_score_below_threshold"
+
+
+def test_find_adapter_prefers_inferact_specialized_ashby_adapter():
+    mod = _load_module()
+    adapters = [
+        mod.InferactAshbyAdapter(),
+        mod.AshbyAdapter(),
+        mod.GreenhouseAdapter(),
+    ]
+    adapter = mod._find_adapter(
+        "https://jobs.ashbyhq.com/inferact/f0d2619d-28e0-4b25-8d30-3ac555071abb",
+        adapters,
+    )
+    assert adapter is not None
+    assert adapter.__class__.__name__ == "InferactAshbyAdapter"
+
+
 def test_ashby_missing_form_scope_detail_job_not_found():
     mod = _load_module()
     adapter = mod.AshbyAdapter()
