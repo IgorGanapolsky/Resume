@@ -110,6 +110,40 @@ def _strip_html(value: str) -> str:
     return _safe_text(html.unescape(no_tags))
 
 
+# Regex to extract ATS apply links from HTML job descriptions.
+_ATS_URL_RE = re.compile(
+    r'href=["\']?(https?://[^"\'>\s]*'
+    r"(?:ashbyhq\.com|greenhouse\.io|lever\.co|jobs\.lever\.co)"
+    r'[^"\'>\s]*)',
+    re.I,
+)
+
+
+def _extract_ats_url(description_html: str) -> str:
+    """Extract a direct ATS URL (Ashby/Greenhouse/Lever) from HTML if present."""
+    m = _ATS_URL_RE.search(description_html or "")
+    return m.group(1) if m else ""
+
+
+def _resolve_redirect_url(url: str, timeout: int = 8) -> str:
+    """Follow redirects on a feed URL to discover the final ATS host.
+
+    Returns the resolved URL on success, or the original on failure.
+    This is best-effort and designed to be fast (HEAD only).
+    """
+    try:
+        req = urllib.request.Request(
+            url, method="HEAD", headers={"User-Agent": "ResumeRalphLoop/1.0"}
+        )
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            final = resp.url
+            if final and final != url:
+                return final
+    except Exception:
+        pass
+    return url
+
+
 def _replace_once(text: str, old: str, new: str) -> str:
     if old not in text:
         return text
@@ -446,6 +480,10 @@ def discover_remotive() -> Iterable[Dict[str, str]]:
     for job in jobs:
         if not isinstance(job, dict):
             continue
+        desc_html = str(job.get("description", ""))
+        listing_url = _safe_text(str(job.get("url", "")))
+        # Prefer a direct ATS link found in the description over the feed listing URL.
+        ats_url = _extract_ats_url(desc_html)
         out.append(
             {
                 "source": "remotive",
@@ -456,8 +494,9 @@ def discover_remotive() -> Iterable[Dict[str, str]]:
                 ),
                 "salary": _safe_text(str(job.get("salary", ""))),
                 "job_type": _safe_text(str(job.get("job_type", ""))),
-                "url": _safe_text(str(job.get("url", ""))),
-                "description": _strip_html(str(job.get("description", ""))),
+                "url": ats_url or listing_url,
+                "listing_url": listing_url,
+                "description": _strip_html(desc_html),
                 "tags": ";".join(
                     [_slug(str(t)) for t in job.get("tags", []) if str(t).strip()]
                 ),
@@ -479,10 +518,13 @@ def discover_remoteok() -> Iterable[Dict[str, str]]:
             continue
         title = _safe_text(str(job.get("position", "")))
         company = _safe_text(str(job.get("company", "")))
-        url = _safe_text(str(job.get("url", "")))
-        if not title or not company or not url:
+        listing_url = _safe_text(str(job.get("url", "")))
+        if not title or not company or not listing_url:
             continue
         tags = job.get("tags") if isinstance(job.get("tags"), list) else []
+        desc_html = str(job.get("description", ""))
+        # Prefer a direct ATS link found in the description over the feed listing URL.
+        ats_url = _extract_ats_url(desc_html)
         out.append(
             {
                 "source": "remoteok",
@@ -491,8 +533,9 @@ def discover_remoteok() -> Iterable[Dict[str, str]]:
                 "location": _safe_text(str(job.get("location", "Remote"))),
                 "salary": _safe_text(str(job.get("salary", ""))),
                 "job_type": _safe_text(str(job.get("employment_type", ""))),
-                "url": url,
-                "description": _strip_html(str(job.get("description", ""))),
+                "url": ats_url or listing_url,
+                "listing_url": listing_url,
+                "description": _strip_html(desc_html),
                 "tags": ";".join([_slug(str(t)) for t in tags if str(t).strip()]),
             }
         )
@@ -611,6 +654,8 @@ def infer_method(url: str) -> str:
         "/jobs"
     ):
         return "linkedin"
+    if host == "talentprise.com" or host.endswith(".talentprise.com"):
+        return "talentprise"
     return "direct"
 
 

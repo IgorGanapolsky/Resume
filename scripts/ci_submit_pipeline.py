@@ -1848,6 +1848,41 @@ class LeverAdapter(PlaywrightFormAdapter):
         return None
 
 
+class TalentpriseAdapter(SiteAdapter):
+    """Talentprise profile-based job platform.
+
+    Talentprise uses a profile-match model rather than per-job applications.
+    The user maintains a profile at app.talentprise.com and the platform
+    matches them to roles.  Auto-submit is not applicable — the adapter
+    ensures the platform is recognized (not flagged as unsupported) and
+    routes to manual profile-maintenance lane.
+    """
+
+    name = "talentprise"
+    auto_submit_supported = False
+    host_patterns = (re.compile(r"talentprise\.com"),)
+
+    def matches(self, url: str) -> bool:
+        host = (urllib.parse.urlsplit(url).hostname or "").lower()
+        return any(p.search(host) for p in self.host_patterns)
+
+    def submit(
+        self,
+        task: SubmitTask,
+        profile: Profile,
+        auth: AdapterAuth,
+        answers: SubmitAnswers,
+        use_local_chrome: bool = False,
+        visible: bool = False,
+    ) -> SubmitResult:
+        return SubmitResult(
+            adapter=self.name,
+            verified=False,
+            screenshot=None,
+            details="Talentprise uses profile-matching; maintain profile at app.talentprise.com/talent/profile",
+        )
+
+
 def _resolve_resume(company: str, role: str) -> Optional[Path]:
     company_slug = _slug(company)
     role_slug = _slug(role)
@@ -2563,7 +2598,7 @@ def run_pipeline(
     fields, rows = _read_tracker(tracker_csv)
     adapters = list(
         adapters
-        or [AshbyAdapter(), GreenhouseAdapter(), LeverAdapter(), OracleAdapter()]
+        or [AshbyAdapter(), GreenhouseAdapter(), LeverAdapter(), OracleAdapter(), TalentpriseAdapter()]
     )
     fields = _ensure_tracker_fields(
         fields, rows, TRACKER_REMOTE_FIELDS + TRACKER_SUBMISSION_FIELDS

@@ -31,8 +31,18 @@ import numpy as np
 
 try:
     import lancedb  # type: ignore
+
+    def _lancedb_connect(path: str):
+        """Compat wrapper: lancedb >=0.30 replaced connect() with open()."""
+        if hasattr(lancedb, "connect"):
+            return lancedb.connect(path)
+        return lancedb.open(path)  # type: ignore[attr-defined]
+
 except Exception:  # pragma: no cover
     lancedb = None  # type: ignore
+
+    def _lancedb_connect(path: str):  # type: ignore[misc]
+        raise RuntimeError("lancedb not installed")
 
 from memalign import (
     append_jsonl,
@@ -646,7 +656,7 @@ def _index_records_in_lancedb(records: List[Dict]) -> int:
         print(f"Built {len(records)} records (JSONL only; lancedb unavailable)")
         return 0
 
-    db = lancedb.connect(str(LANCEDB_DIR))
+    db = _lancedb_connect(str(LANCEDB_DIR))
     items = []
     for rec in records:
         items.append(
@@ -1005,7 +1015,7 @@ def query(q: str, *, k: int = 8) -> None:
             "lancedb unavailable; run build to generate JSONL, or install lancedb."
         )
 
-    db = lancedb.connect(str(LANCEDB_DIR))
+    db = _lancedb_connect(str(LANCEDB_DIR))
     table = db.open_table("applications")
     q_vec = _hashing_embedding(q.strip())
     candidate_k = max(k * 8, 40)
@@ -1084,7 +1094,7 @@ def retrieve(
             "lancedb unavailable; run build to generate JSONL, or install lancedb."
         )
 
-    db = lancedb.connect(str(LANCEDB_DIR))
+    db = _lancedb_connect(str(LANCEDB_DIR))
     table = db.open_table("applications")
     q_vec = _hashing_embedding(q.strip())
     candidate_k = max(k * 12, 60)
