@@ -948,6 +948,11 @@ class AshbyAdapter(PlaywrightFormAdapter):
         r"confirmation",
         r"application.*complete",
     )
+    spam_error_patterns = (
+        r"we couldn'?t submit your application",
+        r"flagged as possible spam",
+        r"submit your application again",
+    )
 
     def _missing_form_scope_detail(self, page: Any) -> str:
         text = ""
@@ -1479,6 +1484,19 @@ class AshbyAdapter(PlaywrightFormAdapter):
     def _extract_failure_details(self, page: Any, scope: Any) -> Optional[str]:
         if self._has_required_question_error(scope, page):
             return "required_questions_unanswered_after_retry"
+        text_blobs: List[str] = []
+        for target in (scope, page):
+            try:
+                text = str(target.inner_text("body") or "")
+            except Exception:
+                continue
+            if text:
+                text_blobs.append(text.lower())
+        combined = "\n".join(text_blobs)
+        if combined and all(
+            re.search(pattern, combined, re.I) for pattern in self.spam_error_patterns
+        ):
+            return "recaptcha_score_below_threshold"
         return None
 
     def _extract_submit_error_detail(self, response: Any) -> Optional[str]:
@@ -1771,6 +1789,98 @@ class AshbyAdapter(PlaywrightFormAdapter):
         except Exception:
             pass
         return None
+
+
+class InferactAshbyAdapter(AshbyAdapter):
+    """Inferact-specific Ashby flow with a small trust-building preflight."""
+
+    inferact_patterns = (
+        re.compile(r"jobs\.ashbyhq\.com/inferact/", re.I),
+        re.compile(r"(^|[./])inferact($|[./])", re.I),
+    )
+
+    def matches(self, url: str) -> bool:
+        if not super().matches(url):
+            return False
+        return any(pattern.search(url) for pattern in self.inferact_patterns)
+
+    def submit(
+        self,
+        task: SubmitTask,
+        profile: Profile,
+        auth: AdapterAuth,
+        answers: SubmitAnswers,
+        use_local_chrome: bool = False,
+        visible: bool = False,
+    ) -> SubmitResult:
+        try:
+            from playwright.sync_api import TimeoutError as PlaywrightTimeoutError  # type: ignore
+            from playwright.sync_api import sync_playwright  # type: ignore
+        except Exception as e:
+            return SubmitResult(
+                adapter=self.name,
+                verified=False,
+                screenshot=None,
+                details=f"playwright_unavailable: {e}",
+            )
+
+        storage_state_arg: Optional[Any] = None
+        if auth.storage_state is not None:
+            storage_state_arg = auth.storage_state
+
+        try:
+            with sync_playwright() as pw:
+                runtime: Optional[BrowserRuntime] = None
+                try:
+                    runtime = _open_browser_runtime(
+                        pw,
+                        storage_state_arg,
+                        use_local_chrome=use_local_chrome,
+                        visible=visible,
+                    )
+                    page = runtime.page
+
+                    if stealth_sync:
+                        try:
+                            stealth_sync(page)
+                        except Exception:
+                            pass
+
+                    try:
+                        page.goto(
+                            "https://jobs.ashbyhq.com/inferact",
+                            wait_until="domcontentloaded",
+                            timeout=60000,
+                        )
+                        self._wait_human(1.2, 2.8)
+                        try:
+                            page.mouse.move(240, 180, steps=18)
+                            page.mouse.wheel(0, 900)
+                            page.mouse.move(760, 420, steps=22)
+                        except Exception:
+                            pass
+                        self._wait_human(0.8, 1.8)
+                    except Exception:
+                        pass
+                finally:
+                    _close_browser_runtime(runtime)
+        except PlaywrightTimeoutError:
+            return SubmitResult(
+                adapter=self.name,
+                verified=False,
+                screenshot=None,
+                details="timeout",
+            )
+        except Exception:
+            pass
+        return super().submit(
+            task,
+            profile,
+            auth,
+            answers,
+            use_local_chrome=use_local_chrome,
+            visible=visible,
+        )
 
 
 class GreenhouseAdapter(PlaywrightFormAdapter):
@@ -2633,6 +2743,7 @@ def run_pipeline(
     adapters = list(
         adapters
         or [
+            InferactAshbyAdapter(),
             AshbyAdapter(),
             GreenhouseAdapter(),
             LeverAdapter(),
