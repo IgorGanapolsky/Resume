@@ -10,7 +10,11 @@ from candidate_data import load_candidate_profile
 ROOT = Path(__file__).resolve().parents[1]
 PROFILE = load_candidate_profile()
 RESUME_PATH = (
-    ROOT / "applications" / "ami" / "tailored_resumes" / "2026-03-10_ami_ami-engineer.docx"
+    ROOT
+    / "applications"
+    / "ami"
+    / "tailored_resumes"
+    / "2026-03-10_ami_ami-engineer.docx"
 )
 SUBMISSIONS_DIR = ROOT / "applications" / "ami" / "submissions"
 
@@ -89,9 +93,7 @@ async def apply():
         await asyncio.sleep(random.uniform(5, 8))
 
         print("Taking pre-submit screenshot...")
-        await page.screenshot(
-            path=str(SUBMISSIONS_DIR / "stealth_v3_pre_submit.png")
-        )
+        await page.screenshot(path=str(SUBMISSIONS_DIR / "stealth_v3_pre_submit.png"))
 
         print("Submitting...")
         submit_btn = page.get_by_role("button", name="Submit Application").first
@@ -110,9 +112,7 @@ async def apply():
                 print("FAILURE: Still flagged as spam.")
                 break
 
-        await page.screenshot(
-            path=str(SUBMISSIONS_DIR / "stealth_v3_post_submit.png")
-        )
+        await page.screenshot(path=str(SUBMISSIONS_DIR / "stealth_v3_post_submit.png"))
         await browser.close()
 
 

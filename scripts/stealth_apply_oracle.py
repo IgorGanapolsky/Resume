@@ -135,9 +135,7 @@ async def apply():
                 print(f"Agree click failed: {e}")
 
         print("Taking snapshot after Agree...")
-        await page.screenshot(
-            path=str(SUBMISSIONS_DIR / "stealth_v3_after_agree.png")
-        )
+        await page.screenshot(path=str(SUBMISSIONS_DIR / "stealth_v3_after_agree.png"))
 
         # Resume Upload
         print("Looking for resume upload field...")
@@ -170,9 +168,7 @@ async def apply():
             await asyncio.sleep(60)
 
         print("Taking final confirmation snapshot...")
-        await page.screenshot(
-            path=str(SUBMISSIONS_DIR / "stealth_v3_confirmation.png")
-        )
+        await page.screenshot(path=str(SUBMISSIONS_DIR / "stealth_v3_confirmation.png"))
 
         body_text = await page.inner_text("body")
         print("--- FINAL BODY TEXT START ---")

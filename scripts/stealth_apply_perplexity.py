@@ -124,9 +124,7 @@ async def apply():
             await page.click('div:has-text("I agree")', force=True)
 
         print("Taking pre-submit screenshot...")
-        await page.screenshot(
-            path=str(SUBMISSIONS_DIR / "stealth_pre_submit.png")
-        )
+        await page.screenshot(path=str(SUBMISSIONS_DIR / "stealth_pre_submit.png"))
 
         print("Submitting...")
         submit_btn = page.get_by_role("button", name="Submit Application").first

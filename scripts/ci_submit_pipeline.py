@@ -453,8 +453,7 @@ def _open_browser_runtime(
             page=page,
             backend="local_playwright_persistent",
             note=(
-                f"local_chrome_profile:{user_data_dir}"
-                + (f";{note}" if note else "")
+                f"local_chrome_profile:{user_data_dir}" + (f";{note}" if note else "")
             ),
         )
 
@@ -2619,7 +2618,13 @@ def run_pipeline(
     fields, rows = _read_tracker(tracker_csv)
     adapters = list(
         adapters
-        or [AshbyAdapter(), GreenhouseAdapter(), LeverAdapter(), OracleAdapter(), TalentpriseAdapter()]
+        or [
+            AshbyAdapter(),
+            GreenhouseAdapter(),
+            LeverAdapter(),
+            OracleAdapter(),
+            TalentpriseAdapter(),
+        ]
     )
     fields = _ensure_tracker_fields(
         fields, rows, TRACKER_REMOTE_FIELDS + TRACKER_SUBMISSION_FIELDS

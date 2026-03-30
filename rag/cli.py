@@ -52,6 +52,7 @@ except Exception:  # pragma: no cover
     def _lancedb_connect(path: str):  # type: ignore[misc]
         raise RuntimeError("lancedb not installed")
 
+
 from memalign import (
     append_jsonl,
     build_long_memory_entry,

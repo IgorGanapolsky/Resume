@@ -2391,7 +2391,9 @@ def test_load_profile_from_file_supports_local_fallback(tmp_path, monkeypatch):
     mod = _load_module()
     monkeypatch.setattr(mod, "ROOT", tmp_path)
 
-    profile_path = tmp_path / "applications" / "job_applications" / "candidate_profile.json"
+    profile_path = (
+        tmp_path / "applications" / "job_applications" / "candidate_profile.json"
+    )
     profile_path.parent.mkdir(parents=True, exist_ok=True)
     profile_path.write_text(
         json.dumps(
@@ -2422,7 +2424,9 @@ def test_validate_secret_payloads_stays_strict_without_env_profile(
 ):
     mod = _load_module()
     monkeypatch.setattr(mod, "ROOT", tmp_path)
-    profile_path = tmp_path / "applications" / "job_applications" / "candidate_profile.json"
+    profile_path = (
+        tmp_path / "applications" / "job_applications" / "candidate_profile.json"
+    )
     profile_path.parent.mkdir(parents=True, exist_ok=True)
     profile_path.write_text(
         json.dumps(

@@ -9,7 +9,9 @@ from pathlib import Path
 from typing import Dict
 
 ROOT = Path(__file__).resolve().parents[1]
-CANDIDATE_PROFILE_JSON = ROOT / "applications" / "job_applications" / "candidate_profile.json"
+CANDIDATE_PROFILE_JSON = (
+    ROOT / "applications" / "job_applications" / "candidate_profile.json"
+)
 
 
 def load_candidate_profile(path: Path = CANDIDATE_PROFILE_JSON) -> Dict[str, str]:
@@ -21,7 +23,9 @@ def load_candidate_profile(path: Path = CANDIDATE_PROFILE_JSON) -> Dict[str, str
     required = ("first_name", "last_name", "email", "phone")
     missing = [key for key in required if not profile.get(key, "").strip()]
     if missing:
-        raise RuntimeError(f"Candidate profile missing required fields: {', '.join(missing)}")
+        raise RuntimeError(
+            f"Candidate profile missing required fields: {', '.join(missing)}"
+        )
 
     profile.setdefault(
         "full_name",
