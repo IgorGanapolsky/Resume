@@ -116,6 +116,15 @@ def test_infer_submission_lane(loop_mod):
     assert loop_mod.infer_submission_lane("direct") == "manual"
 
 
+def test_infer_method_rejects_ashby_accommodation_form(loop_mod):
+    assert (
+        loop_mod.infer_method(
+            "https://jobs.ashbyhq.com/deel/form/accommodation-requests"
+        )
+        == "direct"
+    )
+
+
 def test_tailor_resume_html_for_fde_profile(loop_mod):
     base_resume_path = (
         Path(__file__).resolve().parents[2]

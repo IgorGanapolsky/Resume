@@ -240,6 +240,18 @@ def _ensure_docx_from_html(html_path: Path, docx_path: Path) -> None:
     _write_simple_docx(_html_to_text(html_text), docx_path)
 
 
+def _ashby_auto_submit_url_ok(url: str) -> bool:
+    parsed = urllib.parse.urlsplit(url)
+    host = (parsed.hostname or "").lower()
+    path = (parsed.path or "").lower()
+    if not (host == "ashbyhq.com" or host.endswith(".ashbyhq.com")):
+        return False
+    if "/form/" in path:
+        return False
+    segments = [segment for segment in path.split("/") if segment]
+    return len(segments) >= 2
+
+
 def classify_role(job: Dict[str, str]) -> RoleProfile:
     title = job.get("title", "")
     hay = " ".join(
@@ -671,6 +683,8 @@ def infer_method(url: str) -> str:
     path = (parsed.path or "").lower()
 
     if host == "ashbyhq.com" or host.endswith(".ashbyhq.com"):
+        if not _ashby_auto_submit_url_ok(url):
+            return "direct"
         return "ashby"
     if host == "greenhouse.io" or host.endswith(".greenhouse.io"):
         return "greenhouse"

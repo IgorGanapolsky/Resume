@@ -124,6 +124,21 @@ def test_tech_role_regex_matches_member_of_technical_staff():
     assert mod.TECH_ROLE_RE.search("Member of Technical Staff, Exceptional Generalist")
 
 
+def test_find_adapter_rejects_ashby_accommodation_form():
+    mod = _load_module()
+    adapters = [
+        mod.AshbyAdapter(),
+        mod.GreenhouseAdapter(),
+        mod.LeverAdapter(),
+        mod.OracleAdapter(),
+        mod.TalentpriseAdapter(),
+    ]
+    adapter = mod._find_adapter(
+        "https://jobs.ashbyhq.com/deel/form/accommodation-requests", adapters
+    )
+    assert adapter is None
+
+
 def test_queue_only_promotes_high_fit_draft(tmp_path, monkeypatch):
     mod = _load_module()
     monkeypatch.setattr(mod, "ROOT", tmp_path)
