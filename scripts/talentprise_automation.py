@@ -387,56 +387,58 @@ def login_google_sso(page: Any) -> bool:
 # Profile update flows
 # ---------------------------------------------------------------------------
 
-def update_biography(page: Any) -> None:
-    """Update the biography/personal info section."""
-    print("\nUpdating biography...")
-    page.goto(PROFILE_URLS["biography"], wait_until="domcontentloaded", timeout=30000)
-    _wait(2, 4)
-    _mouse_wander(page)
-    _screenshot(page, "biography_before")
-
-    # Look for and fill common biography fields
-    field_map = {
-        "first_name": PROFILE["first_name"],
-        "last_name": PROFILE["last_name"],
-        "phone": PROFILE["phone"],
-        "linkedin": PROFILE["linkedin"],
-    }
-
-    for field_key, value in field_map.items():
-        for selector in [
-            f"input[name*='{field_key}']",
-            f"input[id*='{field_key}']",
-            f"input[placeholder*='{field_key.replace('_', ' ')}']",
-        ]:
-            try:
-                loc = page.locator(selector).first
-                if loc.count() > 0 and loc.is_visible():
-                    loc.clear()
-                    _type_human(loc, value)
-                    _wait(0.5, 1.0)
-                    break
-            except Exception:
-                continue
-
-    # Look for a summary/bio textarea
+def _click_sidebar(page: Any, label: str) -> bool:
+    """Click a sidebar navigation link by its visible text."""
     for selector in [
-        "textarea[name*='summary']",
-        "textarea[name*='bio']",
-        "textarea[name*='about']",
-        "textarea[name*='description']",
-        "textarea[placeholder*='about']",
+        f"a:has-text('{label}')",
+        f"div:has-text('{label}')",
+        f"span:has-text('{label}')",
+        f"li:has-text('{label}')",
     ]:
         try:
             loc = page.locator(selector).first
             if loc.count() > 0 and loc.is_visible():
-                loc.clear()
-                _type_human(loc, EXPERIENCE_SUMMARY)
-                break
+                _click_human(loc)
+                _wait(2, 4)
+                return True
+        except Exception:
+            continue
+    print(f"  Could not find sidebar link: {label}")
+    return False
+
+
+def _dismiss_cookies(page: Any) -> None:
+    """Dismiss cookie consent banner if present."""
+    for selector in [
+        "button:has-text('Accept All')",
+        "button:has-text('Accept')",
+        "[data-cky-tag='accept-button']",
+    ]:
+        try:
+            btn = page.locator(selector).first
+            if btn.count() > 0 and btn.is_visible(timeout=1000):
+                _click_human(btn)
+                _wait(0.5, 1.0)
+                return
         except Exception:
             continue
 
-    # Try to upload resume if there's a file input
+
+def _navigate_to_profile(page: Any) -> None:
+    """Navigate to the profile/biography base page."""
+    page.goto(PROFILE_URLS["biography"], wait_until="domcontentloaded", timeout=30000)
+    _wait(2, 4)
+    _dismiss_cookies(page)
+
+
+def update_biography(page: Any) -> None:
+    """Update the biography section — upload resume and fill basic fields."""
+    print("\nUpdating biography (Education section)...")
+    _navigate_to_profile(page)
+    _screenshot(page, "biography_before")
+
+    # The biography page shows Education by default.
+    # Try to upload resume if there's a file input on the page
     resume_candidates = list(
         (ROOT / "resumes").glob("Igor_Ganapolsky*.pdf")
     ) + list((ROOT / "resumes").glob("Igor_Ganapolsky*.docx"))
@@ -451,97 +453,198 @@ def update_biography(page: Any) -> None:
         except Exception as e:
             print(f"  Resume upload skipped: {e}")
 
-    _try_save(page)
     _screenshot(page, "biography_after")
 
 
 def update_languages(page: Any) -> None:
-    """Update the languages section."""
+    """Update the languages section via sidebar navigation."""
     print("\nUpdating languages...")
-    page.goto(PROFILE_URLS["languages"], wait_until="domcontentloaded", timeout=30000)
-    _wait(2, 4)
+    _navigate_to_profile(page)
+    _click_sidebar(page, "Languages")
     _screenshot(page, "languages_before")
 
+    # Check which languages already exist
+    page_text = page.locator("body").text_content() or ""
+
     for lang in LANGUAGES:
-        # Try to add a language via an "Add" button
+        # Skip if language already exists on the page
+        if lang["name"] in page_text:
+            print(f"  {lang['name']} already listed — skipping.")
+            continue
+
+        # Click "ADD LANGUAGES" button to open the add form
+        add_btn = None
         for selector in [
-            "button:has-text('Add')",
-            "button:has-text('Add Language')",
-            "a:has-text('Add')",
+            "button:has-text('ADD LANGUAGES')",
+            "button:has-text('Add Languages')",
+            "a:has-text('ADD LANGUAGES')",
+        ]:
+            try:
+                loc = page.locator(selector).first
+                if loc.count() > 0 and loc.is_visible():
+                    add_btn = loc
+                    break
+            except Exception:
+                continue
+
+        if add_btn is None:
+            print(f"  Could not find 'ADD LANGUAGES' button.")
+            continue
+
+        _click_human(add_btn)
+        _wait(2, 3)
+
+        # Now the Language* and Level form fields should appear
+        # Find ALL visible inputs on the page
+        try:
+            inputs = page.locator("input:visible").all()
+            if len(inputs) >= 1:
+                # First input = Language
+                inputs[0].click()
+                _wait(0.3, 0.5)
+                inputs[0].fill("")
+                _type_human(inputs[0], lang["name"])
+                _wait(1, 2)
+
+                # Try to select from autocomplete dropdown
+                for sel in [
+                    f"li:has-text('{lang['name']}')",
+                    f"div[role='option']:has-text('{lang['name']}')",
+                    f"[class*='option']:has-text('{lang['name']}')",
+                ]:
+                    try:
+                        opt = page.locator(sel).first
+                        if opt.count() > 0 and opt.is_visible():
+                            _click_human(opt)
+                            print(f"  Selected language: {lang['name']}")
+                            break
+                    except Exception:
+                        continue
+                else:
+                    page.keyboard.press("Enter")
+
+            if len(inputs) >= 2:
+                # Second input = Level
+                _wait(0.5, 1.0)
+                inputs[1].click()
+                _wait(0.3, 0.5)
+                inputs[1].fill("")
+                _type_human(inputs[1], lang["level"])
+                _wait(1, 2)
+
+                for sel in [
+                    f"li:has-text('{lang['level']}')",
+                    f"div[role='option']:has-text('{lang['level']}')",
+                ]:
+                    try:
+                        opt = page.locator(sel).first
+                        if opt.count() > 0 and opt.is_visible():
+                            _click_human(opt)
+                            break
+                    except Exception:
+                        continue
+                else:
+                    page.keyboard.press("Enter")
+                print(f"  Set level: {lang['level']}")
+
+        except Exception as e:
+            print(f"  Language form filling failed: {e}")
+
+        # Click SAVE
+        _try_save(page)
+        _wait(2, 3)
+
+    _screenshot(page, "languages_after")
+
+
+def update_skills(page: Any) -> None:
+    """Update skills via sidebar — check existing, add missing."""
+    # IT Skills
+    print("\nChecking IT Skills...")
+    _navigate_to_profile(page)
+    _click_sidebar(page, "IT Skills")
+    _screenshot(page, "it_skills_before")
+
+    page_text = page.locator("body").text_content() or ""
+    missing_it = [s for s in SKILLS_IT if s not in page_text]
+
+    if missing_it:
+        print(f"  Missing IT skills: {', '.join(missing_it)}")
+        _add_skills_via_button(page, missing_it, "ADD IT SKILLS")
+    else:
+        print("  All IT skills already present.")
+    _screenshot(page, "it_skills_after")
+
+    # Personal Skills
+    print("\nChecking Personal Skills...")
+    _click_sidebar(page, "Personal Skills")
+    _wait(2, 3)
+    _screenshot(page, "personal_skills_before")
+
+    page_text = page.locator("body").text_content() or ""
+    missing_personal = [s for s in SKILLS_PERSONAL if s not in page_text]
+
+    if missing_personal:
+        print(f"  Missing personal skills: {', '.join(missing_personal)}")
+        _add_skills_via_button(page, missing_personal, "ADD PERSONAL SKILLS")
+    else:
+        print("  All personal skills already present.")
+    _screenshot(page, "personal_skills_after")
+
+
+def _add_skills_via_button(page: Any, skills: list, button_text: str) -> None:
+    """Add skills by clicking the green ADD button, filling the form, and saving."""
+    for skill in skills:
+        # Click the ADD button
+        add_clicked = False
+        for selector in [
+            f"button:has-text('{button_text}')",
+            f"a:has-text('{button_text}')",
         ]:
             try:
                 btn = page.locator(selector).first
                 if btn.count() > 0 and btn.is_visible():
                     _click_human(btn)
-                    _wait(1, 2)
+                    add_clicked = True
+                    _wait(2, 3)
                     break
             except Exception:
                 continue
 
-        # Fill language name
-        for selector in [
-            "input[name*='language']",
-            "input[placeholder*='language']",
-            "input[placeholder*='Language']",
-            "select[name*='language']",
-        ]:
-            try:
-                loc = page.locator(selector).last
-                if loc.count() > 0 and loc.is_visible():
-                    tag = loc.evaluate("el => el.tagName.toLowerCase()")
-                    if tag == "select":
-                        loc.select_option(label=lang["name"])
-                    else:
-                        loc.clear()
-                        _type_human(loc, lang["name"])
-                        _wait(0.5, 1.0)
-                        # Select from autocomplete dropdown if present
-                        try:
-                            dropdown = page.locator(
-                                f"li:has-text('{lang['name']}')"
-                            ).first
-                            if dropdown.count() > 0:
-                                _click_human(dropdown)
-                        except Exception:
-                            pass
-                    break
-            except Exception:
-                continue
+        if not add_clicked:
+            print(f"  Could not find '{button_text}' button.")
+            break
 
-        # Set proficiency level
-        for selector in [
-            "select[name*='level']",
-            "select[name*='proficiency']",
-        ]:
-            try:
-                loc = page.locator(selector).last
-                if loc.count() > 0 and loc.is_visible():
-                    loc.select_option(label=lang["level"])
-                    break
-            except Exception:
-                continue
+        # Fill the skill name in the form that appears
+        try:
+            inputs = page.locator("input:visible").all()
+            if inputs:
+                inputs[0].click()
+                inputs[0].fill("")
+                _type_human(inputs[0], skill)
+                _wait(1, 2)
 
-    _try_save(page)
-    _screenshot(page, "languages_after")
+                # Select from autocomplete
+                for sel in [
+                    f"li:has-text('{skill}')",
+                    f"div[role='option']:has-text('{skill}')",
+                ]:
+                    try:
+                        opt = page.locator(sel).first
+                        if opt.count() > 0 and opt.is_visible():
+                            _click_human(opt)
+                            print(f"  Added: {skill}")
+                            break
+                    except Exception:
+                        continue
+                else:
+                    page.keyboard.press("Enter")
+                    print(f"  Typed: {skill}")
+        except Exception as e:
+            print(f"  Skill form failed: {e}")
 
-
-def update_skills(page: Any) -> None:
-    """Update the skills section."""
-    print("\nUpdating skills...")
-    page.goto(PROFILE_URLS["skills"], wait_until="domcontentloaded", timeout=30000)
-    _wait(2, 4)
-    _mouse_wander(page)
-    _screenshot(page, "skills_before")
-
-    # IT Skills
-    _add_skills_to_section(page, SKILLS_IT, section_hint="it")
-    _wait(1, 2)
-
-    # Personal Skills
-    _add_skills_to_section(page, SKILLS_PERSONAL, section_hint="personal")
-
-    _try_save(page)
-    _screenshot(page, "skills_after")
+        _try_save(page)
+        _wait(1, 2)
 
 
 def _add_skills_to_section(page: Any, skills: list, section_hint: str = "") -> None:
@@ -582,11 +685,10 @@ def _add_skills_to_section(page: Any, skills: list, section_hint: str = "") -> N
 
 
 def update_experience(page: Any) -> None:
-    """Update the experience section."""
+    """Update the experience section via sidebar."""
     print("\nUpdating experience...")
-    page.goto(PROFILE_URLS["experience"], wait_until="domcontentloaded", timeout=30000)
-    _wait(2, 4)
-    _mouse_wander(page)
+    _navigate_to_profile(page)
+    _click_sidebar(page, "Experience")
     _screenshot(page, "experience_before")
 
     # Look for years of experience field
@@ -663,46 +765,77 @@ def _try_save(page: Any) -> None:
 # ---------------------------------------------------------------------------
 
 def check_dashboard(page: Any) -> None:
-    """Check dashboard for matches, recruiter contacts, and notifications."""
+    """Check dashboard via 'My Page' link and review notifications."""
     print("\nChecking dashboard...")
-    page.goto(DASHBOARD_URL, wait_until="domcontentloaded", timeout=30000)
-    _wait(3, 5)
-    _mouse_wander(page)
-    _screenshot(page, "dashboard")
 
-    # Look for notification badges or recruiter messages
+    # Click "My Page" link in the top nav (this is the dashboard equivalent)
+    my_page_clicked = False
     for selector in [
-        "[class*='notification']",
-        "[class*='badge']",
-        "[class*='message']",
-        "[class*='chat']",
-        "button:has-text('Messages')",
-        "a:has-text('Messages')",
+        "a:has-text('My Page')",
+        "span:has-text('My Page')",
+        "div:has-text('My Page')",
     ]:
         try:
             loc = page.locator(selector).first
             if loc.count() > 0 and loc.is_visible():
-                text = loc.text_content() or ""
-                if text.strip():
-                    print(f"  Notification found: {text.strip()[:100]}")
+                _click_human(loc)
+                my_page_clicked = True
+                _wait(3, 5)
+                break
         except Exception:
             continue
 
-    # Check profile completeness / match stats
-    for selector in [
-        "[class*='progress']",
-        "[class*='score']",
-        "[class*='match']",
-        "[class*='stat']",
-    ]:
-        try:
-            elements = page.locator(selector).all()
-            for el in elements[:5]:
-                text = el.text_content() or ""
-                if text.strip():
-                    print(f"  Stat: {text.strip()[:100]}")
-        except Exception:
-            continue
+    if not my_page_clicked:
+        # Fallback to navigating directly
+        page.goto(BASE_URL, wait_until="domcontentloaded", timeout=30000)
+        _wait(3, 5)
+
+    _mouse_wander(page)
+    _screenshot(page, "dashboard")
+
+    # Check notification bell (42 notifications seen in screenshot)
+    try:
+        bell = page.locator("[class*='notification'], [class*='bell'], [aria-label*='notification']").first
+        if bell.count() > 0 and bell.is_visible():
+            _click_human(bell)
+            _wait(2, 3)
+            _screenshot(page, "notifications")
+            # Read notification text
+            try:
+                notif_text = page.locator("[class*='notification-list'], [class*='dropdown']").first.text_content()
+                if notif_text:
+                    print(f"  Notifications: {notif_text.strip()[:200]}")
+            except Exception:
+                pass
+            # Close notification panel by clicking elsewhere
+            page.mouse.click(100, 100)
+            _wait(1, 2)
+    except Exception:
+        pass
+
+    # Check for messages (chat icon)
+    try:
+        chat = page.locator("[class*='message'], [class*='chat'], [aria-label*='message']").first
+        if chat.count() > 0 and chat.is_visible():
+            _click_human(chat)
+            _wait(2, 3)
+            _screenshot(page, "messages")
+            page.mouse.click(100, 100)
+            _wait(1, 2)
+    except Exception:
+        pass
+
+    # Read any visible stats/metrics on the page
+    page_text = ""
+    try:
+        page_text = page.locator("body").text_content() or ""
+    except Exception:
+        pass
+    for keyword in ["match", "score", "profile", "view", "click"]:
+        for line in page_text.split("\n"):
+            if keyword.lower() in line.lower() and line.strip():
+                print(f"  {line.strip()[:100]}")
+                break
 
 
 def browse_jobs(page: Any) -> None:
