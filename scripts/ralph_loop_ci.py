@@ -240,6 +240,18 @@ def _ensure_docx_from_html(html_path: Path, docx_path: Path) -> None:
     _write_simple_docx(_html_to_text(html_text), docx_path)
 
 
+def _ashby_auto_submit_url_ok(url: str) -> bool:
+    parsed = urllib.parse.urlsplit(url)
+    host = (parsed.hostname or "").lower()
+    path = (parsed.path or "").lower()
+    if not (host == "ashbyhq.com" or host.endswith(".ashbyhq.com")):
+        return False
+    if "/form/" in path:
+        return False
+    segments = [segment for segment in path.split("/") if segment]
+    return len(segments) >= 2
+
+
 def classify_role(job: Dict[str, str]) -> RoleProfile:
     title = job.get("title", "")
     hay = " ".join(
@@ -624,8 +636,11 @@ def discover_greenhouse_boards() -> Iterable[Dict[str, str]]:
             locs = job.get("location", {})
             if isinstance(locs, dict):
                 location = _safe_text(str(locs.get("name", "Remote")))
-            # Greenhouse apply URL format
-            apply_url = f"https://boards.greenhouse.io/embed/job_app?for={company_slug}&token={job_id}"
+            # Use absolute_url from API — this is the real job page URL
+            # Format: https://job-boards.greenhouse.io/{company}/jobs/{id}
+            absolute_url = str(job.get("absolute_url", ""))
+            if not absolute_url:
+                absolute_url = f"https://job-boards.greenhouse.io/{company_slug}/jobs/{job_id}"
             out.append(
                 {
                     "source": "greenhouse_board",
@@ -634,8 +649,8 @@ def discover_greenhouse_boards() -> Iterable[Dict[str, str]]:
                     "location": location or "Remote",
                     "salary": "",
                     "job_type": "",
-                    "url": apply_url,
-                    "listing_url": str(job.get("absolute_url", apply_url)),
+                    "url": absolute_url,
+                    "listing_url": absolute_url,
                     "description": _strip_html(str(job.get("content", ""))),
                     "tags": "",
                 }
@@ -744,6 +759,8 @@ def infer_method(url: str) -> str:
     path = (parsed.path or "").lower()
 
     if host == "ashbyhq.com" or host.endswith(".ashbyhq.com"):
+        if not _ashby_auto_submit_url_ok(url):
+            return "direct"
         return "ashby"
     if host == "greenhouse.io" or host.endswith(".greenhouse.io"):
         return "greenhouse"
