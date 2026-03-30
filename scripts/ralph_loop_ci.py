@@ -24,6 +24,11 @@ from pathlib import Path
 from typing import Dict, Iterable, List
 from xml.sax.saxutils import escape
 
+try:
+    from candidate_data import load_candidate_profile
+except Exception:  # pragma: no cover - fallback keeps CI discovery resilient
+    load_candidate_profile = None
+
 ROOT = Path(__file__).resolve().parents[1]
 TRACKER_CSV = ROOT / "applications" / "job_applications" / "application_tracker.csv"
 APPLICATIONS_DIR = ROOT / "applications"
@@ -31,12 +36,13 @@ BASE_RESUME = ROOT / "resumes" / "Igor_Ganapolsky_AI_Systems_Engineer_2026-02-17
 
 ROLE_RE = re.compile(
     r"(software|ai|ml|machine learning|platform|infrastructure|infra|backend|full[- ]?stack|"
-    r"devops|site reliability|sre|distributed systems|agent)",
+    r"devops|site reliability|sre|distributed systems|agent|technical staff|member of technical staff)",
     re.IGNORECASE,
 )
 TECH_TITLE_RE = re.compile(
     r"(engineer|developer|devops|sre|site reliability|architect|ml|ai|data engineer|"
-    r"backend|frontend|full[- ]?stack|platform|infrastructure|ios|android|qa)",
+    r"backend|frontend|full[- ]?stack|platform|infrastructure|ios|android|qa|"
+    r"technical staff|member of technical staff)",
     re.IGNORECASE,
 )
 FDE_TITLE_RE = re.compile(
@@ -78,6 +84,28 @@ TRACKER_EXTRA_FIELDS = (
     "Submission Lane",
 )
 AUTO_SUBMIT_METHODS = {"ashby", "greenhouse", "lever"}
+
+
+def _candidate_contact() -> Dict[str, str]:
+    fallback = {
+        "full_name": "Igor Ganapolsky",
+        "github": "https://github.com/IgorGanapolsky",
+        "linkedin": "https://www.linkedin.com/in/igor-ganapolsky/",
+    }
+    if load_candidate_profile is None:
+        return fallback
+    try:
+        profile = load_candidate_profile()
+    except Exception:
+        return fallback
+    return {
+        "full_name": profile.get("full_name", fallback["full_name"]),
+        "github": profile.get("github", fallback["github"]),
+        "linkedin": profile.get("linkedin", fallback["linkedin"]),
+    }
+
+
+CANDIDATE_CONTACT = _candidate_contact()
 
 
 @dataclass(frozen=True)
@@ -405,12 +433,12 @@ def build_cover_letter(job: Dict[str, str], profile: RoleProfile) -> str:
         *highlights,
         "",
         "My work is grounded in proof, not just prompts. You can find the code for my autonomous agent architectures at:",
-        "- GitHub: https://github.com/IgorGanapolsky",
-        "- Technical POV: https://www.linkedin.com/in/igor-ganapolsky/",
+        f"- GitHub: {CANDIDATE_CONTACT['github']}",
+        f"- Technical POV: {CANDIDATE_CONTACT['linkedin']}",
         "",
         "Thank you for your consideration.",
         "",
-        "Igor Ganapolsky",
+        CANDIDATE_CONTACT["full_name"],
     ]
     return "\n".join(lines) + "\n"
 
@@ -542,6 +570,79 @@ def discover_remoteok() -> Iterable[Dict[str, str]]:
     return out
 
 
+# ---------------------------------------------------------------------------
+# Direct Greenhouse / Lever board scraping
+# ---------------------------------------------------------------------------
+
+# High-value companies with Greenhouse boards — these are direct ATS URLs
+# that the GreenhouseAdapter can auto-submit to.
+_GREENHOUSE_BOARDS = [
+    ("anthropic", "https://boards-api.greenhouse.io/v1/boards/anthropic/jobs"),
+    ("openai", "https://boards-api.greenhouse.io/v1/boards/openai/jobs"),
+    ("stripe", "https://boards-api.greenhouse.io/v1/boards/stripe/jobs"),
+    ("databricks", "https://boards-api.greenhouse.io/v1/boards/databricks/jobs"),
+    ("figma", "https://boards-api.greenhouse.io/v1/boards/figma/jobs"),
+    ("notion", "https://boards-api.greenhouse.io/v1/boards/notionhq/jobs"),
+    ("vercel", "https://boards-api.greenhouse.io/v1/boards/vercel/jobs"),
+    ("supabase", "https://boards-api.greenhouse.io/v1/boards/supabase/jobs"),
+    ("replicate", "https://boards-api.greenhouse.io/v1/boards/replicate/jobs"),
+    ("huggingface", "https://boards-api.greenhouse.io/v1/boards/huggingface/jobs"),
+    ("cohere", "https://boards-api.greenhouse.io/v1/boards/cohere/jobs"),
+    ("perplexityai", "https://boards-api.greenhouse.io/v1/boards/perplexityai/jobs"),
+    ("elevenlabs", "https://boards-api.greenhouse.io/v1/boards/elevenlabs/jobs"),
+    ("runway", "https://boards-api.greenhouse.io/v1/boards/runwayml/jobs"),
+    ("deepgram", "https://boards-api.greenhouse.io/v1/boards/deepgram/jobs"),
+]
+
+
+def discover_greenhouse_boards() -> Iterable[Dict[str, str]]:
+    """Scrape Greenhouse public API for jobs at high-value companies.
+
+    These return direct greenhouse.io apply URLs that the GreenhouseAdapter
+    can auto-submit to — no redirect resolution needed.
+    """
+    out: List[Dict[str, str]] = []
+    for company_slug, api_url in _GREENHOUSE_BOARDS:
+        try:
+            data = _fetch_json(api_url)
+        except Exception:
+            continue
+        if not isinstance(data, dict):
+            continue
+        jobs = data.get("jobs", [])
+        if not isinstance(jobs, list):
+            continue
+        for job in jobs:
+            if not isinstance(job, dict):
+                continue
+            title = _safe_text(str(job.get("title", "")))
+            # Build the direct application URL
+            job_id = job.get("id", "")
+            if not title or not job_id:
+                continue
+            location = ""
+            locs = job.get("location", {})
+            if isinstance(locs, dict):
+                location = _safe_text(str(locs.get("name", "Remote")))
+            # Greenhouse apply URL format
+            apply_url = f"https://boards.greenhouse.io/embed/job_app?for={company_slug}&token={job_id}"
+            out.append(
+                {
+                    "source": "greenhouse_board",
+                    "company": company_slug.replace("-", " ").title(),
+                    "title": title,
+                    "location": location or "Remote",
+                    "salary": "",
+                    "job_type": "",
+                    "url": apply_url,
+                    "listing_url": str(job.get("absolute_url", apply_url)),
+                    "description": _strip_html(str(job.get("content", ""))),
+                    "tags": "",
+                }
+            )
+    return out
+
+
 def is_relevant(job: Dict[str, str]) -> bool:
     return classify_role(job).is_relevant
 
@@ -663,6 +764,18 @@ def infer_submission_lane(method: str) -> str:
     return "ci_auto" if method in AUTO_SUBMIT_METHODS else "manual"
 
 
+def _discovery_priority(
+    job: Dict[str, str], profile: RoleProfile, method: str
+) -> tuple[int, int, str, str]:
+    auto_penalty = 0 if method in AUTO_SUBMIT_METHODS else 1
+    return (
+        auto_penalty,
+        -int(profile.score),
+        _safe_text(job.get("company", "")).lower(),
+        _safe_text(job.get("title", "")).lower(),
+    )
+
+
 def _planned_cover_stem(company: str, role: str, today: str) -> str:
     return f"{today}_{_slug(company)}_{_slug(role)[:64]}"
 
@@ -670,6 +783,15 @@ def _planned_cover_stem(company: str, role: str, today: str) -> str:
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--max-new-jobs", type=int, default=10)
+    ap.add_argument(
+        "--max-manual-jobs",
+        type=int,
+        default=0,
+        help=(
+            "Optional quota for non-adapter/manual feed listings. "
+            "Defaults to 0 so Ralph Loop prioritizes CI-submittable ATS roles."
+        ),
+    )
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
@@ -685,20 +807,39 @@ def main() -> None:
         for r in rows
     }
 
-    discovered = list(discover_remotive()) + list(discover_remoteok())
-    relevant: List[tuple[Dict[str, str], RoleProfile]] = []
+    discovered = (
+        list(discover_remotive())
+        + list(discover_remoteok())
+        + list(discover_greenhouse_boards())
+    )
+    relevant: List[tuple[Dict[str, str], RoleProfile, str]] = []
     for job in discovered:
         if not job.get("url"):
             continue
         profile = classify_role(job)
         if profile.is_relevant:
-            relevant.append((job, profile))
-    relevant.sort(key=lambda item: item[1].score, reverse=True)
+            method = infer_method(job["url"])
+            # If the URL doesn't map to a supported ATS, try following
+            # redirects — remotive/remoteOK links often redirect to the
+            # real Greenhouse/Lever/Ashby career page.
+            if method not in AUTO_SUBMIT_METHODS:
+                resolved = _resolve_redirect_url(job["url"])
+                resolved_method = infer_method(resolved)
+                if resolved_method in AUTO_SUBMIT_METHODS:
+                    job["url"] = resolved
+                    method = resolved_method
+            relevant.append((job, profile, method))
+    relevant.sort(key=lambda item: _discovery_priority(item[0], item[1], item[2]))
 
     added = 0
-    for job, profile in relevant:
+    added_auto = 0
+    added_manual = 0
+    manual_quota = max(0, int(args.max_manual_jobs))
+    for job, profile, method in relevant:
         if added >= args.max_new_jobs:
             break
+        if method not in AUTO_SUBMIT_METHODS and added_manual >= manual_quota:
+            continue
         url = _safe_text(job["url"]).lower()
         pair = (_safe_text(job["company"]).lower(), _safe_text(job["title"]).lower())
         if url in existing_urls or pair in existing_pairs:
@@ -714,7 +855,6 @@ def main() -> None:
             job.get("tags", "") or "ai;software", _profile_tags(profile)
         )
         signals = ",".join(profile.signals) if profile.signals else "none"
-        method = infer_method(job["url"])
         submission_lane = infer_submission_lane(method)
         remote_policy, remote_score, remote_evidence = infer_remote_profile(job)
         row = {
@@ -748,10 +888,16 @@ def main() -> None:
         existing_urls.add(url)
         existing_pairs.add(pair)
         added += 1
+        if method in AUTO_SUBMIT_METHODS:
+            added_auto += 1
+        else:
+            added_manual += 1
 
     print(f"Discovered: {len(discovered)}")
     print(f"Relevant: {len(relevant)}")
     print(f"Added: {added}")
+    print(f"Added auto-submit candidates: {added_auto}")
+    print(f"Added manual candidates: {added_manual}")
     if not args.dry_run and added:
         write_tracker(fieldnames, rows)
         print(f"Tracker updated: {TRACKER_CSV}")
