@@ -25,6 +25,8 @@ from datetime import date
 from pathlib import Path
 from typing import Any, Optional
 
+from candidate_data import load_candidate_profile
+
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
@@ -49,20 +51,11 @@ PROFILE_URLS = {
 }
 
 # ---------------------------------------------------------------------------
-# Profile data — sourced from application_answers.md
+# Profile data — sourced from candidate_profile.json
 # ---------------------------------------------------------------------------
 
-PROFILE = {
-    "first_name": "Igor",
-    "last_name": "Ganapolsky",
-    "email": "iganapolsky@gmail.com",
-    "phone": "(201) 639-1534",
-    "location": "Coral Springs, FL, USA",
-    "linkedin": "https://www.linkedin.com/in/igor-ganapolsky-859317343/",
-    "github": "https://github.com/IgorGanapolsky",
-    "current_company": "Subway",
-    "current_title": "Senior Software Engineer",
-}
+PROFILE = load_candidate_profile()
+PROFILE["current_title"] = "Senior Software Engineer"
 
 SKILLS_IT = [
     "Python",
@@ -75,6 +68,13 @@ SKILLS_IT = [
     "Docker",
     "GitHub Actions",
     "Claude AI",
+]
+
+# Skills to remove if present (low-relevance for target roles)
+SKILLS_IT_REMOVE = [
+    "Sophos",
+    "JSON-RPC",
+    "Chromium",
 ]
 
 SKILLS_PERSONAL = [
@@ -557,38 +557,91 @@ def update_languages(page: Any) -> None:
     _screenshot(page, "languages_after")
 
 
+def _delete_skill_by_name(page: Any, skill_name: str) -> bool:
+    """Delete a skill by finding its row and clicking the trash icon."""
+    # Each skill row has text like "Advanced in Python with 5 years..."
+    # and a trash icon next to it. Find the row containing the skill name.
+    try:
+        # Look for delete buttons (trash icons) near the skill text
+        # Strategy: find the text, then find the closest delete button
+        rows = page.locator("div:has-text('" + skill_name + "')").all()
+        for row in rows:
+            try:
+                # Look for delete/trash icon within or near this row
+                trash = row.locator("button, a, [class*='delete'], [class*='trash'], svg").first
+                if trash.count() > 0 and trash.is_visible():
+                    _click_human(trash)
+                    _wait(1, 2)
+                    # Confirm deletion if there's a confirmation dialog
+                    for confirm_sel in [
+                        "button:has-text('Yes')",
+                        "button:has-text('Delete')",
+                        "button:has-text('Confirm')",
+                        "button:has-text('OK')",
+                    ]:
+                        try:
+                            confirm = page.locator(confirm_sel).first
+                            if confirm.count() > 0 and confirm.is_visible():
+                                _click_human(confirm)
+                                _wait(1, 2)
+                                break
+                        except Exception:
+                            continue
+                    print(f"  Deleted: {skill_name}")
+                    return True
+            except Exception:
+                continue
+    except Exception:
+        pass
+    return False
+
+
 def update_skills(page: Any) -> None:
-    """Update skills via sidebar — check existing, add missing."""
+    """Update skills via sidebar — remove low-value, add high-value."""
     # IT Skills
-    print("\nChecking IT Skills...")
+    print("\nOptimizing IT Skills...")
     _navigate_to_profile(page)
     _click_sidebar(page, "IT Skills")
     _screenshot(page, "it_skills_before")
 
     page_text = page.locator("body").text_content() or ""
-    missing_it = [s for s in SKILLS_IT if s not in page_text]
 
+    # Step 1: Delete low-value skills to make room
+    deleted_any = False
+    for skill in SKILLS_IT_REMOVE:
+        if skill in page_text:
+            print(f"  Removing low-value skill: {skill}")
+            _delete_skill_by_name(page, skill)
+            deleted_any = True
+            _wait(1, 2)
+
+    # Re-navigate to IT Skills after deletions (deletion may redirect to profile view)
+    if deleted_any:
+        _navigate_to_profile(page)
+        _click_sidebar(page, "IT Skills")
+        _wait(2, 3)
+
+    page_text = page.locator("body").text_content() or ""
+
+    # Step 2: Add missing high-value skills
+    missing_it = [s for s in SKILLS_IT if s not in page_text]
     if missing_it:
-        print(f"  Missing IT skills: {', '.join(missing_it)}")
+        print(f"  Adding IT skills: {', '.join(missing_it)}")
         _add_skills_via_button(page, missing_it, "ADD IT SKILLS")
     else:
-        print("  All IT skills already present.")
+        print("  All target IT skills already present.")
     _screenshot(page, "it_skills_after")
 
-    # Personal Skills
+    # Personal Skills — uses tag chips with "SAVE CHANGES" button
     print("\nChecking Personal Skills...")
     _click_sidebar(page, "Personal Skills")
     _wait(2, 3)
     _screenshot(page, "personal_skills_before")
 
     page_text = page.locator("body").text_content() or ""
-    missing_personal = [s for s in SKILLS_PERSONAL if s not in page_text]
-
-    if missing_personal:
-        print(f"  Missing personal skills: {', '.join(missing_personal)}")
-        _add_skills_via_button(page, missing_personal, "ADD PERSONAL SKILLS")
-    else:
-        print("  All personal skills already present.")
+    # Personal skills already has 10+ — note "Only first 10 will be displayed"
+    # Just report status, don't try to modify since it's already at capacity
+    print(f"  Personal skills section loaded. Current skills visible on page.")
     _screenshot(page, "personal_skills_after")
 
 
@@ -911,13 +964,31 @@ def browse_jobs(page: Any) -> None:
 # Main
 # ---------------------------------------------------------------------------
 
+def _export_storage_state(context: Any) -> Optional[str]:
+    """Export Playwright storage state as JSON for CI secret storage."""
+    import json as _json
+    try:
+        state = context.storage_state()
+        return _json.dumps(state, ensure_ascii=True)
+    except Exception:
+        return None
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--profile-only", action="store_true", help="Only update profile")
     ap.add_argument("--dashboard-only", action="store_true", help="Only check dashboard")
     ap.add_argument(
         "--headless", action="store_true",
-        help="Run headless (NOT recommended for Google SSO — use visible mode)",
+        help="Run headless (uses saved storage state, no SSO popup)",
+    )
+    ap.add_argument(
+        "--capture-auth", action="store_true",
+        help="Login interactively, export storage state for CI, then exit",
+    )
+    ap.add_argument(
+        "--storage-state-env", default="TALENTPRISE_AUTH_JSON",
+        help="Env var name containing Playwright storage state JSON (for CI)",
     )
     args = ap.parse_args()
 
@@ -927,71 +998,96 @@ def main() -> int:
         print("ERROR: Install playwright: pip install playwright && python -m playwright install chromium")
         return 1
 
-    # Use visible browser for Google SSO.
-    # Google SSO opens a popup window — we need to handle it.
-    # We use a *separate* persistent profile (not Chrome's locked Default)
-    # so Playwright doesn't conflict with a running Chrome.
     visible = not args.headless
     print(f"Launching browser (visible={visible})...")
 
     with sync_playwright() as pw:
-        # Use a dedicated Playwright profile that persists Google session cookies
-        profile_dir = ROOT / ".talentprise_profile"
-        profile_dir.mkdir(parents=True, exist_ok=True)
+        import json as _json
+        import os as _os
 
-        context = pw.chromium.launch_persistent_context(
-            user_data_dir=str(profile_dir),
-            headless=not visible,
-            args=[
-                "--disable-blink-features=AutomationControlled",
-                "--no-first-run",
-                "--no-default-browser-check",
-            ],
-            viewport={"width": 1440, "height": 900},
-        )
-        page = context.new_page() if not context.pages else context.pages[0]
+        # CI mode: use storage state from environment variable (no persistent profile needed)
+        storage_state_json = _os.getenv(args.storage_state_env, "").strip()
+        use_storage_state = bool(storage_state_json) and not args.capture_auth
+
+        if use_storage_state:
+            # CI mode — launch with saved storage state, headless
+            print("  CI mode: using stored auth from environment.")
+            try:
+                state = _json.loads(storage_state_json)
+            except Exception:
+                print("  ERROR: Invalid storage state JSON in env var.")
+                return 1
+            browser = pw.chromium.launch(
+                headless=True,
+                args=["--disable-blink-features=AutomationControlled"],
+            )
+            context = browser.new_context(
+                storage_state=state,
+                viewport={"width": 1440, "height": 900},
+            )
+            page = context.new_page()
+        else:
+            # Local mode — use persistent profile for Google SSO
+            profile_dir = ROOT / ".talentprise_profile"
+            profile_dir.mkdir(parents=True, exist_ok=True)
+            browser = None  # persistent context IS the browser
+            context = pw.chromium.launch_persistent_context(
+                user_data_dir=str(profile_dir),
+                headless=not visible,
+                args=[
+                    "--disable-blink-features=AutomationControlled",
+                    "--no-first-run",
+                    "--no-default-browser-check",
+                ],
+                viewport={"width": 1440, "height": 900},
+            )
+            page = context.new_page() if not context.pages else context.pages[0]
 
         try:
-            # Step 0: Ensure Google session exists in this profile
-            # On first run, user needs to sign into Google interactively.
-            session_marker = profile_dir / ".google_session_ok"
-            if not session_marker.exists():
-                print("\nFirst run — establishing Google session in Playwright profile.")
-                print("Navigating to Google sign-in...")
-                page.goto(
-                    "https://accounts.google.com/signin",
-                    wait_until="domcontentloaded",
-                    timeout=30000,
-                )
-                _wait(2, 3)
-                _screenshot(page, "google_signin_initial")
+            if not use_storage_state:
+                # Ensure Google session exists in persistent profile
+                session_marker = (ROOT / ".talentprise_profile" / ".google_session_ok")
+                if not session_marker.exists():
+                    print("\nFirst run — establishing Google session in Playwright profile.")
+                    page.goto(
+                        "https://accounts.google.com/signin",
+                        wait_until="domcontentloaded",
+                        timeout=30000,
+                    )
+                    _wait(2, 3)
+                    _screenshot(page, "google_signin_initial")
+                    if "myaccount.google.com" in page.url or "SignOutOptions" in (page.content() or ""):
+                        print("  Google session already active!")
+                        session_marker.write_text("ok")
+                    else:
+                        print(f"\n  Please sign in with: {PROFILE['email']}")
+                        print("  Press ENTER here once you've completed sign-in...")
+                        input()
+                        _screenshot(page, "google_signin_complete")
+                        session_marker.write_text("ok")
 
-                # Check if already signed in
-                if "myaccount.google.com" in page.url or "SignOutOptions" in (page.content() or ""):
-                    print("  Google session already active!")
-                    session_marker.write_text("ok")
-                else:
-                    print("\n  A browser window has opened to Google sign-in.")
-                    print(f"  Please sign in with: {PROFILE['email']}")
-                    print("  Press ENTER here once you've completed sign-in...")
-                    input()
-                    _screenshot(page, "google_signin_complete")
-                    session_marker.write_text("ok")
-                    print("  Google session saved to Playwright profile.")
-
-            # Step 1: Login to Talentprise
+            # Login to Talentprise
             if not login_google_sso(page):
-                print("\nLogin failed. You may need to:")
-                print("  1. Delete .talentprise_profile/ and re-run")
-                print("  2. Sign into Google when prompted")
+                print("\nLogin failed.")
                 _screenshot(page, "login_failed")
                 return 1
+
+            # --capture-auth: export storage state and exit
+            if args.capture_auth:
+                state_json = _export_storage_state(context)
+                if state_json:
+                    auth_path = ROOT / ".talentprise_auth.json"
+                    auth_path.write_text(state_json, encoding="utf-8")
+                    print(f"\nAuth state exported to: {auth_path}")
+                    print("To set as CI secret:")
+                    print(f'  gh secret set TALENTPRISE_AUTH_JSON < {auth_path}')
+                return 0
 
             if args.dashboard_only:
                 check_dashboard(page)
                 return 0
 
-            # Step 2: Update profile sections
+            # Update profile sections
             update_biography(page)
             update_languages(page)
             update_skills(page)
@@ -1001,7 +1097,7 @@ def main() -> int:
                 print("\nProfile update complete!")
                 return 0
 
-            # Step 3: Check dashboard and browse jobs
+            # Check dashboard and browse jobs
             check_dashboard(page)
             browse_jobs(page)
 
@@ -1009,6 +1105,8 @@ def main() -> int:
             return 0
         finally:
             context.close()
+            if browser:
+                browser.close()
 
 
 if __name__ == "__main__":

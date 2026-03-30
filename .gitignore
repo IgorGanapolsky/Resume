@@ -37,3 +37,4 @@ research/*.pdf
 research/*.jpg
 \n# Credentials and Agent Identity\n.env\n.claude/
 .talentprise_profile/
+.talentprise_auth.json

@@ -46,6 +46,7 @@ jobs:
       CI_SUBMIT_PROFILE_JSON: ${{ secrets.CI_SUBMIT_PROFILE_JSON }}
       CI_SUBMIT_AUTH_JSON: ${{ secrets.CI_SUBMIT_AUTH_JSON }}
       CI_SUBMIT_ANSWERS_JSON: ${{ secrets.CI_SUBMIT_ANSWERS_JSON }}
+      TALENTPRISE_AUTH_JSON: ${{ secrets.TALENTPRISE_AUTH_JSON }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -98,6 +99,13 @@ jobs:
             --max-parallel 3 \
             --report applications/job_applications/autonomous_supervisor_report.json \
             $EXTRA_ARGS
+
+      - name: Talentprise profile refresh
+        if: env.TALENTPRISE_AUTH_JSON != ''
+        env:
+          TALENTPRISE_AUTH_JSON: ${{ secrets.TALENTPRISE_AUTH_JSON }}
+        run: |
+          python3 scripts/talentprise_automation.py --headless --profile-only || echo "Talentprise refresh skipped (auth may be stale)"
 
       - name: Upload submit diagnostics
         if: always()
