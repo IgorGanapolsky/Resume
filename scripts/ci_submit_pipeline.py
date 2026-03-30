@@ -2470,8 +2470,22 @@ def _is_ready_status(status: str) -> bool:
     return _norm_key(status) in READY_STATUS_KEYS
 
 
+def _ashby_auto_submit_url_ok(url: str) -> bool:
+    parsed = urllib.parse.urlsplit(url)
+    host = (parsed.hostname or "").lower()
+    path = (parsed.path or "").lower()
+    if not (host == "ashbyhq.com" or host.endswith(".ashbyhq.com")):
+        return False
+    if "/form/" in path:
+        return False
+    segments = [segment for segment in path.split("/") if segment]
+    return len(segments) >= 2
+
+
 def _find_adapter(url: str, adapters: Sequence[SiteAdapter]) -> Optional[SiteAdapter]:
     for adapter in adapters:
+        if adapter.name == "ashby" and not _ashby_auto_submit_url_ok(url):
+            continue
         if adapter.matches(url):
             return adapter
     return None
