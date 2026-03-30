@@ -5,6 +5,7 @@ from __future__ import annotations
 import csv
 import importlib.util
 import json
+import os
 import sys
 import urllib.parse
 import zipfile
@@ -116,6 +117,11 @@ def _seed_fde_artifacts_html_only(
         "Requirements: customer integrations, Python, APIs.",
         encoding="utf-8",
     )
+
+
+def test_tech_role_regex_matches_member_of_technical_staff():
+    mod = _load_module()
+    assert mod.TECH_ROLE_RE.search("Member of Technical Staff, Exceptional Generalist")
 
 
 def test_queue_only_promotes_high_fit_draft(tmp_path, monkeypatch):
@@ -2381,6 +2387,78 @@ def test_validate_secret_payloads_allows_empty_auth_map(monkeypatch):
     assert errors == []
 
 
+def test_load_profile_from_file_supports_local_fallback(tmp_path, monkeypatch):
+    mod = _load_module()
+    monkeypatch.setattr(mod, "ROOT", tmp_path)
+
+    profile_path = (
+        tmp_path / "applications" / "job_applications" / "candidate_profile.json"
+    )
+    profile_path.parent.mkdir(parents=True, exist_ok=True)
+    profile_path.write_text(
+        json.dumps(
+            {
+                "first_name": "Igor",
+                "last_name": "Ganapolsky",
+                "email": "iganapolsky@gmail.com",
+                "phone": "(201) 639-1534",
+                "location": "Coral Springs, FL, USA",
+                "linkedin": "https://www.linkedin.com/in/igor-ganapolsky-859317343/",
+                "github": "https://github.com/IgorGanapolsky",
+                "current_company": "Subway",
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    profile = mod._load_profile_from_file(profile_path)
+
+    assert profile is not None
+    assert profile.first_name == "Igor"
+    assert profile.email == "iganapolsky@gmail.com"
+    assert profile.phone == "(201) 639-1534"
+
+
+def test_validate_secret_payloads_stays_strict_without_env_profile(
+    tmp_path, monkeypatch
+):
+    mod = _load_module()
+    monkeypatch.setattr(mod, "ROOT", tmp_path)
+    profile_path = (
+        tmp_path / "applications" / "job_applications" / "candidate_profile.json"
+    )
+    profile_path.parent.mkdir(parents=True, exist_ok=True)
+    profile_path.write_text(
+        json.dumps(
+            {
+                "first_name": "Igor",
+                "last_name": "Ganapolsky",
+                "email": "iganapolsky@gmail.com",
+                "phone": "(201) 639-1534",
+            }
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.delenv("CI_SUBMIT_PROFILE_JSON", raising=False)
+    monkeypatch.setenv(
+        "CI_SUBMIT_ANSWERS_JSON",
+        json.dumps(
+            {
+                "work_authorization_us": True,
+                "require_sponsorship": False,
+                "role_interest": "AI systems and integrations.",
+                "eeo_default": "Prefer not to say",
+            }
+        ),
+    )
+    monkeypatch.delenv("CI_SUBMIT_AUTH_JSON", raising=False)
+
+    ok, errors = mod.validate_secret_payloads()
+
+    assert ok is False
+    assert errors == ["invalid_profile:CI_SUBMIT_PROFILE_JSON"]
+
+
 def test_validate_secrets_only_cli_hides_secret_diagnostics(monkeypatch, capsys):
     mod = _load_module()
     monkeypatch.setenv(
@@ -2595,6 +2673,63 @@ def test_open_browser_runtime_falls_back_to_local_when_anchor_fails(monkeypatch)
     assert runtime.note.startswith("anchor_fallback_local:")
     assert pw.chromium.launch_calls == [{"headless": True}]
     assert runtime.context.kwargs == {"storage_state": storage_state}
+
+
+def test_resolve_local_chrome_user_data_dir_uses_override(monkeypatch):
+    mod = _load_module()
+    monkeypatch.setenv("CI_SUBMIT_CHROME_USER_DATA_DIR", "~/tmp/resume-ci-profile")
+
+    resolved = mod._resolve_local_chrome_user_data_dir()
+
+    assert resolved.endswith("/tmp/resume-ci-profile")
+    assert os.path.isdir(resolved)
+    assert "Google/Chrome/Default" not in resolved
+
+
+def test_open_browser_runtime_uses_dedicated_local_profile(monkeypatch, tmp_path):
+    mod = _load_module()
+    monkeypatch.delenv("ANCHOR_BROWSER_API_KEY", raising=False)
+    monkeypatch.setenv(
+        "CI_SUBMIT_CHROME_USER_DATA_DIR", str(tmp_path / "automation-profile")
+    )
+
+    class _FakePersistentContext:
+        def __init__(self):
+            self.pages = []
+
+        def new_page(self):
+            page = object()
+            self.pages.append(page)
+            return page
+
+        def close(self):
+            return None
+
+    class _FakeChromium:
+        def __init__(self):
+            self.calls = []
+            self.context = _FakePersistentContext()
+
+        def launch_persistent_context(self, **kwargs):
+            self.calls.append(kwargs)
+            return self.context
+
+        def launch(self, **kwargs):
+            raise AssertionError("launch() should not run for local Chrome mode")
+
+    class _FakePlaywright:
+        def __init__(self):
+            self.chromium = _FakeChromium()
+
+    pw = _FakePlaywright()
+
+    runtime = mod._open_browser_runtime(
+        pw, storage_state=None, use_local_chrome=True, visible=False
+    )
+
+    assert runtime.backend == "local_playwright_persistent"
+    assert pw.chromium.calls[0]["user_data_dir"] == str(tmp_path / "automation-profile")
+    assert "Google/Chrome/Default" not in runtime.note
 
 
 def test_execute_without_auth_secret_uses_fresh_context(tmp_path, monkeypatch):

@@ -314,17 +314,17 @@ def run_prepare(
     ]
 
     processed = 0
+    inspected = 0
     failures = 0
     artifact_updates = 0
     became_eligible = 0
     details: List[Dict[str, Any]] = []
 
     for row in rows:
-        if processed >= max(0, max_jobs):
-            break
         status = str(row.get("Status", "")).strip()
         if not (ci_mod._is_draft_status(status) or ci_mod._is_ready_status(status)):
             continue
+        inspected += 1
 
         try:
             row_result = _prepare_row(
@@ -348,11 +348,17 @@ def run_prepare(
             failures += 1
 
         details.append(row_result)
-        processed += 1
+        # Spend the max-jobs budget on rows that are actually viable CI-submit
+        # candidates rather than on the first queueable rows, which are often
+        # unsupported/manual listings at the top of the tracker.
+        if bool(row_result.get("candidate")) or bool(row_result.get("error")):
+            processed += 1
         artifact_updates += len(row_result.get("artifact_updates", []))
         assessment_after = row_result.get("assessment_after") or {}
         if bool(assessment_after.get("eligible")):
             became_eligible += 1
+        if processed >= max(0, max_jobs):
+            break
 
     _write_tracker(tracker_csv, fields, rows)
 
@@ -363,6 +369,7 @@ def run_prepare(
         "fit_threshold": fit_threshold,
         "remote_min_score": remote_min_score,
         "processed_rows": processed,
+        "inspected_rows": inspected,
         "artifact_updates": artifact_updates,
         "became_gate_eligible": became_eligible,
         "failures": failures,

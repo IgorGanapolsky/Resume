@@ -178,10 +178,19 @@ class TestStatus:
 
 
 class TestQuery:
-    def test_query_prints_app_id_and_score(self, isolated_cli, capsys):
-        if isolated_cli.lancedb is None:
-            pytest.skip("lancedb not installed")
+    def test_query_falls_back_to_jsonl_when_lancedb_unavailable(
+        self, isolated_cli, capsys, monkeypatch
+    ):
+        isolated_cli.build()
+        monkeypatch.setattr(isolated_cli, "lancedb", None)
 
+        isolated_cli.query("senior ml engineer", k=3)
+        out = capsys.readouterr().out
+
+        assert "Acme AI" in out
+        assert "score=" in out
+
+    def test_query_prints_app_id_and_score(self, isolated_cli, capsys):
         isolated_cli.build()
         apps_path = isolated_cli.DATA_DIR / "applications.jsonl"
         first_app_id = json.loads(apps_path.read_text().splitlines()[0])["app_id"]
@@ -240,8 +249,6 @@ class TestQuery:
         assert s1 > s2
 
     def test_retrieve_json_output(self, isolated_cli, capsys):
-        if isolated_cli.lancedb is None:
-            pytest.skip("lancedb not installed")
         isolated_cli.build()
         capsys.readouterr()
         isolated_cli.retrieve("ml engineer", k=2, json_output=True)
@@ -252,9 +259,21 @@ class TestQuery:
         assert "context" in payload[0]
         assert "score" in payload[0]
 
+    def test_retrieve_falls_back_to_jsonl_when_lancedb_unavailable(
+        self, isolated_cli, capsys, monkeypatch
+    ):
+        isolated_cli.build()
+        monkeypatch.setattr(isolated_cli, "lancedb", None)
+        capsys.readouterr()
+
+        isolated_cli.retrieve("ml engineer", k=2, json_output=True)
+        out = capsys.readouterr().out
+        payload = json.loads(out)
+
+        assert payload
+        assert payload[0]["company"] == "Acme AI"
+
     def test_retrieve_json_envelope_output(self, isolated_cli, capsys):
-        if isolated_cli.lancedb is None:
-            pytest.skip("lancedb not installed")
         isolated_cli.build()
         capsys.readouterr()
         isolated_cli.retrieve(

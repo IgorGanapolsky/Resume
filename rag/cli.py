@@ -31,8 +31,27 @@ import numpy as np
 
 try:
     import lancedb  # type: ignore
+
+    def _lancedb_connect(path: str):
+        """Compat wrapper: lancedb >=0.30 replaced connect() with open()."""
+        if hasattr(lancedb, "connect"):
+            return lancedb.connect(path)
+        if hasattr(lancedb, "open"):
+            return lancedb.open(path)  # type: ignore[attr-defined]
+        raise RuntimeError("lancedb module loaded without connect/open")
+
+    if not hasattr(lancedb, "connect") and not hasattr(lancedb, "open"):
+        # Running `python rag/cli.py` can shadow the real package with the local
+        # `rag/lancedb/` data directory. Treat that case as unavailable so the
+        # CLI can fall back to JSONL-based retrieval instead of crashing.
+        lancedb = None  # type: ignore
+
 except Exception:  # pragma: no cover
     lancedb = None  # type: ignore
+
+    def _lancedb_connect(path: str):  # type: ignore[misc]
+        raise RuntimeError("lancedb not installed")
+
 
 from memalign import (
     append_jsonl,
@@ -472,6 +491,57 @@ def _manual_hybrid_query(
     return vector_rows
 
 
+def _load_jsonl_records() -> List[Dict]:
+    apps_path = DATA_DIR / "applications.jsonl"
+    if not apps_path.exists():
+        return []
+    rows: List[Dict] = []
+    with apps_path.open(encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                payload = json.loads(line)
+            except Exception:
+                continue
+            if isinstance(payload, dict):
+                rows.append(payload)
+    return rows
+
+
+def _jsonl_hybrid_query(q: str, *, candidate_k: int) -> List[Dict]:
+    """Fallback retrieval when LanceDB is unavailable in the current runtime."""
+    rows = _load_jsonl_records()
+    if not rows:
+        return []
+
+    q_vec = _hashing_embedding(q.strip())
+
+    vector_rows: List[Dict] = []
+    lexical_rows: List[Dict] = []
+    for rec in rows:
+        vec_score = float(np.dot(q_vec, _record_embedding(rec)))
+        vec_row = dict(rec)
+        vec_row["_score"] = vec_score
+        vector_rows.append(vec_row)
+
+        lex_score = _lexical_overlap_score(q, rec)
+        if lex_score > 0:
+            lex_row = dict(rec)
+            lex_row["_score"] = lex_score
+            lexical_rows.append(lex_row)
+
+    vector_rows.sort(key=lambda row: float(row.get("_score", 0.0)), reverse=True)
+    lexical_rows.sort(key=lambda row: float(row.get("_score", 0.0)), reverse=True)
+    vector_rows = vector_rows[:candidate_k]
+    lexical_rows = lexical_rows[:candidate_k]
+
+    if lexical_rows:
+        return _rrf_fuse(vector_rows, lexical_rows)
+    return vector_rows
+
+
 def _display_score(row: Dict) -> float:
     if "_hybrid_score" in row:
         return float(row["_hybrid_score"])
@@ -646,7 +716,7 @@ def _index_records_in_lancedb(records: List[Dict]) -> int:
         print(f"Built {len(records)} records (JSONL only; lancedb unavailable)")
         return 0
 
-    db = lancedb.connect(str(LANCEDB_DIR))
+    db = _lancedb_connect(str(LANCEDB_DIR))
     items = []
     for rec in records:
         items.append(
@@ -1000,21 +1070,19 @@ def build(
 
 def query(q: str, *, k: int = 8) -> None:
     """Semantic search over indexed applications."""
-    if lancedb is None:
-        raise SystemExit(
-            "lancedb unavailable; run build to generate JSONL, or install lancedb."
-        )
-
-    db = lancedb.connect(str(LANCEDB_DIR))
-    table = db.open_table("applications")
-    q_vec = _hashing_embedding(q.strip())
     candidate_k = max(k * 8, 40)
+    if lancedb is None:
+        results = _jsonl_hybrid_query(q, candidate_k=candidate_k)
+    else:
+        db = _lancedb_connect(str(LANCEDB_DIR))
+        table = db.open_table("applications")
+        q_vec = _hashing_embedding(q.strip())
 
-    # First try native LanceDB hybrid+rerank. If the table lacks an embedding
-    # function (custom vector ingestion), fall back to manual dense+lexical RRF.
-    results = _native_hybrid_query(table, q, candidate_k=candidate_k)
-    if not results:
-        results = _manual_hybrid_query(table, q, q_vec, candidate_k=candidate_k)
+        # First try native LanceDB hybrid+rerank. If the table lacks an embedding
+        # function (custom vector ingestion), fall back to manual dense+lexical RRF.
+        results = _native_hybrid_query(table, q, candidate_k=candidate_k)
+        if not results:
+            results = _manual_hybrid_query(table, q, q_vec, candidate_k=candidate_k)
 
     model = ThompsonModel(ARMS_JSON)
     short_rows = load_jsonl(SHORT_MEMORY_JSONL)
@@ -1079,19 +1147,17 @@ def retrieve(
     status = request_payload.get("status")
     method = request_payload.get("method")
 
-    if lancedb is None:
-        raise SystemExit(
-            "lancedb unavailable; run build to generate JSONL, or install lancedb."
-        )
-
-    db = lancedb.connect(str(LANCEDB_DIR))
-    table = db.open_table("applications")
-    q_vec = _hashing_embedding(q.strip())
     candidate_k = max(k * 12, 60)
+    if lancedb is None:
+        results = _jsonl_hybrid_query(q, candidate_k=candidate_k)
+    else:
+        db = _lancedb_connect(str(LANCEDB_DIR))
+        table = db.open_table("applications")
+        q_vec = _hashing_embedding(q.strip())
 
-    results = _native_hybrid_query(table, q, candidate_k=candidate_k)
-    if not results:
-        results = _manual_hybrid_query(table, q, q_vec, candidate_k=candidate_k)
+        results = _native_hybrid_query(table, q, candidate_k=candidate_k)
+        if not results:
+            results = _manual_hybrid_query(table, q, q_vec, candidate_k=candidate_k)
 
     if status:
         want = status.strip().lower()

@@ -40,6 +40,9 @@ except ImportError:
 ROOT = Path(__file__).resolve().parents[1]
 TRACKER_CSV = ROOT / "applications" / "job_applications" / "application_tracker.csv"
 DEFAULT_REPORT = ROOT / "applications" / "job_applications" / "ci_submit_report.json"
+DEFAULT_PROFILE_JSON = (
+    ROOT / "applications" / "job_applications" / "candidate_profile.json"
+)
 DEFAULT_READY_STATUS = "ReadyToSubmit"
 
 READY_STATUS_KEYS = {
@@ -70,7 +73,8 @@ NON_TECH_ROLE_RE = re.compile(
 )
 TECH_ROLE_RE = re.compile(
     r"(engineer|developer|devops|sre|site reliability|architect|ml|ai|data engineer|"
-    r"backend|frontend|full[- ]?stack|platform|infrastructure|ios|android|qa)",
+    r"backend|frontend|full[- ]?stack|platform|infrastructure|ios|android|qa|"
+    r"technical staff|member of technical staff)",
     re.IGNORECASE,
 )
 REMOTE_POSITIVE_RE = re.compile(
@@ -389,6 +393,14 @@ def _apply_storage_state_to_context(
             continue
 
 
+def _resolve_local_chrome_user_data_dir() -> str:
+    override = str(os.getenv("CI_SUBMIT_CHROME_USER_DATA_DIR", "")).strip()
+    base_path = override or os.path.join(os.getcwd(), ".ci_submit_chrome_profile")
+    user_data_dir = os.path.abspath(os.path.expanduser(base_path))
+    os.makedirs(user_data_dir, exist_ok=True)
+    return user_data_dir
+
+
 def _open_browser_runtime(
     pw: Any,
     storage_state: Optional[Any],
@@ -427,14 +439,7 @@ def _open_browser_runtime(
         note = ""
 
     if use_local_chrome:
-        user_data_dir = os.path.expanduser(
-            "~/Library/Application Support/Google/Chrome/Default"
-        )
-        if not os.path.exists(user_data_dir):
-            # Fallback for Linux CI or if path is missing
-            user_data_dir = os.path.join(os.getcwd(), ".chrome_profile")
-            os.makedirs(user_data_dir, exist_ok=True)
-
+        user_data_dir = _resolve_local_chrome_user_data_dir()
         browser = pw.chromium.launch_persistent_context(
             user_data_dir=user_data_dir,
             headless=not visible,
@@ -447,7 +452,9 @@ def _open_browser_runtime(
             context=context,
             page=page,
             backend="local_playwright_persistent",
-            note=f"local_chrome_profile:{note}",
+            note=(
+                f"local_chrome_profile:{user_data_dir}" + (f";{note}" if note else "")
+            ),
         )
 
     browser = pw.chromium.launch(headless=not visible)
@@ -1848,6 +1855,41 @@ class LeverAdapter(PlaywrightFormAdapter):
         return None
 
 
+class TalentpriseAdapter(SiteAdapter):
+    """Talentprise profile-based job platform.
+
+    Talentprise uses a profile-match model rather than per-job applications.
+    The user maintains a profile at app.talentprise.com and the platform
+    matches them to roles.  Auto-submit is not applicable — the adapter
+    ensures the platform is recognized (not flagged as unsupported) and
+    routes to manual profile-maintenance lane.
+    """
+
+    name = "talentprise"
+    auto_submit_supported = False
+    host_patterns = (re.compile(r"talentprise\.com"),)
+
+    def matches(self, url: str) -> bool:
+        host = (urllib.parse.urlsplit(url).hostname or "").lower()
+        return any(p.search(host) for p in self.host_patterns)
+
+    def submit(
+        self,
+        task: SubmitTask,
+        profile: Profile,
+        auth: AdapterAuth,
+        answers: SubmitAnswers,
+        use_local_chrome: bool = False,
+        visible: bool = False,
+    ) -> SubmitResult:
+        return SubmitResult(
+            adapter=self.name,
+            verified=False,
+            screenshot=None,
+            details="Talentprise uses profile-matching; maintain profile at app.talentprise.com/talent/profile",
+        )
+
+
 def _resolve_resume(company: str, role: str) -> Optional[Path]:
     company_slug = _slug(company)
     role_slug = _slug(role)
@@ -2268,17 +2310,9 @@ def _build_confirmation_path(company: str, role: str) -> Path:
     )
 
 
-def _load_profile_from_env(env_name: str) -> Optional[Profile]:
-    raw = os.getenv(env_name, "").strip()
-    if not raw:
-        return None
-    try:
-        payload = json.loads(raw)
-    except Exception:
-        return None
+def _profile_from_payload(payload: Any) -> Optional[Profile]:
     if not isinstance(payload, dict):
         return None
-
     required = ("first_name", "last_name", "email", "phone")
     if any(not str(payload.get(k, "")).strip() for k in required):
         return None
@@ -2296,6 +2330,27 @@ def _load_profile_from_env(env_name: str) -> Optional[Profile]:
             payload.get("current_company", payload.get("current_employer", ""))
         ).strip(),
     )
+
+
+def _load_profile_from_env(env_name: str) -> Optional[Profile]:
+    raw = os.getenv(env_name, "").strip()
+    if not raw:
+        return None
+    try:
+        payload = json.loads(raw)
+    except Exception:
+        return None
+    return _profile_from_payload(payload)
+
+
+def _load_profile_from_file(path: Path = DEFAULT_PROFILE_JSON) -> Optional[Profile]:
+    if not path.exists():
+        return None
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+    return _profile_from_payload(payload)
 
 
 def _parse_yes_no(value: Any) -> Optional[bool]:
@@ -2563,13 +2618,21 @@ def run_pipeline(
     fields, rows = _read_tracker(tracker_csv)
     adapters = list(
         adapters
-        or [AshbyAdapter(), GreenhouseAdapter(), LeverAdapter(), OracleAdapter()]
+        or [
+            AshbyAdapter(),
+            GreenhouseAdapter(),
+            LeverAdapter(),
+            OracleAdapter(),
+            TalentpriseAdapter(),
+        ]
     )
     fields = _ensure_tracker_fields(
         fields, rows, TRACKER_REMOTE_FIELDS + TRACKER_SUBMISSION_FIELDS
     )
 
     profile = _load_profile_from_env(profile_env)
+    if profile is None:
+        profile = _load_profile_from_file()
     auth_env_configured = bool(os.getenv(auth_env, "").strip())
     auth_env_malformed = _auth_env_is_malformed(auth_env)
     auth_map = _load_auth_by_adapter(auth_env)
@@ -3206,7 +3269,7 @@ def main() -> int:
     ap.add_argument(
         "--use-local-chrome",
         action="store_true",
-        help="Force use of local Chrome profile",
+        help="Force use of a dedicated local Chrome automation profile",
     )
     ap.add_argument(
         "--visible",

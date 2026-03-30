@@ -60,6 +60,9 @@ python3 Resume/rag/cli.py build
 - LanceDB empty-build safety:
   - `rag/cli.py build` must initialize `applications` table with explicit schema when zero records are produced.
   - Any refactor of `build` must preserve this zero-row behavior and keep related regression coverage in `rag/tests/test_cli.py`.
+- RAG CLI runtime compatibility:
+  - `python3 rag/cli.py query` and `retrieve` must continue to work when LanceDB is unavailable in the active interpreter or shadowed by the local `rag/lancedb/` data directory.
+  - JSONL-based fallback retrieval must remain available, with regression coverage in `rag/tests/test_cli.py`.
 
 ## PR Management & System Hygiene
 

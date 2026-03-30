@@ -41,7 +41,7 @@ jobs:
           python-version: "3.11"
       - name: Install dependencies
         run: |
-          pip install numpy lancedb pytest pytest-cov
+          pip install numpy "lancedb>=0.20,<1.0" pytest pytest-cov
       - name: Run RAG test suite
         run: |
           cd rag && python -m pytest tests/ -v --tb=short \
@@ -87,7 +87,7 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install dependencies
-        run: pip install numpy lancedb
+        run: pip install numpy "lancedb>=0.20,<1.0"
       - name: Build RAG index
         run: python3 rag/cli.py build
       - name: Verify status output
