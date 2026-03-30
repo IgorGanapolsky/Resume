@@ -56,8 +56,14 @@ def test_materialize_local_submit_env_uses_file_fallbacks(tmp_path, monkeypatch)
     monkeypatch.setattr(mod, "SUBMIT_ANSWERS_JSON", answers)
 
     env = mod.materialize_local_submit_env({}, auth_file=auth)
-    assert json.loads(env["CI_SUBMIT_PROFILE_JSON"])["email"] == "iganapolsky@gmail.com"
-    assert json.loads(env["CI_SUBMIT_ANSWERS_JSON"])["eeo_default"] == "Prefer not to say"
+    assert (
+        json.loads(env["CI_SUBMIT_PROFILE_JSON"])["email"]
+        == "iganapolsky@gmail.com"
+    )
+    assert (
+        json.loads(env["CI_SUBMIT_ANSWERS_JSON"])["eeo_default"]
+        == "Prefer not to say"
+    )
     assert "CI_SUBMIT_AUTH_JSON" in env
 
 
