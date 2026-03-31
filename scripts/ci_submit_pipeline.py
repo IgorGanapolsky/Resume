@@ -1787,8 +1787,7 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
         r"thanks for applying",
         r"we have received your application",
         r"we.ll review your application",
-        r"application.+successfully",
-        r"your application",
+        r"application.+successfully submitted",
     )
     success_url_patterns = (
         r"thank[-_]?you",
