@@ -15,6 +15,7 @@ def test_self_hosted_workflow_targets_local_submit_lane():
     assert "python3 -m venv .venv" in text
     assert "python -m pip install numpy" in text
     assert 'default: "chromium"' in text
+    assert 'default: "false"' in text
     assert "Ralph Local Submit" in text
     assert '--browser-channel "${CI_SUBMIT_BROWSER_CHANNEL:-chromium}"' in text
     assert "applications/job_applications/*report*.json" in text
