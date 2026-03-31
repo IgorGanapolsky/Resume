@@ -698,6 +698,8 @@ class PlaywrightFormAdapter(SiteAdapter):
                             form_scope, "Current Employer", profile.current_company
                         )
 
+                    self._pre_submit_form_fill(form_scope, page, profile, answers)
+
                     missing_answers = self._apply_required_answers(
                         form_scope, page, answers
                     )
@@ -890,6 +892,11 @@ class PlaywrightFormAdapter(SiteAdapter):
                     return
             except Exception:
                 continue
+
+    def _pre_submit_form_fill(
+        self, scope: Any, page: Any, profile: Profile, answers: SubmitAnswers
+    ) -> None:
+        return
 
     def _click_submit(self, scope: Any, page: Any) -> bool:
         # Simulate 'reading' the form before submission
@@ -1846,6 +1853,88 @@ class InferactAshbyAdapter(AshbyAdapter):
         if not super().matches(url):
             return False
         return any(pattern.search(url) for pattern in self.inferact_patterns)
+
+    def _pre_submit_form_fill(
+        self, scope: Any, page: Any, profile: Profile, answers: SubmitAnswers
+    ) -> None:
+        # Inferact exposes a few custom required fields that are not covered by
+        # the generic Ashby autofill path. Fill them explicitly before submit.
+        location = (profile.location or "").strip()
+        if location:
+            for target in (scope, page):
+                try:
+                    control = target.get_by_label("Location", exact=False).first
+                    if control.count() < 1:
+                        continue
+                    try:
+                        control.click(timeout=1500)
+                    except Exception:
+                        pass
+                    try:
+                        control.fill(location, timeout=1500)
+                    except Exception:
+                        try:
+                            control.type(location, delay=40)
+                        except Exception:
+                            pass
+                    try:
+                        control.press("Enter", timeout=1000)
+                    except Exception:
+                        pass
+                    try:
+                        control.press("Tab", timeout=1000)
+                    except Exception:
+                        pass
+                    break
+                except Exception:
+                    continue
+
+        project_link = (profile.github or profile.website or profile.linkedin or "").strip()
+        if project_link:
+            prompt_markers = (
+                "Please share a link to a personal project",
+                "open-source contribution",
+                "technical blog post",
+            )
+            for target in (scope, page):
+                try:
+                    text_node = target.get_by_text(
+                        re.compile("|".join(re.escape(marker) for marker in prompt_markers), re.I)
+                    ).first
+                    if text_node.count() < 1:
+                        continue
+                    field = text_node.locator("xpath=following::textarea[1]").first
+                    if field.count() < 1:
+                        continue
+                    try:
+                        field.fill(project_link, timeout=1500)
+                    except Exception:
+                        try:
+                            field.type(project_link, delay=40)
+                        except Exception:
+                            pass
+                    break
+                except Exception:
+                    continue
+
+        for checkbox_name in ("Cloud Orchestration",):
+            for target in (scope, page):
+                try:
+                    checkbox = target.locator(
+                        f"input[type='checkbox'][name='{checkbox_name}']"
+                    ).first
+                    if checkbox.count() < 1:
+                        continue
+                    try:
+                        checkbox.check(timeout=1500)
+                    except Exception:
+                        try:
+                            checkbox.click(timeout=1500)
+                        except Exception:
+                            pass
+                    break
+                except Exception:
+                    continue
 
     def submit(
         self,

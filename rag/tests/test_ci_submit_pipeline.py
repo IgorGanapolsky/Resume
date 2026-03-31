@@ -139,6 +139,107 @@ def test_find_adapter_rejects_ashby_accommodation_form():
     assert adapter is None
 
 
+def test_inferact_prefill_targets_location_link_and_checkbox():
+    mod = _load_module()
+    adapter = mod.InferactAshbyAdapter()
+    profile = mod.Profile(
+        first_name="Igor",
+        last_name="Ganapolsky",
+        email="iganapolsky@gmail.com",
+        phone="(201) 639-1534",
+        location="Coral Springs, FL, USA",
+        github="https://github.com/IgorGanapolsky",
+        linkedin="https://www.linkedin.com/in/igor-ganapolsky-859317343/",
+    )
+
+    class FakeField:
+        def __init__(self, name: str):
+            self.name = name
+            self.values = []
+            self.checked = False
+
+        @property
+        def first(self):
+            return self
+
+        def count(self):
+            return 1
+
+        def click(self, timeout=None):
+            self.values.append(("click", timeout))
+
+        def fill(self, value, timeout=None):
+            self.values.append(("fill", value))
+
+        def type(self, value, delay=None):
+            self.values.append(("type", value))
+
+        def press(self, key, timeout=None):
+            self.values.append(("press", key))
+
+        def check(self, timeout=None):
+            self.checked = True
+            self.values.append(("check", timeout))
+
+        def locator(self, selector):
+            self.values.append(("locator", selector))
+            return self
+
+    class FakePromptNode:
+        def __init__(self, field: FakeField):
+            self.field = field
+
+        @property
+        def first(self):
+            return self
+
+        def count(self):
+            return 1
+
+        def locator(self, selector):
+            assert selector == "xpath=following::textarea[1]"
+            return self.field
+
+    class FakeScope:
+        def __init__(self, location_field, prompt_field, checkbox_field):
+            self.location_field = location_field
+            self.prompt_field = prompt_field
+            self.checkbox_field = checkbox_field
+
+        def get_by_label(self, label, exact=False):
+            assert label == "Location"
+            return self.location_field
+
+        def get_by_text(self, pattern):
+            return FakePromptNode(self.prompt_field)
+
+        def locator(self, selector):
+            assert "Cloud Orchestration" in selector
+            return self.checkbox_field
+
+    location_field = FakeField("location")
+    prompt_field = FakeField("prompt")
+    checkbox_field = FakeField("checkbox")
+    scope = FakeScope(location_field, prompt_field, checkbox_field)
+
+    adapter._pre_submit_form_fill(scope, scope, profile, mod.SubmitAnswers(
+        work_authorization_us=True,
+        require_sponsorship=False,
+        role_interest="AI-heavy, integration-first role focused on production impact.",
+        eeo_default="Prefer not to say",
+    ))
+
+    assert any(
+        op in {"fill", "type"} and value == profile.location
+        for op, value in location_field.values
+    )
+    assert any(
+        op in {"fill", "type"} and value == profile.github
+        for op, value in prompt_field.values
+    )
+    assert checkbox_field.checked is True
+
+
 def test_queue_only_promotes_high_fit_draft(tmp_path, monkeypatch):
     mod = _load_module()
     monkeypatch.setattr(mod, "ROOT", tmp_path)
