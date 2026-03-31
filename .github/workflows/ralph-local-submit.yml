@@ -34,15 +34,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
       - name: Install dependencies
         run: |
+          python3 --version
           pip install numpy "lancedb>=0.20,<1.0" playwright
-          python -m playwright install --with-deps chromium
+          python3 -m playwright install chromium
 
       - name: Run local submit lane
         env:
