@@ -214,8 +214,11 @@ def test_inferact_prefill_targets_location_link_and_checkbox():
             return FakePromptNode(self.prompt_field)
 
         def locator(self, selector):
-            assert "Cloud Orchestration" in selector
-            return self.checkbox_field
+            if "Start typing..." in selector or "combobox" in selector:
+                return self.location_field
+            if "Cloud Orchestration" in selector:
+                return self.checkbox_field
+            raise AssertionError(selector)
 
     location_field = FakeField("location")
     prompt_field = FakeField("prompt")

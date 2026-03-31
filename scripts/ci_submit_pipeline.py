@@ -1863,9 +1863,22 @@ class InferactAshbyAdapter(AshbyAdapter):
         if location:
             for target in (scope, page):
                 try:
-                    control = target.get_by_label("Location", exact=False).first
-                    if control.count() < 1:
-                        continue
+                    control = None
+                    for selector in (
+                        "input[placeholder='Start typing...']",
+                        "input[role='combobox']",
+                    ):
+                        try:
+                            candidate = target.locator(selector).first
+                            if candidate.count() > 0:
+                                control = candidate
+                                break
+                        except Exception:
+                            continue
+                    if control is None:
+                        control = target.get_by_label("Location", exact=False).first
+                        if control.count() < 1:
+                            continue
                     try:
                         control.click(timeout=1500)
                     except Exception:
