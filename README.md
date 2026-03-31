@@ -83,6 +83,16 @@ Continuous loop runs in GitHub Actions via `.github/workflows/ralph-loop.yml`:
   - supports Anchor profile persistence and US proxy-backed extra stealth through repo variables
   - still requires verified confirmation evidence before any tracker row becomes `Applied`
 
+## Self-Hosted Local Submit
+
+`Ralph Local Submit` runs the same no-spend submit lane on a self-hosted Mac runner:
+
+- Workflow: `.github/workflows/ralph-local-submit.yml`
+- Runner labels: `self-hosted`, `macOS`, `resume-ci`
+- Entry point: `python3 scripts/run_local_submit_lane.py`
+- Browser profile: persisted outside the repo under the local user account
+- Bootstrap helper: `python3 scripts/bootstrap_self_hosted_runner.py`
+
 Manual run:
 
 1. Open **Actions** -> **Ralph Loop**

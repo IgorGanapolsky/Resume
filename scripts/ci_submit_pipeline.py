@@ -20,6 +20,7 @@ import json
 import os
 import random
 import re
+import sys
 import time
 import traceback
 import urllib.error
@@ -395,10 +396,31 @@ def _apply_storage_state_to_context(
 
 def _resolve_local_chrome_user_data_dir() -> str:
     override = str(os.getenv("CI_SUBMIT_CHROME_USER_DATA_DIR", "")).strip()
-    base_path = override or os.path.join(os.getcwd(), ".ci_submit_chrome_profile")
+    if override:
+        base_path = override
+    elif sys.platform == "darwin":
+        base_path = os.path.join(
+            str(Path.home()),
+            "Library",
+            "Application Support",
+            "resume-ci",
+            "chrome-profile",
+        )
+    else:
+        base_path = os.path.join(
+            str(Path.home()),
+            ".local",
+            "share",
+            "resume-ci",
+            "chrome-profile",
+        )
     user_data_dir = os.path.abspath(os.path.expanduser(base_path))
     os.makedirs(user_data_dir, exist_ok=True)
     return user_data_dir
+
+
+def _resolve_local_browser_channel() -> str:
+    return str(os.getenv("CI_SUBMIT_BROWSER_CHANNEL", "chrome")).strip()
 
 
 def _open_browser_runtime(
@@ -440,11 +462,31 @@ def _open_browser_runtime(
 
     if use_local_chrome:
         user_data_dir = _resolve_local_chrome_user_data_dir()
-        browser = pw.chromium.launch_persistent_context(
-            user_data_dir=user_data_dir,
-            headless=not visible,
-            args=["--disable-blink-features=AutomationControlled"],
-        )
+        browser_kwargs: Dict[str, Any] = {
+            "user_data_dir": user_data_dir,
+            "headless": not visible,
+            "args": ["--disable-blink-features=AutomationControlled"],
+        }
+        browser_channel = _resolve_local_browser_channel()
+        if browser_channel:
+            browser_kwargs["channel"] = browser_channel
+        try:
+            browser = pw.chromium.launch_persistent_context(
+                **browser_kwargs,
+            )
+            channel_note = (
+                f";browser_channel:{browser_channel}" if browser_channel else ""
+            )
+        except Exception as exc:
+            if browser_channel:
+                fallback_kwargs = dict(browser_kwargs)
+                fallback_kwargs.pop("channel", None)
+                browser = pw.chromium.launch_persistent_context(
+                    **fallback_kwargs,
+                )
+                channel_note = f";browser_channel_fallback:{browser_channel}:{exc}"
+            else:
+                raise
         context = browser
         page = context.new_page() if not context.pages else context.pages[0]
         return BrowserRuntime(
@@ -453,7 +495,8 @@ def _open_browser_runtime(
             page=page,
             backend="local_playwright_persistent",
             note=(
-                f"local_chrome_profile:{user_data_dir}" + (f";{note}" if note else "")
+                f"local_chrome_profile:{user_data_dir}"
+                f"{channel_note}" + (f";{note}" if note else "")
             ),
         )
 

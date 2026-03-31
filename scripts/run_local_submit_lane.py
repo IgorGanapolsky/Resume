@@ -31,6 +31,8 @@ def materialize_local_submit_env(
     base_env: Optional[Dict[str, str]] = None,
     *,
     auth_file: Optional[Path] = None,
+    browser_channel: str = "",
+    chrome_user_data_dir: str = "",
 ) -> Dict[str, str]:
     env = dict(base_env or os.environ)
 
@@ -51,6 +53,12 @@ def materialize_local_submit_env(
         if not resolved.exists():
             raise RuntimeError(f"Auth file does not exist: {resolved}")
         env["CI_SUBMIT_AUTH_JSON"] = _load_json_file(resolved)
+
+    if browser_channel.strip():
+        env["CI_SUBMIT_BROWSER_CHANNEL"] = browser_channel.strip()
+
+    if chrome_user_data_dir.strip():
+        env["CI_SUBMIT_CHROME_USER_DATA_DIR"] = chrome_user_data_dir.strip()
 
     return env
 
@@ -145,6 +153,16 @@ def build_parser() -> argparse.ArgumentParser:
         help="Optional local Playwright auth-state JSON to inject as CI_SUBMIT_AUTH_JSON.",
     )
     parser.add_argument(
+        "--browser-channel",
+        default="",
+        help="Optional browser channel override passed to CI_SUBMIT_BROWSER_CHANNEL.",
+    )
+    parser.add_argument(
+        "--chrome-user-data-dir",
+        default="",
+        help="Optional local Chrome user-data directory override.",
+    )
+    parser.add_argument(
         "--report",
         default=str(DEFAULT_REPORT),
         help="Write the submit execution report to this path.",
@@ -162,9 +180,11 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     args = parser.parse_args(argv)
     try:
         env = materialize_local_submit_env(
-            auth_file=Path(args.auth_file).expanduser()
-            if args.auth_file.strip()
-            else None
+            auth_file=(
+                Path(args.auth_file).expanduser() if args.auth_file.strip() else None
+            ),
+            browser_channel=args.browser_channel,
+            chrome_user_data_dir=args.chrome_user_data_dir,
         )
         for command in build_commands(args):
             run_command(command, env=env)

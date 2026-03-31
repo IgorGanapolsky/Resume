@@ -26,6 +26,8 @@ applications/job_applications/*supervisor*_snapshot*.json
 applications/job_applications/autonomous_supervisor_logs/
 applications/job_applications/ci_ready_queue_report.json
 applications/job_applications/ci_submit_*_report.json
+applications/job_applications/*report.local.json
+applications/job_applications/local_submit_lane_report.json
 
 # RAG vector store (large binary; rebuilt locally via `python3 rag/cli.py build`)
 rag/lancedb/

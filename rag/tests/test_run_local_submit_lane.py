@@ -63,6 +63,36 @@ def test_materialize_local_submit_env_uses_file_fallbacks(tmp_path, monkeypatch)
     assert "CI_SUBMIT_AUTH_JSON" in env
 
 
+def test_materialize_local_submit_env_applies_browser_overrides(tmp_path, monkeypatch):
+    mod = _load_module()
+    profile = tmp_path / "candidate_profile.json"
+    answers = tmp_path / "submit_answers.json"
+    profile.write_text(
+        json.dumps(
+            {
+                "first_name": "Igor",
+                "last_name": "Ganapolsky",
+                "email": "iganapolsky@gmail.com",
+                "phone": "(201) 639-1534",
+            }
+        ),
+        encoding="utf-8",
+    )
+    answers.write_text(json.dumps({"work_authorization_us": True}), encoding="utf-8")
+
+    monkeypatch.setattr(mod, "CANDIDATE_PROFILE_JSON", profile)
+    monkeypatch.setattr(mod, "SUBMIT_ANSWERS_JSON", answers)
+
+    env = mod.materialize_local_submit_env(
+        {},
+        browser_channel="chrome-beta",
+        chrome_user_data_dir="~/tmp/resume-ci-profile",
+    )
+
+    assert env["CI_SUBMIT_BROWSER_CHANNEL"] == "chrome-beta"
+    assert env["CI_SUBMIT_CHROME_USER_DATA_DIR"] == "~/tmp/resume-ci-profile"
+
+
 def test_build_commands_prefers_visible_local_chrome():
     mod = _load_module()
     parser = mod.build_parser()

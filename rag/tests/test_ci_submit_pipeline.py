@@ -1717,7 +1717,7 @@ def test_execute_manual_submission_required_quarantines_and_does_not_fail_run(
 
         def matches(self, url: str) -> bool:
             host = (urllib.parse.urlsplit(url).hostname or "").lower()
-            return "oraclecloud.com" in host
+            return host == "oraclecloud.com" or host.endswith(".oraclecloud.com")
 
         def submit(self, task, profile, auth, answers):
             return mod.SubmitResult(
@@ -2731,12 +2731,24 @@ def test_resolve_local_chrome_user_data_dir_uses_override(monkeypatch):
     assert "Google/Chrome/Default" not in resolved
 
 
+def test_resolve_local_chrome_user_data_dir_uses_home_profile_on_macos(monkeypatch):
+    mod = _load_module()
+    monkeypatch.delenv("CI_SUBMIT_CHROME_USER_DATA_DIR", raising=False)
+    monkeypatch.setattr(mod.sys, "platform", "darwin")
+
+    resolved = mod._resolve_local_chrome_user_data_dir()
+
+    assert resolved.endswith("/Library/Application Support/resume-ci/chrome-profile")
+    assert os.path.isdir(resolved)
+
+
 def test_open_browser_runtime_uses_dedicated_local_profile(monkeypatch, tmp_path):
     mod = _load_module()
     monkeypatch.delenv("ANCHOR_BROWSER_API_KEY", raising=False)
     monkeypatch.setenv(
         "CI_SUBMIT_CHROME_USER_DATA_DIR", str(tmp_path / "automation-profile")
     )
+    monkeypatch.setenv("CI_SUBMIT_BROWSER_CHANNEL", "chrome-beta")
 
     class _FakePersistentContext:
         def __init__(self):
@@ -2774,6 +2786,7 @@ def test_open_browser_runtime_uses_dedicated_local_profile(monkeypatch, tmp_path
 
     assert runtime.backend == "local_playwright_persistent"
     assert pw.chromium.calls[0]["user_data_dir"] == str(tmp_path / "automation-profile")
+    assert pw.chromium.calls[0]["channel"] == "chrome-beta"
     assert "Google/Chrome/Default" not in runtime.note
 
 

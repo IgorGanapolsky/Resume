@@ -50,6 +50,8 @@ python3 scripts/scrub_job_captures.py --dry-run
 
 - Use `python3 scripts/capture_submit_auth.py` to refresh this optional secret instead of committing raw browser storage state.
 - GitHub-hosted `ralph-loop.yml` runs are dry-run only. Use `python3 scripts/run_local_submit_lane.py` for real no-spend submits from the local machine.
+- `ralph-local-submit.yml` is the self-hosted runner path for automated no-spend submits. It should target labels `self-hosted`, `macOS`, and `resume-ci` and invoke `scripts/run_local_submit_lane.py`.
+- `scripts/bootstrap_self_hosted_runner.py` provisions the runner and LaunchAgent for that self-hosted submit path.
 
 ## Test Commands
 
