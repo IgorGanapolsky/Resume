@@ -26,9 +26,7 @@ DEFAULT_REPO = "IgorGanapolsky/Resume"
 DEFAULT_RUNNER_NAME = "resume-ci-mac"
 DEFAULT_LABELS = "self-hosted,macOS,resume-ci"
 DEFAULT_WORK_DIR = "_work"
-DEFAULT_BASE_DIR = (
-    Path.home() / "Library" / "Application Support" / "resume-ci" / "github-runner"
-)
+DEFAULT_BASE_DIR = Path.home() / "resume-ci" / "github-runner"
 DEFAULT_PLIST = (
     Path.home() / "Library" / "LaunchAgents" / "com.resume.github-runner.plist"
 )

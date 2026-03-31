@@ -37,7 +37,7 @@ jobs:
       - name: Install dependencies
         run: |
           python3 --version
-          pip install numpy "lancedb>=0.20,<1.0" playwright
+          python3 -m pip install numpy "lancedb>=0.20,<1.0" playwright
           python3 -m playwright install chromium
 
       - name: Run local submit lane
