@@ -73,6 +73,7 @@ jobs:
             applications/*/submissions/*ci_confirmation*.png
 
       - name: Create Pull Request for local submit updates
+        continue-on-error: true
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GH_PAT || github.token }}
