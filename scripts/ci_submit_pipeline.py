@@ -1819,30 +1819,54 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
     def _gh_select_custom_dropdown(
         self, page: Any, label_text: str, answer: str
     ) -> bool:
-        """Select from a Greenhouse React custom dropdown.
+        """Select from a Greenhouse react-select custom dropdown.
 
-        Greenhouse renders all questions as <input type="text"> that, when
-        clicked, show a custom dropdown overlay with options. This method:
-        1. Finds the input by its label text
-        2. Clicks it to open the dropdown
-        3. Clicks the matching option from the dropdown list
+        Greenhouse uses react-select which renders as:
+          div.select > div.select__container > div.select-shell
+            > div.select__control > div.select__value-container
+              > input.select__input[role="combobox"]
+
+        Strategy: find the combobox input inside the labeled container,
+        type the answer to filter options, then click the matching option.
         """
         try:
-            field = page.get_by_label(label_text, exact=False).first
-            if field.count() == 0 or not field.is_visible():
+            # Find the container div with the label text
+            container = page.locator(
+                f"div.select:has(label:has-text('{label_text}'))"
+            ).first
+            if container.count() == 0:
+                # Try broader search
+                container = page.locator(
+                    f"div:has(> label:has-text('{label_text}'))"
+                ).first
+            if container.count() == 0:
                 return False
 
-            # Click to open the dropdown
-            field.click()
+            # Find the combobox input inside this container
+            combobox = container.locator(
+                "input[role='combobox'], input.select__input"
+            ).first
+            if combobox.count() == 0:
+                # May be a plain text input (non-dropdown question)
+                plain = container.locator("input[type='text']").first
+                if plain.count() > 0 and plain.is_visible():
+                    plain.fill(answer)
+                    return True
+                return False
+
+            # Click the combobox to open the dropdown
+            combobox.click()
+            self._wait_human(0.3, 0.6)
+
+            # Type to filter options
+            combobox.fill(answer)
             self._wait_human(0.5, 1.0)
 
-            # Look for dropdown options (Greenhouse uses various patterns)
+            # Click the matching option from the dropdown menu
             for option_selector in [
-                f"li:has-text('{answer}')",
-                f"div[role='option']:has-text('{answer}')",
-                f"span:has-text('{answer}')",
-                f"[class*='option']:has-text('{answer}')",
-                f"[class*='select']:has-text('{answer}')",
+                f"div.select__option:has-text('{answer}')",
+                f"div[class*='option']:has-text('{answer}')",
+                f"div[id*='option']:has-text('{answer}')",
             ]:
                 try:
                     opt = page.locator(option_selector).first
@@ -1852,14 +1876,10 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
                 except Exception:
                     continue
 
-            # Fallback: type the answer and press Enter
-            try:
-                field.fill(answer)
-                self._wait_human(0.5, 1.0)
-                page.keyboard.press("Enter")
-                return True
-            except Exception:
-                pass
+            # Fallback: press Enter to select the first filtered result
+            page.keyboard.press("Enter")
+            return True
+
         except Exception:
             pass
         return False
