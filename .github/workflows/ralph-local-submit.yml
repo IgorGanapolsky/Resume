@@ -37,13 +37,17 @@ jobs:
       - name: Install dependencies
         run: |
           python3 --version
-          python3 -m pip install numpy "lancedb>=0.20,<1.0" playwright
-          python3 -m playwright install chromium
+          python3 -m venv .venv
+          . .venv/bin/activate
+          python -m pip install --upgrade pip
+          python -m pip install numpy "lancedb>=0.20,<1.0" playwright
+          python -m playwright install chromium
 
       - name: Run local submit lane
         env:
           CI_SUBMIT_BROWSER_CHANNEL: ${{ github.event.inputs.browser_channel }}
         run: |
+          . .venv/bin/activate
           MAX_SUBMIT="${{ github.event.inputs.max_submit_jobs }}"
           HEADLESS="${{ github.event.inputs.headless }}"
           if [ -z "$MAX_SUBMIT" ]; then MAX_SUBMIT=3; fi

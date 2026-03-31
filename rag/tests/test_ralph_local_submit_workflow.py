@@ -12,7 +12,8 @@ def test_self_hosted_workflow_targets_local_submit_lane():
 
     assert "runs-on: [self-hosted, macOS, resume-ci]" in text
     assert "python3 scripts/run_local_submit_lane.py" in text
-    assert "python3 -m pip install numpy" in text
+    assert "python3 -m venv .venv" in text
+    assert "python -m pip install numpy" in text
     assert "Ralph Local Submit" in text
     assert "applications/job_applications/*report*.json" in text
     assert "actions/setup-python" not in text
