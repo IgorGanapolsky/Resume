@@ -2742,6 +2742,13 @@ def test_resolve_local_chrome_user_data_dir_uses_home_profile_on_macos(monkeypat
     assert os.path.isdir(resolved)
 
 
+def test_resolve_local_browser_channel_defaults_to_chromium(monkeypatch):
+    mod = _load_module()
+    monkeypatch.delenv("CI_SUBMIT_BROWSER_CHANNEL", raising=False)
+
+    assert mod._resolve_local_browser_channel() == "chromium"
+
+
 def test_open_browser_runtime_uses_dedicated_local_profile(monkeypatch, tmp_path):
     mod = _load_module()
     monkeypatch.delenv("ANCHOR_BROWSER_API_KEY", raising=False)

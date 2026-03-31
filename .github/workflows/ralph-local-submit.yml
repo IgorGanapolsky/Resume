@@ -16,7 +16,7 @@ on:
       browser_channel:
         description: "Playwright browser channel override"
         required: false
-        default: "chrome"
+        default: "chromium"
 
 permissions:
   contents: write
@@ -58,7 +58,7 @@ jobs:
           fi
           python3 scripts/run_local_submit_lane.py \
             --max-submit-jobs "$MAX_SUBMIT" \
-            --browser-channel "${CI_SUBMIT_BROWSER_CHANNEL:-chrome}" \
+            --browser-channel "${CI_SUBMIT_BROWSER_CHANNEL:-chromium}" \
             $EXTRA_ARGS
 
       - name: Upload submit diagnostics

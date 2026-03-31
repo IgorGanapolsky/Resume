@@ -420,7 +420,7 @@ def _resolve_local_chrome_user_data_dir() -> str:
 
 
 def _resolve_local_browser_channel() -> str:
-    return str(os.getenv("CI_SUBMIT_BROWSER_CHANNEL", "chrome")).strip()
+    return str(os.getenv("CI_SUBMIT_BROWSER_CHANNEL", "chromium")).strip()
 
 
 def _open_browser_runtime(
