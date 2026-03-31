@@ -40,6 +40,9 @@ except ImportError:
 ROOT = Path(__file__).resolve().parents[1]
 TRACKER_CSV = ROOT / "applications" / "job_applications" / "application_tracker.csv"
 DEFAULT_REPORT = ROOT / "applications" / "job_applications" / "ci_submit_report.json"
+DEFAULT_PROFILE_JSON = (
+    ROOT / "applications" / "job_applications" / "candidate_profile.json"
+)
 DEFAULT_READY_STATUS = "ReadyToSubmit"
 
 READY_STATUS_KEYS = {
@@ -70,7 +73,8 @@ NON_TECH_ROLE_RE = re.compile(
 )
 TECH_ROLE_RE = re.compile(
     r"(engineer|developer|devops|sre|site reliability|architect|ml|ai|data engineer|"
-    r"backend|frontend|full[- ]?stack|platform|infrastructure|ios|android|qa)",
+    r"backend|frontend|full[- ]?stack|platform|infrastructure|ios|android|qa|"
+    r"technical staff|member of technical staff)",
     re.IGNORECASE,
 )
 REMOTE_POSITIVE_RE = re.compile(
@@ -389,6 +393,14 @@ def _apply_storage_state_to_context(
             continue
 
 
+def _resolve_local_chrome_user_data_dir() -> str:
+    override = str(os.getenv("CI_SUBMIT_CHROME_USER_DATA_DIR", "")).strip()
+    base_path = override or os.path.join(os.getcwd(), ".ci_submit_chrome_profile")
+    user_data_dir = os.path.abspath(os.path.expanduser(base_path))
+    os.makedirs(user_data_dir, exist_ok=True)
+    return user_data_dir
+
+
 def _open_browser_runtime(
     pw: Any,
     storage_state: Optional[Any],
@@ -427,14 +439,7 @@ def _open_browser_runtime(
         note = ""
 
     if use_local_chrome:
-        user_data_dir = os.path.expanduser(
-            "~/Library/Application Support/Google/Chrome/Default"
-        )
-        if not os.path.exists(user_data_dir):
-            # Fallback for Linux CI or if path is missing
-            user_data_dir = os.path.join(os.getcwd(), ".chrome_profile")
-            os.makedirs(user_data_dir, exist_ok=True)
-
+        user_data_dir = _resolve_local_chrome_user_data_dir()
         browser = pw.chromium.launch_persistent_context(
             user_data_dir=user_data_dir,
             headless=not visible,
@@ -447,7 +452,9 @@ def _open_browser_runtime(
             context=context,
             page=page,
             backend="local_playwright_persistent",
-            note=f"local_chrome_profile:{note}",
+            note=(
+                f"local_chrome_profile:{user_data_dir}" + (f";{note}" if note else "")
+            ),
         )
 
     browser = pw.chromium.launch(headless=not visible)
@@ -1791,6 +1798,172 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
         r"/thankyou",
     )
 
+    def _resolve_form_scope(self, page: Any) -> Optional[Any]:
+        """Greenhouse job-boards pages show job description first; find the form."""
+        scope = super()._resolve_form_scope(page)
+        if scope is not None:
+            return scope
+
+        # Greenhouse job pages have an "Apply for this job" section.
+        # The form may be below the fold — scroll to it.
+        try:
+            page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+            page.wait_for_timeout(2000)
+            scope = super()._resolve_form_scope(page)
+            if scope is not None:
+                return scope
+        except Exception:
+            pass
+        return None
+
+    def _gh_select_custom_dropdown(
+        self, page: Any, label_text: str, answer: str
+    ) -> bool:
+        """Select from a Greenhouse React custom dropdown.
+
+        Greenhouse renders all questions as <input type="text"> that, when
+        clicked, show a custom dropdown overlay with options. This method:
+        1. Finds the input by its label text
+        2. Clicks it to open the dropdown
+        3. Clicks the matching option from the dropdown list
+        """
+        try:
+            field = page.get_by_label(label_text, exact=False).first
+            if field.count() == 0 or not field.is_visible():
+                return False
+
+            # Click to open the dropdown
+            field.click()
+            self._wait_human(0.5, 1.0)
+
+            # Look for dropdown options (Greenhouse uses various patterns)
+            for option_selector in [
+                f"li:has-text('{answer}')",
+                f"div[role='option']:has-text('{answer}')",
+                f"span:has-text('{answer}')",
+                f"[class*='option']:has-text('{answer}')",
+                f"[class*='select']:has-text('{answer}')",
+            ]:
+                try:
+                    opt = page.locator(option_selector).first
+                    if opt.count() > 0 and opt.is_visible():
+                        self._click_human(opt)
+                        return True
+                except Exception:
+                    continue
+
+            # Fallback: type the answer and press Enter
+            try:
+                field.fill(answer)
+                self._wait_human(0.5, 1.0)
+                page.keyboard.press("Enter")
+                return True
+            except Exception:
+                pass
+        except Exception:
+            pass
+        return False
+
+    def _apply_required_answers(
+        self, scope: Any, page: Any, answers: SubmitAnswers
+    ) -> List[str]:
+        """Fill Greenhouse custom screening questions.
+
+        Greenhouse renders ALL form fields as <input type="text"> with
+        custom React dropdown overlays — no native <select> or <radio>.
+        We click the input to open the dropdown, then click the option.
+        """
+        self._wait_human(1.0, 2.0)
+
+        # --- Country dropdown ---
+        self._gh_select_custom_dropdown(page, "Country", "United States")
+
+        # --- "How did you hear about this job?" ---
+        self._fill_text(scope, "How did you hear", "Job Board")
+
+        # --- "Are you open to working in-person..." ---
+        self._gh_select_custom_dropdown(
+            page, "open to working in-person", "Yes"
+        )
+
+        # --- Work authorization ---
+        for q in (
+            "legally authorized to work",
+            "authorized to work",
+        ):
+            if self._gh_select_custom_dropdown(page, q, "Yes"):
+                break
+
+        # --- Visa sponsorship ---
+        sponsor_answer = "Yes" if answers.require_sponsorship else "No"
+        for q in (
+            "require visa sponsorship",
+            "require sponsorship",
+            "future require employment visa",
+            "need sponsorship",
+        ):
+            if self._gh_select_custom_dropdown(page, q, sponsor_answer):
+                break
+
+        # --- Previously worked/interviewed ---
+        for q in (
+            "previously worked for",
+            "currently or have you previously",
+            "interviewed at",
+            "Have you ever interviewed",
+        ):
+            self._gh_select_custom_dropdown(page, q, "No")
+
+        # --- Open to relocation ---
+        self._gh_select_custom_dropdown(
+            page, "open to relocation", "Yes"
+        )
+
+        # --- AI Policy acknowledgment ---
+        for q in ("AI Policy", "acknowledge",):
+            if self._gh_select_custom_dropdown(page, q, "Yes"):
+                break
+
+        # --- Working address ---
+        self._fill_text(
+            scope, "address from which you plan",
+            "11909 Glenmore Dr, Coral Springs, FL 33071"
+        )
+
+        # --- "Why Anthropic/Company?" textarea ---
+        for q in ("Why Anthropic", "Why are you interested", "Why this role"):
+            try:
+                ta = page.get_by_label(q, exact=False).first
+                if ta.count() > 0 and ta.is_visible():
+                    tag = ta.evaluate("el => el.tagName.toLowerCase()")
+                    if tag == "textarea" and not ta.input_value():
+                        ta.fill(answers.role_interest or
+                            "I build production AI systems at scale — "
+                            "26 Claude AI skills with RLHF (76.6% positive rate), "
+                            "RAG pipelines with LanceDB, and 13 autonomous agents. "
+                            "At Subway I led React Native New Architecture migration "
+                            "achieving 68% build time reduction and 99.5%+ crash-free "
+                            "sessions across millions of users.")
+                        break
+            except Exception:
+                continue
+
+        # --- When can you start ---
+        self._fill_text(scope, "earliest you would want to start", "Immediately")
+        self._fill_text(scope, "deadlines or timeline", "None")
+
+        # --- LinkedIn ---
+        self._fill_text(scope, "LinkedIn", "https://www.linkedin.com/in/igor-ganapolsky-859317343/")
+
+        # --- EEO / demographic (optional) ---
+        for q in ("Gender", "Hispanic", "Veteran", "Disability"):
+            self._gh_select_custom_dropdown(page, q, "Decline To Self Identify")
+            self._gh_select_custom_dropdown(page, q, "Prefer not to say")
+            self._gh_select_custom_dropdown(page, q, "I do not wish to answer")
+
+        self._wait_human(1.0, 2.0)
+        return []
+
 
 class LeverAdapter(PlaywrightFormAdapter):
     name = "lever"
@@ -2303,17 +2476,9 @@ def _build_confirmation_path(company: str, role: str) -> Path:
     )
 
 
-def _load_profile_from_env(env_name: str) -> Optional[Profile]:
-    raw = os.getenv(env_name, "").strip()
-    if not raw:
-        return None
-    try:
-        payload = json.loads(raw)
-    except Exception:
-        return None
+def _profile_from_payload(payload: Any) -> Optional[Profile]:
     if not isinstance(payload, dict):
         return None
-
     required = ("first_name", "last_name", "email", "phone")
     if any(not str(payload.get(k, "")).strip() for k in required):
         return None
@@ -2331,6 +2496,27 @@ def _load_profile_from_env(env_name: str) -> Optional[Profile]:
             payload.get("current_company", payload.get("current_employer", ""))
         ).strip(),
     )
+
+
+def _load_profile_from_env(env_name: str) -> Optional[Profile]:
+    raw = os.getenv(env_name, "").strip()
+    if not raw:
+        return None
+    try:
+        payload = json.loads(raw)
+    except Exception:
+        return None
+    return _profile_from_payload(payload)
+
+
+def _load_profile_from_file(path: Path = DEFAULT_PROFILE_JSON) -> Optional[Profile]:
+    if not path.exists():
+        return None
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+    return _profile_from_payload(payload)
 
 
 def _parse_yes_no(value: Any) -> Optional[bool]:
@@ -2450,8 +2636,22 @@ def _is_ready_status(status: str) -> bool:
     return _norm_key(status) in READY_STATUS_KEYS
 
 
+def _ashby_auto_submit_url_ok(url: str) -> bool:
+    parsed = urllib.parse.urlsplit(url)
+    host = (parsed.hostname or "").lower()
+    path = (parsed.path or "").lower()
+    if not (host == "ashbyhq.com" or host.endswith(".ashbyhq.com")):
+        return False
+    if "/form/" in path:
+        return False
+    segments = [segment for segment in path.split("/") if segment]
+    return len(segments) >= 2
+
+
 def _find_adapter(url: str, adapters: Sequence[SiteAdapter]) -> Optional[SiteAdapter]:
     for adapter in adapters:
+        if adapter.name == "ashby" and not _ashby_auto_submit_url_ok(url):
+            continue
         if adapter.matches(url):
             return adapter
     return None
@@ -2598,13 +2798,21 @@ def run_pipeline(
     fields, rows = _read_tracker(tracker_csv)
     adapters = list(
         adapters
-        or [AshbyAdapter(), GreenhouseAdapter(), LeverAdapter(), OracleAdapter(), TalentpriseAdapter()]
+        or [
+            AshbyAdapter(),
+            GreenhouseAdapter(),
+            LeverAdapter(),
+            OracleAdapter(),
+            TalentpriseAdapter(),
+        ]
     )
     fields = _ensure_tracker_fields(
         fields, rows, TRACKER_REMOTE_FIELDS + TRACKER_SUBMISSION_FIELDS
     )
 
     profile = _load_profile_from_env(profile_env)
+    if profile is None:
+        profile = _load_profile_from_file()
     auth_env_configured = bool(os.getenv(auth_env, "").strip())
     auth_env_malformed = _auth_env_is_malformed(auth_env)
     auth_map = _load_auth_by_adapter(auth_env)
@@ -3241,7 +3449,7 @@ def main() -> int:
     ap.add_argument(
         "--use-local-chrome",
         action="store_true",
-        help="Force use of local Chrome profile",
+        help="Force use of a dedicated local Chrome automation profile",
     )
     ap.add_argument(
         "--visible",

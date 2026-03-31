@@ -588,22 +588,25 @@ def discover_remoteok() -> Iterable[Dict[str, str]]:
 
 # High-value companies with Greenhouse boards — these are direct ATS URLs
 # that the GreenhouseAdapter can auto-submit to.
+# Only companies whose absolute_url stays on greenhouse.io (not redirected
+# to company domains). These are the ones the GreenhouseAdapter can submit to.
+# Verified 2026-03-31.
 _GREENHOUSE_BOARDS = [
     ("anthropic", "https://boards-api.greenhouse.io/v1/boards/anthropic/jobs"),
-    ("openai", "https://boards-api.greenhouse.io/v1/boards/openai/jobs"),
-    ("stripe", "https://boards-api.greenhouse.io/v1/boards/stripe/jobs"),
-    ("databricks", "https://boards-api.greenhouse.io/v1/boards/databricks/jobs"),
     ("figma", "https://boards-api.greenhouse.io/v1/boards/figma/jobs"),
-    ("notion", "https://boards-api.greenhouse.io/v1/boards/notionhq/jobs"),
     ("vercel", "https://boards-api.greenhouse.io/v1/boards/vercel/jobs"),
-    ("supabase", "https://boards-api.greenhouse.io/v1/boards/supabase/jobs"),
-    ("replicate", "https://boards-api.greenhouse.io/v1/boards/replicate/jobs"),
-    ("huggingface", "https://boards-api.greenhouse.io/v1/boards/huggingface/jobs"),
-    ("cohere", "https://boards-api.greenhouse.io/v1/boards/cohere/jobs"),
-    ("perplexityai", "https://boards-api.greenhouse.io/v1/boards/perplexityai/jobs"),
-    ("elevenlabs", "https://boards-api.greenhouse.io/v1/boards/elevenlabs/jobs"),
     ("runway", "https://boards-api.greenhouse.io/v1/boards/runwayml/jobs"),
-    ("deepgram", "https://boards-api.greenhouse.io/v1/boards/deepgram/jobs"),
+    ("airtable", "https://boards-api.greenhouse.io/v1/boards/airtable/jobs"),
+    ("brex", "https://boards-api.greenhouse.io/v1/boards/brex/jobs"),
+    ("cockroachlabs", "https://boards-api.greenhouse.io/v1/boards/cockroachlabs/jobs"),
+    ("dbt", "https://boards-api.greenhouse.io/v1/boards/daboradev/jobs"),
+    ("hashicorp", "https://boards-api.greenhouse.io/v1/boards/hashicorp/jobs"),
+    ("navan", "https://boards-api.greenhouse.io/v1/boards/navan/jobs"),
+    ("ramp", "https://boards-api.greenhouse.io/v1/boards/ramp/jobs"),
+    ("retool", "https://boards-api.greenhouse.io/v1/boards/retool/jobs"),
+    ("scale", "https://boards-api.greenhouse.io/v1/boards/scaleai/jobs"),
+    ("snyk", "https://boards-api.greenhouse.io/v1/boards/snyk/jobs"),
+    ("weights-and-biases", "https://boards-api.greenhouse.io/v1/boards/wandb/jobs"),
 ]
 
 
