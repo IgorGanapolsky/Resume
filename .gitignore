@@ -48,3 +48,7 @@ research/*.jpg
 .claude/
 .talentprise_profile/
 .talentprise_auth.json
+
+# RLHF local feedback data
+.rlhf/feedback-log.jsonl
+.rlhf/memory-log.jsonl

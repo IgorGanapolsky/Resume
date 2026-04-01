@@ -145,3 +145,14 @@
 {"ts": "2026-03-18T17:58:37.118896+00:00", "app_id": null, "type": "index_warn", "msg": "FTS index skipped: field_names must be a string when use_tantivy=False"}
 {"ts": "2026-03-18T17:58:37.272395+00:00", "app_id": null, "type": "index_warn", "msg": "Vector index skipped: lance error: Unprocessable: Not enough rows to train PQ. Requires 256 rows but only 238 available, /Users/runner/.cargo/git/checkouts/lance-8ddea23c38163eda/a93eaad/rust/lance-index/src/vector/pq/builder.rs:179:27"}
 {"ts": "2026-03-18T17:58:37.309666+00:00", "app_id": null, "type": "build_ok", "msg": "Indexed 238 applications"}
+{"ts": "2026-03-30T16:12:41.020842+00:00", "app_id": null, "type": "build_skipped", "msg": "lancedb import failed; wrote JSONL only"}
+{"ts": "2026-03-30T19:16:17.198739+00:00", "app_id": null, "type": "build_skipped", "msg": "lancedb import failed; wrote JSONL only"}
+{"ts": "2026-03-30T19:21:24.386011+00:00", "app_id": "system__technical_debt_audit__2026_03_30", "type": "lesson", "msg": "rag/cli.py must fall back to JSONL retrieval when LanceDB is unavailable or shadowed by the local rag/lancedb data directory; query/retrieve cannot hard-fail on interpreter-specific package state."}
+{"ts": "2026-03-30T19:21:24.386173+00:00", "app_id": "system__technical_debt_audit__2026_03_30", "type": "lesson", "msg": "Role taxonomy must treat 'Member of Technical Staff' as technical across discovery, artifact prep, and queue gating so Ralph Loop, prep, and submit classification stay aligned."}
+{"ts": "2026-03-30T19:48:02.170443+00:00", "app_id": "system__deploy__2026_03_30", "type": "lesson", "msg": "CodeQL flags substring matches against OAuth URLs as incomplete sanitization; parse hostnames with urllib.parse and compare exact domains for Google OAuth flows."}
+{"ts": "2026-03-30T19:48:02.170430+00:00", "app_id": "system__deploy__2026_03_30", "type": "lesson", "msg": "GitHub CI enforces ruff format --check with the runner-installed Ruff version; local verification must include formatting, not just ruff check, before publishing pipeline changes."}
+{"ts": "2026-04-01T14:46:07.446030+00:00", "app_id": null, "type": "build_skipped", "msg": "lancedb import failed; wrote JSONL only"}
+{"ts": "2026-04-01T14:46:37.158176+00:00", "app_id": null, "type": "build_skipped", "msg": "lancedb import failed; wrote JSONL only"}
+{"ts": "2026-04-01T14:59:53.740376+00:00", "app_id": null, "type": "build_skipped", "msg": "lancedb import failed; wrote JSONL only"}
+{"ts": "2026-04-01T15:00:56.175550+00:00", "app_id": null, "type": "build_skipped", "msg": "lancedb import failed; wrote JSONL only"}
+{"ts": "2026-04-01T15:01:57.273661+00:00", "app_id": null, "type": "build_skipped", "msg": "lancedb import failed; wrote JSONL only"}
