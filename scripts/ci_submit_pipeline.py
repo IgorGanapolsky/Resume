@@ -34,6 +34,13 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 from xml.sax.saxutils import escape
 
+_SCRIPT_ROOT = Path(__file__).resolve().parents[1]
+if str(_SCRIPT_ROOT) not in sys.path:
+    sys.path.insert(0, str(_SCRIPT_ROOT))
+
+from rag.learning import load_arms as _load_learning_arms
+from rag.learning import rank_rows_by_learning
+
 try:
     from playwright_stealth import stealth_sync  # type: ignore
 except ImportError:
@@ -47,12 +54,13 @@ except ImportError:
         stealth_sync = None
 
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = _SCRIPT_ROOT
 TRACKER_CSV = ROOT / "applications" / "job_applications" / "application_tracker.csv"
 DEFAULT_REPORT = ROOT / "applications" / "job_applications" / "ci_submit_report.json"
 DEFAULT_PROFILE_JSON = (
     ROOT / "applications" / "job_applications" / "candidate_profile.json"
 )
+DEFAULT_LEARNING_ARMS_JSON = ROOT / "rag" / "data" / "arms.json"
 DEFAULT_READY_STATUS = "ReadyToSubmit"
 
 READY_STATUS_KEYS = {
@@ -158,6 +166,22 @@ def _ensure_tracker_fields(
         for name in missing:
             row.setdefault(name, "")
     return out
+
+
+def _rank_ready_rows_for_submit(
+    rows: Sequence[Dict[str, str]],
+    *,
+    max_jobs: int,
+    arms_path: Path = DEFAULT_LEARNING_ARMS_JSON,
+) -> Tuple[List[int], List[Dict[str, Any]]]:
+    ranked = rank_rows_by_learning(
+        rows,
+        _load_learning_arms(arms_path),
+        status_filter="ready",
+        max_rows=max_jobs,
+    )
+    indices = [int(item["row_index"]) for item in ranked]
+    return indices, ranked
 
 
 @dataclass
@@ -488,6 +512,10 @@ def _resolve_local_browser_channel() -> str:
     return str(os.getenv("CI_SUBMIT_BROWSER_CHANNEL", "chromium")).strip()
 
 
+def _resolve_local_browser_executable_path() -> str:
+    return str(os.getenv("CI_SUBMIT_BROWSER_EXECUTABLE", "")).strip()
+
+
 def _open_browser_runtime(
     pw: Any,
     storage_state: Optional[Any],
@@ -534,14 +562,22 @@ def _open_browser_runtime(
             "args": ["--disable-blink-features=AutomationControlled"],
         }
         browser_channel = _resolve_local_browser_channel()
+        browser_executable = _resolve_local_browser_executable_path()
         if browser_channel:
             browser_kwargs["channel"] = browser_channel
+        if browser_executable:
+            browser_kwargs["executable_path"] = browser_executable
         try:
             browser = pw.chromium.launch_persistent_context(
                 **browser_kwargs,
             )
             channel_note = (
                 f";browser_channel:{browser_channel}" if browser_channel else ""
+            )
+            executable_note = (
+                f";browser_executable:{browser_executable}"
+                if browser_executable
+                else ""
             )
         except Exception as exc:
             if browser_channel:
@@ -551,6 +587,11 @@ def _open_browser_runtime(
                     **fallback_kwargs,
                 )
                 channel_note = f";browser_channel_fallback:{browser_channel}:{exc}"
+                executable_note = (
+                    f";browser_executable:{browser_executable}"
+                    if browser_executable
+                    else ""
+                )
             else:
                 raise
         context = browser
@@ -564,6 +605,7 @@ def _open_browser_runtime(
                 f"local_chrome_profile:{user_data_dir}"
                 + (f";cleared_profile_lock_pids:{cleared_pids}" if cleared_pids else "")
                 + f"{channel_note}"
+                + f"{executable_note}"
                 + (f";{note}" if note else "")
             ),
         )
@@ -2151,6 +2193,45 @@ class OpenAIAshbyAdapter(AshbyAdapter):
             return False
         return any(pattern.search(url) for pattern in self.openai_patterns)
 
+    def _openai_careers_url(self, role: str) -> str:
+        role_slug = _slug(role)
+        return f"https://openai.com/careers/{role_slug}/"
+
+    def _prime_page_session(
+        self,
+        runtime: BrowserRuntime,
+        task: SubmitTask,
+        profile: Profile,
+        answers: SubmitAnswers,
+    ) -> None:
+        page = runtime.page
+        visited: List[str] = []
+        targets = ["https://openai.com/careers/"]
+        specific = self._openai_careers_url(task.role)
+        if specific not in targets:
+            targets.append(specific)
+
+        for url in targets:
+            try:
+                page.goto(url, wait_until="domcontentloaded", timeout=30000)
+            except Exception:
+                continue
+            visited.append(url)
+            self._wait_human(1.5, 3.5)
+            try:
+                page.mouse.wheel(0, random.randint(350, 900))
+            except Exception:
+                pass
+            self._wait_human(0.4, 1.0)
+            self._mouse_wander(page, moves=random.randint(3, 5))
+            self._wait_human(0.4, 1.2)
+
+        if visited:
+            note = f"openai_careers_preflight:{visited[-1]}"
+        else:
+            note = "openai_careers_preflight_failed"
+        runtime.note = f"{runtime.note};{note}" if runtime.note else note
+
     def _infer_role_location(self, page: Any) -> Optional[str]:
         haystacks: List[str] = [str(getattr(page, "url", "") or "")]
         try:
@@ -2358,6 +2439,24 @@ class OpenAIAshbyAdapter(AshbyAdapter):
     ) -> bool:
         self._pre_submit_form_fill(scope, page, profile, answers)
         return super()._post_submit_retry(scope, page, profile, answers)
+
+    def _click_submit(self, scope: Any, page: Any) -> bool:
+        self._wait_human(6.0, 10.0)
+        try:
+            submit_button = scope.get_by_role(
+                "button", name=re.compile(r"submit application", re.I)
+            ).first
+            if submit_button.count() > 0:
+                try:
+                    submit_button.scroll_into_view_if_needed(timeout=1500)
+                except Exception:
+                    pass
+                self._mouse_wander(page, moves=2)
+                self._click_human(submit_button)
+                return True
+        except Exception:
+            pass
+        return super()._click_submit(scope, page)
 
 
 class InferactAshbyAdapter(AshbyAdapter):
@@ -2607,8 +2706,7 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
         r"thanks for applying",
         r"we have received your application",
         r"we.ll review your application",
-        r"application.+successfully",
-        r"your application",
+        r"application.+successfully submitted",
     )
     success_url_patterns = (
         r"thank[-_]?you",
@@ -2617,6 +2715,196 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
         r"application.*complete",
         r"/thankyou",
     )
+
+    def _resolve_form_scope(self, page: Any) -> Optional[Any]:
+        self._mouse_wander(page)
+        for scroll in (0.3, 0.6, 1.0):
+            try:
+                page.evaluate(
+                    f"window.scrollTo(0, document.body.scrollHeight * {scroll})"
+                )
+                self._wait_human(0.5, 1.5)
+                self._mouse_wander(page)
+            except Exception:
+                pass
+        return super()._resolve_form_scope(page)
+
+    def _gh_select_dropdown(
+        self, page: Any, qid: str, answer: str, use_filter: bool = True
+    ) -> bool:
+        """Click control div to open react-select, optionally filter, click option."""
+        try:
+            shell = page.locator(f"#{qid}").locator(
+                'xpath=ancestor::div[contains(@class,"select-shell")]'
+            )
+            ctrl = shell.locator('div[class*="control"]').first
+            ctrl.click()
+            time.sleep(random.uniform(0.5, 1.0))
+            if use_filter:
+                combo = shell.locator('input[role="combobox"]').first
+                if combo.count() > 0:
+                    for ch in answer[:20]:
+                        combo.type(ch, delay=random.randint(50, 120))
+                    time.sleep(1)
+            else:
+                time.sleep(0.5)
+            opts = page.locator('div[class*="option"]').all()
+            for o in opts:
+                if answer.lower()[:12] in o.text_content().strip().lower():
+                    self._click_human(o)
+                    time.sleep(0.8)
+                    return True
+            if opts:
+                self._click_human(opts[0])
+                time.sleep(0.8)
+                return True
+        except Exception:
+            pass
+        return False
+
+    def _apply_required_answers(
+        self, scope: Any, page: Any, answers: SubmitAnswers
+    ) -> List[str]:
+        self._wait_human(1.0, 2.0)
+        self._mouse_wander(page)
+
+        questions = page.evaluate("""() => {
+            return Array.from(document.querySelectorAll(
+                'input[id^="question_"], textarea[id^="question_"]'
+            ))
+                .filter(el => el.offsetParent !== null)
+                .map(el => ({
+                    id: el.id, tag: el.tagName,
+                    label: (el.labels?.[0]?.textContent?.trim() || '').toLowerCase(),
+                    isDropdown: el.closest('.select-shell') !== null
+                }));
+        }""")
+
+        for q in questions:
+            qid, label, is_dd, tag = q["id"], q["label"], q["isDropdown"], q["tag"]
+            answer = None
+            if "authorized to work" in label:
+                answer = ("nationality", True, True)
+            elif "visa" in label and "sponsorship" in label:
+                answer = ("No", True, True)
+            elif "based in" in label and "countries" in label:
+                answer = ("United States", True, True)
+            elif "acknowledge" in label and "privacy" in label:
+                answer = ("Acknowledge", True, False)
+            elif "double-check" in label or "accuracy" in label:
+                answer = ("I have reviewed", True, False)
+            elif "in-person" in label or "on-site" in label:
+                answer = ("Yes", True, True)
+            elif "relocation" in label:
+                answer = ("Yes", True, True)
+            elif "interviewed" in label or "previously worked" in label:
+                answer = ("No", True, True)
+            elif "ai policy" in label:
+                answer = ("Yes", True, True)
+            elif "linkedin" in label:
+                answer = (
+                    "https://www.linkedin.com/in/igor-ganapolsky-859317343/",
+                    False,
+                    False,
+                )
+            elif "github" in label:
+                answer = ("https://github.com/IgorGanapolsky", False, False)
+            elif "website" in label:
+                answer = ("https://github.com/IgorGanapolsky", False, False)
+            elif "how did you hear" in label:
+                answer = ("Job Board", False, False)
+            elif "earliest" in label or "when can you start" in label:
+                answer = ("Immediately", False, False)
+            elif "deadline" in label or "timeline" in label:
+                answer = ("None", False, False)
+            elif "address" in label and "working" in label:
+                answer = (
+                    "11909 Glenmore Dr, Coral Springs, FL 33071",
+                    False,
+                    False,
+                )
+            elif "why" in label and tag == "TEXTAREA":
+                answer = (
+                    answers.role_interest
+                    or "I build production AI systems at scale — 26 Claude AI "
+                    "skills with RLHF (76.6% positive rate), RAG pipelines "
+                    "with LanceDB, and 13 autonomous agents.",
+                    False,
+                    False,
+                )
+            elif "additional" in label and tag == "TEXTAREA":
+                answer = (
+                    "Available immediately. US citizen, no sponsorship.",
+                    False,
+                    False,
+                )
+            if answer is None:
+                continue
+            text, should_dd, use_filter = answer
+            try:
+                if is_dd and should_dd:
+                    self._gh_select_dropdown(page, qid, text, use_filter=use_filter)
+                elif tag == "TEXTAREA":
+                    ta = page.locator(f"#{qid}")
+                    if ta.count() > 0 and not ta.input_value():
+                        ta.fill(text)
+                else:
+                    inp = page.locator(f"#{qid}")
+                    if inp.count() > 0 and not inp.input_value():
+                        self._type_human(inp, text)
+                self._mouse_wander(page)
+            except Exception:
+                pass
+
+        # Country field (separate from phone code)
+        try:
+            shell = page.locator("#country").locator(
+                'xpath=ancestor::div[contains(@class,"select-shell")]'
+            )
+            if shell.count() > 0:
+                ctrl = shell.locator('div[class*="control"]').first
+                ctrl.click()
+                time.sleep(0.5)
+                combo = shell.locator('input[role="combobox"]').first
+                if combo.count() > 0:
+                    for ch in "United States":
+                        combo.type(ch, delay=random.randint(50, 100))
+                    time.sleep(1)
+                opt = page.locator(
+                    'div[class*="option"]:has-text("United States")'
+                ).first
+                if opt.count() > 0:
+                    self._click_human(opt)
+        except Exception:
+            pass
+
+        # EEO demographics
+        for eid in (
+            "gender",
+            "hispanic_ethnicity",
+            "veteran_status",
+            "disability_status",
+        ):
+            try:
+                shell = page.locator(f"#{eid}").locator(
+                    'xpath=ancestor::div[contains(@class,"select-shell")]'
+                )
+                ctrl = shell.locator('div[class*="control"]').first
+                ctrl.click()
+                time.sleep(0.3)
+                combo = shell.locator('input[role="combobox"]').first
+                if combo.count() > 0:
+                    combo.fill("Decline")
+                    time.sleep(0.5)
+                opt = page.locator('div[class*="option"]').first
+                if opt.count() > 0:
+                    opt.click()
+                    time.sleep(0.3)
+            except Exception:
+                pass
+
+        self._wait_human(1.0, 2.0)
+        return []
 
 
 class LeverAdapter(PlaywrightFormAdapter):
@@ -2673,192 +2961,6 @@ class LeverAdapter(PlaywrightFormAdapter):
                 except Exception:
                     continue
         return None
-
-    def _gh_select_dropdown(
-        self, page: Any, qid: str, answer: str, use_filter: bool = True
-    ) -> bool:
-        """Select from a Greenhouse react-select dropdown.
-
-        Click the control div (not combobox input) to open the menu.
-        For single-option dropdowns, skip filter typing (resets React state).
-        """
-        try:
-            shell = page.locator(f"#{qid}").locator(
-                'xpath=ancestor::div[contains(@class,"select-shell")]'
-            )
-            ctrl = shell.locator('div[class*="control"]').first
-            ctrl.click()
-            time.sleep(random.uniform(0.5, 1.0))
-            if use_filter:
-                combo = shell.locator('input[role="combobox"]').first
-                if combo.count() > 0:
-                    for ch in answer[:20]:
-                        combo.type(ch, delay=random.randint(50, 120))
-                    time.sleep(1)
-            else:
-                time.sleep(0.5)
-            opts = page.locator('div[class*="option"]').all()
-            for o in opts:
-                if answer.lower()[:12] in o.text_content().strip().lower():
-                    self._click_human(o)
-                    time.sleep(0.8)
-                    return True
-            if opts:
-                self._click_human(opts[0])
-                time.sleep(0.8)
-                return True
-        except Exception:
-            pass
-        return False
-
-    def _apply_required_answers(
-        self, scope: Any, page: Any, answers: SubmitAnswers
-    ) -> List[str]:
-        """Fill Greenhouse react-select custom screening questions."""
-        self._wait_human(1.0, 2.0)
-        self._mouse_wander(page)
-
-        # Map question IDs to answers dynamically
-        questions = page.evaluate("""() => {
-            return Array.from(document.querySelectorAll('input[id^="question_"], textarea[id^="question_"]'))
-                .filter(el => el.offsetParent !== null)
-                .map(el => ({
-                    id: el.id, tag: el.tagName,
-                    label: (el.labels?.[0]?.textContent?.trim() || '').toLowerCase(),
-                    isDropdown: el.closest('.select-shell') !== null
-                }));
-        }""")
-
-        for q in questions:
-            qid, label, is_dd, tag = q["id"], q["label"], q["isDropdown"], q["tag"]
-            answer = None
-
-            # Determine answer based on label keywords
-            if "authorized to work" in label or "legally authorized" in label:
-                answer = ("nationality", True, True)  # (text, is_dropdown, use_filter)
-            elif "visa" in label and "sponsorship" in label:
-                answer = ("No", True, True)
-            elif "based in" in label and "countries" in label:
-                answer = ("United States", True, True)
-            elif "acknowledge" in label and "privacy" in label:
-                answer = ("Acknowledge", True, False)  # NO filter for single-option
-            elif "double-check" in label or "accuracy" in label:
-                answer = ("I have reviewed", True, False)  # NO filter
-            elif "in-person" in label or "in-office" in label or "on-site" in label:
-                answer = ("Yes", True, True)
-            elif "relocation" in label:
-                answer = ("Yes", True, True)
-            elif "interviewed" in label or "previously worked" in label:
-                answer = ("No", True, True)
-            elif "ai policy" in label:
-                answer = ("Yes", True, True)
-            elif "linkedin" in label:
-                answer = (
-                    "https://www.linkedin.com/in/igor-ganapolsky-859317343/",
-                    False,
-                    False,
-                )
-            elif "github" in label:
-                answer = ("https://github.com/IgorGanapolsky", False, False)
-            elif "website" in label:
-                answer = ("https://github.com/IgorGanapolsky", False, False)
-            elif "how did you hear" in label:
-                answer = ("Job Board", False, False)
-            elif "earliest" in label or "when can you start" in label:
-                answer = ("Immediately", False, False)
-            elif "deadline" in label or "timeline" in label:
-                answer = ("None", False, False)
-            elif "address" in label and "working" in label:
-                answer = ("11909 Glenmore Dr, Coral Springs, FL 33071", False, False)
-            elif "why" in label and tag == "TEXTAREA":
-                answer = (
-                    answers.role_interest
-                    or "I build production AI systems at scale — 26 Claude AI skills "
-                    "with RLHF (76.6% positive rate), RAG pipelines with LanceDB, "
-                    "and 13 autonomous agents. At Subway I led React Native New "
-                    "Architecture achieving 68% build time reduction and 99.5%+ "
-                    "crash-free sessions across millions of users.",
-                    False,
-                    False,
-                )
-            elif "additional" in label and tag == "TEXTAREA":
-                answer = (
-                    "Available immediately. US citizen, no sponsorship required. "
-                    "South Florida based.",
-                    False,
-                    False,
-                )
-
-            if answer is None:
-                continue
-
-            text, should_dd, use_filter = answer
-            try:
-                if is_dd and should_dd:
-                    self._gh_select_dropdown(page, qid, text, use_filter=use_filter)
-                elif tag == "TEXTAREA":
-                    ta = page.locator(f"#{qid}")
-                    if ta.count() > 0 and not ta.input_value():
-                        ta.fill(text)
-                else:
-                    inp = page.locator(f"#{qid}")
-                    if inp.count() > 0 and not inp.input_value():
-                        self._type_human(inp, text)
-                self._mouse_wander(page)
-            except Exception:
-                pass
-
-        # Fill country field (separate from phone country code)
-        try:
-            country_el = page.locator("#country")
-            if country_el.count() > 0:
-                shell = country_el.locator(
-                    'xpath=ancestor::div[contains(@class,"select-shell")]'
-                )
-                if shell.count() > 0:
-                    ctrl = shell.locator('div[class*="control"]').first
-                    ctrl.click()
-                    time.sleep(0.5)
-                    combo = shell.locator('input[role="combobox"]').first
-                    if combo.count() > 0:
-                        for ch in "United States":
-                            combo.type(ch, delay=random.randint(50, 100))
-                        time.sleep(1)
-                    opt = page.locator(
-                        'div[class*="option"]:has-text("United States")'
-                    ).first
-                    if opt.count() > 0:
-                        self._click_human(opt)
-        except Exception:
-            pass
-
-        # EEO demographics
-        for eid in (
-            "gender",
-            "hispanic_ethnicity",
-            "veteran_status",
-            "disability_status",
-        ):
-            try:
-                shell = page.locator(f"#{eid}").locator(
-                    'xpath=ancestor::div[contains(@class,"select-shell")]'
-                )
-                ctrl = shell.locator('div[class*="control"]').first
-                ctrl.click()
-                time.sleep(0.3)
-                combo = shell.locator('input[role="combobox"]').first
-                if combo.count() > 0:
-                    combo.fill("Decline")
-                    time.sleep(0.5)
-                opt = page.locator('div[class*="option"]').first
-                if opt.count() > 0:
-                    opt.click()
-                    time.sleep(0.3)
-            except Exception:
-                pass
-
-        self._wait_human(1.0, 2.0)
-        return []
 
 
 class TalentpriseAdapter(SiteAdapter):
@@ -3806,9 +3908,7 @@ def run_pipeline(
 
     target_applied = max(0, int(target_applied))
     max_cycles = max(1, int(max_cycles))
-    ready_indices = [
-        i for i, row in enumerate(rows) if _is_ready_status(str(row.get("Status", "")))
-    ][: max(0, max_jobs)]
+    ready_indices, ready_ranked = _rank_ready_rows_for_submit(rows, max_jobs=max_jobs)
 
     report: Dict[str, Any] = {
         "generated_at": dt.datetime.now(dt.timezone.utc).isoformat(),
@@ -3828,6 +3928,8 @@ def run_pipeline(
         "queue_demoted_count": queue_demoted_count,
         "queue_audit": queue_audit,
         "ready_rows_total": len(ready_indices),
+        "ready_queue_ranked": ready_ranked,
+        "learning_arms_json": str(DEFAULT_LEARNING_ARMS_JSON),
         "target_applied": target_applied,
         "max_cycles": max_cycles,
         "quarantine_blocked": bool(quarantine_blocked),
@@ -3884,15 +3986,15 @@ def run_pipeline(
     while True:
         if cycles_run >= max_cycles:
             break
-        ready_indices = [
-            i
-            for i, row in enumerate(rows)
-            if _is_ready_status(str(row.get("Status", "")))
-        ][: max(0, max_jobs)]
+        ready_indices, ready_ranked = _rank_ready_rows_for_submit(
+            rows, max_jobs=max_jobs
+        )
+        report["ready_queue_ranked"] = ready_ranked
         if not ready_indices:
             break
         cycles_run += 1
         cycle_applied = 0
+        ready_rank_map = {int(item["row_index"]): item for item in ready_ranked}
 
         for row_idx in ready_indices:
             row = rows[row_idx]
@@ -3909,6 +4011,19 @@ def run_pipeline(
                 "submission_lane": str(row.get("Submission Lane", "")).strip(),
                 "mode": "dry_run" if dry_run else "execute",
             }
+            learning_priority = ready_rank_map.get(row_idx)
+            if learning_priority is not None:
+                row_result["learning_priority"] = {
+                    "adjusted_score": learning_priority.get("adjusted_score"),
+                    "learned_score": learning_priority.get("learned_score"),
+                    "method": learning_priority.get("method"),
+                    "matched_positive_tags": learning_priority.get(
+                        "matched_positive_tags"
+                    ),
+                    "matched_negative_tags": learning_priority.get(
+                        "matched_negative_tags"
+                    ),
+                }
 
             row_errors = _validate_row(row)
             assessment = _assess_queue_gate(
@@ -4041,12 +4156,22 @@ def run_pipeline(
                 if not screenshot_ok:
                     row_errors.append("missing_or_empty_confirmation_screenshot")
                 row_result["errors"] = row_errors
+                row_result["manual_rescue_ready"] = bool(
+                    screenshot_ok and resume_exists
+                )
+                if screenshot_ok:
+                    row_result["manual_rescue_evidence"] = str(result.screenshot)
                 row["Status"] = DEFAULT_READY_STATUS
                 row["Notes"] = _append_note(
                     str(row.get("Notes", "")),
                     (
                         f"CI submit blocked by anti-bot on {_today_iso()} via {adapter.name}. "
                         f"Reason={result.details}. Manual browser submit required."
+                        + (
+                            f" Manual rescue evidence: {result.screenshot}."
+                            if screenshot_ok and result.screenshot is not None
+                            else ""
+                        )
                     ),
                 )
                 queue_metadata_updates += 1
@@ -4131,11 +4256,7 @@ def run_pipeline(
             break
         if target_applied > 0 and applied_count >= target_applied:
             break
-        next_ready_indices = [
-            i
-            for i, next_row in enumerate(rows)
-            if _is_ready_status(str(next_row.get("Status", "")))
-        ][: max(0, max_jobs)]
+        next_ready_indices, _ = _rank_ready_rows_for_submit(rows, max_jobs=max_jobs)
         if not next_ready_indices:
             break
         # Prevent no-progress loops when the same rows remain ready between cycles.
