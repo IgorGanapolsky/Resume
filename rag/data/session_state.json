@@ -1,17 +1,17 @@
 {
   "last_results": {
     "source": "query",
-    "query": "OpenAI",
+    "query": "PR management and system hygiene lessons",
     "app_ids": [
-      "openai__administrative-business-partner__803d29a8d2",
-      "openai__software-engineer-reliability__c77e930dd1",
-      "mercor__software-expert-office-suite__b101f80357",
-      "mercor__software-engineer-trajectory__34d4a66d52",
-      "vercel__senior-customer-support-engineer__1a7ed3d0cb",
-      "anthropic__senior-staff-software-engineer-autonomous-agent-infrastructure__cd6f5a3af3",
-      "databricks__sr-solutions-engineer-hunter-team__c68381a28d",
-      "databricks__sr-solutions-engineer-public-sector-sled__c4c10b1835"
+      "lavendo__technical-product-manager__e9c498f249",
+      "firemon__enterprise-account-executive-pacific-nw__390d0a3b2f",
+      "bnsf-railway__product-platform-enterprise-full-stack-sr-staff-software-engineer__ba8ba46859",
+      "bnsf-railway__product-platform-enterprise-front-end-sr-staff-software-engineer__8184a47b13",
+      "infstones__devops-engineer__eddd35d3b1",
+      "ubiminds__mid-level-devops-engineer-ci-cd-optimization__ec8f196f71",
+      "orasure-technologies-inc__director-product-management__3e6cd86b8d",
+      "openai__software-engineer-reliability__c77e930dd1"
     ],
-    "ts": "2026-04-01T15:00:40.544678+00:00"
+    "ts": "2026-04-01T15:57:04.172647+00:00"
   }
 }
