@@ -488,7 +488,7 @@ def update_languages(page: Any) -> None:
                 continue
 
         if add_btn is None:
-            print(f"  Could not find 'ADD LANGUAGES' button.")
+            print("  Could not find 'ADD LANGUAGES' button.")
             continue
 
         _click_human(add_btn)
@@ -641,7 +641,7 @@ def update_skills(page: Any) -> None:
     page_text = page.locator("body").text_content() or ""
     # Personal skills already has 10+ — note "Only first 10 will be displayed"
     # Just report status, don't try to modify since it's already at capacity
-    print(f"  Personal skills section loaded. Current skills visible on page.")
+    print("  Personal skills section loaded. Current skills visible on page.")
     _screenshot(page, "personal_skills_after")
 
 
@@ -950,7 +950,7 @@ def browse_jobs(page: Any) -> None:
                         _wait(1, 3)
                         applied_count += 1
                         _screenshot(page, f"job_applied_{i + 1}")
-                        print(f"    Applied/Expressed interest!")
+                        print("    Applied/Expressed interest!")
                         break
                 except Exception:
                     continue
