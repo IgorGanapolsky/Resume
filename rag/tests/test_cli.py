@@ -4,7 +4,6 @@ import csv
 import json
 
 import pytest
-
 from tests.conftest import SAMPLE_ROWS
 
 

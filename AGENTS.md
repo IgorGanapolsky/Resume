@@ -26,6 +26,21 @@ Help with job search and applications by producing high-quality, role-tailored m
 - Do not claim an application was submitted unless the final confirmation screen (or an email confirmation) was observed and captured.
 - Stop before any irreversible step if the UI indicates a "final submit" action and the answer set has any uncertainty.
 
+## Warm Intro & Product-First Mandate (Aakash Gupta Protocol)
+
+1. **Warm Intro First:** Never submit a cold application for a high-value (Tier 1) company without first attempting to build a referral path.
+   - For every Tier 1 `Draft`, the agent must search for 2-3 potential referrers (LinkedIn).
+   - Log them in the tracker under `Referrer Name` and `Referrer Role`.
+   - Draft a personalized outreach using `email_templates/referral_request_template.md`.
+2. **The 90-Minute Rule (The 1-Pager):** For Tier 1 roles, replace generic cover letters with a **Product Proposal**.
+   - Analyze the company's product, find one friction point, and propose a specific technical/product fix.
+   - If possible, include a minimal code prototype (Gist or local snippet).
+   - Save to `applications/<company>/proposals/YYYY-MM-DD_product_proposal.md`.
+   - Update `Product Proposal Path` in the tracker.
+3. **Outreach Cadence:** Monitor the `Outreach Cadence (1/3/7/14)` column.
+   - If no response after Day 1, schedule follow-ups for Day 3, 7, and 14.
+   - Move to `ReadyToSubmit` only if the referral path fails after Day 14 or if a referrer explicitly says "apply through the portal."
+
 ## Workflow (Per Job)
 
 1. Capture the job posting:
@@ -69,23 +84,23 @@ Update tracker CSV `Response` and `Interview Stage` columns to match.
 
 ## RAG & RLHF Maintenance
 
-| Trigger | Command |
-|---------|---------|
-| Tracker CSV changed | `python3 Resume/rag/cli.py build` |
-| New outcome received | `python3 Resume/rag/cli.py feedback --app-id <id> --outcome <outcome>` |
-| Dashboard | `python3 Resume/rag/cli.py status` |
-| PII audit | `python3 Resume/rag/cli.py scan` |
-| Auto-watch (background) | `python3 Resume/rag/cli.py watch --interval 30` |
+| Trigger                 | Command                                                                |
+| ----------------------- | ---------------------------------------------------------------------- |
+| Tracker CSV changed     | `python3 Resume/rag/cli.py build`                                      |
+| New outcome received    | `python3 Resume/rag/cli.py feedback --app-id <id> --outcome <outcome>` |
+| Dashboard               | `python3 Resume/rag/cli.py status`                                     |
+| PII audit               | `python3 Resume/rag/cli.py scan`                                       |
+| Auto-watch (background) | `python3 Resume/rag/cli.py watch --interval 30`                        |
 
 ## Definition of Done
 
-| Task | Done when |
-|------|-----------|
+| Task                  | Done when                                                               |
+| --------------------- | ----------------------------------------------------------------------- |
 | Application submitted | Confirmation screenshot in `submissions/`; tracker row `Status=Applied` |
-| Resume generated | HTML file in `tailored_resumes/`; renders correctly |
-| Cover letter written | File in `cover_letters/`; no invented facts |
-| Outcome recorded | `feedback` command run; `arms.json` updated; tracker CSV updated |
-| Index current | `build` run after last tracker change |
+| Resume generated      | HTML file in `tailored_resumes/`; renders correctly                     |
+| Cover letter written  | File in `cover_letters/`; no invented facts                             |
+| Outcome recorded      | `feedback` command run; `arms.json` updated; tracker CSV updated        |
+| Index current         | `build` run after last tracker change                                   |
 
 ## Naming Conventions
 
@@ -116,11 +131,13 @@ Update tracker CSV `Response` and `Interview Stage` columns to match.
 ## Enhanced Session Directives (2026-03-18)
 
 ### PR & Branch Management
+
 - Follow the multi-step inspection and cleanup protocol for all PR sessions.
 - Document blockers and merge ready PRs with SHAs.
 - Maintain workspace hygiene by removing dormant code and old logs.
 
 ### Agentic Standards
+
 - Act as a fully autonomous CTO.
 - Never ask for CEO manual steps if automatable.
 - Log all lessons and mistakes to RAG for continuous system improvement.

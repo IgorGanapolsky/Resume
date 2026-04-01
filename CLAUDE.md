@@ -76,6 +76,7 @@ python3 Resume/rag/cli.py build
 ## Enhanced Session Directives (2026-03-18)
 
 ### PR & Branch Management
+
 - List all open PRs and identify merge readiness/blockers.
 - Address orphan branches (merge, stale, or delete).
 - Delete stale branches and worktrees after merge.
@@ -83,6 +84,7 @@ python3 Resume/rag/cli.py build
 - Run dry-run to confirm operational readiness.
 
 ### Operational Mandates
+
 - Evidence-based communication: show proof (file counts, command output, CI status) for every claim.
 - No manual handoffs: execute all steps autonomously.
 - Honesty protocol: report failures or hallucinations immediately.

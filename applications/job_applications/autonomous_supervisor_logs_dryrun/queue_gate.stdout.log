@@ -1,0 +1,2 @@
+Queue gate processed: applied_demoted=1 promoted=1 demoted=0 ready_now=1
+Report: applications/job_applications/ci_ready_queue_report.json
