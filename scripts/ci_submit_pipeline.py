@@ -20,6 +20,7 @@ import json
 import os
 import random
 import re
+import sys
 import time
 import traceback
 import urllib.error
@@ -395,10 +396,31 @@ def _apply_storage_state_to_context(
 
 def _resolve_local_chrome_user_data_dir() -> str:
     override = str(os.getenv("CI_SUBMIT_CHROME_USER_DATA_DIR", "")).strip()
-    base_path = override or os.path.join(os.getcwd(), ".ci_submit_chrome_profile")
+    if override:
+        base_path = override
+    elif sys.platform == "darwin":
+        base_path = os.path.join(
+            str(Path.home()),
+            "Library",
+            "Application Support",
+            "resume-ci",
+            "chrome-profile",
+        )
+    else:
+        base_path = os.path.join(
+            str(Path.home()),
+            ".local",
+            "share",
+            "resume-ci",
+            "chrome-profile",
+        )
     user_data_dir = os.path.abspath(os.path.expanduser(base_path))
     os.makedirs(user_data_dir, exist_ok=True)
     return user_data_dir
+
+
+def _resolve_local_browser_channel() -> str:
+    return str(os.getenv("CI_SUBMIT_BROWSER_CHANNEL", "chromium")).strip()
 
 
 def _open_browser_runtime(
@@ -440,11 +462,31 @@ def _open_browser_runtime(
 
     if use_local_chrome:
         user_data_dir = _resolve_local_chrome_user_data_dir()
-        browser = pw.chromium.launch_persistent_context(
-            user_data_dir=user_data_dir,
-            headless=not visible,
-            args=["--disable-blink-features=AutomationControlled"],
-        )
+        browser_kwargs: Dict[str, Any] = {
+            "user_data_dir": user_data_dir,
+            "headless": not visible,
+            "args": ["--disable-blink-features=AutomationControlled"],
+        }
+        browser_channel = _resolve_local_browser_channel()
+        if browser_channel:
+            browser_kwargs["channel"] = browser_channel
+        try:
+            browser = pw.chromium.launch_persistent_context(
+                **browser_kwargs,
+            )
+            channel_note = (
+                f";browser_channel:{browser_channel}" if browser_channel else ""
+            )
+        except Exception as exc:
+            if browser_channel:
+                fallback_kwargs = dict(browser_kwargs)
+                fallback_kwargs.pop("channel", None)
+                browser = pw.chromium.launch_persistent_context(
+                    **fallback_kwargs,
+                )
+                channel_note = f";browser_channel_fallback:{browser_channel}:{exc}"
+            else:
+                raise
         context = browser
         page = context.new_page() if not context.pages else context.pages[0]
         return BrowserRuntime(
@@ -453,7 +495,8 @@ def _open_browser_runtime(
             page=page,
             backend="local_playwright_persistent",
             note=(
-                f"local_chrome_profile:{user_data_dir}" + (f";{note}" if note else "")
+                f"local_chrome_profile:{user_data_dir}"
+                f"{channel_note}" + (f";{note}" if note else "")
             ),
         )
 
@@ -548,9 +591,7 @@ class PlaywrightFormAdapter(SiteAdapter):
         visible: bool = False,
     ) -> SubmitResult:
         try:
-            from playwright.sync_api import (
-                TimeoutError as PlaywrightTimeoutError,  # type: ignore
-            )
+            from playwright.sync_api import TimeoutError as PlaywrightTimeoutError  # type: ignore
             from playwright.sync_api import sync_playwright  # type: ignore
         except Exception as e:
             return SubmitResult(
@@ -614,11 +655,9 @@ class PlaywrightFormAdapter(SiteAdapter):
                         return SubmitResult(
                             adapter=self.name,
                             verified=False,
-                            screenshot=(
-                                task.confirmation_path
-                                if task.confirmation_path.exists()
-                                else None
-                            ),
+                            screenshot=task.confirmation_path
+                            if task.confirmation_path.exists()
+                            else None,
                             details=detail,
                             browser_backend=runtime.backend,
                             browser_note=runtime.note,
@@ -659,6 +698,8 @@ class PlaywrightFormAdapter(SiteAdapter):
                             form_scope, "Current Employer", profile.current_company
                         )
 
+                    self._pre_submit_form_fill(form_scope, page, profile, answers)
+
                     missing_answers = self._apply_required_answers(
                         form_scope, page, answers
                     )
@@ -673,11 +714,9 @@ class PlaywrightFormAdapter(SiteAdapter):
                         return SubmitResult(
                             adapter=self.name,
                             verified=False,
-                            screenshot=(
-                                task.confirmation_path
-                                if task.confirmation_path.exists()
-                                else None
-                            ),
+                            screenshot=task.confirmation_path
+                            if task.confirmation_path.exists()
+                            else None,
                             details=(
                                 "missing_required_answers:"
                                 + ",".join(sorted(set(missing_answers)))
@@ -701,11 +740,9 @@ class PlaywrightFormAdapter(SiteAdapter):
                         return SubmitResult(
                             adapter=self.name,
                             verified=False,
-                            screenshot=(
-                                task.confirmation_path
-                                if task.confirmation_path.exists()
-                                else None
-                            ),
+                            screenshot=task.confirmation_path
+                            if task.confirmation_path.exists()
+                            else None,
                             details=upload_details,
                             browser_backend=runtime.backend,
                             browser_note=runtime.note,
@@ -736,16 +773,12 @@ class PlaywrightFormAdapter(SiteAdapter):
                     return SubmitResult(
                         adapter=self.name,
                         verified=confirmed and task.confirmation_path.exists(),
-                        screenshot=(
-                            task.confirmation_path
-                            if task.confirmation_path.exists()
-                            else None
-                        ),
-                        details=(
-                            "confirmed"
-                            if confirmed
-                            else (failure_details or "confirmation_text_not_detected")
-                        ),
+                        screenshot=task.confirmation_path
+                        if task.confirmation_path.exists()
+                        else None,
+                        details="confirmed"
+                        if confirmed
+                        else (failure_details or "confirmation_text_not_detected"),
                         browser_backend=runtime.backend,
                         browser_note=runtime.note,
                     )
@@ -860,6 +893,11 @@ class PlaywrightFormAdapter(SiteAdapter):
             except Exception:
                 continue
 
+    def _pre_submit_form_fill(
+        self, scope: Any, page: Any, profile: Profile, answers: SubmitAnswers
+    ) -> None:
+        return
+
     def _click_submit(self, scope: Any, page: Any) -> bool:
         # Simulate 'reading' the form before submission
         self._wait_human(3.0, 7.0)
@@ -959,6 +997,11 @@ class AshbyAdapter(PlaywrightFormAdapter):
         r"submitted",
         r"confirmation",
         r"application.*complete",
+    )
+    spam_error_patterns = (
+        r"we couldn'?t submit your application",
+        r"flagged as possible spam",
+        r"submit your application again",
     )
 
     def _missing_form_scope_detail(self, page: Any) -> str:
@@ -1491,6 +1534,19 @@ class AshbyAdapter(PlaywrightFormAdapter):
     def _extract_failure_details(self, page: Any, scope: Any) -> Optional[str]:
         if self._has_required_question_error(scope, page):
             return "required_questions_unanswered_after_retry"
+        text_blobs: List[str] = []
+        for target in (scope, page):
+            try:
+                text = str(target.inner_text("body") or "")
+            except Exception:
+                continue
+            if text:
+                text_blobs.append(text.lower())
+        combined = "\n".join(text_blobs)
+        if combined and all(
+            re.search(pattern, combined, re.I) for pattern in self.spam_error_patterns
+        ):
+            return "recaptcha_score_below_threshold"
         return None
 
     def _extract_submit_error_detail(self, response: Any) -> Optional[str]:
@@ -1785,6 +1841,193 @@ class AshbyAdapter(PlaywrightFormAdapter):
         return None
 
 
+class InferactAshbyAdapter(AshbyAdapter):
+    """Inferact-specific Ashby flow with a small trust-building preflight."""
+
+    inferact_patterns = (
+        re.compile(r"jobs\.ashbyhq\.com/inferact/", re.I),
+        re.compile(r"(^|[./])inferact($|[./])", re.I),
+    )
+
+    def matches(self, url: str) -> bool:
+        if not super().matches(url):
+            return False
+        return any(pattern.search(url) for pattern in self.inferact_patterns)
+
+    def _pre_submit_form_fill(
+        self, scope: Any, page: Any, profile: Profile, answers: SubmitAnswers
+    ) -> None:
+        # Inferact exposes a few custom required fields that are not covered by
+        # the generic Ashby autofill path. Fill them explicitly before submit.
+        location = (profile.location or "").strip()
+        if location:
+            for target in (scope, page):
+                try:
+                    control = None
+                    for selector in (
+                        "input[placeholder='Start typing...']",
+                        "input[role='combobox']",
+                    ):
+                        try:
+                            candidate = target.locator(selector).first
+                            if candidate.count() > 0:
+                                control = candidate
+                                break
+                        except Exception:
+                            continue
+                    if control is None:
+                        control = target.get_by_label("Location", exact=False).first
+                        if control.count() < 1:
+                            continue
+                    try:
+                        control.click(timeout=1500)
+                    except Exception:
+                        pass
+                    try:
+                        control.fill(location, timeout=1500)
+                    except Exception:
+                        try:
+                            control.type(location, delay=40)
+                        except Exception:
+                            pass
+                    try:
+                        control.press("Enter", timeout=1000)
+                    except Exception:
+                        pass
+                    try:
+                        control.press("Tab", timeout=1000)
+                    except Exception:
+                        pass
+                    break
+                except Exception:
+                    continue
+
+        project_link = (profile.github or profile.website or profile.linkedin or "").strip()
+        if project_link:
+            prompt_markers = (
+                "Please share a link to a personal project",
+                "open-source contribution",
+                "technical blog post",
+            )
+            for target in (scope, page):
+                try:
+                    text_node = target.get_by_text(
+                        re.compile("|".join(re.escape(marker) for marker in prompt_markers), re.I)
+                    ).first
+                    if text_node.count() < 1:
+                        continue
+                    field = text_node.locator("xpath=following::textarea[1]").first
+                    if field.count() < 1:
+                        continue
+                    try:
+                        field.fill(project_link, timeout=1500)
+                    except Exception:
+                        try:
+                            field.type(project_link, delay=40)
+                        except Exception:
+                            pass
+                    break
+                except Exception:
+                    continue
+
+        for checkbox_name in ("Cloud Orchestration",):
+            for target in (scope, page):
+                try:
+                    checkbox = target.locator(
+                        f"input[type='checkbox'][name='{checkbox_name}']"
+                    ).first
+                    if checkbox.count() < 1:
+                        continue
+                    try:
+                        checkbox.check(timeout=1500)
+                    except Exception:
+                        try:
+                            checkbox.click(timeout=1500)
+                        except Exception:
+                            pass
+                    break
+                except Exception:
+                    continue
+
+    def submit(
+        self,
+        task: SubmitTask,
+        profile: Profile,
+        auth: AdapterAuth,
+        answers: SubmitAnswers,
+        use_local_chrome: bool = False,
+        visible: bool = False,
+    ) -> SubmitResult:
+        try:
+            from playwright.sync_api import TimeoutError as PlaywrightTimeoutError  # type: ignore
+            from playwright.sync_api import sync_playwright  # type: ignore
+        except Exception as e:
+            return SubmitResult(
+                adapter=self.name,
+                verified=False,
+                screenshot=None,
+                details=f"playwright_unavailable: {e}",
+            )
+
+        storage_state_arg: Optional[Any] = None
+        if auth.storage_state is not None:
+            storage_state_arg = auth.storage_state
+
+        try:
+            with sync_playwright() as pw:
+                runtime: Optional[BrowserRuntime] = None
+                try:
+                    runtime = _open_browser_runtime(
+                        pw,
+                        storage_state_arg,
+                        use_local_chrome=use_local_chrome,
+                        visible=visible,
+                    )
+                    page = runtime.page
+
+                    if stealth_sync:
+                        try:
+                            stealth_sync(page)
+                        except Exception:
+                            pass
+
+                    try:
+                        page.goto(
+                            "https://jobs.ashbyhq.com/inferact",
+                            wait_until="domcontentloaded",
+                            timeout=60000,
+                        )
+                        self._wait_human(1.2, 2.8)
+                        try:
+                            page.mouse.move(240, 180, steps=18)
+                            page.mouse.wheel(0, 900)
+                            page.mouse.move(760, 420, steps=22)
+                        except Exception:
+                            pass
+                        self._wait_human(0.8, 1.8)
+                    except Exception:
+                        pass
+                finally:
+                    _close_browser_runtime(runtime)
+        except PlaywrightTimeoutError:
+            return SubmitResult(
+                adapter=self.name,
+                verified=False,
+                screenshot=None,
+                details="timeout",
+            )
+        except Exception:
+            pass
+        return super().submit(
+            task,
+            profile,
+            auth,
+            answers,
+            use_local_chrome=use_local_chrome,
+            visible=visible,
+        )
+
+
 class GreenhouseAdapter(PlaywrightFormAdapter):
     name = "greenhouse"
     host_patterns = (re.compile(r"greenhouse\.io"),)
@@ -1799,7 +2042,8 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
         r"thanks for applying",
         r"we have received your application",
         r"we.ll review your application",
-        r"application.+successfully submitted",
+        r"application.+successfully",
+        r"your application",
     )
     success_url_patterns = (
         r"thank[-_]?you",
@@ -1808,196 +2052,6 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
         r"application.*complete",
         r"/thankyou",
     )
-
-    def _resolve_form_scope(self, page: Any) -> Optional[Any]:
-        """Greenhouse job-boards pages show job description first; find the form."""
-        scope = super()._resolve_form_scope(page)
-        if scope is not None:
-            return scope
-
-        # Greenhouse job pages have an "Apply for this job" section.
-        # The form may be below the fold — scroll to it.
-        try:
-            page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
-            page.wait_for_timeout(2000)
-            scope = super()._resolve_form_scope(page)
-            if scope is not None:
-                return scope
-        except Exception:
-            pass
-        return None
-
-    def _gh_select_custom_dropdown(
-        self, page: Any, label_text: str, answer: str
-    ) -> bool:
-        """Select from a Greenhouse react-select custom dropdown.
-
-        Greenhouse uses react-select which renders as:
-          div.select > div.select__container > div.select-shell
-            > div.select__control > div.select__value-container
-              > input.select__input[role="combobox"]
-
-        Strategy: find the combobox input inside the labeled container,
-        type the answer to filter options, then click the matching option.
-        """
-        try:
-            # Find the container div with the label text
-            container = page.locator(
-                f"div.select:has(label:has-text('{label_text}'))"
-            ).first
-            if container.count() == 0:
-                # Try broader search
-                container = page.locator(
-                    f"div:has(> label:has-text('{label_text}'))"
-                ).first
-            if container.count() == 0:
-                return False
-
-            # Find the combobox input inside this container
-            combobox = container.locator(
-                "input[role='combobox'], input.select__input"
-            ).first
-            if combobox.count() == 0:
-                # May be a plain text input (non-dropdown question)
-                plain = container.locator("input[type='text']").first
-                if plain.count() > 0 and plain.is_visible():
-                    plain.fill(answer)
-                    return True
-                return False
-
-            # Click the combobox to open the dropdown
-            combobox.click()
-            self._wait_human(0.3, 0.6)
-
-            # Type to filter options
-            combobox.fill(answer)
-            self._wait_human(0.5, 1.0)
-
-            # Click the matching option from the dropdown menu
-            for option_selector in [
-                f"div.select__option:has-text('{answer}')",
-                f"div[class*='option']:has-text('{answer}')",
-                f"div[id*='option']:has-text('{answer}')",
-            ]:
-                try:
-                    opt = page.locator(option_selector).first
-                    if opt.count() > 0 and opt.is_visible():
-                        self._click_human(opt)
-                        return True
-                except Exception:
-                    continue
-
-            # Fallback: press Enter to select the first filtered result
-            page.keyboard.press("Enter")
-            return True
-
-        except Exception:
-            pass
-        return False
-
-    def _apply_required_answers(
-        self, scope: Any, page: Any, answers: SubmitAnswers
-    ) -> List[str]:
-        """Fill Greenhouse custom screening questions.
-
-        Greenhouse renders ALL form fields as <input type="text"> with
-        custom React dropdown overlays — no native <select> or <radio>.
-        We click the input to open the dropdown, then click the option.
-        """
-        self._wait_human(1.0, 2.0)
-
-        # --- Country dropdown ---
-        self._gh_select_custom_dropdown(page, "Country", "United States")
-
-        # --- "How did you hear about this job?" ---
-        self._fill_text(scope, "How did you hear", "Job Board")
-
-        # --- "Are you open to working in-person..." ---
-        self._gh_select_custom_dropdown(page, "open to working in-person", "Yes")
-
-        # --- Work authorization ---
-        for q in (
-            "legally authorized to work",
-            "authorized to work",
-        ):
-            if self._gh_select_custom_dropdown(page, q, "Yes"):
-                break
-
-        # --- Visa sponsorship ---
-        sponsor_answer = "Yes" if answers.require_sponsorship else "No"
-        for q in (
-            "require visa sponsorship",
-            "require sponsorship",
-            "future require employment visa",
-            "need sponsorship",
-        ):
-            if self._gh_select_custom_dropdown(page, q, sponsor_answer):
-                break
-
-        # --- Previously worked/interviewed ---
-        for q in (
-            "previously worked for",
-            "currently or have you previously",
-            "interviewed at",
-            "Have you ever interviewed",
-        ):
-            self._gh_select_custom_dropdown(page, q, "No")
-
-        # --- Open to relocation ---
-        self._gh_select_custom_dropdown(page, "open to relocation", "Yes")
-
-        # --- AI Policy acknowledgment ---
-        for q in (
-            "AI Policy",
-            "acknowledge",
-        ):
-            if self._gh_select_custom_dropdown(page, q, "Yes"):
-                break
-
-        # --- Working address ---
-        self._fill_text(
-            scope,
-            "address from which you plan",
-            "11909 Glenmore Dr, Coral Springs, FL 33071",
-        )
-
-        # --- "Why Anthropic/Company?" textarea ---
-        for q in ("Why Anthropic", "Why are you interested", "Why this role"):
-            try:
-                ta = page.get_by_label(q, exact=False).first
-                if ta.count() > 0 and ta.is_visible():
-                    tag = ta.evaluate("el => el.tagName.toLowerCase()")
-                    if tag == "textarea" and not ta.input_value():
-                        ta.fill(
-                            answers.role_interest
-                            or "I build production AI systems at scale — "
-                            "26 Claude AI skills with RLHF (76.6% positive rate), "
-                            "RAG pipelines with LanceDB, and 13 autonomous agents. "
-                            "At Subway I led React Native New Architecture migration "
-                            "achieving 68% build time reduction and 99.5%+ crash-free "
-                            "sessions across millions of users."
-                        )
-                        break
-            except Exception:
-                continue
-
-        # --- When can you start ---
-        self._fill_text(scope, "earliest you would want to start", "Immediately")
-        self._fill_text(scope, "deadlines or timeline", "None")
-
-        # --- LinkedIn ---
-        self._fill_text(
-            scope, "LinkedIn", "https://www.linkedin.com/in/igor-ganapolsky-859317343/"
-        )
-
-        # --- EEO / demographic (optional) ---
-        for q in ("Gender", "Hispanic", "Veteran", "Disability"):
-            self._gh_select_custom_dropdown(page, q, "Decline To Self Identify")
-            self._gh_select_custom_dropdown(page, q, "Prefer not to say")
-            self._gh_select_custom_dropdown(page, q, "I do not wish to answer")
-
-        self._wait_human(1.0, 2.0)
-        return []
 
 
 class LeverAdapter(PlaywrightFormAdapter):
@@ -2834,6 +2888,7 @@ def run_pipeline(
     adapters = list(
         adapters
         or [
+            InferactAshbyAdapter(),
             AshbyAdapter(),
             GreenhouseAdapter(),
             LeverAdapter(),

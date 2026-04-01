@@ -1,0 +1,90 @@
+name: Ralph Local Submit
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+    inputs:
+      max_submit_jobs:
+        description: "Max queued jobs to submit this run"
+        required: false
+        default: "3"
+      headless:
+        description: "Run local browser headless: true | false"
+        required: false
+        default: "false"
+      browser_channel:
+        description: "Playwright browser channel override"
+        required: false
+        default: "chromium"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: ralph-loop
+  cancel-in-progress: false
+
+jobs:
+  submit:
+    runs-on: [self-hosted, macOS, resume-ci]
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          python3 --version
+          python3 -m venv .venv
+          . .venv/bin/activate
+          python -m pip install --upgrade pip
+          python -m pip install numpy "lancedb>=0.20,<1.0" playwright
+          python -m playwright install chromium
+
+      - name: Run local submit lane
+        env:
+          CI_SUBMIT_BROWSER_CHANNEL: ${{ github.event.inputs.browser_channel }}
+        run: |
+          . .venv/bin/activate
+          MAX_SUBMIT="${{ github.event.inputs.max_submit_jobs }}"
+          HEADLESS="${{ github.event.inputs.headless }}"
+          if [ -z "$MAX_SUBMIT" ]; then MAX_SUBMIT=3; fi
+          if [ -z "$HEADLESS" ]; then HEADLESS=false; fi
+          EXTRA_ARGS=""
+          if [ "$HEADLESS" = "true" ]; then
+            EXTRA_ARGS="--headless"
+          fi
+          python3 scripts/run_local_submit_lane.py \
+            --max-submit-jobs "$MAX_SUBMIT" \
+            --browser-channel "${CI_SUBMIT_BROWSER_CHANNEL:-chromium}" \
+            $EXTRA_ARGS
+
+      - name: Upload submit diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ralph-local-submit-diagnostics-${{ github.run_id }}
+          if-no-files-found: warn
+          path: |
+            applications/job_applications/*report*.json
+            applications/job_applications/application_tracker.csv
+            applications/*/submissions/*ci_confirmation*.png
+
+      - name: Create Pull Request for local submit updates
+        continue-on-error: true
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GH_PAT || github.token }}
+          commit-message: "chore(ralph-local-submit): submission lane update"
+          title: "chore: Ralph Local Submit updates"
+          body: |
+            Automated local submit run.
+
+            - Ran the no-spend submit lane on the self-hosted Mac runner
+            - Captured updated tracker state and diagnostics
+          branch: ralph/local-submit
+          delete-branch: true
+          labels: |
+            automation

@@ -83,6 +83,16 @@ Continuous loop runs in GitHub Actions via `.github/workflows/ralph-loop.yml`:
   - supports Anchor profile persistence and US proxy-backed extra stealth through repo variables
   - still requires verified confirmation evidence before any tracker row becomes `Applied`
 
+## Self-Hosted Local Submit
+
+`Ralph Local Submit` runs the same no-spend submit lane on a self-hosted Mac runner:
+
+- Workflow: `.github/workflows/ralph-local-submit.yml`
+- Runner labels: `self-hosted`, `macOS`, `resume-ci`
+- Entry point: `python3 scripts/run_local_submit_lane.py`
+- Browser profile: persisted outside the repo under the local user account
+- Bootstrap helper: `python3 scripts/bootstrap_self_hosted_runner.py`
+
 Manual run:
 
 1. Open **Actions** -> **Ralph Loop**
@@ -104,6 +114,29 @@ Recommended Anchor variables for autonomous submits:
 - `CI_SUBMIT_ANSWERS_JSON`: required
 - `CI_SUBMIT_AUTH_JSON`: optional adapter-keyed Playwright storage state used to improve ATS reliability
 
+### No-Spend Local Submit Lane
+
+GitHub-hosted Ralph Loop runs are dry-run only. Use your own machine for real browser submits:
+
+```bash
+python3 scripts/run_local_submit_lane.py --max-submit-jobs 3
+```
+
+What it does:
+
+- uses `applications/job_applications/candidate_profile.json` locally
+- uses `applications/job_applications/submit_answers.json` locally
+- opens a dedicated local Chrome automation profile in visible mode
+- audits the tracker, prepares artifacts, runs live submit, then rebuilds RAG
+
+If you already captured Playwright auth state, inject it without committing it:
+
+```bash
+python3 scripts/run_local_submit_lane.py \
+  --auth-file ~/tmp/resume-ci-auth.json \
+  --max-submit-jobs 3
+```
+
 When `CI_SUBMIT_AUTH_JSON` is absent, the submit pipeline now proceeds with fresh browser contexts instead of forcing dry run. When anti-bot or login pressure makes stored state useful, capture and sync it with:
 
 ```bash
@@ -117,6 +150,7 @@ python3 scripts/capture_submit_auth.py \
 ```
 
 Do not commit the resulting JSON file.
+
 ## Quarantine Triage Sync
 
 Blocked applications should not remain stranded in the tracker. Use the quarantined-issue sync to mirror `Quarantined` rows into GitHub issues:

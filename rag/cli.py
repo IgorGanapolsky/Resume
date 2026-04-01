@@ -53,7 +53,6 @@ except Exception:  # pragma: no cover
         raise RuntimeError("lancedb not installed")
 
 
-from distributed import create_runtime
 from memalign import (
     append_jsonl,
     build_long_memory_entry,
@@ -64,9 +63,11 @@ from memalign import (
     recency_scores,
     slug,
 )
-from rlhf import OUTCOME_REWARDS, VALID_OUTCOMES, ThompsonModel
 from shieldcortex import assert_no_high_risk_pii, gate_text
+from rlhf import OUTCOME_REWARDS, ThompsonModel, VALID_OUTCOMES
+from distributed import create_runtime
 from structured_adapter import get_structured_adapter
+
 
 ROOT = Path(__file__).resolve().parents[1]  # Resume/
 RAG_DIR = ROOT / "rag"
@@ -1191,16 +1192,14 @@ def retrieve(
                 "role": str(row.get("role", "") or ""),
                 "status": str(row.get("status", "") or ""),
                 "method": str(row.get("application_method", "") or ""),
-                "tags": (
-                    [str(t) for t in row.get("tags", [])]
-                    if isinstance(row.get("tags"), list)
-                    else []
-                ),
+                "tags": [str(t) for t in row.get("tags", [])]
+                if isinstance(row.get("tags"), list)
+                else [],
                 "score": round(float(row.get("_final_score", 0.0)), 4),
                 "context": str(row.get("context_bundle_text", "") or "")[:320],
-                "evidence": (
-                    [str(e) for e in evidence] if isinstance(evidence, list) else []
-                ),
+                "evidence": [str(e) for e in evidence]
+                if isinstance(evidence, list)
+                else [],
             }
         )
 

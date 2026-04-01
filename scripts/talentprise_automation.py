@@ -24,6 +24,7 @@ import time
 from datetime import date
 from pathlib import Path
 from typing import Any, Optional
+from urllib.parse import urlparse
 
 from candidate_data import load_candidate_profile
 
@@ -150,6 +151,18 @@ def _screenshot(page: Any, name: str) -> Path:
     return path
 
 
+def _url_has_host(url: str | None, expected_host: str) -> bool:
+    """Return True when the parsed URL host matches the expected domain."""
+    if not url:
+        return False
+    try:
+        host = (urlparse(url).hostname or "").lower()
+    except ValueError:
+        return False
+    expected = expected_host.lower()
+    return host == expected or host.endswith(f".{expected}")
+
+
 # ---------------------------------------------------------------------------
 # Login flow
 # ---------------------------------------------------------------------------
@@ -224,7 +237,7 @@ def login_google_sso(page: Any) -> bool:
     if not google_clicked:
         try:
             for frame in page.frames:
-                if "accounts.google.com" in (frame.url or ""):
+                if _url_has_host(frame.url, "accounts.google.com"):
                     btn = frame.locator("div[role='button']").first
                     if btn.count() > 0:
                         _click_human(btn)
@@ -293,7 +306,7 @@ def login_google_sso(page: Any) -> bool:
     # Check all open pages/popups for the Google accounts flow
     popup = None
     for p in page.context.pages:
-        if p != page and "accounts.google.com" in (p.url or ""):
+        if p != page and _url_has_host(p.url, "accounts.google.com"):
             popup = p
             break
 
@@ -1089,9 +1102,9 @@ def main() -> int:
                     )
                     _wait(2, 3)
                     _screenshot(page, "google_signin_initial")
-                    if "myaccount.google.com" in page.url or "SignOutOptions" in (
-                        page.content() or ""
-                    ):
+                    if _url_has_host(
+                        page.url, "myaccount.google.com"
+                    ) or "SignOutOptions" in (page.content() or ""):
                         print("  Google session already active!")
                         session_marker.write_text("ok")
                     else:

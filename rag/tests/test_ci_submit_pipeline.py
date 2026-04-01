@@ -7,10 +7,12 @@ import importlib.util
 import json
 import os
 import sys
-import types
 import urllib.parse
 import zipfile
 from pathlib import Path
+
+
+import types
 
 
 def _load_module():
@@ -135,6 +137,110 @@ def test_find_adapter_rejects_ashby_accommodation_form():
         "https://jobs.ashbyhq.com/deel/form/accommodation-requests", adapters
     )
     assert adapter is None
+
+
+def test_inferact_prefill_targets_location_link_and_checkbox():
+    mod = _load_module()
+    adapter = mod.InferactAshbyAdapter()
+    profile = mod.Profile(
+        first_name="Igor",
+        last_name="Ganapolsky",
+        email="iganapolsky@gmail.com",
+        phone="(201) 639-1534",
+        location="Coral Springs, FL, USA",
+        github="https://github.com/IgorGanapolsky",
+        linkedin="https://www.linkedin.com/in/igor-ganapolsky-859317343/",
+    )
+
+    class FakeField:
+        def __init__(self, name: str):
+            self.name = name
+            self.values = []
+            self.checked = False
+
+        @property
+        def first(self):
+            return self
+
+        def count(self):
+            return 1
+
+        def click(self, timeout=None):
+            self.values.append(("click", timeout))
+
+        def fill(self, value, timeout=None):
+            self.values.append(("fill", value))
+
+        def type(self, value, delay=None):
+            self.values.append(("type", value))
+
+        def press(self, key, timeout=None):
+            self.values.append(("press", key))
+
+        def check(self, timeout=None):
+            self.checked = True
+            self.values.append(("check", timeout))
+
+        def locator(self, selector):
+            self.values.append(("locator", selector))
+            return self
+
+    class FakePromptNode:
+        def __init__(self, field: FakeField):
+            self.field = field
+
+        @property
+        def first(self):
+            return self
+
+        def count(self):
+            return 1
+
+        def locator(self, selector):
+            assert selector == "xpath=following::textarea[1]"
+            return self.field
+
+    class FakeScope:
+        def __init__(self, location_field, prompt_field, checkbox_field):
+            self.location_field = location_field
+            self.prompt_field = prompt_field
+            self.checkbox_field = checkbox_field
+
+        def get_by_label(self, label, exact=False):
+            assert label == "Location"
+            return self.location_field
+
+        def get_by_text(self, pattern):
+            return FakePromptNode(self.prompt_field)
+
+        def locator(self, selector):
+            if "Start typing..." in selector or "combobox" in selector:
+                return self.location_field
+            if "Cloud Orchestration" in selector:
+                return self.checkbox_field
+            raise AssertionError(selector)
+
+    location_field = FakeField("location")
+    prompt_field = FakeField("prompt")
+    checkbox_field = FakeField("checkbox")
+    scope = FakeScope(location_field, prompt_field, checkbox_field)
+
+    adapter._pre_submit_form_fill(scope, scope, profile, mod.SubmitAnswers(
+        work_authorization_us=True,
+        require_sponsorship=False,
+        role_interest="AI-heavy, integration-first role focused on production impact.",
+        eeo_default="Prefer not to say",
+    ))
+
+    assert any(
+        op in {"fill", "type"} and value == profile.location
+        for op, value in location_field.values
+    )
+    assert any(
+        op in {"fill", "type"} and value == profile.github
+        for op, value in prompt_field.values
+    )
+    assert checkbox_field.checked is True
 
 
 def test_queue_only_promotes_high_fit_draft(tmp_path, monkeypatch):
@@ -1063,6 +1169,36 @@ def test_ashby_extract_submit_error_detail_handles_recaptcha_spam():
     )
 
 
+def test_ashby_extract_failure_details_handles_visible_spam_banner():
+    mod = _load_module()
+    adapter = mod.AshbyAdapter()
+    scope = _FakeScope(
+        text=(
+            "We couldn't submit your application. "
+            "Your application submission was flagged as possible spam. "
+            "If you believe this was a mistake, please submit your application again."
+        )
+    )
+    page = _FakeScope(text="")
+    detail = adapter._extract_failure_details(page, scope)
+    assert detail == "recaptcha_score_below_threshold"
+
+
+def test_find_adapter_prefers_inferact_specialized_ashby_adapter():
+    mod = _load_module()
+    adapters = [
+        mod.InferactAshbyAdapter(),
+        mod.AshbyAdapter(),
+        mod.GreenhouseAdapter(),
+    ]
+    adapter = mod._find_adapter(
+        "https://jobs.ashbyhq.com/inferact/f0d2619d-28e0-4b25-8d30-3ac555071abb",
+        adapters,
+    )
+    assert adapter is not None
+    assert adapter.__class__.__name__ == "InferactAshbyAdapter"
+
+
 def test_ashby_missing_form_scope_detail_job_not_found():
     mod = _load_module()
     adapter = mod.AshbyAdapter()
@@ -1685,7 +1821,7 @@ def test_execute_manual_submission_required_quarantines_and_does_not_fail_run(
 
         def matches(self, url: str) -> bool:
             host = (urllib.parse.urlsplit(url).hostname or "").lower()
-            return "oraclecloud.com" in host
+            return host == "oraclecloud.com" or host.endswith(".oraclecloud.com")
 
         def submit(self, task, profile, auth, answers):
             return mod.SubmitResult(
@@ -2699,12 +2835,31 @@ def test_resolve_local_chrome_user_data_dir_uses_override(monkeypatch):
     assert "Google/Chrome/Default" not in resolved
 
 
+def test_resolve_local_chrome_user_data_dir_uses_home_profile_on_macos(monkeypatch):
+    mod = _load_module()
+    monkeypatch.delenv("CI_SUBMIT_CHROME_USER_DATA_DIR", raising=False)
+    monkeypatch.setattr(mod.sys, "platform", "darwin")
+
+    resolved = mod._resolve_local_chrome_user_data_dir()
+
+    assert resolved.endswith("/Library/Application Support/resume-ci/chrome-profile")
+    assert os.path.isdir(resolved)
+
+
+def test_resolve_local_browser_channel_defaults_to_chromium(monkeypatch):
+    mod = _load_module()
+    monkeypatch.delenv("CI_SUBMIT_BROWSER_CHANNEL", raising=False)
+
+    assert mod._resolve_local_browser_channel() == "chromium"
+
+
 def test_open_browser_runtime_uses_dedicated_local_profile(monkeypatch, tmp_path):
     mod = _load_module()
     monkeypatch.delenv("ANCHOR_BROWSER_API_KEY", raising=False)
     monkeypatch.setenv(
         "CI_SUBMIT_CHROME_USER_DATA_DIR", str(tmp_path / "automation-profile")
     )
+    monkeypatch.setenv("CI_SUBMIT_BROWSER_CHANNEL", "chrome-beta")
 
     class _FakePersistentContext:
         def __init__(self):
@@ -2742,6 +2897,7 @@ def test_open_browser_runtime_uses_dedicated_local_profile(monkeypatch, tmp_path
 
     assert runtime.backend == "local_playwright_persistent"
     assert pw.chromium.calls[0]["user_data_dir"] == str(tmp_path / "automation-profile")
+    assert pw.chromium.calls[0]["channel"] == "chrome-beta"
     assert "Google/Chrome/Default" not in runtime.note
 
 

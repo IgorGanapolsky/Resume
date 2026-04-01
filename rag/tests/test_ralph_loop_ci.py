@@ -342,7 +342,6 @@ def test_main_defaults_to_auto_submit_discovery_only(loop_mod, tmp_path, monkeyp
         ],
     )
     monkeypatch.setattr(loop_mod, "discover_remoteok", lambda: [])
-    monkeypatch.setattr(loop_mod, "discover_greenhouse_boards", lambda: [])
     monkeypatch.setattr(sys, "argv", ["ralph_loop_ci.py", "--max-new-jobs", "5"])
 
     loop_mod.main()
@@ -414,7 +413,6 @@ def test_main_can_admit_manual_discovery_with_explicit_quota(
         ],
     )
     monkeypatch.setattr(loop_mod, "discover_remoteok", lambda: [])
-    monkeypatch.setattr(loop_mod, "discover_greenhouse_boards", lambda: [])
     monkeypatch.setattr(
         sys,
         "argv",

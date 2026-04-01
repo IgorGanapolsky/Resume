@@ -582,87 +582,6 @@ def discover_remoteok() -> Iterable[Dict[str, str]]:
     return out
 
 
-# ---------------------------------------------------------------------------
-# Direct Greenhouse / Lever board scraping
-# ---------------------------------------------------------------------------
-
-# High-value companies with Greenhouse boards — these are direct ATS URLs
-# that the GreenhouseAdapter can auto-submit to.
-# Only companies whose absolute_url stays on greenhouse.io (not redirected
-# to company domains). These are the ones the GreenhouseAdapter can submit to.
-# Verified 2026-03-31.
-_GREENHOUSE_BOARDS = [
-    ("anthropic", "https://boards-api.greenhouse.io/v1/boards/anthropic/jobs"),
-    ("figma", "https://boards-api.greenhouse.io/v1/boards/figma/jobs"),
-    ("vercel", "https://boards-api.greenhouse.io/v1/boards/vercel/jobs"),
-    ("runway", "https://boards-api.greenhouse.io/v1/boards/runwayml/jobs"),
-    ("airtable", "https://boards-api.greenhouse.io/v1/boards/airtable/jobs"),
-    ("brex", "https://boards-api.greenhouse.io/v1/boards/brex/jobs"),
-    ("cockroachlabs", "https://boards-api.greenhouse.io/v1/boards/cockroachlabs/jobs"),
-    ("dbt", "https://boards-api.greenhouse.io/v1/boards/daboradev/jobs"),
-    ("hashicorp", "https://boards-api.greenhouse.io/v1/boards/hashicorp/jobs"),
-    ("navan", "https://boards-api.greenhouse.io/v1/boards/navan/jobs"),
-    ("ramp", "https://boards-api.greenhouse.io/v1/boards/ramp/jobs"),
-    ("retool", "https://boards-api.greenhouse.io/v1/boards/retool/jobs"),
-    ("scale", "https://boards-api.greenhouse.io/v1/boards/scaleai/jobs"),
-    ("snyk", "https://boards-api.greenhouse.io/v1/boards/snyk/jobs"),
-    ("weights-and-biases", "https://boards-api.greenhouse.io/v1/boards/wandb/jobs"),
-]
-
-
-def discover_greenhouse_boards() -> Iterable[Dict[str, str]]:
-    """Scrape Greenhouse public API for jobs at high-value companies.
-
-    These return direct greenhouse.io apply URLs that the GreenhouseAdapter
-    can auto-submit to — no redirect resolution needed.
-    """
-    out: List[Dict[str, str]] = []
-    for company_slug, api_url in _GREENHOUSE_BOARDS:
-        try:
-            data = _fetch_json(api_url)
-        except Exception:
-            continue
-        if not isinstance(data, dict):
-            continue
-        jobs = data.get("jobs", [])
-        if not isinstance(jobs, list):
-            continue
-        for job in jobs:
-            if not isinstance(job, dict):
-                continue
-            title = _safe_text(str(job.get("title", "")))
-            # Build the direct application URL
-            job_id = job.get("id", "")
-            if not title or not job_id:
-                continue
-            location = ""
-            locs = job.get("location", {})
-            if isinstance(locs, dict):
-                location = _safe_text(str(locs.get("name", "Remote")))
-            # Use absolute_url from API — this is the real job page URL
-            # Format: https://job-boards.greenhouse.io/{company}/jobs/{id}
-            absolute_url = str(job.get("absolute_url", ""))
-            if not absolute_url:
-                absolute_url = (
-                    f"https://job-boards.greenhouse.io/{company_slug}/jobs/{job_id}"
-                )
-            out.append(
-                {
-                    "source": "greenhouse_board",
-                    "company": company_slug.replace("-", " ").title(),
-                    "title": title,
-                    "location": location or "Remote",
-                    "salary": "",
-                    "job_type": "",
-                    "url": absolute_url,
-                    "listing_url": absolute_url,
-                    "description": _strip_html(str(job.get("content", ""))),
-                    "tags": "",
-                }
-            )
-    return out
-
-
 def is_relevant(job: Dict[str, str]) -> bool:
     return classify_role(job).is_relevant
 
@@ -829,11 +748,7 @@ def main() -> None:
         for r in rows
     }
 
-    discovered = (
-        list(discover_remotive())
-        + list(discover_remoteok())
-        + list(discover_greenhouse_boards())
-    )
+    discovered = list(discover_remotive()) + list(discover_remoteok())
     relevant: List[tuple[Dict[str, str], RoleProfile, str]] = []
     for job in discovered:
         if not job.get("url"):
@@ -841,15 +756,6 @@ def main() -> None:
         profile = classify_role(job)
         if profile.is_relevant:
             method = infer_method(job["url"])
-            # If the URL doesn't map to a supported ATS, try following
-            # redirects — remotive/remoteOK links often redirect to the
-            # real Greenhouse/Lever/Ashby career page.
-            if method not in AUTO_SUBMIT_METHODS:
-                resolved = _resolve_redirect_url(job["url"])
-                resolved_method = infer_method(resolved)
-                if resolved_method in AUTO_SUBMIT_METHODS:
-                    job["url"] = resolved
-                    method = resolved_method
             relevant.append((job, profile, method))
     relevant.sort(key=lambda item: _discovery_priority(item[0], item[1], item[2]))
 

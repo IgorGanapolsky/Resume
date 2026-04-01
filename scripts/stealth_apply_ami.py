@@ -2,9 +2,10 @@ import asyncio
 import random
 from pathlib import Path
 
-from candidate_data import load_candidate_profile
 from playwright.async_api import async_playwright
 from playwright_stealth import Stealth
+
+from candidate_data import load_candidate_profile
 
 ROOT = Path(__file__).resolve().parents[1]
 PROFILE = load_candidate_profile()

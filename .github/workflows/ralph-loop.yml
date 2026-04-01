@@ -73,6 +73,10 @@ jobs:
           fi
           if [ -z "$EXECUTE_SUBMISSIONS" ]; then EXECUTE_SUBMISSIONS=false; fi
           if [ "$EXECUTE_SUBMISSIONS" = "true" ]; then
+            echo "GitHub-hosted Ralph Loop runs are dry-run only. Use python3 scripts/run_local_submit_lane.py for live submissions."
+            EXECUTE_SUBMISSIONS=false
+          fi
+          if [ "$EXECUTE_SUBMISSIONS" = "true" ]; then
             if ! python3 scripts/ci_submit_pipeline.py \
               --validate-secrets-only \
               --profile-env CI_SUBMIT_PROFILE_JSON \
@@ -100,13 +104,6 @@ jobs:
             --report applications/job_applications/autonomous_supervisor_report.json \
             $EXTRA_ARGS
 
-      - name: Talentprise profile refresh
-        if: env.TALENTPRISE_AUTH_JSON != ''
-        env:
-          TALENTPRISE_AUTH_JSON: ${{ secrets.TALENTPRISE_AUTH_JSON }}
-        run: |
-          python3 scripts/talentprise_automation.py --headless --profile-only || echo "Talentprise refresh skipped (auth may be stale)"
-
       - name: Upload submit diagnostics
         if: always()
         uses: actions/upload-artifact@v4
@@ -117,6 +114,14 @@ jobs:
             applications/job_applications/*report*.json
             applications/job_applications/application_tracker.csv
             applications/*/submissions/*ci_confirmation*.png
+
+      - name: Talentprise profile refresh
+        if: env.TALENTPRISE_AUTH_JSON != ''
+        timeout-minutes: 3
+        env:
+          TALENTPRISE_AUTH_JSON: ${{ secrets.TALENTPRISE_AUTH_JSON }}
+        run: |
+          python3 scripts/talentprise_automation.py --headless --profile-only || echo "Talentprise refresh skipped (auth may be stale or timed out)"
 
       - name: Create Pull Request for loop updates
         uses: peter-evans/create-pull-request@v6
