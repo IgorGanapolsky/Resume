@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-03-18T16:30:21.366597+00:00",
+  "generated_at": "2026-04-01T15:35:00.002565+00:00",
   "tracker_csv": "/home/runner/work/Resume/Resume/applications/job_applications/application_tracker.csv",
   "applied_total": 18,
-  "applied_total_before": 18,
+  "applied_total_before": 19,
   "applied_total_after": 18,
-  "fixed_count": 0,
+  "fixed_count": 1,
   "backfilled_count": 0,
-  "normalized_count": 0,
+  "normalized_count": 1,
   "missing_count": 18,
   "missing_rows": [
     {
@@ -164,7 +164,16 @@
       ]
     }
   ],
-  "normalized_rows": [],
+  "normalized_rows": [
+    {
+      "row_index": 31,
+      "company": "OpenEvidence",
+      "role": "Software Engineer - Backend and Infrastructure",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    }
+  ],
   "normalize_unverified_applied": true,
   "write": true
 }
