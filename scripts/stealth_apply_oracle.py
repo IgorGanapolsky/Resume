@@ -1,7 +1,21 @@
 import asyncio
 import random
+from pathlib import Path
+
+from candidate_data import load_candidate_profile
 from playwright.async_api import async_playwright
 from playwright_stealth import Stealth
+
+ROOT = Path(__file__).resolve().parents[1]
+PROFILE = load_candidate_profile()
+RESUME_PATH = (
+    ROOT
+    / "applications"
+    / "oracle"
+    / "tailored_resumes"
+    / "2026-03-11_oracle_sr-principal-ai-software-engineer-ml-ai-innovation.docx"
+)
+SUBMISSIONS_DIR = ROOT / "applications" / "oracle" / "submissions"
 
 
 async def human_type(page, selector_or_locator, text):
@@ -47,7 +61,7 @@ async def apply():
             "input[type='email'], input[placeholder*='Email']"
         ).first
         await email_input.wait_for(state="visible")
-        await human_type(page, email_input, "iganapolsky@gmail.com")
+        await human_type(page, email_input, PROFILE["email"])
         await page.keyboard.press("Tab")
         await asyncio.sleep(1)
 
@@ -120,17 +134,14 @@ async def apply():
                 print(f"Agree click failed: {e}")
 
         print("Taking snapshot after Agree...")
-        await page.screenshot(
-            path="applications/oracle/submissions/stealth_v3_after_agree.png"
-        )
+        await page.screenshot(path=str(SUBMISSIONS_DIR / "stealth_v3_after_agree.png"))
 
         # Resume Upload
         print("Looking for resume upload field...")
         file_input = page.locator("input[type='file']").first
         if await file_input.count() > 0:
             print("Uploading resume...")
-            docx_path = "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/oracle/tailored_resumes/2026-03-11_oracle_sr-principal-ai-software-engineer-ml-ai-innovation.docx"
-            await file_input.set_input_files(docx_path)
+            await file_input.set_input_files(str(RESUME_PATH))
             await asyncio.sleep(5)
             print("Resume uploaded.")
 
@@ -156,9 +167,7 @@ async def apply():
             await asyncio.sleep(60)
 
         print("Taking final confirmation snapshot...")
-        await page.screenshot(
-            path="applications/oracle/submissions/stealth_v3_confirmation.png"
-        )
+        await page.screenshot(path=str(SUBMISSIONS_DIR / "stealth_v3_confirmation.png"))
 
         body_text = await page.inner_text("body")
         print("--- FINAL BODY TEXT START ---")

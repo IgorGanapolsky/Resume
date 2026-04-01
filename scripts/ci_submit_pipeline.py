@@ -548,7 +548,9 @@ class PlaywrightFormAdapter(SiteAdapter):
         visible: bool = False,
     ) -> SubmitResult:
         try:
-            from playwright.sync_api import TimeoutError as PlaywrightTimeoutError  # type: ignore
+            from playwright.sync_api import (
+                TimeoutError as PlaywrightTimeoutError,  # type: ignore
+            )
             from playwright.sync_api import sync_playwright  # type: ignore
         except Exception as e:
             return SubmitResult(
@@ -612,9 +614,11 @@ class PlaywrightFormAdapter(SiteAdapter):
                         return SubmitResult(
                             adapter=self.name,
                             verified=False,
-                            screenshot=task.confirmation_path
-                            if task.confirmation_path.exists()
-                            else None,
+                            screenshot=(
+                                task.confirmation_path
+                                if task.confirmation_path.exists()
+                                else None
+                            ),
                             details=detail,
                             browser_backend=runtime.backend,
                             browser_note=runtime.note,
@@ -669,9 +673,11 @@ class PlaywrightFormAdapter(SiteAdapter):
                         return SubmitResult(
                             adapter=self.name,
                             verified=False,
-                            screenshot=task.confirmation_path
-                            if task.confirmation_path.exists()
-                            else None,
+                            screenshot=(
+                                task.confirmation_path
+                                if task.confirmation_path.exists()
+                                else None
+                            ),
                             details=(
                                 "missing_required_answers:"
                                 + ",".join(sorted(set(missing_answers)))
@@ -695,9 +701,11 @@ class PlaywrightFormAdapter(SiteAdapter):
                         return SubmitResult(
                             adapter=self.name,
                             verified=False,
-                            screenshot=task.confirmation_path
-                            if task.confirmation_path.exists()
-                            else None,
+                            screenshot=(
+                                task.confirmation_path
+                                if task.confirmation_path.exists()
+                                else None
+                            ),
                             details=upload_details,
                             browser_backend=runtime.backend,
                             browser_note=runtime.note,
@@ -728,12 +736,16 @@ class PlaywrightFormAdapter(SiteAdapter):
                     return SubmitResult(
                         adapter=self.name,
                         verified=confirmed and task.confirmation_path.exists(),
-                        screenshot=task.confirmation_path
-                        if task.confirmation_path.exists()
-                        else None,
-                        details="confirmed"
-                        if confirmed
-                        else (failure_details or "confirmation_text_not_detected"),
+                        screenshot=(
+                            task.confirmation_path
+                            if task.confirmation_path.exists()
+                            else None
+                        ),
+                        details=(
+                            "confirmed"
+                            if confirmed
+                            else (failure_details or "confirmation_text_not_detected")
+                        ),
                         browser_backend=runtime.backend,
                         browser_note=runtime.note,
                     )
@@ -1901,9 +1913,7 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
         self._fill_text(scope, "How did you hear", "Job Board")
 
         # --- "Are you open to working in-person..." ---
-        self._gh_select_custom_dropdown(
-            page, "open to working in-person", "Yes"
-        )
+        self._gh_select_custom_dropdown(page, "open to working in-person", "Yes")
 
         # --- Work authorization ---
         for q in (
@@ -1934,19 +1944,21 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
             self._gh_select_custom_dropdown(page, q, "No")
 
         # --- Open to relocation ---
-        self._gh_select_custom_dropdown(
-            page, "open to relocation", "Yes"
-        )
+        self._gh_select_custom_dropdown(page, "open to relocation", "Yes")
 
         # --- AI Policy acknowledgment ---
-        for q in ("AI Policy", "acknowledge",):
+        for q in (
+            "AI Policy",
+            "acknowledge",
+        ):
             if self._gh_select_custom_dropdown(page, q, "Yes"):
                 break
 
         # --- Working address ---
         self._fill_text(
-            scope, "address from which you plan",
-            "11909 Glenmore Dr, Coral Springs, FL 33071"
+            scope,
+            "address from which you plan",
+            "11909 Glenmore Dr, Coral Springs, FL 33071",
         )
 
         # --- "Why Anthropic/Company?" textarea ---
@@ -1956,13 +1968,15 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
                 if ta.count() > 0 and ta.is_visible():
                     tag = ta.evaluate("el => el.tagName.toLowerCase()")
                     if tag == "textarea" and not ta.input_value():
-                        ta.fill(answers.role_interest or
-                            "I build production AI systems at scale — "
+                        ta.fill(
+                            answers.role_interest
+                            or "I build production AI systems at scale — "
                             "26 Claude AI skills with RLHF (76.6% positive rate), "
                             "RAG pipelines with LanceDB, and 13 autonomous agents. "
                             "At Subway I led React Native New Architecture migration "
                             "achieving 68% build time reduction and 99.5%+ crash-free "
-                            "sessions across millions of users.")
+                            "sessions across millions of users."
+                        )
                         break
             except Exception:
                 continue
@@ -1972,7 +1986,9 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
         self._fill_text(scope, "deadlines or timeline", "None")
 
         # --- LinkedIn ---
-        self._fill_text(scope, "LinkedIn", "https://www.linkedin.com/in/igor-ganapolsky-859317343/")
+        self._fill_text(
+            scope, "LinkedIn", "https://www.linkedin.com/in/igor-ganapolsky-859317343/"
+        )
 
         # --- EEO / demographic (optional) ---
         for q in ("Gender", "Hispanic", "Veteran", "Disability"):

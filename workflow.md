@@ -91,6 +91,8 @@ Tasks handed to agents must include:
 A task is done only when all applicable checks pass:
 
 - Lint/test commands are green.
+- **For Tier 1 roles:** A `Referrer Name` is identified and `Referral Status` is tracked.
+- **For Tier 1 roles:** A `Product Proposal Path` points to a company-specific 1-pager.
 - The tracker state is internally consistent.
 - RAG index is rebuilt after tracker changes.
 - New docs are versioned and machine-verifiable.

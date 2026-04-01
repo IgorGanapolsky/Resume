@@ -1,7 +1,21 @@
 import asyncio
 import random
+from pathlib import Path
+
+from candidate_data import load_candidate_profile
 from playwright.async_api import async_playwright
 from playwright_stealth import Stealth
+
+ROOT = Path(__file__).resolve().parents[1]
+PROFILE = load_candidate_profile()
+RESUME_PATH = (
+    ROOT
+    / "applications"
+    / "ami"
+    / "tailored_resumes"
+    / "2026-03-10_ami_ami-engineer.docx"
+)
+SUBMISSIONS_DIR = ROOT / "applications" / "ami" / "submissions"
 
 
 async def human_type(page, selector, text):
@@ -53,9 +67,9 @@ async def apply():
 
         print("Filling personal info...")
         # Slower typing
-        await human_type(page, "input[name*='name']", "Igor Ganapolsky")
+        await human_type(page, "input[name*='name']", PROFILE["full_name"])
         await asyncio.sleep(random.uniform(1, 2))
-        await human_type(page, "input[name*='email']", "iganapolsky@gmail.com")
+        await human_type(page, "input[name*='email']", PROFILE["email"])
 
         await human_mouse_move(page)
 
@@ -69,19 +83,16 @@ async def apply():
         await human_type(page, "textarea[name*='9bfd2d79']", accomplishment)
 
         print("Uploading resume...")
-        resume_path = "/Users/ganapolsky_i/workspace/git/igor/Resume/applications/ami/tailored_resumes/2026-03-10_ami_ami-engineer.docx"
         file_inputs = await page.query_selector_all("input[type='file']")
         if len(file_inputs) >= 2:
-            await file_inputs[1].set_input_files(resume_path)
+            await file_inputs[1].set_input_files(str(RESUME_PATH))
         else:
-            await page.set_input_files("input[type='file']", resume_path)
+            await page.set_input_files("input[type='file']", str(RESUME_PATH))
 
         await asyncio.sleep(random.uniform(5, 8))
 
         print("Taking pre-submit screenshot...")
-        await page.screenshot(
-            path="applications/ami/submissions/stealth_v3_pre_submit.png"
-        )
+        await page.screenshot(path=str(SUBMISSIONS_DIR / "stealth_v3_pre_submit.png"))
 
         print("Submitting...")
         submit_btn = page.get_by_role("button", name="Submit Application").first
@@ -100,9 +111,7 @@ async def apply():
                 print("FAILURE: Still flagged as spam.")
                 break
 
-        await page.screenshot(
-            path="applications/ami/submissions/stealth_v3_post_submit.png"
-        )
+        await page.screenshot(path=str(SUBMISSIONS_DIR / "stealth_v3_post_submit.png"))
         await browser.close()
 
 

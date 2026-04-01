@@ -79,6 +79,21 @@ def test_classify_role_filters_content_manager_false_positive(loop_mod):
     assert profile.track in {"general", "fde"}
 
 
+def test_classify_role_accepts_member_of_technical_staff(loop_mod):
+    job = {
+        "company": "Inferact",
+        "title": "Member of Technical Staff, Exceptional Generalist",
+        "location": "Remote, US",
+        "job_type": "Full time",
+        "tags": "ai;python;infrastructure",
+        "description": "Build production agent infrastructure and platform systems.",
+        "url": "https://jobs.ashbyhq.com/inferact/abc123",
+    }
+    profile = loop_mod.classify_role(job)
+    assert profile.is_relevant is True
+    assert profile.track == "general"
+
+
 def test_infer_remote_profile_remote_feed(loop_mod):
     job = {
         "company": "Exadel",
@@ -99,6 +114,15 @@ def test_infer_submission_lane(loop_mod):
     assert loop_mod.infer_submission_lane("ashby") == "ci_auto"
     assert loop_mod.infer_submission_lane("greenhouse") == "ci_auto"
     assert loop_mod.infer_submission_lane("direct") == "manual"
+
+
+def test_infer_method_rejects_ashby_accommodation_form(loop_mod):
+    assert (
+        loop_mod.infer_method(
+            "https://jobs.ashbyhq.com/deel/form/accommodation-requests"
+        )
+        == "direct"
+    )
 
 
 def test_tailor_resume_html_for_fde_profile(loop_mod):
@@ -258,3 +282,154 @@ def test_main_dry_run_does_not_create_artifacts(loop_mod, tmp_path, monkeypatch)
 
     assert called["value"] is False
     assert not (tmp_path / "applications" / "elevenlabs").exists()
+
+
+def test_main_defaults_to_auto_submit_discovery_only(loop_mod, tmp_path, monkeypatch):
+    tracker_csv = tmp_path / "application_tracker.csv"
+    fieldnames = [
+        "Company",
+        "Role",
+        "Location",
+        "Salary Range",
+        "Status",
+        "Date Applied",
+        "Follow Up Date",
+        "Response",
+        "Interview Stage",
+        "Days To Response",
+        "Response Type",
+        "Cover Letter Used",
+        "What Worked",
+        "Tags",
+        "Notes",
+        "Career Page URL",
+    ]
+    with tracker_csv.open("w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer.writeheader()
+
+    monkeypatch.setattr(loop_mod, "ROOT", tmp_path)
+    monkeypatch.setattr(loop_mod, "TRACKER_CSV", tracker_csv)
+    monkeypatch.setattr(loop_mod, "APPLICATIONS_DIR", tmp_path / "applications")
+    monkeypatch.setattr(
+        loop_mod,
+        "discover_remotive",
+        lambda: [
+            {
+                "company": "OpenEvidence",
+                "title": "Software Engineer",
+                "location": "Remote",
+                "salary": "",
+                "job_type": "Full time",
+                "source": "ashby",
+                "url": "https://jobs.ashbyhq.com/openevidence/abc123",
+                "listing_url": "https://remotive.com/jobs/1",
+                "tags": "ai;python",
+                "description": "Python API integrations and infrastructure.",
+            },
+            {
+                "company": "FeedOnly",
+                "title": "Software Engineer",
+                "location": "Remote",
+                "salary": "",
+                "job_type": "Full time",
+                "source": "remoteok",
+                "url": "https://remoteok.com/remote-jobs/feed-only-1",
+                "listing_url": "https://remoteok.com/remote-jobs/feed-only-1",
+                "tags": "ai;python",
+                "description": "Python platform engineering role.",
+            },
+        ],
+    )
+    monkeypatch.setattr(loop_mod, "discover_remoteok", lambda: [])
+    monkeypatch.setattr(loop_mod, "discover_greenhouse_boards", lambda: [])
+    monkeypatch.setattr(sys, "argv", ["ralph_loop_ci.py", "--max-new-jobs", "5"])
+
+    loop_mod.main()
+
+    with tracker_csv.open(newline="", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+    assert len(rows) == 1
+    assert rows[0]["Company"] == "OpenEvidence"
+    assert rows[0]["Submission Lane"] == "ci_auto"
+
+
+def test_main_can_admit_manual_discovery_with_explicit_quota(
+    loop_mod, tmp_path, monkeypatch
+):
+    tracker_csv = tmp_path / "application_tracker.csv"
+    fieldnames = [
+        "Company",
+        "Role",
+        "Location",
+        "Salary Range",
+        "Status",
+        "Date Applied",
+        "Follow Up Date",
+        "Response",
+        "Interview Stage",
+        "Days To Response",
+        "Response Type",
+        "Cover Letter Used",
+        "What Worked",
+        "Tags",
+        "Notes",
+        "Career Page URL",
+    ]
+    with tracker_csv.open("w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer.writeheader()
+
+    monkeypatch.setattr(loop_mod, "ROOT", tmp_path)
+    monkeypatch.setattr(loop_mod, "TRACKER_CSV", tracker_csv)
+    monkeypatch.setattr(loop_mod, "APPLICATIONS_DIR", tmp_path / "applications")
+    monkeypatch.setattr(
+        loop_mod,
+        "discover_remotive",
+        lambda: [
+            {
+                "company": "OpenEvidence",
+                "title": "Software Engineer",
+                "location": "Remote",
+                "salary": "",
+                "job_type": "Full time",
+                "source": "ashby",
+                "url": "https://jobs.ashbyhq.com/openevidence/abc123",
+                "listing_url": "https://remotive.com/jobs/1",
+                "tags": "ai;python",
+                "description": "Python API integrations and infrastructure.",
+            },
+            {
+                "company": "FeedOnly",
+                "title": "Software Engineer",
+                "location": "Remote",
+                "salary": "",
+                "job_type": "Full time",
+                "source": "remoteok",
+                "url": "https://remoteok.com/remote-jobs/feed-only-1",
+                "listing_url": "https://remoteok.com/remote-jobs/feed-only-1",
+                "tags": "ai;python",
+                "description": "Python platform engineering role.",
+            },
+        ],
+    )
+    monkeypatch.setattr(loop_mod, "discover_remoteok", lambda: [])
+    monkeypatch.setattr(loop_mod, "discover_greenhouse_boards", lambda: [])
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "ralph_loop_ci.py",
+            "--max-new-jobs",
+            "5",
+            "--max-manual-jobs",
+            "1",
+        ],
+    )
+
+    loop_mod.main()
+
+    with tracker_csv.open(newline="", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+    assert len(rows) == 2
+    assert [row["Submission Lane"] for row in rows] == ["ci_auto", "manual"]

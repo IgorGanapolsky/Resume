@@ -643,7 +643,9 @@ def discover_greenhouse_boards() -> Iterable[Dict[str, str]]:
             # Format: https://job-boards.greenhouse.io/{company}/jobs/{id}
             absolute_url = str(job.get("absolute_url", ""))
             if not absolute_url:
-                absolute_url = f"https://job-boards.greenhouse.io/{company_slug}/jobs/{job_id}"
+                absolute_url = (
+                    f"https://job-boards.greenhouse.io/{company_slug}/jobs/{job_id}"
+                )
             out.append(
                 {
                     "source": "greenhouse_board",

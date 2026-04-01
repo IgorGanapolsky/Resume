@@ -104,6 +104,7 @@ EXPERIENCE_SUMMARY = (
 # Human-like interaction helpers
 # ---------------------------------------------------------------------------
 
+
 def _wait(min_s: float = 1.0, max_s: float = 3.0) -> None:
     time.sleep(random.uniform(min_s, max_s))
 
@@ -152,6 +153,7 @@ def _screenshot(page: Any, name: str) -> Path:
 # ---------------------------------------------------------------------------
 # Login flow
 # ---------------------------------------------------------------------------
+
 
 def login_google_sso(page: Any) -> bool:
     """Log in to Talentprise using Google SSO via local Chrome profile.
@@ -338,7 +340,9 @@ def login_google_sso(page: Any) -> bool:
                         _type_human(email_input, email)
                         _wait(0.5, 1)
                         # Click Next
-                        next_btn = popup.locator("button:has-text('Next'), #identifierNext").first
+                        next_btn = popup.locator(
+                            "button:has-text('Next'), #identifierNext"
+                        ).first
                         if next_btn.count() > 0:
                             _click_human(next_btn)
                             account_selected = True
@@ -351,7 +355,9 @@ def login_google_sso(page: Any) -> bool:
         except Exception as e:
             print(f"  OAuth popup handling error: {e}")
     else:
-        print("  No Google popup detected — may have auto-redirected or need manual login.")
+        print(
+            "  No Google popup detected — may have auto-redirected or need manual login."
+        )
         # GIS may use redirect mode instead of popup — wait for redirect
         _wait(5, 8)
 
@@ -373,7 +379,11 @@ def login_google_sso(page: Any) -> bool:
             print("\n  Google SSO requires an active Google session.")
             print("  Opening Google login so you can sign in...")
             # Navigate to Google to establish session in this profile
-            page.goto("https://accounts.google.com/signin", wait_until="domcontentloaded", timeout=30000)
+            page.goto(
+                "https://accounts.google.com/signin",
+                wait_until="domcontentloaded",
+                timeout=30000,
+            )
             _wait(2, 3)
             _screenshot(page, "google_signin_page")
             print("  Please sign into Google in the browser window that opened.")
@@ -386,6 +396,7 @@ def login_google_sso(page: Any) -> bool:
 # ---------------------------------------------------------------------------
 # Profile update flows
 # ---------------------------------------------------------------------------
+
 
 def _click_sidebar(page: Any, label: str) -> bool:
     """Click a sidebar navigation link by its visible text."""
@@ -439,9 +450,9 @@ def update_biography(page: Any) -> None:
 
     # The biography page shows Education by default.
     # Try to upload resume if there's a file input on the page
-    resume_candidates = list(
-        (ROOT / "resumes").glob("Igor_Ganapolsky*.pdf")
-    ) + list((ROOT / "resumes").glob("Igor_Ganapolsky*.docx"))
+    resume_candidates = list((ROOT / "resumes").glob("Igor_Ganapolsky*.pdf")) + list(
+        (ROOT / "resumes").glob("Igor_Ganapolsky*.docx")
+    )
     if resume_candidates:
         resume_path = sorted(resume_candidates, key=lambda p: p.stat().st_mtime)[-1]
         try:
@@ -568,7 +579,9 @@ def _delete_skill_by_name(page: Any, skill_name: str) -> bool:
         for row in rows:
             try:
                 # Look for delete/trash icon within or near this row
-                trash = row.locator("button, a, [class*='delete'], [class*='trash'], svg").first
+                trash = row.locator(
+                    "button, a, [class*='delete'], [class*='trash'], svg"
+                ).first
                 if trash.count() > 0 and trash.is_visible():
                     _click_human(trash)
                     _wait(1, 2)
@@ -817,6 +830,7 @@ def _try_save(page: Any) -> None:
 # Dashboard & job matching
 # ---------------------------------------------------------------------------
 
+
 def check_dashboard(page: Any) -> None:
     """Check dashboard via 'My Page' link and review notifications."""
     print("\nChecking dashboard...")
@@ -848,14 +862,18 @@ def check_dashboard(page: Any) -> None:
 
     # Check notification bell (42 notifications seen in screenshot)
     try:
-        bell = page.locator("[class*='notification'], [class*='bell'], [aria-label*='notification']").first
+        bell = page.locator(
+            "[class*='notification'], [class*='bell'], [aria-label*='notification']"
+        ).first
         if bell.count() > 0 and bell.is_visible():
             _click_human(bell)
             _wait(2, 3)
             _screenshot(page, "notifications")
             # Read notification text
             try:
-                notif_text = page.locator("[class*='notification-list'], [class*='dropdown']").first.text_content()
+                notif_text = page.locator(
+                    "[class*='notification-list'], [class*='dropdown']"
+                ).first.text_content()
                 if notif_text:
                     print(f"  Notifications: {notif_text.strip()[:200]}")
             except Exception:
@@ -868,7 +886,9 @@ def check_dashboard(page: Any) -> None:
 
     # Check for messages (chat icon)
     try:
-        chat = page.locator("[class*='message'], [class*='chat'], [aria-label*='message']").first
+        chat = page.locator(
+            "[class*='message'], [class*='chat'], [aria-label*='message']"
+        ).first
         if chat.count() > 0 and chat.is_visible():
             _click_human(chat)
             _wait(2, 3)
@@ -898,7 +918,9 @@ def browse_jobs(page: Any) -> None:
     # Navigate to jobs section
     for url_suffix in ["/talent/jobs", "/talent/matches", "/talent/opportunities"]:
         try:
-            page.goto(BASE_URL + url_suffix, wait_until="domcontentloaded", timeout=15000)
+            page.goto(
+                BASE_URL + url_suffix, wait_until="domcontentloaded", timeout=15000
+            )
             _wait(2, 3)
             if page.url and "404" not in page.url and "error" not in page.url.lower():
                 _screenshot(page, "jobs_page")
@@ -964,9 +986,11 @@ def browse_jobs(page: Any) -> None:
 # Main
 # ---------------------------------------------------------------------------
 
+
 def _export_storage_state(context: Any) -> Optional[str]:
     """Export Playwright storage state as JSON for CI secret storage."""
     import json as _json
+
     try:
         state = context.storage_state()
         return _json.dumps(state, ensure_ascii=True)
@@ -977,17 +1001,22 @@ def _export_storage_state(context: Any) -> Optional[str]:
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--profile-only", action="store_true", help="Only update profile")
-    ap.add_argument("--dashboard-only", action="store_true", help="Only check dashboard")
     ap.add_argument(
-        "--headless", action="store_true",
+        "--dashboard-only", action="store_true", help="Only check dashboard"
+    )
+    ap.add_argument(
+        "--headless",
+        action="store_true",
         help="Run headless (uses saved storage state, no SSO popup)",
     )
     ap.add_argument(
-        "--capture-auth", action="store_true",
+        "--capture-auth",
+        action="store_true",
         help="Login interactively, export storage state for CI, then exit",
     )
     ap.add_argument(
-        "--storage-state-env", default="TALENTPRISE_AUTH_JSON",
+        "--storage-state-env",
+        default="TALENTPRISE_AUTH_JSON",
         help="Env var name containing Playwright storage state JSON (for CI)",
     )
     args = ap.parse_args()
@@ -995,7 +1024,9 @@ def main() -> int:
     try:
         from playwright.sync_api import sync_playwright
     except ImportError:
-        print("ERROR: Install playwright: pip install playwright && python -m playwright install chromium")
+        print(
+            "ERROR: Install playwright: pip install playwright && python -m playwright install chromium"
+        )
         return 1
 
     visible = not args.headless
@@ -1046,9 +1077,11 @@ def main() -> int:
         try:
             if not use_storage_state:
                 # Ensure Google session exists in persistent profile
-                session_marker = (ROOT / ".talentprise_profile" / ".google_session_ok")
+                session_marker = ROOT / ".talentprise_profile" / ".google_session_ok"
                 if not session_marker.exists():
-                    print("\nFirst run — establishing Google session in Playwright profile.")
+                    print(
+                        "\nFirst run — establishing Google session in Playwright profile."
+                    )
                     page.goto(
                         "https://accounts.google.com/signin",
                         wait_until="domcontentloaded",
@@ -1056,7 +1089,9 @@ def main() -> int:
                     )
                     _wait(2, 3)
                     _screenshot(page, "google_signin_initial")
-                    if "myaccount.google.com" in page.url or "SignOutOptions" in (page.content() or ""):
+                    if "myaccount.google.com" in page.url or "SignOutOptions" in (
+                        page.content() or ""
+                    ):
                         print("  Google session already active!")
                         session_marker.write_text("ok")
                     else:
@@ -1080,7 +1115,7 @@ def main() -> int:
                     auth_path.write_text(state_json, encoding="utf-8")
                     print(f"\nAuth state exported to: {auth_path}")
                     print("To set as CI secret:")
-                    print(f'  gh secret set TALENTPRISE_AUTH_JSON < {auth_path}')
+                    print(f"  gh secret set TALENTPRISE_AUTH_JSON < {auth_path}")
                 return 0
 
             if args.dashboard_only:
@@ -1101,7 +1136,9 @@ def main() -> int:
             check_dashboard(page)
             browse_jobs(page)
 
-            print(f"\nDone! Evidence screenshots saved to: {EVIDENCE_DIR.relative_to(ROOT)}/")
+            print(
+                f"\nDone! Evidence screenshots saved to: {EVIDENCE_DIR.relative_to(ROOT)}/"
+            )
             return 0
         finally:
             context.close()

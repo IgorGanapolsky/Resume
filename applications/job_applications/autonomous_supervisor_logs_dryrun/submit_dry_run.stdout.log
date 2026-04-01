@@ -1,0 +1,2 @@
+Queue processed: ready=1 applied=0 failed=0 skipped=0 dry_run=True
+Report: applications/job_applications/ci_submit_dry_run_report.json
