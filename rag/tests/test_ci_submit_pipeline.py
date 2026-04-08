@@ -6,13 +6,12 @@ import csv
 import importlib.util
 import json
 import os
+import re
 import sys
+import types
 import urllib.parse
 import zipfile
 from pathlib import Path
-
-
-import types
 
 
 def _load_module():
@@ -115,6 +114,38 @@ def _seed_fde_artifacts_html_only(
     )
     (jobs_dir / f"2026-02-19_{company_slug}_{role_slug}_abcd1234.md").write_text(
         "Requirements: customer integrations, Python, APIs.",
+        encoding="utf-8",
+    )
+
+
+def _seed_general_artifacts(
+    root: Path,
+    *,
+    company: str,
+    role: str,
+    html_content: str = "summary professional experience",
+    job_text: str = "Remote role.",
+) -> None:
+    company_slug = re.sub(r"[^a-z0-9]+", "-", company.lower()).strip("-")
+    role_slug = re.sub(r"[^a-z0-9]+", "-", role.lower()).strip("-")[:64]
+    resume_dir = root / "applications" / company_slug / "tailored_resumes"
+    cover_dir = root / "applications" / company_slug / "cover_letters"
+    jobs_dir = root / "applications" / company_slug / "jobs"
+    resume_dir.mkdir(parents=True, exist_ok=True)
+    cover_dir.mkdir(parents=True, exist_ok=True)
+    jobs_dir.mkdir(parents=True, exist_ok=True)
+
+    (resume_dir / f"2026-02-19_{company_slug}_{role_slug}.docx").write_bytes(b"docx")
+    (resume_dir / f"2026-02-19_{company_slug}_{role_slug}.html").write_text(
+        html_content,
+        encoding="utf-8",
+    )
+    (cover_dir / f"2026-02-19_{company_slug}_{role_slug}.md").write_text(
+        "Cover letter",
+        encoding="utf-8",
+    )
+    (jobs_dir / f"2026-02-19_{company_slug}_{role_slug}_abc123.md").write_text(
+        job_text,
         encoding="utf-8",
     )
 
@@ -296,7 +327,7 @@ def test_queue_only_promotes_high_fit_draft(tmp_path, monkeypatch):
         fail_on_error=False,
         fit_threshold=70,
     )
-    assert rc == 0
+    assert rc == 0  # nosec B101
 
     with tracker.open(newline="", encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
@@ -355,7 +386,7 @@ def test_queue_only_keeps_low_fit_draft(tmp_path, monkeypatch):
         fail_on_error=False,
         fit_threshold=70,
     )
-    assert rc == 0
+    assert rc == 0  # nosec B101
 
     with tracker.open(newline="", encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
@@ -408,7 +439,7 @@ def test_queue_only_demotes_ready_row_when_fit_drops(tmp_path, monkeypatch):
         fail_on_error=False,
         fit_threshold=70,
     )
-    assert rc == 0
+    assert rc == 0  # nosec B101
 
     with tracker.open(newline="", encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
@@ -471,7 +502,7 @@ def test_queue_only_autogenerates_docx_from_html(tmp_path, monkeypatch):
         fail_on_error=False,
         fit_threshold=70,
     )
-    assert rc == 0
+    assert rc == 0  # nosec B101
 
     with tracker.open(newline="", encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
@@ -735,7 +766,7 @@ def test_queue_only_marks_manual_only_adapter_as_non_promotable(tmp_path, monkey
         fail_on_error=False,
         fit_threshold=70,
     )
-    assert rc == 0
+    assert rc == 0  # nosec B101
 
     with tracker.open(newline="", encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
@@ -817,6 +848,185 @@ def test_queue_only_quarantines_ready_manual_only_adapter(tmp_path, monkeypatch)
         rows = list(csv.DictReader(f))
     assert rows[0]["Status"] == "Quarantined"
     assert "Needs manual completion." in rows[0]["Notes"]
+
+
+def test_queue_only_recovers_stale_url_quarantine_to_ready(tmp_path, monkeypatch):
+    mod = _load_module()
+    monkeypatch.setattr(mod, "ROOT", tmp_path)
+
+    company = "Acme"
+    role = "Software Engineer"
+    _seed_general_artifacts(tmp_path, company=company, role=role)
+
+    tracker = tmp_path / "application_tracker.csv"
+    report = tmp_path / "report.json"
+    _write_tracker(
+        tracker,
+        [
+            {
+                "Company": company,
+                "Role": role,
+                "Location": "Remote",
+                "Salary Range": "",
+                "Status": "Quarantined",
+                "Date Applied": "",
+                "Follow Up Date": "",
+                "Response": "",
+                "Interview Stage": "Initial",
+                "Days To Response": "",
+                "Response Type": "",
+                "Cover Letter Used": "",
+                "What Worked": "",
+                "Tags": "ai;software",
+                "Notes": (
+                    "Force-demoted: URL format incompatible with adapter. "
+                    "Quarantined: URL incompatible with adapter, repeated failures."
+                ),
+                "Career Page URL": "https://boards.greenhouse.io/embed/job_app?for=acme&token=123456",
+            }
+        ],
+    )
+
+    rc = mod.run_pipeline(
+        tracker_csv=tracker,
+        report_path=report,
+        dry_run=True,
+        queue_only=True,
+        max_jobs=5,
+        fail_on_error=False,
+        fit_threshold=70,
+    )
+    assert rc == 0  # nosec B101
+
+    with tracker.open(newline="", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+    assert rows[0]["Status"] == "ReadyToSubmit"  # nosec B101
+    assert "Recovered stale quarantine on" in rows[0]["Notes"]  # nosec B101
+
+    payload = json.loads(report.read_text(encoding="utf-8"))
+    assert payload["quarantine_recovered_count"] == 1  # nosec B101
+    assert (
+        payload["quarantine_recovery_audit"][0]["status_after"] == "ReadyToSubmit"
+    )  # nosec B101
+
+
+def test_queue_only_recovers_stale_url_quarantine_to_draft_when_still_not_ready(
+    tmp_path, monkeypatch
+):
+    mod = _load_module()
+    monkeypatch.setattr(mod, "ROOT", tmp_path)
+
+    company = "Acme"
+    role = "Software Engineer"
+    _seed_general_artifacts(tmp_path, company=company, role=role)
+
+    tracker = tmp_path / "application_tracker.csv"
+    report = tmp_path / "report.json"
+    _write_tracker(
+        tracker,
+        [
+            {
+                "Company": company,
+                "Role": role,
+                "Location": "Onsite - New York",
+                "Salary Range": "",
+                "Status": "Quarantined",
+                "Date Applied": "",
+                "Follow Up Date": "",
+                "Response": "",
+                "Interview Stage": "Initial",
+                "Days To Response": "",
+                "Response Type": "",
+                "Cover Letter Used": "",
+                "What Worked": "",
+                "Tags": "ai;software",
+                "Notes": (
+                    "Force-demoted: URL format incompatible with adapter. "
+                    "Quarantined: URL incompatible with adapter, repeated failures."
+                ),
+                "Career Page URL": "https://boards.greenhouse.io/embed/job_app?for=acme&token=123456",
+            }
+        ],
+    )
+
+    rc = mod.run_pipeline(
+        tracker_csv=tracker,
+        report_path=report,
+        dry_run=True,
+        queue_only=True,
+        max_jobs=5,
+        fail_on_error=False,
+        fit_threshold=70,
+    )
+    assert rc == 0  # nosec B101
+
+    with tracker.open(newline="", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+    assert rows[0]["Status"] == "Draft"  # nosec B101
+
+    payload = json.loads(report.read_text(encoding="utf-8"))
+    assert payload["quarantine_recovered_count"] == 1  # nosec B101
+    assert payload["quarantine_recovery_audit"][0]["status_after"] == "Draft"  # nosec B101
+
+
+def test_queue_only_keeps_stale_url_quarantine_when_manual_history_exists(
+    tmp_path, monkeypatch
+):
+    mod = _load_module()
+    monkeypatch.setattr(mod, "ROOT", tmp_path)
+
+    company = "Acme"
+    role = "Software Engineer"
+    _seed_general_artifacts(tmp_path, company=company, role=role)
+
+    tracker = tmp_path / "application_tracker.csv"
+    report = tmp_path / "report.json"
+    _write_tracker(
+        tracker,
+        [
+            {
+                "Company": company,
+                "Role": role,
+                "Location": "Remote",
+                "Salary Range": "",
+                "Status": "Quarantined",
+                "Date Applied": "",
+                "Follow Up Date": "",
+                "Response": "",
+                "Interview Stage": "Initial",
+                "Days To Response": "",
+                "Response Type": "",
+                "Cover Letter Used": "",
+                "What Worked": "",
+                "Tags": "ai;software",
+                "Notes": (
+                    "CI submit blocked by anti-bot via greenhouse. "
+                    "Manual browser submit required. "
+                    "Force-demoted: URL format incompatible with adapter. "
+                    "Quarantined: URL incompatible with adapter, repeated failures."
+                ),
+                "Career Page URL": "https://boards.greenhouse.io/embed/job_app?for=acme&token=123456",
+            }
+        ],
+    )
+
+    rc = mod.run_pipeline(
+        tracker_csv=tracker,
+        report_path=report,
+        dry_run=True,
+        queue_only=True,
+        max_jobs=5,
+        fail_on_error=False,
+        fit_threshold=70,
+    )
+    assert rc == 0  # nosec B101
+
+    with tracker.open(newline="", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+    assert rows[0]["Status"] == "Quarantined"  # nosec B101
+
+    payload = json.loads(report.read_text(encoding="utf-8"))
+    assert payload["quarantine_recovered_count"] == 0  # nosec B101
 
 
 def test_dry_run_skipped_rows_do_not_fail_by_default(tmp_path, monkeypatch):

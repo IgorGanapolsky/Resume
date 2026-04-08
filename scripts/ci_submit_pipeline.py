@@ -71,6 +71,27 @@ READY_STATUS_KEYS = {
 DRAFT_STATUS_KEYS = {
     "draft",
 }
+QUARANTINED_STATUS_KEYS = {
+    "quarantined",
+}
+STALE_QUARANTINE_MARKERS = (
+    "url incompatible with adapter",
+    "url format incompatible with adapter",
+    "broken embed url",
+    "unsupported_site_for_ci_submit",
+)
+UNRECOVERABLE_QUARANTINE_MARKERS = (
+    "manual browser submit required",
+    "manual re-submit",
+    "needs manual completion",
+    "possible spam",
+    "recaptcha",
+    "captcha",
+    "anti-bot",
+    "anti bot",
+    "missing_file_input",
+    "manual submission required",
+)
 
 FDE_ROLE_RE = re.compile(
     r"(forward[- ]?deployed|customer engineer|solutions engineer|implementation engineer|"
@@ -3405,6 +3426,93 @@ def _is_draft_status(status: str) -> bool:
     return _norm_key(status) in DRAFT_STATUS_KEYS
 
 
+def _is_quarantined_status(status: str) -> bool:
+    return _norm_key(status) in QUARANTINED_STATUS_KEYS
+
+
+def _recover_stale_quarantined_rows(
+    rows: Sequence[Dict[str, str]],
+    *,
+    fit_threshold: int,
+    remote_min_score: int,
+    adapters: Sequence[SiteAdapter],
+) -> Tuple[int, int, List[Dict[str, Any]]]:
+    recovered_count = 0
+    metadata_updates = 0
+    audit: List[Dict[str, Any]] = []
+
+    for idx, row in enumerate(rows):
+        status_raw = str(row.get("Status", "")).strip()
+        if not _is_quarantined_status(status_raw):
+            continue
+
+        notes = str(row.get("Notes", "")).strip()
+        notes_blob = notes.lower()
+        if not any(marker in notes_blob for marker in STALE_QUARANTINE_MARKERS):
+            continue
+        if any(marker in notes_blob for marker in UNRECOVERABLE_QUARANTINE_MARKERS):
+            continue
+
+        assessment = _assess_queue_gate(
+            row,
+            fit_threshold=fit_threshold,
+            remote_min_score=remote_min_score,
+            adapters=adapters,
+        )
+        blocking_manual_reasons = {
+            reason
+            for reason in assessment.reasons
+            if reason in {"unsupported_site_for_ci_submit", "manual_submission_only"}
+        }
+        if blocking_manual_reasons:
+            continue
+
+        remote_policy = assessment.remote_policy
+        remote_score = str(assessment.remote_score)
+        remote_evidence = ";".join(assessment.remote_evidence)
+        submission_lane = assessment.submission_lane
+        if str(row.get("Remote Policy", "")) != remote_policy:
+            metadata_updates += 1
+        if str(row.get("Remote Likelihood Score", "")) != remote_score:
+            metadata_updates += 1
+        if str(row.get("Remote Evidence", "")) != remote_evidence:
+            metadata_updates += 1
+        if str(row.get("Submission Lane", "")) != submission_lane:
+            metadata_updates += 1
+        row["Remote Policy"] = remote_policy
+        row["Remote Likelihood Score"] = remote_score
+        row["Remote Evidence"] = remote_evidence
+        row["Submission Lane"] = submission_lane
+
+        next_status = DEFAULT_READY_STATUS if assessment.eligible else "Draft"
+        row["Status"] = next_status
+        row["Notes"] = _append_note(
+            notes,
+            (
+                f"Recovered stale quarantine on {_today_iso()} "
+                f"(fit={assessment.score}/{fit_threshold}, "
+                f"remote={assessment.remote_score}/{remote_min_score}, "
+                f"lane={assessment.submission_lane}, next_status={next_status})."
+            ),
+        )
+        recovered_count += 1
+        audit.append(
+            {
+                "row_index": idx,
+                "company": str(row.get("Company", "")).strip(),
+                "role": str(row.get("Role", "")).strip(),
+                "status_before": status_raw,
+                "status_after": next_status,
+                "fit_score": assessment.score,
+                "remote_score": assessment.remote_score,
+                "submission_lane": assessment.submission_lane,
+                "reasons": assessment.reasons,
+            }
+        )
+
+    return recovered_count, metadata_updates, audit
+
+
 def _build_confirmation_path(company: str, role: str) -> Path:
     today = _today_iso()
     company_slug = _slug(company)
@@ -3797,6 +3905,14 @@ def run_pipeline(
         )
 
     can_mutate_tracker = (not dry_run) or queue_only
+    quarantine_recovered_count, quarantine_metadata_updates, quarantine_recovery_audit = (
+        _recover_stale_quarantined_rows(
+            rows,
+            fit_threshold=fit_threshold,
+            remote_min_score=remote_min_score,
+            adapters=adapters,
+        )
+    )
     applied_integrity_demoted_count, applied_integrity_issues, applied_demoted_rows = (
         _reconcile_applied_integrity(rows, mutate=can_mutate_tracker)
     )
@@ -3922,6 +4038,8 @@ def run_pipeline(
         "auth_adapters_available": sorted(
             name for name, auth in auth_map.items() if auth.storage_state is not None
         ),
+        "quarantine_recovered_count": quarantine_recovered_count,
+        "quarantine_recovery_audit": quarantine_recovery_audit,
         "applied_integrity_demoted_count": applied_integrity_demoted_count,
         "applied_integrity_issues": applied_integrity_issues,
         "queue_promoted_count": queue_promoted_count,
@@ -3959,10 +4077,12 @@ def run_pipeline(
         report["changed"] = bool(
             can_mutate_tracker
             and (
-                applied_integrity_demoted_count
+                quarantine_recovered_count
+                or applied_integrity_demoted_count
                 or queue_promoted_count
                 or queue_demoted_count
                 or queue_metadata_updates
+                or quarantine_metadata_updates
             )
         )
         report_path.parent.mkdir(parents=True, exist_ok=True)
