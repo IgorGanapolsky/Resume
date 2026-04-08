@@ -50,6 +50,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+          token: ${{ secrets.GH_PAT || github.token }}
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -123,6 +127,7 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GH_PAT || github.token }}
+          git-token: ${{ secrets.GH_PAT || github.token }}
           commit-message: "chore(ralph-loop): discovery iteration update"
           title: "chore: Ralph Loop discovery iteration"
           body: |
