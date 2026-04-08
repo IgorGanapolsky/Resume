@@ -1,8 +1,10 @@
 name: Ralph Loop
 
 on:
-  schedule:
-    - cron: "*/30 * * * *"
+  # schedule temporarily disabled to prevent cron runs from conflicting
+  # with manual submission dispatches. Re-enable after submissions work.
+  # schedule:
+  #   - cron: "*/30 * * * *"
   workflow_dispatch:
     inputs:
       max_new_jobs:
