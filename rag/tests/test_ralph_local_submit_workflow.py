@@ -4,10 +4,12 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 WORKFLOW = ROOT / ".github" / "workflows" / "ralph-local-submit.yml"
+GITIGNORE = ROOT / ".gitignore"
 
 
 def test_self_hosted_workflow_targets_local_submit_lane():
     text = WORKFLOW.read_text(encoding="utf-8")
+    gitignore_text = GITIGNORE.read_text(encoding="utf-8")
 
     assert "runs-on: [self-hosted, macOS, resume-ci]" in text  # nosec B101
     assert "ANCHOR_BROWSER_API_KEY: ${{ secrets.ANCHOR_BROWSER_API_KEY }}" in text  # nosec B101
@@ -24,7 +26,18 @@ def test_self_hosted_workflow_targets_local_submit_lane():
     assert 'if [ -z "$BROWSER_BACKEND" ]; then BROWSER_BACKEND=auto; fi' in text  # nosec B101
     assert '--browser-backend "$BROWSER_BACKEND"' in text  # nosec B101
     assert '--browser-channel "${CI_SUBMIT_BROWSER_CHANNEL:-chromium}"' in text  # nosec B101
-    assert "continue-on-error: true" in text  # nosec B101
+    assert "add-paths: |" in text  # nosec B101
+    assert "applications/job_applications/application_tracker.csv" in text  # nosec B101
+    assert "applications/job_applications/ci_prepare_artifacts_report.json" in text  # nosec B101
+    assert "applications/job_applications/submission_artifact_audit_report.json" in text  # nosec B101
+    assert "applications/job_applications/tracker_integrity_report.json" in text  # nosec B101
+    assert "rag/data/applications.jsonl" in text  # nosec B101
+    assert "rag/data/arms.json" in text  # nosec B101
+    assert "rag/data/memory_long.jsonl" in text  # nosec B101
+    assert "rag/data/memory_short.jsonl" in text  # nosec B101
+    assert "rag/logs/events.jsonl" in text  # nosec B101
+    assert "continue-on-error: true" not in text  # nosec B101
     assert "applications/job_applications/*report*.json" in text  # nosec B101
+    assert ".venv/" in gitignore_text  # nosec B101
     assert "actions/setup-python" not in text  # nosec B101
     assert "\npip install numpy" not in text  # nosec B101
