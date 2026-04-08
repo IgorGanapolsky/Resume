@@ -94,7 +94,6 @@ jobs:
             applications/*/submissions/*ci_confirmation*.png
 
       - name: Create Pull Request for local submit updates
-        continue-on-error: true
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ github.token }}
@@ -106,6 +105,16 @@ jobs:
 
             - Ran the no-spend submit lane on the self-hosted Mac runner
             - Captured updated tracker state and diagnostics
+          add-paths: |
+            applications/job_applications/application_tracker.csv
+            applications/job_applications/ci_prepare_artifacts_report.json
+            applications/job_applications/submission_artifact_audit_report.json
+            applications/job_applications/tracker_integrity_report.json
+            rag/data/applications.jsonl
+            rag/data/arms.json
+            rag/data/memory_long.jsonl
+            rag/data/memory_short.jsonl
+            rag/logs/events.jsonl
           branch: ralph/local-submit
           delete-branch: true
           labels: |
