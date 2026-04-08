@@ -54,8 +54,10 @@ def test_safe_extract_tarball_extracts_regular_files(tmp_path: Path):
         mod._safe_extract_tarball(tar, runner_dir)
 
     target = runner_dir / "bin" / "run.sh"
-    assert target.read_bytes() == payload
-    assert target.stat().st_mode & 0o777 == 0o755
+    if target.read_bytes() != payload:
+        raise AssertionError("runner payload did not extract correctly")
+    if target.stat().st_mode & 0o777 != 0o755:
+        raise AssertionError("runner script mode was not preserved")
 
 
 def test_safe_extract_tarball_rejects_path_traversal(tmp_path: Path):

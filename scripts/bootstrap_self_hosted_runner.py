@@ -11,8 +11,8 @@ from __future__ import annotations
 import argparse
 import json
 import os
-import plistlib
 import platform
+import plistlib
 import shutil
 import subprocess
 import sys
@@ -20,7 +20,6 @@ import tarfile
 import urllib.request
 from pathlib import Path
 from typing import Any, Dict, Iterable, Optional
-
 
 DEFAULT_REPO = "IgorGanapolsky/Resume"
 DEFAULT_RUNNER_NAME = "resume-ci-mac"
