@@ -105,6 +105,23 @@ def test_build_commands_prefers_visible_local_chrome():
         if command[:2] == ["python3", "scripts/ci_submit_pipeline.py"]
     )
 
-    assert "--execute" in submit_command
-    assert "--use-local-chrome" in submit_command
-    assert "--visible" in submit_command
+    assert "--execute" in submit_command  # nosec B101
+    assert "--use-local-chrome" in submit_command  # nosec B101
+    assert "--visible" in submit_command  # nosec B101
+
+
+def test_build_commands_auto_backend_omits_local_chrome_flag():
+    mod = _load_module()
+    parser = mod.build_parser()
+    args = parser.parse_args(["--browser-backend", "auto"])
+
+    commands = mod.build_commands(args)
+    submit_command = next(
+        command
+        for command in commands
+        if command[:2] == ["python3", "scripts/ci_submit_pipeline.py"]
+    )
+
+    assert "--execute" in submit_command  # nosec B101
+    assert "--use-local-chrome" not in submit_command  # nosec B101
+    assert "--visible" in submit_command  # nosec B101

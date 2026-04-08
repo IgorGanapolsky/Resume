@@ -9,6 +9,10 @@ on:
         description: "Max queued jobs to submit this run"
         required: false
         default: "3"
+      browser_backend:
+        description: "Submit browser runtime: auto | local"
+        required: false
+        default: auto
       headless:
         description: "Run local browser headless: true | false"
         required: false
@@ -30,6 +34,16 @@ jobs:
   submit:
     runs-on: [self-hosted, macOS, resume-ci]
     timeout-minutes: 45
+    env:
+      ANCHOR_BROWSER_API_KEY: ${{ secrets.ANCHOR_BROWSER_API_KEY }}
+      ANCHOR_BROWSER_PROFILE_NAME: ${{ vars.ANCHOR_BROWSER_PROFILE_NAME }}
+      ANCHOR_BROWSER_PROFILE_PERSIST: ${{ vars.ANCHOR_BROWSER_PROFILE_PERSIST }}
+      ANCHOR_BROWSER_PROXY_ACTIVE: ${{ vars.ANCHOR_BROWSER_PROXY_ACTIVE }}
+      ANCHOR_BROWSER_PROXY_COUNTRY_CODE: ${{ vars.ANCHOR_BROWSER_PROXY_COUNTRY_CODE }}
+      ANCHOR_BROWSER_PROXY_REGION: ${{ vars.ANCHOR_BROWSER_PROXY_REGION }}
+      ANCHOR_BROWSER_PROXY_CITY: ${{ vars.ANCHOR_BROWSER_PROXY_CITY }}
+      ANCHOR_BROWSER_EXTRA_STEALTH_ACTIVE: ${{ vars.ANCHOR_BROWSER_EXTRA_STEALTH_ACTIVE }}
+      ANCHOR_BROWSER_STRICT: ${{ vars.ANCHOR_BROWSER_STRICT }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -53,8 +67,10 @@ jobs:
         run: |
           . .venv/bin/activate
           MAX_SUBMIT="${{ github.event.inputs.max_submit_jobs }}"
+          BROWSER_BACKEND="${{ github.event.inputs.browser_backend }}"
           HEADLESS="${{ github.event.inputs.headless }}"
           if [ -z "$MAX_SUBMIT" ]; then MAX_SUBMIT=3; fi
+          if [ -z "$BROWSER_BACKEND" ]; then BROWSER_BACKEND=auto; fi
           if [ -z "$HEADLESS" ]; then HEADLESS=false; fi
           EXTRA_ARGS=""
           if [ "$HEADLESS" = "true" ]; then
@@ -62,6 +78,7 @@ jobs:
           fi
           python3 scripts/run_local_submit_lane.py \
             --max-submit-jobs "$MAX_SUBMIT" \
+            --browser-backend "$BROWSER_BACKEND" \
             --browser-channel "${CI_SUBMIT_BROWSER_CHANNEL:-chromium}" \
             $EXTRA_ARGS
 
