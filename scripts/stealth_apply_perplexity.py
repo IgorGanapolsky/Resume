@@ -1,14 +1,14 @@
 import asyncio
-import random
 from pathlib import Path
+from random import SystemRandom
 
+from candidate_data import load_candidate_profile
 from playwright.async_api import async_playwright
 from playwright_stealth import Stealth
 
-from candidate_data import load_candidate_profile
-
 ROOT = Path(__file__).resolve().parents[1]
 PROFILE = load_candidate_profile()
+RNG = SystemRandom()
 RESUME_PATH = (
     ROOT
     / "applications"
@@ -24,16 +24,16 @@ async def human_type(page, selector, text):
     await page.click(selector)
     for char in text:
         await page.keyboard.type(char)
-        await asyncio.sleep(random.uniform(0.02, 0.10))
+        await asyncio.sleep(RNG.uniform(0.02, 0.10))
 
 
 async def human_mouse_move(page):
     viewport = page.viewport_size or {"width": 1280, "height": 800}
     for _ in range(5):
-        x = random.randint(0, viewport["width"])
-        y = random.randint(0, viewport["height"])
+        x = RNG.randrange(viewport["width"] + 1)
+        y = RNG.randrange(viewport["height"] + 1)
         await page.mouse.move(x, y, steps=10)
-        await asyncio.sleep(random.uniform(0.1, 0.5))
+        await asyncio.sleep(RNG.uniform(0.1, 0.5))
 
 
 async def apply():
@@ -49,11 +49,11 @@ async def apply():
 
         print("Building trust: Navigating to Perplexity home page...")
         await page.goto("https://www.perplexity.ai/", wait_until="load")
-        await asyncio.sleep(random.uniform(3, 6))
+        await asyncio.sleep(RNG.uniform(3, 6))
 
         print("Navigating to Perplexity jobs board...")
         await page.goto("https://jobs.ashbyhq.com/perplexity", wait_until="load")
-        await asyncio.sleep(random.uniform(2, 4))
+        await asyncio.sleep(RNG.uniform(2, 4))
 
         print("Navigating to specific job...")
         await page.goto(
@@ -69,13 +69,13 @@ async def apply():
             'div[role="textbox"]:has-text("Name"), textbox[name*="name"], [placeholder*="Type here"]',
             PROFILE["full_name"],
         )
-        await asyncio.sleep(random.uniform(1, 2))
+        await asyncio.sleep(RNG.uniform(1, 2))
         await human_type(
             page,
             'div[role="textbox"]:has-text("Email"), textbox[name*="email"], [placeholder*="hello@example.com"]',
             PROFILE["email"],
         )
-        await asyncio.sleep(random.uniform(1, 2))
+        await asyncio.sleep(RNG.uniform(1, 2))
         await human_type(
             page,
             'div[role="textbox"]:has-text("Phone"), [placeholder*="1-415-555-1234"]',
@@ -114,7 +114,7 @@ async def apply():
         else:
             await page.set_input_files("input[type='file']", str(RESUME_PATH))
 
-        await asyncio.sleep(random.uniform(5, 8))
+        await asyncio.sleep(RNG.uniform(5, 8))
 
         # Consent Checkbox
         print("Checking consent checkbox...")
@@ -131,7 +131,7 @@ async def apply():
         await submit_btn.click()
 
         print("Waiting for response...")
-        for i in range(20):
+        for _i in range(20):
             await asyncio.sleep(1)
             content = await page.content()
             if "Thank you" in content or "submitted" in content.lower():

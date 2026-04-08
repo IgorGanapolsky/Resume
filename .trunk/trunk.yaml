@@ -22,3 +22,17 @@ lint:
     - shfmt@3.6.0
     - trufflehog@3.94.2
     - yamllint@1.38.0
+  ignore:
+    - linters:
+        - markdownlint
+        - prettier
+      paths:
+        - applications/**/cover_letters/**
+        - applications/**/jobs/**
+        - applications/**/proposals/**
+        - applications/job_applications/*.json
+        - applications/job_applications/*.md
+        - email_templates/**
+        - linkedin/**
+        - resumes/**/*.html
+        - applications/**/tailored_resumes/**

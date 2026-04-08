@@ -1413,8 +1413,12 @@ class AshbyAdapter(PlaywrightFormAdapter):
                     r"\s+".join(re.escape(part) for part in marker.split()), re.I
                 )
                 for probe in (
-                    lambda: target.get_by_label(pattern, exact=False).first,
-                    lambda: target.get_by_text(pattern).first,
+                    lambda target=target, pattern=pattern: target.get_by_label(
+                        pattern, exact=False
+                    ).first,
+                    lambda target=target, pattern=pattern: target.get_by_text(
+                        pattern
+                    ).first,
                 ):
                     try:
                         control = probe()
@@ -1655,10 +1659,18 @@ class AshbyAdapter(PlaywrightFormAdapter):
     ) -> bool:
         for choice_pattern in choice_patterns:
             for probe in (
-                lambda: container.get_by_label(choice_pattern).first,
-                lambda: container.get_by_role("radio", name=choice_pattern).first,
-                lambda: container.get_by_role("button", name=choice_pattern).first,
-                lambda: container.get_by_text(choice_pattern).first,
+                lambda choice_pattern=choice_pattern: container.get_by_label(
+                    choice_pattern
+                ).first,
+                lambda choice_pattern=choice_pattern: container.get_by_role(
+                    "radio", name=choice_pattern
+                ).first,
+                lambda choice_pattern=choice_pattern: container.get_by_role(
+                    "button", name=choice_pattern
+                ).first,
+                lambda choice_pattern=choice_pattern: container.get_by_text(
+                    choice_pattern
+                ).first,
             ):
                 try:
                     control = probe()
@@ -2349,11 +2361,15 @@ class OpenAIAshbyAdapter(AshbyAdapter):
         control = None
         for target in (scope, page):
             for probe in (
-                lambda: target.get_by_label("Location", exact=False).first,
-                lambda: target.get_by_role(
+                lambda target=target: target.get_by_label(
+                    "Location", exact=False
+                ).first,
+                lambda target=target: target.get_by_role(
                     "combobox", name=re.compile(r"location", re.I)
                 ).first,
-                lambda: target.locator("input[role='combobox']").first,
+                lambda target=target: target.locator(
+                    "input[role='combobox']"
+                ).first,
             ):
                 try:
                     candidate = probe()

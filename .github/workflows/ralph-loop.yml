@@ -5,20 +5,21 @@ on:
   # with manual submission dispatches. Re-enable after submissions work.
   # schedule:
   #   - cron: "*/30 * * * *"
+  #checkov:skip=CKV_GHA_7:Manual dispatch inputs are required to cap discovery volume and gate live submits.
   workflow_dispatch:
     inputs:
       max_new_jobs:
-        description: "Max new draft jobs to add this run"
+        description: Max new draft jobs to add this run
         required: false
-        default: "10"
+        default: 10
       max_submit_jobs:
-        description: "Max queued jobs to submit this run"
+        description: Max queued jobs to submit this run
         required: false
-        default: "5"
+        default: 5
       execute_submissions:
-        description: "Execute live submissions: true | false | inherit"
+        description: Execute live submissions true | false | inherit
         required: false
-        default: "inherit"
+        default: inherit
 
 permissions:
   contents: write

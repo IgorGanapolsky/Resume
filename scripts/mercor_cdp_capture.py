@@ -14,18 +14,30 @@ Safety:
 from __future__ import annotations
 
 import argparse
+import asyncio
 import base64
 import json
 import time
+import urllib.parse
 import urllib.request
 from pathlib import Path
 
-import asyncio
 import websockets
 
+LOCALHOSTS = {"127.0.0.1", "localhost", "::1"}
 
-def _json_get(url: str):
-    with urllib.request.urlopen(url, timeout=5) as r:
+
+def _validate_local_debug_url(url: str) -> None:
+    parsed = urllib.parse.urlsplit(url)
+    if parsed.scheme not in {"http", "https"}:
+        raise ValueError(f"Unsupported debug endpoint scheme: {parsed.scheme or '<none>'}")
+    if (parsed.hostname or "").lower() not in LOCALHOSTS:
+        raise ValueError("Mercor CDP capture only supports localhost debug endpoints")
+
+
+def _json_get(url: str) -> object:
+    _validate_local_debug_url(url)
+    with urllib.request.urlopen(url, timeout=5) as r:  # nosec B310
         return json.load(r)
 
 

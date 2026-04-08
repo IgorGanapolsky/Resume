@@ -20,12 +20,13 @@ def test_self_hosted_workflow_targets_local_submit_lane():
     assert "python3 -m venv .venv" in text  # nosec B101
     assert "python -m pip install numpy" in text  # nosec B101
     assert "default: auto" in text  # nosec B101
-    assert 'default: "chromium"' in text  # nosec B101
-    assert 'default: "false"' in text  # nosec B101
+    assert "default: chromium" in text  # nosec B101
+    assert "default: false" in text  # nosec B101
     assert "Ralph Local Submit" in text  # nosec B101
     assert 'if [ -z "$BROWSER_BACKEND" ]; then BROWSER_BACKEND=auto; fi' in text  # nosec B101
     assert '--browser-backend "$BROWSER_BACKEND"' in text  # nosec B101
     assert '--browser-channel "${CI_SUBMIT_BROWSER_CHANNEL:-chromium}"' in text  # nosec B101
+    assert "# trunk-ignore(actionlint/runner-label)" in text  # nosec B101
     assert "add-paths: |" in text  # nosec B101
     assert "applications/job_applications/application_tracker.csv" in text  # nosec B101
     assert "applications/job_applications/ci_prepare_artifacts_report.json" in text  # nosec B101
@@ -39,5 +40,6 @@ def test_self_hosted_workflow_targets_local_submit_lane():
     assert "continue-on-error: true" not in text  # nosec B101
     assert "applications/job_applications/*report*.json" in text  # nosec B101
     assert ".venv/" in gitignore_text  # nosec B101
+    assert ".env.secrets" in gitignore_text  # nosec B101
     assert "actions/setup-python" not in text  # nosec B101
     assert "\npip install numpy" not in text  # nosec B101

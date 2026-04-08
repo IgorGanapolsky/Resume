@@ -3,12 +3,13 @@ name: Quarantine Issue Sync
 on:
   schedule:
     - cron: "0 */6 * * *"
+  #checkov:skip=CKV_GHA_7:Manual dispatch input controls whether resolved quarantine issues are closed.
   workflow_dispatch:
     inputs:
       close_resolved:
-        description: "Close open quarantine issues whose tracker rows are no longer quarantined"
+        description: Close open quarantine issues whose tracker rows are no longer quarantined
         required: false
-        default: "true"
+        default: true
 
 permissions:
   contents: read
@@ -23,7 +24,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: 3.11
       - name: Sync quarantined tracker rows into GitHub issues
         run: |
           CLOSE_RESOLVED="${{ github.event.inputs.close_resolved }}"

@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-"""Continuous Ralph loop for GitHub Actions.
+"""Discovery and artifact generation helpers for Ralph workflows.
 
-This job discovers new roles from remote job feeds, creates draft artifacts,
-updates the application tracker, and keeps the RAG index fresh.
-
-It intentionally does not perform irreversible portal submissions from CI.
+This module discovers new roles from remote job feeds, creates draft artifacts,
+updates the application tracker, and keeps the RAG index fresh. Submit
+execution happens elsewhere in the Ralph automation stack.
 """
 
 from __future__ import annotations
@@ -16,13 +15,13 @@ import hashlib
 import html
 import json
 import re
+import urllib.error
 import urllib.parse
 import urllib.request
 import zipfile
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Dict, Iterable, List
-from xml.sax.saxutils import escape
+from typing import Dict, Iterable, List, Sequence
 
 try:
     from candidate_data import load_candidate_profile
@@ -84,6 +83,7 @@ TRACKER_EXTRA_FIELDS = (
     "Submission Lane",
 )
 AUTO_SUBMIT_METHODS = {"ashby", "greenhouse", "lever"}
+ALLOWED_FETCH_SCHEMES = {"http", "https"}
 
 
 def _candidate_contact() -> Dict[str, str]:
@@ -118,9 +118,31 @@ class RoleProfile:
     distinctive_achievements: List[str] = field(default_factory=list)
 
 
+def _validate_fetch_url(url: str, *, allowed_hosts: Sequence[str] | None = None) -> None:
+    parsed = urllib.parse.urlsplit(url)
+    scheme = (parsed.scheme or "").lower()
+    host = (parsed.hostname or "").lower()
+    if scheme not in ALLOWED_FETCH_SCHEMES:
+        raise ValueError(f"Unsupported fetch scheme: {scheme or '<none>'}")
+    if not host:
+        raise ValueError("Fetch URL must include a host")
+    if allowed_hosts and host not in {item.lower() for item in allowed_hosts}:
+        raise ValueError(f"Unexpected host for fetch: {host}")
+
+
+def _open_url(request_or_url: urllib.request.Request | str, *, timeout: int):
+    url = (
+        request_or_url.full_url
+        if isinstance(request_or_url, urllib.request.Request)
+        else str(request_or_url)
+    )
+    _validate_fetch_url(url)
+    return urllib.request.urlopen(request_or_url, timeout=timeout)  # nosec B310
+
+
 def _fetch_json(url: str) -> object:
     req = urllib.request.Request(url, headers={"User-Agent": "ResumeRalphLoop/1.0"})
-    with urllib.request.urlopen(req, timeout=30) as resp:
+    with _open_url(req, timeout=30) as resp:
         return json.loads(resp.read().decode("utf-8", errors="replace"))
 
 
@@ -163,12 +185,12 @@ def _resolve_redirect_url(url: str, timeout: int = 8) -> str:
         req = urllib.request.Request(
             url, method="HEAD", headers={"User-Agent": "ResumeRalphLoop/1.0"}
         )
-        with urllib.request.urlopen(req, timeout=timeout) as resp:
+        with _open_url(req, timeout=timeout) as resp:
             final = resp.url
             if final and final != url:
                 return final
-    except Exception:
-        pass
+    except (ValueError, OSError, urllib.error.HTTPError, urllib.error.URLError):
+        return url
     return url
 
 
@@ -196,7 +218,7 @@ def _write_simple_docx(text: str, out_path: Path) -> None:
         lines = ["Resume"]
 
     body = "".join(
-        f'<w:p><w:r><w:t xml:space="preserve">{escape(line)}</w:t></w:r></w:p>'
+        f'<w:p><w:r><w:t xml:space="preserve">{html.escape(line, quote=False)}</w:t></w:r></w:p>'
         for line in lines
     )
     document_xml = (
@@ -292,14 +314,14 @@ def classify_role(job: Dict[str, str]) -> RoleProfile:
     if track == "fde":
         philosophy = "Integration is a social problem, not just a technical one; I build 'API-first' relationships, not just endpoints."
         distinctive = [
-            "Architected a self-healing CI pipeline for multi-model LLM consensus that reduced manual debug time by 80%.",
-            "Pioneered a 'shipping small experiments weekly' approach for LLM features at Subway, beating the standard quarterly release cycle.",
+            "Built customer-facing AI delivery systems that tie API integrations, rollout discipline, and stakeholder alignment together.",
+            "Shipped iterative LLM features in production without waiting for long release trains or handoff-heavy planning cycles.",
         ]
     else:
         philosophy = "Production AI is about reliability and cost-predictability, not just prompt engineering."
         distinctive = [
-            "Built a semantic memory system using LanceDB that reduced context window 'forgetting' across 200+ autonomous agent turns.",
-            "Optimized LLM inference pipelines to maintain <200ms latency while reducing token spend by 40%.",
+            "Built a semantic memory system with LanceDB to keep long-running agent sessions grounded in prior context.",
+            "Optimized LLM inference and orchestration paths around latency, cost, and operational predictability.",
         ]
 
     return RoleProfile(
@@ -419,8 +441,8 @@ def build_cover_letter(job: Dict[str, str], profile: RoleProfile) -> str:
     # Vanessa-style POV intro
     intro = (
         f"I am interested in the {role} opportunity. "
-        f"My philosophy is that {profile.philosophy.lower().strip('.')}. "
-        "I build production AI/software systems where reliability is a non-negotiable."
+        f"The through-line in my recent work is straightforward: {profile.philosophy.lower().strip('.')}. "
+        "I build production AI/software systems where reliability is non-negotiable."
     )
 
     highlights = [f"- {ach}" for ach in profile.distinctive_achievements]
@@ -441,7 +463,7 @@ def build_cover_letter(job: Dict[str, str], profile: RoleProfile) -> str:
         "",
         intro,
         "",
-        "How I've lived this philosophy recently:",
+        "Recent examples:",
         *highlights,
         "",
         "My work is grounded in proof, not just prompts. You can find the code for my autonomous agent architectures at:",
@@ -458,10 +480,10 @@ def build_cover_letter(job: Dict[str, str], profile: RoleProfile) -> str:
 def tailor_resume_html(base_html: str, profile: RoleProfile) -> str:
     out = base_html
 
-    # Vanessa POV Injection into Summary
+    # Keep the injected summary direct and factual instead of templated headers.
     pov_summary = (
-        f"<p>Senior AI and Full-Stack Engineer with 15+ years of experience. "
-        f"<strong>Philosophy: {profile.philosophy}</strong> Builds and ships production AI systems "
+        "<p>Senior AI and Full-Stack Engineer with 15+ years of experience. "
+        f"Focused on {profile.philosophy.lower().strip('.')} and on shipping production AI systems "
         "end-to-end, from architecture and implementation through rollout and iteration.</p>"
     )
 
@@ -473,12 +495,9 @@ def tailor_resume_html(base_html: str, profile: RoleProfile) -> str:
         flags=re.DOTALL,
     )
 
-    # Inject Distinctive Achievements as "Featured Impact" bullets
+    # Inject role-relevant evidence without static template labels.
     featured_bullets = "".join(
-        [
-            f"<li><p><strong>Featured Impact:</strong> {ach}</p></li>"
-            for ach in profile.distinctive_achievements
-        ]
+        [f"<li><p>{ach}</p></li>" for ach in profile.distinctive_achievements]
     )
     out = _replace_once(out, "<ul>", f"<ul>\n{featured_bullets}")
 
@@ -604,9 +623,9 @@ def write_tracker(fieldnames: List[str], rows: List[Dict[str, str]]) -> None:
 def _fetch_html(url: str) -> str:
     try:
         req = urllib.request.Request(url, headers={"User-Agent": "ResumeRalphLoop/1.0"})
-        with urllib.request.urlopen(req, timeout=10) as resp:
+        with _open_url(req, timeout=10) as resp:
             return resp.read().decode("utf-8", errors="replace")
-    except Exception:
+    except (ValueError, OSError, urllib.error.HTTPError, urllib.error.URLError):
         return ""
 
 

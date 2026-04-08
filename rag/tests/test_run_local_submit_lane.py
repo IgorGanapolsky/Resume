@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import subprocess  # nosec B404
 import sys
 from pathlib import Path
 
@@ -125,3 +126,43 @@ def test_build_commands_auto_backend_omits_local_chrome_flag():
     assert "--execute" in submit_command  # nosec B101
     assert "--use-local-chrome" not in submit_command  # nosec B101
     assert "--visible" in submit_command  # nosec B101
+
+
+def test_main_runs_materialized_env_through_all_commands(monkeypatch):
+    mod = _load_module()
+    seen = []
+    monkeypatch.setattr(mod, "materialize_local_submit_env", lambda **_: {"X": "1"})
+    monkeypatch.setattr(mod, "build_commands", lambda _: [["echo", "one"], ["echo", "two"]])
+    monkeypatch.setattr(
+        mod, "run_command", lambda command, *, env: seen.append((command, env))
+    )
+
+    rc = mod.main(["--max-submit-jobs", "1"])
+    assert rc == 0  # nosec B101
+    assert seen == [  # nosec B101
+        (["echo", "one"], {"X": "1"}),
+        (["echo", "two"], {"X": "1"}),
+    ]
+
+
+def test_main_returns_subprocess_exit_code(monkeypatch):
+    mod = _load_module()
+    monkeypatch.setattr(mod, "materialize_local_submit_env", lambda **_: {"X": "1"})
+    monkeypatch.setattr(mod, "build_commands", lambda _: [["echo", "one"]])
+
+    def fail(*_args, **_kwargs):
+        raise subprocess.CalledProcessError(7, ["echo", "one"])
+
+    monkeypatch.setattr(mod, "run_command", fail)
+
+    assert mod.main([]) == 7  # nosec B101
+
+
+def test_main_returns_two_on_unexpected_error(monkeypatch):
+    mod = _load_module()
+
+    def boom(**_kwargs):
+        raise RuntimeError("broken")
+
+    monkeypatch.setattr(mod, "materialize_local_submit_env", boom)
+    assert mod.main([]) == 2  # nosec B101

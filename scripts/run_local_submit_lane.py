@@ -6,7 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
-import subprocess
+import subprocess  # nosec B404
 import sys
 from pathlib import Path
 from typing import Dict, List, Optional, Sequence
@@ -122,7 +122,7 @@ def build_commands(args: argparse.Namespace) -> List[List[str]]:
 
 def run_command(command: Sequence[str], *, env: Dict[str, str]) -> None:
     print("+ " + " ".join(command), flush=True)
-    subprocess.run(command, check=True, cwd=ROOT, env=env)
+    subprocess.run(command, check=True, cwd=ROOT, env=env)  # nosec B603
 
 
 def build_parser() -> argparse.ArgumentParser:

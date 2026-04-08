@@ -7,12 +7,11 @@ import argparse
 import csv
 import importlib
 import json
-import subprocess
+import subprocess  # nosec B404
 import sys
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence
-
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
@@ -160,8 +159,8 @@ def _extract_app_id(body: str) -> str:
     return ""
 
 
-def _run_gh_json(args: Sequence[str]) -> List[Dict[str, Any]]:
-    proc = subprocess.run(
+def _run_gh(args: Sequence[str]) -> subprocess.CompletedProcess[str]:
+    proc = subprocess.run(  # nosec B603
         list(args),
         cwd=str(ROOT),
         capture_output=True,
@@ -172,6 +171,11 @@ def _run_gh_json(args: Sequence[str]) -> List[Dict[str, Any]]:
         raise RuntimeError(
             proc.stderr.strip() or proc.stdout.strip() or "gh command failed"
         )
+    return proc
+
+
+def _run_gh_json(args: Sequence[str]) -> List[Dict[str, Any]]:
+    proc = _run_gh(args)
     payload = json.loads(proc.stdout or "[]")
     return payload if isinstance(payload, list) else []
 
@@ -281,17 +285,7 @@ def build_sync_plan(
 
 
 def _run_gh_write(args: Sequence[str]) -> None:
-    proc = subprocess.run(
-        list(args),
-        cwd=str(ROOT),
-        capture_output=True,
-        text=True,
-        check=False,
-    )
-    if proc.returncode != 0:
-        raise RuntimeError(
-            proc.stderr.strip() or proc.stdout.strip() or "gh command failed"
-        )
+    _run_gh(args)
 
 
 def apply_sync_plan(plan: Sequence[SyncAction], repo: str) -> None:

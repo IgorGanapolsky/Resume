@@ -7,9 +7,10 @@ empirical LinkedIn posts to establish authority.
 
 import json
 import os
+import urllib.parse
+import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
-import urllib.request
 
 ROOT = Path(__file__).resolve().parents[1]
 QUEUE_JSON = ROOT / "linkedin" / "linkedin_post_queue.json"
@@ -45,7 +46,10 @@ def call_llm(prompt: str) -> str:
         method="POST",
     )
     try:
-        with urllib.request.urlopen(req, timeout=30) as resp:
+        parsed = urllib.parse.urlsplit(req.full_url)
+        if parsed.scheme != "https" or parsed.netloc != "api.anthropic.com":
+            raise ValueError("Unexpected Anthropic endpoint")
+        with urllib.request.urlopen(req, timeout=30) as resp:  # nosec B310
             return json.loads(resp.read().decode("utf-8"))["content"][0]["text"]
     except Exception as e:
         print(f"WARN: LLM unavailable, using fallback post. error={e}")
