@@ -16,6 +16,7 @@ import argparse
 import csv
 import datetime as dt
 import html
+import importlib.util
 import json
 import os
 import random
@@ -38,8 +39,28 @@ _SCRIPT_ROOT = Path(__file__).resolve().parents[1]
 if str(_SCRIPT_ROOT) not in sys.path:
     sys.path.insert(0, str(_SCRIPT_ROOT))
 
-from rag.learning import load_arms as _load_learning_arms
-from rag.learning import rank_rows_by_learning
+
+def _load_learning_helpers() -> Tuple[Any, Any]:
+    try:
+        from rag.learning import load_arms as load_arms
+        from rag.learning import rank_rows_by_learning as rank_rows
+
+        return load_arms, rank_rows
+    except ModuleNotFoundError as exc:
+        if exc.name not in {"rag", "rag.learning"}:
+            raise
+
+    learning_path = _SCRIPT_ROOT / "rag" / "learning.py"
+    spec = importlib.util.spec_from_file_location("_resume_rag_learning", learning_path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Failed to load learning helpers from {learning_path}")
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)  # type: ignore[attr-defined]
+    return module.load_arms, module.rank_rows_by_learning
+
+
+_load_learning_arms, rank_rows_by_learning = _load_learning_helpers()
 
 try:
     from playwright_stealth import stealth_sync  # type: ignore
@@ -2678,6 +2699,42 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
     name = "greenhouse"
     host_patterns = (re.compile(r"greenhouse\.io"),)
     submit_button_patterns = (r"submit application", r"apply", r"submit")
+
+    def _prime_page_session(
+        self,
+        runtime: BrowserRuntime,
+        task: SubmitTask,
+        profile: Profile,
+        answers: SubmitAnswers,
+    ) -> None:
+        """Visit company homepage before the job form to build reCAPTCHA trust.
+
+        reCAPTCHA v3 scores browser sessions based on behavior history.
+        Visiting the company site first establishes a referrer chain and
+        mouse movement history that raises the trust score above the
+        rejection threshold.
+        """
+        page = runtime.page
+        try:
+            parsed = urllib.parse.urlsplit(task.url)
+            path_parts = [p for p in (parsed.path or "").split("/") if p]
+            if len(path_parts) >= 1:
+                company_slug = path_parts[0]
+                for domain in [
+                    f"https://{company_slug}.com",
+                    f"https://www.{company_slug}.com",
+                ]:
+                    try:
+                        page.goto(
+                            domain, wait_until="domcontentloaded", timeout=8000
+                        )
+                        self._wait_human(2.0, 4.0)
+                        self._mouse_wander(page)
+                        return
+                    except Exception:
+                        continue
+        except Exception:
+            pass
 
     def _mouse_wander(self, page: Any) -> None:
         """Move mouse randomly to appear human — defeats reCAPTCHA v3."""
