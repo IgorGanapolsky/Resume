@@ -11,7 +11,6 @@ import sys
 from pathlib import Path
 from typing import Dict, List, Optional, Sequence
 
-
 ROOT = Path(__file__).resolve().parents[1]
 CANDIDATE_PROFILE_JSON = (
     ROOT / "applications" / "job_applications" / "candidate_profile.json"
@@ -65,6 +64,25 @@ def materialize_local_submit_env(
 
 def build_commands(args: argparse.Namespace) -> List[List[str]]:
     max_prepare_jobs = args.max_prepare_jobs or max(1, args.max_submit_jobs * 3)
+    use_local_chrome = (args.browser_backend or "local").strip().lower() == "local"
+    submit_command = [
+        "python3",
+        "scripts/ci_submit_pipeline.py",
+        "--execute",
+        "--max-jobs",
+        str(args.max_submit_jobs),
+        "--fit-threshold",
+        str(args.fit_threshold),
+        "--remote-min-score",
+        str(args.remote_min_score),
+        "--report",
+        str(args.report),
+        "--quarantine-blocked",
+        "--fail-on-error",
+        *(["--visible"] if not args.headless else []),
+    ]
+    if use_local_chrome:
+        submit_command.insert(3, "--use-local-chrome")
     return [
         ["python3", "scripts/check_calendar_guardrails.py"],
         [
@@ -88,21 +106,7 @@ def build_commands(args: argparse.Namespace) -> List[List[str]]:
             "applications/job_applications/ci_prepare_artifacts_report.local.json",
         ],
         [
-            "python3",
-            "scripts/ci_submit_pipeline.py",
-            "--execute",
-            "--use-local-chrome",
-            "--max-jobs",
-            str(args.max_submit_jobs),
-            "--fit-threshold",
-            str(args.fit_threshold),
-            "--remote-min-score",
-            str(args.remote_min_score),
-            "--report",
-            str(args.report),
-            "--quarantine-blocked",
-            "--fail-on-error",
-            *(["--visible"] if not args.headless else []),
+            *submit_command,
         ],
         [
             "python3",
@@ -156,6 +160,16 @@ def build_parser() -> argparse.ArgumentParser:
         "--browser-channel",
         default="",
         help="Optional browser channel override passed to CI_SUBMIT_BROWSER_CHANNEL.",
+    )
+    parser.add_argument(
+        "--browser-backend",
+        choices=["auto", "local"],
+        default="local",
+        help=(
+            "Browser runtime for submit execution. "
+            "'local' forces the dedicated local Chrome profile; "
+            "'auto' allows Anchor Browser when configured and falls back locally."
+        ),
     )
     parser.add_argument(
         "--chrome-user-data-dir",
