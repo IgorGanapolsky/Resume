@@ -36,7 +36,7 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
-          token: ${{ secrets.GH_PAT || github.token }}
+          token: ${{ github.token }}
 
       - name: Install dependencies
         run: |
@@ -80,8 +80,8 @@ jobs:
         continue-on-error: true
         uses: peter-evans/create-pull-request@v6
         with:
-          token: ${{ secrets.GH_PAT || github.token }}
-          git-token: ${{ secrets.GH_PAT || github.token }}
+          token: ${{ github.token }}
+          git-token: ${{ github.token }}
           commit-message: "chore(ralph-local-submit): submission lane update"
           title: "chore: Ralph Local Submit updates"
           body: |
