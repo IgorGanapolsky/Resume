@@ -2,7 +2,7 @@ name: Quarantine Issue Sync
 
 on:
   schedule:
-    - cron: "0 */6 * * *"
+    - cron: 0 */6 * * *
   #checkov:skip=CKV_GHA_7:Manual dispatch input controls whether resolved quarantine issues are closed.
   workflow_dispatch:
     inputs:

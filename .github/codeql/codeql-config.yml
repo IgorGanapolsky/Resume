@@ -2,9 +2,9 @@ name: CodeQL Config
 
 paths-ignore:
   - "**/*.md"
-  - "rag/lancedb/**"
-  - "rag/__pycache__/**"
-  - "research/**"
+  - rag/lancedb/**
+  - rag/__pycache__/**
+  - research/**
 
 queries:
   - uses: security-extended
