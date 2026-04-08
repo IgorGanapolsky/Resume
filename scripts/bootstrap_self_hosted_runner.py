@@ -11,8 +11,8 @@ from __future__ import annotations
 import argparse
 import json
 import os
-import plistlib
 import platform
+import plistlib
 import shutil
 import subprocess
 import sys
@@ -20,7 +20,6 @@ import tarfile
 import urllib.request
 from pathlib import Path
 from typing import Any, Dict, Iterable, Optional
-
 
 DEFAULT_REPO = "IgorGanapolsky/Resume"
 DEFAULT_RUNNER_NAME = "resume-ci-mac"
@@ -61,12 +60,55 @@ def _gh_api_json(endpoint: str, *, method: str = "GET") -> Dict[str, Any]:
 
 def _safe_extract_tarball(tar: tarfile.TarFile, destination: Path) -> None:
     dest_root = destination.resolve()
-    members = tar.getmembers()
-    for member in members:
-        target = (destination / member.name).resolve()
-        if dest_root not in target.parents and target != dest_root:
-            raise RuntimeError(f"Unsafe path in tarball: {member.name}")
-    tar.extractall(destination, members)
+    destination.mkdir(parents=True, exist_ok=True)
+
+    def _ensure_within_root(path: Path, *, source: str) -> Path:
+        resolved = path.resolve()
+        if dest_root not in resolved.parents and resolved != dest_root:
+            raise RuntimeError(f"Unsafe path in tarball: {source}")
+        return resolved
+
+    for member in tar.getmembers():
+        target = _ensure_within_root(destination / member.name, source=member.name)
+
+        if member.isdir():
+            target.mkdir(parents=True, exist_ok=True)
+            continue
+
+        if member.isfile():
+            target.parent.mkdir(parents=True, exist_ok=True)
+            extracted = tar.extractfile(member)
+            if extracted is None:
+                raise RuntimeError(f"Failed to read tarball member: {member.name}")
+            with extracted, target.open("wb") as out:
+                shutil.copyfileobj(extracted, out)
+            mode = member.mode & 0o777
+            if mode:
+                target.chmod(mode)
+            continue
+
+        if member.issym():
+            link_target = Path(member.linkname)
+            if link_target.is_absolute():
+                raise RuntimeError(f"Unsafe symlink target in tarball: {member.linkname}")
+            _ensure_within_root(target.parent / link_target, source=member.linkname)
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.unlink(missing_ok=True)
+            target.symlink_to(member.linkname)
+            continue
+
+        if member.islnk():
+            source = _ensure_within_root(destination / member.linkname, source=member.linkname)
+            if not source.exists():
+                raise RuntimeError(
+                    f"Hard-link source missing during tar extraction: {member.linkname}"
+                )
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.unlink(missing_ok=True)
+            os.link(source, target)
+            continue
+
+        raise RuntimeError(f"Unsupported tarball member type: {member.name}")
 
 
 def _ensure_runner_archive(base_dir: Path) -> Path:
