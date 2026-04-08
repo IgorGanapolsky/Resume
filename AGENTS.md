@@ -117,6 +117,17 @@ Update tracker CSV `Response` and `Interview Stage` columns to match.
 - Always `snapshot -i` after any click that could change the DOM.
 - When a site requires login/2FA, proceed up to the prompt, then stop and ask the user to complete the authentication step.
 
+## Ralph Loop Protection
+
+1. Treat in-progress `Ralph Loop` and `Ralph Local Submit` runs on the current `origin/main` commit as protected operational runs.
+2. Do not cancel protected runs for workspace hygiene, stale PR cleanup, duplicate branch cleanup, or routine maintenance.
+3. Cancellation is allowed only when:
+   - the user explicitly requests cancellation
+   - the run is on a superseded commit that is not the current `origin/main` commit
+   - a duplicate run on the exact same head SHA has already completed successfully and the remaining run is redundant
+4. If an automation PR is stale, close the PR or branch without cancelling a protected current-`main` run.
+5. Preserve proxy-backed or Anchor Browser submit paths whenever available; they may be the only viable route after reCAPTCHA trust has degraded on the local IP.
+
 ## PR Management & System Hygiene
 
 1. Start every PR or branch maintenance session from a dedicated git worktree.
