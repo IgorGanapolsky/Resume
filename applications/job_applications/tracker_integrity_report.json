@@ -1,64 +1,194 @@
 {
-  "generated_at": "2026-03-24T20:25:12.965835+00:00",
-  "tracker_csv": "/Users/igorganapolsky/workspace/git/igor/Resume/applications/job_applications/application_tracker.csv",
-  "applied_total": 19,
-  "applied_total_before": 19,
-  "applied_total_after": 19,
-  "fixed_count": 1,
-  "backfilled_count": 1,
-  "normalized_count": 0,
-  "missing_count": 8,
+  "generated_at": "2026-04-08T17:02:22.661048+00:00",
+  "tracker_csv": "/home/runner/work/Resume/Resume/applications/job_applications/application_tracker.csv",
+  "applied_total": 18,
+  "applied_total_before": 21,
+  "applied_total_after": 18,
+  "fixed_count": 6,
+  "backfilled_count": 3,
+  "normalized_count": 3,
+  "missing_count": 18,
   "missing_rows": [
+    {
+      "row_index": 0,
+      "company": "Owner.com",
+      "role": "Software Engineer Mobile",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 30,
+      "company": "Anthropic",
+      "role": "Senior / Staff+ Software Engineer - Autonomous Agent Infrastructure",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 32,
+      "company": "OpenEvidence",
+      "role": "Software Engineer - Site Reliability Engineering",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 34,
+      "company": "ElevenLabs",
+      "role": "Forward Deployed Engineer - Software Engineer",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 36,
+      "company": "Mercor",
+      "role": "Software Engineer (Trajectory)",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 37,
+      "company": "Mercor",
+      "role": "Software Engineer III",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 38,
+      "company": "Mercor",
+      "role": "Software Expert (Office Suite)",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 39,
+      "company": "Simile",
+      "role": "Careers contact form (general inquiry)",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
     {
       "row_index": 42,
       "company": "PaleBlueDot AI",
       "role": "AI Infrastructure Engineer (target; no posting found)",
-      "missing": ["submission_evidence_path", "submission_verified_at"]
+      "missing": [
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
     },
     {
       "row_index": 43,
       "company": "Flapping Airplanes",
       "role": "General inquiry (contact email)",
-      "missing": ["submission_evidence_path", "submission_verified_at"]
+      "missing": [
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
     },
     {
       "row_index": 44,
       "company": "Coalition Technologies",
       "role": "Office Assistant",
-      "missing": ["submission_evidence_path", "submission_verified_at"]
+      "missing": [
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
     },
     {
       "row_index": 45,
       "company": "Mitre Media",
       "role": "Tech Lead Databricks Data Engineer",
-      "missing": ["submission_evidence_path", "submission_verified_at"]
+      "missing": [
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
     },
     {
       "row_index": 46,
       "company": "Mitre Media",
       "role": "Tech Lead Full-Stack Rails Engineer",
-      "missing": ["submission_evidence_path", "submission_verified_at"]
+      "missing": [
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
     },
     {
       "row_index": 47,
       "company": "nooro",
       "role": "iOS Developer",
-      "missing": ["submission_evidence_path", "submission_verified_at"]
+      "missing": [
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
     },
     {
       "row_index": 48,
       "company": "SKYCATCHFIRE",
       "role": "Senior Python Backend Developer",
-      "missing": ["submission_evidence_path", "submission_verified_at"]
+      "missing": [
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 130,
+      "company": "AMI",
+      "role": "AMI Engineer",
+      "missing": [
+        "submission_evidence_path"
+      ]
     },
     {
       "row_index": 136,
       "company": "OPM",
       "role": "US Tech Force Talent Network",
-      "missing": ["submitted_resume_path", "submission_verified_at"]
+      "missing": [
+        "submitted_resume_path",
+        "submission_evidence_path",
+        "submission_verified_at"
+      ]
+    },
+    {
+      "row_index": 137,
+      "company": "Perplexity",
+      "role": "AI Software Engineer - Agents",
+      "missing": [
+        "submission_evidence_path"
+      ]
     }
   ],
-  "normalized_rows": [],
+  "normalized_rows": [
+    {
+      "row_index": 253,
+      "company": "Vercel",
+      "role": "Forward-Deployed Engineer",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 254,
+      "company": "Vercel",
+      "role": "Senior Partner Solutions Engineer",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    },
+    {
+      "row_index": 259,
+      "company": "Vercel",
+      "role": "Senior Workday Integrations Engineer",
+      "missing": [
+        "submission_evidence_path"
+      ]
+    }
+  ],
   "normalize_unverified_applied": true,
   "write": true
 }
