@@ -881,6 +881,30 @@ class PlaywrightFormAdapter(SiteAdapter):
                         )
 
                     self._pre_submit_form_fill(form_scope, page, profile, answers)
+                    pre_submit_blocker = self._pre_submit_blocker_detail(
+                        form_scope, page
+                    )
+                    if pre_submit_blocker:
+                        task.confirmation_path.parent.mkdir(parents=True, exist_ok=True)
+                        screenshot_failed = False
+                        try:
+                            page.screenshot(
+                                path=str(task.confirmation_path), full_page=True
+                            )
+                        except Exception:
+                            screenshot_failed = True
+                        return SubmitResult(
+                            adapter=self.name,
+                            verified=False,
+                            screenshot=(
+                                task.confirmation_path
+                                if task.confirmation_path.exists() and not screenshot_failed
+                                else None
+                            ),
+                            details=pre_submit_blocker,
+                            browser_backend=runtime.backend,
+                            browser_note=runtime.note,
+                        )
 
                     missing_answers = self._apply_required_answers(
                         form_scope, page, answers
@@ -1087,6 +1111,9 @@ class PlaywrightFormAdapter(SiteAdapter):
         self, scope: Any, page: Any, profile: Profile, answers: SubmitAnswers
     ) -> None:
         return
+
+    def _pre_submit_blocker_detail(self, scope: Any, page: Any) -> Optional[str]:
+        return None
 
     def _click_submit(self, scope: Any, page: Any) -> bool:
         # Simulate 'reading' the form before submission
@@ -2699,6 +2726,11 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
     name = "greenhouse"
     host_patterns = (re.compile(r"greenhouse\.io"),)
     submit_button_patterns = (r"submit application", r"apply", r"submit")
+    partner_handoff_markers = (
+        "official hiring partner",
+        "official recruiting partner",
+        "you do not need to submit this greenhouse application",
+    )
 
     def _prime_page_session(
         self,
@@ -2806,6 +2838,31 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
             except Exception:
                 pass
         return super()._resolve_form_scope(page)
+
+    def _pre_submit_blocker_detail(self, scope: Any, page: Any) -> Optional[str]:
+        texts: List[str] = []
+        for target in (scope, page):
+            text = ""
+            try:
+                text = str(target.inner_text("body") or "")
+            except Exception:
+                text = ""
+            if text:
+                texts.append(text.lower())
+        blob = "\n".join(texts)
+        if not blob:
+            return None
+        if (
+            self.partner_handoff_markers[2] in blob
+            and any(marker in blob for marker in self.partner_handoff_markers[:2])
+        ):
+            partner = "external partner"
+            if "constellation" in blob:
+                partner = "Constellation"
+            return (
+                f"Manual submission required: complete {partner} partner application"
+            )
+        return None
 
     def _gh_select_dropdown(
         self, page: Any, qid: str, answer: str, use_filter: bool = True

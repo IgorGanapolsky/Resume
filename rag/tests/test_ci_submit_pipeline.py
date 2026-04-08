@@ -1313,6 +1313,36 @@ def test_wait_for_confirmation_accepts_success_url():
     assert adapter._wait_for_confirmation(page, scope) is True
 
 
+def test_greenhouse_detects_external_partner_application_handoff():
+    mod = _load_module()
+    adapter = mod.GreenhouseAdapter()
+    scope = _FakeScope(
+        text=(
+            "Applications and interviews are managed by Constellation, "
+            "our official recruiting partner for this program. "
+            "You do not need to submit this Greenhouse application."
+        )
+    )
+    page = _FakeScope(text="")
+
+    detail = adapter._pre_submit_blocker_detail(scope, page)
+
+    assert (
+        detail == "Manual submission required: complete Constellation partner application"
+    )  # nosec B101
+
+
+def test_greenhouse_allows_normal_forms_without_partner_handoff():
+    mod = _load_module()
+    adapter = mod.GreenhouseAdapter()
+    scope = _FakeScope(text="Apply for this job. Please submit your application.")
+    page = _FakeScope(text="")
+
+    detail = adapter._pre_submit_blocker_detail(scope, page)
+
+    assert detail is None  # nosec B101
+
+
 def test_load_answers_from_env_parses_required_fields(monkeypatch):
     mod = _load_module()
     key = "TEST_CI_SUBMIT_ANSWERS_JSON"
