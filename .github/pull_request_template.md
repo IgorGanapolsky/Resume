@@ -1,7 +1,11 @@
+# Pull Request
+
 ## Summary
+
 <!-- What does this PR do? 1-3 bullets max. -->
 
 ## Type
+
 - [ ] New application / materials
 - [ ] RAG / RLHF update
 - [ ] Bug fix
@@ -9,6 +13,7 @@
 - [ ] Refactor
 
 ## Checklist
+
 - [ ] Scope matches `workflow.md`
 - [ ] No secrets committed (`python3 scripts/scrub_job_captures.py --dry-run` clean)
 - [ ] Job files scrubbed if new captures added

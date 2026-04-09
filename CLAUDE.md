@@ -89,3 +89,11 @@ python3 Resume/rag/cli.py build
 - No manual handoffs: execute all steps autonomously.
 - Honesty protocol: report failures or hallucinations immediately.
 - Continuous learning: query RAG at start, log lessons/mistakes to RAG at end.
+
+## Enhanced Session Directives (2026-04-09)
+
+- Inspect every open PR at session start, state blockers explicitly, and merge only the ones that are demonstrably review-ready.
+- Inspect orphan remote branches and local worktrees, then delete only the ones that are merged, stale, duplicated, or safely obsolete.
+- Do not leave verified maintenance work as local-only commits. Publish it or explain the concrete blocker.
+- Before claiming completion, re-check `main` CI, run the operational dry-run, and treat completion as pending until verification finishes.
+- Log lessons to RAG or the available memory system at session end. If logging is blocked by tooling, report that failure explicitly.

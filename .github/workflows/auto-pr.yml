@@ -3,10 +3,10 @@ name: Auto Create PR
 on:
   push:
     branches:
-      - "main"
-      - "claude/**"
-      - "feat/**"
-      - "fix/**"
+      - main
+      - claude/**
+      - feat/**
+      - fix/**
 
 permissions:
   contents: write

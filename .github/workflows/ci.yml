@@ -5,6 +5,10 @@ on:
   pull_request:
     branches: [main, master, develop]
 
+#checkov:skip=CKV2_GHA_1:This workflow uses explicit read-only permissions instead of write-all.
+permissions:
+  contents: read
+
 jobs:
   trunk-check:
     name: Trunk Check
@@ -16,4 +20,3 @@ jobs:
         uses: trunk-io/trunk-action@v1
         with:
           trunk-token: ${{ secrets.TRUNK_API_TOKEN }}
-

@@ -1,10 +1,10 @@
 version: 2
 updates:
   - package-ecosystem: pip
-    directory: "/rag"
+    directory: /rag
     schedule:
       interval: daily
-      time: "09:00"
+      time: 09:00
     open-pull-requests-limit: 10
     reviewers:
       - IgorGanapolsky
@@ -17,4 +17,4 @@ updates:
     groups:
       security-updates:
         patterns: ["*"]
-        update-types: ["security"]
+        update-types: [security]

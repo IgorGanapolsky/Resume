@@ -46,6 +46,7 @@ research/*.jpg
 
 # Credentials and Agent Identity
 .env
+.env.secrets
 .claude/
 .talentprise_profile/
 .talentprise_auth.json

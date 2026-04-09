@@ -1,11 +1,10 @@
 import asyncio
-import random
 from pathlib import Path
-
-from playwright.async_api import async_playwright
-from playwright_stealth import Stealth
+from random import SystemRandom
 
 from candidate_data import load_candidate_profile
+from playwright.async_api import async_playwright
+from playwright_stealth import Stealth
 
 ROOT = Path(__file__).resolve().parents[1]
 PROFILE = load_candidate_profile()
@@ -17,6 +16,7 @@ RESUME_PATH = (
     / "2026-03-11_oracle_sr-principal-ai-software-engineer-ml-ai-innovation.docx"
 )
 SUBMISSIONS_DIR = ROOT / "applications" / "oracle" / "submissions"
+RNG = SystemRandom()
 
 
 async def human_type(page, selector_or_locator, text):
@@ -29,7 +29,7 @@ async def human_type(page, selector_or_locator, text):
     await locator.click()
     for char in text:
         await page.keyboard.type(char)
-        await asyncio.sleep(random.uniform(0.02, 0.08))
+        await asyncio.sleep(RNG.uniform(0.02, 0.08))
 
 
 async def apply():

@@ -4,7 +4,7 @@ Job search system: application tracking, tailored resume/cover letter generation
 
 ## Structure
 
-```
+```text
 Resume/
 ├── resumes/                          # Base resume versions (HTML, PDF, DOCX)
 ├── cover_letters/                    # Generic cover letters
@@ -81,6 +81,8 @@ Continuous loop runs in GitHub Actions via `.github/workflows/ralph-loop.yml`:
   - defaults to local Playwright when no Anchor secret is configured
   - uses Anchor Browser when `ANCHOR_BROWSER_API_KEY` is present in repo secrets
   - supports Anchor profile persistence and US proxy-backed extra stealth through repo variables
+  - can execute live submits only when `execute_submissions=true` and `scripts/ci_submit_pipeline.py --validate-secrets-only` passes
+  - falls back to dry run when required submit secrets are invalid
   - still requires verified confirmation evidence before any tracker row becomes `Applied`
 
 ## Self-Hosted Local Submit
@@ -93,11 +95,11 @@ Continuous loop runs in GitHub Actions via `.github/workflows/ralph-loop.yml`:
 - Browser profile: persisted outside the repo under the local user account
 - Bootstrap helper: `python3 scripts/bootstrap_self_hosted_runner.py`
 
-Manual run:
+Manual discovery run:
 
 1. Open **Actions** -> **Ralph Loop**
 2. Click **Run workflow**
-3. Optionally set `max_new_jobs`
+3. Optionally set `max_new_jobs`, `max_submit_jobs`, and `execute_submissions`
 
 Recommended Anchor variables for autonomous submits:
 
@@ -116,7 +118,7 @@ Recommended Anchor variables for autonomous submits:
 
 ### No-Spend Local Submit Lane
 
-GitHub-hosted Ralph Loop runs are dry-run only. Use your own machine for real browser submits:
+GitHub-hosted Ralph Loop can execute live submits when explicitly enabled and the submit secrets validate, but the self-hosted lane remains the primary path for browser-backed no-spend submits:
 
 ```bash
 python3 scripts/run_local_submit_lane.py --max-submit-jobs 3
@@ -150,6 +152,13 @@ python3 scripts/capture_submit_auth.py \
 ```
 
 Do not commit the resulting JSON file.
+
+If you keep local submit secrets in your shell, use the gitignored helper template instead of tracking live values:
+
+```bash
+cp .env.secrets.example .env.secrets
+source .env.secrets
+```
 
 ## Quarantine Triage Sync
 

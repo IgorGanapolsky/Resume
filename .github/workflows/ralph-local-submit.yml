@@ -3,24 +3,25 @@ name: Ralph Local Submit
 on:
   schedule:
     - cron: "*/30 * * * *"
+  #checkov:skip=CKV_GHA_7:Manual dispatch inputs are required to cap submit attempts and select the browser backend.
   workflow_dispatch:
     inputs:
       max_submit_jobs:
-        description: "Max queued jobs to submit this run"
+        description: Max queued jobs to submit this run
         required: false
-        default: "3"
+        default: 3
       browser_backend:
-        description: "Submit browser runtime: auto | local"
+        description: Submit browser runtime auto | local
         required: false
         default: auto
       headless:
-        description: "Run local browser headless: true | false"
+        description: Run local browser headless true | false
         required: false
-        default: "false"
+        default: false
       browser_channel:
-        description: "Playwright browser channel override"
+        description: Playwright browser channel override
         required: false
-        default: "chromium"
+        default: chromium
 
 permissions:
   contents: write
@@ -32,6 +33,7 @@ concurrency:
 
 jobs:
   submit:
+    # trunk-ignore(actionlint/runner-label)
     runs-on: [self-hosted, macOS, resume-ci]
     timeout-minutes: 45
     env:

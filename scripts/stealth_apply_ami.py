@@ -1,14 +1,14 @@
 import asyncio
-import random
 from pathlib import Path
+from random import SystemRandom
 
+from candidate_data import load_candidate_profile
 from playwright.async_api import async_playwright
 from playwright_stealth import Stealth
 
-from candidate_data import load_candidate_profile
-
 ROOT = Path(__file__).resolve().parents[1]
 PROFILE = load_candidate_profile()
+RNG = SystemRandom()
 RESUME_PATH = (
     ROOT
     / "applications"
@@ -24,16 +24,16 @@ async def human_type(page, selector, text):
     await page.click(selector)
     for char in text:
         await page.keyboard.type(char)
-        await asyncio.sleep(random.uniform(0.02, 0.10))
+        await asyncio.sleep(RNG.uniform(0.02, 0.10))
 
 
 async def human_mouse_move(page):
     viewport = page.viewport_size or {"width": 1280, "height": 800}
     for _ in range(5):
-        x = random.randint(0, viewport["width"])
-        y = random.randint(0, viewport["height"])
+        x = RNG.randrange(viewport["width"] + 1)
+        y = RNG.randrange(viewport["height"] + 1)
         await page.mouse.move(x, y, steps=10)
-        await asyncio.sleep(random.uniform(0.1, 0.5))
+        await asyncio.sleep(RNG.uniform(0.1, 0.5))
 
 
 async def apply():
@@ -50,12 +50,12 @@ async def apply():
 
         print("Building trust: Navigating to AMI home page...")
         await page.goto("https://amilabs.xyz/", wait_until="load")
-        await asyncio.sleep(random.uniform(3, 6))
+        await asyncio.sleep(RNG.uniform(3, 6))
         await human_mouse_move(page)
 
         print("Navigating to AMI jobs board...")
         await page.goto("https://jobs.ashbyhq.com/ami", wait_until="load")
-        await asyncio.sleep(random.uniform(2, 4))
+        await asyncio.sleep(RNG.uniform(2, 4))
 
         print("Navigating to specific job...")
         await page.goto(
@@ -64,12 +64,12 @@ async def apply():
         )
 
         await human_mouse_move(page)
-        await asyncio.sleep(random.uniform(2, 4))
+        await asyncio.sleep(RNG.uniform(2, 4))
 
         print("Filling personal info...")
         # Slower typing
         await human_type(page, "input[name*='name']", PROFILE["full_name"])
-        await asyncio.sleep(random.uniform(1, 2))
+        await asyncio.sleep(RNG.uniform(1, 2))
         await human_type(page, "input[name*='email']", PROFILE["email"])
 
         await human_mouse_move(page)
@@ -79,7 +79,7 @@ async def apply():
         accomplishment = "I built a production RLHF (Reinforcement Learning from Human Feedback) system orchestrating 26 autonomous AI skills. The core challenge was ensuring continuous learning from user feedback without catastrophic forgetting. I implemented a Thompson Sampling model to balance exploration of new prompts with exploitation of high-performing ones, achieving a 76.6% positive feedback rate. I also optimized the RAG pipeline using LanceDB hybrid search (BM25 + vector similarity) and implemented prompt caching that reduced API costs by 40-50%. This system currently automates complex developer workflows with 13 autonomous agents, proving that frontier models can be made controllable and highly efficient in real-world production environments."
 
         await human_type(page, "textarea[name*='e7f5a281']", why_ami)
-        await asyncio.sleep(random.uniform(2, 5))
+        await asyncio.sleep(RNG.uniform(2, 5))
         await human_mouse_move(page)
         await human_type(page, "textarea[name*='9bfd2d79']", accomplishment)
 
@@ -90,7 +90,7 @@ async def apply():
         else:
             await page.set_input_files("input[type='file']", str(RESUME_PATH))
 
-        await asyncio.sleep(random.uniform(5, 8))
+        await asyncio.sleep(RNG.uniform(5, 8))
 
         print("Taking pre-submit screenshot...")
         await page.screenshot(path=str(SUBMISSIONS_DIR / "stealth_v3_pre_submit.png"))
@@ -98,11 +98,11 @@ async def apply():
         print("Submitting...")
         submit_btn = page.get_by_role("button", name="Submit Application").first
         await submit_btn.scroll_into_view_if_needed()
-        await asyncio.sleep(random.uniform(2, 4))
+        await asyncio.sleep(RNG.uniform(2, 4))
         await submit_btn.click()
 
         print("Waiting for response...")
-        for i in range(20):
+        for _i in range(20):
             await asyncio.sleep(1)
             content = await page.content()
             if "Thank you" in content or "submitted" in content.lower():
