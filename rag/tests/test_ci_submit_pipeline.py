@@ -1919,7 +1919,7 @@ def test_execute_greenhouse_job_not_found_block_is_closed_when_quarantined(
 
         def matches(self, url: str) -> bool:
             host = (urllib.parse.urlsplit(url).hostname or "").lower()
-            return "greenhouse.io" in host
+            return host == "greenhouse.io" or host.endswith(".greenhouse.io")
 
         def submit(self, task, profile, auth, answers, **kwargs):
             screenshot = submissions_dir / "confirm.png"
@@ -2252,7 +2252,7 @@ def test_repeated_same_day_greenhouse_blockers_freeze_company_submit_path(
 
         def matches(self, url: str) -> bool:
             host = (urllib.parse.urlsplit(url).hostname or "").lower()
-            return "greenhouse.io" in host
+            return host == "greenhouse.io" or host.endswith(".greenhouse.io")
 
         def submit(self, task, profile, auth, answers, **kwargs):
             submit_calls["count"] += 1
