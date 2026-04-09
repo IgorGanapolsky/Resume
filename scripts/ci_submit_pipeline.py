@@ -30,6 +30,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 import zipfile
+from contextlib import suppress
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence, Tuple
@@ -113,6 +114,23 @@ UNRECOVERABLE_QUARANTINE_MARKERS = (
     "missing_file_input",
     "manual submission required",
 )
+QUARANTINABLE_SUBMIT_BLOCKER_DETAILS = {
+    "ashby_antibot_challenge",
+    "ashby_application_not_loaded",
+    "ashby_job_not_found",
+    "ashby_resume_input_missing",
+    "greenhouse_antibot_challenge",
+    "greenhouse_application_not_loaded",
+    "greenhouse_form_still_present_after_submit",
+    "greenhouse_job_not_found",
+    "greenhouse_resume_input_missing",
+    "missing_file_input",
+}
+CLOSED_POSTING_SUBMIT_DETAILS = {
+    "ashby_job_not_found",
+    "greenhouse_job_not_found",
+}
+REPEATED_SUBMIT_BLOCKER_FREEZE_THRESHOLD = 2
 
 FDE_ROLE_RE = re.compile(
     r"(forward[- ]?deployed|customer engineer|solutions engineer|implementation engineer|"
@@ -2747,6 +2765,31 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
         "official recruiting partner",
         "you do not need to submit this greenhouse application",
     )
+    job_not_found_markers = (
+        "sorry, but we can't find that page",
+        "sorry, but we cant find that page",
+        "job not found",
+        "this job post is no longer available",
+        "the job you requested was not found",
+    )
+    application_not_loaded_markers = (
+        "apply for this job",
+        "application form",
+    )
+    validation_error_markers = (
+        "this field is required",
+        "please fill out this field",
+        "please enter a valid",
+        "please select an option",
+        "answer required",
+    )
+    active_form_markers = (
+        "resume/cv",
+        "submit application",
+        "voluntary self-identification",
+        "first name",
+        "last name",
+    )
 
     def _prime_page_session(
         self,
@@ -2855,17 +2898,49 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
                 pass
         return super()._resolve_form_scope(page)
 
-    def _pre_submit_blocker_detail(self, scope: Any, page: Any) -> Optional[str]:
+    def _page_text_blob(self, *targets: Any) -> str:
         texts: List[str] = []
-        for target in (scope, page):
-            text = ""
+        for target in targets:
+            if target is None:
+                continue
             try:
                 text = str(target.inner_text("body") or "")
             except Exception:
                 text = ""
             if text:
                 texts.append(text.lower())
-        blob = "\n".join(texts)
+        return "\n".join(texts)
+
+    def _missing_form_scope_detail(self, page: Any) -> str:
+        blob = self._page_text_blob(page)
+        if any(marker in blob for marker in self.job_not_found_markers):
+            return "greenhouse_job_not_found"
+        if "verify you are human" in blob or "captcha" in blob or "cloudflare" in blob:
+            return "greenhouse_antibot_challenge"
+        if any(marker in blob for marker in self.application_not_loaded_markers):
+            return "greenhouse_application_not_loaded"
+        return "greenhouse_resume_input_missing"
+
+    def _find_resume_file_input(self, scope: Any, page: Any) -> Optional[Any]:
+        selectors = (
+            "input#resume",
+            "input[type='file'][id*='resume' i]",
+            "input[type='file'][name*='resume' i]",
+            "input[type='file']",
+        )
+        for selector in selectors:
+            control = None
+            with suppress(Exception):
+                control = scope.locator(selector).first
+            if control is None:
+                continue
+            with suppress(Exception):
+                if control.count() > 0:
+                    return control
+        return None
+
+    def _pre_submit_blocker_detail(self, scope: Any, page: Any) -> Optional[str]:
+        blob = self._page_text_blob(scope, page)
         if not blob:
             return None
         if (
@@ -2878,6 +2953,20 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
             return (
                 f"Manual submission required: complete {partner} partner application"
             )
+        return None
+
+    def _extract_failure_details(self, page: Any, scope: Any) -> Optional[str]:
+        blob = self._page_text_blob(scope, page)
+        if not blob:
+            return None
+        if any(marker in blob for marker in self.job_not_found_markers):
+            return "greenhouse_job_not_found"
+        if "verify you are human" in blob or "captcha" in blob or "cloudflare" in blob:
+            return "greenhouse_antibot_challenge"
+        if any(marker in blob for marker in self.validation_error_markers):
+            return "required_fields_unanswered_after_retry:greenhouse_validation"
+        if any(marker in blob for marker in self.active_form_markers):
+            return "greenhouse_form_still_present_after_submit"
         return None
 
     def _gh_select_dropdown(
@@ -3328,6 +3417,75 @@ def _is_manual_submission_only(reasons: Sequence[str]) -> bool:
 
 def _is_manual_submission_required_detail(detail: str) -> bool:
     return "manual submission required" in (detail or "").strip().lower()
+
+
+def _is_quarantinable_submit_detail(
+    detail: str, *, screenshot_ok: bool = False
+) -> bool:
+    normalized = (detail or "").strip()
+    return bool(
+        normalized.startswith("missing_required_answers:")
+        or normalized.startswith("required_fields_unanswered_after_retry:")
+        or normalized == "required_questions_unanswered_after_retry"
+        or _is_manual_submission_required_detail(normalized)
+        or normalized in QUARANTINABLE_SUBMIT_BLOCKER_DETAILS
+        or (normalized == "confirmation_text_not_detected" and screenshot_ok)
+    )
+
+
+def _is_closed_posting_submit_detail(detail: str) -> bool:
+    return (detail or "").strip() in CLOSED_POSTING_SUBMIT_DETAILS
+
+
+def _extract_same_day_submit_blocker_reasons(
+    notes: str, *, adapter_name: str, on_date: str
+) -> List[str]:
+    reasons: List[str] = []
+    adapter_token = f"via {adapter_name.lower()}."
+    for raw_line in str(notes or "").splitlines():
+        line = raw_line.strip()
+        if not line:
+            continue
+        lower_line = line.lower()
+        if adapter_token not in lower_line or f"on {on_date}" not in lower_line:
+            continue
+        marker = "Reason="
+        reason_idx = line.find(marker)
+        if reason_idx < 0:
+            continue
+        detail = line[reason_idx + len(marker) :].strip()
+        for suffix in (
+            ". Needs manual completion.",
+            ". Will retry next run.",
+            ". Posting appears closed/not found.",
+            ". Manual browser submit required.",
+            ". Needs adapter fix or manual completion.",
+        ):
+            if detail.endswith(suffix):
+                detail = detail[: -len(suffix)].rstrip()
+                break
+        detail = detail.rstrip(".").strip()
+        if _is_quarantinable_submit_detail(detail, screenshot_ok=True):
+            reasons.append(detail)
+    return reasons
+
+
+def _same_day_submit_path_blockers(
+    rows: Sequence[Dict[str, str]], *, company: str, adapter_name: str
+) -> List[str]:
+    target_company = company.strip().lower()
+    reasons: List[str] = []
+    for row in rows:
+        if str(row.get("Company", "")).strip().lower() != target_company:
+            continue
+        reasons.extend(
+            _extract_same_day_submit_blocker_reasons(
+                str(row.get("Notes", "")),
+                adapter_name=adapter_name,
+                on_date=_today_iso(),
+            )
+        )
+    return sorted(set(reason for reason in reasons if reason))
 
 
 def _submit_with_adapter(
@@ -4328,6 +4486,40 @@ def run_pipeline(
 
             assert resume_path is not None
             assert adapter is not None
+            row_result["adapter"] = adapter.name
+            frozen_path_reasons = (
+                _same_day_submit_path_blockers(
+                    rows, company=company, adapter_name=adapter.name
+                )
+                if quarantine_blocked
+                else []
+            )
+            if (
+                quarantine_blocked
+                and len(frozen_path_reasons) >= REPEATED_SUBMIT_BLOCKER_FREEZE_THRESHOLD
+            ):
+                row_result["result"] = "skipped"
+                row_result["errors"] = [
+                    "manual_submit_required",
+                    "submit_path_frozen_repeated_blockers",
+                    *frozen_path_reasons,
+                ]
+                row["Status"] = "Quarantined"
+                row["Notes"] = _append_note(
+                    str(row.get("Notes", "")),
+                    (
+                        f"Submission path frozen on {_today_iso()} via {adapter.name}. "
+                        f"Company={company}. Repeated same-day blockers={','.join(frozen_path_reasons)}. "
+                        "Needs adapter fix or manual completion."
+                    ),
+                )
+                queue_metadata_updates += 1
+                report["results"].append(row_result)
+                skipped_count += 1
+                if count_skipped_as_failures:
+                    failed_count += 1
+                continue
+
             confirmation_path = _build_confirmation_path(company, role)
             task = SubmitTask(
                 row_index=row_idx,
@@ -4337,7 +4529,6 @@ def run_pipeline(
                 resume_path=resume_path,
                 confirmation_path=confirmation_path,
             )
-            row_result["adapter"] = adapter.name
             row_result["resume_path"] = str(resume_path)
             row_result["confirmation_path"] = str(confirmation_path)
 
@@ -4430,20 +4621,8 @@ def run_pipeline(
                     failed_count += 1
             else:
                 details = (result.details or "").strip()
-                quarantinable = (
-                    details.startswith("missing_required_answers:")
-                    or details.startswith("required_fields_unanswered_after_retry:")
-                    or details == "required_questions_unanswered_after_retry"
-                    or _is_manual_submission_required_detail(details)
-                    or details
-                    in {
-                        "ashby_job_not_found",
-                        "ashby_antibot_challenge",
-                        "ashby_application_not_loaded",
-                        "ashby_resume_input_missing",
-                        "missing_file_input",
-                    }
-                    or (details == "confirmation_text_not_detected" and screenshot_ok)
+                quarantinable = _is_quarantinable_submit_detail(
+                    details, screenshot_ok=screenshot_ok
                 )
                 if quarantine_blocked and quarantinable:
                     row_result["result"] = "skipped"
@@ -4458,7 +4637,9 @@ def run_pipeline(
                         row_errors.append("missing_or_empty_confirmation_screenshot")
                     row_result["errors"] = row_errors
                     row["Status"] = (
-                        "Closed" if details == "ashby_job_not_found" else "Quarantined"
+                        "Closed"
+                        if _is_closed_posting_submit_detail(details)
+                        else "Quarantined"
                     )
                     row["Notes"] = _append_note(
                         str(row.get("Notes", "")),
@@ -4467,7 +4648,7 @@ def run_pipeline(
                             f"Reason={details or 'required_fields_blocked'}. "
                             + (
                                 "Posting appears closed/not found."
-                                if details == "ashby_job_not_found"
+                                if _is_closed_posting_submit_detail(details)
                                 else "Needs manual completion."
                             )
                         ),
