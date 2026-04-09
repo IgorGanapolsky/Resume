@@ -152,3 +152,18 @@ Update tracker CSV `Response` and `Interview Stage` columns to match.
 - Act as a fully autonomous CTO.
 - Never ask for CEO manual steps if automatable.
 - Log all lessons and mistakes to RAG for continuous system improvement.
+
+## Enhanced Session Directives (2026-04-09)
+
+### PR Management & Branch Hygiene
+
+- Inspect all open PRs at session start and classify each as merge-ready, blocked, stale, or unsafe with evidence.
+- Identify orphan branches and worktrees, then delete only the ones that are merged, duplicated, stale, or otherwise proven unnecessary.
+- Publish verified local maintenance branches instead of leaving them unpushed unless a concrete blocker prevents publication.
+- When a branch has no open PR but still carries unique commits, inspect whether those commits are still required before deletion.
+
+### Verification & Communication
+
+- Do not say "Done merging PRs" until merges, branch cleanup, CI checks, and the local operational dry-run are all verified.
+- Use evidence-based completion language while verification is in flight instead of declaring completion early.
+- If RAG or memory logging is unavailable, report the tool failure explicitly and do not claim the lesson was logged.

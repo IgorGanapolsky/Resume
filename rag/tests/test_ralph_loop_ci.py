@@ -150,8 +150,8 @@ def test_tailor_resume_html_for_fde_profile(loop_mod):
     assert "<strong>FORWARD-DEPLOYED COMPETENCIES</strong>" in tailored
     assert "Architected a self-healing CI pipeline" in tailored
     assert "shipping small experiments weekly" in tailored
-    assert "Philosophy:" not in tailored
-    assert "Featured Impact:" not in tailored
+    assert "Philosophy:" not in tailored  # nosec B101
+    assert "Featured Impact:" not in tailored  # nosec B101
 
 
 def test_create_artifacts_writes_tailored_resume_and_requirements(
@@ -225,8 +225,8 @@ def test_create_artifacts_writes_tailored_resume_and_requirements(
     assert cover_path.exists()
     cover_text = cover_path.read_text(encoding="utf-8")
     assert "integration is a social problem" in cover_text
-    assert "Recent examples:" in cover_text
-    assert "How I've lived this philosophy recently:" not in cover_text
+    assert "Recent examples:" in cover_text  # nosec B101
+    assert "How I've lived this philosophy recently:" not in cover_text  # nosec B101
 
 
 def test_fetch_helpers_reject_non_http_scheme(loop_mod):
