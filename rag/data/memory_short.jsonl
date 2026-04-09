@@ -134,3 +134,5 @@
 {"kind": "episodic", "ts": "2026-04-08T17:31:29.695243+00:00", "app_id": null, "event_type": "build_skipped", "outcome": null, "score_hint": 0.35, "text": "lancedb import failed; wrote JSONL only"}
 {"kind": "episodic", "ts": "2026-04-08T20:50:47.944683+00:00", "app_id": null, "event_type": "index_warn", "outcome": null, "score_hint": 0.35, "text": "FTS index skipped: field_names must be a string when use_tantivy=False"}
 {"kind": "episodic", "ts": "2026-04-08T20:50:48.131321+00:00", "app_id": null, "event_type": "build_ok", "outcome": null, "score_hint": 0.35, "text": "Indexed 268 applications"}
+{"kind": "episodic", "ts": "2026-04-09T13:01:27.810330+00:00", "app_id": null, "event_type": "index_warn", "outcome": null, "score_hint": 0.35, "text": "FTS index skipped: field_names must be a string when use_tantivy=False"}
+{"kind": "episodic", "ts": "2026-04-09T13:01:27.977064+00:00", "app_id": null, "event_type": "build_ok", "outcome": null, "score_hint": 0.35, "text": "Indexed 268 applications"}
