@@ -1197,7 +1197,11 @@ class _FakeScope:
         self.frames = []
 
     def locator(self, selector: str):
-        if "input[type='file']" in selector or selector == "input#_systemfield_resume":
+        if (
+            "input[type='file']" in selector
+            or selector == "input#_systemfield_resume"
+            or selector == "input#resume"
+        ):
             return _FakeLocator(lambda: 1 if self.has_file else 0)
         return _FakeLocator(lambda: 0)
 
@@ -1341,6 +1345,45 @@ def test_greenhouse_allows_normal_forms_without_partner_handoff():
     detail = adapter._pre_submit_blocker_detail(scope, page)
 
     assert detail is None  # nosec B101
+
+
+def test_greenhouse_missing_form_scope_detects_job_not_found():
+    mod = _load_module()
+    adapter = mod.GreenhouseAdapter()
+    page = _FakeScope(
+        text="Sorry, but we can't find that page. The job you requested was not found."
+    )
+
+    detail = adapter._missing_form_scope_detail(page)
+
+    assert detail == "greenhouse_job_not_found"  # nosec B101
+
+
+def test_greenhouse_extract_failure_details_flags_form_still_present():
+    mod = _load_module()
+    adapter = mod.GreenhouseAdapter()
+    scope = _FakeScope(
+        has_file=True,
+        text="Resume/CV\nFirst Name\nLast Name\nSubmit Application",
+    )
+    page = _FakeScope(text="")
+
+    detail = adapter._extract_failure_details(page, scope)
+
+    assert detail == "greenhouse_form_still_present_after_submit"  # nosec B101
+
+
+def test_greenhouse_extract_failure_details_flags_validation_errors():
+    mod = _load_module()
+    adapter = mod.GreenhouseAdapter()
+    scope = _FakeScope(text="Please fill out this field before submitting.")
+    page = _FakeScope(text="")
+
+    detail = adapter._extract_failure_details(page, scope)
+
+    assert (  # nosec B101
+        detail == "required_fields_unanswered_after_retry:greenhouse_validation"
+    )
 
 
 def test_load_answers_from_env_parses_required_fields(monkeypatch):
@@ -1816,6 +1859,98 @@ def test_execute_job_not_found_block_is_closed_when_quarantined(tmp_path, monkey
     assert "Posting appears closed/not found." in rows[0]["Notes"]
 
 
+def test_execute_greenhouse_job_not_found_block_is_closed_when_quarantined(
+    tmp_path, monkeypatch
+):
+    mod = _load_module()
+    monkeypatch.setattr(mod, "ROOT", tmp_path)
+
+    company = "Databricks"
+    role = "Head of AI FDE"
+    company_slug = mod._slug(company)
+    role_slug = mod._slug(role)[:64]
+    resume_dir = tmp_path / "applications" / company_slug / "tailored_resumes"
+    cover_dir = tmp_path / "applications" / company_slug / "cover_letters"
+    jobs_dir = tmp_path / "applications" / company_slug / "jobs"
+    submissions_dir = tmp_path / "applications" / company_slug / "submissions"
+    resume_dir.mkdir(parents=True, exist_ok=True)
+    cover_dir.mkdir(parents=True, exist_ok=True)
+    jobs_dir.mkdir(parents=True, exist_ok=True)
+    submissions_dir.mkdir(parents=True, exist_ok=True)
+    (resume_dir / f"2026-02-19_{company_slug}_{role_slug}.docx").write_bytes(b"docx")
+    (resume_dir / f"2026-02-19_{company_slug}_{role_slug}.html").write_text(
+        "summary professional experience", encoding="utf-8"
+    )
+    (cover_dir / f"2026-02-19_{company_slug}_{role_slug}.md").write_text(
+        "Cover letter", encoding="utf-8"
+    )
+    (jobs_dir / f"2026-02-19_{company_slug}_{role_slug}_abc123.md").write_text(
+        "Remote role.", encoding="utf-8"
+    )
+
+    tracker = tmp_path / "application_tracker.csv"
+    report = tmp_path / "report.json"
+    _write_tracker(
+        tracker,
+        [
+            {
+                "Company": company,
+                "Role": role,
+                "Location": "Remote",
+                "Salary Range": "",
+                "Status": "ReadyToSubmit",
+                "Date Applied": "",
+                "Follow Up Date": "",
+                "Response": "",
+                "Interview Stage": "Initial",
+                "Days To Response": "",
+                "Response Type": "",
+                "Cover Letter Used": "",
+                "What Worked": "",
+                "Tags": "ai;infra;python",
+                "Notes": "",
+                "Career Page URL": "https://boards.greenhouse.io/embed/job_app?for=databricks&token=123",
+            }
+        ],
+    )
+
+    class _Greenhouse404Adapter(mod.SiteAdapter):
+        name = "greenhouse"
+
+        def matches(self, url: str) -> bool:
+            host = (urllib.parse.urlsplit(url).hostname or "").lower()
+            return "greenhouse.io" in host
+
+        def submit(self, task, profile, auth, answers, **kwargs):
+            screenshot = submissions_dir / "confirm.png"
+            screenshot.write_bytes(b"png")
+            return mod.SubmitResult(
+                adapter=self.name,
+                verified=False,
+                screenshot=screenshot,
+                details="greenhouse_job_not_found",
+            )
+
+    rc = mod.run_pipeline(
+        tracker_csv=tracker,
+        report_path=report,
+        dry_run=False,
+        queue_only=False,
+        max_jobs=1,
+        fail_on_error=True,
+        require_secret_auth=False,
+        adapters=[_Greenhouse404Adapter()],
+        quarantine_blocked=True,
+    )
+    assert rc == 0  # nosec B101
+
+    with tracker.open(newline="", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+    assert rows[0]["Status"] == "Closed"  # nosec B101
+    assert "greenhouse_job_not_found" in rows[0]["Notes"]  # nosec B101
+    assert "Posting appears closed/not found." in rows[0]["Notes"]  # nosec B101
+
+
 def test_quarantine_status_persists_when_only_change(tmp_path, monkeypatch):
     mod = _load_module()
     monkeypatch.setattr(mod, "ROOT", tmp_path)
@@ -1996,6 +2131,165 @@ def test_confirmation_not_detected_with_screenshot_is_quarantined(
     with tracker.open(newline="", encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
     assert rows[0]["Status"] == "Quarantined"
+
+
+def test_repeated_same_day_greenhouse_blockers_freeze_company_submit_path(
+    tmp_path, monkeypatch
+):
+    mod = _load_module()
+    monkeypatch.setattr(mod, "ROOT", tmp_path)
+
+    company = "Databricks"
+    roles = [
+        "AI Engineer - FDE",
+        "Head of AI FDE",
+        "Senior Solutions Engineer",
+    ]
+    company_slug = mod._slug(company)
+    resume_dir = tmp_path / "applications" / company_slug / "tailored_resumes"
+    cover_dir = tmp_path / "applications" / company_slug / "cover_letters"
+    jobs_dir = tmp_path / "applications" / company_slug / "jobs"
+    resume_dir.mkdir(parents=True, exist_ok=True)
+    cover_dir.mkdir(parents=True, exist_ok=True)
+    jobs_dir.mkdir(parents=True, exist_ok=True)
+
+    for role in roles:
+        role_slug = mod._slug(role)[:64]
+        (resume_dir / f"2026-02-19_{company_slug}_{role_slug}.docx").write_bytes(
+            b"docx"
+        )
+        (resume_dir / f"2026-02-19_{company_slug}_{role_slug}.html").write_text(
+            (
+                "Forward-Deployed AI/Software Engineer "
+                "FORWARD-DEPLOYED COMPETENCIES "
+                "customer-facing delivery "
+                "integration engineering "
+                "Python APIs"
+            ),
+            encoding="utf-8",
+        )
+        (cover_dir / f"2026-02-19_{company_slug}_{role_slug}.md").write_text(
+            "Cover letter", encoding="utf-8"
+        )
+        (jobs_dir / f"2026-02-19_{company_slug}_{role_slug}_abc123.md").write_text(
+            "Remote. Requirements: customer integrations and Python.",
+            encoding="utf-8",
+        )
+
+    tracker = tmp_path / "application_tracker.csv"
+    report = tmp_path / "report.json"
+    today = mod._today_iso()
+    _write_tracker(
+        tracker,
+        [
+            {
+                "Company": company,
+                "Role": roles[0],
+                "Location": "Remote",
+                "Salary Range": "",
+                "Status": "Quarantined",
+                "Date Applied": "",
+                "Follow Up Date": "",
+                "Response": "",
+                "Interview Stage": "Initial",
+                "Days To Response": "",
+                "Response Type": "",
+                "Cover Letter Used": "",
+                "What Worked": "",
+                "Tags": "ai;infra;python",
+                "Notes": (
+                    f"CI submit blocked on {today} via greenhouse. "
+                    "Reason=confirmation_text_not_detected. Needs manual completion."
+                ),
+                "Career Page URL": "https://boards.greenhouse.io/embed/job_app?for=databricks&token=111",
+            },
+            {
+                "Company": company,
+                "Role": roles[1],
+                "Location": "Remote",
+                "Salary Range": "",
+                "Status": "Quarantined",
+                "Date Applied": "",
+                "Follow Up Date": "",
+                "Response": "",
+                "Interview Stage": "Initial",
+                "Days To Response": "",
+                "Response Type": "",
+                "Cover Letter Used": "",
+                "What Worked": "",
+                "Tags": "ai;infra;python",
+                "Notes": (
+                    f"CI submit blocked on {today} via greenhouse. "
+                    "Reason=greenhouse_job_not_found. Posting appears closed/not found."
+                ),
+                "Career Page URL": "https://boards.greenhouse.io/embed/job_app?for=databricks&token=222",
+            },
+            {
+                "Company": company,
+                "Role": roles[2],
+                "Location": "Remote",
+                "Salary Range": "",
+                "Status": "ReadyToSubmit",
+                "Date Applied": "",
+                "Follow Up Date": "",
+                "Response": "",
+                "Interview Stage": "Initial",
+                "Days To Response": "",
+                "Response Type": "",
+                "Cover Letter Used": "",
+                "What Worked": "",
+                "Tags": "ai;infra;python",
+                "Notes": "",
+                "Career Page URL": "https://boards.greenhouse.io/embed/job_app?for=databricks&token=333",
+            },
+        ],
+    )
+
+    submit_calls = {"count": 0}
+
+    class _FrozenPathAdapter(mod.SiteAdapter):
+        name = "greenhouse"
+
+        def matches(self, url: str) -> bool:
+            host = (urllib.parse.urlsplit(url).hostname or "").lower()
+            return "greenhouse.io" in host
+
+        def submit(self, task, profile, auth, answers, **kwargs):
+            submit_calls["count"] += 1
+            return mod.SubmitResult(
+                adapter=self.name,
+                verified=False,
+                screenshot=None,
+                details="should_not_execute",
+            )
+
+    rc = mod.run_pipeline(
+        tracker_csv=tracker,
+        report_path=report,
+        dry_run=False,
+        queue_only=False,
+        max_jobs=1,
+        fail_on_error=False,
+        require_secret_auth=False,
+        adapters=[_FrozenPathAdapter()],
+        quarantine_blocked=True,
+        auto_promote_ready=False,
+    )
+    assert rc == 0  # nosec B101
+    assert submit_calls["count"] == 0  # nosec B101
+
+    payload = json.loads(report.read_text(encoding="utf-8"))
+    assert payload["results"][0]["result"] == "skipped"  # nosec B101
+    assert (  # nosec B101
+        "submit_path_frozen_repeated_blockers" in payload["results"][0]["errors"]
+    )
+    assert "confirmation_text_not_detected" in payload["results"][0]["errors"]  # nosec B101
+    assert "greenhouse_job_not_found" in payload["results"][0]["errors"]  # nosec B101
+
+    with tracker.open(newline="", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+    assert rows[2]["Status"] == "Quarantined"  # nosec B101
+    assert "Submission path frozen on" in rows[2]["Notes"]  # nosec B101
 
 
 def test_execute_manual_submission_required_quarantines_and_does_not_fail_run(
