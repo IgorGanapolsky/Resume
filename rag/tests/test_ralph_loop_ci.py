@@ -266,6 +266,7 @@ def test_main_dry_run_does_not_create_artifacts(loop_mod, tmp_path, monkeypatch)
     }
     monkeypatch.setattr(loop_mod, "discover_remotive", lambda: [job])
     monkeypatch.setattr(loop_mod, "discover_remoteok", lambda: [])
+    monkeypatch.setattr(loop_mod, "discover_company_boards", lambda: [])
 
     called = {"value": False}
 
@@ -342,6 +343,7 @@ def test_main_defaults_to_auto_submit_discovery_only(loop_mod, tmp_path, monkeyp
         ],
     )
     monkeypatch.setattr(loop_mod, "discover_remoteok", lambda: [])
+    monkeypatch.setattr(loop_mod, "discover_company_boards", lambda: [])
     monkeypatch.setattr(sys, "argv", ["ralph_loop_ci.py", "--max-new-jobs", "5"])
 
     loop_mod.main()
@@ -413,6 +415,7 @@ def test_main_can_admit_manual_discovery_with_explicit_quota(
         ],
     )
     monkeypatch.setattr(loop_mod, "discover_remoteok", lambda: [])
+    monkeypatch.setattr(loop_mod, "discover_company_boards", lambda: [])
     monkeypatch.setattr(
         sys,
         "argv",
@@ -431,3 +434,194 @@ def test_main_can_admit_manual_discovery_with_explicit_quota(
         rows = list(csv.DictReader(f))
     assert len(rows) == 2
     assert [row["Submission Lane"] for row in rows] == ["ci_auto", "manual"]
+
+
+def test_load_company_boards_reads_shipped_config(loop_mod):
+    boards = loop_mod._load_company_boards()
+    assert len(boards) >= 20, f"expected >=20 configured boards, got {len(boards)}"
+    companies = {b["company"].lower() for b in boards}
+    # Core targets the user named explicitly.
+    for required in {"openai", "xai", "anthropic"}:
+        assert required in companies, f"{required} missing from company_boards.json"
+    # Every entry must be greenhouse or ashby (auto-submit lanes).
+    for b in boards:
+        assert b["ats"] in {"greenhouse", "ashby"}
+        assert b["slug"]
+
+
+def test_discover_greenhouse_board_canonicalizes_url(loop_mod, monkeypatch):
+    payload = {
+        "jobs": [
+            {
+                "id": 99887766,
+                "title": "Senior Software Engineer",
+                "absolute_url": "https://databricks.com/company/careers/open-positions/job?gh_jid=99887766",
+                "location": {"name": "Remote — United States"},
+                "content": "&lt;p&gt;Python distributed systems engineer.&lt;/p&gt;",
+                "departments": [{"name": "Engineering Platform"}],
+            }
+        ]
+    }
+    monkeypatch.setattr(loop_mod, "_fetch_json", lambda _u: payload)
+    jobs = list(loop_mod.discover_greenhouse_board("databricks", "Databricks"))
+    assert len(jobs) == 1
+    job = jobs[0]
+    assert job["company"] == "Databricks"
+    assert job["title"] == "Senior Software Engineer"
+    # Canonical URL is required so the Greenhouse adapter can render the form.
+    assert job["url"] == "https://job-boards.greenhouse.io/databricks/jobs/99887766"
+    assert job["location"] == "Remote — United States"
+    assert "Python" in job["description"]
+    assert "engineering-platform" in job["tags"]
+
+
+def test_discover_greenhouse_board_skips_on_fetch_error(loop_mod, monkeypatch):
+    def _boom(_u):
+        raise RuntimeError("network down")
+
+    monkeypatch.setattr(loop_mod, "_fetch_json", _boom)
+    jobs = list(loop_mod.discover_greenhouse_board("anthropic", "Anthropic"))
+    assert jobs == []
+
+
+def test_discover_ashby_board_extracts_jobs(loop_mod, monkeypatch):
+    payload = {
+        "jobs": [
+            {
+                "id": "abc-123",
+                "title": "Member of Technical Staff",
+                "location": "Remote",
+                "employmentType": "FullTime",
+                "department": "Research",
+                "team": "Applied AI",
+                "jobUrl": "https://jobs.ashbyhq.com/openai/abc-123",
+                "applyUrl": "https://jobs.ashbyhq.com/openai/abc-123/application",
+                "descriptionPlain": "Build production agent infrastructure with Python.",
+                "descriptionHtml": "<p>Build production agent infrastructure with Python.</p>",
+                "isListed": True,
+            },
+            {
+                "id": "hidden-1",
+                "title": "Unlisted Role",
+                "jobUrl": "https://jobs.ashbyhq.com/openai/hidden-1",
+                "isListed": False,
+            },
+        ]
+    }
+    monkeypatch.setattr(loop_mod, "_fetch_json", lambda _u: payload)
+    jobs = list(loop_mod.discover_ashby_board("openai", "OpenAI"))
+    assert len(jobs) == 1
+    job = jobs[0]
+    assert job["company"] == "OpenAI"
+    assert job["url"] == "https://jobs.ashbyhq.com/openai/abc-123"
+    assert job["source"] == "ashby:openai"
+    assert "research" in job["tags"]
+    assert "applied-ai" in job["tags"]
+    assert loop_mod.infer_method(job["url"]) == "ashby"
+
+
+def test_discover_company_boards_isolates_failures(loop_mod, monkeypatch, tmp_path):
+    # Point config at a temp file so the test is hermetic.
+    config = tmp_path / "company_boards.json"
+    config.write_text(
+        '{"boards": ['
+        '{"company": "OpenAI", "ats": "ashby", "slug": "openai"},'
+        '{"company": "xAI",    "ats": "greenhouse", "slug": "xai"}'
+        "]}",
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(loop_mod, "COMPANY_BOARDS_CONFIG", config)
+
+    def _flaky_ashby(slug, company):
+        raise RuntimeError("ashby outage")
+
+    def _ok_greenhouse(slug, company):
+        return [
+            {
+                "source": f"greenhouse:{slug}",
+                "company": company,
+                "title": "Software Engineer",
+                "location": "Remote",
+                "url": f"https://job-boards.greenhouse.io/{slug}/jobs/1",
+                "description": "Python.",
+                "tags": "engineering",
+            }
+        ]
+
+    monkeypatch.setattr(loop_mod, "discover_ashby_board", _flaky_ashby)
+    monkeypatch.setattr(loop_mod, "discover_greenhouse_board", _ok_greenhouse)
+
+    jobs = list(loop_mod.discover_company_boards())
+    # Ashby raised; Greenhouse still yielded its job.
+    assert len(jobs) == 1
+    assert jobs[0]["company"] == "xAI"
+
+
+def test_main_admits_company_board_jobs(loop_mod, tmp_path, monkeypatch):
+    tracker_csv = tmp_path / "application_tracker.csv"
+    fieldnames = [
+        "Company",
+        "Role",
+        "Location",
+        "Salary Range",
+        "Status",
+        "Date Applied",
+        "Follow Up Date",
+        "Response",
+        "Interview Stage",
+        "Days To Response",
+        "Response Type",
+        "Cover Letter Used",
+        "What Worked",
+        "Tags",
+        "Notes",
+        "Career Page URL",
+    ]
+    with tracker_csv.open("w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer.writeheader()
+
+    monkeypatch.setattr(loop_mod, "ROOT", tmp_path)
+    monkeypatch.setattr(loop_mod, "TRACKER_CSV", tracker_csv)
+    monkeypatch.setattr(loop_mod, "APPLICATIONS_DIR", tmp_path / "applications")
+    monkeypatch.setattr(loop_mod, "discover_remotive", lambda: [])
+    monkeypatch.setattr(loop_mod, "discover_remoteok", lambda: [])
+    monkeypatch.setattr(
+        loop_mod,
+        "discover_company_boards",
+        lambda: [
+            {
+                "company": "OpenAI",
+                "title": "Software Engineer — Applied",
+                "location": "Remote",
+                "salary": "",
+                "job_type": "FullTime",
+                "source": "ashby:openai",
+                "url": "https://jobs.ashbyhq.com/openai/abc-123",
+                "listing_url": "https://jobs.ashbyhq.com/openai/abc-123",
+                "tags": "engineering;applied-ai",
+                "description": "Build agent infrastructure with Python and APIs.",
+            },
+            {
+                "company": "xAI",
+                "title": "Senior Software Engineer",
+                "location": "Remote",
+                "salary": "",
+                "job_type": "",
+                "source": "greenhouse:xai",
+                "url": "https://job-boards.greenhouse.io/xai/jobs/123456",
+                "listing_url": "https://job-boards.greenhouse.io/xai/jobs/123456",
+                "tags": "engineering",
+                "description": "Python backend for LLM training infrastructure.",
+            },
+        ],
+    )
+    monkeypatch.setattr(sys, "argv", ["ralph_loop_ci.py", "--max-new-jobs", "5"])
+
+    loop_mod.main()
+
+    with tracker_csv.open(newline="", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+    companies = sorted(row["Company"] for row in rows)
+    assert companies == ["OpenAI", "xAI"]
+    assert all(row["Submission Lane"] == "ci_auto" for row in rows)
