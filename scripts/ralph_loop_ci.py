@@ -32,6 +32,9 @@ ROOT = Path(__file__).resolve().parents[1]
 TRACKER_CSV = ROOT / "applications" / "job_applications" / "application_tracker.csv"
 APPLICATIONS_DIR = ROOT / "applications"
 BASE_RESUME = ROOT / "resumes" / "Igor_Ganapolsky_AI_Systems_Engineer_2026-02-17.html"
+COMPANY_BOARDS_CONFIG = (
+    ROOT / "applications" / "job_applications" / "company_boards.json"
+)
 
 ROLE_RE = re.compile(
     r"(software|ai|ml|machine learning|platform|infrastructure|infra|backend|full[- ]?stack|"
@@ -601,6 +604,150 @@ def discover_remoteok() -> Iterable[Dict[str, str]]:
     return out
 
 
+def _load_company_boards() -> List[Dict[str, str]]:
+    if not COMPANY_BOARDS_CONFIG.exists():
+        return []
+    try:
+        data = json.loads(COMPANY_BOARDS_CONFIG.read_text(encoding="utf-8"))
+    except Exception:
+        return []
+    boards = data.get("boards") if isinstance(data, dict) else None
+    if not isinstance(boards, list):
+        return []
+    out: List[Dict[str, str]] = []
+    for entry in boards:
+        if not isinstance(entry, dict):
+            continue
+        ats = _safe_text(str(entry.get("ats", "")).lower())
+        slug = _safe_text(str(entry.get("slug", "")))
+        company = _safe_text(str(entry.get("company", "")))
+        if ats in {"greenhouse", "ashby"} and slug and company:
+            out.append({"ats": ats, "slug": slug, "company": company})
+    return out
+
+
+def discover_greenhouse_board(slug: str, company: str) -> Iterable[Dict[str, str]]:
+    url = f"https://boards-api.greenhouse.io/v1/boards/{slug}/jobs?content=true"
+    try:
+        data = _fetch_json(url)
+    except Exception:
+        return []
+    if not isinstance(data, dict):
+        return []
+    jobs = data.get("jobs", [])
+    if not isinstance(jobs, list):
+        return []
+    out: List[Dict[str, str]] = []
+    for job in jobs:
+        if not isinstance(job, dict):
+            continue
+        title = _safe_text(str(job.get("title", "")))
+        job_id = job.get("id")
+        # Canonical Greenhouse URL. Many companies (Databricks, Stripe, ...)
+        # return `absolute_url` pointing to their own careers page, which
+        # breaks the Greenhouse adapter. Always route through job-boards.
+        if job_id:
+            apply_url = f"https://job-boards.greenhouse.io/{slug}/jobs/{job_id}"
+        else:
+            apply_url = _safe_text(str(job.get("absolute_url", "")))
+        if not title or not apply_url:
+            continue
+        loc = job.get("location") or {}
+        location = _safe_text(str(loc.get("name", "")) if isinstance(loc, dict) else "")
+        # Greenhouse double-encodes HTML: unescape entities, then strip tags.
+        raw_content = str(job.get("content", ""))
+        description = _strip_html(html.unescape(raw_content))
+        departments = job.get("departments") or []
+        tags: List[str] = []
+        if isinstance(departments, list):
+            for d in departments:
+                if isinstance(d, dict) and d.get("name"):
+                    tags.append(_slug(str(d["name"])))
+        out.append(
+            {
+                "source": f"greenhouse:{slug}",
+                "company": company,
+                "title": title,
+                "location": location or "Remote",
+                "salary": "",
+                "job_type": "",
+                "url": apply_url,
+                "listing_url": apply_url,
+                "description": description,
+                "tags": ";".join(t for t in tags if t),
+            }
+        )
+    return out
+
+
+def discover_ashby_board(slug: str, company: str) -> Iterable[Dict[str, str]]:
+    url = f"https://api.ashbyhq.com/posting-api/job-board/{slug}"
+    try:
+        data = _fetch_json(url)
+    except Exception:
+        return []
+    if not isinstance(data, dict):
+        return []
+    jobs = data.get("jobs", [])
+    if not isinstance(jobs, list):
+        return []
+    out: List[Dict[str, str]] = []
+    for job in jobs:
+        if not isinstance(job, dict):
+            continue
+        if job.get("isListed") is False:
+            continue
+        title = _safe_text(str(job.get("title", "")))
+        apply_url = _safe_text(
+            str(job.get("jobUrl") or job.get("applyUrl") or "")
+        )
+        if not title or not apply_url:
+            continue
+        location = _safe_text(str(job.get("location", "")))
+        description = _safe_text(
+            str(job.get("descriptionPlain") or "")
+        ) or _strip_html(str(job.get("descriptionHtml", "")))
+        department = _safe_text(str(job.get("department", "")))
+        team = _safe_text(str(job.get("team", "")))
+        tags = ";".join(_slug(t) for t in [department, team] if t)
+        out.append(
+            {
+                "source": f"ashby:{slug}",
+                "company": company,
+                "title": title,
+                "location": location or "Remote",
+                "salary": "",
+                "job_type": _safe_text(str(job.get("employmentType", ""))),
+                "url": apply_url,
+                "listing_url": apply_url,
+                "description": description,
+                "tags": tags,
+            }
+        )
+    return out
+
+
+def discover_company_boards() -> Iterable[Dict[str, str]]:
+    """Fan out to per-company Greenhouse/Ashby boards defined in config.
+
+    Each board call is isolated: a failure for one company does not stop others.
+    """
+    boards = _load_company_boards()
+    aggregated: List[Dict[str, str]] = []
+    for entry in boards:
+        ats = entry["ats"]
+        slug = entry["slug"]
+        company = entry["company"]
+        try:
+            if ats == "greenhouse":
+                aggregated.extend(discover_greenhouse_board(slug, company))
+            elif ats == "ashby":
+                aggregated.extend(discover_ashby_board(slug, company))
+        except Exception:
+            continue
+    return aggregated
+
+
 def is_relevant(job: Dict[str, str]) -> bool:
     return classify_role(job).is_relevant
 
@@ -767,7 +914,11 @@ def main() -> None:
         for r in rows
     }
 
-    discovered = list(discover_remotive()) + list(discover_remoteok())
+    discovered = (
+        list(discover_company_boards())
+        + list(discover_remotive())
+        + list(discover_remoteok())
+    )
     relevant: List[tuple[Dict[str, str], RoleProfile, str]] = []
     for job in discovered:
         if not job.get("url"):
