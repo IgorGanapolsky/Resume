@@ -871,14 +871,30 @@ def infer_submission_lane(method: str) -> str:
     return "ci_auto" if method in AUTO_SUBMIT_METHODS else "manual"
 
 
+def _company_application_counts(rows: Iterable[Dict[str, str]]) -> Dict[str, int]:
+    counts: Dict[str, int] = {}
+    for row in rows:
+        key = _safe_text(row.get("Company", "")).lower()
+        if not key:
+            continue
+        counts[key] = counts.get(key, 0) + 1
+    return counts
+
+
 def _discovery_priority(
-    job: Dict[str, str], profile: RoleProfile, method: str
-) -> tuple[int, int, str, str]:
+    job: Dict[str, str],
+    profile: RoleProfile,
+    method: str,
+    prior_counts: Dict[str, int] | None = None,
+) -> tuple[int, int, int, str, str]:
     auto_penalty = 0 if method in AUTO_SUBMIT_METHODS else 1
+    company_lc = _safe_text(job.get("company", "")).lower()
+    prior = (prior_counts or {}).get(company_lc, 0)
     return (
         auto_penalty,
         -int(profile.score),
-        _safe_text(job.get("company", "")).lower(),
+        prior,
+        company_lc,
         _safe_text(job.get("title", "")).lower(),
     )
 
@@ -897,6 +913,15 @@ def main() -> None:
         help=(
             "Optional quota for non-adapter/manual feed listings. "
             "Defaults to 0 so Ralph Loop prioritizes CI-submittable ATS roles."
+        ),
+    )
+    ap.add_argument(
+        "--max-per-company",
+        type=int,
+        default=2,
+        help=(
+            "Maximum new rows per company per run. Keeps discovery diverse "
+            "instead of letting one big ATS board dominate the queue."
         ),
     )
     ap.add_argument("--dry-run", action="store_true")
@@ -919,6 +944,7 @@ def main() -> None:
         + list(discover_remotive())
         + list(discover_remoteok())
     )
+    prior_counts = _company_application_counts(rows)
     relevant: List[tuple[Dict[str, str], RoleProfile, str]] = []
     for job in discovered:
         if not job.get("url"):
@@ -927,19 +953,26 @@ def main() -> None:
         if profile.is_relevant:
             method = infer_method(job["url"])
             relevant.append((job, profile, method))
-    relevant.sort(key=lambda item: _discovery_priority(item[0], item[1], item[2]))
+    relevant.sort(
+        key=lambda item: _discovery_priority(item[0], item[1], item[2], prior_counts)
+    )
 
     added = 0
     added_auto = 0
     added_manual = 0
     manual_quota = max(0, int(args.max_manual_jobs))
+    per_company_cap = max(1, int(args.max_per_company))
+    added_by_company: Dict[str, int] = {}
     for job, profile, method in relevant:
         if added >= args.max_new_jobs:
             break
         if method not in AUTO_SUBMIT_METHODS and added_manual >= manual_quota:
             continue
+        company_lc = _safe_text(job["company"]).lower()
+        if added_by_company.get(company_lc, 0) >= per_company_cap:
+            continue
         url = _safe_text(job["url"]).lower()
-        pair = (_safe_text(job["company"]).lower(), _safe_text(job["title"]).lower())
+        pair = (company_lc, _safe_text(job["title"]).lower())
         if url in existing_urls or pair in existing_pairs:
             continue
         if args.dry_run:
@@ -985,6 +1018,7 @@ def main() -> None:
         rows.append({k: row.get(k, "") for k in fieldnames})
         existing_urls.add(url)
         existing_pairs.add(pair)
+        added_by_company[company_lc] = added_by_company.get(company_lc, 0) + 1
         added += 1
         if method in AUTO_SUBMIT_METHODS:
             added_auto += 1
