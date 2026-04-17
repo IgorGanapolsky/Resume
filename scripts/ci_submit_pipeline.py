@@ -2987,9 +2987,20 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
                 'xpath=ancestor::div[contains(@class,"select-shell")]'
             )
             ctrl = shell.locator('div[class*="control"]').first
+            try:
+                ctrl.scroll_into_view_if_needed(timeout=2000)
+            except Exception:
+                pass
             ctrl.click()
             time.sleep(random.uniform(0.5, 1.0))
             opts = page.locator('div[class*="option"]').all()
+            if not opts:
+                try:
+                    ctrl.click(force=True)
+                    time.sleep(0.6)
+                    opts = page.locator('div[class*="option"]').all()
+                except Exception:
+                    pass
             should_filter = (
                 use_filter and len(opts) > self._GH_SMALL_DROPDOWN_THRESHOLD
             )
@@ -3035,7 +3046,7 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
             if "authorized to work" in label or (
                 "authorization" in label and "work" in label
             ):
-                answer = ("citizen", True, False)
+                answer = ("nationality", True, False)
             elif "visa" in label and "sponsorship" in label:
                 answer = ("No", True, True)
             elif "based in" in label and "countries" in label:
