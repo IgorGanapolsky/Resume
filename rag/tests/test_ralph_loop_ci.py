@@ -222,7 +222,13 @@ def test_create_artifacts_writes_tailored_resume_and_requirements(
     )
     assert cover_path.exists()
     cover_text = cover_path.read_text(encoding="utf-8")
-    assert "integration is a social problem" in cover_text
+    # Role and company are named; the full ElevenLabs FDE title appears once.
+    assert "ElevenLabs" in cover_text
+    assert "Forward Deployed Engineer - Software Engineer" in cover_text
+    # Old template phrases must never ship again.
+    lowered = cover_text.lower()
+    for phrase in loop_mod.AI_TELL_PHRASES:
+        assert phrase not in lowered, f"AI-tell phrase leaked: {phrase!r}"
 
 
 def test_main_dry_run_does_not_create_artifacts(loop_mod, tmp_path, monkeypatch):
@@ -625,3 +631,113 @@ def test_main_admits_company_board_jobs(loop_mod, tmp_path, monkeypatch):
     companies = sorted(row["Company"] for row in rows)
     assert companies == ["OpenAI", "xAI"]
     assert all(row["Submission Lane"] == "ci_auto" for row in rows)
+
+
+def _fde_profile(loop_mod):
+    return loop_mod.RoleProfile(
+        track="fde",
+        score=5,
+        signals=["customer-integration", "fde-title", "python"],
+        is_relevant=True,
+        philosophy="",
+        distinctive_achievements=[],
+    )
+
+
+def test_cover_letter_has_no_ai_tell_phrases(loop_mod):
+    job = {
+        "company": "Cohere",
+        "title": "Solutions Architect",
+        "description": (
+            "Partner with enterprise customers to deploy Cohere models in "
+            "production. Own the integration arc from evaluation to launch."
+        ),
+        "url": "https://jobs.ashbyhq.com/cohere/abc",
+    }
+    cl = loop_mod.build_cover_letter(job, _fde_profile(loop_mod))
+    lowered = cl.lower()
+    for phrase in loop_mod.AI_TELL_PHRASES:
+        assert phrase not in lowered, f"AI-tell leaked: {phrase!r}\n---\n{cl}"
+    # No lowercase 'i ' at sentence position (old .lower() bug).
+    assert " i build " not in lowered
+    assert "\ni build" not in lowered
+
+
+def test_cover_letter_varies_across_companies_and_roles(loop_mod):
+    jobs = [
+        {
+            "company": "OpenAI",
+            "title": "Member of Technical Staff — Applied",
+            "description": "Build production agent infrastructure with Python.",
+            "url": "https://jobs.ashbyhq.com/openai/1",
+        },
+        {
+            "company": "xAI",
+            "title": "Senior Software Engineer",
+            "description": "Train LLMs at scale; deploy inference stacks.",
+            "url": "https://job-boards.greenhouse.io/xai/jobs/1",
+        },
+        {
+            "company": "Databricks",
+            "title": "Solutions Architect",
+            "description": "Partner with enterprise customers on LLM deployments.",
+            "url": "https://job-boards.greenhouse.io/databricks/jobs/1",
+        },
+        {
+            "company": "Stripe",
+            "title": "ML Platform Engineer",
+            "description": "Own inference latency and cost for payment risk models.",
+            "url": "https://job-boards.greenhouse.io/stripe/jobs/1",
+        },
+    ]
+    letters = [loop_mod.build_cover_letter(j, _fde_profile(loop_mod)) for j in jobs]
+    # Each letter is unique.
+    assert len(set(letters)) == len(letters), "letters are not unique per job"
+    # Each letter names its company and role.
+    for cl, j in zip(letters, jobs):
+        assert j["company"] in cl
+        assert j["title"] in cl
+    # Opener sentences differ across at least 3 of the 4 letters.
+    openers = {cl.split("\n\n")[1].split(".")[0] for cl in letters if "\n\n" in cl}
+    assert len(openers) >= 3, f"expected >=3 distinct opener sentences, got {openers}"
+
+
+def test_cover_letter_quotes_jd_anchor_when_available(loop_mod):
+    job = {
+        "company": "Cohere",
+        "title": "Solutions Architect",
+        "description": (
+            "We scale enterprise deployment of production LLMs for Fortune 500 "
+            "customers. You will own the technical relationship with enterprise "
+            "accounts and drive adoption of Cohere platform primitives."
+        ),
+        "url": "https://jobs.ashbyhq.com/cohere/abc",
+    }
+    cl = loop_mod.build_cover_letter(job, _fde_profile(loop_mod))
+    # The anchor quoter should emit a sentence verbatim from the JD.
+    assert "The JD mentions:" in cl
+
+
+def test_cover_letter_is_deterministic_for_same_job(loop_mod):
+    job = {
+        "company": "Anthropic",
+        "title": "Forward Deployed Engineer",
+        "description": "Work directly with customers to deploy Claude in production.",
+        "url": "https://job-boards.greenhouse.io/anthropic/jobs/1",
+    }
+    a = loop_mod.build_cover_letter(job, _fde_profile(loop_mod))
+    b = loop_mod.build_cover_letter(job, _fde_profile(loop_mod))
+    assert a == b
+
+
+def test_cover_letter_uses_candidate_profile_linkedin(loop_mod):
+    job = {
+        "company": "Anthropic",
+        "title": "Software Engineer",
+        "description": "Production AI work.",
+        "url": "https://job-boards.greenhouse.io/anthropic/jobs/1",
+    }
+    cl = loop_mod.build_cover_letter(job, _fde_profile(loop_mod))
+    # Must use the authoritative LinkedIn from candidate_profile.json
+    # (igor-ganapolsky-859317343), not the stale short form.
+    assert "igor-ganapolsky-859317343" in cl

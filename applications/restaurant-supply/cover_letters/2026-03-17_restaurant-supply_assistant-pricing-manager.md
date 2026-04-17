@@ -1,18 +1,16 @@
-Subject: Interest in Assistant Pricing Manager
+Subject: Assistant Pricing Manager — Igor Ganapolsky
 
-Hello Restaurant Supply team,
+Hi Restaurant Supply team,
 
-I am interested in the Assistant Pricing Manager opportunity. My philosophy is that production ai is about reliability and cost-predictability, not just prompt engineering. I build production AI/software systems where reliability is a non-negotiable.
+Re: Assistant Pricing Manager. Short pitch up front: 15+ years in production engineering, last four on LLM systems with real latency and cost budgets.
 
-How I've lived this philosophy recently:
-- Built a semantic memory system using LanceDB that reduced context window 'forgetting' across 200+ autonomous agent turns.
-- Optimized LLM inference pipelines to maintain <200ms latency while reducing token spend by 40%.
-- Delivered cloud-native services on GCP/AWS and integrated LLM features into existing stacks.
+A couple of relevant threads from the last few years:
+- Built a LanceDB-backed semantic memory that kept 200+ autonomous agent turns coherent without blowing out the context window.
+- Cut LLM token spend roughly 40% on one inference pipeline while keeping p95 under 200ms — mostly by paying attention to prompt shape and caching, not a bigger model.
 
-My work is grounded in proof, not just prompts. You can find the code for my autonomous agent architectures at:
-- GitHub: https://github.com/IgorGanapolsky
-- Technical POV: https://www.linkedin.com/in/igor-ganapolsky/
+Short pitch. Would rather go deeper on the tradeoffs you're actually weighing.
 
-Thank you for your consideration.
+GitHub: https://github.com/IgorGanapolsky
+LinkedIn: https://www.linkedin.com/in/igor-ganapolsky-859317343/
 
 Igor Ganapolsky

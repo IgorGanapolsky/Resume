@@ -1,17 +1,16 @@
-Subject: Interest in Social Media Strategist
+Subject: Social Media Strategist — Igor Ganapolsky
 
-Hello Sociallyin team,
+Hello Sociallyin hiring team,
 
-I am interested in the Social Media Strategist opportunity. My background is in production AI/software systems and platform engineering.
+The Social Media Strategist role lines up with what I've been doing. Most of my recent work is LLM serving and eval — less demo-building, more keeping the p95 honest.
 
-Why I may be a good fit:
-- Built production AI/software systems with strong reliability, observability, and CI/CD.
-- Delivered cloud-native services on GCP/AWS and integrated LLM features into existing stacks.
+A couple of relevant threads from the last few years:
+- Cut LLM token spend roughly 40% on one inference pipeline while keeping p95 under 200ms — mostly by paying attention to prompt shape and caching, not a bigger model.
+- Shipped cloud-native services on GCP and AWS; wired LLM features into stacks that predated the LLM boom.
 
-Links:
-- GitHub: https://github.com/IgorGanapolsky
-- LinkedIn: https://www.linkedin.com/in/igor-ganapolsky/
+If the fit looks plausible, I'd like to talk to whoever owns delivery on this role.
 
-Thank you for your consideration.
+GitHub: https://github.com/IgorGanapolsky
+LinkedIn: https://www.linkedin.com/in/igor-ganapolsky-859317343/
 
 Igor Ganapolsky

@@ -1,20 +1,16 @@
-Subject: Interest in Forward Deployed Engineer VoIP
+Subject: Forward Deployed Engineer VoIP — Igor Ganapolsky
 
-Hello Parloa team,
+Hello Parloa hiring team,
 
-I am interested in the Forward Deployed Engineer VoIP opportunity. My philosophy is that integration is a social problem, not just a technical one; i build 'api-first' relationships, not just endpoints. I build production AI/software systems where reliability is a non-negotiable.
+Saw the Forward Deployed Engineer VoIP opening and wanted to put my hat in. The part of the role I've lived the most is the integration arc — from scoping through first production outage.
 
-How I've lived this philosophy recently:
+A couple of relevant threads from the last few years:
+- Ran a weekly ship cadence for LLM features at Subway instead of the standard quarterly cycle. Most experiments failed; the ones that didn't landed faster than prior releases.
+- Sat in customer syncs with product and data leads to scope prompts, tool wiring, and escalation rules — and then actually shipped the code, not just the slides.
 
-- Architected a self-healing CI pipeline for multi-model LLM consensus that reduced manual debug time by 80%.
-- Pioneered a 'shipping small experiments weekly' approach for LLM features at Subway, beating the standard quarterly release cycle.
-- Delivered customer-facing, integration-heavy delivery work with product/data stakeholders to define prompts, tools, and escalation rules.
+Glad to dig into details if this looks like a reasonable fit.
 
-My work is grounded in proof, not just prompts. You can find the code for my autonomous agent architectures at:
-
-- GitHub: https://github.com/IgorGanapolsky
-- Technical POV: https://www.linkedin.com/in/igor-ganapolsky/
-
-Thank you for your consideration.
+GitHub: https://github.com/IgorGanapolsky
+LinkedIn: https://www.linkedin.com/in/igor-ganapolsky-859317343/
 
 Igor Ganapolsky

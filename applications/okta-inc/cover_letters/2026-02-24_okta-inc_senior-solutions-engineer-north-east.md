@@ -1,18 +1,18 @@
-Subject: Interest in Senior Solutions Engineer North East
+Subject: Senior Solutions Engineer North East — Igor Ganapolsky
 
-Hello Okta, Inc. team,
+Hi Okta, Inc. folks,
 
-I am interested in the Senior Solutions Engineer North East opportunity because I enjoy customer-facing, integration-heavy delivery work.
+The Senior Solutions Engineer North East posting caught my eye. For the last four years I've done a forward-deployed version of this work at Subway — sitting between product, data, and whichever vendor had the quickest path to a working demo.
 
-Why I may be a good fit:
-- Led end-to-end delivery of AI features from prototype to production at Subway.
-- Built secure APIs and cloud workflows on GCP integrating LLM features with existing services.
-- Partnered with product/data stakeholders to define prompts, tools, and escalation rules.
+The JD mentions: "- Daily collaboration with customer engineering and stakeholder teams." — that maps cleanly to the production-AI work I've been doing.
 
-Links:
-- GitHub: https://github.com/IgorGanapolsky
-- LinkedIn: https://www.linkedin.com/in/igor-ganapolsky/
+A couple of relevant threads from the last few years:
+- Sat in customer syncs with product and data leads to scope prompts, tool wiring, and escalation rules — and then actually shipped the code, not just the slides.
+- Wrote the integration doc *and* the runbook. Usually one person does one of those.
 
-Thank you for your consideration.
+Happy to walk through specifics on any of the above.
+
+GitHub: https://github.com/IgorGanapolsky
+LinkedIn: https://www.linkedin.com/in/igor-ganapolsky-859317343/
 
 Igor Ganapolsky

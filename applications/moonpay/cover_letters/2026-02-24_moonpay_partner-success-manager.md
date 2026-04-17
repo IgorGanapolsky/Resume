@@ -1,18 +1,18 @@
-Subject: Interest in Partner Success Manager
+Subject: Partner Success Manager — Igor Ganapolsky
 
-Hello MoonPay team,
+Hello MoonPay,
 
-I am interested in the Partner Success Manager opportunity because I enjoy customer-facing, integration-heavy delivery work.
+I'd like to be considered for Partner Success Manager. I spend most weeks translating between enterprise stakeholders and the engineers actually wiring the models up. Resume attached; a few notes below.
 
-Why I may be a good fit:
-- Led end-to-end delivery of AI features from prototype to production at Subway.
-- Built secure APIs and cloud workflows on GCP integrating LLM features with existing services.
-- Partnered with product/data stakeholders to define prompts, tools, and escalation rules.
+The JD mentions: "- Daily collaboration with customer engineering and stakeholder teams." — that maps cleanly to the production-AI work I've been doing.
 
-Links:
-- GitHub: https://github.com/IgorGanapolsky
-- LinkedIn: https://www.linkedin.com/in/igor-ganapolsky/
+A couple of relevant threads from the last few years:
+- Wrote the integration doc *and* the runbook. Usually one person does one of those.
+- Rebuilt a brittle multi-model LLM review pipeline into something that self-heals on provider 5xx; manual debug time dropped roughly 80% once it stabilized.
 
-Thank you for your consideration.
+Open to a call when it's useful. Links below for the curious.
+
+GitHub: https://github.com/IgorGanapolsky
+LinkedIn: https://www.linkedin.com/in/igor-ganapolsky-859317343/
 
 Igor Ganapolsky

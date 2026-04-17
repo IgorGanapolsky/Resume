@@ -1,17 +1,16 @@
-Subject: Interest in Strategic Live Casino Manager
+Subject: Strategic Live Casino Manager — Igor Ganapolsky
 
-Hello ARRISE team,
+Hi ARRISE team,
 
-I am interested in the Strategic Live Casino Manager opportunity. My background is in production AI/software systems and platform engineering.
+Re: Strategic Live Casino Manager. Short pitch up front: 15+ years in production engineering, last four on LLM systems with real latency and cost budgets.
 
-Why I may be a good fit:
-- Built production AI/software systems with strong reliability, observability, and CI/CD.
-- Delivered cloud-native services on GCP/AWS and integrated LLM features into existing stacks.
+A couple of relevant threads from the last few years:
+- Built a LanceDB-backed semantic memory that kept 200+ autonomous agent turns coherent without blowing out the context window.
+- Cut LLM token spend roughly 40% on one inference pipeline while keeping p95 under 200ms — mostly by paying attention to prompt shape and caching, not a bigger model.
 
-Links:
-- GitHub: https://github.com/IgorGanapolsky
-- LinkedIn: https://www.linkedin.com/in/igor-ganapolsky/
+Short pitch. Would rather go deeper on the tradeoffs you're actually weighing.
 
-Thank you for your consideration.
+GitHub: https://github.com/IgorGanapolsky
+LinkedIn: https://www.linkedin.com/in/igor-ganapolsky-859317343/
 
 Igor Ganapolsky

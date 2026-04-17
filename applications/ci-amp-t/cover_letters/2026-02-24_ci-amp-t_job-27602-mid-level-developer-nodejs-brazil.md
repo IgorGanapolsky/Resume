@@ -1,17 +1,16 @@
-Subject: Interest in Job 27602 Mid level Developer NodeJS Brazil
+Subject: Job 27602 Mid level Developer NodeJS Brazil — Igor Ganapolsky
 
-Hello CI&amp;T team,
+Hi CI&amp;T folks,
 
-I am interested in the Job 27602 Mid level Developer NodeJS Brazil opportunity. My background is in production AI/software systems and platform engineering.
+Re: Job 27602 Mid level Developer NodeJS Brazil. Short pitch up front: 15+ years in production engineering, last four on LLM systems with real latency and cost budgets.
 
-Why I may be a good fit:
-- Built production AI/software systems with strong reliability, observability, and CI/CD.
-- Delivered cloud-native services on GCP/AWS and integrated LLM features into existing stacks.
+A couple of relevant threads from the last few years:
+- Shipped cloud-native services on GCP and AWS; wired LLM features into stacks that predated the LLM boom.
+- On-call rotation for a production LLM service taught me what the happy-path demos never do.
 
-Links:
-- GitHub: https://github.com/IgorGanapolsky
-- LinkedIn: https://www.linkedin.com/in/igor-ganapolsky/
+Short pitch. Would rather go deeper on the tradeoffs you're actually weighing.
 
-Thank you for your consideration.
+GitHub: https://github.com/IgorGanapolsky
+LinkedIn: https://www.linkedin.com/in/igor-ganapolsky-859317343/
 
 Igor Ganapolsky

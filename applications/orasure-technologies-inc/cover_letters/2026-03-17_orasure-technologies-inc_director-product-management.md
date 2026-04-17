@@ -1,18 +1,18 @@
-Subject: Interest in Director Product Management
+Subject: Director Product Management — Igor Ganapolsky
 
-Hello OraSure Technologies Inc. team,
+Hello OraSure Technologies Inc.,
 
-I am interested in the Director Product Management opportunity. My philosophy is that integration is a social problem, not just a technical one; i build 'api-first' relationships, not just endpoints. I build production AI/software systems where reliability is a non-negotiable.
+I'd like to be considered for Director Product Management. I spend most weeks translating between enterprise stakeholders and the engineers actually wiring the models up. Resume attached; a few notes below.
 
-How I've lived this philosophy recently:
-- Architected a self-healing CI pipeline for multi-model LLM consensus that reduced manual debug time by 80%.
-- Pioneered a 'shipping small experiments weekly' approach for LLM features at Subway, beating the standard quarterly release cycle.
-- Partnered with product/data stakeholders to define prompts, tools, and escalation rules.
+The JD mentions: "- Daily collaboration with customer engineering and stakeholder teams." — that maps cleanly to the production-AI work I've been doing.
 
-My work is grounded in proof, not just prompts. You can find the code for my autonomous agent architectures at:
-- GitHub: https://github.com/IgorGanapolsky
-- Technical POV: https://www.linkedin.com/in/igor-ganapolsky/
+A couple of relevant threads from the last few years:
+- Wrote the integration doc *and* the runbook. Usually one person does one of those.
+- Rebuilt a brittle multi-model LLM review pipeline into something that self-heals on provider 5xx; manual debug time dropped roughly 80% once it stabilized.
 
-Thank you for your consideration.
+Open to a call when it's useful. Links below for the curious.
+
+GitHub: https://github.com/IgorGanapolsky
+LinkedIn: https://www.linkedin.com/in/igor-ganapolsky-859317343/
 
 Igor Ganapolsky

@@ -1,18 +1,16 @@
-Subject: Interest in Business Development Representative
+Subject: Business Development Representative — Igor Ganapolsky
 
-Hello Datacor team,
+Hi Datacor folks,
 
-I am interested in the Business Development Representative opportunity. My philosophy is that integration is a social problem, not just a technical one; i build 'api-first' relationships, not just endpoints. I build production AI/software systems where reliability is a non-negotiable.
+The Business Development Representative posting caught my eye. For the last four years I've done a forward-deployed version of this work at Subway — sitting between product, data, and whichever vendor had the quickest path to a working demo.
 
-How I've lived this philosophy recently:
-- Architected a self-healing CI pipeline for multi-model LLM consensus that reduced manual debug time by 80%.
-- Pioneered a 'shipping small experiments weekly' approach for LLM features at Subway, beating the standard quarterly release cycle.
-- Partnered with product/data stakeholders to define prompts, tools, and escalation rules.
+A couple of relevant threads from the last few years:
+- Sat in customer syncs with product and data leads to scope prompts, tool wiring, and escalation rules — and then actually shipped the code, not just the slides.
+- Wrote the integration doc *and* the runbook. Usually one person does one of those.
 
-My work is grounded in proof, not just prompts. You can find the code for my autonomous agent architectures at:
-- GitHub: https://github.com/IgorGanapolsky
-- Technical POV: https://www.linkedin.com/in/igor-ganapolsky/
+Happy to walk through specifics on any of the above.
 
-Thank you for your consideration.
+GitHub: https://github.com/IgorGanapolsky
+LinkedIn: https://www.linkedin.com/in/igor-ganapolsky-859317343/
 
 Igor Ganapolsky

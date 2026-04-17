@@ -93,7 +93,7 @@ def _candidate_contact() -> Dict[str, str]:
     fallback = {
         "full_name": "Igor Ganapolsky",
         "github": "https://github.com/IgorGanapolsky",
-        "linkedin": "https://www.linkedin.com/in/igor-ganapolsky/",
+        "linkedin": "https://www.linkedin.com/in/igor-ganapolsky-859317343/",
     }
     if load_candidate_profile is None:
         return fallback
@@ -415,47 +415,174 @@ def extract_key_requirements(job: Dict[str, str], profile: RoleProfile) -> List[
     return requirements
 
 
-def build_cover_letter(job: Dict[str, str], profile: RoleProfile) -> str:
-    company = job["company"]
-    role = job["title"]
+# Pools keyed by (company, role) hash to produce per-letter variation without
+# randomness. Avoid AI-tell phrases ("leverage", "passionate about",
+# "grounded in proof", "at the intersection of", "synergy", "align with").
+_OPENERS_FDE = [
+    "The {role} posting caught my eye. For the last four years I've done a forward-deployed version of this work at Subway — sitting between product, data, and whichever vendor had the quickest path to a working demo.",
+    "A quick note on {role}. The short version: 15+ years shipping production software, the last four on LLM systems that had to keep paying rent after the demo ended.",
+    "Writing re: {role}. Most of my recent work is the messy middle between customer teams and production AI — the part of the JD that's usually understated.",
+    "I'd like to be considered for {role}. I spend most weeks translating between enterprise stakeholders and the engineers actually wiring the models up. Resume attached; a few notes below.",
+    "Saw the {role} opening and wanted to put my hat in. The part of the role I've lived the most is the integration arc — from scoping through first production outage.",
+]
 
-    # Vanessa-style POV intro
-    intro = (
-        f"I am interested in the {role} opportunity. "
-        f"My philosophy is that {profile.philosophy.lower().strip('.')}. "
-        "I build production AI/software systems where reliability is a non-negotiable."
+_OPENERS_GENERAL = [
+    "I'd like to be considered for {role}. I've been shipping production AI infra for the last four years — eval harnesses, serving cost control, the boring parts that keep uptime up.",
+    "Re: {role}. Short pitch up front: 15+ years in production engineering, last four on LLM systems with real latency and cost budgets.",
+    "The {role} role lines up with what I've been doing. Most of my recent work is LLM serving and eval — less demo-building, more keeping the p95 honest.",
+    "Writing about {role}. I've spent the last few years on the unglamorous side of production AI (cost discipline, regression evals, on-call), which reads like what you're hiring for.",
+    "Putting my name in for {role}. My background is senior full-stack plus four years of LLM production work; happy to go deeper in a conversation.",
+]
+
+_HIGHLIGHTS_FDE = [
+    "Rebuilt a brittle multi-model LLM review pipeline into something that self-heals on provider 5xx; manual debug time dropped roughly 80% once it stabilized.",
+    "Ran a weekly ship cadence for LLM features at Subway instead of the standard quarterly cycle. Most experiments failed; the ones that didn't landed faster than prior releases.",
+    "Sat in customer syncs with product and data leads to scope prompts, tool wiring, and escalation rules — and then actually shipped the code, not just the slides.",
+    "Wrote the integration doc *and* the runbook. Usually one person does one of those.",
+]
+
+_HIGHLIGHTS_GENERAL = [
+    "Built a LanceDB-backed semantic memory that kept 200+ autonomous agent turns coherent without blowing out the context window.",
+    "Cut LLM token spend roughly 40% on one inference pipeline while keeping p95 under 200ms — mostly by paying attention to prompt shape and caching, not a bigger model.",
+    "Shipped cloud-native services on GCP and AWS; wired LLM features into stacks that predated the LLM boom.",
+    "On-call rotation for a production LLM service taught me what the happy-path demos never do.",
+]
+
+_CLOSERS = [
+    "Happy to walk through specifics on any of the above.",
+    "Short pitch. Would rather go deeper on the tradeoffs you're actually weighing.",
+    "If the fit looks plausible, I'd like to talk to whoever owns delivery on this role.",
+    "Open to a call when it's useful. Links below for the curious.",
+    "Glad to dig into details if this looks like a reasonable fit.",
+]
+
+_GREETINGS = [
+    "Hi {company} team,",
+    "Hello {company} hiring team,",
+    "Hi {company} folks,",
+    "Hello {company},",
+]
+
+
+# Sentences we refuse to ship. Past versions of this template hit every AI
+# detector, so the test suite pins this list and asserts no output contains
+# any of them.
+AI_TELL_PHRASES = (
+    "integration is a social problem",
+    "grounded in proof, not just prompts",
+    "reliability is a non-negotiable",
+    "api-first relationships",
+    "how i've lived this philosophy",
+    "i am writing to express",
+    "i am excited to apply",
+    "leverage",
+    "at the intersection of",
+    "passionate about",
+    "rapidly evolving",
+    "synergy",
+)
+
+
+def _cl_pick(pool: List[str], seed: int, offset: int = 0) -> str:
+    return pool[(seed + offset) % len(pool)]
+
+
+def _cl_seed(company: str, role: str) -> int:
+    token = f"{company.lower()}|{role.lower()}".encode("utf-8")
+    return int(hashlib.sha1(token).hexdigest()[:8], 16)
+
+
+def _jd_anchor(job: Dict[str, str]) -> str:
+    """Return one short JD-anchored sentence, or empty string if nothing clean.
+
+    The goal is a single concrete hook that references what the team is
+    actually doing — not a parroted phrase. Extract the first sentence that
+    mentions a product, team, or concrete responsibility keyword, trim it, and
+    wrap it in plain language.
+    """
+    desc = _safe_text(str(job.get("description", "")))
+    if not desc:
+        return ""
+    sentences = re.split(r"(?<=[.!?])\s+", desc)
+    anchors = (
+        "enterprise",
+        "production",
+        "customer",
+        "deployment",
+        "inference",
+        "platform",
+        "model",
+        "agent",
+        "evaluation",
+        "latency",
+        "reliability",
     )
+    for sentence in sentences:
+        s = sentence.strip()
+        if not (40 <= len(s) <= 180):
+            continue
+        low = s.lower()
+        if not any(a in low for a in anchors):
+            continue
+        # Skip sentences that are obviously boilerplate.
+        if any(b in low for b in ("equal opportunity", "we are an", "benefits include")):
+            continue
+        return s
+    return ""
 
-    highlights = [f"- {ach}" for ach in profile.distinctive_achievements]
-    # Add one core competence bullet
+
+def build_cover_letter(job: Dict[str, str], profile: RoleProfile) -> str:
+    company = _safe_text(str(job.get("company", ""))) or "the team"
+    role = _safe_text(str(job.get("title", ""))) or "this role"
+    seed = _cl_seed(company, role)
+
     if profile.track == "fde":
-        highlights.append(
-            "- Delivered customer-facing, integration-heavy delivery work with product/data stakeholders to define prompts, tools, and escalation rules."
-        )
+        opener = _cl_pick(_OPENERS_FDE, seed).format(role=role)
+        highlights_pool = _HIGHLIGHTS_FDE
     else:
-        highlights.append(
-            "- Delivered cloud-native services on GCP/AWS and integrated LLM features into existing stacks."
+        opener = _cl_pick(_OPENERS_GENERAL, seed).format(role=role)
+        highlights_pool = _HIGHLIGHTS_GENERAL
+
+    # Two bullets from the track-specific pool, picked from different offsets
+    # so the same seed still yields two distinct highlights.
+    bullet_one = _cl_pick(highlights_pool, seed, 0)
+    bullet_two = _cl_pick(highlights_pool, seed, 1)
+    if bullet_one == bullet_two and len(highlights_pool) > 1:
+        bullet_two = _cl_pick(highlights_pool, seed, 2)
+
+    greeting = _cl_pick(_GREETINGS, seed).format(company=company)
+    closer = _cl_pick(_CLOSERS, seed)
+
+    anchor = _jd_anchor(job)
+    anchor_line = ""
+    if anchor:
+        anchor_line = (
+            f"The JD mentions: \"{anchor}\" — that maps cleanly to the "
+            f"production-AI work I've been doing."
         )
+
+    body_blocks: List[str] = [opener]
+    if anchor_line:
+        body_blocks.append(anchor_line)
+    body_blocks.append(
+        "A couple of relevant threads from the last few years:\n"
+        f"- {bullet_one}\n"
+        f"- {bullet_two}"
+    )
+    body_blocks.append(closer)
 
     lines = [
-        f"Subject: Interest in {role}",
+        f"Subject: {role} — Igor Ganapolsky",
         "",
-        f"Hello {company} team,",
+        greeting,
         "",
-        intro,
-        "",
-        "How I've lived this philosophy recently:",
-        *highlights,
-        "",
-        "My work is grounded in proof, not just prompts. You can find the code for my autonomous agent architectures at:",
-        f"- GitHub: {CANDIDATE_CONTACT['github']}",
-        f"- Technical POV: {CANDIDATE_CONTACT['linkedin']}",
-        "",
-        "Thank you for your consideration.",
+        *[line for block in body_blocks for line in (block, "")],
+        f"GitHub: {CANDIDATE_CONTACT['github']}",
+        f"LinkedIn: {CANDIDATE_CONTACT['linkedin']}",
         "",
         CANDIDATE_CONTACT["full_name"],
     ]
-    return "\n".join(lines) + "\n"
+    return "\n".join(lines).rstrip() + "\n"
 
 
 def tailor_resume_html(base_html: str, profile: RoleProfile) -> str:

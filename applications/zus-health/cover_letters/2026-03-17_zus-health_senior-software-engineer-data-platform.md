@@ -1,18 +1,18 @@
-Subject: Interest in Senior Software Engineer Data Platform
+Subject: Senior Software Engineer Data Platform — Igor Ganapolsky
 
-Hello Zus Health team,
+Hi Zus Health folks,
 
-I am interested in the Senior Software Engineer Data Platform opportunity. My philosophy is that integration is a social problem, not just a technical one; i build 'api-first' relationships, not just endpoints. I build production AI/software systems where reliability is a non-negotiable.
+I'd like to be considered for Senior Software Engineer Data Platform. I spend most weeks translating between enterprise stakeholders and the engineers actually wiring the models up. Resume attached; a few notes below.
 
-How I've lived this philosophy recently:
-- Architected a self-healing CI pipeline for multi-model LLM consensus that reduced manual debug time by 80%.
-- Pioneered a 'shipping small experiments weekly' approach for LLM features at Subway, beating the standard quarterly release cycle.
-- Partnered with product/data stakeholders to define prompts, tools, and escalation rules.
+The JD mentions: "- Daily collaboration with customer engineering and stakeholder teams." — that maps cleanly to the production-AI work I've been doing.
 
-My work is grounded in proof, not just prompts. You can find the code for my autonomous agent architectures at:
-- GitHub: https://github.com/IgorGanapolsky
-- Technical POV: https://www.linkedin.com/in/igor-ganapolsky/
+A couple of relevant threads from the last few years:
+- Sat in customer syncs with product and data leads to scope prompts, tool wiring, and escalation rules — and then actually shipped the code, not just the slides.
+- Wrote the integration doc *and* the runbook. Usually one person does one of those.
 
-Thank you for your consideration.
+Open to a call when it's useful. Links below for the curious.
+
+GitHub: https://github.com/IgorGanapolsky
+LinkedIn: https://www.linkedin.com/in/igor-ganapolsky-859317343/
 
 Igor Ganapolsky

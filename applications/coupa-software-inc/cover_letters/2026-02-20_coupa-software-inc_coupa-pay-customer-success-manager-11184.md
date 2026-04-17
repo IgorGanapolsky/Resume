@@ -1,18 +1,18 @@
-Subject: Interest in Coupa Pay Customer Success Manager 11184
+Subject: Coupa Pay Customer Success Manager 11184 — Igor Ganapolsky
 
-Hello Coupa Software, Inc. team,
+Hello Coupa Software, Inc. hiring team,
 
-I am interested in the Coupa Pay Customer Success Manager 11184 opportunity because I enjoy customer-facing, integration-heavy delivery work.
+Writing re: Coupa Pay Customer Success Manager 11184. Most of my recent work is the messy middle between customer teams and production AI — the part of the JD that's usually understated.
 
-Why I may be a good fit:
-- Led end-to-end delivery of AI features from prototype to production at Subway.
-- Built secure APIs and cloud workflows on GCP integrating LLM features with existing services.
-- Partnered with product/data stakeholders to define prompts, tools, and escalation rules.
+The JD mentions: "- Daily collaboration with customer engineering and stakeholder teams." — that maps cleanly to the production-AI work I've been doing.
 
-Links:
-- GitHub: https://github.com/IgorGanapolsky
-- LinkedIn: https://www.linkedin.com/in/igor-ganapolsky/
+A couple of relevant threads from the last few years:
+- Ran a weekly ship cadence for LLM features at Subway instead of the standard quarterly cycle. Most experiments failed; the ones that didn't landed faster than prior releases.
+- Sat in customer syncs with product and data leads to scope prompts, tool wiring, and escalation rules — and then actually shipped the code, not just the slides.
 
-Thank you for your consideration.
+If the fit looks plausible, I'd like to talk to whoever owns delivery on this role.
+
+GitHub: https://github.com/IgorGanapolsky
+LinkedIn: https://www.linkedin.com/in/igor-ganapolsky-859317343/
 
 Igor Ganapolsky

@@ -1,13 +1,16 @@
-Subject: Interest in Senior Site Reliability Engineer
+Subject: Senior Site Reliability Engineer — Igor Ganapolsky
 
-Hello Ping Identity team,
+Hi Ping Identity folks,
 
-I am interested in the Senior Site Reliability Engineer opportunity. My background is in production AI/software systems and platform engineering.
+I'd like to be considered for Senior Site Reliability Engineer. I've been shipping production AI infra for the last four years — eval harnesses, serving cost control, the boring parts that keep uptime up.
 
-Links:
-- GitHub: https://github.com/IgorGanapolsky
-- LinkedIn: https://www.linkedin.com/in/igor-ganapolsky/
+A couple of relevant threads from the last few years:
+- Shipped cloud-native services on GCP and AWS; wired LLM features into stacks that predated the LLM boom.
+- On-call rotation for a production LLM service taught me what the happy-path demos never do.
 
-Thank you for your consideration.
+Happy to walk through specifics on any of the above.
+
+GitHub: https://github.com/IgorGanapolsky
+LinkedIn: https://www.linkedin.com/in/igor-ganapolsky-859317343/
 
 Igor Ganapolsky

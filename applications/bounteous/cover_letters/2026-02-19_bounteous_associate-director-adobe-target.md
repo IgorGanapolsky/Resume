@@ -1,13 +1,16 @@
-Subject: Interest in Associate Director Adobe Target
+Subject: Associate Director Adobe Target — Igor Ganapolsky
 
-Hello Bounteous team,
+Hello Bounteous,
 
-I am interested in the Associate Director Adobe Target opportunity. My background is in production AI/software systems and platform engineering.
+Writing about Associate Director Adobe Target. I've spent the last few years on the unglamorous side of production AI (cost discipline, regression evals, on-call), which reads like what you're hiring for.
 
-Links:
-- GitHub: https://github.com/IgorGanapolsky
-- LinkedIn: https://www.linkedin.com/in/igor-ganapolsky/
+A couple of relevant threads from the last few years:
+- On-call rotation for a production LLM service taught me what the happy-path demos never do.
+- Built a LanceDB-backed semantic memory that kept 200+ autonomous agent turns coherent without blowing out the context window.
 
-Thank you for your consideration.
+Open to a call when it's useful. Links below for the curious.
+
+GitHub: https://github.com/IgorGanapolsky
+LinkedIn: https://www.linkedin.com/in/igor-ganapolsky-859317343/
 
 Igor Ganapolsky

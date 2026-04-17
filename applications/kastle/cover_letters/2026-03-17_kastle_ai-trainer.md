@@ -1,18 +1,18 @@
-Subject: Interest in AI Trainer
+Subject: AI Trainer — Igor Ganapolsky
 
-Hello Kastle team,
+Hello Kastle,
 
-I am interested in the AI Trainer opportunity. My philosophy is that integration is a social problem, not just a technical one; i build 'api-first' relationships, not just endpoints. I build production AI/software systems where reliability is a non-negotiable.
+Saw the AI Trainer opening and wanted to put my hat in. The part of the role I've lived the most is the integration arc — from scoping through first production outage.
 
-How I've lived this philosophy recently:
-- Architected a self-healing CI pipeline for multi-model LLM consensus that reduced manual debug time by 80%.
-- Pioneered a 'shipping small experiments weekly' approach for LLM features at Subway, beating the standard quarterly release cycle.
-- Partnered with product/data stakeholders to define prompts, tools, and escalation rules.
+The JD mentions: "- Daily collaboration with customer engineering and stakeholder teams." — that maps cleanly to the production-AI work I've been doing.
 
-My work is grounded in proof, not just prompts. You can find the code for my autonomous agent architectures at:
-- GitHub: https://github.com/IgorGanapolsky
-- Technical POV: https://www.linkedin.com/in/igor-ganapolsky/
+A couple of relevant threads from the last few years:
+- Wrote the integration doc *and* the runbook. Usually one person does one of those.
+- Rebuilt a brittle multi-model LLM review pipeline into something that self-heals on provider 5xx; manual debug time dropped roughly 80% once it stabilized.
 
-Thank you for your consideration.
+Glad to dig into details if this looks like a reasonable fit.
+
+GitHub: https://github.com/IgorGanapolsky
+LinkedIn: https://www.linkedin.com/in/igor-ganapolsky-859317343/
 
 Igor Ganapolsky

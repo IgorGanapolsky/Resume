@@ -1,20 +1,16 @@
-Subject: Interest in Sr. Solutions Engineer - Public Sector (SLED)
+Subject: Sr. Solutions Engineer - Public Sector (SLED) — Igor Ganapolsky
 
-Hello Databricks team,
+Hello Databricks,
 
-I am interested in the Sr. Solutions Engineer - Public Sector (SLED) opportunity. My philosophy is that integration is a social problem, not just a technical one; i build 'api-first' relationships, not just endpoints. I build production AI/software systems where reliability is a non-negotiable.
+A quick note on Sr. Solutions Engineer - Public Sector (SLED). The short version: 15+ years shipping production software, the last four on LLM systems that had to keep paying rent after the demo ended.
 
-How I've lived this philosophy recently:
+A couple of relevant threads from the last few years:
+- Wrote the integration doc *and* the runbook. Usually one person does one of those.
+- Rebuilt a brittle multi-model LLM review pipeline into something that self-heals on provider 5xx; manual debug time dropped roughly 80% once it stabilized.
 
-- Architected a self-healing CI pipeline for multi-model LLM consensus that reduced manual debug time by 80%.
-- Pioneered a 'shipping small experiments weekly' approach for LLM features at Subway, beating the standard quarterly release cycle.
-- Delivered customer-facing, integration-heavy delivery work with product/data stakeholders to define prompts, tools, and escalation rules.
+Short pitch. Would rather go deeper on the tradeoffs you're actually weighing.
 
-My work is grounded in proof, not just prompts. You can find the code for my autonomous agent architectures at:
-
-- GitHub: https://github.com/IgorGanapolsky
-- Technical POV: https://www.linkedin.com/in/igor-ganapolsky-859317343/
-
-Thank you for your consideration.
+GitHub: https://github.com/IgorGanapolsky
+LinkedIn: https://www.linkedin.com/in/igor-ganapolsky-859317343/
 
 Igor Ganapolsky

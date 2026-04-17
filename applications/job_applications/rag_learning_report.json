@@ -1,0 +1,726 @@
+{
+  "generated_at_iso": "2026-04-08T18:16:44.807501+00:00",
+  "tracker_csv": "/Users/igorganapolsky/workspace/git/igor/Resume/applications/job_applications/application_tracker.csv",
+  "arms_json": "/Users/igorganapolsky/workspace/git/igor/Resume/rag/data/arms.json",
+  "total_tracker_rows": 268,
+  "total_arms": 43,
+  "status_counts": {
+    "Applied": 18,
+    "Draft": 213,
+    "Quarantined": 19,
+    "Closed": 2,
+    "Rejected": 1,
+    "Unknown": 3,
+    "csv_override": 1,
+    "ReadyToSubmit": 11
+  },
+  "method_summary": [
+    {
+      "arm": "method:lever",
+      "mean_reward": 0.35,
+      "confidence": 0.8326,
+      "pulls": 1,
+      "total_reward": 0.05,
+      "rows": 1,
+      "ready_rows": 0,
+      "applied_rows": 1,
+      "antibot_count": 0,
+      "manual_block_count": 0
+    },
+    {
+      "arm": "method:greenhouse",
+      "mean_reward": 0.3333,
+      "confidence": 0.8326,
+      "pulls": 1,
+      "total_reward": 0.0,
+      "rows": 27,
+      "ready_rows": 10,
+      "applied_rows": 1,
+      "antibot_count": 0,
+      "manual_block_count": 16
+    },
+    {
+      "arm": "method:mercor",
+      "mean_reward": 0.275,
+      "confidence": 0.8558,
+      "pulls": 2,
+      "total_reward": 0.1,
+      "rows": 4,
+      "ready_rows": 0,
+      "applied_rows": 3,
+      "antibot_count": 0,
+      "manual_block_count": 0
+    },
+    {
+      "arm": "method:wellfound",
+      "mean_reward": 0.2,
+      "confidence": 0.8024,
+      "pulls": 4,
+      "total_reward": 0.2,
+      "rows": 4,
+      "ready_rows": 0,
+      "applied_rows": 0,
+      "antibot_count": 0,
+      "manual_block_count": 0
+    },
+    {
+      "arm": "method:ashby",
+      "mean_reward": 0.1111,
+      "confidence": 0.721,
+      "pulls": 7,
+      "total_reward": 0.0,
+      "rows": 10,
+      "ready_rows": 1,
+      "applied_rows": 4,
+      "antibot_count": 5,
+      "manual_block_count": 3
+    },
+    {
+      "arm": "method:direct",
+      "mean_reward": 0.0889,
+      "confidence": 0.5006,
+      "pulls": 25,
+      "total_reward": 1.4,
+      "rows": 222,
+      "ready_rows": 0,
+      "applied_rows": 9,
+      "antibot_count": 0,
+      "manual_block_count": 1
+    }
+  ],
+  "category_summary": [
+    {
+      "arm": "cat:genai",
+      "mean_reward": 0.4,
+      "confidence": 0.8326,
+      "pulls": 1,
+      "total_reward": 0.2
+    },
+    {
+      "arm": "cat:annotation",
+      "mean_reward": 0.35,
+      "confidence": 0.8326,
+      "pulls": 1,
+      "total_reward": 0.05
+    },
+    {
+      "arm": "cat:api",
+      "mean_reward": 0.35,
+      "confidence": 0.8326,
+      "pulls": 1,
+      "total_reward": 0.05
+    },
+    {
+      "arm": "cat:cicd",
+      "mean_reward": 0.35,
+      "confidence": 0.8326,
+      "pulls": 1,
+      "total_reward": 0.05
+    },
+    {
+      "arm": "cat:debugging",
+      "mean_reward": 0.35,
+      "confidence": 0.8326,
+      "pulls": 1,
+      "total_reward": 0.05
+    },
+    {
+      "arm": "cat:edge",
+      "mean_reward": 0.35,
+      "confidence": 0.8326,
+      "pulls": 1,
+      "total_reward": 0.05
+    },
+    {
+      "arm": "cat:evals",
+      "mean_reward": 0.35,
+      "confidence": 0.8326,
+      "pulls": 1,
+      "total_reward": 0.05
+    },
+    {
+      "arm": "cat:macos",
+      "mean_reward": 0.35,
+      "confidence": 0.8326,
+      "pulls": 1,
+      "total_reward": 0.05
+    },
+    {
+      "arm": "cat:office",
+      "mean_reward": 0.35,
+      "confidence": 0.8326,
+      "pulls": 1,
+      "total_reward": 0.05
+    },
+    {
+      "arm": "cat:quantum",
+      "mean_reward": 0.35,
+      "confidence": 0.8326,
+      "pulls": 1,
+      "total_reward": 0.05
+    }
+  ],
+  "ready_ranked": [
+    {
+      "company": "Databricks",
+      "role": "AI Engineer - FDE (Forward Deployed Engineer)",
+      "status": "ReadyToSubmit",
+      "career_page_url": "https://boards.greenhouse.io/embed/job_app?for=databricks&token=8335860002",
+      "submission_lane": "ci_auto:greenhouse",
+      "method": "greenhouse",
+      "tags": [
+        "ai",
+        "software",
+        "forward-deployed",
+        "customer-facing",
+        "api-integration"
+      ],
+      "method_mean_reward": 0.3333,
+      "method_pulls": 1,
+      "tag_mean_reward": 0.0741,
+      "matched_positive_tags": [],
+      "matched_negative_tags": [
+        "ai"
+      ],
+      "learned_score": 0.223,
+      "adjusted_score": 0.223,
+      "lane_priority": 0,
+      "antibot_history": false,
+      "manual_history": false,
+      "row_index": 244
+    },
+    {
+      "company": "Databricks",
+      "role": "Head of AI FDE (Forward Deployed Engineering) - APJ",
+      "status": "ReadyToSubmit",
+      "career_page_url": "https://boards.greenhouse.io/embed/job_app?for=databricks&token=8385962002",
+      "submission_lane": "ci_auto:greenhouse",
+      "method": "greenhouse",
+      "tags": [
+        "ai",
+        "software",
+        "forward-deployed",
+        "customer-facing",
+        "api-integration"
+      ],
+      "method_mean_reward": 0.3333,
+      "method_pulls": 1,
+      "tag_mean_reward": 0.0741,
+      "matched_positive_tags": [],
+      "matched_negative_tags": [
+        "ai"
+      ],
+      "learned_score": 0.223,
+      "adjusted_score": 0.223,
+      "lane_priority": 0,
+      "antibot_history": false,
+      "manual_history": false,
+      "row_index": 245
+    },
+    {
+      "company": "Databricks",
+      "role": "Senior Solutions Engineer",
+      "status": "ReadyToSubmit",
+      "career_page_url": "https://boards.greenhouse.io/embed/job_app?for=databricks&token=8239195002",
+      "submission_lane": "ci_auto:greenhouse",
+      "method": "greenhouse",
+      "tags": [
+        "ai",
+        "software",
+        "forward-deployed",
+        "customer-facing",
+        "api-integration"
+      ],
+      "method_mean_reward": 0.3333,
+      "method_pulls": 1,
+      "tag_mean_reward": 0.0741,
+      "matched_positive_tags": [],
+      "matched_negative_tags": [
+        "ai"
+      ],
+      "learned_score": 0.223,
+      "adjusted_score": 0.223,
+      "lane_priority": 0,
+      "antibot_history": false,
+      "manual_history": false,
+      "row_index": 246
+    },
+    {
+      "company": "Databricks",
+      "role": "Sr. Manager, AI Forward Deployed Engineering (FDE)",
+      "status": "ReadyToSubmit",
+      "career_page_url": "https://boards.greenhouse.io/embed/job_app?for=databricks&token=8414367002",
+      "submission_lane": "ci_auto:greenhouse",
+      "method": "greenhouse",
+      "tags": [
+        "ai",
+        "software",
+        "forward-deployed",
+        "customer-facing",
+        "api-integration"
+      ],
+      "method_mean_reward": 0.3333,
+      "method_pulls": 1,
+      "tag_mean_reward": 0.0741,
+      "matched_positive_tags": [],
+      "matched_negative_tags": [
+        "ai"
+      ],
+      "learned_score": 0.223,
+      "adjusted_score": 0.223,
+      "lane_priority": 0,
+      "antibot_history": false,
+      "manual_history": false,
+      "row_index": 247
+    },
+    {
+      "company": "Databricks",
+      "role": "Sr. Solutions Engineer",
+      "status": "ReadyToSubmit",
+      "career_page_url": "https://boards.greenhouse.io/embed/job_app?for=databricks&token=8415130002",
+      "submission_lane": "ci_auto:greenhouse",
+      "method": "greenhouse",
+      "tags": [
+        "ai",
+        "software",
+        "forward-deployed",
+        "customer-facing",
+        "api-integration"
+      ],
+      "method_mean_reward": 0.3333,
+      "method_pulls": 1,
+      "tag_mean_reward": 0.0741,
+      "matched_positive_tags": [],
+      "matched_negative_tags": [
+        "ai"
+      ],
+      "learned_score": 0.223,
+      "adjusted_score": 0.223,
+      "lane_priority": 0,
+      "antibot_history": false,
+      "manual_history": false,
+      "row_index": 248
+    },
+    {
+      "company": "Databricks",
+      "role": "Sr. Solutions Engineer - Communications, Media, Entertainment and Games",
+      "status": "ReadyToSubmit",
+      "career_page_url": "https://boards.greenhouse.io/embed/job_app?for=databricks&token=8402475002",
+      "submission_lane": "ci_auto:greenhouse",
+      "method": "greenhouse",
+      "tags": [
+        "ai",
+        "software",
+        "forward-deployed",
+        "customer-facing",
+        "api-integration"
+      ],
+      "method_mean_reward": 0.3333,
+      "method_pulls": 1,
+      "tag_mean_reward": 0.0741,
+      "matched_positive_tags": [],
+      "matched_negative_tags": [
+        "ai"
+      ],
+      "learned_score": 0.223,
+      "adjusted_score": 0.223,
+      "lane_priority": 0,
+      "antibot_history": false,
+      "manual_history": false,
+      "row_index": 249
+    },
+    {
+      "company": "Databricks",
+      "role": "Sr. Solutions Engineer - Digital Native Business, Strategic",
+      "status": "ReadyToSubmit",
+      "career_page_url": "https://boards.greenhouse.io/embed/job_app?for=databricks&token=8434465002",
+      "submission_lane": "ci_auto:greenhouse",
+      "method": "greenhouse",
+      "tags": [
+        "ai",
+        "software",
+        "forward-deployed",
+        "customer-facing",
+        "api-integration"
+      ],
+      "method_mean_reward": 0.3333,
+      "method_pulls": 1,
+      "tag_mean_reward": 0.0741,
+      "matched_positive_tags": [],
+      "matched_negative_tags": [
+        "ai"
+      ],
+      "learned_score": 0.223,
+      "adjusted_score": 0.223,
+      "lane_priority": 0,
+      "antibot_history": false,
+      "manual_history": false,
+      "row_index": 250
+    },
+    {
+      "company": "Databricks",
+      "role": "Sr. Solutions Engineer - Hunter Team",
+      "status": "ReadyToSubmit",
+      "career_page_url": "https://boards.greenhouse.io/embed/job_app?for=databricks&token=8417647002",
+      "submission_lane": "ci_auto:greenhouse",
+      "method": "greenhouse",
+      "tags": [
+        "ai",
+        "software",
+        "forward-deployed",
+        "customer-facing",
+        "api-integration"
+      ],
+      "method_mean_reward": 0.3333,
+      "method_pulls": 1,
+      "tag_mean_reward": 0.0741,
+      "matched_positive_tags": [],
+      "matched_negative_tags": [
+        "ai"
+      ],
+      "learned_score": 0.223,
+      "adjusted_score": 0.223,
+      "lane_priority": 0,
+      "antibot_history": false,
+      "manual_history": false,
+      "row_index": 251
+    },
+    {
+      "company": "Databricks",
+      "role": "Sr. Solutions Engineer - Public Sector (SLED)",
+      "status": "ReadyToSubmit",
+      "career_page_url": "https://boards.greenhouse.io/embed/job_app?for=databricks&token=8415023002",
+      "submission_lane": "ci_auto:greenhouse",
+      "method": "greenhouse",
+      "tags": [
+        "ai",
+        "software",
+        "forward-deployed",
+        "customer-facing",
+        "api-integration"
+      ],
+      "method_mean_reward": 0.3333,
+      "method_pulls": 1,
+      "tag_mean_reward": 0.0741,
+      "matched_positive_tags": [],
+      "matched_negative_tags": [
+        "ai"
+      ],
+      "learned_score": 0.223,
+      "adjusted_score": 0.223,
+      "lane_priority": 0,
+      "antibot_history": false,
+      "manual_history": false,
+      "row_index": 252
+    },
+    {
+      "company": "Vercel",
+      "role": "Senior Workday Integrations Engineer",
+      "status": "ReadyToSubmit",
+      "career_page_url": "https://job-boards.greenhouse.io/vercel/jobs/5812684004",
+      "submission_lane": "ci_auto:greenhouse",
+      "method": "greenhouse",
+      "tags": [
+        "ai",
+        "software"
+      ],
+      "method_mean_reward": 0.3333,
+      "method_pulls": 1,
+      "tag_mean_reward": 0.0741,
+      "matched_positive_tags": [],
+      "matched_negative_tags": [
+        "ai"
+      ],
+      "learned_score": 0.223,
+      "adjusted_score": 0.223,
+      "lane_priority": 0,
+      "antibot_history": false,
+      "manual_history": false,
+      "row_index": 259
+    }
+  ],
+  "draft_ranked": [
+    {
+      "company": "Decagon",
+      "role": "Senior Software Engineer, Infrastructure",
+      "status": "Draft",
+      "career_page_url": "https://jobs.ashbyhq.com/decagon/7a22482c-e2d4-45b6-b364-89b63189a4ae",
+      "submission_lane": "ci_auto:ashby",
+      "method": "ashby",
+      "tags": [
+        "ai",
+        "agents",
+        "infra",
+        "enterprise"
+      ],
+      "method_mean_reward": 0.1111,
+      "method_pulls": 7,
+      "tag_mean_reward": 0.1643,
+      "matched_positive_tags": [],
+      "matched_negative_tags": [
+        "enterprise",
+        "agents",
+        "infra",
+        "ai"
+      ],
+      "learned_score": 0.1735,
+      "adjusted_score": 0.1335,
+      "lane_priority": 0,
+      "antibot_history": true,
+      "manual_history": false,
+      "row_index": 40
+    },
+    {
+      "company": "OpenEvidence",
+      "role": "Software Engineer - Backend and Infrastructure",
+      "status": "Draft",
+      "career_page_url": "https://jobs.ashbyhq.com/openevidence/4ca13c92-2a6f-4847-8bcd-22aa8b29cde8",
+      "submission_lane": "ci_auto:ashby",
+      "method": "ashby",
+      "tags": [
+        "ai",
+        "infra",
+        "backend"
+      ],
+      "method_mean_reward": 0.1111,
+      "method_pulls": 7,
+      "tag_mean_reward": 0.1414,
+      "matched_positive_tags": [],
+      "matched_negative_tags": [
+        "backend",
+        "infra",
+        "ai"
+      ],
+      "learned_score": 0.1543,
+      "adjusted_score": 0.1143,
+      "lane_priority": 0,
+      "antibot_history": true,
+      "manual_history": false,
+      "row_index": 31
+    },
+    {
+      "company": "10x Team",
+      "role": "Go To Market Strategist AI Trainer Freelance 8 20 hrs week",
+      "status": "Draft",
+      "career_page_url": "https://remoteOK.com/remote-jobs/remote-go-to-market-strategist-ai-trainer-freelance-8-20-hrs-week-10x-team-1130756",
+      "submission_lane": "manual",
+      "method": "direct",
+      "tags": [
+        "trainer",
+        "strategist",
+        "content",
+        "marketing",
+        "sales",
+        "go",
+        "non-tech"
+      ],
+      "method_mean_reward": 0.0889,
+      "method_pulls": 25,
+      "tag_mean_reward": 0.5,
+      "matched_positive_tags": [],
+      "matched_negative_tags": [],
+      "learned_score": 0.2562,
+      "adjusted_score": 0.2562,
+      "lane_priority": 1,
+      "antibot_history": false,
+      "manual_history": false,
+      "row_index": 174
+    },
+    {
+      "company": "10x Team",
+      "role": "Migration Specialist AI Trainer Freelance 8 20 hrs week",
+      "status": "Draft",
+      "career_page_url": "https://remoteOK.com/remote-jobs/remote-migration-specialist-ai-trainer-freelance-8-20-hrs-week-10x-team-1130755",
+      "submission_lane": "manual",
+      "method": "direct",
+      "tags": [
+        "trainer",
+        "technical",
+        "content",
+        "engineering",
+        "part-time"
+      ],
+      "method_mean_reward": 0.0889,
+      "method_pulls": 25,
+      "tag_mean_reward": 0.5,
+      "matched_positive_tags": [],
+      "matched_negative_tags": [],
+      "learned_score": 0.2562,
+      "adjusted_score": 0.2562,
+      "lane_priority": 1,
+      "antibot_history": false,
+      "manual_history": false,
+      "row_index": 175
+    },
+    {
+      "company": "2K",
+      "role": "Rigging Technical Artist NBA 2K",
+      "status": "Draft",
+      "career_page_url": "https://remoteOK.com/remote-jobs/remote-rigging-technical-artist-nba-2k-2k-1130695",
+      "submission_lane": "manual",
+      "method": "direct",
+      "tags": [
+        "python",
+        "game",
+        "technical",
+        "support",
+        "code",
+        "math",
+        "node",
+        "lead",
+        "python-requested"
+      ],
+      "method_mean_reward": 0.0889,
+      "method_pulls": 25,
+      "tag_mean_reward": 0.5,
+      "matched_positive_tags": [],
+      "matched_negative_tags": [],
+      "learned_score": 0.2562,
+      "adjusted_score": 0.2562,
+      "lane_priority": 1,
+      "antibot_history": false,
+      "manual_history": false,
+      "row_index": 209
+    },
+    {
+      "company": "A.Team",
+      "role": "Senior Independent AI Engineer / Architect",
+      "status": "Draft",
+      "career_page_url": "https://remotive.com/remote-jobs/software-development/senior-independent-ai-engineer-architect-1919266",
+      "submission_lane": "manual",
+      "method": "direct",
+      "tags": [
+        "go",
+        "ui-ux",
+        "wordpress",
+        "chat",
+        "apple",
+        "testing",
+        "catalyst"
+      ],
+      "method_mean_reward": 0.0889,
+      "method_pulls": 25,
+      "tag_mean_reward": 0.5,
+      "matched_positive_tags": [],
+      "matched_negative_tags": [],
+      "learned_score": 0.2562,
+      "adjusted_score": 0.2562,
+      "lane_priority": 1,
+      "antibot_history": false,
+      "manual_history": false,
+      "row_index": 90
+    },
+    {
+      "company": "A.Team",
+      "role": "Senior Independent Software Developer",
+      "status": "Draft",
+      "career_page_url": "https://remotive.com/remote-jobs/software-development/senior-independent-software-developer-1919265",
+      "submission_lane": "manual",
+      "method": "direct",
+      "tags": [
+        "go",
+        "wordpress",
+        "chat",
+        "apple",
+        "testing",
+        "catalyst"
+      ],
+      "method_mean_reward": 0.0889,
+      "method_pulls": 25,
+      "tag_mean_reward": 0.5,
+      "matched_positive_tags": [],
+      "matched_negative_tags": [],
+      "learned_score": 0.2562,
+      "adjusted_score": 0.2562,
+      "lane_priority": 1,
+      "antibot_history": false,
+      "manual_history": false,
+      "row_index": 91
+    },
+    {
+      "company": "Agoda",
+      "role": "Connectivity Manager",
+      "status": "Draft",
+      "career_page_url": "https://remoteOK.com/remote-jobs/remote-connectivity-manager-agoda-1130504",
+      "submission_lane": "manual",
+      "method": "direct",
+      "tags": [
+        "manager",
+        "technical",
+        "travel",
+        "operational"
+      ],
+      "method_mean_reward": 0.0889,
+      "method_pulls": 25,
+      "tag_mean_reward": 0.5,
+      "matched_positive_tags": [],
+      "matched_negative_tags": [],
+      "learned_score": 0.2562,
+      "adjusted_score": 0.2562,
+      "lane_priority": 1,
+      "antibot_history": false,
+      "manual_history": false,
+      "row_index": 99
+    },
+    {
+      "company": "ALX Africa",
+      "role": "Customer Support Agent",
+      "status": "Draft",
+      "career_page_url": "https://remoteOK.com/remote-jobs/remote-customer-support-agent-alx-africa-1130805",
+      "submission_lane": "manual",
+      "method": "direct",
+      "tags": [
+        "students",
+        "training",
+        "technical",
+        "support",
+        "software",
+        "operational"
+      ],
+      "method_mean_reward": 0.0889,
+      "method_pulls": 25,
+      "tag_mean_reward": 0.5,
+      "matched_positive_tags": [],
+      "matched_negative_tags": [],
+      "learned_score": 0.2562,
+      "adjusted_score": 0.2562,
+      "lane_priority": 1,
+      "antibot_history": false,
+      "manual_history": false,
+      "row_index": 233
+    },
+    {
+      "company": "ALX Africa",
+      "role": "Director of Community",
+      "status": "Draft",
+      "career_page_url": "https://remoteOK.com/remote-jobs/remote-director-of-community-alx-africa-1130705",
+      "submission_lane": "manual",
+      "method": "direct",
+      "tags": [
+        "director",
+        "students",
+        "training",
+        "support",
+        "software"
+      ],
+      "method_mean_reward": 0.0889,
+      "method_pulls": 25,
+      "tag_mean_reward": 0.5,
+      "matched_positive_tags": [],
+      "matched_negative_tags": [],
+      "learned_score": 0.2562,
+      "adjusted_score": 0.2562,
+      "lane_priority": 1,
+      "antibot_history": false,
+      "manual_history": false,
+      "row_index": 197
+    }
+  ],
+  "manual_rescue_queue": [],
+  "action_summary": [
+    "Prioritize Databricks / AI Engineer - FDE (Forward Deployed Engineer) (lane=ci_auto:greenhouse, adjusted_score=0.223).",
+    "Best historical method arm is method:lever (mean_reward=0.35, pulls=1).",
+    "method:ashby shows anti-bot friction on 5 tracked rows; keep headed-browser/manual-rescue behavior for that lane.",
+    "Best draft prep target is Decagon / Senior Software Engineer, Infrastructure (adjusted_score=0.1335)."
+  ]
+}

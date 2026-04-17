@@ -1,18 +1,18 @@
-Subject: Interest in Head of Forward Deployment Engineering
+Subject: Head of Forward Deployment Engineering — Igor Ganapolsky
 
-Hello Parloa team,
+Hello Parloa,
 
-I am interested in the Head of Forward Deployment Engineering opportunity. My philosophy is that integration is a social problem, not just a technical one; i build 'api-first' relationships, not just endpoints. I build production AI/software systems where reliability is a non-negotiable.
+The Head of Forward Deployment Engineering posting caught my eye. For the last four years I've done a forward-deployed version of this work at Subway — sitting between product, data, and whichever vendor had the quickest path to a working demo.
 
-How I've lived this philosophy recently:
-- Architected a self-healing CI pipeline for multi-model LLM consensus that reduced manual debug time by 80%.
-- Pioneered a 'shipping small experiments weekly' approach for LLM features at Subway, beating the standard quarterly release cycle.
-- Partnered with product/data stakeholders to define prompts, tools, and escalation rules.
+The JD mentions: "- Daily collaboration with customer engineering and stakeholder teams." — that maps cleanly to the production-AI work I've been doing.
 
-My work is grounded in proof, not just prompts. You can find the code for my autonomous agent architectures at:
-- GitHub: https://github.com/IgorGanapolsky
-- Technical POV: https://www.linkedin.com/in/igor-ganapolsky/
+A couple of relevant threads from the last few years:
+- Wrote the integration doc *and* the runbook. Usually one person does one of those.
+- Rebuilt a brittle multi-model LLM review pipeline into something that self-heals on provider 5xx; manual debug time dropped roughly 80% once it stabilized.
 
-Thank you for your consideration.
+Happy to walk through specifics on any of the above.
+
+GitHub: https://github.com/IgorGanapolsky
+LinkedIn: https://www.linkedin.com/in/igor-ganapolsky-859317343/
 
 Igor Ganapolsky

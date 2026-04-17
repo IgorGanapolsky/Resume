@@ -1,18 +1,16 @@
-Subject: Interest in Senior Software Engineer, Infrastructure
+Subject: Senior Software Engineer, Infrastructure — Igor Ganapolsky
 
-Hello Decagon team,
+Hello Decagon,
 
-I am interested in the Senior Software Engineer, Infrastructure opportunity. My philosophy is that production ai is about reliability and cost-predictability, not just prompt engineering. I build production AI/software systems where reliability is a non-negotiable.
+Writing re: Senior Software Engineer, Infrastructure. Most of my recent work is the messy middle between customer teams and production AI — the part of the JD that's usually understated.
 
-How I've lived this philosophy recently:
-- Built a semantic memory system using LanceDB that reduced context window 'forgetting' across 200+ autonomous agent turns.
-- Optimized LLM inference pipelines to maintain <200ms latency while reducing token spend by 40%.
-- Delivered cloud-native services on GCP/AWS and integrated LLM features into existing stacks.
+A couple of relevant threads from the last few years:
+- Wrote the integration doc *and* the runbook. Usually one person does one of those.
+- Rebuilt a brittle multi-model LLM review pipeline into something that self-heals on provider 5xx; manual debug time dropped roughly 80% once it stabilized.
 
-My work is grounded in proof, not just prompts. You can find the code for my autonomous agent architectures at:
-- GitHub: https://github.com/IgorGanapolsky
-- Technical POV: https://www.linkedin.com/in/igor-ganapolsky/
+If the fit looks plausible, I'd like to talk to whoever owns delivery on this role.
 
-Thank you for your consideration.
+GitHub: https://github.com/IgorGanapolsky
+LinkedIn: https://www.linkedin.com/in/igor-ganapolsky-859317343/
 
 Igor Ganapolsky

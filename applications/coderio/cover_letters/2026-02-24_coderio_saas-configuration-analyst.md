@@ -1,17 +1,16 @@
-Subject: Interest in SaaS Configuration Analyst
+Subject: SaaS Configuration Analyst — Igor Ganapolsky
 
-Hello Coderio team,
+Hi Coderio folks,
 
-I am interested in the SaaS Configuration Analyst opportunity. My background is in production AI/software systems and platform engineering.
+I'd like to be considered for SaaS Configuration Analyst. I've been shipping production AI infra for the last four years — eval harnesses, serving cost control, the boring parts that keep uptime up.
 
-Why I may be a good fit:
-- Built production AI/software systems with strong reliability, observability, and CI/CD.
-- Delivered cloud-native services on GCP/AWS and integrated LLM features into existing stacks.
+A couple of relevant threads from the last few years:
+- Shipped cloud-native services on GCP and AWS; wired LLM features into stacks that predated the LLM boom.
+- On-call rotation for a production LLM service taught me what the happy-path demos never do.
 
-Links:
-- GitHub: https://github.com/IgorGanapolsky
-- LinkedIn: https://www.linkedin.com/in/igor-ganapolsky/
+Happy to walk through specifics on any of the above.
 
-Thank you for your consideration.
+GitHub: https://github.com/IgorGanapolsky
+LinkedIn: https://www.linkedin.com/in/igor-ganapolsky-859317343/
 
 Igor Ganapolsky

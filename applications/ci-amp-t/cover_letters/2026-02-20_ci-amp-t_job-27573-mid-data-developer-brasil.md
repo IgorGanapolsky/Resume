@@ -1,18 +1,18 @@
-Subject: Interest in Job 27573 Mid Data Developer Brasil
+Subject: Job 27573 Mid Data Developer Brasil — Igor Ganapolsky
 
-Hello CI&amp;T team,
+Hi CI&amp;T folks,
 
-I am interested in the Job 27573 Mid Data Developer Brasil opportunity because I enjoy customer-facing, integration-heavy delivery work.
+I'd like to be considered for Job 27573 Mid Data Developer Brasil. I spend most weeks translating between enterprise stakeholders and the engineers actually wiring the models up. Resume attached; a few notes below.
 
-Why I may be a good fit:
-- Led end-to-end delivery of AI features from prototype to production at Subway.
-- Built secure APIs and cloud workflows on GCP integrating LLM features with existing services.
-- Partnered with product/data stakeholders to define prompts, tools, and escalation rules.
+The JD mentions: "- Daily collaboration with customer engineering and stakeholder teams." — that maps cleanly to the production-AI work I've been doing.
 
-Links:
-- GitHub: https://github.com/IgorGanapolsky
-- LinkedIn: https://www.linkedin.com/in/igor-ganapolsky/
+A couple of relevant threads from the last few years:
+- Sat in customer syncs with product and data leads to scope prompts, tool wiring, and escalation rules — and then actually shipped the code, not just the slides.
+- Wrote the integration doc *and* the runbook. Usually one person does one of those.
 
-Thank you for your consideration.
+Open to a call when it's useful. Links below for the curious.
+
+GitHub: https://github.com/IgorGanapolsky
+LinkedIn: https://www.linkedin.com/in/igor-ganapolsky-859317343/
 
 Igor Ganapolsky

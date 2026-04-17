@@ -1,17 +1,16 @@
-Subject: Interest in AI-Native Cloud Infrastructure Generalist (m/f/d)
+Subject: AI-Native Cloud Infrastructure Generalist (m/f/d) — Igor Ganapolsky
 
-Hello shopware AG team,
+Hi shopware AG team,
 
-I am interested in the AI-Native Cloud Infrastructure Generalist (m/f/d) opportunity. My background is in production AI/software systems and platform engineering.
+The AI-Native Cloud Infrastructure Generalist (m/f/d) role lines up with what I've been doing. Most of my recent work is LLM serving and eval — less demo-building, more keeping the p95 honest.
 
-Why I may be a good fit:
-- Built production AI/software systems with strong reliability, observability, and CI/CD.
-- Delivered cloud-native services on GCP/AWS and integrated LLM features into existing stacks.
+A couple of relevant threads from the last few years:
+- Built a LanceDB-backed semantic memory that kept 200+ autonomous agent turns coherent without blowing out the context window.
+- Cut LLM token spend roughly 40% on one inference pipeline while keeping p95 under 200ms — mostly by paying attention to prompt shape and caching, not a bigger model.
 
-Links:
-- GitHub: https://github.com/IgorGanapolsky
-- LinkedIn: https://www.linkedin.com/in/igor-ganapolsky/
+If the fit looks plausible, I'd like to talk to whoever owns delivery on this role.
 
-Thank you for your consideration.
+GitHub: https://github.com/IgorGanapolsky
+LinkedIn: https://www.linkedin.com/in/igor-ganapolsky-859317343/
 
 Igor Ganapolsky

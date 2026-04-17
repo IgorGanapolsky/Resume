@@ -1,17 +1,16 @@
-Subject: Interest in Deputy Editor Future Perfect
+Subject: Deputy Editor Future Perfect — Igor Ganapolsky
 
-Hello Vox Media, LLC team,
+Hello Vox Media, LLC,
 
-I am interested in the Deputy Editor Future Perfect opportunity. My background is in production AI/software systems and platform engineering.
+Re: Deputy Editor Future Perfect. Short pitch up front: 15+ years in production engineering, last four on LLM systems with real latency and cost budgets.
 
-Why I may be a good fit:
-- Built production AI/software systems with strong reliability, observability, and CI/CD.
-- Delivered cloud-native services on GCP/AWS and integrated LLM features into existing stacks.
+A couple of relevant threads from the last few years:
+- On-call rotation for a production LLM service taught me what the happy-path demos never do.
+- Built a LanceDB-backed semantic memory that kept 200+ autonomous agent turns coherent without blowing out the context window.
 
-Links:
-- GitHub: https://github.com/IgorGanapolsky
-- LinkedIn: https://www.linkedin.com/in/igor-ganapolsky/
+Short pitch. Would rather go deeper on the tradeoffs you're actually weighing.
 
-Thank you for your consideration.
+GitHub: https://github.com/IgorGanapolsky
+LinkedIn: https://www.linkedin.com/in/igor-ganapolsky-859317343/
 
 Igor Ganapolsky

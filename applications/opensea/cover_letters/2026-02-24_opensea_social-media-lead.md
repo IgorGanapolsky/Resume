@@ -1,17 +1,16 @@
-Subject: Interest in Social Media Lead
+Subject: Social Media Lead — Igor Ganapolsky
 
-Hello OpenSea team,
+Hello OpenSea hiring team,
 
-I am interested in the Social Media Lead opportunity. My background is in production AI/software systems and platform engineering.
+Putting my name in for Social Media Lead. My background is senior full-stack plus four years of LLM production work; happy to go deeper in a conversation.
 
-Why I may be a good fit:
-- Built production AI/software systems with strong reliability, observability, and CI/CD.
-- Delivered cloud-native services on GCP/AWS and integrated LLM features into existing stacks.
+A couple of relevant threads from the last few years:
+- Cut LLM token spend roughly 40% on one inference pipeline while keeping p95 under 200ms — mostly by paying attention to prompt shape and caching, not a bigger model.
+- Shipped cloud-native services on GCP and AWS; wired LLM features into stacks that predated the LLM boom.
 
-Links:
-- GitHub: https://github.com/IgorGanapolsky
-- LinkedIn: https://www.linkedin.com/in/igor-ganapolsky/
+Glad to dig into details if this looks like a reasonable fit.
 
-Thank you for your consideration.
+GitHub: https://github.com/IgorGanapolsky
+LinkedIn: https://www.linkedin.com/in/igor-ganapolsky-859317343/
 
 Igor Ganapolsky

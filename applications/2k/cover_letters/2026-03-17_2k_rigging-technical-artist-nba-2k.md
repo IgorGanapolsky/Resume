@@ -1,18 +1,16 @@
-Subject: Interest in Rigging Technical Artist NBA 2K
+Subject: Rigging Technical Artist NBA 2K — Igor Ganapolsky
 
-Hello 2K team,
+Hello 2K hiring team,
 
-I am interested in the Rigging Technical Artist NBA 2K opportunity. My philosophy is that production ai is about reliability and cost-predictability, not just prompt engineering. I build production AI/software systems where reliability is a non-negotiable.
+The Rigging Technical Artist NBA 2K posting caught my eye. For the last four years I've done a forward-deployed version of this work at Subway — sitting between product, data, and whichever vendor had the quickest path to a working demo.
 
-How I've lived this philosophy recently:
-- Built a semantic memory system using LanceDB that reduced context window 'forgetting' across 200+ autonomous agent turns.
-- Optimized LLM inference pipelines to maintain <200ms latency while reducing token spend by 40%.
-- Delivered cloud-native services on GCP/AWS and integrated LLM features into existing stacks.
+A couple of relevant threads from the last few years:
+- Ran a weekly ship cadence for LLM features at Subway instead of the standard quarterly cycle. Most experiments failed; the ones that didn't landed faster than prior releases.
+- Sat in customer syncs with product and data leads to scope prompts, tool wiring, and escalation rules — and then actually shipped the code, not just the slides.
 
-My work is grounded in proof, not just prompts. You can find the code for my autonomous agent architectures at:
-- GitHub: https://github.com/IgorGanapolsky
-- Technical POV: https://www.linkedin.com/in/igor-ganapolsky/
+Happy to walk through specifics on any of the above.
 
-Thank you for your consideration.
+GitHub: https://github.com/IgorGanapolsky
+LinkedIn: https://www.linkedin.com/in/igor-ganapolsky-859317343/
 
 Igor Ganapolsky

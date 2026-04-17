@@ -1,18 +1,16 @@
-Subject: Interest in Entry-Level Crypto Market Specialist
+Subject: Entry-Level Crypto Market Specialist — Igor Ganapolsky
 
-Hello ELEMENTAL TERRA CAPITAL LTD team,
+Hi ELEMENTAL TERRA CAPITAL LTD folks,
 
-I am interested in the Entry-Level Crypto Market Specialist opportunity. My philosophy is that production ai is about reliability and cost-predictability, not just prompt engineering. I build production AI/software systems where reliability is a non-negotiable.
+The Entry-Level Crypto Market Specialist role lines up with what I've been doing. Most of my recent work is LLM serving and eval — less demo-building, more keeping the p95 honest.
 
-How I've lived this philosophy recently:
-- Built a semantic memory system using LanceDB that reduced context window 'forgetting' across 200+ autonomous agent turns.
-- Optimized LLM inference pipelines to maintain <200ms latency while reducing token spend by 40%.
-- Delivered cloud-native services on GCP/AWS and integrated LLM features into existing stacks.
+A couple of relevant threads from the last few years:
+- Shipped cloud-native services on GCP and AWS; wired LLM features into stacks that predated the LLM boom.
+- On-call rotation for a production LLM service taught me what the happy-path demos never do.
 
-My work is grounded in proof, not just prompts. You can find the code for my autonomous agent architectures at:
-- GitHub: https://github.com/IgorGanapolsky
-- Technical POV: https://www.linkedin.com/in/igor-ganapolsky/
+If the fit looks plausible, I'd like to talk to whoever owns delivery on this role.
 
-Thank you for your consideration.
+GitHub: https://github.com/IgorGanapolsky
+LinkedIn: https://www.linkedin.com/in/igor-ganapolsky-859317343/
 
 Igor Ganapolsky

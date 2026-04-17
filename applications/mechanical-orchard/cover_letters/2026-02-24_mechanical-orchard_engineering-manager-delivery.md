@@ -1,17 +1,16 @@
-Subject: Interest in Engineering Manager Delivery
+Subject: Engineering Manager Delivery — Igor Ganapolsky
 
-Hello Mechanical Orchard team,
+Hello Mechanical Orchard hiring team,
 
-I am interested in the Engineering Manager Delivery opportunity. My background is in production AI/software systems and platform engineering.
+Writing about Engineering Manager Delivery. I've spent the last few years on the unglamorous side of production AI (cost discipline, regression evals, on-call), which reads like what you're hiring for.
 
-Why I may be a good fit:
-- Built production AI/software systems with strong reliability, observability, and CI/CD.
-- Delivered cloud-native services on GCP/AWS and integrated LLM features into existing stacks.
+A couple of relevant threads from the last few years:
+- Cut LLM token spend roughly 40% on one inference pipeline while keeping p95 under 200ms — mostly by paying attention to prompt shape and caching, not a bigger model.
+- Shipped cloud-native services on GCP and AWS; wired LLM features into stacks that predated the LLM boom.
 
-Links:
-- GitHub: https://github.com/IgorGanapolsky
-- LinkedIn: https://www.linkedin.com/in/igor-ganapolsky/
+Open to a call when it's useful. Links below for the curious.
 
-Thank you for your consideration.
+GitHub: https://github.com/IgorGanapolsky
+LinkedIn: https://www.linkedin.com/in/igor-ganapolsky-859317343/
 
 Igor Ganapolsky

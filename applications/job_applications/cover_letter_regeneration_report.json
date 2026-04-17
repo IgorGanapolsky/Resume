@@ -1,0 +1,1453 @@
+{
+  "regenerated": 184,
+  "skipped_missing_cover_file": 39,
+  "dry_run": false,
+  "entries": [
+    {
+      "company": "Decagon",
+      "role": "Senior Software Engineer, Infrastructure",
+      "path": "applications/decagon/cover_letters/2026-03-17_decagon_senior-software-engineer-infrastructure.md",
+      "chars": 780,
+      "track": "fde"
+    },
+    {
+      "company": "TELUS Digital",
+      "role": "Content Reviewer",
+      "path": "applications/telus-digital/cover_letters/2026-02-19_telus-digital_content-reviewer.md",
+      "chars": 712,
+      "track": "general"
+    },
+    {
+      "company": "Welo Data",
+      "role": "AI Internet Rater",
+      "path": "applications/welo-data/cover_letters/2026-02-19_welo-data_ai-internet-rater.md",
+      "chars": 786,
+      "track": "general"
+    },
+    {
+      "company": "BNSF Railway",
+      "role": "Product, Platform & Enterprise Full Stack Sr/Staff Software Engineer",
+      "path": "applications/bnsf-railway/cover_letters/2026-02-19_bnsf-railway_product-platform-enterprise-full-stack-sr-staff-software-enginee.md",
+      "chars": 870,
+      "track": "general"
+    },
+    {
+      "company": "BNSF Railway",
+      "role": "Product, Platform & Enterprise Front End Sr/Staff Software Engineer",
+      "path": "applications/bnsf-railway/cover_letters/2026-02-19_bnsf-railway_product-platform-enterprise-front-end-sr-staff-software-engineer.md",
+      "chars": 891,
+      "track": "general"
+    },
+    {
+      "company": "BNSF Railway",
+      "role": "Sr/Staff AI Engineer",
+      "path": "applications/bnsf-railway/cover_letters/2026-02-19_bnsf-railway_sr-staff-ai-engineer.md",
+      "chars": 698,
+      "track": "general"
+    },
+    {
+      "company": "Ping Identity",
+      "role": "Senior Manager Site Reliability Engineer",
+      "path": "applications/ping-identity/cover_letters/2026-02-19_ping-identity_senior-manager-site-reliability-engineer.md",
+      "chars": 836,
+      "track": "general"
+    },
+    {
+      "company": "Ping Identity",
+      "role": "Senior Site Reliability Engineer",
+      "path": "applications/ping-identity/cover_letters/2026-02-19_ping-identity_senior-site-reliability-engineer.md",
+      "chars": 726,
+      "track": "general"
+    },
+    {
+      "company": "Bounteous",
+      "role": "Associate Director Adobe Target",
+      "path": "applications/bounteous/cover_letters/2026-02-19_bounteous_associate-director-adobe-target.md",
+      "chars": 748,
+      "track": "general"
+    },
+    {
+      "company": "FireMon",
+      "role": "Enterprise Account Executive Pacific NW",
+      "path": "applications/firemon/cover_letters/2026-02-19_firemon_enterprise-account-executive-pacific-nw.md",
+      "chars": 796,
+      "track": "general"
+    },
+    {
+      "company": "Unison Infrastructure",
+      "role": "Real Estate Counsel",
+      "path": "applications/unison-infrastructure/cover_letters/2026-02-19_unison-infrastructure_real-estate-counsel.md",
+      "chars": 801,
+      "track": "general"
+    },
+    {
+      "company": "FormativGroup",
+      "role": "Senior Technical Consultant Charles River Everywhere",
+      "path": "applications/formativgroup/cover_letters/2026-02-20_formativgroup_senior-technical-consultant-charles-river-everywhere.md",
+      "chars": 1087,
+      "track": "fde"
+    },
+    {
+      "company": "Magic Media",
+      "role": "C++ Developer",
+      "path": "applications/magic-media/cover_letters/2026-02-20_magic-media_c-developer.md",
+      "chars": 998,
+      "track": "fde"
+    },
+    {
+      "company": "InfStones",
+      "role": "DevOps Engineer",
+      "path": "applications/infstones/cover_letters/2026-02-20_infstones_devops-engineer.md",
+      "chars": 1024,
+      "track": "fde"
+    },
+    {
+      "company": "CI&amp;T",
+      "role": "Job 27573 Mid Data Developer Brasil",
+      "path": "applications/ci-amp-t/cover_letters/2026-02-20_ci-amp-t_job-27573-mid-data-developer-brasil.md",
+      "chars": 944,
+      "track": "fde"
+    },
+    {
+      "company": "CI&amp;T",
+      "role": "Job 27611 MidSenior Data Developer Brasil",
+      "path": "applications/ci-amp-t/cover_letters/2026-02-20_ci-amp-t_job-27611-midsenior-data-developer-brasil.md",
+      "chars": 1057,
+      "track": "fde"
+    },
+    {
+      "company": "Ubiminds",
+      "role": "Mid Level DevOps Engineer CI CD Optimization",
+      "path": "applications/ubiminds/cover_letters/2026-02-20_ubiminds_mid-level-devops-engineer-ci-cd-optimization.md",
+      "chars": 1048,
+      "track": "fde"
+    },
+    {
+      "company": "ARC&#39;TERYX",
+      "role": "Director Asset Protection NAM Retail",
+      "path": "applications/arc-39-teryx/cover_letters/2026-02-20_arc-39-teryx_director-asset-protection-nam-retail.md",
+      "chars": 940,
+      "track": "fde"
+    },
+    {
+      "company": "Coupa Software, Inc.",
+      "role": "Coupa Pay Customer Success Manager 11184",
+      "path": "applications/coupa-software-inc/cover_letters/2026-02-20_coupa-software-inc_coupa-pay-customer-success-manager-11184.md",
+      "chars": 1056,
+      "track": "fde"
+    },
+    {
+      "company": "Swayable",
+      "role": "Research Data Scientist",
+      "path": "applications/swayable/cover_letters/2026-02-20_swayable_research-data-scientist.md",
+      "chars": 1006,
+      "track": "fde"
+    },
+    {
+      "company": "Exaware",
+      "role": "Operations and Order Management Manager",
+      "path": "applications/exaware/cover_letters/2026-02-20_exaware_operations-and-order-management-manager.md",
+      "chars": 802,
+      "track": "general"
+    },
+    {
+      "company": "Relativity Space",
+      "role": "Senior IT Systems Engineer Storage and Infrastructure",
+      "path": "applications/relativity-space/cover_letters/2026-02-24_relativity-space_senior-it-systems-engineer-storage-and-infrastructure.md",
+      "chars": 1092,
+      "track": "fde"
+    },
+    {
+      "company": "Okta, Inc.",
+      "role": "Senior Solutions Engineer North East",
+      "path": "applications/okta-inc/cover_letters/2026-02-24_okta-inc_senior-solutions-engineer-north-east.md",
+      "chars": 966,
+      "track": "fde"
+    },
+    {
+      "company": "ComputerCare",
+      "role": "Data Analyst II",
+      "path": "applications/computercare/cover_letters/2026-02-24_computercare_data-analyst-ii.md",
+      "chars": 908,
+      "track": "fde"
+    },
+    {
+      "company": "Solera Health",
+      "role": "Vice President of Engagement Transformation",
+      "path": "applications/solera-health/cover_letters/2026-02-24_solera-health_vice-president-of-engagement-transformation.md",
+      "chars": 1029,
+      "track": "fde"
+    },
+    {
+      "company": "Solera Health",
+      "role": "Data Scientist",
+      "path": "applications/solera-health/cover_letters/2026-02-24_solera-health_data-scientist.md",
+      "chars": 893,
+      "track": "fde"
+    },
+    {
+      "company": "MoonPay",
+      "role": "Partner Success Manager",
+      "path": "applications/moonpay/cover_letters/2026-02-24_moonpay_partner-success-manager.md",
+      "chars": 911,
+      "track": "fde"
+    },
+    {
+      "company": "Lavendo",
+      "role": "Technical Product Manager",
+      "path": "applications/lavendo/cover_letters/2026-02-24_lavendo_technical-product-manager.md",
+      "chars": 1009,
+      "track": "fde"
+    },
+    {
+      "company": "shopware AG",
+      "role": "AI-Native Cloud Infrastructure Generalist (m/f/d)",
+      "path": "applications/shopware-ag/cover_letters/2026-02-24_shopware-ag_ai-native-cloud-infrastructure-generalist-m-f-d.md",
+      "chars": 854,
+      "track": "general"
+    },
+    {
+      "company": "Fluence International, Inc.",
+      "role": "Full-Stack Developer (6 months, extendable)",
+      "path": "applications/fluence-international-inc/cover_letters/2026-02-24_fluence-international-inc_full-stack-developer-6-months-extendable.md",
+      "chars": 866,
+      "track": "general"
+    },
+    {
+      "company": "A.Team",
+      "role": "Senior Independent AI Engineer / Architect",
+      "path": "applications/a-team/cover_letters/2026-02-24_a-team_senior-independent-ai-engineer-architect.md",
+      "chars": 801,
+      "track": "general"
+    },
+    {
+      "company": "A.Team",
+      "role": "Senior Independent Software Developer",
+      "path": "applications/a-team/cover_letters/2026-02-24_a-team_senior-independent-software-developer.md",
+      "chars": 822,
+      "track": "general"
+    },
+    {
+      "company": "Coalition Technologies",
+      "role": "Copywriter",
+      "path": "applications/coalition-technologies/cover_letters/2026-02-24_coalition-technologies_copywriter.md",
+      "chars": 709,
+      "track": "general"
+    },
+    {
+      "company": "GNO Partners",
+      "role": "Senior Amazon Brand Manager",
+      "path": "applications/gno-partners/cover_letters/2026-02-24_gno-partners_senior-amazon-brand-manager.md",
+      "chars": 772,
+      "track": "general"
+    },
+    {
+      "company": "Vox Media, LLC",
+      "role": "Deputy Editor Future Perfect",
+      "path": "applications/vox-media-llc/cover_letters/2026-02-24_vox-media-llc_deputy-editor-future-perfect.md",
+      "chars": 716,
+      "track": "general"
+    },
+    {
+      "company": "Yassir",
+      "role": "Senior Mobile iOS Engineer",
+      "path": "applications/yassir/cover_letters/2026-02-24_yassir_senior-mobile-ios-engineer.md",
+      "chars": 790,
+      "track": "general"
+    },
+    {
+      "company": "Brave",
+      "role": "Software Engineer UI",
+      "path": "applications/brave/cover_letters/2026-02-24_brave_software-engineer-ui.md",
+      "chars": 798,
+      "track": "general"
+    },
+    {
+      "company": "Wild Alaskan Company",
+      "role": "Executive Assistant",
+      "path": "applications/wild-alaskan-company/cover_letters/2026-02-24_wild-alaskan-company_executive-assistant.md",
+      "chars": 699,
+      "track": "general"
+    },
+    {
+      "company": "Unlock Health",
+      "role": "Senior Media Director Performance Media",
+      "path": "applications/unlock-health/cover_letters/2026-02-24_unlock-health_senior-media-director-performance-media.md",
+      "chars": 758,
+      "track": "general"
+    },
+    {
+      "company": "Agoda",
+      "role": "Connectivity Manager",
+      "path": "applications/agoda/cover_letters/2026-02-24_agoda_connectivity-manager.md",
+      "chars": 696,
+      "track": "general"
+    },
+    {
+      "company": "Sociallyin",
+      "role": "Social Media Strategist",
+      "path": "applications/sociallyin/cover_letters/2026-02-24_sociallyin_social-media-strategist.md",
+      "chars": 790,
+      "track": "general"
+    },
+    {
+      "company": "ARRISE",
+      "role": "Strategic Live Casino Manager",
+      "path": "applications/arrise/cover_letters/2026-02-24_arrise_strategic-live-casino-manager.md",
+      "chars": 786,
+      "track": "general"
+    },
+    {
+      "company": "Nest Veterinary",
+      "role": "Implementation Specialist",
+      "path": "applications/nest-veterinary/cover_letters/2026-02-24_nest-veterinary_implementation-specialist.md",
+      "chars": 782,
+      "track": "general"
+    },
+    {
+      "company": "PointClickCare",
+      "role": "PointClickCare Associate Data Scientist",
+      "path": "applications/pointclickcare/cover_letters/2026-02-24_pointclickcare_pointclickcare-associate-data-scientist.md",
+      "chars": 834,
+      "track": "general"
+    },
+    {
+      "company": "RYZ Labs",
+      "role": "Product Manager Customer Care",
+      "path": "applications/ryz-labs/cover_letters/2026-02-24_ryz-labs_product-manager-customer-care.md",
+      "chars": 725,
+      "track": "general"
+    },
+    {
+      "company": "vCluster Labs",
+      "role": "Talent Acquisition Partner",
+      "path": "applications/vcluster-labs/cover_letters/2026-02-24_vcluster-labs_talent-acquisition-partner.md",
+      "chars": 818,
+      "track": "general"
+    },
+    {
+      "company": "Lantern",
+      "role": "Director AI Engineering",
+      "path": "applications/lantern/cover_letters/2026-02-24_lantern_director-ai-engineering.md",
+      "chars": 759,
+      "track": "general"
+    },
+    {
+      "company": "SciLeads",
+      "role": "Senior Product Manager Platform Life Sciences",
+      "path": "applications/scileads/cover_letters/2026-02-24_scileads_senior-product-manager-platform-life-sciences.md",
+      "chars": 809,
+      "track": "general"
+    },
+    {
+      "company": "GoodTime",
+      "role": "Customer Success Manager",
+      "path": "applications/goodtime/cover_letters/2026-02-24_goodtime_customer-success-manager.md",
+      "chars": 679,
+      "track": "general"
+    },
+    {
+      "company": "Geotab",
+      "role": "Business Development Manager Vocational",
+      "path": "applications/geotab/cover_letters/2026-02-24_geotab_business-development-manager-vocational.md",
+      "chars": 829,
+      "track": "general"
+    },
+    {
+      "company": "Galileo Financial Technologies",
+      "role": "Software Engineer",
+      "path": "applications/galileo-financial-technologies/cover_letters/2026-02-24_galileo-financial-technologies_software-engineer.md",
+      "chars": 807,
+      "track": "general"
+    },
+    {
+      "company": "Parloa",
+      "role": "Senior Partnerships Manager Spain Italy",
+      "path": "applications/parloa/cover_letters/2026-02-24_parloa_senior-partnerships-manager-spain-italy.md",
+      "chars": 733,
+      "track": "general"
+    },
+    {
+      "company": "Exadel",
+      "role": "3D Designer",
+      "path": "applications/exadel/cover_letters/2026-02-24_exadel_3d-designer.md",
+      "chars": 781,
+      "track": "general"
+    },
+    {
+      "company": "Juul Labs",
+      "role": "Division Manager KY WV",
+      "path": "applications/juul-labs/cover_letters/2026-02-24_juul-labs_division-manager-ky-wv.md",
+      "chars": 785,
+      "track": "general"
+    },
+    {
+      "company": "New Era Technology",
+      "role": "SAP WalkMe Development Senior Consultant",
+      "path": "applications/new-era-technology/cover_letters/2026-02-24_new-era-technology_sap-walkme-development-senior-consultant.md",
+      "chars": 747,
+      "track": "general"
+    },
+    {
+      "company": "Sharebite",
+      "role": "Engineering Manager",
+      "path": "applications/sharebite/cover_letters/2026-02-24_sharebite_engineering-manager.md",
+      "chars": 670,
+      "track": "general"
+    },
+    {
+      "company": "Anypear",
+      "role": "Technical Architect AUS Company",
+      "path": "applications/anypear/cover_letters/2026-02-24_anypear_technical-architect-aus-company.md",
+      "chars": 812,
+      "track": "general"
+    },
+    {
+      "company": "Judi Health",
+      "role": "Senior Full Stack Software Developer",
+      "path": "applications/judi-health/cover_letters/2026-02-24_judi-health_senior-full-stack-software-developer.md",
+      "chars": 732,
+      "track": "general"
+    },
+    {
+      "company": "OpenSea",
+      "role": "Social Media Lead",
+      "path": "applications/opensea/cover_letters/2026-02-24_opensea_social-media-lead.md",
+      "chars": 747,
+      "track": "general"
+    },
+    {
+      "company": "Coderio",
+      "role": "SaaS Configuration Analyst",
+      "path": "applications/coderio/cover_letters/2026-02-24_coderio_saas-configuration-analyst.md",
+      "chars": 708,
+      "track": "general"
+    },
+    {
+      "company": "Arcadia",
+      "role": "Sr Director Data Engineering & Analytics",
+      "path": "applications/arcadia/cover_letters/2026-02-24_arcadia_sr-director-data-engineering-analytics.md",
+      "chars": 738,
+      "track": "general"
+    },
+    {
+      "company": "Too Good To Go",
+      "role": "CX Specialist",
+      "path": "applications/too-good-to-go/cover_letters/2026-02-24_too-good-to-go_cx-specialist.md",
+      "chars": 707,
+      "track": "general"
+    },
+    {
+      "company": "Mentis AI",
+      "role": "Real Estate Investor \u00e2\u0080\u0094 Expert AI Trainer",
+      "path": "applications/mentis-ai/cover_letters/2026-02-24_mentis-ai_real-estate-investor-expert-ai-trainer.md",
+      "chars": 760,
+      "track": "general"
+    },
+    {
+      "company": "Nearform",
+      "role": "Technical Lead DevOps",
+      "path": "applications/nearform/cover_letters/2026-02-24_nearform_technical-lead-devops.md",
+      "chars": 696,
+      "track": "general"
+    },
+    {
+      "company": "You.com",
+      "role": "Senior Security Engineer",
+      "path": "applications/you-com/cover_letters/2026-02-24_you-com_senior-security-engineer.md",
+      "chars": 704,
+      "track": "general"
+    },
+    {
+      "company": "CI&amp;T",
+      "role": "Job 27602 Mid level Developer NodeJS Brazil",
+      "path": "applications/ci-amp-t/cover_letters/2026-02-24_ci-amp-t_job-27602-mid-level-developer-nodejs-brazil.md",
+      "chars": 722,
+      "track": "general"
+    },
+    {
+      "company": "Workleap",
+      "role": "Sp\u00c3\u00a9cialiste en acquisition de talents Pipeline & Sourcing",
+      "path": "applications/workleap/cover_letters/2026-02-24_workleap_sp-cialiste-en-acquisition-de-talents-pipeline-sourcing.md",
+      "chars": 773,
+      "track": "general"
+    },
+    {
+      "company": "Power Digital",
+      "role": "Social Commerce Strategist",
+      "path": "applications/power-digital/cover_letters/2026-02-24_power-digital_social-commerce-strategist.md",
+      "chars": 716,
+      "track": "general"
+    },
+    {
+      "company": "Xsolla",
+      "role": "HR Project Coordinator",
+      "path": "applications/xsolla/cover_letters/2026-02-24_xsolla_hr-project-coordinator.md",
+      "chars": 782,
+      "track": "general"
+    },
+    {
+      "company": "Mechanical Orchard",
+      "role": "Engineering Manager Delivery",
+      "path": "applications/mechanical-orchard/cover_letters/2026-02-24_mechanical-orchard_engineering-manager-delivery.md",
+      "chars": 816,
+      "track": "general"
+    },
+    {
+      "company": "Palantir Technologies",
+      "role": "Software Engineer New Grad Production Infrastructure",
+      "path": "applications/palantir-technologies/cover_letters/2026-03-15_palantir-technologies_software-engineer-new-grad-production-infrastructure.md",
+      "chars": 1066,
+      "track": "fde"
+    },
+    {
+      "company": "Tribe AI",
+      "role": "Forward Deployed AI Architect",
+      "path": "applications/tribe-ai/cover_letters/2026-03-17_tribe-ai_forward-deployed-ai-architect.md",
+      "chars": 913,
+      "track": "fde"
+    },
+    {
+      "company": "Parloa",
+      "role": "Head of Forward Deployment Engineering",
+      "path": "applications/parloa/cover_letters/2026-03-17_parloa_head-of-forward-deployment-engineering.md",
+      "chars": 958,
+      "track": "fde"
+    },
+    {
+      "company": "ELECTE S.R.L.",
+      "role": "Full-Stack Developer",
+      "path": "applications/electe-s-r-l/cover_letters/2026-03-17_electe-s-r-l_full-stack-developer.md",
+      "chars": 900,
+      "track": "fde"
+    },
+    {
+      "company": "Anuttacon",
+      "role": "Audio AI Trainer",
+      "path": "applications/anuttacon/cover_letters/2026-03-17_anuttacon_audio-ai-trainer.md",
+      "chars": 982,
+      "track": "fde"
+    },
+    {
+      "company": "Lemon.io",
+      "role": "Senior Full-stack React Developer",
+      "path": "applications/lemon-io/cover_letters/2026-03-17_lemon-io_senior-full-stack-react-developer.md",
+      "chars": 1041,
+      "track": "fde"
+    },
+    {
+      "company": "Loancrate",
+      "role": "Senior Security Engineer",
+      "path": "applications/loancrate/cover_letters/2026-03-17_loancrate_senior-security-engineer.md",
+      "chars": 933,
+      "track": "fde"
+    },
+    {
+      "company": "Kastle",
+      "role": "AI Trainer",
+      "path": "applications/kastle/cover_letters/2026-03-17_kastle_ai-trainer.md",
+      "chars": 862,
+      "track": "fde"
+    },
+    {
+      "company": "ELECTE S.R.L",
+      "role": "Full Stack Developer",
+      "path": "applications/electe-s-r-l/cover_letters/2026-03-17_electe-s-r-l_full-stack-developer.md",
+      "chars": 899,
+      "track": "fde"
+    },
+    {
+      "company": "Zus Health",
+      "role": "Senior Software Engineer Data Platform",
+      "path": "applications/zus-health/cover_letters/2026-03-17_zus-health_senior-software-engineer-data-platform.md",
+      "chars": 952,
+      "track": "fde"
+    },
+    {
+      "company": "SentiLink",
+      "role": "Solutions Analytics Data Scientist",
+      "path": "applications/sentilink/cover_letters/2026-03-17_sentilink_solutions-analytics-data-scientist.md",
+      "chars": 932,
+      "track": "fde"
+    },
+    {
+      "company": "OraSure Technologies Inc.",
+      "role": "Director Product Management",
+      "path": "applications/orasure-technologies-inc/cover_letters/2026-03-17_orasure-technologies-inc_director-product-management.md",
+      "chars": 937,
+      "track": "fde"
+    },
+    {
+      "company": "GHX",
+      "role": "Senior Software Engineer Python Django PostgreSQL and Vue.js",
+      "path": "applications/ghx/cover_letters/2026-03-17_ghx_senior-software-engineer-python-django-postgresql-and-vue-js.md",
+      "chars": 981,
+      "track": "fde"
+    },
+    {
+      "company": "Gate",
+      "role": "Executive Brand Operations",
+      "path": "applications/gate/cover_letters/2026-03-17_gate_executive-brand-operations.md",
+      "chars": 1008,
+      "track": "fde"
+    },
+    {
+      "company": "Amstar Curacao",
+      "role": "Senior Python Backend Engineer Mission Critical",
+      "path": "applications/amstar-curacao/cover_letters/2026-03-17_amstar-curacao_senior-python-backend-engineer-mission-critical.md",
+      "chars": 1078,
+      "track": "fde"
+    },
+    {
+      "company": "Sanctuary Computer",
+      "role": "Sr. Firmware Engineer",
+      "path": "applications/sanctuary-computer/cover_letters/2026-03-17_sanctuary-computer_sr-firmware-engineer.md",
+      "chars": 711,
+      "track": "general"
+    },
+    {
+      "company": "ELEMENTAL TERRA CAPITAL LTD",
+      "role": "Entry-Level Crypto Market Specialist",
+      "path": "applications/elemental-terra-capital-ltd/cover_letters/2026-03-17_elemental-terra-capital-ltd_entry-level-crypto-market-specialist.md",
+      "chars": 750,
+      "track": "general"
+    },
+    {
+      "company": "XXIX",
+      "role": "Senior Product Designer",
+      "path": "applications/xxix/cover_letters/2026-03-17_xxix_senior-product-designer.md",
+      "chars": 782,
+      "track": "general"
+    },
+    {
+      "company": "Nebulab",
+      "role": "Shopify Engineer",
+      "path": "applications/nebulab/cover_letters/2026-03-17_nebulab_shopify-engineer.md",
+      "chars": 782,
+      "track": "general"
+    },
+    {
+      "company": "VONQ NL",
+      "role": "\ud83c\udde9\ud83c\uddea Account Director (m/w/d)",
+      "path": "applications/vonq-nl/cover_letters/2026-03-17_vonq-nl_account-director-m-w-d.md",
+      "chars": 767,
+      "track": "general"
+    },
+    {
+      "company": "Loancrate",
+      "role": "Senior Software Engineer",
+      "path": "applications/loancrate/cover_letters/2026-03-17_loancrate_senior-software-engineer.md",
+      "chars": 768,
+      "track": "general"
+    },
+    {
+      "company": "Fisher Agencies",
+      "role": "Benefits Advisor Leadership Training Program",
+      "path": "applications/fisher-agencies/cover_letters/2026-03-17_fisher-agencies_benefits-advisor-leadership-training-program.md",
+      "chars": 752,
+      "track": "general"
+    },
+    {
+      "company": "Central Moloney",
+      "role": "Electrical Engineer",
+      "path": "applications/central-moloney/cover_letters/2026-03-17_central-moloney_electrical-engineer.md",
+      "chars": 720,
+      "track": "general"
+    },
+    {
+      "company": "Serverfarm",
+      "role": "Data Center Site Start Up Manager",
+      "path": "applications/serverfarm/cover_letters/2026-03-17_serverfarm_data-center-site-start-up-manager.md",
+      "chars": 793,
+      "track": "general"
+    },
+    {
+      "company": "Life360",
+      "role": "Staff DevOps Engineer",
+      "path": "applications/life360/cover_letters/2026-03-17_life360_staff-devops-engineer.md",
+      "chars": 755,
+      "track": "general"
+    },
+    {
+      "company": "Graphcore",
+      "role": "Engineering Manager Workload Management",
+      "path": "applications/graphcore/cover_letters/2026-03-17_graphcore_engineering-manager-workload-management.md",
+      "chars": 733,
+      "track": "general"
+    },
+    {
+      "company": "HireHawk",
+      "role": "Senior Ecommerce Creative Strategist Philippines",
+      "path": "applications/hirehawk/cover_letters/2026-03-17_hirehawk_senior-ecommerce-creative-strategist-philippines.md",
+      "chars": 763,
+      "track": "general"
+    },
+    {
+      "company": "Whatnot",
+      "role": "Head of European and UK Policy",
+      "path": "applications/whatnot/cover_letters/2026-03-17_whatnot_head-of-european-and-uk-policy.md",
+      "chars": 736,
+      "track": "general"
+    },
+    {
+      "company": "Whatnot",
+      "role": "Partnerships Manager Japan",
+      "path": "applications/whatnot/cover_letters/2026-03-17_whatnot_partnerships-manager-japan.md",
+      "chars": 804,
+      "track": "general"
+    },
+    {
+      "company": "Office Hours",
+      "role": "Staff Software Engineer",
+      "path": "applications/office-hours/cover_letters/2026-03-17_office-hours_staff-software-engineer.md",
+      "chars": 792,
+      "track": "general"
+    },
+    {
+      "company": "Whatnot",
+      "role": "Associate Creative Director Design",
+      "path": "applications/whatnot/cover_letters/2026-03-17_whatnot_associate-creative-director-design.md",
+      "chars": 716,
+      "track": "general"
+    },
+    {
+      "company": "Whatnot",
+      "role": "Payroll Analyst",
+      "path": "applications/whatnot/cover_letters/2026-03-17_whatnot_payroll-analyst.md",
+      "chars": 790,
+      "track": "general"
+    },
+    {
+      "company": "Descript",
+      "role": "Support Agent",
+      "path": "applications/descript/cover_letters/2026-03-17_descript_support-agent.md",
+      "chars": 766,
+      "track": "general"
+    },
+    {
+      "company": "Ashby",
+      "role": "Principal VC & Startup Ecosystem Lead",
+      "path": "applications/ashby/cover_letters/2026-03-17_ashby_principal-vc-startup-ecosystem-lead.md",
+      "chars": 707,
+      "track": "general"
+    },
+    {
+      "company": "Sanctuary Computer",
+      "role": "Senior Firmware Engineer",
+      "path": "applications/sanctuary-computer/cover_letters/2026-03-17_sanctuary-computer_senior-firmware-engineer.md",
+      "chars": 712,
+      "track": "general"
+    },
+    {
+      "company": "Galaxy",
+      "role": "Senior Developer Experience Engineer",
+      "path": "applications/galaxy/cover_letters/2026-03-17_galaxy_senior-developer-experience-engineer.md",
+      "chars": 821,
+      "track": "general"
+    },
+    {
+      "company": "10x Team",
+      "role": "Go To Market Strategist AI Trainer Freelance 8 20 hrs week",
+      "path": "applications/10x-team/cover_letters/2026-03-17_10x-team_go-to-market-strategist-ai-trainer-freelance-8-20-hrs-week.md",
+      "chars": 858,
+      "track": "general"
+    },
+    {
+      "company": "10x Team",
+      "role": "Migration Specialist AI Trainer Freelance 8 20 hrs week",
+      "path": "applications/10x-team/cover_letters/2026-03-17_10x-team_migration-specialist-ai-trainer-freelance-8-20-hrs-week.md",
+      "chars": 852,
+      "track": "general"
+    },
+    {
+      "company": "CI&T",
+      "role": "CI&T 27985 Senior AI Engineer Brazil",
+      "path": "applications/ci-t/cover_letters/2026-03-17_ci-t_ci-t-27985-senior-ai-engineer-brazil.md",
+      "chars": 722,
+      "track": "general"
+    },
+    {
+      "company": "Precision Medicine Group",
+      "role": "Senior IT Project Manager",
+      "path": "applications/precision-medicine-group/cover_letters/2026-03-17_precision-medicine-group_senior-it-project-manager.md",
+      "chars": 819,
+      "track": "general"
+    },
+    {
+      "company": "LaunchBrightly",
+      "role": "Technical Product Manager",
+      "path": "applications/launchbrightly/cover_letters/2026-03-17_launchbrightly_technical-product-manager.md",
+      "chars": 807,
+      "track": "general"
+    },
+    {
+      "company": "Versapay",
+      "role": "Senior Software Engineer Ruby on Rails",
+      "path": "applications/versapay/cover_letters/2026-03-17_versapay_senior-software-engineer-ruby-on-rails.md",
+      "chars": 725,
+      "track": "general"
+    },
+    {
+      "company": "BPM LLP",
+      "role": "BPM LLP AI ML Engineer",
+      "path": "applications/bpm-llp/cover_letters/2026-03-17_bpm-llp_bpm-llp-ai-ml-engineer.md",
+      "chars": 728,
+      "track": "general"
+    },
+    {
+      "company": "Marathon Talent",
+      "role": "CFO",
+      "path": "applications/marathon-talent/cover_letters/2026-03-17_marathon-talent_cfo.md",
+      "chars": 688,
+      "track": "general"
+    },
+    {
+      "company": "Pavago",
+      "role": "Senior Backend Engineer",
+      "path": "applications/pavago/cover_letters/2026-03-17_pavago_senior-backend-engineer.md",
+      "chars": 784,
+      "track": "general"
+    },
+    {
+      "company": "ABBYY",
+      "role": "Human Resources Engagement Partner",
+      "path": "applications/abbyy/cover_letters/2026-03-17_abbyy_human-resources-engagement-partner.md",
+      "chars": 815,
+      "track": "general"
+    },
+    {
+      "company": "Scale LLP",
+      "role": "Corporate Associate ECVC",
+      "path": "applications/scale-llp/cover_letters/2026-03-17_scale-llp_corporate-associate-ecvc.md",
+      "chars": 706,
+      "track": "general"
+    },
+    {
+      "company": "Z\u00c3\u00b3calo Health",
+      "role": "Recruiting Coordinator",
+      "path": "applications/z-calo-health/cover_letters/2026-03-17_z-calo-health_recruiting-coordinator.md",
+      "chars": 699,
+      "track": "general"
+    },
+    {
+      "company": "Boulevard",
+      "role": "Manager Revenue Accounting",
+      "path": "applications/boulevard/cover_letters/2026-03-17_boulevard_manager-revenue-accounting.md",
+      "chars": 684,
+      "track": "general"
+    },
+    {
+      "company": "Marketing Architects",
+      "role": "Data Analyst",
+      "path": "applications/marketing-architects/cover_letters/2026-03-17_marketing-architects_data-analyst.md",
+      "chars": 703,
+      "track": "general"
+    },
+    {
+      "company": "The Motley Fool",
+      "role": "Contract Data Architect",
+      "path": "applications/the-motley-fool/cover_letters/2026-03-17_the-motley-fool_contract-data-architect.md",
+      "chars": 710,
+      "track": "general"
+    },
+    {
+      "company": "Orcrist Technologies",
+      "role": "People Operations Specialist",
+      "path": "applications/orcrist-technologies/cover_letters/2026-03-17_orcrist-technologies_people-operations-specialist.md",
+      "chars": 819,
+      "track": "general"
+    },
+    {
+      "company": "Shields Health Solutions",
+      "role": "Benefit Verification Pharmacy Technician",
+      "path": "applications/shields-health-solutions/cover_letters/2026-03-17_shields-health-solutions_benefit-verification-pharmacy-technician.md",
+      "chars": 727,
+      "track": "general"
+    },
+    {
+      "company": "Andromeda Cluster",
+      "role": "Infrastructure Manager",
+      "path": "applications/andromeda-cluster/cover_letters/2026-03-17_andromeda-cluster_infrastructure-manager.md",
+      "chars": 728,
+      "track": "general"
+    },
+    {
+      "company": "Restaurant Supply",
+      "role": "Assistant Pricing Manager",
+      "path": "applications/restaurant-supply/cover_letters/2026-03-17_restaurant-supply_assistant-pricing-manager.md",
+      "chars": 789,
+      "track": "general"
+    },
+    {
+      "company": "Lookout Inc",
+      "role": "Staff Threat Intelligence Researcher",
+      "path": "applications/lookout-inc/cover_letters/2026-03-17_lookout-inc_staff-threat-intelligence-researcher.md",
+      "chars": 729,
+      "track": "general"
+    },
+    {
+      "company": "Blueprint",
+      "role": "Procurement Specialist Hardware",
+      "path": "applications/blueprint/cover_letters/2026-03-17_blueprint_procurement-specialist-hardware.md",
+      "chars": 805,
+      "track": "general"
+    },
+    {
+      "company": "Omada Health",
+      "role": "Senior Software Engineer",
+      "path": "applications/omada-health/cover_letters/2026-03-17_omada-health_senior-software-engineer.md",
+      "chars": 782,
+      "track": "general"
+    },
+    {
+      "company": "BetterHelp",
+      "role": "Design Intern Summer 2026",
+      "path": "applications/betterhelp/cover_letters/2026-03-17_betterhelp_design-intern-summer-2026.md",
+      "chars": 802,
+      "track": "general"
+    },
+    {
+      "company": "ALX Africa",
+      "role": "Director of Community",
+      "path": "applications/alx-africa/cover_letters/2026-03-17_alx-africa_director-of-community.md",
+      "chars": 805,
+      "track": "general"
+    },
+    {
+      "company": "GoGuardian",
+      "role": "Data Scientist IV",
+      "path": "applications/goguardian/cover_letters/2026-03-17_goguardian_data-scientist-iv.md",
+      "chars": 787,
+      "track": "general"
+    },
+    {
+      "company": "Gravie",
+      "role": "Senior Configuration Analyst",
+      "path": "applications/gravie/cover_letters/2026-03-17_gravie_senior-configuration-analyst.md",
+      "chars": 768,
+      "track": "general"
+    },
+    {
+      "company": "ezCater, Inc",
+      "role": "Security Intern",
+      "path": "applications/ezcater-inc/cover_letters/2026-03-17_ezcater-inc_security-intern.md",
+      "chars": 776,
+      "track": "general"
+    },
+    {
+      "company": "Pulley",
+      "role": "Frontend Engineer II Core Product",
+      "path": "applications/pulley/cover_letters/2026-03-17_pulley_frontend-engineer-ii-core-product.md",
+      "chars": 806,
+      "track": "general"
+    },
+    {
+      "company": "Exodus Movement Inc.",
+      "role": "Security Engineer",
+      "path": "applications/exodus-movement-inc/cover_letters/2026-03-17_exodus-movement-inc_security-engineer.md",
+      "chars": 788,
+      "track": "general"
+    },
+    {
+      "company": "Hunt St",
+      "role": "Training & Assessment Assessor",
+      "path": "applications/hunt-st/cover_letters/2026-03-17_hunt-st_training-assessment-assessor.md",
+      "chars": 809,
+      "track": "general"
+    },
+    {
+      "company": "Alpaca",
+      "role": "Product Operations Lead",
+      "path": "applications/alpaca/cover_letters/2026-03-17_alpaca_product-operations-lead.md",
+      "chars": 729,
+      "track": "general"
+    },
+    {
+      "company": "Crunchyroll, LLC",
+      "role": "Staff DevOps Engineer",
+      "path": "applications/crunchyroll-llc/cover_letters/2026-03-17_crunchyroll-llc_staff-devops-engineer.md",
+      "chars": 775,
+      "track": "general"
+    },
+    {
+      "company": "Tempesta Technologies",
+      "role": "C C++ Linux developer",
+      "path": "applications/tempesta-technologies/cover_letters/2026-03-17_tempesta-technologies_c-c-linux-developer.md",
+      "chars": 753,
+      "track": "fde"
+    },
+    {
+      "company": "RWS TrainAI",
+      "role": "AI Specialist Haitian Creole",
+      "path": "applications/rws-trainai/cover_letters/2026-03-17_rws-trainai_ai-specialist-haitian-creole.md",
+      "chars": 713,
+      "track": "general"
+    },
+    {
+      "company": "Substack",
+      "role": "UK Support Specialist",
+      "path": "applications/substack/cover_letters/2026-03-17_substack_uk-support-specialist.md",
+      "chars": 717,
+      "track": "general"
+    },
+    {
+      "company": "2K",
+      "role": "Rigging Technical Artist NBA 2K",
+      "path": "applications/2k/cover_letters/2026-03-17_2k_rigging-technical-artist-nba-2k.md",
+      "chars": 895,
+      "track": "fde"
+    },
+    {
+      "company": "Lumitekno Kreasi Global",
+      "role": "Red Team Specialist (Offensive Security)",
+      "path": "applications/lumitekno-kreasi-global/cover_letters/2026-03-17_lumitekno-kreasi-global_red-team-specialist-offensive-security.md",
+      "chars": 835,
+      "track": "general"
+    },
+    {
+      "company": "Circle.so",
+      "role": "Lead Product Designer",
+      "path": "applications/circle-so/cover_letters/2026-03-17_circle-so_lead-product-designer.md",
+      "chars": 718,
+      "track": "general"
+    },
+    {
+      "company": "The PAC Group",
+      "role": "Payroll and Benefits Specialist",
+      "path": "applications/the-pac-group/cover_letters/2026-03-17_the-pac-group_payroll-and-benefits-specialist.md",
+      "chars": 752,
+      "track": "general"
+    },
+    {
+      "company": "ELEMENTAL TERRA",
+      "role": "Entry Level Crypto Market Specialist",
+      "path": "applications/elemental-terra/cover_letters/2026-03-17_elemental-terra_entry-level-crypto-market-specialist.md",
+      "chars": 728,
+      "track": "general"
+    },
+    {
+      "company": "Altium",
+      "role": "Cloud Security Architect",
+      "path": "applications/altium/cover_letters/2026-03-17_altium_cloud-security-architect.md",
+      "chars": 682,
+      "track": "general"
+    },
+    {
+      "company": "Eleventh Hour Games",
+      "role": "Lead 3D Environment Artist",
+      "path": "applications/eleventh-hour-games/cover_letters/2026-03-17_eleventh-hour-games_lead-3d-environment-artist.md",
+      "chars": 813,
+      "track": "general"
+    },
+    {
+      "company": "Cast AI",
+      "role": "Senior Software Engineer Karpenter",
+      "path": "applications/cast-ai/cover_letters/2026-03-17_cast-ai_senior-software-engineer-karpenter.md",
+      "chars": 792,
+      "track": "general"
+    },
+    {
+      "company": "Cast AI",
+      "role": "Senior Software Engineer Reporting",
+      "path": "applications/cast-ai/cover_letters/2026-03-17_cast-ai_senior-software-engineer-reporting.md",
+      "chars": 817,
+      "track": "general"
+    },
+    {
+      "company": "Temporal Technologies",
+      "role": "Director Planning & Analytics",
+      "path": "applications/temporal-technologies/cover_letters/2026-03-17_temporal-technologies_director-planning-analytics.md",
+      "chars": 811,
+      "track": "general"
+    },
+    {
+      "company": "That's No Moon Entertainment",
+      "role": "Senior Technical Game Designer",
+      "path": "applications/that-s-no-moon-entertainment/cover_letters/2026-03-17_that-s-no-moon-entertainment_senior-technical-game-designer.md",
+      "chars": 799,
+      "track": "general"
+    },
+    {
+      "company": "Remotasks",
+      "role": "AI Training for Igbo Writers",
+      "path": "applications/remotasks/cover_letters/2026-03-17_remotasks_ai-training-for-igbo-writers.md",
+      "chars": 742,
+      "track": "general"
+    },
+    {
+      "company": "Z\u00c3\u00b3calo Health",
+      "role": "CHW Manager",
+      "path": "applications/z-calo-health/cover_letters/2026-03-17_z-calo-health_chw-manager.md",
+      "chars": 687,
+      "track": "general"
+    },
+    {
+      "company": "Eleventh Hour Games",
+      "role": "Narrative and World Lead",
+      "path": "applications/eleventh-hour-games/cover_letters/2026-03-17_eleventh-hour-games_narrative-and-world-lead.md",
+      "chars": 801,
+      "track": "general"
+    },
+    {
+      "company": "Sharebite",
+      "role": "Restaurant Account Manager",
+      "path": "applications/sharebite/cover_letters/2026-03-17_sharebite_restaurant-account-manager.md",
+      "chars": 806,
+      "track": "general"
+    },
+    {
+      "company": "Rising Edge Group",
+      "role": "Journeyperson Electrician",
+      "path": "applications/rising-edge-group/cover_letters/2026-03-17_rising-edge-group_journeyperson-electrician.md",
+      "chars": 695,
+      "track": "general"
+    },
+    {
+      "company": "IonQ",
+      "role": "Staff Automation Engineer Internal Audit",
+      "path": "applications/ionq/cover_letters/2026-03-17_ionq_staff-automation-engineer-internal-audit.md",
+      "chars": 818,
+      "track": "general"
+    },
+    {
+      "company": "Headspace",
+      "role": "Temp Clinical Product Lead",
+      "path": "applications/headspace/cover_letters/2026-03-17_headspace_temp-clinical-product-lead.md",
+      "chars": 814,
+      "track": "general"
+    },
+    {
+      "company": "Loancrate",
+      "role": "Senior Platform Engineer",
+      "path": "applications/loancrate/cover_letters/2026-03-17_loancrate_senior-platform-engineer.md",
+      "chars": 889,
+      "track": "general"
+    },
+    {
+      "company": "Datacor",
+      "role": "Business Development Representative",
+      "path": "applications/datacor/cover_letters/2026-03-18_datacor_business-development-representative.md",
+      "chars": 807,
+      "track": "fde"
+    },
+    {
+      "company": "AutoHDR",
+      "role": "Customer Retention Manager",
+      "path": "applications/autohdr/cover_letters/2026-03-18_autohdr_customer-retention-manager.md",
+      "chars": 801,
+      "track": "general"
+    },
+    {
+      "company": "AutoHDR",
+      "role": "Customer Support Representative",
+      "path": "applications/autohdr/cover_letters/2026-03-18_autohdr_customer-support-representative.md",
+      "chars": 746,
+      "track": "general"
+    },
+    {
+      "company": "Begini",
+      "role": "Junior Crypto Analyst & Trader",
+      "path": "applications/begini/cover_letters/2026-03-18_begini_junior-crypto-analyst-trader.md",
+      "chars": 777,
+      "track": "general"
+    },
+    {
+      "company": "Anduril Industries",
+      "role": "Chief Software Engineer Head of Edge Systems & Fleet Management",
+      "path": "applications/anduril-industries/cover_letters/2026-03-18_anduril-industries_chief-software-engineer-head-of-edge-systems-fleet-management.md",
+      "chars": 855,
+      "track": "general"
+    },
+    {
+      "company": "ALX Africa",
+      "role": "Customer Support Agent",
+      "path": "applications/alx-africa/cover_letters/2026-03-18_alx-africa_customer-support-agent.md",
+      "chars": 868,
+      "track": "general"
+    },
+    {
+      "company": "Datacor",
+      "role": "Senior Strategic Support Specialist",
+      "path": "applications/datacor/cover_letters/2026-03-18_datacor_senior-strategic-support-specialist.md",
+      "chars": 736,
+      "track": "general"
+    },
+    {
+      "company": "Ping Identity",
+      "role": "Technical Account Manager",
+      "path": "applications/ping-identity/cover_letters/2026-03-18_ping-identity_technical-account-manager.md",
+      "chars": 714,
+      "track": "general"
+    },
+    {
+      "company": "Peregrine Technologies",
+      "role": "Senior Software Engineer Identity",
+      "path": "applications/peregrine-technologies/cover_letters/2026-03-18_peregrine-technologies_senior-software-engineer-identity.md",
+      "chars": 810,
+      "track": "general"
+    },
+    {
+      "company": "iCapital",
+      "role": "DevOps Database Assistant Vice President",
+      "path": "applications/icapital/cover_letters/2026-03-18_icapital_devops-database-assistant-vice-president.md",
+      "chars": 729,
+      "track": "general"
+    },
+    {
+      "company": "Parloa",
+      "role": "Forward Deployed Engineer VoIP",
+      "path": "applications/parloa/cover_letters/2026-03-24_parloa_forward-deployed-engineer-voip.md",
+      "chars": 857,
+      "track": "fde"
+    },
+    {
+      "company": "MASTERCRAFT BOATING COMPANY",
+      "role": "$2k Weekly Customer Service Assistant USA ONLY",
+      "path": "applications/mastercraft-boating-company/cover_letters/2026-03-24_mastercraft-boating-company_2k-weekly-customer-service-assistant-usa-only.md",
+      "chars": 1065,
+      "track": "fde"
+    },
+    {
+      "company": "OpenAI",
+      "role": "Software Engineer Reliability",
+      "path": "applications/openai/cover_letters/2026-03-24_openai_software-engineer-reliability.md",
+      "chars": 1031,
+      "track": "fde"
+    },
+    {
+      "company": "High Tech Genesis",
+      "role": "Purview Consultant",
+      "path": "applications/high-tech-genesis/cover_letters/2026-03-24_high-tech-genesis_purview-consultant.md",
+      "chars": 795,
+      "track": "general"
+    },
+    {
+      "company": "Zipdev",
+      "role": "Tech Lead",
+      "path": "applications/zipdev/cover_letters/2026-03-24_zipdev_tech-lead.md",
+      "chars": 777,
+      "track": "general"
+    },
+    {
+      "company": "Databricks",
+      "role": "Sr. Solutions Engineer - Hunter Team",
+      "path": "applications/databricks/cover_letters/2026-03-30_databricks_sr-solutions-engineer-hunter-team.md",
+      "chars": 764,
+      "track": "fde"
+    },
+    {
+      "company": "Databricks",
+      "role": "Sr. Solutions Engineer - Public Sector (SLED)",
+      "path": "applications/databricks/cover_letters/2026-03-30_databricks_sr-solutions-engineer-public-sector-sled.md",
+      "chars": 798,
+      "track": "fde"
+    },
+    {
+      "company": "Vercel",
+      "role": "Senior Workday Integrations Engineer",
+      "path": "applications/vercel/cover_letters/2026-03-31_vercel_senior-workday-integrations-engineer.md",
+      "chars": 810,
+      "track": "general"
+    },
+    {
+      "company": "Hinge Health",
+      "role": "Engineering Manager",
+      "path": "applications/hinge-health/cover_letters/2026-04-11_hinge-health_engineering-manager.md",
+      "chars": 761,
+      "track": "general"
+    },
+    {
+      "company": "Anthropic",
+      "role": "Solutions Architect, National Security",
+      "path": "applications/anthropic/cover_letters/2026-04-16_anthropic_solutions-architect-national-security.md",
+      "chars": 916,
+      "track": "fde"
+    },
+    {
+      "company": "Cohere",
+      "role": "Customer Success Manager (Berlin)",
+      "path": "applications/cohere/cover_letters/2026-04-16_cohere_customer-success-manager-berlin.md",
+      "chars": 1042,
+      "track": "fde"
+    },
+    {
+      "company": "Cohere",
+      "role": "Customer Success Manager (Montreal - French Speaking)",
+      "path": "applications/cohere/cover_letters/2026-04-16_cohere_customer-success-manager-montreal-french-speaking.md",
+      "chars": 1091,
+      "track": "fde"
+    },
+    {
+      "company": "Cohere",
+      "role": "Customer Success Manager, Public Sector & Defence",
+      "path": "applications/cohere/cover_letters/2026-04-16_cohere_customer-success-manager-public-sector-defence.md",
+      "chars": 1008,
+      "track": "fde"
+    },
+    {
+      "company": "Cohere",
+      "role": "Solutions Architect",
+      "path": "applications/cohere/cover_letters/2026-04-16_cohere_solutions-architect.md",
+      "chars": 1039,
+      "track": "fde"
+    }
+  ],
+  "skipped": [
+    {
+      "company": "Automattic",
+      "role": "Mobile Engineer"
+    },
+    {
+      "company": "GitLab",
+      "role": "Senior Software Engineer Mobile"
+    },
+    {
+      "company": "DockYard",
+      "role": "React Native Developer"
+    },
+    {
+      "company": "Deepgram",
+      "role": "Software Engineer"
+    },
+    {
+      "company": "D-Wave Quantum",
+      "role": "Software Engineer"
+    },
+    {
+      "company": "Numiro",
+      "role": "AI Engineer"
+    },
+    {
+      "company": "Modernizing Medicine",
+      "role": "Software Engineer"
+    },
+    {
+      "company": "Kalmus Labs",
+      "role": "AI Engineer"
+    },
+    {
+      "company": "Safari AI",
+      "role": "Software Engineer"
+    },
+    {
+      "company": "PostHog",
+      "role": "Software Engineer"
+    },
+    {
+      "company": "Statsig",
+      "role": "Software Engineer"
+    },
+    {
+      "company": "Buffer",
+      "role": "Mobile Engineer"
+    },
+    {
+      "company": "Hugging Face",
+      "role": "Mobile Engineer"
+    },
+    {
+      "company": "Replicate",
+      "role": "Software Engineer"
+    },
+    {
+      "company": "Jumpspeak",
+      "role": "Mobile Engineer"
+    },
+    {
+      "company": "AppZen",
+      "role": "Software Engineer"
+    },
+    {
+      "company": "Globant",
+      "role": "React Native Developer"
+    },
+    {
+      "company": "CrowdStrike",
+      "role": "Mobile Engineer"
+    },
+    {
+      "company": "Together AI",
+      "role": "Software Engineer"
+    },
+    {
+      "company": "EliseAI",
+      "role": "Software Engineer"
+    },
+    {
+      "company": "Cohere Health",
+      "role": "Software Engineer"
+    },
+    {
+      "company": "Collectly",
+      "role": "Software Engineer"
+    },
+    {
+      "company": "Artera",
+      "role": "Software Engineer"
+    },
+    {
+      "company": "Coinbase",
+      "role": "Senior Mobile Engineer"
+    },
+    {
+      "company": "Metallicus",
+      "role": "React Native Developer"
+    },
+    {
+      "company": "BitGo",
+      "role": "Mobile Engineer"
+    },
+    {
+      "company": "Apex Fintech",
+      "role": "Software Engineer"
+    },
+    {
+      "company": "GRAIL",
+      "role": "Software Engineer"
+    },
+    {
+      "company": "OpenEvidence",
+      "role": "Software Engineer - Backend and Infrastructure"
+    },
+    {
+      "company": "Clipboard Health",
+      "role": "Client Support Specialist"
+    },
+    {
+      "company": "Mex Digital FZE",
+      "role": "QA Engineer"
+    },
+    {
+      "company": "EasyLlama",
+      "role": "Revenue Operations Manager"
+    },
+    {
+      "company": "NMI",
+      "role": "Content Manager"
+    },
+    {
+      "company": "3Pillar",
+      "role": "Senior Software Engineer Angular .net"
+    },
+    {
+      "company": "BlastPoint",
+      "role": "Technical Project Manager"
+    },
+    {
+      "company": "Smartbug Media",
+      "role": "HubSpot Solutions Architect"
+    },
+    {
+      "company": "Oowlish Technology",
+      "role": "Senior Data Engineer"
+    },
+    {
+      "company": "StarCompliance",
+      "role": "Principal Data Operations &amp; Migration Lead"
+    },
+    {
+      "company": "Marketerx",
+      "role": "Senior DevOps Engineer"
+    }
+  ]
+}

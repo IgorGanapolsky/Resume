@@ -1,18 +1,16 @@
-Subject: Interest in Associate Creative Director Design
+Subject: Associate Creative Director Design — Igor Ganapolsky
 
-Hello Whatnot team,
+Hello Whatnot,
 
-I am interested in the Associate Creative Director Design opportunity. My philosophy is that production ai is about reliability and cost-predictability, not just prompt engineering. I build production AI/software systems where reliability is a non-negotiable.
+Putting my name in for Associate Creative Director Design. My background is senior full-stack plus four years of LLM production work; happy to go deeper in a conversation.
 
-How I've lived this philosophy recently:
-- Built a semantic memory system using LanceDB that reduced context window 'forgetting' across 200+ autonomous agent turns.
-- Optimized LLM inference pipelines to maintain <200ms latency while reducing token spend by 40%.
-- Delivered cloud-native services on GCP/AWS and integrated LLM features into existing stacks.
+A couple of relevant threads from the last few years:
+- On-call rotation for a production LLM service taught me what the happy-path demos never do.
+- Built a LanceDB-backed semantic memory that kept 200+ autonomous agent turns coherent without blowing out the context window.
 
-My work is grounded in proof, not just prompts. You can find the code for my autonomous agent architectures at:
-- GitHub: https://github.com/IgorGanapolsky
-- Technical POV: https://www.linkedin.com/in/igor-ganapolsky/
+Glad to dig into details if this looks like a reasonable fit.
 
-Thank you for your consideration.
+GitHub: https://github.com/IgorGanapolsky
+LinkedIn: https://www.linkedin.com/in/igor-ganapolsky-859317343/
 
 Igor Ganapolsky

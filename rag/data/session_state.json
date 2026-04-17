@@ -1,17 +1,17 @@
 {
   "last_results": {
     "source": "query",
-    "query": "PR management and system hygiene lessons",
+    "query": "ralph local submit canary workflow dispatch live submit",
     "app_ids": [
-      "lavendo__technical-product-manager__e9c498f249",
-      "firemon__enterprise-account-executive-pacific-nw__390d0a3b2f",
+      "openai__software-engineer-reliability__ef6956e964",
+      "mercor__software-expert-office-suite__b101f80357",
+      "arrise__strategic-live-casino-manager__f62595512b",
+      "mercor__software-engineer-iii__a2783979bd",
       "bnsf-railway__product-platform-enterprise-full-stack-sr-staff-software-engineer__ba8ba46859",
       "bnsf-railway__product-platform-enterprise-front-end-sr-staff-software-engineer__8184a47b13",
-      "infstones__devops-engineer__eddd35d3b1",
-      "ubiminds__mid-level-devops-engineer-ci-cd-optimization__ec8f196f71",
-      "orasure-technologies-inc__director-product-management__3e6cd86b8d",
-      "openai__software-engineer-reliability__c77e930dd1"
+      "mechanical-orchard__engineering-manager-delivery__a91cb1c310",
+      "lavendo__technical-product-manager__e9c498f249"
     ],
-    "ts": "2026-04-01T15:57:04.172647+00:00"
+    "ts": "2026-04-09T14:50:16.078841+00:00"
   }
 }

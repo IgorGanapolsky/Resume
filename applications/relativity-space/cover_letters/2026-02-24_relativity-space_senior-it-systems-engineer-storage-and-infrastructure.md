@@ -1,18 +1,18 @@
-Subject: Interest in Senior IT Systems Engineer Storage and Infrastructure
+Subject: Senior IT Systems Engineer Storage and Infrastructure — Igor Ganapolsky
 
-Hello Relativity Space team,
+Hi Relativity Space team,
 
-I am interested in the Senior IT Systems Engineer Storage and Infrastructure opportunity because I enjoy customer-facing, integration-heavy delivery work.
+The Senior IT Systems Engineer Storage and Infrastructure posting caught my eye. For the last four years I've done a forward-deployed version of this work at Subway — sitting between product, data, and whichever vendor had the quickest path to a working demo.
 
-Why I may be a good fit:
-- Led end-to-end delivery of AI features from prototype to production at Subway.
-- Built secure APIs and cloud workflows on GCP integrating LLM features with existing services.
-- Partnered with product/data stakeholders to define prompts, tools, and escalation rules.
+The JD mentions: "- Daily collaboration with customer engineering and stakeholder teams." — that maps cleanly to the production-AI work I've been doing.
 
-Links:
-- GitHub: https://github.com/IgorGanapolsky
-- LinkedIn: https://www.linkedin.com/in/igor-ganapolsky/
+A couple of relevant threads from the last few years:
+- Rebuilt a brittle multi-model LLM review pipeline into something that self-heals on provider 5xx; manual debug time dropped roughly 80% once it stabilized.
+- Ran a weekly ship cadence for LLM features at Subway instead of the standard quarterly cycle. Most experiments failed; the ones that didn't landed faster than prior releases.
 
-Thank you for your consideration.
+Happy to walk through specifics on any of the above.
+
+GitHub: https://github.com/IgorGanapolsky
+LinkedIn: https://www.linkedin.com/in/igor-ganapolsky-859317343/
 
 Igor Ganapolsky

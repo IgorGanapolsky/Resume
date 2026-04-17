@@ -1,17 +1,16 @@
-Subject: Interest in Full-Stack Developer (6 months, extendable)
+Subject: Full-Stack Developer (6 months, extendable) — Igor Ganapolsky
 
-Hello Fluence International, Inc. team,
+Hi Fluence International, Inc. team,
 
-I am interested in the Full-Stack Developer (6 months, extendable) opportunity. My background is in production AI/software systems and platform engineering.
+Writing about Full-Stack Developer (6 months, extendable). I've spent the last few years on the unglamorous side of production AI (cost discipline, regression evals, on-call), which reads like what you're hiring for.
 
-Why I may be a good fit:
-- Built production AI/software systems with strong reliability, observability, and CI/CD.
-- Delivered cloud-native services on GCP/AWS and integrated LLM features into existing stacks.
+A couple of relevant threads from the last few years:
+- Built a LanceDB-backed semantic memory that kept 200+ autonomous agent turns coherent without blowing out the context window.
+- Cut LLM token spend roughly 40% on one inference pipeline while keeping p95 under 200ms — mostly by paying attention to prompt shape and caching, not a bigger model.
 
-Links:
-- GitHub: https://github.com/IgorGanapolsky
-- LinkedIn: https://www.linkedin.com/in/igor-ganapolsky/
+Open to a call when it's useful. Links below for the curious.
 
-Thank you for your consideration.
+GitHub: https://github.com/IgorGanapolsky
+LinkedIn: https://www.linkedin.com/in/igor-ganapolsky-859317343/
 
 Igor Ganapolsky

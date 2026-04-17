@@ -1,18 +1,18 @@
-Subject: Interest in Customer Support Agent
+Subject: Customer Support Agent — Igor Ganapolsky
 
-Hello ALX Africa team,
+Hello ALX Africa,
 
-I am interested in the Customer Support Agent opportunity. My philosophy is that production ai is about reliability and cost-predictability, not just prompt engineering. I build production AI/software systems where reliability is a non-negotiable.
+The Customer Support Agent role lines up with what I've been doing. Most of my recent work is LLM serving and eval — less demo-building, more keeping the p95 honest.
 
-How I've lived this philosophy recently:
-- Built a semantic memory system using LanceDB that reduced context window 'forgetting' across 200+ autonomous agent turns.
-- Optimized LLM inference pipelines to maintain <200ms latency while reducing token spend by 40%.
-- Delivered cloud-native services on GCP/AWS and integrated LLM features into existing stacks.
+The JD mentions: "Remote Customer Support Agent at ALX Africa <link rel="apple-" — that maps cleanly to the production-AI work I've been doing.
 
-My work is grounded in proof, not just prompts. You can find the code for my autonomous agent architectures at:
-- GitHub: https://github.com/IgorGanapolsky
-- Technical POV: https://www.linkedin.com/in/igor-ganapolsky/
+A couple of relevant threads from the last few years:
+- On-call rotation for a production LLM service taught me what the happy-path demos never do.
+- Built a LanceDB-backed semantic memory that kept 200+ autonomous agent turns coherent without blowing out the context window.
 
-Thank you for your consideration.
+If the fit looks plausible, I'd like to talk to whoever owns delivery on this role.
+
+GitHub: https://github.com/IgorGanapolsky
+LinkedIn: https://www.linkedin.com/in/igor-ganapolsky-859317343/
 
 Igor Ganapolsky

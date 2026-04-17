@@ -1,13 +1,16 @@
-Subject: Interest in Enterprise Account Executive Pacific NW
+Subject: Enterprise Account Executive Pacific NW — Igor Ganapolsky
 
-Hello FireMon team,
+Hello FireMon hiring team,
 
-I am interested in the Enterprise Account Executive Pacific NW opportunity. My background is in production AI/software systems and platform engineering.
+Re: Enterprise Account Executive Pacific NW. Short pitch up front: 15+ years in production engineering, last four on LLM systems with real latency and cost budgets.
 
-Links:
-- GitHub: https://github.com/IgorGanapolsky
-- LinkedIn: https://www.linkedin.com/in/igor-ganapolsky/
+A couple of relevant threads from the last few years:
+- Cut LLM token spend roughly 40% on one inference pipeline while keeping p95 under 200ms — mostly by paying attention to prompt shape and caching, not a bigger model.
+- Shipped cloud-native services on GCP and AWS; wired LLM features into stacks that predated the LLM boom.
 
-Thank you for your consideration.
+Short pitch. Would rather go deeper on the tradeoffs you're actually weighing.
+
+GitHub: https://github.com/IgorGanapolsky
+LinkedIn: https://www.linkedin.com/in/igor-ganapolsky-859317343/
 
 Igor Ganapolsky

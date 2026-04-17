@@ -1,18 +1,16 @@
-Subject: Interest in Design Intern Summer 2026
+Subject: Design Intern Summer 2026 — Igor Ganapolsky
 
-Hello BetterHelp team,
+Hello BetterHelp hiring team,
 
-I am interested in the Design Intern Summer 2026 opportunity. My philosophy is that production ai is about reliability and cost-predictability, not just prompt engineering. I build production AI/software systems where reliability is a non-negotiable.
+Writing about Design Intern Summer 2026. I've spent the last few years on the unglamorous side of production AI (cost discipline, regression evals, on-call), which reads like what you're hiring for.
 
-How I've lived this philosophy recently:
-- Built a semantic memory system using LanceDB that reduced context window 'forgetting' across 200+ autonomous agent turns.
-- Optimized LLM inference pipelines to maintain <200ms latency while reducing token spend by 40%.
-- Delivered cloud-native services on GCP/AWS and integrated LLM features into existing stacks.
+A couple of relevant threads from the last few years:
+- Cut LLM token spend roughly 40% on one inference pipeline while keeping p95 under 200ms — mostly by paying attention to prompt shape and caching, not a bigger model.
+- Shipped cloud-native services on GCP and AWS; wired LLM features into stacks that predated the LLM boom.
 
-My work is grounded in proof, not just prompts. You can find the code for my autonomous agent architectures at:
-- GitHub: https://github.com/IgorGanapolsky
-- Technical POV: https://www.linkedin.com/in/igor-ganapolsky/
+Open to a call when it's useful. Links below for the curious.
 
-Thank you for your consideration.
+GitHub: https://github.com/IgorGanapolsky
+LinkedIn: https://www.linkedin.com/in/igor-ganapolsky-859317343/
 
 Igor Ganapolsky

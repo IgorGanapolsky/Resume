@@ -1,20 +1,18 @@
-Subject: Interest in $2k Weekly Customer Service Assistant USA ONLY
+Subject: $2k Weekly Customer Service Assistant USA ONLY — Igor Ganapolsky
 
-Hello MASTERCRAFT BOATING COMPANY team,
+Hello MASTERCRAFT BOATING COMPANY,
 
-I am interested in the $2k Weekly Customer Service Assistant USA ONLY opportunity. My philosophy is that integration is a social problem, not just a technical one; i build 'api-first' relationships, not just endpoints. I build production AI/software systems where reliability is a non-negotiable.
+A quick note on $2k Weekly Customer Service Assistant USA ONLY. The short version: 15+ years shipping production software, the last four on LLM systems that had to keep paying rent after the demo ended.
 
-How I've lived this philosophy recently:
+The JD mentions: "Remote $2k Weekly Customer Service Assistant USA Only (💰~$125k) at MASTERCRAFT BOATING COMPANY <meta name="google-site-verification" content="P440Rf_AlMGrr5oYx52-HG" — that maps cleanly to the production-AI work I've been doing.
 
-- Architected a self-healing CI pipeline for multi-model LLM consensus that reduced manual debug time by 80%.
-- Pioneered a 'shipping small experiments weekly' approach for LLM features at Subway, beating the standard quarterly release cycle.
-- Delivered customer-facing, integration-heavy delivery work with product/data stakeholders to define prompts, tools, and escalation rules.
+A couple of relevant threads from the last few years:
+- Wrote the integration doc *and* the runbook. Usually one person does one of those.
+- Rebuilt a brittle multi-model LLM review pipeline into something that self-heals on provider 5xx; manual debug time dropped roughly 80% once it stabilized.
 
-My work is grounded in proof, not just prompts. You can find the code for my autonomous agent architectures at:
+Short pitch. Would rather go deeper on the tradeoffs you're actually weighing.
 
-- GitHub: https://github.com/IgorGanapolsky
-- Technical POV: https://www.linkedin.com/in/igor-ganapolsky/
-
-Thank you for your consideration.
+GitHub: https://github.com/IgorGanapolsky
+LinkedIn: https://www.linkedin.com/in/igor-ganapolsky-859317343/
 
 Igor Ganapolsky

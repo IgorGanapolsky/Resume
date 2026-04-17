@@ -1,20 +1,18 @@
-Subject: Interest in Software Engineer Reliability
+Subject: Software Engineer Reliability — Igor Ganapolsky
 
-Hello OpenAI team,
+Hi OpenAI team,
 
-I am interested in the Software Engineer Reliability opportunity. My philosophy is that integration is a social problem, not just a technical one; i build 'api-first' relationships, not just endpoints. I build production AI/software systems where reliability is a non-negotiable.
+Saw the Software Engineer Reliability opening and wanted to put my hat in. The part of the role I've lived the most is the integration arc — from scoping through first production outage.
 
-How I've lived this philosophy recently:
+The JD mentions: "Remote Software Engineer Reliability (💰~$360k, San Francisco) at OpenAI <link rel="apple-touch-icon" sizes=" — that maps cleanly to the production-AI work I've been doing.
 
-- Architected a self-healing CI pipeline for multi-model LLM consensus that reduced manual debug time by 80%.
-- Pioneered a 'shipping small experiments weekly' approach for LLM features at Subway, beating the standard quarterly release cycle.
-- Delivered customer-facing, integration-heavy delivery work with product/data stakeholders to define prompts, tools, and escalation rules.
+A couple of relevant threads from the last few years:
+- Rebuilt a brittle multi-model LLM review pipeline into something that self-heals on provider 5xx; manual debug time dropped roughly 80% once it stabilized.
+- Ran a weekly ship cadence for LLM features at Subway instead of the standard quarterly cycle. Most experiments failed; the ones that didn't landed faster than prior releases.
 
-My work is grounded in proof, not just prompts. You can find the code for my autonomous agent architectures at:
+Glad to dig into details if this looks like a reasonable fit.
 
-- GitHub: https://github.com/IgorGanapolsky
-- Technical POV: https://www.linkedin.com/in/igor-ganapolsky/
-
-Thank you for your consideration.
+GitHub: https://github.com/IgorGanapolsky
+LinkedIn: https://www.linkedin.com/in/igor-ganapolsky-859317343/
 
 Igor Ganapolsky
