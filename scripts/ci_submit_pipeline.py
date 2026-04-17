@@ -2969,6 +2969,11 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
             return "greenhouse_form_still_present_after_submit"
         return None
 
+    # Typing into the combobox filter resets React state for small dropdowns
+    # (<= this many options), which silently clears any subsequent option-click
+    # selection. For small dropdowns we open-and-click without filtering.
+    _GH_SMALL_DROPDOWN_THRESHOLD = 10
+
     def _gh_select_dropdown(
         self, page: Any, qid: str, answer: str, use_filter: bool = True
     ) -> bool:
@@ -2980,15 +2985,19 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
             ctrl = shell.locator('div[class*="control"]').first
             ctrl.click()
             time.sleep(random.uniform(0.5, 1.0))
-            if use_filter:
+            opts = page.locator('div[class*="option"]').all()
+            should_filter = (
+                use_filter and len(opts) > self._GH_SMALL_DROPDOWN_THRESHOLD
+            )
+            if should_filter:
                 combo = shell.locator('input[role="combobox"]').first
                 if combo.count() > 0:
                     for ch in answer[:20]:
                         combo.type(ch, delay=random.randint(50, 120))
                     time.sleep(1)
+                opts = page.locator('div[class*="option"]').all()
             else:
                 time.sleep(0.5)
-            opts = page.locator('div[class*="option"]').all()
             for o in opts:
                 if answer.lower()[:12] in o.text_content().strip().lower():
                     self._click_human(o)
@@ -3118,7 +3127,9 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
         except Exception:
             pass
 
-        # EEO demographics
+        # EEO demographics — these dropdowns have 3-10 options, so we must
+        # not type into the combobox (typing resets React state on small
+        # dropdowns). Delegate to _gh_select_dropdown which auto-detects.
         for eid in (
             "gender",
             "hispanic_ethnicity",
@@ -3126,20 +3137,8 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
             "disability_status",
         ):
             try:
-                shell = page.locator(f"#{eid}").locator(
-                    'xpath=ancestor::div[contains(@class,"select-shell")]'
-                )
-                ctrl = shell.locator('div[class*="control"]').first
-                ctrl.click()
-                time.sleep(0.3)
-                combo = shell.locator('input[role="combobox"]').first
-                if combo.count() > 0:
-                    combo.fill("Decline")
-                    time.sleep(0.5)
-                opt = page.locator('div[class*="option"]').first
-                if opt.count() > 0:
-                    opt.click()
-                    time.sleep(0.3)
+                if page.locator(f"#{eid}").count() > 0:
+                    self._gh_select_dropdown(page, eid, "Decline", use_filter=False)
             except Exception:
                 pass
 
