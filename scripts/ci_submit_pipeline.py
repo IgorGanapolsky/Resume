@@ -2771,6 +2771,10 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
         "job not found",
         "this job post is no longer available",
         "the job you requested was not found",
+        "the job you are looking for is no longer open",
+        "no longer open",
+        "no longer accepting applications",
+        "position has been filled",
     )
     application_not_loaded_markers = (
         "apply for this job",
@@ -3003,10 +3007,6 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
                     self._click_human(o)
                     time.sleep(0.8)
                     return True
-            if opts:
-                self._click_human(opts[0])
-                time.sleep(0.8)
-                return True
         except Exception:
             pass
         return False
@@ -3032,12 +3032,18 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
         for q in questions:
             qid, label, is_dd, tag = q["id"], q["label"], q["isDropdown"], q["tag"]
             answer = None
-            if "authorized to work" in label:
-                answer = ("nationality", True, True)
+            if "authorized to work" in label or (
+                "authorization" in label and "work" in label
+            ):
+                answer = ("citizen", True, False)
             elif "visa" in label and "sponsorship" in label:
                 answer = ("No", True, True)
             elif "based in" in label and "countries" in label:
                 answer = ("United States", True, True)
+            elif "following states" in label or (
+                "live in" in label and "state" in label
+            ):
+                answer = ("No", True, False)
             elif "acknowledge" in label and "privacy" in label:
                 answer = ("Acknowledge", True, False)
             elif "double-check" in label or "accuracy" in label:
