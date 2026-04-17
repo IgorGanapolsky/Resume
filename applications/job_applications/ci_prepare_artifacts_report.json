@@ -1,15 +1,33 @@
 {
-  "generated_at": "2026-04-17T20:49:35.263654+00:00",
+  "generated_at": "2026-04-17T21:25:40.834023+00:00",
   "tracker_csv": "/Users/igorganapolsky/workspace/git/igor/Resume/applications/job_applications/application_tracker.csv",
   "max_jobs": 15,
   "fit_threshold": 70,
   "remote_min_score": 0,
   "processed_rows": 15,
-  "inspected_rows": 226,
+  "inspected_rows": 235,
   "artifact_updates": 0,
   "became_gate_eligible": 0,
   "failures": 0,
   "results": [
+    {
+      "company": "Owner.com",
+      "role": "Software Engineer Mobile",
+      "url": "https://jobs.lever.co/owner/727a8b34-49d7-428f-8d27-5a326bcc716d",
+      "status_before": "ReadyToSubmit",
+      "prepared": false,
+      "candidate": true,
+      "assessment_before": {
+        "eligible": true,
+        "score": 73,
+        "reasons": [],
+        "submission_lane": "ci_auto:lever",
+        "remote_score": 88
+      },
+      "assessment_after": {},
+      "artifact_updates": [],
+      "skip_reason": "already_gate_eligible"
+    },
     {
       "company": "Automattic",
       "role": "Mobile Engineer",
@@ -347,6 +365,27 @@
       "skip_reason": "unsupported_site_for_ci_submit"
     },
     {
+      "company": "Anthropic",
+      "role": "Senior / Staff+ Software Engineer - Autonomous Agent Infrastructure",
+      "url": "https://job-boards.greenhouse.io/anthropic/jobs/5065894008",
+      "status_before": "ReadyToSubmit",
+      "prepared": false,
+      "candidate": true,
+      "assessment_before": {
+        "eligible": true,
+        "score": 75,
+        "reasons": [
+          "missing_customer_facing_signal",
+          "python_requested_not_explicit_in_resume"
+        ],
+        "submission_lane": "ci_auto:greenhouse",
+        "remote_score": 45
+      },
+      "assessment_after": {},
+      "artifact_updates": [],
+      "skip_reason": "already_gate_eligible"
+    },
+    {
       "company": "OpenEvidence",
       "role": "Software Engineer - Backend and Infrastructure",
       "url": "https://jobs.ashbyhq.com/openevidence/4ca13c92-2a6f-4847-8bcd-22aa8b29cde8",
@@ -365,6 +404,39 @@
       "skip_reason": "already_gate_eligible"
     },
     {
+      "company": "ElevenLabs",
+      "role": "Forward Deployed Engineer - Software Engineer",
+      "url": "https://jobs.ashbyhq.com/elevenlabs/6c4c57c1-ec72-42ba-af3a-eb7aebbde2e6",
+      "status_before": "ReadyToSubmit",
+      "prepared": false,
+      "candidate": true,
+      "assessment_before": {
+        "eligible": true,
+        "score": 78,
+        "reasons": [
+          "missing_customer_facing_signal",
+          "python_requested_not_explicit_in_resume"
+        ],
+        "submission_lane": "ci_auto:ashby",
+        "remote_score": 88
+      },
+      "assessment_after": {},
+      "artifact_updates": [],
+      "skip_reason": "already_gate_eligible"
+    },
+    {
+      "company": "Mercor",
+      "role": "Software Engineer III",
+      "url": "https://work.mercor.com/jobs/list_AAABnDPW7yXIZJOFc-ZPabh9/software-engineer-iii",
+      "status_before": "Draft",
+      "prepared": false,
+      "candidate": false,
+      "assessment_before": {},
+      "assessment_after": {},
+      "artifact_updates": [],
+      "skip_reason": "unsupported_site_for_ci_submit"
+    },
+    {
       "company": "Decagon",
       "role": "Senior Software Engineer, Infrastructure",
       "url": "https://jobs.ashbyhq.com/decagon/7a22482c-e2d4-45b6-b364-89b63189a4ae",
@@ -381,6 +453,90 @@
       "assessment_after": {},
       "artifact_updates": [],
       "skip_reason": "already_gate_eligible"
+    },
+    {
+      "company": "PaleBlueDot AI",
+      "role": "AI Infrastructure Engineer (target; no posting found)",
+      "url": "https://palebluedot.ai/",
+      "status_before": "Draft",
+      "prepared": false,
+      "candidate": false,
+      "assessment_before": {},
+      "assessment_after": {},
+      "artifact_updates": [],
+      "skip_reason": "unsupported_site_for_ci_submit"
+    },
+    {
+      "company": "Flapping Airplanes",
+      "role": "General inquiry (contact email)",
+      "url": "https://flappingairplanes.com/",
+      "status_before": "Draft",
+      "prepared": false,
+      "candidate": false,
+      "assessment_before": {},
+      "assessment_after": {},
+      "artifact_updates": [],
+      "skip_reason": "unsupported_site_for_ci_submit"
+    },
+    {
+      "company": "Coalition Technologies",
+      "role": "Office Assistant",
+      "url": "https://remotive.com/remote-jobs/marketing/office-assistant-1680495",
+      "status_before": "Draft",
+      "prepared": false,
+      "candidate": false,
+      "assessment_before": {},
+      "assessment_after": {},
+      "artifact_updates": [],
+      "skip_reason": "unsupported_site_for_ci_submit"
+    },
+    {
+      "company": "Mitre Media",
+      "role": "Tech Lead Databricks Data Engineer",
+      "url": "https://remotive.com/remote-jobs/software-development/tech-lead-databricks-data-engineer-2069747",
+      "status_before": "Draft",
+      "prepared": false,
+      "candidate": false,
+      "assessment_before": {},
+      "assessment_after": {},
+      "artifact_updates": [],
+      "skip_reason": "unsupported_site_for_ci_submit"
+    },
+    {
+      "company": "Mitre Media",
+      "role": "Tech Lead Full-Stack Rails Engineer",
+      "url": "https://remotive.com/remote-jobs/software-development/tech-lead-full-stack-rails-engineer-2069746",
+      "status_before": "Draft",
+      "prepared": false,
+      "candidate": false,
+      "assessment_before": {},
+      "assessment_after": {},
+      "artifact_updates": [],
+      "skip_reason": "unsupported_site_for_ci_submit"
+    },
+    {
+      "company": "nooro",
+      "role": "iOS Developer",
+      "url": "https://remotive.com/remote-jobs/software-development/ios-developer-1956455",
+      "status_before": "Draft",
+      "prepared": false,
+      "candidate": false,
+      "assessment_before": {},
+      "assessment_after": {},
+      "artifact_updates": [],
+      "skip_reason": "unsupported_site_for_ci_submit"
+    },
+    {
+      "company": "SKYCATCHFIRE",
+      "role": "Senior Python Backend Developer",
+      "url": "https://remotive.com/remote-jobs/software-development/senior-python-backend-developer-2088624",
+      "status_before": "Draft",
+      "prepared": false,
+      "candidate": false,
+      "assessment_before": {},
+      "assessment_after": {},
+      "artifact_updates": [],
+      "skip_reason": "unsupported_site_for_ci_submit"
     },
     {
       "company": "TELUS Digital",
@@ -1329,6 +1485,54 @@
       "assessment_after": {},
       "artifact_updates": [],
       "skip_reason": "unsupported_site_for_ci_submit"
+    },
+    {
+      "company": "AMI",
+      "role": "AMI Engineer",
+      "url": "https://jobs.ashbyhq.com/ami/d8d6e7a5-d048-4381-b494-88acef00b237",
+      "status_before": "ReadyToSubmit",
+      "prepared": false,
+      "candidate": true,
+      "assessment_before": {
+        "eligible": true,
+        "score": 85,
+        "reasons": [],
+        "submission_lane": "ci_auto:ashby",
+        "remote_score": 100
+      },
+      "assessment_after": {},
+      "artifact_updates": [],
+      "skip_reason": "already_gate_eligible"
+    },
+    {
+      "company": "OPM",
+      "role": "US Tech Force Talent Network",
+      "url": "https://techforce.gov",
+      "status_before": "Draft",
+      "prepared": false,
+      "candidate": false,
+      "assessment_before": {},
+      "assessment_after": {},
+      "artifact_updates": [],
+      "skip_reason": "unsupported_site_for_ci_submit"
+    },
+    {
+      "company": "Perplexity",
+      "role": "AI Software Engineer - Agents",
+      "url": "https://jobs.ashbyhq.com/perplexity/bc1a6878-8de9-48c2-a791-95b2f8f27261",
+      "status_before": "ReadyToSubmit",
+      "prepared": false,
+      "candidate": true,
+      "assessment_before": {
+        "eligible": true,
+        "score": 85,
+        "reasons": [],
+        "submission_lane": "ci_auto:ashby",
+        "remote_score": 100
+      },
+      "assessment_after": {},
+      "artifact_updates": [],
+      "skip_reason": "already_gate_eligible"
     },
     {
       "company": "Palantir Technologies",
@@ -2734,102 +2938,6 @@
         "reasons": [
           "missing_customer_facing_signal"
         ],
-        "submission_lane": "ci_auto:greenhouse",
-        "remote_score": 88
-      },
-      "assessment_after": {},
-      "artifact_updates": [],
-      "skip_reason": "already_gate_eligible"
-    },
-    {
-      "company": "Databricks",
-      "role": "Sr. Solutions Engineer - Public Sector (SLED)",
-      "url": "https://boards.greenhouse.io/embed/job_app?for=databricks&token=8415023002",
-      "status_before": "ReadyToSubmit",
-      "prepared": false,
-      "candidate": true,
-      "assessment_before": {
-        "eligible": true,
-        "score": 78,
-        "reasons": [
-          "missing_customer_facing_signal"
-        ],
-        "submission_lane": "ci_auto:greenhouse",
-        "remote_score": 88
-      },
-      "assessment_after": {},
-      "artifact_updates": [],
-      "skip_reason": "already_gate_eligible"
-    },
-    {
-      "company": "Vercel",
-      "role": "Forward-Deployed Engineer",
-      "url": "https://job-boards.greenhouse.io/vercel/jobs/5778418004",
-      "status_before": "ReadyToSubmit",
-      "prepared": false,
-      "candidate": true,
-      "assessment_before": {
-        "eligible": true,
-        "score": 76,
-        "reasons": [
-          "missing_customer_facing_signal"
-        ],
-        "submission_lane": "ci_auto:greenhouse",
-        "remote_score": 68
-      },
-      "assessment_after": {},
-      "artifact_updates": [],
-      "skip_reason": "already_gate_eligible"
-    },
-    {
-      "company": "Vercel",
-      "role": "Senior Partner Solutions Engineer",
-      "url": "https://job-boards.greenhouse.io/vercel/jobs/5553789004",
-      "status_before": "ReadyToSubmit",
-      "prepared": false,
-      "candidate": true,
-      "assessment_before": {
-        "eligible": true,
-        "score": 76,
-        "reasons": [
-          "missing_customer_facing_signal"
-        ],
-        "submission_lane": "ci_auto:greenhouse",
-        "remote_score": 68
-      },
-      "assessment_after": {},
-      "artifact_updates": [],
-      "skip_reason": "already_gate_eligible"
-    },
-    {
-      "company": "Anthropic",
-      "role": "Senior / Staff Software Engineer, Continuous Integration",
-      "url": "https://job-boards.greenhouse.io/anthropic/jobs/5073998008",
-      "status_before": "ReadyToSubmit",
-      "prepared": false,
-      "candidate": true,
-      "assessment_before": {
-        "eligible": true,
-        "score": 73,
-        "reasons": [],
-        "submission_lane": "ci_auto:greenhouse",
-        "remote_score": 88
-      },
-      "assessment_after": {},
-      "artifact_updates": [],
-      "skip_reason": "already_gate_eligible"
-    },
-    {
-      "company": "Runway",
-      "role": "Engineering Manager, API",
-      "url": "https://job-boards.greenhouse.io/runwayml/jobs/4619489005",
-      "status_before": "ReadyToSubmit",
-      "prepared": false,
-      "candidate": true,
-      "assessment_before": {
-        "eligible": true,
-        "score": 73,
-        "reasons": [],
         "submission_lane": "ci_auto:greenhouse",
         "remote_score": 88
       },

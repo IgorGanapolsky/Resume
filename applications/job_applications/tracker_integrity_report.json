@@ -1,87 +1,14 @@
 {
-  "generated_at": "2026-04-17T20:49:35.116560+00:00",
+  "generated_at": "2026-04-17T21:25:40.674865+00:00",
   "tracker_csv": "/Users/igorganapolsky/workspace/git/igor/Resume/applications/job_applications/application_tracker.csv",
-  "applied_total": 18,
-  "applied_total_before": 18,
-  "applied_total_after": 18,
+  "applied_total": 5,
+  "applied_total_before": 5,
+  "applied_total_after": 5,
   "fixed_count": 0,
   "backfilled_count": 0,
   "normalized_count": 0,
-  "missing_count": 8,
-  "missing_rows": [
-    {
-      "row_index": 42,
-      "company": "PaleBlueDot AI",
-      "role": "AI Infrastructure Engineer (target; no posting found)",
-      "missing": [
-        "submission_evidence_path",
-        "submission_verified_at"
-      ]
-    },
-    {
-      "row_index": 43,
-      "company": "Flapping Airplanes",
-      "role": "General inquiry (contact email)",
-      "missing": [
-        "submission_evidence_path",
-        "submission_verified_at"
-      ]
-    },
-    {
-      "row_index": 44,
-      "company": "Coalition Technologies",
-      "role": "Office Assistant",
-      "missing": [
-        "submission_evidence_path",
-        "submission_verified_at"
-      ]
-    },
-    {
-      "row_index": 45,
-      "company": "Mitre Media",
-      "role": "Tech Lead Databricks Data Engineer",
-      "missing": [
-        "submission_evidence_path",
-        "submission_verified_at"
-      ]
-    },
-    {
-      "row_index": 46,
-      "company": "Mitre Media",
-      "role": "Tech Lead Full-Stack Rails Engineer",
-      "missing": [
-        "submission_evidence_path",
-        "submission_verified_at"
-      ]
-    },
-    {
-      "row_index": 47,
-      "company": "nooro",
-      "role": "iOS Developer",
-      "missing": [
-        "submission_evidence_path",
-        "submission_verified_at"
-      ]
-    },
-    {
-      "row_index": 48,
-      "company": "SKYCATCHFIRE",
-      "role": "Senior Python Backend Developer",
-      "missing": [
-        "submission_evidence_path",
-        "submission_verified_at"
-      ]
-    },
-    {
-      "row_index": 136,
-      "company": "OPM",
-      "role": "US Tech Force Talent Network",
-      "missing": [
-        "submitted_resume_path",
-        "submission_verified_at"
-      ]
-    }
-  ],
+  "missing_count": 0,
+  "missing_rows": [],
   "normalized_rows": [],
   "normalize_unverified_applied": true,
   "write": true

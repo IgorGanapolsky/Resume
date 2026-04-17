@@ -1105,3 +1105,4 @@
 {"ts": "2026-04-17T20:53:41.646556+00:00", "app_id": null, "type": "build_skipped", "msg": "lancedb import failed; wrote JSONL only"}
 {"ts": "2026-04-17T20:53:41.827990+00:00", "app_id": "saxon-global__sr-ai-engineer-client-role-fort-lauderdale-fl-onsite__bbc84cf7ae", "type": "tracker_outcome_sync", "msg": "outcome=response status=Applied method=direct tags=['inbound', 'recruiter', 'ai', 'mlops', 'on-site', 'florida', 'w2'] response_type=inbound_recruiter_email"}
 {"ts": "2026-04-17T20:53:41.828719+00:00", "app_id": null, "type": "tracker_feedback_sync", "msg": "processed=1 skipped=364"}
+{"ts": "2026-04-17T21:11:24.017330+00:00", "app_id": null, "type": "build_skipped", "msg": "lancedb import failed; wrote JSONL only"}
