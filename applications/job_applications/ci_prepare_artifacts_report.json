@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-17T19:18:05.610723+00:00",
+  "generated_at": "2026-04-17T20:49:35.263654+00:00",
   "tracker_csv": "/Users/igorganapolsky/workspace/git/igor/Resume/applications/job_applications/application_tracker.csv",
   "max_jobs": 15,
   "fit_threshold": 70,
@@ -2609,7 +2609,8 @@
         "eligible": true,
         "score": 78,
         "reasons": [
-          "missing_customer_facing_signal"
+          "missing_customer_facing_signal",
+          "python_requested_not_explicit_in_resume"
         ],
         "submission_lane": "ci_auto:greenhouse",
         "remote_score": 88

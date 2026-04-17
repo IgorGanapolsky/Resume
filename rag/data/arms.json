@@ -8,10 +8,10 @@
   },
   "cat:ai": {
     "name": "cat:ai",
-    "alpha": 2.000000000000001,
-    "beta": 26.999999999999993,
-    "pulls": 27,
-    "total_reward": 1.0000000000000002
+    "alpha": 2.500000000000001,
+    "beta": 27.499999999999993,
+    "pulls": 28,
+    "total_reward": 1.5000000000000002
   },
   "cat:react-native": {
     "name": "cat:react-native",
@@ -36,10 +36,10 @@
   },
   "method:direct": {
     "name": "method:direct",
-    "alpha": 2.4000000000000004,
-    "beta": 24.59999999999999,
-    "pulls": 25,
-    "total_reward": 1.4000000000000004
+    "alpha": 2.9000000000000004,
+    "beta": 25.09999999999999,
+    "pulls": 26,
+    "total_reward": 1.9000000000000004
   },
   "cat:cicd": {
     "name": "cat:cicd",
@@ -299,5 +299,47 @@
     "beta": 1.8,
     "pulls": 1,
     "total_reward": 0.2
+  },
+  "cat:inbound": {
+    "name": "cat:inbound",
+    "alpha": 1.5,
+    "beta": 1.5,
+    "pulls": 1,
+    "total_reward": 0.5
+  },
+  "cat:recruiter": {
+    "name": "cat:recruiter",
+    "alpha": 1.5,
+    "beta": 1.5,
+    "pulls": 1,
+    "total_reward": 0.5
+  },
+  "cat:mlops": {
+    "name": "cat:mlops",
+    "alpha": 1.5,
+    "beta": 1.5,
+    "pulls": 1,
+    "total_reward": 0.5
+  },
+  "cat:on-site": {
+    "name": "cat:on-site",
+    "alpha": 1.5,
+    "beta": 1.5,
+    "pulls": 1,
+    "total_reward": 0.5
+  },
+  "cat:florida": {
+    "name": "cat:florida",
+    "alpha": 1.5,
+    "beta": 1.5,
+    "pulls": 1,
+    "total_reward": 0.5
+  },
+  "cat:w2": {
+    "name": "cat:w2",
+    "alpha": 1.5,
+    "beta": 1.5,
+    "pulls": 1,
+    "total_reward": 0.5
   }
 }

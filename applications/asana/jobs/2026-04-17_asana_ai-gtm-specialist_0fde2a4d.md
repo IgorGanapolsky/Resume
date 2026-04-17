@@ -1,0 +1,25 @@
+# Asana - AI GTM Specialist
+
+- Captured: 2026-04-17
+- URL: https://job-boards.greenhouse.io/asana/jobs/7624663
+- Source: greenhouse:asana
+- Location: Germany - Remote
+- Job Type: Unknown
+- Salary: Not listed
+
+## Full Description (HTML Snippet)
+```html
+<!DOCTYPE html><html lang="en"><head><!-- [script/app-data removed by scrub_job_captures.py] -->
+      <!-- [script/app-data removed by scrub_job_captures.py] -->
+      <meta charSet="utf-8" data-next-head=""/><meta name="viewport" content="width=device-width, initial-scale=1.0" data-next-head=""/><link rel="preload" as="style" href="/assets/dist/hashed/css/reskin-6a3c245d65.css"/><link rel="preload" as="style" href="/assets/dist/hashed/css/global-3c687af5e3.css"/><title data-next-head="">AI GTM Specialist in Germany - Remote • Asana Jobs</title><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" data-next-head=""/><meta name="zd-site-verification" content="oywgyiggh7v8kawrvgcr" data-next-head=""/><meta name="yandex-verification" content="e3482b364e00d0a0" data-next-head=""/><meta name="naver-site-verification" content="5c6fd36e7d95d9f0d1ecb0ca29f9834d56b3cec3" data-next-head=""/><meta property="og:title" content="AI GTM Specialist in Germany - Remote • Asana Jobs" data-next-head=""/><meta name="twitter:title" content="AI GTM Specialist in Germany - Remote • Asana Jobs" data-next-head=""/><link rel="canonical" href="https://asana.com/jobs/apply/7624663" data-next-head=""/><meta property="og:url" content="https://asana.com/jobs/apply/7624663?gh_jid=7624663" data-next-head=""/><meta name="twitter:url" content="https://asana.com/jobs/apply/7624663?gh_jid=7624663" data-next-head=""/><meta name="description" content="Apply for the AI GTM Specialist in Germany - Remote at Asana! Click to learn more about life at Asana!" data-next-head=""/><meta name="twitter:description" content="Apply for the AI GTM Specialist in Germany - Remote at Asana! Click to learn more about life at Asana!" data-next-head=""/><meta property="og:description" content="Apply for the AI GTM Specialist in Germany - Remote at Asana! Click to learn more about life at Asana!" data-next-head=""/><meta property="author" content="Asana" data-next-head=""/><meta property="og:site_name" content="Asana Jobs" data-next-head=""/><meta property="fb:app_id" content="444494130454" data-next-head=""/><meta name="twitter:site" content="@asana" data-next-head=""/><meta name="twitter:creator" content="@asana" data-next-head=""/><meta name="theme-color" content="#2e3c54" data-next-head=""/><meta name="msapplication-navbutton-color" content="#2e3c54" data-next-head=""/><meta property="og:image" content="https://assets.asana.biz/m/6c01529e601e5f1f/original/careers-at-asana.png" data-next-head=""/><meta name="twitter:image" content="https://assets.asana.biz/m/6c01529e601e5f1f/original/careers-at-asana.png" data-next-head=""/><meta name="twitter:image:src" content="https://assets.asana.biz/m/6c01529e601e5f1f/original/careers-at-asana.png" data-next-head=""/><meta name="twitter:card" content="summary_large_image" data-next-head=""/><meta property="og:type" content="article" data-next-head=""/><link rel="apple-touch-icon" sizes="57x57" type="image/png" href="https://brand.asana.biz/image/upload/f_auto:image,fl_preserve_transparency/v1696462482/asana_favicon_57x57.png" data-next-head=""/><link rel="apple-touch-icon" sizes="60x60" type="image/png" href="https://brand.asana.biz/image/upload/f_auto:image,fl_preserve_transparency/v1696462482/asana_favicon_60x60.png" data-next-head=""/><link rel="apple-touch-icon" sizes="72x72" type="image/png" href="https://brand.asana.biz/image/upload/f_auto:image,fl_preserve_transparency/v1696462482/asana_favicon_72x72.png" data-next-head=""/><link rel="apple-touch-icon" sizes="76x76" type="image/png" href="https://brand.asana.biz/image/upload/f_auto:image,fl_preserve_transparency/v1696462482/asana_favicon_76x76.png" data-next-head=""/><link rel="apple-touch-icon" sizes="114x114" type="image/png" href="https://brand.asana.biz/image/upload/f_auto:image,fl_preserve_transparency/v1696462482/asana_favicon_114x114.png" data-next-head=""/><link rel="apple-touch-icon" sizes="120x120" type="image/png" href="https://brand.asana.biz/image/upload/f_auto:image,fl_preserve_transparency/v1696462483/asana_favicon_120x120.png" data-next-head=""/><link rel="apple-touch-icon" sizes="144x144" type="image/png" href="https://brand.asana.biz/image/upload/f_auto:image,fl_preserve_transparency/v1696462483/asana_favicon_144x144.png" data-next-head=""/><link rel="apple-touch-icon" sizes="152x152" type="image/png" href="http
+```
+
+## Key Requirements
+- End-to-end ownership: architecture through deployment and iteration.
+- Daily collaboration with customer engineering and stakeholder teams.
+- Strong API integration and reliable production delivery.
+- Clear communication and problem-solving in ambiguous environments.
+- Experience with voice/audio AI workflows is a plus.
+
+## Notes
+- Added by Ralph Loop CI for review and application planning.
