@@ -2989,7 +2989,7 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
             ctrl = shell.locator('div[class*="control"]').first
             try:
                 ctrl.scroll_into_view_if_needed(timeout=2000)
-            except Exception:
+            except Exception:  # nosec B110 - best-effort scroll; safe to skip
                 pass
             ctrl.click()
             time.sleep(random.uniform(0.5, 1.0))
@@ -2999,7 +2999,7 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
                     ctrl.click(force=True)
                     time.sleep(0.6)
                     opts = page.locator('div[class*="option"]').all()
-                except Exception:
+                except Exception:  # nosec B110 - force-click is a fallback retry
                     pass
             should_filter = (
                 use_filter and len(opts) > self._GH_SMALL_DROPDOWN_THRESHOLD
