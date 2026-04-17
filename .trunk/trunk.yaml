@@ -36,3 +36,9 @@ lint:
         - linkedin/**
         - resumes/**/*.html
         - applications/**/tailored_resumes/**
+    - linters:
+        - bandit
+      paths:
+        - rag/tests/**
+        - "**/test_*.py"
+        - "**/*_test.py"
