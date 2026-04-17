@@ -1,10 +1,11 @@
 name: Ralph Loop
 
 on:
-  # schedule temporarily disabled to prevent cron runs from conflicting
-  # with manual submission dispatches. Re-enable after submissions work.
-  # schedule:
-  #   - cron: "*/30 * * * *"
+  schedule:
+    # Discovery runs every 6 hours. Less aggressive than the submit lane
+    # (*/30) to stay clear of the shared ralph-loop concurrency group and
+    # to avoid burning runner minutes on listings that change slowly.
+    - cron: "0 */6 * * *"
   #checkov:skip=CKV_GHA_7:Manual dispatch inputs are required to cap discovery volume and gate live submits.
   workflow_dispatch:
     inputs:
