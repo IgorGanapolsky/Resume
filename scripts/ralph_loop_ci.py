@@ -743,7 +743,7 @@ def discover_company_boards() -> Iterable[Dict[str, str]]:
                 aggregated.extend(discover_greenhouse_board(slug, company))
             elif ats == "ashby":
                 aggregated.extend(discover_ashby_board(slug, company))
-        except Exception:
+        except Exception:  # nosec B112 - best-effort per board; one broken ATS must not block others
             continue
     return aggregated
 
