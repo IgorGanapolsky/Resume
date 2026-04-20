@@ -3589,12 +3589,22 @@ def _extract_same_day_submit_blocker_reasons(
 
 
 def _same_day_submit_path_blockers(
-    rows: Sequence[Dict[str, str]], *, company: str, adapter_name: str
+    rows: Sequence[Dict[str, str]],
+    *,
+    company: str,
+    adapter_name: str,
+    role: Optional[str] = None,
 ) -> List[str]:
     target_company = company.strip().lower()
+    target_role = role.strip().lower() if role else None
     reasons: List[str] = []
     for row in rows:
         if str(row.get("Company", "")).strip().lower() != target_company:
+            continue
+        if (
+            target_role is not None
+            and str(row.get("Role", "")).strip().lower() != target_role
+        ):
             continue
         reasons.extend(
             _extract_same_day_submit_blocker_reasons(
@@ -4607,7 +4617,7 @@ def run_pipeline(
             row_result["adapter"] = adapter.name
             frozen_path_reasons = (
                 _same_day_submit_path_blockers(
-                    rows, company=company, adapter_name=adapter.name
+                    rows, company=company, adapter_name=adapter.name, role=role
                 )
                 if quarantine_blocked
                 else []
