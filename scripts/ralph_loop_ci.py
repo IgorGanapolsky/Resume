@@ -88,6 +88,40 @@ TRACKER_EXTRA_FIELDS = (
 AUTO_SUBMIT_METHODS = {"ashby", "greenhouse", "lever"}
 ALLOWED_FETCH_SCHEMES = {"http", "https"}
 
+# Signal-driven shops where boilerplate cover letters are noise. Match is
+# case-insensitive and substring-based (e.g. "xAI" matches "xAI Corporation").
+# Reasoning: Musk-cos, frontier AI labs, and selective startups evaluate on
+# demonstrated technical depth — a three-problems opener outperforms a
+# template philosophy line.
+SELECTIVE_TARGET_COMPANIES = (
+    "xai",
+    "tesla",
+    "spacex",
+    "neuralink",
+    "boring company",
+    "anthropic",
+    "openai",
+    "mistral",
+    "cerebras",
+    "inflection",
+    "suno",
+    "harvey",
+    "decagon",
+    "world labs",
+    "cursor",
+    "replit",
+    "perplexity",
+    "runway",
+    "character.ai",
+)
+
+
+def _is_selective_target(company: str) -> bool:
+    needle = (company or "").lower()
+    if not needle:
+        return False
+    return any(target in needle for target in SELECTIVE_TARGET_COMPANIES)
+
 
 def _candidate_contact() -> Dict[str, str]:
     fallback = {
@@ -437,9 +471,56 @@ def extract_key_requirements(job: Dict[str, str], profile: RoleProfile) -> List[
     return requirements
 
 
+def _build_three_problems_letter(company: str, role: str) -> str:
+    """Musk/frontier-lab opener: lead with three toughest problems solved.
+
+    Full detail lives in applications/assets/three_toughest_problems.md. This
+    letter is a dense, outcome-led summary — boilerplate philosophy lines are
+    replaced with concrete technical depth.
+    """
+    problems = [
+        "- **Play-Store-scale malware triage at Google.** Built ML/LLM-assisted detection on "
+        "Vertex AI with GCP Cloud Build/Functions driving continuous model runs across thousands "
+        "of apps; weak labels, adversarial authors, asymmetric error costs. Outcome: 100+ "
+        "malicious apps removed via the detection path I helped build.",
+        "- **Customer-facing RAG + conversational-agent stack at CNH** that had to *reduce* "
+        "human support load, not increase it. Dialogflow CX + Vertex AI intent classification, "
+        "retrieval over manuals/telemetry, GPT-4o RAG over app/ordering data, prompts tuned for "
+        "relevance/latency/cost. Outcome: support load –35%, field-support volume –40%.",
+        "- **Self-healing autonomous AI trading system** (github.com/IgorGanapolsky/trading). "
+        "Multi-model LLM gateway on Tetrate Agent Router Service with cost-aware routing and "
+        "provider fallbacks; LanceDB semantic memory so long-running agent sessions resume with "
+        "context; CI that fix-PRs its own breakage instead of paging me.",
+    ]
+    lines = [
+        f"Subject: {role} — three toughest technical problems",
+        "",
+        f"Hello {company} team,",
+        "",
+        "In lieu of a standard cover letter, three technical problems I've personally solved:",
+        "",
+        *problems,
+        "",
+        "The through-line: production AI systems where reliability, cost, and latency are "
+        "non-negotiable — built end-to-end, not handed off.",
+        "",
+        "Code and architecture are public:",
+        f"- GitHub: {CANDIDATE_CONTACT['github']}",
+        f"- LinkedIn: {CANDIDATE_CONTACT['linkedin']}",
+        "",
+        "Happy to walk any of these in depth.",
+        "",
+        CANDIDATE_CONTACT["full_name"],
+    ]
+    return "\n".join(lines) + "\n"
+
+
 def build_cover_letter(job: Dict[str, str], profile: RoleProfile) -> str:
     company = job["company"]
     role = job["title"]
+
+    if _is_selective_target(company):
+        return _build_three_problems_letter(company, role)
 
     # Vanessa-style POV intro
     intro = (

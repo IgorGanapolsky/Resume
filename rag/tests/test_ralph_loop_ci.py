@@ -229,6 +229,38 @@ def test_create_artifacts_writes_tailored_resume_and_requirements(
     assert "How I've lived this philosophy recently:" not in cover_text  # nosec B101
 
 
+def test_is_selective_target_matches_musk_cos_and_frontier_labs(loop_mod):
+    for company in ("xAI", "Neuralink", "SpaceX", "Anthropic", "Mistral AI", "Cerebras"):
+        assert loop_mod._is_selective_target(company), company
+    for company in ("Agoda", "ElevenLabs", "Random Co"):
+        assert not loop_mod._is_selective_target(company), company
+
+
+def test_build_cover_letter_uses_three_problems_opener_for_selective_target(loop_mod):
+    job = {"company": "Neuralink", "title": "Staff Software Engineer"}
+    profile = loop_mod.RoleProfile(
+        track="general", score=0, signals=[], is_relevant=True,
+        philosophy="unused", distinctive_achievements=["unused"],
+    )
+    letter = loop_mod.build_cover_letter(job, profile)
+    assert "three toughest technical problems" in letter
+    assert "Play-Store-scale malware triage" in letter
+    assert "github.com/IgorGanapolsky/trading" in letter
+    assert "Recent examples:" not in letter
+
+
+def test_build_cover_letter_preserves_philosophy_path_for_non_selective(loop_mod):
+    job = {"company": "Agoda", "title": "Backend Engineer"}
+    profile = loop_mod.RoleProfile(
+        track="general", score=0, signals=[], is_relevant=True,
+        philosophy="Production AI is about reliability.",
+        distinctive_achievements=["Built a thing."],
+    )
+    letter = loop_mod.build_cover_letter(job, profile)
+    assert "Recent examples:" in letter
+    assert "three toughest technical problems" not in letter
+
+
 def test_fetch_helpers_reject_non_http_scheme(loop_mod):
     with pytest.raises(ValueError, match="Unsupported fetch scheme"):
         loop_mod._validate_fetch_url("file:///tmp/nope")

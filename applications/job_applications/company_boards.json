@@ -32,6 +32,14 @@
     {"company": "Runway",      "ats": "ashby",      "slug": "runway"},
     {"company": "Ramp",        "ats": "ashby",      "slug": "ramp"},
     {"company": "Reddit",      "ats": "ashby",      "slug": "reddit"},
-    {"company": "Deel",        "ats": "ashby",      "slug": "deel"}
+    {"company": "Deel",        "ats": "ashby",      "slug": "deel"},
+    {"company": "Neuralink",     "ats": "greenhouse", "slug": "neuralink"},
+    {"company": "Cerebras",      "ats": "greenhouse", "slug": "cerebrassystems"},
+    {"company": "Mistral AI",    "ats": "ashby",      "slug": "mistral"},
+    {"company": "Suno",          "ats": "ashby",      "slug": "suno"},
+    {"company": "Inflection AI", "ats": "ashby",      "slug": "inflectionai"},
+    {"company": "World Labs",    "ats": "ashby",      "slug": "worldlabs"},
+    {"company": "Decagon",       "ats": "ashby",      "slug": "decagon"},
+    {"company": "Harvey",        "ats": "ashby",      "slug": "harvey"}
   ]
 }
