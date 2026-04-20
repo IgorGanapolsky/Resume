@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import argparse
 import email
+import email.utils
 import imaplib
 import os
 import re
@@ -83,6 +84,19 @@ def _extract_text_parts(msg: email.message.Message) -> str:
     return "\n".join(chunks)
 
 
+def _message_epoch(msg: email.message.Message) -> Optional[float]:
+    raw_date = msg.get("Date", "")
+    if not raw_date:
+        return None
+    try:
+        parsed = email.utils.parsedate_to_datetime(raw_date)
+    except (TypeError, ValueError):
+        return None
+    if parsed is None:
+        return None
+    return parsed.timestamp()
+
+
 def _match_code(text: str) -> Optional[str]:
     candidates = CODE_RE.findall(text or "")
     filler = {"greenhouse", "applicant", "abcdefgh"}
@@ -105,9 +119,19 @@ def fetch_latest_code(
     lookback_minutes: int = 15,
     poll_attempts: int = 6,
     poll_interval: float = 5.0,
+    min_arrival_epoch: Optional[float] = None,
 ) -> Optional[str]:
-    """Poll Gmail for a verification code. Returns the code string or None."""
+    """Poll Gmail for a verification code. Returns the code string or None.
+
+    When ``min_arrival_epoch`` is set, messages whose ``Date:`` header predates
+    that epoch (with a small skew tolerance) are skipped — prevents picking up
+    stale codes from earlier submit attempts.
+    """
     last_error: Optional[BaseException] = None
+    skew_tolerance = 60.0  # seconds — tolerate Gmail <-> local clock drift
+    threshold = (
+        (min_arrival_epoch - skew_tolerance) if min_arrival_epoch is not None else None
+    )
     for _attempt in range(poll_attempts):
         try:
             with imaplib.IMAP4_SSL(IMAP_HOST, IMAP_PORT) as mail:
@@ -137,6 +161,10 @@ def fetch_latest_code(
                         h.lower() in subject for h in subject_hints
                     ):
                         continue
+                    if threshold is not None:
+                        msg_epoch = _message_epoch(msg)
+                        if msg_epoch is None or msg_epoch < threshold:
+                            continue
                     body = _extract_text_parts(msg)
                     code = _match_code(subject + "\n" + body)
                     if code:
@@ -168,6 +196,16 @@ def main(argv: Optional[list[str]] = None) -> int:
         default=None,
         help="Repeatable. Override default subject hints.",
     )
+    parser.add_argument(
+        "--min-arrival-epoch",
+        type=float,
+        default=None,
+        help=(
+            "Skip messages whose Date header is older than this Unix epoch "
+            "(with 60s skew tolerance). Use to avoid picking up stale codes "
+            "from earlier submit attempts."
+        ),
+    )
     args = parser.parse_args(argv)
     user = os.environ.get("GMAIL_USER", "").strip()
     password = os.environ.get("GMAIL_APP_PASSWORD", "").strip()
@@ -185,6 +223,7 @@ def main(argv: Optional[list[str]] = None) -> int:
         lookback_minutes=args.lookback_minutes,
         poll_attempts=args.poll_attempts,
         poll_interval=args.poll_interval,
+        min_arrival_epoch=args.min_arrival_epoch,
     )
     if not code:
         return 1
