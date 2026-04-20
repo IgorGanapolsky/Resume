@@ -2794,6 +2794,13 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
         "first name",
         "last name",
     )
+    email_verification_markers = (
+        "verification code was sent to",
+        "enter the 8-character code",
+        "enter the 8 character code",
+        "confirm you're a human",
+        "confirm you are a human",
+    )
 
     def _prime_page_session(
         self,
@@ -2965,6 +2972,11 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
             return None
         if any(marker in blob for marker in self.job_not_found_markers):
             return "greenhouse_job_not_found"
+        if any(marker in blob for marker in self.email_verification_markers):
+            return (
+                "Manual submission required: Greenhouse email verification "
+                "code challenge (set GMAIL_APP_PASSWORD to auto-complete)"
+            )
         if "verify you are human" in blob or "captcha" in blob or "cloudflare" in blob:
             return "greenhouse_antibot_challenge"
         if any(marker in blob for marker in self.validation_error_markers):
@@ -2972,6 +2984,96 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
         if any(marker in blob for marker in self.active_form_markers):
             return "greenhouse_form_still_present_after_submit"
         return None
+
+    def _post_submit_retry(
+        self, scope: Any, page: Any, profile: Profile, answers: SubmitAnswers
+    ) -> bool:
+        """If an email verification gate is present, read the code from Gmail
+        and complete submission. Returns True if a follow-up submit happened."""
+        try:
+            page.wait_for_timeout(2000)
+        except Exception:
+            pass
+        blob = self._page_text_blob(scope, page)
+        if not blob:
+            return False
+        if not any(marker in blob for marker in self.email_verification_markers):
+            return False
+        if not os.environ.get("GMAIL_APP_PASSWORD"):
+            return False
+        code = self._fetch_email_verification_code()
+        if not code:
+            return False
+        if not self._fill_verification_code(page, code):
+            return False
+        if not self._click_submit(scope, page):
+            return False
+        try:
+            page.wait_for_timeout(2500)
+        except Exception:
+            pass
+        return True
+
+    def _fetch_email_verification_code(self) -> Optional[str]:
+        user = (
+            os.environ.get("GMAIL_USER")
+            or os.environ.get("GMAIL_ADDRESS")
+            or "iganapolsky@gmail.com"
+        ).strip()
+        password = os.environ.get("GMAIL_APP_PASSWORD", "").strip()
+        if not user or not password:
+            return None
+        try:
+            reader_path = Path(__file__).resolve().parent / "gmail_verification_reader.py"
+            result = subprocess.run(
+                [sys.executable, str(reader_path)],
+                env={**os.environ, "GMAIL_USER": user, "GMAIL_APP_PASSWORD": password},
+                capture_output=True,
+                text=True,
+                timeout=90,
+                check=False,
+            )
+            if result.returncode != 0:
+                return None
+            code = (result.stdout or "").strip().splitlines()[-1].strip()
+            if len(code) == 8 and code.isalnum():
+                return code.upper()
+        except Exception:
+            return None
+        return None
+
+    def _fill_verification_code(self, page: Any, code: str) -> bool:
+        """Type the 8-char code into the verification input(s)."""
+        try:
+            single = page.locator(
+                "input[autocomplete*='one-time' i], input[name*='verification' i], "
+                "input[id*='verification' i], input[aria-label*='verification' i]"
+            ).first
+            if single.count() > 0:
+                try:
+                    single.scroll_into_view_if_needed(timeout=2000)
+                except Exception:  # nosec B110 - best-effort scroll
+                    pass
+                single.fill(code)
+                time.sleep(0.5)
+                return True
+        except Exception:  # nosec B110 - fall through to split-input path
+            pass
+        try:
+            inputs = page.locator(
+                "input[maxlength='1'], input[inputmode='text'][maxlength='1']"
+            ).all()
+            if len(inputs) >= len(code):
+                for i, ch in enumerate(code):
+                    try:
+                        inputs[i].fill(ch)
+                        time.sleep(0.08)
+                    except Exception:
+                        return False
+                return True
+        except Exception:  # nosec B110 - verification input not present
+            pass
+        return False
 
     # Typing into the combobox filter resets React state for small dropdowns
     # (<= this many options), which silently clears any subsequent option-click
