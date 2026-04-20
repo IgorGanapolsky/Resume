@@ -66,6 +66,8 @@ jobs:
       - name: Run local submit lane
         env:
           CI_SUBMIT_BROWSER_CHANNEL: ${{ github.event.inputs.browser_channel }}
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
         run: |
           . .venv/bin/activate
           MAX_SUBMIT="${{ github.event.inputs.max_submit_jobs }}"
