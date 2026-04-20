@@ -2133,7 +2133,7 @@ def test_confirmation_not_detected_with_screenshot_is_quarantined(
     assert rows[0]["Status"] == "Quarantined"
 
 
-def test_repeated_same_day_greenhouse_blockers_freeze_company_submit_path(
+def test_repeated_same_day_greenhouse_blockers_freeze_role_submit_path(
     tmp_path, monkeypatch
 ):
     mod = _load_module()
@@ -2239,7 +2239,12 @@ def test_repeated_same_day_greenhouse_blockers_freeze_company_submit_path(
                 "Cover Letter Used": "",
                 "What Worked": "",
                 "Tags": "ai;infra;python",
-                "Notes": "",
+                "Notes": (
+                    f"CI submit blocked on {today} via greenhouse. "
+                    "Reason=confirmation_text_not_detected. Needs manual completion.\n"
+                    f"CI submit blocked on {today} via greenhouse. "
+                    "Reason=greenhouse_job_not_found. Posting appears closed/not found."
+                ),
                 "Career Page URL": "https://boards.greenhouse.io/embed/job_app?for=databricks&token=333",
             },
         ],
@@ -3631,3 +3636,57 @@ def test_queue_only_does_not_repromote_same_run_integrity_demotion(
     assert payload["queue_promoted_count"] == 0
     assert payload["queue_audit"][0]["eligible_for_ready"] is False
     assert "integrity_demotion_same_run" in payload["queue_audit"][0]["reasons"]
+
+
+def test_same_day_submit_path_blockers_scopes_to_role():
+    mod = _load_module()
+    today = mod._today_iso()
+    reason_a = "greenhouse_form_still_present_after_submit"
+    reason_b = "greenhouse_resume_input_missing"
+    rows = [
+        {
+            "Company": "Vercel",
+            "Role": "Senior Partner Solutions Engineer",
+            "Notes": (
+                f"CI submit blocked on {today} via greenhouse. "
+                f"Reason={reason_a}. Needs manual completion."
+            ),
+        },
+        {
+            "Company": "Vercel",
+            "Role": "Senior Workday Integrations Engineer",
+            "Notes": (
+                f"CI submit blocked on {today} via greenhouse. "
+                f"Reason={reason_b}. Needs manual completion."
+            ),
+        },
+    ]
+
+    company_scope = mod._same_day_submit_path_blockers(
+        rows, company="Vercel", adapter_name="greenhouse"
+    )
+    assert sorted(company_scope) == sorted([reason_a, reason_b])
+
+    role_scope = mod._same_day_submit_path_blockers(
+        rows,
+        company="Vercel",
+        adapter_name="greenhouse",
+        role="Senior Partner Solutions Engineer",
+    )
+    assert role_scope == [reason_a]
+
+    other_role_scope = mod._same_day_submit_path_blockers(
+        rows,
+        company="Vercel",
+        adapter_name="greenhouse",
+        role="Senior Workday Integrations Engineer",
+    )
+    assert other_role_scope == [reason_b]
+
+    unseen_role_scope = mod._same_day_submit_path_blockers(
+        rows,
+        company="Vercel",
+        adapter_name="greenhouse",
+        role="Forward-Deployed Engineer",
+    )
+    assert unseen_role_scope == []
