@@ -33,14 +33,18 @@ DEFAULT_FROM_FILTERS = (
     "donotreply@greenhouse.io",
     "notifications@greenhouse.io",
     "@greenhouse.io",
+    "no-reply@us.greenhouse-mail.io",
+    "@us.greenhouse-mail.io",
+    "@greenhouse-mail.io",
 )
 DEFAULT_SUBJECT_HINTS = (
     "verification code",
     "verify your email",
     "confirm your email",
     "your code",
+    "security code",
 )
-CODE_RE = re.compile(r"\b([A-Z0-9]{8})\b")
+CODE_RE = re.compile(r"\b([A-Za-z0-9]{8})\b")
 
 
 def _decode(value: Optional[str]) -> str:
@@ -81,11 +85,13 @@ def _extract_text_parts(msg: email.message.Message) -> str:
 
 def _match_code(text: str) -> Optional[str]:
     candidates = CODE_RE.findall(text or "")
-    filler = {"GREENHOUSE", "APPLICANT", "ABCDEFGH"}
+    filler = {"greenhouse", "applicant", "abcdefgh"}
     for cand in candidates:
         if cand.isdigit():
             return cand
-        if cand in filler:
+        if cand.lower() in filler:
+            continue
+        if cand.isalpha() and cand.lower() == cand:
             continue
         return cand
     return None
