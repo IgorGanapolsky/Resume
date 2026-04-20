@@ -1144,6 +1144,7 @@ class PlaywrightFormAdapter(SiteAdapter):
                     ).first
                     if btn.count() > 0:
                         self._click_human(btn)
+                        self._last_submit_epoch = time.time()
                         return True
                 except Exception:
                     continue
@@ -1152,6 +1153,7 @@ class PlaywrightFormAdapter(SiteAdapter):
                 submit_input = target.locator("input[type='submit']").first
                 if submit_input.count() > 0:
                     self._click_human(submit_input)
+                    self._last_submit_epoch = time.time()
                     return True
         except Exception:
             pass
@@ -2556,6 +2558,7 @@ class OpenAIAshbyAdapter(AshbyAdapter):
                     pass
                 self._mouse_wander(page, moves=2)
                 self._click_human(submit_button)
+                self._last_submit_epoch = time.time()
                 return True
         except Exception:
             pass
@@ -3025,17 +3028,21 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
             return None
         try:
             reader_path = Path(__file__).resolve().parent / "gmail_verification_reader.py"
+            cmd = [
+                sys.executable,
+                str(reader_path),
+                "--poll-attempts",
+                "24",
+                "--poll-interval",
+                "5",
+                "--lookback-minutes",
+                "10",
+            ]
+            submit_epoch = getattr(self, "_last_submit_epoch", None)
+            if submit_epoch:
+                cmd.extend(["--min-arrival-epoch", f"{submit_epoch:.3f}"])
             result = subprocess.run(  # nosec B603 - fixed args; interpreter + stdlib helper
-                [
-                    sys.executable,
-                    str(reader_path),
-                    "--poll-attempts",
-                    "24",
-                    "--poll-interval",
-                    "5",
-                    "--lookback-minutes",
-                    "10",
-                ],
+                cmd,
                 env={**os.environ, "GMAIL_USER": user, "GMAIL_APP_PASSWORD": password},
                 capture_output=True,
                 text=True,
