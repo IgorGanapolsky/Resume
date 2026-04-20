@@ -66,7 +66,7 @@ def _extract_text_parts(msg: email.message.Message) -> str:
                         part.get_content_charset() or "utf-8", errors="replace"
                     )
                 )
-            except Exception:
+            except Exception:  # nosec B112 - skip unreadable part; other parts may decode
                 continue
     else:
         try:
@@ -74,7 +74,7 @@ def _extract_text_parts(msg: email.message.Message) -> str:
             chunks.append(
                 payload.decode(msg.get_content_charset() or "utf-8", errors="replace")
             )
-        except Exception:
+        except Exception:  # nosec B110 - unreadable single-part message; return ""
             pass
     return "\n".join(chunks)
 
@@ -102,7 +102,7 @@ def fetch_latest_code(
 ) -> Optional[str]:
     """Poll Gmail for a verification code. Returns the code string or None."""
     last_error: Optional[BaseException] = None
-    for attempt in range(poll_attempts):
+    for _attempt in range(poll_attempts):
         try:
             with imaplib.IMAP4_SSL(IMAP_HOST, IMAP_PORT) as mail:
                 mail.login(user, app_password)

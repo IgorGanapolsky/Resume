@@ -2992,7 +2992,7 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
         and complete submission. Returns True if a follow-up submit happened."""
         try:
             page.wait_for_timeout(2000)
-        except Exception:
+        except Exception:  # nosec B110 - best-effort settle; proceed regardless
             pass
         blob = self._page_text_blob(scope, page)
         if not blob:
@@ -3010,7 +3010,7 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
             return False
         try:
             page.wait_for_timeout(2500)
-        except Exception:
+        except Exception:  # nosec B110 - best-effort settle after submit
             pass
         return True
 
@@ -3025,7 +3025,7 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
             return None
         try:
             reader_path = Path(__file__).resolve().parent / "gmail_verification_reader.py"
-            result = subprocess.run(
+            result = subprocess.run(  # nosec B603 - fixed args; interpreter + stdlib helper
                 [sys.executable, str(reader_path)],
                 env={**os.environ, "GMAIL_USER": user, "GMAIL_APP_PASSWORD": password},
                 capture_output=True,
