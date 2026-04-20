@@ -3026,18 +3026,27 @@ class GreenhouseAdapter(PlaywrightFormAdapter):
         try:
             reader_path = Path(__file__).resolve().parent / "gmail_verification_reader.py"
             result = subprocess.run(  # nosec B603 - fixed args; interpreter + stdlib helper
-                [sys.executable, str(reader_path)],
+                [
+                    sys.executable,
+                    str(reader_path),
+                    "--poll-attempts",
+                    "24",
+                    "--poll-interval",
+                    "5",
+                    "--lookback-minutes",
+                    "10",
+                ],
                 env={**os.environ, "GMAIL_USER": user, "GMAIL_APP_PASSWORD": password},
                 capture_output=True,
                 text=True,
-                timeout=90,
+                timeout=150,
                 check=False,
             )
             if result.returncode != 0:
                 return None
             code = (result.stdout or "").strip().splitlines()[-1].strip()
             if len(code) == 8 and code.isalnum():
-                return code.upper()
+                return code
         except Exception:
             return None
         return None
