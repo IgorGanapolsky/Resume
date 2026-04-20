@@ -15,4 +15,4 @@ My own project (github.com/IgorGanapolsky/trading). The interesting problems: (a
 
 ---
 
-*Code and architecture are public: github.com/IgorGanapolsky. Happy to walk any of these in depth.*
+_Code and architecture are public: github.com/IgorGanapolsky. Happy to walk any of these in depth._
