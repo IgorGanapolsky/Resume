@@ -167,3 +167,5 @@
 {"ts": "2026-04-17T20:55:21.895385+00:00", "app_id": null, "type": "build_ok", "msg": "Indexed 268 applications"}
 {"ts": "2026-04-20T13:36:16.005382+00:00", "app_id": null, "type": "index_warn", "msg": "FTS index skipped: Native FTS indexes can only be created on a single field at a time. To search over multiple text fields, create a separate FTS index for each field."}
 {"ts": "2026-04-20T13:36:16.162515+00:00", "app_id": null, "type": "build_ok", "msg": "Indexed 268 applications"}
+{"ts": "2026-04-21T18:50:04.091676+00:00", "app_id": null, "type": "index_warn", "msg": "FTS index skipped: Native FTS indexes can only be created on a single field at a time. To search over multiple text fields, create a separate FTS index for each field."}
+{"ts": "2026-04-21T18:50:04.270400+00:00", "app_id": null, "type": "build_ok", "msg": "Indexed 268 applications"}
