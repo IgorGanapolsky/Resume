@@ -23,5 +23,8 @@ python3 scripts/autonomous_supervisor.py \
 # Always rebuild RAG regardless of submit outcome
 python3 rag/cli.py build
 
+# Generate manual rescue digest so the operator can clear captcha-blocked rows manually
+python3 scripts/generate_manual_rescue_digest.py --limit 25 || true
+
 # Notify OpenClaw
 openclaw system event --text "Ralph Loop local run complete. Check autonomous_supervisor_report.json for results." --mode now

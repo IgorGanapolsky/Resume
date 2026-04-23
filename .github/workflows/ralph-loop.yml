@@ -104,6 +104,12 @@ jobs:
             --report applications/job_applications/autonomous_supervisor_report.json \
             $EXTRA_ARGS
 
+      - name: Generate manual rescue digest
+        if: always()
+        continue-on-error: true
+        run: |
+          python3 scripts/generate_manual_rescue_digest.py --limit 25 || echo "Digest generation skipped"
+
       - name: Upload submit diagnostics
         if: always()
         uses: actions/upload-artifact@v4
@@ -113,6 +119,7 @@ jobs:
           path: |
             applications/job_applications/*report*.json
             applications/job_applications/application_tracker.csv
+            applications/job_applications/manual_rescue_digest.md
             applications/*/submissions/*ci_confirmation*.png
 
       - name: Talentprise profile refresh

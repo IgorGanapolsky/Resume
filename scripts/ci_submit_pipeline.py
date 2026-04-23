@@ -180,7 +180,7 @@ def _next_follow_up(days: int = 7) -> str:
 
 
 def _read_tracker(path: Path) -> tuple[List[str], List[Dict[str, str]]]:
-    with path.open(newline="", encoding="utf-8") as f:
+    with path.open(newline="", encoding="utf-8-sig") as f:
         reader = csv.DictReader(f)
         rows = list(reader)
         fields = list(reader.fieldnames or [])
@@ -3965,6 +3965,8 @@ def run_pipeline(
     adapters: Optional[Sequence[SiteAdapter]] = None,
     use_local_chrome: bool = False,
     visible: bool = False,
+    companies_filter: Optional[Sequence[str]] = None,
+    role_contains_filter: Optional[Sequence[str]] = None,
 ) -> int:
     fields, rows = _read_tracker(tracker_csv)
     adapters = list(
@@ -4138,7 +4140,44 @@ def run_pipeline(
 
     target_applied = max(0, int(target_applied))
     max_cycles = max(1, int(max_cycles))
-    ready_indices, ready_ranked = _rank_ready_rows_for_submit(rows, max_jobs=max_jobs)
+
+    def _apply_company_filter(
+        indices: List[int], ranked: List[Dict[str, Any]]
+    ) -> Tuple[List[int], List[Dict[str, Any]]]:
+        if not companies_filter and not role_contains_filter:
+            return indices, ranked
+        allowed_cos = (
+            {str(c).strip().lower() for c in companies_filter if str(c).strip()}
+            if companies_filter
+            else None
+        )
+        needles = (
+            [str(n).strip().lower() for n in role_contains_filter if str(n).strip()]
+            if role_contains_filter
+            else None
+        )
+
+        def keep(item: Dict[str, Any]) -> bool:
+            if allowed_cos and str(item.get("company", "")).strip().lower() not in allowed_cos:
+                return False
+            if needles:
+                role_lower = str(item.get("role", "")).lower()
+                if not any(n in role_lower for n in needles):
+                    return False
+            return True
+
+        filtered_ranked = [item for item in ranked if keep(item)]
+        filtered_indices = [int(item["row_index"]) for item in filtered_ranked]
+        return filtered_indices, filtered_ranked
+
+    any_filter_active = bool(companies_filter or role_contains_filter)
+    ready_indices, ready_ranked = _rank_ready_rows_for_submit(
+        rows, max_jobs=0 if any_filter_active else max_jobs
+    )
+    ready_indices, ready_ranked = _apply_company_filter(ready_indices, ready_ranked)
+    if any_filter_active:
+        ready_indices = ready_indices[:max_jobs]
+        ready_ranked = ready_ranked[:max_jobs]
 
     report: Dict[str, Any] = {
         "generated_at": dt.datetime.now(dt.timezone.utc).isoformat(),
@@ -4221,8 +4260,12 @@ def run_pipeline(
         if cycles_run >= max_cycles:
             break
         ready_indices, ready_ranked = _rank_ready_rows_for_submit(
-            rows, max_jobs=max_jobs
+            rows, max_jobs=0 if any_filter_active else max_jobs
         )
+        ready_indices, ready_ranked = _apply_company_filter(ready_indices, ready_ranked)
+        if any_filter_active:
+            ready_indices = ready_indices[:max_jobs]
+            ready_ranked = ready_ranked[:max_jobs]
         report["ready_queue_ranked"] = ready_ranked
         if not ready_indices:
             break
@@ -4661,6 +4704,24 @@ def main() -> int:
         action="store_true",
         help="Run browser in visible mode (non-headless)",
     )
+    ap.add_argument(
+        "--companies",
+        default="",
+        help=(
+            "Comma-separated company names to filter the ready queue to. "
+            "Bypasses alphabetical tie-breaking and lets you target e.g. "
+            "--companies 'OpenAI,Anthropic' without re-ranking everything."
+        ),
+    )
+    ap.add_argument(
+        "--role-contains",
+        default="",
+        help=(
+            "Comma-separated substrings; row's Role must contain at least one "
+            "(case-insensitive). Pairs with --companies to target e.g. "
+            "OpenAI 'forward deployed,deployment engineer,codex' for a canary."
+        ),
+    )
     args = ap.parse_args()
     if args.execute and args.queue_only:
         print("ERROR: --execute and --queue-only are mutually exclusive.")
@@ -4703,6 +4764,12 @@ def main() -> int:
             answers_env=args.answers_env,
             use_local_chrome=args.use_local_chrome,
             visible=args.visible,
+            companies_filter=[c.strip() for c in args.companies.split(",") if c.strip()]
+            or None,
+            role_contains_filter=[
+                n.strip() for n in args.role_contains.split(",") if n.strip()
+            ]
+            or None,
         )
     except Exception:
         traceback.print_exc()
