@@ -11,7 +11,6 @@ import sys
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 
-
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_TARGET_URL = (
     "https://work.mercor.com/jobs/apply/"
