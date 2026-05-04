@@ -108,3 +108,4 @@ def test_build_commands_prefers_visible_local_chrome():
     assert "--execute" in submit_command
     assert "--use-local-chrome" in submit_command
     assert "--visible" in submit_command
+    assert "--submit-timeout-seconds" in submit_command

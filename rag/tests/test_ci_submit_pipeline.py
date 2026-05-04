@@ -8,6 +8,7 @@ import json
 import os
 import re
 import sys
+import time
 import types
 import urllib.parse
 import zipfile
@@ -3367,6 +3368,54 @@ def test_execute_without_auth_secret_uses_fresh_context(tmp_path, monkeypatch):
     assert payload["auth_adapters_available"] == []
     assert payload["results"][0]["auth_mode"] == "fresh_context"
     assert payload["results"][0]["result"] == "skipped"
+
+
+def test_submit_with_adapter_times_out_hung_portal(tmp_path):
+    mod = _load_module()
+
+    class _HungAdapter(mod.SiteAdapter):
+        name = "greenhouse"
+
+        def matches(self, url: str) -> bool:
+            return True
+
+        def submit(self, task, profile, auth, answers, **kwargs):
+            time.sleep(5)
+            return mod.SubmitResult(
+                adapter=self.name,
+                verified=True,
+                screenshot=None,
+                details="should_not_reach",
+            )
+
+    result = mod._submit_with_adapter(
+        _HungAdapter(),
+        mod.SubmitTask(
+            row_index=1,
+            company="Example",
+            role="Engineer",
+            url="https://job-boards.greenhouse.io/example/jobs/1",
+            resume_path=tmp_path / "resume.docx",
+            confirmation_path=tmp_path / "confirm.png",
+        ),
+        mod.Profile(
+            first_name="Igor",
+            last_name="Ganapolsky",
+            email="igor@example.com",
+            phone="5555555555",
+        ),
+        mod.AdapterAuth(),
+        mod.SubmitAnswers(
+            work_authorization_us=True,
+            require_sponsorship=False,
+            role_interest="AI systems and integrations.",
+            eeo_default="Prefer not to say",
+        ),
+        submit_timeout_seconds=1,
+    )
+
+    assert result.verified is False
+    assert result.details == "submit_timeout_after_1s"
 
 
 def test_queue_only_does_not_repromote_same_run_integrity_demotion(

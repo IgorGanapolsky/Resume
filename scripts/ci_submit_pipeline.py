@@ -772,6 +772,10 @@ class SiteAdapter:
         raise NotImplementedError
 
 
+class _SubmitTimeout(BaseException):
+    """Raised from SIGALRM to escape adapter-level exception handlers."""
+
+
 class PlaywrightFormAdapter(SiteAdapter):
     host_patterns: Sequence[re.Pattern[str]] = ()
     submit_button_patterns: Sequence[str] = ()
@@ -3398,31 +3402,60 @@ def _submit_with_adapter(
     *,
     use_local_chrome: bool = False,
     visible: bool = False,
+    submit_timeout_seconds: int = 0,
 ) -> SubmitResult:
+    timeout_seconds = max(0, int(submit_timeout_seconds or 0))
+    previous_handler: Any = None
+    alarm_enabled = timeout_seconds > 0 and hasattr(signal, "SIGALRM")
+
+    def _handle_timeout(_signum: int, _frame: Any) -> None:
+        raise _SubmitTimeout()
+
+    if alarm_enabled:
+        previous_handler = signal.getsignal(signal.SIGALRM)
+        signal.signal(signal.SIGALRM, _handle_timeout)
+        signal.alarm(timeout_seconds)
     try:
-        return adapter.submit(
-            task,
-            profile,
-            auth,
-            answers,
-            use_local_chrome=use_local_chrome,
-            visible=visible,
+        try:
+            return adapter.submit(
+                task,
+                profile,
+                auth,
+                answers,
+                use_local_chrome=use_local_chrome,
+                visible=visible,
+            )
+        except TypeError as exc:
+            if "unexpected keyword argument" not in str(exc):
+                raise
+        try:
+            return adapter.submit(
+                task,
+                profile,
+                auth,
+                answers,
+                use_local_chrome=use_local_chrome,
+            )
+        except TypeError as exc:
+            if "unexpected keyword argument" not in str(exc):
+                raise
+        return adapter.submit(task, profile, auth, answers)
+    except _SubmitTimeout:
+        return SubmitResult(
+            adapter=adapter.name,
+            verified=False,
+            screenshot=(
+                task.confirmation_path
+                if task.confirmation_path.exists()
+                and task.confirmation_path.stat().st_size > 0
+                else None
+            ),
+            details=f"submit_timeout_after_{timeout_seconds}s",
         )
-    except TypeError as exc:
-        if "unexpected keyword argument" not in str(exc):
-            raise
-    try:
-        return adapter.submit(
-            task,
-            profile,
-            auth,
-            answers,
-            use_local_chrome=use_local_chrome,
-        )
-    except TypeError as exc:
-        if "unexpected keyword argument" not in str(exc):
-            raise
-    return adapter.submit(task, profile, auth, answers)
+    finally:
+        if alarm_enabled:
+            signal.alarm(0)
+            signal.signal(signal.SIGALRM, previous_handler)
 
 
 def _host_matches_domain(host: str, domain: str) -> bool:
@@ -4042,6 +4075,7 @@ def run_pipeline(
     adapters: Optional[Sequence[SiteAdapter]] = None,
     use_local_chrome: bool = False,
     visible: bool = False,
+    submit_timeout_seconds: int = 180,
     companies_filter: Optional[Sequence[str]] = None,
     role_contains_filter: Optional[Sequence[str]] = None,
 ) -> int:
@@ -4471,6 +4505,7 @@ def run_pipeline(
                 answers,
                 use_local_chrome=use_local_chrome,
                 visible=visible,
+                submit_timeout_seconds=submit_timeout_seconds,
             )
             row_result["adapter_details"] = result.details
             row_result["verified"] = result.verified
@@ -4796,6 +4831,15 @@ def main() -> int:
         help="Run browser in visible mode (non-headless)",
     )
     ap.add_argument(
+        "--submit-timeout-seconds",
+        type=int,
+        default=180,
+        help=(
+            "Maximum wall-clock seconds for one portal submission attempt "
+            "before skipping that row."
+        ),
+    )
+    ap.add_argument(
         "--companies",
         default="",
         help=(
@@ -4855,6 +4899,7 @@ def main() -> int:
             answers_env=args.answers_env,
             use_local_chrome=args.use_local_chrome,
             visible=args.visible,
+            submit_timeout_seconds=max(0, int(args.submit_timeout_seconds)),
             companies_filter=[c.strip() for c in args.companies.split(",") if c.strip()]
             or None,
             role_contains_filter=[

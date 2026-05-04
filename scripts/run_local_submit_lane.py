@@ -102,6 +102,8 @@ def build_commands(args: argparse.Namespace) -> List[List[str]]:
             str(args.report),
             "--quarantine-blocked",
             "--fail-on-error",
+            "--submit-timeout-seconds",
+            str(args.submit_timeout_seconds),
             *(["--visible"] if not args.headless else []),
         ],
         [
@@ -171,6 +173,12 @@ def build_parser() -> argparse.ArgumentParser:
         "--headless",
         action="store_true",
         help="Run local Chrome headless. Default is visible mode for manual rescue.",
+    )
+    parser.add_argument(
+        "--submit-timeout-seconds",
+        type=int,
+        default=180,
+        help="Maximum seconds to spend on a single portal submission attempt.",
     )
     return parser
 
