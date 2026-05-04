@@ -12,7 +12,7 @@ on:
       headless:
         description: "Run local browser headless: true | false"
         required: false
-        default: "false"
+        default: "true"
       browser_channel:
         description: "Playwright browser channel override"
         required: false
@@ -55,7 +55,7 @@ jobs:
           MAX_SUBMIT="${{ github.event.inputs.max_submit_jobs }}"
           HEADLESS="${{ github.event.inputs.headless }}"
           if [ -z "$MAX_SUBMIT" ]; then MAX_SUBMIT=3; fi
-          if [ -z "$HEADLESS" ]; then HEADLESS=false; fi
+          if [ -z "$HEADLESS" ]; then HEADLESS=true; fi
           EXTRA_ARGS=""
           if [ "$HEADLESS" = "true" ]; then
             EXTRA_ARGS="--headless"
@@ -97,5 +97,11 @@ jobs:
             - Captured updated tracker state and diagnostics
           branch: ralph/local-submit
           delete-branch: true
+          add-paths: |
+            applications/job_applications/application_tracker.csv
+            applications/job_applications/manual_rescue_digest.md
+            applications/job_applications/*report*.json
+            rag/data/arms.json
+            rag/logs/events.jsonl
           labels: |
             automation
