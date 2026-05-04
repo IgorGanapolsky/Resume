@@ -6,7 +6,6 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import json
-import os
 import re
 import sys
 from pathlib import Path
@@ -141,21 +140,22 @@ def _fill_known_fields(page: Any, profile: Dict[str, str]) -> List[str]:
     for label, value in field_map:
         if not value:
             continue
+        filled_label = False
         try:
             control = page.get_by_label(label, exact=False).first
-            if control.count() <= 0:
-                continue
-            existing = ""
-            try:
-                existing = str(control.input_value(timeout=800) or "").strip()
-            except Exception:
-                pass
-            if existing:
-                continue
-            control.fill(value, timeout=1200)
-            filled.append(label)
+            if control.count() > 0:
+                existing = ""
+                try:
+                    existing = str(control.input_value(timeout=800) or "").strip()
+                except Exception:
+                    existing = ""
+                if not existing:
+                    control.fill(value, timeout=1200)
+                    filled_label = True
         except Exception:
-            continue
+            filled_label = False
+        if filled_label:
+            filled.append(label)
     return filled
 
 
@@ -174,17 +174,21 @@ def _upload_resume(page: Any, resume: Optional[Path]) -> bool:
 
 def _click_safe_button(page: Any) -> Optional[str]:
     for label in SAFE_CLICK_TEXTS:
+        clicked = False
         try:
             button = page.get_by_role("button", name=re.compile(label, re.I)).first
             if button.count() <= 0:
-                continue
-            if not button.is_enabled(timeout=1000):
-                continue
-            button.scroll_into_view_if_needed(timeout=1000)
-            button.click(timeout=2500)
-            return label
+                clicked = False
+            elif not button.is_enabled(timeout=1000):
+                clicked = False
+            else:
+                button.scroll_into_view_if_needed(timeout=1000)
+                button.click(timeout=2500)
+                clicked = True
         except Exception:
-            continue
+            clicked = False
+        if clicked:
+            return label
     return None
 
 

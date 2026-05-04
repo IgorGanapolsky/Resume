@@ -4,19 +4,6 @@ on:
   schedule:
     - cron: "*/30 * * * *"
   workflow_dispatch:
-    inputs:
-      target_url:
-        description: "Mercor apply URL"
-        required: false
-        default: "https://work.mercor.com/jobs/apply/candidate_AAABnfNdSblZtboWnE1Bb4FA?returnPath=%2Fexplore"
-      headless:
-        description: "Run local browser headless: true | false"
-        required: false
-        default: "true"
-      browser_channel:
-        description: "Playwright browser channel override"
-        required: false
-        default: "chromium"
 
 permissions:
   contents: write
@@ -49,9 +36,9 @@ jobs:
 
       - name: Run Mercor lane
         env:
-          MERCOR_TARGET_URL: ${{ github.event.inputs.target_url }}
-          MERCOR_HEADLESS: ${{ github.event.inputs.headless }}
-          MERCOR_BROWSER_CHANNEL: ${{ github.event.inputs.browser_channel }}
+          MERCOR_TARGET_URL: https://work.mercor.com/jobs/apply/candidate_AAABnfNdSblZtboWnE1Bb4FA?returnPath=%2Fexplore
+          MERCOR_HEADLESS: true
+          MERCOR_BROWSER_CHANNEL: chromium
         run: |
           . .venv/bin/activate
           TARGET_URL="${MERCOR_TARGET_URL}"
