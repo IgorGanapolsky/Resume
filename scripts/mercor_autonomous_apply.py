@@ -54,6 +54,15 @@ INTERVIEW_MARKERS = (
 
 DOB_MARKERS = ("date of birth", "birth date", "dob")
 
+LOGIN_MARKERS = (
+    "continue to mercor",
+    "email address",
+    "your@email.com",
+    "or continue with",
+    "sign in google",
+    "okta",
+)
+
 ASSESSMENT_MARKERS = ("assessment", "knowledge check", "code sample")
 
 NO_AI_ASSESSMENT_MARKERS = (
@@ -105,7 +114,9 @@ def choose_resume(path: Path = DEFAULT_RESUME_DIR) -> Optional[Path]:
 
 def detect_status(text: str) -> str:
     text_l = (text or "").lower()
-    if "sign in" in text_l and "mercor" in text_l:
+    if ("sign in" in text_l and "mercor" in text_l) or any(
+        marker in text_l for marker in LOGIN_MARKERS
+    ):
         return "not_logged_in"
     if "not accepting applications" in text_l or "applications currently" in text_l:
         return "closed"

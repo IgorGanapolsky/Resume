@@ -26,6 +26,10 @@ def test_detect_status_blocks_login_and_dob():
     mod = _load_module()
 
     assert mod.detect_status("Sign in to existing Mercor account") == "not_logged_in"
+    assert (
+        mod.detect_status("Continue to Mercor Email address Or continue with Google")
+        == "not_logged_in"
+    )
     assert mod.detect_status("Please enter your date of birth") == "dob_required"
     assert (
         mod.detect_status(
