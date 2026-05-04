@@ -8,6 +8,7 @@ import datetime as dt
 import json
 import re
 import sys
+import time
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 
@@ -53,6 +54,22 @@ INTERVIEW_MARKERS = (
 
 DOB_MARKERS = ("date of birth", "birth date", "dob")
 
+ASSESSMENT_MARKERS = ("assessment", "knowledge check", "code sample")
+
+NO_AI_ASSESSMENT_MARKERS = (
+    "no ai tools",
+    "all work must be entirely your own",
+    "chatgpt, claude, copilot, gemini",
+)
+
+BLOCKED_STATUSES = {
+    "not_logged_in",
+    "closed",
+    "dob_required",
+    "manual_interview_required",
+    "manual_assessment_no_ai_required",
+}
+
 
 def _slug(value: str) -> str:
     slug = re.sub(r"[^a-z0-9]+", "-", value.lower()).strip("-")
@@ -96,6 +113,10 @@ def detect_status(text: str) -> str:
         return "submitted"
     if any(marker in text_l for marker in DOB_MARKERS):
         return "dob_required"
+    if any(marker in text_l for marker in ASSESSMENT_MARKERS) and any(
+        marker in text_l for marker in NO_AI_ASSESSMENT_MARKERS
+    ):
+        return "manual_assessment_no_ai_required"
     if any(marker in text_l for marker in INTERVIEW_MARKERS):
         if "not done" in text_l or "0 of" in text_l or "start" in text_l:
             return "manual_interview_required"
@@ -201,6 +222,7 @@ def run_mercor_lane(
     chrome_user_data_dir: Path,
     max_clicks: int,
     timeout_ms: int,
+    wait_for_auth_seconds: int,
 ) -> int:
     try:
         from playwright.sync_api import sync_playwright  # type: ignore
@@ -247,15 +269,23 @@ def run_mercor_lane(
             page.wait_for_timeout(2500)
             text = page.locator("body").inner_text(timeout=timeout_ms)
             status = detect_status(text)
+            if status == "not_logged_in" and wait_for_auth_seconds > 0 and not headless:
+                report["auth_wait_started_at"] = dt.datetime.now(
+                    dt.timezone.utc
+                ).isoformat()
+                deadline = time.monotonic() + wait_for_auth_seconds
+                while time.monotonic() < deadline:
+                    page.wait_for_timeout(1500)
+                    text = page.locator("body").inner_text(timeout=timeout_ms)
+                    status = detect_status(text)
+                    if status != "not_logged_in":
+                        break
+                report["auth_wait_completed_at"] = dt.datetime.now(
+                    dt.timezone.utc
+                ).isoformat()
 
             for _ in range(max(0, max_clicks)):
-                if status in {
-                    "submitted",
-                    "not_logged_in",
-                    "closed",
-                    "dob_required",
-                    "manual_interview_required",
-                }:
+                if status == "submitted" or status in BLOCKED_STATUSES:
                     break
                 report["filled_fields"].extend(_fill_known_fields(page, profile))
                 if _upload_resume(page, resume):
@@ -272,7 +302,7 @@ def run_mercor_lane(
             page.screenshot(path=str(screenshot_path), full_page=True)
             report["status"] = status
             report["submitted"] = status == "submitted"
-            if status in {"not_logged_in", "closed", "dob_required", "manual_interview_required"}:
+            if status in BLOCKED_STATUSES:
                 report["blocked_reason"] = status
             elif status != "submitted":
                 report["blocked_reason"] = "unverified_or_no_safe_action"
@@ -297,6 +327,12 @@ def build_parser() -> argparse.ArgumentParser:
     ap.add_argument("--chrome-user-data-dir", default=str(DEFAULT_CHROME_PROFILE))
     ap.add_argument("--max-clicks", type=int, default=4)
     ap.add_argument("--timeout-ms", type=int, default=45000)
+    ap.add_argument(
+        "--wait-for-auth-seconds",
+        type=int,
+        default=0,
+        help="In visible mode, wait this long for a manual Mercor login.",
+    )
     return ap
 
 
@@ -311,6 +347,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         chrome_user_data_dir=Path(args.chrome_user_data_dir).expanduser(),
         max_clicks=max(0, int(args.max_clicks)),
         timeout_ms=max(5000, int(args.timeout_ms)),
+        wait_for_auth_seconds=max(0, int(args.wait_for_auth_seconds)),
     )
 
 

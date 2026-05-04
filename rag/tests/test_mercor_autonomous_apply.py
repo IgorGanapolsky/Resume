@@ -27,6 +27,14 @@ def test_detect_status_blocks_login_and_dob():
 
     assert mod.detect_status("Sign in to existing Mercor account") == "not_logged_in"
     assert mod.detect_status("Please enter your date of birth") == "dob_required"
+    assert (
+        mod.detect_status(
+            "Welcome to the Software Engineering Expert CU Assessment. "
+            "Part 1 Knowledge Check. Part 2 Code Sample. "
+            "No AI tools. All work must be entirely your own."
+        )
+        == "manual_assessment_no_ai_required"
+    )
 
 
 def test_detect_status_recognizes_submitted_and_closed():
