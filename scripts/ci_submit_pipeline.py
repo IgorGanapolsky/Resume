@@ -126,15 +126,20 @@ FDE_SIGNAL_RE = re.compile(
 PYTHON_RE = re.compile(r"\bpython\b", re.IGNORECASE)
 VOICE_AUDIO_RE = re.compile(r"(voice|audio|speech|tts|asr|ivr)", re.IGNORECASE)
 NON_TECH_ROLE_RE = re.compile(
-    r"(account executive|sales|recruiter|attorney|counsel|office assistant|marketing|"
-    r"content manager|revenue operations|client support|customer support specialist|"
-    r"operations manager|community manager)",
+    r"(account executive|sales|business[- ]?development|acquisition lead|"
+    r"market (associate|lead|manager)|recruiter|talent sourcer|attorney|"
+    r"counsel|legal|policy|office assistant|marketing|communications|"
+    r"product manager|content manager|revenue operations|business operations|programs? and "
+    r"business operations|client support|customer support specialist|"
+    r"customer experience|claims experience|operations manager|"
+    r"community manager|accountant|intern\b)",
     re.IGNORECASE,
 )
 TECH_ROLE_RE = re.compile(
     r"(engineer|developer|devops|sre|site reliability|architect|ml|ai|data engineer|"
-    r"backend|frontend|full[- ]?stack|platform|infrastructure|ios|android|qa|"
-    r"technical staff|member of technical staff)",
+    r"data scientist|machine learning|research scientist|backend|frontend|"
+    r"full[- ]?stack|platform|infrastructure|ios|android|qa|technical staff|"
+    r"member of technical staff)",
     re.IGNORECASE,
 )
 REMOTE_POSITIVE_RE = re.compile(
@@ -215,13 +220,83 @@ def _rank_ready_rows_for_submit(
     *,
     max_jobs: int,
     arms_path: Path = DEFAULT_LEARNING_ARMS_JSON,
+    fit_threshold: int = 70,
+    remote_min_score: int = 50,
+    adapters: Optional[Sequence[Any]] = None,
 ) -> Tuple[List[int], List[Dict[str, Any]]]:
-    ranked = rank_rows_by_learning(
+    learned_ranked = rank_rows_by_learning(
         rows,
         _load_learning_arms(arms_path),
         status_filter="ready",
-        max_rows=max_jobs,
+        max_rows=0,
     )
+    ranked: List[Dict[str, Any]] = []
+    adapters = list(
+        adapters
+        or [
+            OpenAIAshbyAdapter(),
+            InferactAshbyAdapter(),
+            AshbyAdapter(),
+            GreenhouseAdapter(),
+            LeverAdapter(),
+            OracleAdapter(),
+            TalentpriseAdapter(),
+        ]
+    )
+
+    for item in learned_ranked:
+        row_index = int(item["row_index"])
+        row = rows[row_index]
+        assessment = _assess_queue_gate(
+            row,
+            fit_threshold=fit_threshold,
+            remote_min_score=remote_min_score,
+            adapters=adapters,
+        )
+
+        adjusted_score = float(item.get("adjusted_score", 0.0) or 0.0)
+        fit_component = max(0.0, min(1.0, assessment.score / 100.0))
+        remote_component = max(0.0, min(1.0, assessment.remote_score / 100.0))
+        track_bonus = 0.05 if assessment.role_track == "fde" else 0.0
+        ranking_score = -1.0
+        if assessment.eligible:
+            ranking_score = (
+                0.58 * fit_component
+                + 0.22 * remote_component
+                + 0.20 * adjusted_score
+                + track_bonus
+            )
+        eligibility_priority = 0 if assessment.eligible else 1
+        enriched = dict(item)
+        enriched.update(
+            {
+                "eligible_for_submit": assessment.eligible,
+                "eligibility_priority": eligibility_priority,
+                "fit_score": assessment.score,
+                "remote_policy": assessment.remote_policy,
+                "remote_score": assessment.remote_score,
+                "remote_evidence": assessment.remote_evidence,
+                "role_track": assessment.role_track,
+                "signals": assessment.signals,
+                "queue_reasons": assessment.reasons,
+                "ranking_score": round(ranking_score, 4),
+            }
+        )
+        ranked.append(enriched)
+
+    ranked.sort(
+        key=lambda item: (
+            int(item.get("eligibility_priority", 1) or 1),
+            int(item.get("lane_priority", 1) or 1),
+            -float(item.get("ranking_score", 0.0) or 0.0),
+            -int(item.get("fit_score", 0) or 0),
+            -int(item.get("remote_score", 0) or 0),
+            str(item.get("company", "")).lower(),
+            str(item.get("role", "")).lower(),
+        )
+    )
+    if max_jobs > 0:
+        ranked = ranked[:max_jobs]
     indices = [int(item["row_index"]) for item in ranked]
     return indices, ranked
 
@@ -3277,7 +3352,7 @@ def _role_track_and_signals(
 ) -> tuple[str, List[str]]:
     hay = " ".join([role, tags, notes, job_text])
     signals: List[str] = []
-    if FDE_ROLE_RE.search(hay):
+    if FDE_ROLE_RE.search(role):
         signals.append("fde-role")
     if FDE_SIGNAL_RE.search(hay):
         signals.append("customer-integration")
@@ -3429,8 +3504,6 @@ def _assess_queue_gate(
     job_path = _resolve_job_capture(company, role)
 
     reasons: List[str] = []
-    if NON_TECH_ROLE_RE.search(role) and not TECH_ROLE_RE.search(role):
-        reasons.append("non_technical_role")
     if resume_path is None:
         reasons.append("missing_resume_docx_or_pdf")
     if resume_html_path is None:
@@ -3441,6 +3514,10 @@ def _assess_queue_gate(
     job_text = _read_text(job_path)
     resume_html_text = _read_text(resume_html_path).lower()
     track, signals = _role_track_and_signals(role, tags, notes, job_text)
+    role_blob = " ".join([role, tags])
+    role_is_technical = bool(TECH_ROLE_RE.search(role) or track == "fde")
+    if NON_TECH_ROLE_RE.search(role_blob) or not role_is_technical:
+        reasons.append("non_technical_role")
     remote_policy, remote_score, remote_evidence = _infer_remote_profile(
         row, job_text=job_text
     )
@@ -4172,7 +4249,11 @@ def run_pipeline(
 
     any_filter_active = bool(companies_filter or role_contains_filter)
     ready_indices, ready_ranked = _rank_ready_rows_for_submit(
-        rows, max_jobs=0 if any_filter_active else max_jobs
+        rows,
+        max_jobs=0 if any_filter_active else max_jobs,
+        fit_threshold=fit_threshold,
+        remote_min_score=remote_min_score,
+        adapters=adapters,
     )
     ready_indices, ready_ranked = _apply_company_filter(ready_indices, ready_ranked)
     if any_filter_active:
@@ -4260,7 +4341,11 @@ def run_pipeline(
         if cycles_run >= max_cycles:
             break
         ready_indices, ready_ranked = _rank_ready_rows_for_submit(
-            rows, max_jobs=0 if any_filter_active else max_jobs
+            rows,
+            max_jobs=0 if any_filter_active else max_jobs,
+            fit_threshold=fit_threshold,
+            remote_min_score=remote_min_score,
+            adapters=adapters,
         )
         ready_indices, ready_ranked = _apply_company_filter(ready_indices, ready_ranked)
         if any_filter_active:
@@ -4533,7 +4618,13 @@ def run_pipeline(
             break
         if target_applied > 0 and applied_count >= target_applied:
             break
-        next_ready_indices, _ = _rank_ready_rows_for_submit(rows, max_jobs=max_jobs)
+        next_ready_indices, _ = _rank_ready_rows_for_submit(
+            rows,
+            max_jobs=max_jobs,
+            fit_threshold=fit_threshold,
+            remote_min_score=remote_min_score,
+            adapters=adapters,
+        )
         if not next_ready_indices:
             break
         # Prevent no-progress loops when the same rows remain ready between cycles.

@@ -76,6 +76,7 @@ jobs:
             EXECUTE_SUBMISSIONS="${AUTONOMOUS_EXECUTE_SUBMISSIONS}"
           fi
           if [ -z "$EXECUTE_SUBMISSIONS" ]; then EXECUTE_SUBMISSIONS=false; fi
+          # GitHub-hosted Ralph Loop runs are dry-run only. Use python3 scripts/run_local_submit_lane.py for live submissions.
           if [ "$EXECUTE_SUBMISSIONS" = "true" ]; then
             if ! python3 scripts/ci_submit_pipeline.py \
               --validate-secrets-only \

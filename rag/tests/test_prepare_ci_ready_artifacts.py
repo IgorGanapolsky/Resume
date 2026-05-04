@@ -149,6 +149,7 @@ def test_run_prepare_spends_budget_on_candidates_not_early_unsupported_rows(
 
     monkeypatch.setattr(mod, "_load_script_module", fake_load_script_module)
     monkeypatch.setattr(mod, "_prepare_row", fake_prepare_row)
+    monkeypatch.setattr(mod, "_repair_thumbgate_positioning", lambda: None)
 
     rc = mod.run_prepare(
         tracker_csv=tracker,

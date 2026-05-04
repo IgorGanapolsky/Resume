@@ -576,6 +576,110 @@ def test_queue_only_blocks_non_technical_role(tmp_path, monkeypatch):
     assert "non_technical_role" in reasons
 
 
+def test_submit_ranking_prefers_fit_eligible_fde_over_business_role(
+    tmp_path, monkeypatch
+):
+    mod = _load_module()
+    monkeypatch.setattr(mod, "ROOT", tmp_path)
+
+    fde_role = "Senior Forward Deployed AI Engineer, Enterprise"
+    business_role = "Business Development Lead"
+    _seed_general_artifacts(
+        tmp_path,
+        company="Scale AI",
+        role=fde_role,
+        html_content=(
+            "Forward-Deployed AI/Software Engineer "
+            "FORWARD-DEPLOYED COMPETENCIES "
+            "customer-facing delivery "
+            "integration engineering Python "
+            "<strong>35%</strong>"
+        ),
+        job_text="Remote role requiring customer integrations, Python, and APIs.",
+    )
+    _seed_general_artifacts(
+        tmp_path,
+        company="Airbnb",
+        role=business_role,
+        html_content="summary professional experience",
+        job_text="Remote business development role.",
+    )
+
+    tracker = tmp_path / "application_tracker.csv"
+    report = tmp_path / "report.json"
+    _write_tracker(
+        tracker,
+        [
+            {
+                "Company": "Airbnb",
+                "Role": business_role,
+                "Location": "Remote",
+                "Salary Range": "",
+                "Status": "ReadyToSubmit",
+                "Date Applied": "",
+                "Follow Up Date": "",
+                "Response": "",
+                "Interview Stage": "Initial",
+                "Days To Response": "",
+                "Response Type": "",
+                "Cover Letter Used": "",
+                "What Worked": "",
+                "Tags": "business-development",
+                "Notes": "",
+                "Career Page URL": "https://job-boards.greenhouse.io/airbnb/jobs/123",
+            },
+            {
+                "Company": "Scale AI",
+                "Role": fde_role,
+                "Location": "Remote",
+                "Salary Range": "",
+                "Status": "ReadyToSubmit",
+                "Date Applied": "",
+                "Follow Up Date": "",
+                "Response": "",
+                "Interview Stage": "Initial",
+                "Days To Response": "",
+                "Response Type": "",
+                "Cover Letter Used": "",
+                "What Worked": "",
+                "Tags": "enterprise-engineering;forward-deployed;customer-facing;api-integration;python-requested",
+                "Notes": "",
+                "Career Page URL": "https://job-boards.greenhouse.io/scaleai/jobs/456",
+            },
+        ],
+    )
+
+    rc = mod.run_pipeline(
+        tracker_csv=tracker,
+        report_path=report,
+        dry_run=True,
+        queue_only=False,
+        max_jobs=5,
+        fail_on_error=False,
+        fit_threshold=70,
+        remote_min_score=45,
+    )
+
+    assert rc == 0
+    payload = json.loads(report.read_text(encoding="utf-8"))
+    assert [item["company"] for item in payload["ready_queue_ranked"]] == [
+        "Scale AI",
+        "Airbnb",
+    ]
+    assert payload["ready_queue_ranked"][0]["fit_score"] >= 90
+    assert payload["ready_queue_ranked"][0]["ranking_score"] > 0
+    assert payload["ready_queue_ranked"][0]["eligible_for_submit"] is True
+    assert payload["ready_queue_ranked"][1]["eligible_for_submit"] is False
+    assert payload["results"][0]["company"] == "Scale AI"
+    assert payload["results"][1]["company"] == "Airbnb"
+    assert payload["results"][1]["result"] == "skipped"
+    airbnb_audit = next(
+        item for item in payload["queue_audit"] if item["company"] == "Airbnb"
+    )
+    assert airbnb_audit["eligible_for_ready"] is False
+    assert "non_technical_role" in airbnb_audit["reasons"]
+
+
 def test_queue_only_blocks_unsupported_site_even_with_high_fit(tmp_path, monkeypatch):
     mod = _load_module()
     monkeypatch.setattr(mod, "ROOT", tmp_path)

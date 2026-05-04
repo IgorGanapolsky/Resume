@@ -65,6 +65,12 @@ jobs:
             --browser-channel "${CI_SUBMIT_BROWSER_CHANNEL:-chromium}" \
             $EXTRA_ARGS
 
+      - name: Disable commit signing for automation
+        if: always()
+        run: |
+          git config --local commit.gpgsign false
+          git config --local tag.gpgsign false
+
       - name: Upload submit diagnostics
         if: always()
         uses: actions/upload-artifact@v4
