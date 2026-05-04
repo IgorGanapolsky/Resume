@@ -1,0 +1,108 @@
+name: Mercor Autonomous Apply
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+    inputs:
+      target_url:
+        description: "Mercor apply URL"
+        required: false
+        default: "https://work.mercor.com/jobs/apply/candidate_AAABnfNdSblZtboWnE1Bb4FA?returnPath=%2Fexplore"
+      headless:
+        description: "Run local browser headless: true | false"
+        required: false
+        default: "true"
+      browser_channel:
+        description: "Playwright browser channel override"
+        required: false
+        default: "chromium"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: ralph-loop
+  cancel-in-progress: false
+
+jobs:
+  mercor:
+    runs-on: [self-hosted, macOS, resume-ci]
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+          token: ${{ github.token }}
+
+      - name: Install dependencies
+        run: |
+          python3 --version
+          python3 -m venv .venv
+          . .venv/bin/activate
+          python -m pip install --upgrade pip
+          python -m pip install playwright
+          python -m playwright install chromium
+
+      - name: Run Mercor lane
+        env:
+          MERCOR_TARGET_URL: ${{ github.event.inputs.target_url }}
+          MERCOR_HEADLESS: ${{ github.event.inputs.headless }}
+          MERCOR_BROWSER_CHANNEL: ${{ github.event.inputs.browser_channel }}
+        run: |
+          . .venv/bin/activate
+          TARGET_URL="${MERCOR_TARGET_URL}"
+          HEADLESS="${MERCOR_HEADLESS}"
+          CHANNEL="${MERCOR_BROWSER_CHANNEL}"
+          if [ -z "$TARGET_URL" ]; then
+            TARGET_URL="https://work.mercor.com/jobs/apply/candidate_AAABnfNdSblZtboWnE1Bb4FA?returnPath=%2Fexplore"
+          fi
+          if [ -z "$HEADLESS" ]; then HEADLESS=true; fi
+          if [ -z "$CHANNEL" ]; then CHANNEL=chromium; fi
+          EXTRA_ARGS=""
+          if [ "$HEADLESS" = "true" ]; then
+            EXTRA_ARGS="--headless"
+          fi
+          python3 scripts/mercor_autonomous_apply.py \
+            --url "$TARGET_URL" \
+            --browser-channel "$CHANNEL" \
+            $EXTRA_ARGS
+
+      - name: Disable commit signing for automation
+        if: always()
+        run: |
+          git config --local commit.gpgsign false
+          git config --local tag.gpgsign false
+
+      - name: Upload Mercor diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mercor-autonomous-apply-diagnostics-${{ github.run_id }}
+          if-no-files-found: warn
+          path: |
+            applications/job_applications/mercor_autonomous_apply_report.json
+            applications/mercor/submissions/*mercor_autonomous_apply*.png
+
+      - name: Create Pull Request for Mercor updates
+        continue-on-error: true
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ github.token }}
+          git-token: ${{ github.token }}
+          commit-message: "chore(mercor): autonomous apply heartbeat"
+          title: "chore: Mercor autonomous apply heartbeat"
+          body: |
+            Automated Mercor autonomous apply run.
+
+            - Ran the guarded Mercor lane on the self-hosted Mac runner
+            - Captured status report and screenshot diagnostics
+          branch: mercor/autonomous-apply
+          delete-branch: true
+          add-paths: |
+            applications/job_applications/mercor_autonomous_apply_report.json
+          labels: |
+            automation
