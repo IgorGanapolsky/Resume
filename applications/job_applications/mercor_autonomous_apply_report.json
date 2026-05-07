@@ -1,0 +1,14 @@
+{
+  "generated_at": "2026-05-07T18:05:29.861386+00:00",
+  "url": "https://work.mercor.com/jobs/apply/candidate_AAABnfNdSblZtboWnE1Bb4FA?returnPath=%2Fexplore",
+  "headless": true,
+  "browser_channel": "chromium",
+  "chrome_user_data_dir": "/Users/igorganapolsky/Library/Application Support/resume-ci/chrome-profile",
+  "resume_path": "/Users/igorganapolsky/actions-runner/_work/Resume/Resume/applications/mercor/tailored_resumes/2026-02-18_mercor_trajectory_resume.pdf",
+  "screenshot": "/Users/igorganapolsky/actions-runner/_work/Resume/Resume/applications/mercor/submissions/2026-05-07_mercor_autonomous_apply_https-work-mercor-com-jobs-apply-candidate-aaabnfndsblztbowne1bb4fa-returnpath-2.png",
+  "filled_fields": [],
+  "clicked": [],
+  "status": "not_logged_in",
+  "submitted": false,
+  "blocked_reason": "not_logged_in"
+}
