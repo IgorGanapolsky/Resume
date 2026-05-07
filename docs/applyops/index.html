@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ApplyOps Resume Truth Snapshot</title>
+    <meta
+      name="description"
+      content="A fast, no-subscription resume truth scan for job seekers getting rejected or ghosted."
+    />
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #111418;
+        --muted: #54606f;
+        --line: #d9e0e8;
+        --paper: #f8fafc;
+        --panel: #ffffff;
+        --blue: #2457c5;
+        --green: #0f7b5f;
+        --red: #b2332f;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        color: var(--ink);
+        background: var(--paper);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .nav,
+      .hero,
+      .section {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding-inline: 24px;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding-top: 22px;
+        padding-bottom: 22px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 760;
+      }
+
+      .mark {
+        display: grid;
+        width: 34px;
+        height: 34px;
+        place-items: center;
+        border-radius: 8px;
+        background: var(--ink);
+        color: #fff;
+      }
+
+      .nav a {
+        color: var(--muted);
+        font-size: 14px;
+        text-decoration: none;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(320px, 420px);
+        align-items: center;
+        gap: 44px;
+        min-height: calc(100vh - 94px);
+        padding-top: 36px;
+        padding-bottom: 72px;
+      }
+
+      h1 {
+        margin: 0;
+        max-width: 740px;
+        font-size: clamp(42px, 7vw, 78px);
+        line-height: 0.96;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        max-width: 680px;
+        margin: 24px 0 0;
+        color: var(--muted);
+        font-size: 20px;
+        line-height: 1.55;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 32px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        border-radius: 8px;
+        padding: 0 18px;
+        border: 1px solid var(--ink);
+        font-weight: 760;
+        text-decoration: none;
+      }
+
+      .button.primary {
+        background: var(--ink);
+        color: #fff;
+      }
+
+      .button.secondary {
+        background: #fff;
+      }
+
+      .offer {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        box-shadow: 0 20px 60px rgba(17, 20, 24, 0.12);
+        padding: 26px;
+      }
+
+      .price {
+        margin: 0;
+        font-size: 72px;
+        font-weight: 820;
+        color: var(--green);
+        line-height: 1;
+      }
+
+      .offer h2 {
+        margin: 12px 0 0;
+        font-size: 28px;
+      }
+
+      .offer p {
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      ul {
+        margin: 20px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      li {
+        display: flex;
+        gap: 10px;
+        padding: 10px 0;
+        border-top: 1px solid var(--line);
+        line-height: 1.45;
+      }
+
+      li::before {
+        content: "✓";
+        color: var(--green);
+        font-weight: 800;
+      }
+
+      .section {
+        padding-top: 70px;
+        padding-bottom: 70px;
+      }
+
+      .section h2 {
+        max-width: 720px;
+        margin: 0;
+        font-size: clamp(30px, 5vw, 48px);
+        line-height: 1.05;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+        margin-top: 28px;
+      }
+
+      .panel {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+        padding: 20px;
+      }
+
+      .panel strong {
+        display: block;
+        font-size: 18px;
+      }
+
+      .panel p {
+        margin: 10px 0 0;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      .warning {
+        border-left: 5px solid var(--red);
+      }
+
+      .final {
+        background: var(--ink);
+        color: #fff;
+      }
+
+      .final .section {
+        padding-top: 72px;
+        padding-bottom: 78px;
+      }
+
+      .final p {
+        max-width: 680px;
+        color: #cbd3dc;
+        font-size: 18px;
+        line-height: 1.55;
+      }
+
+      .final .button {
+        border-color: #fff;
+        background: #fff;
+        color: var(--ink);
+      }
+
+      @media (max-width: 860px) {
+        .hero,
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        .hero {
+          min-height: auto;
+        }
+
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="nav">
+      <div class="brand"><span class="mark">AO</span> ApplyOps</div>
+      <a href="https://buy.stripe.com/dRm3cvbmI3n0bO95e33sI26">Buy the $9 snapshot</a>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <h1>Your AI resume may be hurting trust.</h1>
+          <p class="lead">
+            ApplyOps scans your resume for risky or unsupported claims before you keep
+            applying. It is a fast sanity check for job seekers getting rejected or
+            ghosted.
+          </p>
+          <div class="actions">
+            <a class="button primary" href="https://buy.stripe.com/dRm3cvbmI3n0bO95e33sI26"
+              >Get the $9 snapshot</a
+            >
+            <a class="button secondary" href="https://buy.stripe.com/14A7sL2QccXA5pL49Z3sI24"
+              >Upgrade to $49 audit</a
+            >
+          </div>
+        </div>
+
+        <aside class="offer">
+          <p class="price">$9</p>
+          <h2>Resume Truth Snapshot</h2>
+          <p>No subscription. No job guarantee. No fake credentials.</p>
+          <ul>
+            <li>Top 3 risky or unsupported claims</li>
+            <li>1 ATS/readability issue</li>
+            <li>1 next action for your job search</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section class="section">
+        <h2>Most resume tools optimize. ApplyOps checks whether the resume is defensible.</h2>
+        <div class="grid">
+          <div class="panel warning">
+            <strong>Unsupported claims</strong>
+            <p>AI tools can turn weak notes into confident claims that are hard to defend.</p>
+          </div>
+          <div class="panel warning">
+            <strong>Generic bullets</strong>
+            <p>Polished filler can make real experience sound vague, padded, or copied.</p>
+          </div>
+          <div class="panel warning">
+            <strong>Bad signal</strong>
+            <p>Recruiters make fast trust decisions. A risky bullet can damage the whole application.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Pick the depth you need.</h2>
+        <div class="grid">
+          <div class="panel">
+            <strong>$9 Snapshot</strong>
+            <p>Top 3 risky claims, one readability issue, one next action.</p>
+          </div>
+          <div class="panel">
+            <strong>$49 Truth Audit</strong>
+            <p>Unverified claim scan, risky AI statement review, ATS notes, and a 7-day reset plan.</p>
+          </div>
+          <div class="panel">
+            <strong>$499 ApplyOps Sprint</strong>
+            <p>Truth-locked resume support, targeting, outreach drafts, and application operating plan.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="final">
+        <div class="section">
+          <h2>Before you apply to 100 more jobs, check the resume first.</h2>
+          <p>
+            The first dollar offer is intentionally small: a fast, practical scan that
+            tells you whether your resume has trust problems worth fixing.
+          </p>
+          <div class="actions">
+            <a class="button" href="https://buy.stripe.com/dRm3cvbmI3n0bO95e33sI26"
+              >Buy the $9 snapshot</a
+            >
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
