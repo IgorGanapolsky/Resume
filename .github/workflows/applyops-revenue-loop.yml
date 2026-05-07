@@ -1,0 +1,24 @@
+name: ApplyOps Revenue Loop
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: "17 */6 * * *" # yamllint disable-line rule:quoted-strings
+
+permissions:
+  contents: read
+
+jobs:
+  revenue-loop:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
+      - name: Run ApplyOps revenue loop
+        env:
+          ZERNIO_API_KEY: ${{ secrets.ZERNIO_API_KEY }}
+        run: |
+          python3 scripts/applyops_revenue_loop.py --mode publish --confirm APPLYOPS_REVENUE
