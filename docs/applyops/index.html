@@ -219,6 +219,41 @@
         border-left: 5px solid var(--red);
       }
 
+      .sample {
+        display: grid;
+        grid-template-columns: minmax(0, 0.86fr) minmax(300px, 1fr);
+        gap: 18px;
+        align-items: start;
+        margin-top: 28px;
+      }
+
+      .audit {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+        padding: 20px;
+      }
+
+      .audit h3 {
+        margin: 0;
+        font-size: 18px;
+      }
+
+      .audit p {
+        margin: 10px 0 0;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      .audit blockquote {
+        margin: 14px 0 0;
+        border-left: 4px solid var(--green);
+        padding: 8px 0 8px 14px;
+        background: #f1f7f4;
+        color: #25313d;
+        line-height: 1.5;
+      }
+
       .final {
         background: var(--ink);
         color: #fff;
@@ -244,7 +279,8 @@
 
       @media (max-width: 860px) {
         .hero,
-        .grid {
+        .grid,
+        .sample {
           grid-template-columns: 1fr;
         }
 
@@ -310,6 +346,31 @@
           <div class="panel warning">
             <strong>Bad signal</strong>
             <p>Recruiters make fast trust decisions. A risky bullet can damage the whole application.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>What the snapshot catches.</h2>
+        <p class="lead">
+          This synthetic example shows the actual shape of a truth scan: risky claim,
+          safer rewrite, and one next action before more applications go out.
+        </p>
+        <div class="sample">
+          <div class="audit">
+            <h3>Risky resume bullet</h3>
+            <p>Led AI platform modernization that saved the company millions.</p>
+            <blockquote>
+              High-risk unless the candidate can show the model, baseline, and finance source.
+            </blockquote>
+          </div>
+          <div class="audit">
+            <h3>Safer rewrite</h3>
+            <p>
+              Led modernization work on the AI platform, including reliability fixes,
+              deployment cleanup, and operating dashboards used by engineering stakeholders.
+            </p>
+            <a class="button secondary" href="./sample-truth-snapshot.html">See sample audit</a>
           </div>
         </div>
       </section>
